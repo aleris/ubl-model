@@ -1,0 +1,24 @@
+{
+  "name": "ubl-model-generator",
+  "version": "1.0.0",
+  "description": "UBL Model Generator",
+  "main": "dist/generator/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "rm -r -f ../ubl-model-library/src/ubl-model && npm run build && node ./dist/generator/index.js"
+  },
+  "keywords": [
+    "ubl",
+    "model",
+    "generator"
+  ],
+  "author": "Adrian Toșcă",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^14.6.4",
+    "@types/xml2js": "^0.4.5",
+    "tslib": "^2.0.1",
+    "typescript": "^4.0.2",
+    "xml2js": "^0.4.23"
+  }
+}
