@@ -13,76 +13,76 @@ export interface ExternalReference {
    * Identifier
    * Cardinality: 0..1
    */
-  URI: [Identifier] | undefined
+  URI?: [Identifier] | undefined
 
   /**
    * A hash value for the externally stored object.
    * Text
    * Cardinality: 0..1
    */
-  DocumentHash: [Text] | undefined
+  DocumentHash?: [Text] | undefined
 
   /**
    * A hash algorithm used to calculate the hash value of the externally stored object.
    * Text
    * Cardinality: 0..1
    */
-  HashAlgorithmMethod: [Text] | undefined
+  HashAlgorithmMethod?: [Text] | undefined
 
   /**
    * The date on which availability of the resource can no longer be relied upon.
    * Date
    * Cardinality: 0..1
    */
-  ExpiryDate: [Date] | undefined
+  ExpiryDate?: [Date] | undefined
 
   /**
    * The time after which availability of the resource can no longer be relied upon.
    * Time
    * Cardinality: 0..1
    */
-  ExpiryTime: [Time] | undefined
+  ExpiryTime?: [Time] | undefined
 
   /**
    * A code signifying the mime type of the external object.
    * Code
    * Cardinality: 0..1
    */
-  MimeCode: [Code] | undefined
+  MimeCode?: [Code] | undefined
 
   /**
    * A code signifying the format of the external object.
    * Code
    * Cardinality: 0..1
    */
-  FormatCode: [Code] | undefined
+  FormatCode?: [Code] | undefined
 
   /**
    * A code signifying the encoding/decoding algorithm used with the external object.
    * Code
    * Cardinality: 0..1
    */
-  EncodingCode: [Code] | undefined
+  EncodingCode?: [Code] | undefined
 
   /**
    * A code signifying the character set of an external document.
    * Code
    * Cardinality: 0..1
    */
-  CharacterSetCode: [Code] | undefined
+  CharacterSetCode?: [Code] | undefined
 
   /**
    * The file name of the external object.
    * Name
    * Cardinality: 0..1
    */
-  FileName: [Text] | undefined
+  FileName?: [Text] | undefined
 
   /**
    * Text describing the external object.
    * Text
    * Cardinality: 0..n
-   * Examples: computer accessories for laptops 
+   * Examples: computer accessories for laptops
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 }

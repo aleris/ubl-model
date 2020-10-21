@@ -11,7 +11,7 @@ export interface ConsumptionAverage {
    * Cardinality: 0..1
    * Examples: 1.65
    */
-  AverageAmount: [Amount] | undefined
+  AverageAmount?: [Amount] | undefined
 
   /**
    * A description of the average consumed.
@@ -19,5 +19,5 @@ export interface ConsumptionAverage {
    * Cardinality: 0..n
    * Examples: Average price incl. value added tax per kilowatt-hour in the billing period.
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 }

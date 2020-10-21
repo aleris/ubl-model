@@ -24,28 +24,28 @@ export interface ExceptionNotificationLine {
    * Text
    * Cardinality: 0..n
    */
-  Note: Array<Text> | undefined
+  Note?: Array<Text> | undefined
 
   /**
    * Text describing the exception.
    * Text
    * Cardinality: 0..n
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 
   /**
    * A code signifying status specific to a shipment exception.
    * Code
    * Cardinality: 0..1
    */
-  ExceptionStatusCode: [Code] | undefined
+  ExceptionStatusCode?: [Code] | undefined
 
   /**
    * Priority of Exception.
    * Code
    * Cardinality: 0..1
    */
-  CollaborationPriorityCode: [Code] | undefined
+  CollaborationPriorityCode?: [Code] | undefined
 
   /**
    * Coded representation of possible resolution methods". Possible values are: DEFAULT_TO_AVERAGE_OF_COMPARED_VALUES
@@ -54,7 +54,7 @@ export interface ExceptionNotificationLine {
    * Code
    * Cardinality: 0..1
    */
-  ResolutionCode: [Code] | undefined
+  ResolutionCode?: [Code] | undefined
 
   /**
    * The value that was compared with the source value that resulted in the exception
@@ -75,7 +75,7 @@ export interface ExceptionNotificationLine {
    * Quantity
    * Cardinality: 0..1
    */
-  VarianceQuantity: [Quantity] | undefined
+  VarianceQuantity?: [Quantity] | undefined
 
   /**
    * Establishes the criterion for one of the three types of exceptions: Operational, performance metric and forecast.
@@ -85,7 +85,7 @@ export interface ExceptionNotificationLine {
    * Code
    * Cardinality: 0..1
    */
-  SupplyChainActivityTypeCode: [Code] | undefined
+  SupplyChainActivityTypeCode?: [Code] | undefined
 
   /**
    * A code used to identify a measure of performance. It defines the type of the Performance Metric on which an
@@ -93,28 +93,28 @@ export interface ExceptionNotificationLine {
    * Code
    * Cardinality: 0..1
    */
-  PerformanceMetricTypeCode: [Code] | undefined
+  PerformanceMetricTypeCode?: [Code] | undefined
 
   /**
    * The period (start-end date) when this exception is observed
    * Period
    * Cardinality: 0..1
    */
-  ExceptionObservationPeriod: [Period] | undefined
+  ExceptionObservationPeriod?: [Period] | undefined
 
   /**
    * A reference to Exception Criteria document can be provided.
    * Document Reference
    * Cardinality: 0..n
    */
-  DocumentReference: Array<DocumentReference> | undefined
+  DocumentReference?: Array<DocumentReference> | undefined
 
   /**
    * A forecast accuracy or comparison exception.
    * Forecast Exception
    * Cardinality: 0..1
    */
-  ForecastException: [ForecastException] | undefined
+  ForecastException?: [ForecastException] | undefined
 
   /**
    * The product associated with this exception notification line.

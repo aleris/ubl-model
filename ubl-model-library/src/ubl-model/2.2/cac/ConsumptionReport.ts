@@ -26,7 +26,7 @@ export interface ConsumptionReport {
    * Cardinality: 0..1
    * Examples: Consumption
    */
-  ConsumptionType: [Text] | undefined
+  ConsumptionType?: [Text] | undefined
 
   /**
    * The type of consumption, expressed as a code.
@@ -34,7 +34,7 @@ export interface ConsumptionReport {
    * Cardinality: 0..1
    * Examples: Consumption
    */
-  ConsumptionTypeCode: [Code] | undefined
+  ConsumptionTypeCode?: [Code] | undefined
 
   /**
    * Text reporting utility consumption.
@@ -42,7 +42,7 @@ export interface ConsumptionReport {
    * Cardinality: 0..n
    * Examples: This report contain the latest year consumption
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 
   /**
    * The total quantity consumed.
@@ -50,7 +50,7 @@ export interface ConsumptionReport {
    * Cardinality: 0..1
    * Examples: 20479.00
    */
-  TotalConsumedQuantity: [Quantity] | undefined
+  TotalConsumedQuantity?: [Quantity] | undefined
 
   /**
    * The basic quantity consumed, excluding additional consumption.
@@ -58,7 +58,7 @@ export interface ConsumptionReport {
    * Cardinality: 0..1
    * Examples: 20000.00
    */
-  BasicConsumedQuantity: [Quantity] | undefined
+  BasicConsumedQuantity?: [Quantity] | undefined
 
   /**
    * The number of people occupying the residence covered by this report.
@@ -66,7 +66,7 @@ export interface ConsumptionReport {
    * Cardinality: 0..1
    * Examples: 4.0
    */
-  ResidentOccupantsNumeric: [Numeric] | undefined
+  ResidentOccupantsNumeric?: [Numeric] | undefined
 
   /**
    * The level of energy consumed, compared to the average for this residence type and the number of people living in
@@ -75,7 +75,7 @@ export interface ConsumptionReport {
    * Cardinality: 0..1
    * Examples: B
    */
-  ConsumersEnergyLevelCode: [Code] | undefined
+  ConsumersEnergyLevelCode?: [Code] | undefined
 
   /**
    * The level of energy consumed, compared to the average for this residence type and the number of people living in
@@ -84,7 +84,7 @@ export interface ConsumptionReport {
    * Cardinality: 0..1
    * Examples: Middel
    */
-  ConsumersEnergyLevel: [Text] | undefined
+  ConsumersEnergyLevel?: [Text] | undefined
 
   /**
    * The type of residence (house, apartment, etc.) covered in this report, expressed as text.
@@ -92,7 +92,7 @@ export interface ConsumptionReport {
    * Cardinality: 0..1
    * Examples: House
    */
-  ResidenceType: [Text] | undefined
+  ResidenceType?: [Text] | undefined
 
   /**
    * The type of residence (house, apartment, etc.) covered in this report, expressed as a code.
@@ -100,7 +100,7 @@ export interface ConsumptionReport {
    * Cardinality: 0..1
    * Examples: House
    */
-  ResidenceTypeCode: [Code] | undefined
+  ResidenceTypeCode?: [Code] | undefined
 
   /**
    * The type of heating in the residence covered in this report, expressed as text.
@@ -108,7 +108,7 @@ export interface ConsumptionReport {
    * Cardinality: 0..1
    * Examples: District heating
    */
-  HeatingType: [Text] | undefined
+  HeatingType?: [Text] | undefined
 
   /**
    * The type of heating in the residence covered in this report, expressed as a code.
@@ -116,40 +116,40 @@ export interface ConsumptionReport {
    * Cardinality: 0..1
    * Examples: DistrictHeating
    */
-  HeatingTypeCode: [Code] | undefined
+  HeatingTypeCode?: [Code] | undefined
 
   /**
    * The period of consumption covered in this report.
    * Period
    * Cardinality: 0..1
    */
-  Period: [Period] | undefined
+  Period?: [Period] | undefined
 
   /**
    * A reference to a document providing an explanation of this kind of report.
    * Document Reference
    * Cardinality: 0..1
    */
-  GuidanceDocumentReference: [DocumentReference] | undefined
+  GuidanceDocumentReference?: [DocumentReference] | undefined
 
   /**
    * A reference to some other document (for example, this report in another format).
    * Document Reference
    * Cardinality: 0..1
    */
-  DocumentReference: [DocumentReference] | undefined
+  DocumentReference?: [DocumentReference] | undefined
 
   /**
    * A reference to a previous consumption report.
    * Consumption Report Reference
    * Cardinality: 0..n
    */
-  ConsumptionReportReference: Array<ConsumptionReportReference> | undefined
+  ConsumptionReportReference?: Array<ConsumptionReportReference> | undefined
 
   /**
    * A report describing historical parameters relating to a specific instance of consumption.
    * Consumption History
    * Cardinality: 0..n
    */
-  ConsumptionHistory: Array<ConsumptionHistory> | undefined
+  ConsumptionHistory?: Array<ConsumptionHistory> | undefined
 }

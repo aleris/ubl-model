@@ -9,7 +9,7 @@ export interface DeliveryUnit {
    * The quantity of ordered Items that constitutes a batch for delivery purposes.
    * Quantity
    * Cardinality: 1
-   * Examples: 100 units , by the dozen 
+   * Examples: 100 units , by the dozen
    */
   BatchQuantity: [Quantity]
 
@@ -17,9 +17,9 @@ export interface DeliveryUnit {
    * The quantity of units in the Delivery Unit expressed in the units used by the consumer.
    * Quantity
    * Cardinality: 0..1
-   * Examples: packs of 10 
+   * Examples: packs of 10
    */
-  ConsumerUnitQuantity: [Quantity] | undefined
+  ConsumerUnitQuantity?: [Quantity] | undefined
 
   /**
    * An indication that the transported goods are subject to an international regulation concerning the carriage of
@@ -28,5 +28,5 @@ export interface DeliveryUnit {
    * Cardinality: 0..1
    * Examples: Default is negative
    */
-  HazardousRiskIndicator: [Indicator] | undefined
+  HazardousRiskIndicator?: [Indicator] | undefined
 }

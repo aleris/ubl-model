@@ -12,14 +12,14 @@ export interface DigitalProcess {
    * Identifier
    * Cardinality: 0..1
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * Text describing the digital process.
    * Text
    * Cardinality: 0..n
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 
   /**
    * Identifies a user-defined profile of this digital process (e.g. an UBL profile).
@@ -27,19 +27,19 @@ export interface DigitalProcess {
    * Cardinality: 0..1
    * Examples: urn:www.cenbii.eu:profile:bii05:ver2.0
    */
-  ProfileID: [Identifier] | undefined
+  ProfileID?: [Identifier] | undefined
 
   /**
    * The digital collaboration associated with this digital process.
    * Digital Collaboration
    * Cardinality: 0..n
    */
-  DigitalCollaboration: Array<DigitalCollaboration> | undefined
+  DigitalCollaboration?: Array<DigitalCollaboration> | undefined
 
   /**
    * A reference to a certification document associated with this digital process.
    * Document Reference
    * Cardinality: 0..n
    */
-  CertificationDocumentReference: Array<DocumentReference> | undefined
+  CertificationDocumentReference?: Array<DocumentReference> | undefined
 }

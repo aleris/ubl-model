@@ -12,7 +12,7 @@ export interface CatalogueRequestLine {
    * An identifier for the requested catalogue line.
    * Identifier
    * Cardinality: 1
-   * Examples: 1 
+   * Examples: 1
    */
   ID: [Identifier]
 
@@ -20,30 +20,30 @@ export interface CatalogueRequestLine {
    * A subdivision of a contract or tender covering the line being requested.
    * Text
    * Cardinality: 0..1
-   * Examples: Installation , Phase One , Support and Maintenance 
+   * Examples: Installation , Phase One , Support and Maintenance
    */
-  ContractSubdivision: [Text] | undefined
+  ContractSubdivision?: [Text] | undefined
 
   /**
    * Free-form text conveying information that is not contained explicitly in other structures.
    * Text
    * Cardinality: 0..n
    */
-  Note: Array<Text> | undefined
+  Note?: Array<Text> | undefined
 
   /**
    * The period for which the information in the requested catalogue line is valid.
    * Period
    * Cardinality: 0..1
    */
-  LineValidityPeriod: [Period] | undefined
+  LineValidityPeriod?: [Period] | undefined
 
   /**
    * Properties of the item in the requested catalogue line that are dependent on location and quantity.
    * Item Location Quantity
    * Cardinality: 0..n
    */
-  RequiredItemLocationQuantity: Array<ItemLocationQuantity> | undefined
+  RequiredItemLocationQuantity?: Array<ItemLocationQuantity> | undefined
 
   /**
    * The item associated with the requested catalogue line.

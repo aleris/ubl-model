@@ -11,9 +11,9 @@ export interface TradingTerms {
    * Cardinality: 0..n
    * Examples: Unless credit terms have been expressly agreed by Dell, payment for the products or services shall be
    * Examples: made in full before physical delivery of products or services. Customer shall pay for all shipping and
-   * Examples: handling charges. 
+   * Examples: handling charges.
    */
-  Information: Array<Text> | undefined
+  Information?: Array<Text> | undefined
 
   /**
    * A reference quoting the basis of the terms
@@ -21,12 +21,12 @@ export interface TradingTerms {
    * Cardinality: 0..1
    * Examples: http://www1.ap.dell.com/content/topics/topic.aspx/ap/policy/en/au/sales_terms_au
    */
-  Reference: [Text] | undefined
+  Reference?: [Text] | undefined
 
   /**
    * The address at which these trading terms apply.
    * Address
    * Cardinality: 0..1
    */
-  ApplicableAddress: [Address] | undefined
+  ApplicableAddress?: [Address] | undefined
 }

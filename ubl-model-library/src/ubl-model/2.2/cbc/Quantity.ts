@@ -11,24 +11,24 @@ export interface Quantity {
    * The unit of the quantity
    * Code
    */
-  unitCode: string | undefined
+  unitCode?: string | undefined
 
   /**
    * The quantity unit code list.
    * Identifier
    */
-  unitCodeListID: string | undefined
+  unitCodeListID?: string | undefined
 
   /**
    * The identification of the agency that maintains the quantity unit code list
    * Identifier
    * Defaults to the UN/EDIFACT data element 3055 code list.
    */
-  unitCodeListAgencyID: string | undefined
+  unitCodeListAgencyID?: string | undefined
 
   /**
    * The name of the agency which maintains the quantity unit code list.
    * Text
    */
-  unitCodeListAgencyName: string | undefined
+  unitCodeListAgencyName?: string | undefined
 }

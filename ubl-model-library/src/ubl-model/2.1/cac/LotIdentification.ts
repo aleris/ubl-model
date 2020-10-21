@@ -12,19 +12,19 @@ export interface LotIdentification {
    * Identifier
    * Cardinality: 0..1
    */
-  LotNumberID: [Identifier] | undefined
+  LotNumberID?: [Identifier] | undefined
 
   /**
    * The expiry date of the lot.
    * Date
    * Cardinality: 0..1
    */
-  ExpiryDate: [Date] | undefined
+  ExpiryDate?: [Date] | undefined
 
   /**
    * An additional property of the lot.
    * Item Property
    * Cardinality: 0..n
    */
-  AdditionalItemProperty: Array<ItemProperty> | undefined
+  AdditionalItemProperty?: Array<ItemProperty> | undefined
 }

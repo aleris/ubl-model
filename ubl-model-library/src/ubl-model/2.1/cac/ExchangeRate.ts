@@ -20,7 +20,7 @@ export interface ExchangeRate {
    * Rate
    * Cardinality: 0..1
    */
-  SourceCurrencyBaseRate: [Numeric] | undefined
+  SourceCurrencyBaseRate?: [Numeric] | undefined
 
   /**
    * The target currency for this exchange rate; the currency to which the exchange is being made.
@@ -34,40 +34,40 @@ export interface ExchangeRate {
    * Rate
    * Cardinality: 0..1
    */
-  TargetCurrencyBaseRate: [Numeric] | undefined
+  TargetCurrencyBaseRate?: [Numeric] | undefined
 
   /**
    * An identifier for the currency exchange market used as the source of this exchange rate.
    * Identifier
    * Cardinality: 0..1
    */
-  ExchangeMarketID: [Identifier] | undefined
+  ExchangeMarketID?: [Identifier] | undefined
 
   /**
    * The factor applied to the source currency to calculate the target currency.
    * Rate
    * Cardinality: 0..1
    */
-  CalculationRate: [Numeric] | undefined
+  CalculationRate?: [Numeric] | undefined
 
   /**
    * A code signifying whether the calculation rate is a multiplier or a divisor.
    * Code
    * Cardinality: 0..1
    */
-  MathematicOperatorCode: [Code] | undefined
+  MathematicOperatorCode?: [Code] | undefined
 
   /**
    * The date on which the exchange rate was established.
    * Date
    * Cardinality: 0..1
    */
-  Date: [Date] | undefined
+  Date?: [Date] | undefined
 
   /**
    * A contract for foreign exchange.
    * Contract
    * Cardinality: 0..1
    */
-  ForeignExchangeContract: [Contract] | undefined
+  ForeignExchangeContract?: [Contract] | undefined
 }

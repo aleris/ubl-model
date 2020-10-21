@@ -22,7 +22,7 @@ export interface StockAvailabilityReportLine {
    * Text
    * Cardinality: 0..n
    */
-  Note: Array<Text> | undefined
+  Note?: Array<Text> | undefined
 
   /**
    * The quantity of the item currently in stock.
@@ -36,7 +36,7 @@ export interface StockAvailabilityReportLine {
    * Amount
    * Cardinality: 0..1
    */
-  ValueAmount: [Amount] | undefined
+  ValueAmount?: [Amount] | undefined
 
   /**
    * The date from which the item will be available. A date identical to or earlier than the IssueDate of the Stock
@@ -44,14 +44,14 @@ export interface StockAvailabilityReportLine {
    * Date
    * Cardinality: 0..1
    */
-  AvailabilityDate: [Date] | undefined
+  AvailabilityDate?: [Date] | undefined
 
   /**
    * A code signifying the level of availability of the item.
    * Code
    * Cardinality: 0..1
    */
-  AvailabilityStatusCode: [Code] | undefined
+  AvailabilityStatusCode?: [Code] | undefined
 
   /**
    * The item associated with this stock availability report line.

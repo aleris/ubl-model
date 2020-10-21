@@ -13,7 +13,7 @@ export interface CorporateRegistrationScheme {
    * Cardinality: 0..1
    * Examples: ASIC in Australia
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * The name of this registration scheme.
@@ -21,21 +21,21 @@ export interface CorporateRegistrationScheme {
    * Cardinality: 0..1
    * Examples: Australian Securities and Investment Commission in Australia
    */
-  Name: [Text] | undefined
+  Name?: [Text] | undefined
 
   /**
    * A code signifying the type of this registration scheme.
    * Code
    * Cardinality: 0..1
-   * Examples: ACN 
+   * Examples: ACN
    */
-  CorporateRegistrationTypeCode: [Code] | undefined
+  CorporateRegistrationTypeCode?: [Code] | undefined
 
   /**
    * A geographic area in which this registration scheme applies.
    * Address
    * Cardinality: 0..n
-   * Examples: England , Wales 
+   * Examples: England , Wales
    */
-  JurisdictionRegionAddress: Array<Address> | undefined
+  JurisdictionRegionAddress?: Array<Address> | undefined
 }

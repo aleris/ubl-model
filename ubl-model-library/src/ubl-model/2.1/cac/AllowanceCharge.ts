@@ -17,7 +17,7 @@ export interface AllowanceCharge {
    * Identifier
    * Cardinality: 0..1
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * An indicator that this AllowanceCharge describes a charge (true) or a discount (false).
@@ -31,14 +31,14 @@ export interface AllowanceCharge {
    * Code
    * Cardinality: 0..1
    */
-  AllowanceChargeReasonCode: [Code] | undefined
+  AllowanceChargeReasonCode?: [Code] | undefined
 
   /**
    * The reason for this allowance or charge.
    * Text
    * Cardinality: 0..n
    */
-  AllowanceChargeReason: Array<Text> | undefined
+  AllowanceChargeReason?: Array<Text> | undefined
 
   /**
    * A number by which the base amount is multiplied to calculate the actual amount of this allowance or charge.
@@ -46,14 +46,14 @@ export interface AllowanceCharge {
    * Cardinality: 0..1
    * Examples: 0.20
    */
-  MultiplierFactorNumeric: [Numeric] | undefined
+  MultiplierFactorNumeric?: [Numeric] | undefined
 
   /**
    * An indicator that this allowance or charge is prepaid (true) or not (false).
    * Indicator
    * Cardinality: 0..1
    */
-  PrepaidIndicator: [Indicator] | undefined
+  PrepaidIndicator?: [Indicator] | undefined
 
   /**
    * A number indicating the order of this allowance or charge in the sequence of calculations applied when there are
@@ -62,7 +62,7 @@ export interface AllowanceCharge {
    * Cardinality: 0..1
    * Examples: 1, 2, 3, 4, etc.
    */
-  SequenceNumeric: [Numeric] | undefined
+  SequenceNumeric?: [Numeric] | undefined
 
   /**
    * The monetary amount of this allowance or charge to be applied.
@@ -78,21 +78,21 @@ export interface AllowanceCharge {
    * Amount
    * Cardinality: 0..1
    */
-  BaseAmount: [Amount] | undefined
+  BaseAmount?: [Amount] | undefined
 
   /**
    * The accounting cost centre used by the buyer to account for this allowance or charge, expressed as a code.
    * Code
    * Cardinality: 0..1
    */
-  AccountingCostCode: [Code] | undefined
+  AccountingCostCode?: [Code] | undefined
 
   /**
    * The accounting cost centre used by the buyer to account for this allowance or charge, expressed as text.
    * Text
    * Cardinality: 0..1
    */
-  AccountingCost: [Text] | undefined
+  AccountingCost?: [Text] | undefined
 
   /**
    * The allowance or charge per item; the total allowance or charge is calculated by multiplying the per unit amount by
@@ -101,26 +101,26 @@ export interface AllowanceCharge {
    * Amount
    * Cardinality: 0..1
    */
-  PerUnitAmount: [Amount] | undefined
+  PerUnitAmount?: [Amount] | undefined
 
   /**
    * A tax category applicable to this allowance or charge.
    * Tax Category
    * Cardinality: 0..n
    */
-  TaxCategory: Array<TaxCategory> | undefined
+  TaxCategory?: Array<TaxCategory> | undefined
 
   /**
    * The total of all the taxes applicable to this allowance or charge.
    * Tax Total
    * Cardinality: 0..1
    */
-  TaxTotal: [TaxTotal] | undefined
+  TaxTotal?: [TaxTotal] | undefined
 
   /**
    * A means of payment for this allowance or charge.
    * Payment Means
    * Cardinality: 0..n
    */
-  PaymentMeans: Array<PaymentMeans> | undefined
+  PaymentMeans?: Array<PaymentMeans> | undefined
 }

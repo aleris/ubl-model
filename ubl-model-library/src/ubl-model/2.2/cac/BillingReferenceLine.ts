@@ -18,12 +18,12 @@ export interface BillingReferenceLine {
    * Amount
    * Cardinality: 0..1
    */
-  Amount: [Amount] | undefined
+  Amount?: [Amount] | undefined
 
   /**
    * An allowance or charge applicable to the transaction line.
    * Allowance Charge
    * Cardinality: 0..n
    */
-  AllowanceCharge: Array<AllowanceCharge> | undefined
+  AllowanceCharge?: Array<AllowanceCharge> | undefined
 }

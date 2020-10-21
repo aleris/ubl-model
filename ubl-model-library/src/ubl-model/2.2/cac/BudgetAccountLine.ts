@@ -11,19 +11,19 @@ export interface BudgetAccountLine {
    * Identifier
    * Cardinality: 0..1
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * The total monetary amount for this budget account line.
    * Amount
    * Cardinality: 0..1
    */
-  TotalAmount: [Amount] | undefined
+  TotalAmount?: [Amount] | undefined
 
   /**
    * An account covering this budget account line.
    * Budget Account
    * Cardinality: 0..n
    */
-  BudgetAccount: Array<BudgetAccount> | undefined
+  BudgetAccount?: Array<BudgetAccount> | undefined
 }

@@ -10,7 +10,7 @@ export interface EmissionCalculationMethod {
    * Code
    * Cardinality: 0..1
    */
-  CalculationMethodCode: [Code] | undefined
+  CalculationMethodCode?: [Code] | undefined
 
   /**
    * A code signifying whether a piece of transport equipment is full, partially full, or empty. This indication is used
@@ -18,19 +18,19 @@ export interface EmissionCalculationMethod {
    * Code
    * Cardinality: 0..1
    */
-  FullnessIndicationCode: [Code] | undefined
+  FullnessIndicationCode?: [Code] | undefined
 
   /**
    * A start location from which an environmental emission is calculated.
    * Location
    * Cardinality: 0..1
    */
-  MeasurementFromLocation: [Location] | undefined
+  MeasurementFromLocation?: [Location] | undefined
 
   /**
    * An end location to which an environmental emission is calculated.
    * Location
    * Cardinality: 0..1
    */
-  MeasurementToLocation: [Location] | undefined
+  MeasurementToLocation?: [Location] | undefined
 }

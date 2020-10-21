@@ -19,7 +19,7 @@ export interface TaxTotal {
    * Amount
    * Cardinality: 0..1
    */
-  RoundingAmount: [Amount] | undefined
+  RoundingAmount?: [Amount] | undefined
 
   /**
    * An indicator that this total is recognized as legal evidence for taxation purposes (true) or not (false).
@@ -27,19 +27,19 @@ export interface TaxTotal {
    * Cardinality: 0..1
    * Examples: default is negative
    */
-  TaxEvidenceIndicator: [Indicator] | undefined
+  TaxEvidenceIndicator?: [Indicator] | undefined
 
   /**
    * An indicator that tax is included in the calculation (true) or not (false).
    * Indicator
    * Cardinality: 0..1
    */
-  TaxIncludedIndicator: [Indicator] | undefined
+  TaxIncludedIndicator?: [Indicator] | undefined
 
   /**
    * One of the subtotals the sum of which equals the total tax amount for a particular taxation scheme.
    * Tax Subtotal
    * Cardinality: 0..n
    */
-  TaxSubtotal: Array<TaxSubtotal> | undefined
+  TaxSubtotal?: Array<TaxSubtotal> | undefined
 }

@@ -17,7 +17,7 @@ export interface CertificateOfOrigin {
    * A container for all extensions present in the document.
    * Cardinality: 0..1
    */
-  UBLExtensions: [UBLExtensions] | undefined
+  UBLExtensions?: [UBLExtensions] | undefined
 
   /**
    * Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that
@@ -26,7 +26,7 @@ export interface CertificateOfOrigin {
    * Cardinality: 0..1
    * Examples: 2.0.5
    */
-  UBLVersionID: [Identifier] | undefined
+  UBLVersionID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined customization of UBL for a specific use.
@@ -34,7 +34,7 @@ export interface CertificateOfOrigin {
    * Cardinality: 0..1
    * Examples: NES
    */
-  CustomizationID: [Identifier] | undefined
+  CustomizationID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined profile of the customization of UBL being used.
@@ -42,7 +42,7 @@ export interface CertificateOfOrigin {
    * Cardinality: 0..1
    * Examples: BasicProcurementProcess
    */
-  ProfileID: [Identifier] | undefined
+  ProfileID?: [Identifier] | undefined
 
   /**
    * Identifies an instance of executing a profile, to associate all transactions in a collaboration.
@@ -50,7 +50,7 @@ export interface CertificateOfOrigin {
    * Cardinality: 0..1
    * Examples: BPP-1001
    */
-  ProfileExecutionID: [Identifier] | undefined
+  ProfileExecutionID?: [Identifier] | undefined
 
   /**
    * An identifier for this document, assigned by the sender.
@@ -64,28 +64,28 @@ export interface CertificateOfOrigin {
    * Identifier
    * Cardinality: 0..1
    */
-  UUID: [Identifier] | undefined
+  UUID?: [Identifier] | undefined
 
   /**
    * The date, assigned by the sender, on which this document was issued.
    * Date
    * Cardinality: 0..1
    */
-  IssueDate: [Date] | undefined
+  IssueDate?: [Date] | undefined
 
   /**
    * The time, assigned by the sender, at which this document was issued.
    * Time
    * Cardinality: 0..1
    */
-  IssueTime: [Time] | undefined
+  IssueTime?: [Time] | undefined
 
   /**
    * Textual description of the document instance.
    * Text
    * Cardinality: 0..n
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 
   /**
    * Free-form text pertinent to this document, conveying information that is not contained explicitly in other
@@ -93,21 +93,21 @@ export interface CertificateOfOrigin {
    * Text
    * Cardinality: 0..n
    */
-  Note: Array<Text> | undefined
+  Note?: Array<Text> | undefined
 
   /**
    * Identifies the version of this Certificate of Origin.
    * Identifier
    * Cardinality: 0..1
    */
-  VersionID: [Identifier] | undefined
+  VersionID?: [Identifier] | undefined
 
   /**
    * A signature applied to this document.
    * Signature
    * Cardinality: 0..n
    */
-  Signature: Array<Signature> | undefined
+  Signature?: Array<Signature> | undefined
 
   /**
    * The Party who makes the export declaration, or on whose behalf the export declaration is made, and who is the owner
@@ -116,7 +116,7 @@ export interface CertificateOfOrigin {
    * Cardinality: 0..1
    * Alternative business terms: Exporter (WCO ID 41 and 42)
    */
-  ExporterParty: [Party] | undefined
+  ExporterParty?: [Party] | undefined
 
   /**
    * The Party who makes an import declaration, or on whose behalf a Customs clearing agent or other authorized person
@@ -126,14 +126,14 @@ export interface CertificateOfOrigin {
    * Cardinality: 0..1
    * Alternative business terms: Importer (WCO ID 39 and 40)
    */
-  ImporterParty: [Party] | undefined
+  ImporterParty?: [Party] | undefined
 
   /**
    * The Party providing the endorsement.
    * Endorser Party
    * Cardinality: 0..n
    */
-  EndorserParty: Array<EndorserParty> | undefined
+  EndorserParty?: Array<EndorserParty> | undefined
 
   /**
    * Details of the application for a Certificate of Origin.
@@ -154,12 +154,12 @@ export interface CertificateOfOrigin {
    * Endorsement
    * Cardinality: 0..1
    */
-  EmbassyEndorsement: [Endorsement] | undefined
+  EmbassyEndorsement?: [Endorsement] | undefined
 
   /**
    * Insurance Endorsement details.
    * Endorsement
    * Cardinality: 0..1
    */
-  InsuranceEndorsement: [Endorsement] | undefined
+  InsuranceEndorsement?: [Endorsement] | undefined
 }

@@ -9,7 +9,7 @@ export interface CustomsDeclaration {
    * An identifier associated with customs related procedures.
    * Identifier
    * Cardinality: 1
-   * Examples: CUST001 3333-44-123 
+   * Examples: CUST001 3333-44-123
    */
   ID: [Identifier]
 
@@ -18,5 +18,5 @@ export interface CustomsDeclaration {
    * Party
    * Cardinality: 0..1
    */
-  IssuerParty: [Party] | undefined
+  IssuerParty?: [Party] | undefined
 }

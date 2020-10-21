@@ -22,28 +22,28 @@ export interface TenderPreparation {
    * Code
    * Cardinality: 0..1
    */
-  TenderEnvelopeTypeCode: [Code] | undefined
+  TenderEnvelopeTypeCode?: [Code] | undefined
 
   /**
    * Text describing the tender envelope.
    * Text
    * Cardinality: 0..n
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 
   /**
    * An identifier for the open tender associated with this tender preparation.
    * Identifier
    * Cardinality: 0..1
    */
-  OpenTenderID: [Identifier] | undefined
+  OpenTenderID?: [Identifier] | undefined
 
   /**
    * The procurement project lot associated with a particular tenderer.
    * Procurement Project Lot
    * Cardinality: 0..n
    */
-  ProcurementProjectLot: Array<ProcurementProjectLot> | undefined
+  ProcurementProjectLot?: Array<ProcurementProjectLot> | undefined
 
   /**
    * A reference to the template for a required document in a tendering process.
@@ -51,12 +51,12 @@ export interface TenderPreparation {
    * Cardinality: 0..n
    * Examples: Curricula required, Experience required, ....
    */
-  DocumentTenderRequirement: Array<TenderRequirement> | undefined
+  DocumentTenderRequirement?: Array<TenderRequirement> | undefined
 
   /**
    * A reference to the details of the encryption process used for the tender.
    * Encryption Data
    * Cardinality: 0..n
    */
-  TenderEncryptionData: Array<EncryptionData> | undefined
+  TenderEncryptionData?: Array<EncryptionData> | undefined
 }

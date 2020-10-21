@@ -17,5 +17,5 @@ export interface PriceExtension {
    * Tax Total
    * Cardinality: 0..n
    */
-  TaxTotal: Array<TaxTotal> | undefined
+  TaxTotal?: Array<TaxTotal> | undefined
 }

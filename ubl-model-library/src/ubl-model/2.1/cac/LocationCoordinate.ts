@@ -10,54 +10,54 @@ export interface LocationCoordinate {
    * Code
    * Cardinality: 0..1
    */
-  CoordinateSystemCode: [Code] | undefined
+  CoordinateSystemCode?: [Code] | undefined
 
   /**
    * The degree component of a latitude measured in degrees and minutes.
    * Measure
    * Cardinality: 0..1
    */
-  LatitudeDegreesMeasure: [Measure] | undefined
+  LatitudeDegreesMeasure?: [Measure] | undefined
 
   /**
    * The minutes component of a latitude measured in degrees and minutes (modulo 60).
    * Measure
    * Cardinality: 0..1
    */
-  LatitudeMinutesMeasure: [Measure] | undefined
+  LatitudeMinutesMeasure?: [Measure] | undefined
 
   /**
    * A code signifying the direction of latitude measurement from the equator (north or south).
    * Code
    * Cardinality: 0..1
    */
-  LatitudeDirectionCode: [Code] | undefined
+  LatitudeDirectionCode?: [Code] | undefined
 
   /**
    * The degree component of a longitude measured in degrees and minutes.
    * Measure
    * Cardinality: 0..1
    */
-  LongitudeDegreesMeasure: [Measure] | undefined
+  LongitudeDegreesMeasure?: [Measure] | undefined
 
   /**
    * The minutes component of a longitude measured in degrees and minutes (modulo 60).
    * Measure
    * Cardinality: 0..1
    */
-  LongitudeMinutesMeasure: [Measure] | undefined
+  LongitudeMinutesMeasure?: [Measure] | undefined
 
   /**
    * A code signifying the direction of longitude measurement from the prime meridian (east or west).
    * Code
    * Cardinality: 0..1
    */
-  LongitudeDirectionCode: [Code] | undefined
+  LongitudeDirectionCode?: [Code] | undefined
 
   /**
    * The altitude of the location.
    * Measure
    * Cardinality: 0..1
    */
-  AltitudeMeasure: [Measure] | undefined
+  AltitudeMeasure?: [Measure] | undefined
 }

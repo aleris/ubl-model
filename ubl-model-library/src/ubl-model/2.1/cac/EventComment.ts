@@ -18,12 +18,12 @@ export interface EventComment {
    * Date
    * Cardinality: 0..1
    */
-  IssueDate: [Date] | undefined
+  IssueDate?: [Date] | undefined
 
   /**
    * The time at which this comment was made.
    * Time
    * Cardinality: 0..1
    */
-  IssueTime: [Time] | undefined
+  IssueTime?: [Time] | undefined
 }

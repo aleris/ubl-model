@@ -26,7 +26,7 @@ export interface RemittanceAdvice {
    * A container for all extensions present in the document.
    * Cardinality: 0..1
    */
-  UBLExtensions: [UBLExtensions] | undefined
+  UBLExtensions?: [UBLExtensions] | undefined
 
   /**
    * Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that
@@ -35,7 +35,7 @@ export interface RemittanceAdvice {
    * Cardinality: 0..1
    * Examples: 2.0.5
    */
-  UBLVersionID: [Identifier] | undefined
+  UBLVersionID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined customization of UBL for a specific use.
@@ -43,7 +43,7 @@ export interface RemittanceAdvice {
    * Cardinality: 0..1
    * Examples: NES
    */
-  CustomizationID: [Identifier] | undefined
+  CustomizationID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined profile of the customization of UBL being used.
@@ -51,7 +51,7 @@ export interface RemittanceAdvice {
    * Cardinality: 0..1
    * Examples: BasicProcurementProcess
    */
-  ProfileID: [Identifier] | undefined
+  ProfileID?: [Identifier] | undefined
 
   /**
    * Identifies an instance of executing a profile, to associate all transactions in a collaboration.
@@ -59,7 +59,7 @@ export interface RemittanceAdvice {
    * Cardinality: 0..1
    * Examples: BPP-1001
    */
-  ProfileExecutionID: [Identifier] | undefined
+  ProfileExecutionID?: [Identifier] | undefined
 
   /**
    * An identifier for this document, assigned by the sender.
@@ -73,14 +73,14 @@ export interface RemittanceAdvice {
    * Indicator
    * Cardinality: 0..1
    */
-  CopyIndicator: [Indicator] | undefined
+  CopyIndicator?: [Indicator] | undefined
 
   /**
    * A universally unique identifier for an instance of this document.
    * Identifier
    * Cardinality: 0..1
    */
-  UUID: [Identifier] | undefined
+  UUID?: [Identifier] | undefined
 
   /**
    * The date, assigned by the sender, on which this document was issued.
@@ -94,7 +94,7 @@ export interface RemittanceAdvice {
    * Time
    * Cardinality: 0..1
    */
-  IssueTime: [Time] | undefined
+  IssueTime?: [Time] | undefined
 
   /**
    * Free-form text pertinent to this document, conveying information that is not contained explicitly in other
@@ -102,49 +102,49 @@ export interface RemittanceAdvice {
    * Text
    * Cardinality: 0..n
    */
-  Note: Array<Text> | undefined
+  Note?: Array<Text> | undefined
 
   /**
    * A code signifying the default currency for this document.
    * Code
    * Cardinality: 0..1
    */
-  DocumentCurrencyCode: [Code] | undefined
+  DocumentCurrencyCode?: [Code] | undefined
 
   /**
    * The totals of all debit amounts for the Remittance Advice.
    * Amount
    * Cardinality: 0..1
    */
-  TotalDebitAmount: [Amount] | undefined
+  TotalDebitAmount?: [Amount] | undefined
 
   /**
    * The totals of all credit amounts for the Remittance Advice.
    * Amount
    * Cardinality: 0..1
    */
-  TotalCreditAmount: [Amount] | undefined
+  TotalCreditAmount?: [Amount] | undefined
 
   /**
    * The total payable amount for the Remittance Advice (must be positive).
    * Amount
    * Cardinality: 0..1
    */
-  TotalPaymentAmount: [Amount] | undefined
+  TotalPaymentAmount?: [Amount] | undefined
 
   /**
    * An internal reference to the order for payment from the payer to the payer's bank.
    * Text
    * Cardinality: 0..1
    */
-  PaymentOrderReference: [Text] | undefined
+  PaymentOrderReference?: [Text] | undefined
 
   /**
    * An internal reference to the payer's order for payment.
    * Text
    * Cardinality: 0..1
    */
-  PayerReference: [Text] | undefined
+  PayerReference?: [Text] | undefined
 
   /**
    * An internal reference to the order for payment by the invoicing party. This may have been requested of the payer by
@@ -152,42 +152,42 @@ export interface RemittanceAdvice {
    * Text
    * Cardinality: 0..1
    */
-  InvoicingPartyReference: [Text] | undefined
+  InvoicingPartyReference?: [Text] | undefined
 
   /**
    * The number of Remittance Advice Lines in the document.
    * Numeric
    * Cardinality: 0..1
    */
-  LineCountNumeric: [Numeric] | undefined
+  LineCountNumeric?: [Numeric] | undefined
 
   /**
    * A period (rather than a specific invoice) associated with this document.
    * Period
    * Cardinality: 0..n
    */
-  InvoicePeriod: Array<Period> | undefined
+  InvoicePeriod?: Array<Period> | undefined
 
   /**
    * A reference to a billing document associated with this document.
    * Billing Reference
    * Cardinality: 0..1
    */
-  BillingReference: [BillingReference] | undefined
+  BillingReference?: [BillingReference] | undefined
 
   /**
    * A reference to an additional document associated with this document.
    * Document Reference
    * Cardinality: 0..n
    */
-  AdditionalDocumentReference: Array<DocumentReference> | undefined
+  AdditionalDocumentReference?: Array<DocumentReference> | undefined
 
   /**
    * A signature applied to this document.
    * Signature
    * Cardinality: 0..n
    */
-  Signature: Array<Signature> | undefined
+  Signature?: Array<Signature> | undefined
 
   /**
    * The accounting customer party.
@@ -208,21 +208,21 @@ export interface RemittanceAdvice {
    * Party
    * Cardinality: 0..1
    */
-  PayeeParty: [Party] | undefined
+  PayeeParty?: [Party] | undefined
 
   /**
    * Expected means of payment.
    * Payment Means
    * Cardinality: 0..1
    */
-  PaymentMeans: [PaymentMeans] | undefined
+  PaymentMeans?: [PaymentMeans] | undefined
 
   /**
    * The total amount of a specific type of tax.
    * Tax Total
    * Cardinality: 0..n
    */
-  TaxTotal: Array<TaxTotal> | undefined
+  TaxTotal?: Array<TaxTotal> | undefined
 
   /**
    * A line specifying a balance.

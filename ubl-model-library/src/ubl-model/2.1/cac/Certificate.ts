@@ -38,7 +38,7 @@ export interface Certificate {
    * Text
    * Cardinality: 0..n
    */
-  Remarks: Array<Text> | undefined
+  Remarks?: Array<Text> | undefined
 
   /**
    * The authorized organization that issued this certificate, the provider of the certificate.
@@ -52,12 +52,12 @@ export interface Certificate {
    * Document Reference
    * Cardinality: 0..n
    */
-  DocumentReference: Array<DocumentReference> | undefined
+  DocumentReference?: Array<DocumentReference> | undefined
 
   /**
    * A signature applied to this certificate.
    * Signature
    * Cardinality: 0..n
    */
-  Signature: Array<Signature> | undefined
+  Signature?: Array<Signature> | undefined
 }

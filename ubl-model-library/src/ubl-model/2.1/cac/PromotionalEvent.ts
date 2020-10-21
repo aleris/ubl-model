@@ -19,7 +19,7 @@ export interface PromotionalEvent {
    * Date
    * Cardinality: 0..1
    */
-  SubmissionDate: [Date] | undefined
+  SubmissionDate?: [Date] | undefined
 
   /**
    * The first day that products will be available to ship from buyer to seller if the proposal for this promotional
@@ -27,14 +27,14 @@ export interface PromotionalEvent {
    * Date
    * Cardinality: 0..1
    */
-  FirstShipmentAvailibilityDate: [Date] | undefined
+  FirstShipmentAvailibilityDate?: [Date] | undefined
 
   /**
    * The deadline for acceptance of this promotional event.
    * Date
    * Cardinality: 0..1
    */
-  LatestProposalAcceptanceDate: [Date] | undefined
+  LatestProposalAcceptanceDate?: [Date] | undefined
 
   /**
    * A specification for a promotional event.

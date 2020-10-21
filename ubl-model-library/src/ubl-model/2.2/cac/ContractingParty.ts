@@ -14,21 +14,21 @@ export interface ContractingParty {
    * Cardinality: 0..1
    * Alternative business terms: Buyer Profile
    */
-  BuyerProfileURI: [Identifier] | undefined
+  BuyerProfileURI?: [Identifier] | undefined
 
   /**
    * The type of contracting party that is independent of its role.
    * Contracting Party Type
    * Cardinality: 0..n
    */
-  ContractingPartyType: Array<ContractingPartyType> | undefined
+  ContractingPartyType?: Array<ContractingPartyType> | undefined
 
   /**
    * The nature of the type of business of the organization
    * Contracting Activity
    * Cardinality: 0..n
    */
-  ContractingActivity: Array<ContractingActivity> | undefined
+  ContractingActivity?: Array<ContractingActivity> | undefined
 
   /**
    * The contracting party itself.

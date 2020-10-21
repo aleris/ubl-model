@@ -19,7 +19,7 @@ export interface TransportationStatusRequest {
    * A container for all extensions present in the document.
    * Cardinality: 0..1
    */
-  UBLExtensions: [UBLExtensions] | undefined
+  UBLExtensions?: [UBLExtensions] | undefined
 
   /**
    * Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that
@@ -28,7 +28,7 @@ export interface TransportationStatusRequest {
    * Cardinality: 0..1
    * Examples: 2.0.5
    */
-  UBLVersionID: [Identifier] | undefined
+  UBLVersionID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined customization of UBL for a specific use.
@@ -36,7 +36,7 @@ export interface TransportationStatusRequest {
    * Cardinality: 0..1
    * Examples: NES
    */
-  CustomizationID: [Identifier] | undefined
+  CustomizationID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined profile of the customization of UBL being used.
@@ -44,7 +44,7 @@ export interface TransportationStatusRequest {
    * Cardinality: 0..1
    * Examples: BasicProcurementProcess
    */
-  ProfileID: [Identifier] | undefined
+  ProfileID?: [Identifier] | undefined
 
   /**
    * Identifies an instance of executing a profile, to associate all transactions in a collaboration.
@@ -52,7 +52,7 @@ export interface TransportationStatusRequest {
    * Cardinality: 0..1
    * Examples: BPP-1001
    */
-  ProfileExecutionID: [Identifier] | undefined
+  ProfileExecutionID?: [Identifier] | undefined
 
   /**
    * An identifier for this document, assigned by the sender.
@@ -67,42 +67,42 @@ export interface TransportationStatusRequest {
    * Identifier
    * Cardinality: 0..1
    */
-  CarrierAssignedID: [Identifier] | undefined
+  CarrierAssignedID?: [Identifier] | undefined
 
   /**
    * A universally unique identifier for an instance of this document.
    * Identifier
    * Cardinality: 0..1
    */
-  UUID: [Identifier] | undefined
+  UUID?: [Identifier] | undefined
 
   /**
    * The date, assigned by the sender, on which this document was issued.
    * Date
    * Cardinality: 0..1
    */
-  IssueDate: [Date] | undefined
+  IssueDate?: [Date] | undefined
 
   /**
    * The time, assigned by the sender, at which this document was issued.
    * Time
    * Cardinality: 0..1
    */
-  IssueTime: [Time] | undefined
+  IssueTime?: [Time] | undefined
 
   /**
    * Text, assigned by the sender, that identifies this document to business users.
    * Name
    * Cardinality: 0..1
    */
-  Name: [Text] | undefined
+  Name?: [Text] | undefined
 
   /**
    * A textual description of the document instance.
    * Text
    * Cardinality: 0..n
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 
   /**
    * Free-form text pertinent to this document, conveying information that is not contained explicitly in other
@@ -110,82 +110,82 @@ export interface TransportationStatusRequest {
    * Text
    * Cardinality: 0..n
    */
-  Note: Array<Text> | undefined
+  Note?: Array<Text> | undefined
 
   /**
    * A reference number for a shipping order.
    * Identifier
    * Cardinality: 0..1
    */
-  ShippingOrderID: [Identifier] | undefined
+  ShippingOrderID?: [Identifier] | undefined
 
   /**
    * An instruction regarding this message.
    * Text
    * Cardinality: 0..1
    */
-  OtherInstruction: [Text] | undefined
+  OtherInstruction?: [Text] | undefined
 
   /**
    * A code signifying the type of status requested in a Transportation Status document.
    * Code
    * Cardinality: 0..1
    */
-  TransportationStatusTypeCode: [Code] | undefined
+  TransportationStatusTypeCode?: [Code] | undefined
 
   /**
    * The party sending this document.
    * Party
    * Cardinality: 0..1
    */
-  SenderParty: [Party] | undefined
+  SenderParty?: [Party] | undefined
 
   /**
    * The party receiving this document.
    * Party
    * Cardinality: 0..1
    */
-  ReceiverParty: [Party] | undefined
+  ReceiverParty?: [Party] | undefined
 
   /**
    * A reference to the Transport Execution Plan associated with the transport service for which status is requested.
    * Document Reference
    * Cardinality: 0..1
    */
-  TransportExecutionPlanDocumentReference: [DocumentReference] | undefined
+  TransportExecutionPlanDocumentReference?: [DocumentReference] | undefined
 
   /**
    * A consignment regarding which status is requested.
    * Consignment
    * Cardinality: 0..n
    */
-  Consignment: Array<Consignment> | undefined
+  Consignment?: Array<Consignment> | undefined
 
   /**
    * A reference to another document associated with this document.
    * Document Reference
    * Cardinality: 0..n
    */
-  DocumentReference: Array<DocumentReference> | undefined
+  DocumentReference?: Array<DocumentReference> | undefined
 
   /**
    * A signature applied to this document.
    * Signature
    * Cardinality: 0..n
    */
-  Signature: Array<Signature> | undefined
+  Signature?: Array<Signature> | undefined
 
   /**
    * A location for which status is requested.
    * Location
    * Cardinality: 0..n
    */
-  RequestedStatusLocation: Array<Location> | undefined
+  RequestedStatusLocation?: Array<Location> | undefined
 
   /**
    * A period for which status is requested.
    * Period
    * Cardinality: 0..n
    */
-  RequestedStatusPeriod: Array<Period> | undefined
+  RequestedStatusPeriod?: Array<Period> | undefined
 }

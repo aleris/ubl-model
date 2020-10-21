@@ -11,7 +11,7 @@ export interface ItemInformationRequestLine {
    * Code
    * Cardinality: 0..1
    */
-  TimeFrequencyCode: [Code] | undefined
+  TimeFrequencyCode?: [Code] | undefined
 
   /**
    * A code used to identify the type of supply chain activity about which information request is issued. Examples:
@@ -19,7 +19,7 @@ export interface ItemInformationRequestLine {
    * Code
    * Cardinality: 0..1
    */
-  SupplyChainActivityTypeCode: [Code] | undefined
+  SupplyChainActivityTypeCode?: [Code] | undefined
 
   /**
    * The information request can be either about supply chain activity or about forecasts or about performance metrics,
@@ -27,14 +27,14 @@ export interface ItemInformationRequestLine {
    * Code
    * Cardinality: 0..1
    */
-  ForecastTypeCode: [Code] | undefined
+  ForecastTypeCode?: [Code] | undefined
 
   /**
    * A code signifying a measure of performance.
    * Code
    * Cardinality: 0..1
    */
-  PerformanceMetricTypeCode: [Code] | undefined
+  PerformanceMetricTypeCode?: [Code] | undefined
 
   /**
    * A period for which this information is requested.

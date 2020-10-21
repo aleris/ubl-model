@@ -23,7 +23,7 @@ export interface TransportExecutionPlan {
    * A container for all extensions present in the document.
    * Cardinality: 0..1
    */
-  UBLExtensions: [UBLExtensions] | undefined
+  UBLExtensions?: [UBLExtensions] | undefined
 
   /**
    * Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that
@@ -31,28 +31,28 @@ export interface TransportExecutionPlan {
    * Identifier
    * Cardinality: 0..1
    */
-  UBLVersionID: [Identifier] | undefined
+  UBLVersionID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined customization of UBL for a specific use.
    * Identifier
    * Cardinality: 0..1
    */
-  CustomizationID: [Identifier] | undefined
+  CustomizationID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined profile of the customization of UBL being used.
    * Identifier
    * Cardinality: 0..1
    */
-  ProfileID: [Identifier] | undefined
+  ProfileID?: [Identifier] | undefined
 
   /**
    * Identifies an instance of executing a profile, to associate all transactions in a collaboration.
    * Identifier
    * Cardinality: 0..1
    */
-  ProfileExecutionID: [Identifier] | undefined
+  ProfileExecutionID?: [Identifier] | undefined
 
   /**
    * An identifier for this document, assigned by the sender.
@@ -65,23 +65,23 @@ export interface TransportExecutionPlan {
    * Indicates the current version of the Transport Execution Plan.
    * Identifier
    * Cardinality: 0..1
-   * Examples: 1.1 
+   * Examples: 1.1
    */
-  VersionID: [Identifier] | undefined
+  VersionID?: [Identifier] | undefined
 
   /**
    * Indicates whether this document is a copy (true) or not (false).
    * Indicator
    * Cardinality: 0..1
    */
-  CopyIndicator: [Indicator] | undefined
+  CopyIndicator?: [Indicator] | undefined
 
   /**
    * A universally unique identifier for an instance of this document.
    * Identifier
    * Cardinality: 0..1
    */
-  UUID: [Identifier] | undefined
+  UUID?: [Identifier] | undefined
 
   /**
    * The date, assigned by the sender, on which this document was issued.
@@ -89,36 +89,36 @@ export interface TransportExecutionPlan {
    * Cardinality: 0..1
    * Alternative business terms: Transport Document Date
    */
-  IssueDate: [Date] | undefined
+  IssueDate?: [Date] | undefined
 
   /**
    * The time, assigned by the sender, at which this document was issued.
    * Time
    * Cardinality: 0..1
    */
-  IssueTime: [Time] | undefined
+  IssueTime?: [Time] | undefined
 
   /**
    * A code signifying the status of the Transport Execution Plan (updated, cancelled, confirmed, etc.)
    * Code
    * Cardinality: 0..1
    */
-  DocumentStatusCode: [Code] | undefined
+  DocumentStatusCode?: [Code] | undefined
 
   /**
    * A code signifying a reason associated with the status of a Transport Execution Plan.
    * Code
    * Cardinality: 0..1
    */
-  DocumentStatusReasonCode: [Code] | undefined
+  DocumentStatusReasonCode?: [Code] | undefined
 
   /**
    * A reason for the status assigned to the Transport Execution Plan, expressed in text.
    * Text
    * Cardinality: 0..n
-   * Examples: 123 Standard Chartered Tower 
+   * Examples: 123 Standard Chartered Tower
    */
-  DocumentStatusReasonDescription: Array<Text> | undefined
+  DocumentStatusReasonDescription?: Array<Text> | undefined
 
   /**
    * Free-form text pertinent to this document, conveying information that is not contained explicitly in other
@@ -126,14 +126,14 @@ export interface TransportExecutionPlan {
    * Text
    * Cardinality: 0..n
    */
-  Note: Array<Text> | undefined
+  Note?: Array<Text> | undefined
 
   /**
    * Remarks from the transport user regarding the transport operations referred to in the Transport Execution Plan.
    * Text
    * Cardinality: 0..n
    */
-  TransportUserRemarks: Array<Text> | undefined
+  TransportUserRemarks?: Array<Text> | undefined
 
   /**
    * Remarks from the transport service provider regarding the transport operations referred to in the Transport
@@ -141,21 +141,21 @@ export interface TransportExecutionPlan {
    * Text
    * Cardinality: 0..n
    */
-  TransportServiceProviderRemarks: Array<Text> | undefined
+  TransportServiceProviderRemarks?: Array<Text> | undefined
 
   /**
    * The party sending this document (can be either the transport user or the transport service provider).
    * Party
    * Cardinality: 0..1
    */
-  SenderParty: [Party] | undefined
+  SenderParty?: [Party] | undefined
 
   /**
    * The party receiving this document (can be either the transport user or the transport service provider).
    * Party
    * Cardinality: 0..1
    */
-  ReceiverParty: [Party] | undefined
+  ReceiverParty?: [Party] | undefined
 
   /**
    * The party requesting the transport service from a transport service provider.
@@ -176,28 +176,28 @@ export interface TransportExecutionPlan {
    * Party
    * Cardinality: 0..1
    */
-  BillToParty: [Party] | undefined
+  BillToParty?: [Party] | undefined
 
   /**
    * A signature applied to this document.
    * Signature
    * Cardinality: 0..n
    */
-  Signature: Array<Signature> | undefined
+  Signature?: Array<Signature> | undefined
 
   /**
    * A reference to a Transport Execution Plan Request.
    * Document Reference
    * Cardinality: 0..1
    */
-  TransportExecutionPlanRequestDocumentReference: [DocumentReference] | undefined
+  TransportExecutionPlanRequestDocumentReference?: [DocumentReference] | undefined
 
   /**
    * A reference to an original Transport Execution Plan.
    * Document Reference
    * Cardinality: 0..1
    */
-  TransportExecutionPlanDocumentReference: [DocumentReference] | undefined
+  TransportExecutionPlanDocumentReference?: [DocumentReference] | undefined
 
   /**
    * A reference to the Transport Service Description, which is used by a transport service provider to announce
@@ -205,28 +205,28 @@ export interface TransportExecutionPlan {
    * Document Reference
    * Cardinality: 0..1
    */
-  TransportServiceDescriptionDocumentReference: [DocumentReference] | undefined
+  TransportServiceDescriptionDocumentReference?: [DocumentReference] | undefined
 
   /**
    * A reference to an additional document associated with this document.
    * Document Reference
    * Cardinality: 0..n
    */
-  AdditionalDocumentReference: Array<DocumentReference> | undefined
+  AdditionalDocumentReference?: Array<DocumentReference> | undefined
 
   /**
    * A contract related to the Transport Execution Plan.
    * Contract
    * Cardinality: 0..1
    */
-  TransportContract: [Contract] | undefined
+  TransportContract?: [Contract] | undefined
 
   /**
    * Describes the deadline for when the Transport Service Provider will have to respond to a Transport Execution Plan .
    * Period
    * Cardinality: 0..1
    */
-  TransportServiceProviderResponseRequiredPeriod: [Period] | undefined
+  TransportServiceProviderResponseRequiredPeriod?: [Period] | undefined
 
   /**
    * Describes the deadline for when the Transport User will have to respond to a Transport Execution Plan suggested by
@@ -234,70 +234,70 @@ export interface TransportExecutionPlan {
    * Period
    * Cardinality: 0..n
    */
-  TransportUserResponseRequiredPeriod: Array<Period> | undefined
+  TransportUserResponseRequiredPeriod?: Array<Period> | undefined
 
   /**
    * A period during which the Transport Execution Plan is valid.
    * Period
    * Cardinality: 0..n
    */
-  ValidityPeriod: Array<Period> | undefined
+  ValidityPeriod?: Array<Period> | undefined
 
   /**
    * Description of the main transportation service referenced in the Transport Execution Plan.
    * Transportation Service
    * Cardinality: 0..1
    */
-  MainTransportationService: [TransportationService] | undefined
+  MainTransportationService?: [TransportationService] | undefined
 
   /**
    * A description of an additional transportation service referenced in the Transport Execution Plan.
    * Transportation Service
    * Cardinality: 0..n
    */
-  AdditionalTransportationService: Array<TransportationService> | undefined
+  AdditionalTransportationService?: Array<TransportationService> | undefined
 
   /**
    * The period within which the service must begin.
    * Period
    * Cardinality: 0..1
    */
-  ServiceStartTimePeriod: [Period] | undefined
+  ServiceStartTimePeriod?: [Period] | undefined
 
   /**
    * The period during which the service must be completed.
    * Period
    * Cardinality: 0..1
    */
-  ServiceEndTimePeriod: [Period] | undefined
+  ServiceEndTimePeriod?: [Period] | undefined
 
   /**
    * The location of origin of the transport service referenced in the Transport Execution Plan.
    * Location
    * Cardinality: 0..1
    */
-  FromLocation: [Location] | undefined
+  FromLocation?: [Location] | undefined
 
   /**
    * The destination location for the transport service referenced in the Transport Execution Plan.
    * Location
    * Cardinality: 0..1
    */
-  ToLocation: [Location] | undefined
+  ToLocation?: [Location] | undefined
 
   /**
    * The location of a transport service (e.g., terminal handling service) that does not require transport movement.
    * Location
    * Cardinality: 0..1
    */
-  AtLocation: [Location] | undefined
+  AtLocation?: [Location] | undefined
 
   /**
    * A description of terms and conditions related to the Transport Execution Plan.
    * Transport Execution Terms
    * Cardinality: 0..1
    */
-  TransportExecutionTerms: [TransportExecutionTerms] | undefined
+  TransportExecutionTerms?: [TransportExecutionTerms] | undefined
 
   /**
    * A description of an identifiable collection of goods items to be transported between the consignor and the

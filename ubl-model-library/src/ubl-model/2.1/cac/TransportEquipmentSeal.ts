@@ -10,7 +10,7 @@ export interface TransportEquipmentSeal {
    * An identifier for this transport equipment seal.
    * Identifier
    * Cardinality: 1
-   * Examples: ACS1234 
+   * Examples: ACS1234
    */
   ID: [Identifier]
 
@@ -19,21 +19,21 @@ export interface TransportEquipmentSeal {
    * Code
    * Cardinality: 0..1
    */
-  SealIssuerTypeCode: [Code] | undefined
+  SealIssuerTypeCode?: [Code] | undefined
 
   /**
    * The condition of this transport equipment seal.
    * Text
    * Cardinality: 0..1
    */
-  Condition: [Text] | undefined
+  Condition?: [Text] | undefined
 
   /**
    * A code signifying the condition of this transport equipment seal.
    * Code
    * Cardinality: 0..1
    */
-  SealStatusCode: [Code] | undefined
+  SealStatusCode?: [Code] | undefined
 
   /**
    * The role of the sealing party.
@@ -41,5 +41,5 @@ export interface TransportEquipmentSeal {
    * Cardinality: 0..1
    * Alternative business terms: Sealing Party
    */
-  SealingPartyType: [Text] | undefined
+  SealingPartyType?: [Text] | undefined
 }

@@ -18,19 +18,19 @@ export interface LineReference {
    * Identifier
    * Cardinality: 0..1
    */
-  UUID: [Identifier] | undefined
+  UUID?: [Identifier] | undefined
 
   /**
    * A code signifying the status of the referenced line with respect to its original state.
    * Code
    * Cardinality: 0..1
    */
-  LineStatusCode: [Code] | undefined
+  LineStatusCode?: [Code] | undefined
 
   /**
    * A reference to the document containing the referenced line.
    * Document Reference
    * Cardinality: 0..1
    */
-  DocumentReference: [DocumentReference] | undefined
+  DocumentReference?: [DocumentReference] | undefined
 }

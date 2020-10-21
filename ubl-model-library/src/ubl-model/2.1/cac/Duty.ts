@@ -21,7 +21,7 @@ export interface Duty {
    * Cardinality: 0..1
    * Examples: ConnectionFee
    */
-  Duty: [Text] | undefined
+  Duty?: [Text] | undefined
 
   /**
    * The type of this charge rate, expressed as a code.
@@ -29,12 +29,12 @@ export interface Duty {
    * Cardinality: 0..1
    * Examples: ConnectionFee
    */
-  DutyCode: [Code] | undefined
+  DutyCode?: [Code] | undefined
 
   /**
    * The tax category applicable to this duty.
    * Tax Category
    * Cardinality: 0..1
    */
-  TaxCategory: [TaxCategory] | undefined
+  TaxCategory?: [TaxCategory] | undefined
 }

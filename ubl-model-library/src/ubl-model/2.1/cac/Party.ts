@@ -23,14 +23,14 @@ export interface Party {
    * Indicator
    * Cardinality: 0..1
    */
-  MarkCareIndicator: [Indicator] | undefined
+  MarkCareIndicator?: [Indicator] | undefined
 
   /**
    * An indicator that this party is "for the attention of" (FAO) (true) or not (false).
    * Indicator
    * Cardinality: 0..1
    */
-  MarkAttentionIndicator: [Indicator] | undefined
+  MarkAttentionIndicator?: [Indicator] | undefined
 
   /**
    * The Uniform Resource Identifier (URI) that identifies this party's web site; i.e., the web site's Uniform Resource
@@ -38,7 +38,7 @@ export interface Party {
    * Identifier
    * Cardinality: 0..1
    */
-  WebsiteURI: [Identifier] | undefined
+  WebsiteURI?: [Identifier] | undefined
 
   /**
    * An identifier for this party's logo.
@@ -46,7 +46,7 @@ export interface Party {
    * Cardinality: 0..1
    * Examples: http://www2.coca-cola.com/images/logo.gif
    */
-  LogoReferenceID: [Identifier] | undefined
+  LogoReferenceID?: [Identifier] | undefined
 
   /**
    * An identifier for the end point of the routing service (e.g., EAN Location Number, GLN).
@@ -54,7 +54,7 @@ export interface Party {
    * Cardinality: 0..1
    * Examples: 5790002221134
    */
-  EndpointID: [Identifier] | undefined
+  EndpointID?: [Identifier] | undefined
 
   /**
    * This party's Industry Classification Code.
@@ -62,70 +62,70 @@ export interface Party {
    * Cardinality: 0..1
    * Examples: Public authority , NAIC codes
    */
-  IndustryClassificationCode: [Code] | undefined
+  IndustryClassificationCode?: [Code] | undefined
 
   /**
    * An identifier for this party.
    * Party Identification
    * Cardinality: 0..n
    */
-  PartyIdentification: Array<PartyIdentification> | undefined
+  PartyIdentification?: Array<PartyIdentification> | undefined
 
   /**
    * A name for this party.
    * Party Name
    * Cardinality: 0..n
    */
-  PartyName: Array<PartyName> | undefined
+  PartyName?: Array<PartyName> | undefined
 
   /**
    * The language associated with this party.
    * Language
    * Cardinality: 0..1
    */
-  Language: [Language] | undefined
+  Language?: [Language] | undefined
 
   /**
    * The party's postal address.
    * Address
    * Cardinality: 0..1
    */
-  PostalAddress: [Address] | undefined
+  PostalAddress?: [Address] | undefined
 
   /**
    * The physical location of this party.
    * Location
    * Cardinality: 0..1
    */
-  PhysicalLocation: [Location] | undefined
+  PhysicalLocation?: [Location] | undefined
 
   /**
    * A tax scheme applying to this party.
    * Party Tax Scheme
    * Cardinality: 0..n
    */
-  PartyTaxScheme: Array<PartyTaxScheme> | undefined
+  PartyTaxScheme?: Array<PartyTaxScheme> | undefined
 
   /**
    * A description of this party as a legal entity.
    * Party Legal Entity
    * Cardinality: 0..n
    */
-  PartyLegalEntity: Array<PartyLegalEntity> | undefined
+  PartyLegalEntity?: Array<PartyLegalEntity> | undefined
 
   /**
    * The primary contact for this party.
    * Contact
    * Cardinality: 0..1
    */
-  Contact: [Contact] | undefined
+  Contact?: [Contact] | undefined
 
   /**
    * A person associated with this party.
    * Person
    * Cardinality: 0..n
    */
-  Person: Array<Person> | undefined
+  Person?: Array<Person> | undefined
 
   /**
    * A party who acts as an agent for this party.
@@ -133,26 +133,26 @@ export interface Party {
    * Cardinality: 0..1
    * Examples: Customs Broker
    */
-  AgentParty: [Party] | undefined
+  AgentParty?: [Party] | undefined
 
   /**
    * A party providing a service to this party.
    * Service Provider Party
    * Cardinality: 0..n
    */
-  ServiceProviderParty: Array<ServiceProviderParty> | undefined
+  ServiceProviderParty?: Array<ServiceProviderParty> | undefined
 
   /**
    * A power of attorney associated with this party.
    * Power Of Attorney
    * Cardinality: 0..n
    */
-  PowerOfAttorney: Array<PowerOfAttorney> | undefined
+  PowerOfAttorney?: Array<PowerOfAttorney> | undefined
 
   /**
    * The financial account associated with this party.
    * Financial Account
    * Cardinality: 0..1
    */
-  FinancialAccount: [FinancialAccount] | undefined
+  FinancialAccount?: [FinancialAccount] | undefined
 }

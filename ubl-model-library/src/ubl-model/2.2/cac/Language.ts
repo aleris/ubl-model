@@ -11,19 +11,19 @@ export interface Language {
    * Identifier
    * Cardinality: 0..1
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * The name of this language.
    * Name
    * Cardinality: 0..1
    */
-  Name: [Text] | undefined
+  Name?: [Text] | undefined
 
   /**
    * A code signifying the locale in which this language is used.
    * Code
    * Cardinality: 0..1
    */
-  LocaleCode: [Code] | undefined
+  LocaleCode?: [Code] | undefined
 }

@@ -23,7 +23,7 @@ export interface ExceptionCriteriaLine {
    * Text
    * Cardinality: 0..n
    */
-  Note: Array<Text> | undefined
+  Note?: Array<Text> | undefined
 
   /**
    * Type of comparison to be carried out in reference to the set threshold." Allowed values are:
@@ -45,14 +45,14 @@ export interface ExceptionCriteriaLine {
    * Code
    * Cardinality: 0..1
    */
-  ExceptionStatusCode: [Code] | undefined
+  ExceptionStatusCode?: [Code] | undefined
 
   /**
    * A collaboratively assigned code signifying priority of the Exception. Possible values are: HIGH, LOW, MEDIUM
    * Code
    * Cardinality: 0..1
    */
-  CollaborationPriorityCode: [Code] | undefined
+  CollaborationPriorityCode?: [Code] | undefined
 
   /**
    * Coded representation of possible resolution methods". Possible values are: DEFAULT_TO_AVERAGE_OF_COMPARED_VALUES
@@ -61,7 +61,7 @@ export interface ExceptionCriteriaLine {
    * Code
    * Cardinality: 0..1
    */
-  ExceptionResolutionCode: [Code] | undefined
+  ExceptionResolutionCode?: [Code] | undefined
 
   /**
    * Establishes the criterion for one of the three types of exceptions. There can be three types of exception criteria:
@@ -71,21 +71,21 @@ export interface ExceptionCriteriaLine {
    * Code
    * Cardinality: 0..1
    */
-  SupplyChainActivityTypeCode: [Code] | undefined
+  SupplyChainActivityTypeCode?: [Code] | undefined
 
   /**
    * A code signifying a measure of performance.
    * Code
    * Cardinality: 0..1
    */
-  PerformanceMetricTypeCode: [Code] | undefined
+  PerformanceMetricTypeCode?: [Code] | undefined
 
   /**
    * The period during which this exception criteria line is in effect.
    * Period
    * Cardinality: 0..1
    */
-  EffectivePeriod: [Period] | undefined
+  EffectivePeriod?: [Period] | undefined
 
   /**
    * The Trade Item that is the subject of the Exception Criterion.
@@ -101,5 +101,5 @@ export interface ExceptionCriteriaLine {
    * Forecast Exception Criterion Line
    * Cardinality: 0..1
    */
-  ForecastExceptionCriterionLine: [ForecastExceptionCriterionLine] | undefined
+  ForecastExceptionCriterionLine?: [ForecastExceptionCriterionLine] | undefined
 }

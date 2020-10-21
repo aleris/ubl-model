@@ -19,7 +19,7 @@ export interface TransportProgressStatus {
    * A container for all extensions present in the document.
    * Cardinality: 0..1
    */
-  UBLExtensions: [UBLExtensions] | undefined
+  UBLExtensions?: [UBLExtensions] | undefined
 
   /**
    * Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that
@@ -27,28 +27,28 @@ export interface TransportProgressStatus {
    * Identifier
    * Cardinality: 0..1
    */
-  UBLVersionID: [Identifier] | undefined
+  UBLVersionID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined customization of UBL for a specific use.
    * Identifier
    * Cardinality: 0..1
    */
-  CustomizationID: [Identifier] | undefined
+  CustomizationID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined profile of the customization of UBL being used.
    * Identifier
    * Cardinality: 0..1
    */
-  ProfileID: [Identifier] | undefined
+  ProfileID?: [Identifier] | undefined
 
   /**
    * Identifies an instance of executing a profile, to associate all transactions in a collaboration.
    * Identifier
    * Cardinality: 0..1
    */
-  ProfileExecutionID: [Identifier] | undefined
+  ProfileExecutionID?: [Identifier] | undefined
 
   /**
    * An identifier for this document, assigned by the sender.
@@ -62,14 +62,14 @@ export interface TransportProgressStatus {
    * Indicator
    * Cardinality: 0..1
    */
-  CopyIndicator: [Indicator] | undefined
+  CopyIndicator?: [Indicator] | undefined
 
   /**
    * A universally unique identifier for an instance of this document.
    * Identifier
    * Cardinality: 0..1
    */
-  UUID: [Identifier] | undefined
+  UUID?: [Identifier] | undefined
 
   /**
    * The date, assigned by the sender, on which this document was issued.
@@ -91,49 +91,49 @@ export interface TransportProgressStatus {
    * Text
    * Cardinality: 0..n
    */
-  Note: Array<Text> | undefined
+  Note?: Array<Text> | undefined
 
   /**
    * Indicates whether transport progress information is available.
    * Indicator
    * Cardinality: 0..1
    */
-  StatusAvailableIndicator: [Indicator] | undefined
+  StatusAvailableIndicator?: [Indicator] | undefined
 
   /**
    * A signature applied to this document.
    * Signature
    * Cardinality: 0..n
    */
-  Signature: Array<Signature> | undefined
+  Signature?: Array<Signature> | undefined
 
   /**
    * The party sending the Transport Progress Status.
    * Party
    * Cardinality: 0..1
    */
-  SenderParty: [Party] | undefined
+  SenderParty?: [Party] | undefined
 
   /**
    * The party receiving the Transport Progress Status.
    * Party
    * Cardinality: 0..1
    */
-  ReceiverParty: [Party] | undefined
+  ReceiverParty?: [Party] | undefined
 
   /**
    * The party that is the source of the Transport Progress Status.
    * Party
    * Cardinality: 0..1
    */
-  SourceIssuerParty: [Party] | undefined
+  SourceIssuerParty?: [Party] | undefined
 
   /**
    * A reference to the Transport Progress Status Request document to which this status report is a response.
    * Document Reference
    * Cardinality: 0..1
    */
-  TransportProgressStatusRequestDocumentReference: [DocumentReference] | undefined
+  TransportProgressStatusRequestDocumentReference?: [DocumentReference] | undefined
 
   /**
    * The transport means by which the current transport service is effectuated.
@@ -148,5 +148,5 @@ export interface TransportProgressStatus {
    * Transport Schedule
    * Cardinality: 0..n
    */
-  TransportSchedule: Array<TransportSchedule> | undefined
+  TransportSchedule?: Array<TransportSchedule> | undefined
 }

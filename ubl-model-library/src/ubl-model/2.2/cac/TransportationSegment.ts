@@ -23,7 +23,7 @@ export interface TransportationSegment {
    * Identifier
    * Cardinality: 0..1
    */
-  TransportExecutionPlanReferenceID: [Identifier] | undefined
+  TransportExecutionPlanReferenceID?: [Identifier] | undefined
 
   /**
    * The transportation service used in this transportation segment.
@@ -46,12 +46,12 @@ export interface TransportationSegment {
    * Consignment
    * Cardinality: 0..1
    */
-  ReferencedConsignment: [Consignment] | undefined
+  ReferencedConsignment?: [Consignment] | undefined
 
   /**
    * The shipment stage associated with this transportation segment.
    * Shipment Stage
    * Cardinality: 0..n
    */
-  ShipmentStage: Array<ShipmentStage> | undefined
+  ShipmentStage?: Array<ShipmentStage> | undefined
 }

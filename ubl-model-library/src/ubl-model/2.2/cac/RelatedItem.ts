@@ -11,23 +11,23 @@ export interface RelatedItem {
    * An identifier for the related item.
    * Identifier
    * Cardinality: 0..1
-   * Examples: First , Second 
+   * Examples: First , Second
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * The quantity that applies to the relationship.
    * Quantity
    * Cardinality: 0..1
-   * Examples: 6 , 10mg per Kilo 
+   * Examples: 6 , 10mg per Kilo
    */
-  Quantity: [Quantity] | undefined
+  Quantity?: [Quantity] | undefined
 
   /**
    * Text describing the relationship.
    * Text
    * Cardinality: 0..n
-   * Examples: If used in wet conditions or extreme environments 
+   * Examples: If used in wet conditions or extreme environments
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 }

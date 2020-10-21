@@ -16,89 +16,89 @@ export interface AwardingCriterion {
    * Identifier
    * Cardinality: 0..1
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
-   * A code used to define this awarding criterion. 
+   * A code used to define this awarding criterion.
    * Code
    * Cardinality: 0..1
    */
-  AwardingCriterionTypeCode: [Code] | undefined
+  AwardingCriterionTypeCode?: [Code] | undefined
 
   /**
    * A description of the awarding criterion.
    * Text
    * Cardinality: 0..n
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 
   /**
    * A number defining the comparative weighting assigned to this awarding criterion, to enable formulaic evaluation.
    * Numeric
    * Cardinality: 0..1
    */
-  WeightNumeric: [Numeric] | undefined
+  WeightNumeric?: [Numeric] | undefined
 
   /**
    * A description of the comparative weighting for this awarding criterion.
    * Text
    * Cardinality: 0..n
    */
-  Weight: Array<Text> | undefined
+  Weight?: Array<Text> | undefined
 
   /**
    * The mathematical expression that will be used to evaluate this criterion.
    * Text
    * Cardinality: 0..n
    */
-  CalculationExpression: Array<Text> | undefined
+  CalculationExpression?: Array<Text> | undefined
 
   /**
    * A code identifying the mathematical expression that will be used to evaluate this criterion.
    * Code
    * Cardinality: 0..1
    */
-  CalculationExpressionCode: [Code] | undefined
+  CalculationExpressionCode?: [Code] | undefined
 
   /**
    * The minimum quantity for an awarding criterion.
    * Quantity
    * Cardinality: 0..1
    */
-  MinimumQuantity: [Quantity] | undefined
+  MinimumQuantity?: [Quantity] | undefined
 
   /**
    * The maximum quantity for an awarding criterion.
    * Quantity
    * Cardinality: 0..1
    */
-  MaximumQuantity: [Quantity] | undefined
+  MaximumQuantity?: [Quantity] | undefined
 
   /**
    * The minimum monetary amount for an awarding criterion.
    * Amount
    * Cardinality: 0..1
    */
-  MinimumAmount: [Amount] | undefined
+  MinimumAmount?: [Amount] | undefined
 
   /**
    * The maximum monetary amount for an awarding criterion.
    * Amount
    * Cardinality: 0..1
    */
-  MaximumAmount: [Amount] | undefined
+  MaximumAmount?: [Amount] | undefined
 
   /**
    * Describes the minimum improvement bid for this awarding criterion when used in an auction.
    * Text
    * Cardinality: 0..n
    */
-  MinimumImprovementBid: Array<Text> | undefined
+  MinimumImprovementBid?: Array<Text> | undefined
 
   /**
    * Defines any subsidiary awarding criterion.
    * Awarding Criterion
    * Cardinality: 0..n
    */
-  SubordinateAwardingCriterion: Array<AwardingCriterion> | undefined
+  SubordinateAwardingCriterion?: Array<AwardingCriterion> | undefined
 }

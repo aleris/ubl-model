@@ -17,12 +17,12 @@ export interface TenderRequirement {
    * Text
    * Cardinality: 0..n
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 
   /**
    * A reference to the template for a required document.
    * Document Reference
    * Cardinality: 0..1
    */
-  TemplateDocumentReference: [DocumentReference] | undefined
+  TemplateDocumentReference?: [DocumentReference] | undefined
 }

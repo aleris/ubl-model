@@ -25,7 +25,7 @@ export interface RequestForQuotation {
    * A container for all extensions present in the document.
    * Cardinality: 0..1
    */
-  UBLExtensions: [UBLExtensions] | undefined
+  UBLExtensions?: [UBLExtensions] | undefined
 
   /**
    * Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that
@@ -34,7 +34,7 @@ export interface RequestForQuotation {
    * Cardinality: 0..1
    * Examples: 2.0.5
    */
-  UBLVersionID: [Identifier] | undefined
+  UBLVersionID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined customization of UBL for a specific use.
@@ -42,7 +42,7 @@ export interface RequestForQuotation {
    * Cardinality: 0..1
    * Examples: NES
    */
-  CustomizationID: [Identifier] | undefined
+  CustomizationID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined profile of the customization of UBL being used.
@@ -50,7 +50,7 @@ export interface RequestForQuotation {
    * Cardinality: 0..1
    * Examples: BasicProcurementProcess
    */
-  ProfileID: [Identifier] | undefined
+  ProfileID?: [Identifier] | undefined
 
   /**
    * Identifies an instance of executing a profile, to associate all transactions in a collaboration.
@@ -58,28 +58,28 @@ export interface RequestForQuotation {
    * Cardinality: 0..1
    * Examples: BPP-1001
    */
-  ProfileExecutionID: [Identifier] | undefined
+  ProfileExecutionID?: [Identifier] | undefined
 
   /**
    * An identifier for this document, assigned by the sender.
    * Identifier
    * Cardinality: 0..1
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * Indicates whether this document is a copy (true) or not (false).
    * Indicator
    * Cardinality: 0..1
    */
-  CopyIndicator: [Indicator] | undefined
+  CopyIndicator?: [Indicator] | undefined
 
   /**
    * A universally unique identifier for an instance of this document.
    * Identifier
    * Cardinality: 0..1
    */
-  UUID: [Identifier] | undefined
+  UUID?: [Identifier] | undefined
 
   /**
    * The date, assigned by the sender, on which this document was issued.
@@ -100,7 +100,7 @@ export interface RequestForQuotation {
    * Date
    * Cardinality: 0..1
    */
-  SubmissionDueDate: [Date] | undefined
+  SubmissionDueDate?: [Date] | undefined
 
   /**
    * Free-form text pertinent to this document, conveying information that is not contained explicitly in other
@@ -108,56 +108,56 @@ export interface RequestForQuotation {
    * Text
    * Cardinality: 0..n
    */
-  Note: Array<Text> | undefined
+  Note?: Array<Text> | undefined
 
   /**
    * The currency that the Seller should use to price the Quotation.
    * Code
    * Cardinality: 0..1
    */
-  PricingCurrencyCode: [Code] | undefined
+  PricingCurrencyCode?: [Code] | undefined
 
   /**
    * The number of Request For Quotation Lines in this document.
    * Numeric
    * Cardinality: 0..1
    */
-  LineCountNumeric: [Numeric] | undefined
+  LineCountNumeric?: [Numeric] | undefined
 
   /**
    * The validity period requested for this Quotation.
    * Period
    * Cardinality: 0..1
    */
-  RequestedValidityPeriod: [Period] | undefined
+  RequestedValidityPeriod?: [Period] | undefined
 
   /**
    * The Catalogue on which this Request for Quotation is based.
    * Document Reference
    * Cardinality: 0..1
    */
-  CatalogueDocumentReference: [DocumentReference] | undefined
+  CatalogueDocumentReference?: [DocumentReference] | undefined
 
   /**
    * A reference to an additional document associated with this document.
    * Document Reference
    * Cardinality: 0..n
    */
-  AdditionalDocumentReference: Array<DocumentReference> | undefined
+  AdditionalDocumentReference?: Array<DocumentReference> | undefined
 
   /**
    * A signature applied to this document.
    * Signature
    * Cardinality: 0..n
    */
-  Signature: Array<Signature> | undefined
+  Signature?: Array<Signature> | undefined
 
   /**
    * The originator.
    * Customer Party
    * Cardinality: 0..1
    */
-  OriginatorCustomerParty: [CustomerParty] | undefined
+  OriginatorCustomerParty?: [CustomerParty] | undefined
 
   /**
    * The seller.
@@ -171,35 +171,35 @@ export interface RequestForQuotation {
    * Customer Party
    * Cardinality: 0..1
    */
-  BuyerCustomerParty: [CustomerParty] | undefined
+  BuyerCustomerParty?: [CustomerParty] | undefined
 
   /**
    * A delivery associated with this document.
    * Delivery
    * Cardinality: 0..n
    */
-  Delivery: Array<Delivery> | undefined
+  Delivery?: Array<Delivery> | undefined
 
   /**
    * A set of delivery terms associated with this document.
    * Delivery Terms
    * Cardinality: 0..n
    */
-  DeliveryTerms: Array<DeliveryTerms> | undefined
+  DeliveryTerms?: Array<DeliveryTerms> | undefined
 
   /**
    * The country of destination of potential orders (for customs purposes).
    * Country
    * Cardinality: 0..1
    */
-  DestinationCountry: [Country] | undefined
+  DestinationCountry?: [Country] | undefined
 
   /**
    * A contract associated with this Request for Quotation..
    * Contract
    * Cardinality: 0..n
    */
-  Contract: Array<Contract> | undefined
+  Contract?: Array<Contract> | undefined
 
   /**
    * A line specifying a kind of item of sale.

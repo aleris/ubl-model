@@ -10,7 +10,7 @@ export interface WebSiteAccess {
    * Identifier
    * Cardinality: 0..1
    */
-  URI: [Identifier] | undefined
+  URI?: [Identifier] | undefined
 
   /**
    * A password to the web site.

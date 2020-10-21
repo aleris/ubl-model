@@ -18,26 +18,26 @@ export interface OrderLineReference {
    * Identifier
    * Cardinality: 0..1
    */
-  SalesOrderLineID: [Identifier] | undefined
+  SalesOrderLineID?: [Identifier] | undefined
 
   /**
    * A universally unique identifier for this order line reference.
    * Identifier
    * Cardinality: 0..1
    */
-  UUID: [Identifier] | undefined
+  UUID?: [Identifier] | undefined
 
   /**
    * A code signifying the status of the referenced order line with respect to its original state.
    * Code
    * Cardinality: 0..1
    */
-  LineStatusCode: [Code] | undefined
+  LineStatusCode?: [Code] | undefined
 
   /**
    * A reference to the Order containing the referenced order line.
    * Order Reference
    * Cardinality: 0..1
    */
-  OrderReference: [OrderReference] | undefined
+  OrderReference?: [OrderReference] | undefined
 }

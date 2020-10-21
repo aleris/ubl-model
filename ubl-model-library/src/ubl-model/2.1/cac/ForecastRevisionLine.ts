@@ -22,14 +22,14 @@ export interface ForecastRevisionLine {
    * Text
    * Cardinality: 0..n
    */
-  Note: Array<Text> | undefined
+  Note?: Array<Text> | undefined
 
   /**
    * Text describing the revision to this line.
    * Text
    * Cardinality: 0..n
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 
   /**
    * An identifier for the revised forecast line.
@@ -57,19 +57,19 @@ export interface ForecastRevisionLine {
    * Code
    * Cardinality: 0..1
    */
-  AdjustmentReasonCode: [Code] | undefined
+  AdjustmentReasonCode?: [Code] | undefined
 
   /**
    * The period to which this forecast revision line applies.
    * Period
    * Cardinality: 0..1
    */
-  ForecastPeriod: [Period] | undefined
+  ForecastPeriod?: [Period] | undefined
 
   /**
    * Sales information for the item to which this line applies.
    * Sales Item
    * Cardinality: 0..1
    */
-  SalesItem: [SalesItem] | undefined
+  SalesItem?: [SalesItem] | undefined
 }

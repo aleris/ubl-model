@@ -10,12 +10,12 @@ export interface Renewal {
    * Amount
    * Cardinality: 0..1
    */
-  Amount: [Amount] | undefined
+  Amount?: [Amount] | undefined
 
   /**
    * The period for which the arrangement is now valid
    * Period
    * Cardinality: 0..1
    */
-  Period: [Period] | undefined
+  Period?: [Period] | undefined
 }

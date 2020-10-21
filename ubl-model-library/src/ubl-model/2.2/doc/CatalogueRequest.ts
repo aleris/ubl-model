@@ -27,7 +27,7 @@ export interface CatalogueRequest {
    * A container for all extensions present in the document.
    * Cardinality: 0..1
    */
-  UBLExtensions: [UBLExtensions] | undefined
+  UBLExtensions?: [UBLExtensions] | undefined
 
   /**
    * Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that
@@ -36,7 +36,7 @@ export interface CatalogueRequest {
    * Cardinality: 0..1
    * Examples: 2.0.5
    */
-  UBLVersionID: [Identifier] | undefined
+  UBLVersionID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined customization of UBL for a specific use.
@@ -44,7 +44,7 @@ export interface CatalogueRequest {
    * Cardinality: 0..1
    * Examples: NES
    */
-  CustomizationID: [Identifier] | undefined
+  CustomizationID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined profile of the customization of UBL being used.
@@ -52,14 +52,14 @@ export interface CatalogueRequest {
    * Cardinality: 0..1
    * Examples: BasicProcurementProcess
    */
-  ProfileID: [Identifier] | undefined
+  ProfileID?: [Identifier] | undefined
 
   /**
    * Identifies an instance of executing a profile, to associate all transactions in a collaboration.
    * Identifier
    * Cardinality: 0..1
    */
-  ProfileExecutionID: [Identifier] | undefined
+  ProfileExecutionID?: [Identifier] | undefined
 
   /**
    * An identifier for this document, assigned by the sender.
@@ -73,15 +73,15 @@ export interface CatalogueRequest {
    * Identifier
    * Cardinality: 0..1
    */
-  UUID: [Identifier] | undefined
+  UUID?: [Identifier] | undefined
 
   /**
    * Text, assigned by the sender, that identifies this document to business users.
    * Name
    * Cardinality: 0..1
-   * Examples: winter 2005 collection 
+   * Examples: winter 2005 collection
    */
-  Name: [Text] | undefined
+  Name?: [Text] | undefined
 
   /**
    * The date, assigned by the sender, on which this document was issued.
@@ -95,7 +95,7 @@ export interface CatalogueRequest {
    * Time
    * Cardinality: 0..1
    */
-  IssueTime: [Time] | undefined
+  IssueTime?: [Time] | undefined
 
   /**
    * Free-form text pertinent to this document, conveying information that is not contained explicitly in other
@@ -103,15 +103,15 @@ export interface CatalogueRequest {
    * Text
    * Cardinality: 0..n
    */
-  Note: Array<Text> | undefined
+  Note?: Array<Text> | undefined
 
   /**
    * Textual description of the document instance.
    * Text
    * Cardinality: 0..n
-   * Examples: latest computer accessories for laptops 
+   * Examples: latest computer accessories for laptops
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 
   /**
    * Indicates a request for a pricing update.
@@ -119,7 +119,7 @@ export interface CatalogueRequest {
    * Cardinality: 0..1
    * Examples: default is true
    */
-  PricingUpdateRequestIndicator: [Indicator] | undefined
+  PricingUpdateRequestIndicator?: [Indicator] | undefined
 
   /**
    * Indicates a request for an update of the item specifications.
@@ -127,14 +127,14 @@ export interface CatalogueRequest {
    * Cardinality: 0..1
    * Examples: default is true
    */
-  ItemUpdateRequestIndicator: [Indicator] | undefined
+  ItemUpdateRequestIndicator?: [Indicator] | undefined
 
   /**
    * The number of Catalogue Lines in this document.
    * Numeric
    * Cardinality: 0..1
    */
-  LineCountNumeric: [Numeric] | undefined
+  LineCountNumeric?: [Numeric] | undefined
 
   /**
    * The period, assigned by the Catalogue Managing party, during which the information in the Catalogue requested is to
@@ -142,14 +142,14 @@ export interface CatalogueRequest {
    * Period
    * Cardinality: 0..n
    */
-  ValidityPeriod: Array<Period> | undefined
+  ValidityPeriod?: Array<Period> | undefined
 
   /**
    * A signature applied to this document.
    * Signature
    * Cardinality: 0..n
    */
-  Signature: Array<Signature> | undefined
+  Signature?: Array<Signature> | undefined
 
   /**
    * The party receiving the Catalogue Request.
@@ -170,42 +170,42 @@ export interface CatalogueRequest {
    * Supplier Party
    * Cardinality: 0..1
    */
-  SellerSupplierParty: [SupplierParty] | undefined
+  SellerSupplierParty?: [SupplierParty] | undefined
 
   /**
    * The customer party responsible for the contracts with which the Catalogue is associated.
    * Customer Party
    * Cardinality: 0..1
    */
-  ContractorCustomerParty: [CustomerParty] | undefined
+  ContractorCustomerParty?: [CustomerParty] | undefined
 
   /**
    * A reference to a specific Catalogue; used if the Catalogue Request is for an update.
    * Catalogue Reference
    * Cardinality: 0..1
    */
-  RequestedCatalogueReference: [CatalogueReference] | undefined
+  RequestedCatalogueReference?: [CatalogueReference] | undefined
 
   /**
    * A contract or framework agreement with which the Catalogue being requested is associated.
    * Contract
    * Cardinality: 0..n
    */
-  ReferencedContract: Array<Contract> | undefined
+  ReferencedContract?: Array<Contract> | undefined
 
   /**
    * The trading terms associated with the requested Catalogue.
    * Trading Terms
    * Cardinality: 0..1
    */
-  TradingTerms: [TradingTerms] | undefined
+  TradingTerms?: [TradingTerms] | undefined
 
   /**
    * A reference to another document associated with this document.
    * Document Reference
    * Cardinality: 0..n
    */
-  DocumentReference: Array<DocumentReference> | undefined
+  DocumentReference?: Array<DocumentReference> | undefined
 
   /**
    * A reference to a territory (region, country, city, etc.) to which the requested Catalogue will apply, expressed as
@@ -213,26 +213,26 @@ export interface CatalogueRequest {
    * Address
    * Cardinality: 0..n
    */
-  ApplicableTerritoryAddress: Array<Address> | undefined
+  ApplicableTerritoryAddress?: Array<Address> | undefined
 
   /**
    * The language in which the Catalogue is requested to be provided.
    * Language
    * Cardinality: 0..1
    */
-  RequestedLanguage: [Language] | undefined
+  RequestedLanguage?: [Language] | undefined
 
   /**
    * A requested classification scheme for the requested Catalogue.
    * Classification Scheme
    * Cardinality: 0..n
    */
-  RequestedClassificationScheme: Array<ClassificationScheme> | undefined
+  RequestedClassificationScheme?: Array<ClassificationScheme> | undefined
 
   /**
    * An association to specific Catalogue Lines for the catalogue requested.
    * Catalogue Request Line
    * Cardinality: 0..n
    */
-  CatalogueRequestLine: Array<CatalogueRequestLine> | undefined
+  CatalogueRequestLine?: Array<CatalogueRequestLine> | undefined
 }

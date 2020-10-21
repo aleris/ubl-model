@@ -13,40 +13,40 @@ export interface ContractExtension {
    * Text
    * Cardinality: 0..n
    */
-  OptionsDescription: Array<Text> | undefined
+  OptionsDescription?: Array<Text> | undefined
 
   /**
    * The fixed minimum number of contract extensions or renewals.
    * Numeric
    * Cardinality: 0..1
    */
-  MinimumNumberNumeric: [Numeric] | undefined
+  MinimumNumberNumeric?: [Numeric] | undefined
 
   /**
    * The maximum allowed number of contract extensions.
    * Numeric
    * Cardinality: 0..1
    */
-  MaximumNumberNumeric: [Numeric] | undefined
+  MaximumNumberNumeric?: [Numeric] | undefined
 
   /**
    * Indicates that the contract can be extended using renewals.
    * Indicator
    * Cardinality: 0..1
    */
-  RenewalsIndicator: [Indicator] | undefined
+  RenewalsIndicator?: [Indicator] | undefined
 
   /**
    * The period during which the option for extending the contract is available.
    * Period
    * Cardinality: 0..1
    */
-  OptionValidityPeriod: [Period] | undefined
+  OptionValidityPeriod?: [Period] | undefined
 
   /**
    * The period allowed for each contract extension.
    * Renewal
    * Cardinality: 0..n
    */
-  Renewal: Array<Renewal> | undefined
+  Renewal?: Array<Renewal> | undefined
 }

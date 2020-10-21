@@ -12,28 +12,28 @@ export interface EconomicOperatorShortList {
    * Text
    * Cardinality: 0..n
    */
-  LimitationDescription: Array<Text> | undefined
+  LimitationDescription?: Array<Text> | undefined
 
   /**
    * The number of economic operators expected to be on the short list.
    * Quantity
    * Cardinality: 0..1
    */
-  ExpectedQuantity: [Quantity] | undefined
+  ExpectedQuantity?: [Quantity] | undefined
 
   /**
    * The maximum number of economic operators on the short list.
    * Quantity
    * Cardinality: 0..1
    */
-  MaximumQuantity: [Quantity] | undefined
+  MaximumQuantity?: [Quantity] | undefined
 
   /**
    * The minimum number of economic operators on the short list.
    * Quantity
    * Cardinality: 0..1
    */
-  MinimumQuantity: [Quantity] | undefined
+  MinimumQuantity?: [Quantity] | undefined
 
   /**
    * The parties pre-selected allowed to submit tenders in a negotiated procedure. Negotiated procedure is a type of
@@ -41,5 +41,5 @@ export interface EconomicOperatorShortList {
    * Party
    * Cardinality: 0..n
    */
-  PreSelectedParty: Array<Party> | undefined
+  PreSelectedParty?: Array<Party> | undefined
 }

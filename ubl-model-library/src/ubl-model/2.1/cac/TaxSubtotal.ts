@@ -14,7 +14,7 @@ export interface TaxSubtotal {
    * Amount
    * Cardinality: 0..1
    */
-  TaxableAmount: [Amount] | undefined
+  TaxableAmount?: [Amount] | undefined
 
   /**
    * The amount of this tax subtotal.
@@ -30,35 +30,35 @@ export interface TaxSubtotal {
    * Numeric
    * Cardinality: 0..1
    */
-  CalculationSequenceNumeric: [Numeric] | undefined
+  CalculationSequenceNumeric?: [Numeric] | undefined
 
   /**
    * The amount of this tax subtotal, expressed in the currency used for invoicing.
    * Amount
    * Cardinality: 0..1
    */
-  TransactionCurrencyTaxAmount: [Amount] | undefined
+  TransactionCurrencyTaxAmount?: [Amount] | undefined
 
   /**
    * The tax rate of the tax category applied to this tax subtotal, expressed as a percentage.
    * Percent
    * Cardinality: 0..1
    */
-  Percent: [Numeric] | undefined
+  Percent?: [Numeric] | undefined
 
   /**
    * The unit of measure on which the tax calculation is based
    * Measure
    * Cardinality: 0..1
    */
-  BaseUnitMeasure: [Measure] | undefined
+  BaseUnitMeasure?: [Measure] | undefined
 
   /**
    * Where a tax is applied at a certain rate per unit, the rate per unit applied.
    * Amount
    * Cardinality: 0..1
    */
-  PerUnitAmount: [Amount] | undefined
+  PerUnitAmount?: [Amount] | undefined
 
   /**
    * Where a tax is tiered, the range of taxable amounts that determines the rate of tax applicable to this tax
@@ -66,14 +66,14 @@ export interface TaxSubtotal {
    * Text
    * Cardinality: 0..1
    */
-  TierRange: [Text] | undefined
+  TierRange?: [Text] | undefined
 
   /**
    * Where a tax is tiered, the tax rate that applies within a specified range of taxable amounts for this tax subtotal.
    * Percent
    * Cardinality: 0..1
    */
-  TierRatePercent: [Numeric] | undefined
+  TierRatePercent?: [Numeric] | undefined
 
   /**
    * The tax category applicable to this subtotal.

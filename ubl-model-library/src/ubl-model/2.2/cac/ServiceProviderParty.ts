@@ -13,21 +13,21 @@ export interface ServiceProviderParty {
    * Identifier
    * Cardinality: 0..1
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * The type of service provided, expressed as a code.
    * Code
    * Cardinality: 0..1
    */
-  ServiceTypeCode: [Code] | undefined
+  ServiceTypeCode?: [Code] | undefined
 
   /**
    * The type of service provided, expressed as text.
    * Text
    * Cardinality: 0..n
    */
-  ServiceType: Array<Text> | undefined
+  ServiceType?: Array<Text> | undefined
 
   /**
    * The party providing the service.
@@ -41,5 +41,5 @@ export interface ServiceProviderParty {
    * Contact
    * Cardinality: 0..1
    */
-  SellerContact: [Contact] | undefined
+  SellerContact?: [Contact] | undefined
 }

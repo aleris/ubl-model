@@ -24,7 +24,7 @@ export interface Temperature {
    * Text describing this temperature measurement.
    * Text
    * Cardinality: 0..n
-   * Examples: at sea level 
+   * Examples: at sea level
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 }

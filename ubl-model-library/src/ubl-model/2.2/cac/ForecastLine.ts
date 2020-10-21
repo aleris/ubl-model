@@ -21,14 +21,14 @@ export interface ForecastLine {
    * Text
    * Cardinality: 0..n
    */
-  Note: Array<Text> | undefined
+  Note?: Array<Text> | undefined
 
   /**
    * An indicator that the status of the forecast is modifiable (true) or not (false).
    * Indicator
    * Cardinality: 0..1
    */
-  FrozenDocumentIndicator: [Indicator] | undefined
+  FrozenDocumentIndicator?: [Indicator] | undefined
 
   /**
    * A code signifying the type of forecast. Examples: BASE PROMOTIONAL SEASONAL TOTAL
@@ -43,12 +43,12 @@ export interface ForecastLine {
    * Period
    * Cardinality: 0..1
    */
-  ForecastPeriod: [Period] | undefined
+  ForecastPeriod?: [Period] | undefined
 
   /**
    * Sales information for the item to which this line applies.
    * Sales Item
    * Cardinality: 0..1
    */
-  SalesItem: [SalesItem] | undefined
+  SalesItem?: [SalesItem] | undefined
 }

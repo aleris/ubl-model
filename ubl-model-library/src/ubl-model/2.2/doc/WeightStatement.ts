@@ -15,7 +15,7 @@ export interface WeightStatement {
    * A container for all extensions present in the document.
    * Cardinality: 0..1
    */
-  UBLExtensions: [UBLExtensions] | undefined
+  UBLExtensions?: [UBLExtensions] | undefined
 
   /**
    * Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that
@@ -24,7 +24,7 @@ export interface WeightStatement {
    * Cardinality: 0..1
    * Examples: 2.2
    */
-  UBLVersionID: [Identifier] | undefined
+  UBLVersionID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined customization of UBL for a specific use.
@@ -32,7 +32,7 @@ export interface WeightStatement {
    * Cardinality: 0..1
    * Examples: SMDG
    */
-  CustomizationID: [Identifier] | undefined
+  CustomizationID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined profile of the customization of UBL being used.
@@ -40,7 +40,7 @@ export interface WeightStatement {
    * Cardinality: 0..1
    * Examples: SOLAS
    */
-  ProfileID: [Identifier] | undefined
+  ProfileID?: [Identifier] | undefined
 
   /**
    * Identifies an instance of executing a profile, to associate all transactions in a collaboration.
@@ -48,7 +48,7 @@ export interface WeightStatement {
    * Cardinality: 0..1
    * Examples: BPP-1001
    */
-  ProfileExecutionID: [Identifier] | undefined
+  ProfileExecutionID?: [Identifier] | undefined
 
   /**
    * An identifier for this document, assigned by the sender.
@@ -62,7 +62,7 @@ export interface WeightStatement {
    * Identifier
    * Cardinality: 0..1
    */
-  UUID: [Identifier] | undefined
+  UUID?: [Identifier] | undefined
 
   /**
    * The date, assigned by the sender, on which this document was issued.
@@ -76,7 +76,7 @@ export interface WeightStatement {
    * Time
    * Cardinality: 0..1
    */
-  IssueTime: [Time] | undefined
+  IssueTime?: [Time] | undefined
 
   /**
    * A code signifying the type of Weight Statement.
@@ -84,14 +84,14 @@ export interface WeightStatement {
    * Cardinality: 0..1
    * Examples: VGM, WeightCertificate
    */
-  WeightStatementTypeCode: [Code] | undefined
+  WeightStatementTypeCode?: [Code] | undefined
 
   /**
    * A signature applied to this document.
    * Signature
    * Cardinality: 0..n
    */
-  Signature: Array<Signature> | undefined
+  Signature?: Array<Signature> | undefined
 
   /**
    * The party sending this weight statement (e.g. Weighing Station, Shipper, Freight Forwarder, Carrier, ...).
@@ -112,7 +112,7 @@ export interface WeightStatement {
    * Party
    * Cardinality: 0..1
    */
-  WeighingParty: [Party] | undefined
+  WeighingParty?: [Party] | undefined
 
   /**
    * The party playing the role of the Shipper (BCO, FF or NVOCC) who is responsible for the VGM (e.g. according the
@@ -120,14 +120,14 @@ export interface WeightStatement {
    * Party
    * Cardinality: 0..1
    */
-  ShipperParty: [Party] | undefined
+  ShipperParty?: [Party] | undefined
 
   /**
    * The party responsible for signing the VGM on behalf of the Shipper.
    * Party
    * Cardinality: 0..1
    */
-  ResponsibleParty: [Party] | undefined
+  ResponsibleParty?: [Party] | undefined
 
   /**
    * The relevant shipment information with details on the transport equipment weight or mass measurements, including

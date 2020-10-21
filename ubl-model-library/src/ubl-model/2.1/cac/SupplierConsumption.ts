@@ -14,21 +14,21 @@ export interface SupplierConsumption {
    * Cardinality: 0..n
    * Examples: This is what you pay for electricity to DONG Energy North Utility
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 
   /**
    * The party supplying the utility.
    * Party
    * Cardinality: 0..1
    */
-  UtilitySupplierParty: [Party] | undefined
+  UtilitySupplierParty?: [Party] | undefined
 
   /**
    * The utility customer.
    * Party
    * Cardinality: 0..1
    */
-  UtilityCustomerParty: [Party] | undefined
+  UtilityCustomerParty?: [Party] | undefined
 
   /**
    * The consumption regarding this supplier
@@ -42,7 +42,7 @@ export interface SupplierConsumption {
    * Contract
    * Cardinality: 0..1
    */
-  Contract: [Contract] | undefined
+  Contract?: [Contract] | undefined
 
   /**
    * The consumption of a utility product.

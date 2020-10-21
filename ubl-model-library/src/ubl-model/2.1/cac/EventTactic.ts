@@ -14,7 +14,7 @@ export interface EventTactic {
    * Text
    * Cardinality: 0..1
    */
-  Comment: [Text] | undefined
+  Comment?: [Text] | undefined
 
   /**
    * The currencies, units, etc. that describes what is need for the event or promotion Usage example: Number of pallets
@@ -22,7 +22,7 @@ export interface EventTactic {
    * Quantity
    * Cardinality: 0..1
    */
-  Quantity: [Quantity] | undefined
+  Quantity?: [Quantity] | undefined
 
   /**
    * The set of codes that describes this event tactic.
@@ -36,5 +36,5 @@ export interface EventTactic {
    * Period
    * Cardinality: 0..1
    */
-  Period: [Period] | undefined
+  Period?: [Period] | undefined
 }

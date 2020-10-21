@@ -11,7 +11,7 @@ export interface ItemIdentification {
    * An identifier for the item.
    * Identifier
    * Cardinality: 1
-   * Examples: CUST001 3333-44-123 
+   * Examples: CUST001 3333-44-123
    */
   ID: [Identifier]
 
@@ -21,33 +21,33 @@ export interface ItemIdentification {
    * Identifier
    * Cardinality: 0..1
    */
-  ExtendedID: [Identifier] | undefined
+  ExtendedID?: [Identifier] | undefined
 
   /**
    * An identifier for a system of barcodes.
    * Identifier
    * Cardinality: 0..1
    */
-  BarcodeSymbologyID: [Identifier] | undefined
+  BarcodeSymbologyID?: [Identifier] | undefined
 
   /**
    * A physical attribute of the item.
    * Physical Attribute
    * Cardinality: 0..n
    */
-  PhysicalAttribute: Array<PhysicalAttribute> | undefined
+  PhysicalAttribute?: Array<PhysicalAttribute> | undefined
 
   /**
    * A measurable dimension (length, mass, weight, or volume) of the item.
    * Dimension
    * Cardinality: 0..n
    */
-  MeasurementDimension: Array<Dimension> | undefined
+  MeasurementDimension?: Array<Dimension> | undefined
 
   /**
    * The party that issued this item identification.
    * Party
    * Cardinality: 0..1
    */
-  IssuerParty: [Party] | undefined
+  IssuerParty?: [Party] | undefined
 }

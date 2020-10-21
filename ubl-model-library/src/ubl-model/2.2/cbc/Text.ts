@@ -11,11 +11,11 @@ export interface Text {
    * The identifier of the language used in the content component.
    * Identifier
    */
-  languageID: string | undefined
+  languageID?: string | undefined
 
   /**
    * The identification of the locale of the language.
    * Identifier
    */
-  languageLocaleID: string | undefined
+  languageLocaleID?: string | undefined
 }

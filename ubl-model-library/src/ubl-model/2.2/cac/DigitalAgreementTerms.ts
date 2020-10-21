@@ -18,14 +18,14 @@ export interface DigitalAgreementTerms {
    * Period
    * Cardinality: 0..1
    */
-  ValidityPeriod: [Period] | undefined
+  ValidityPeriod?: [Period] | undefined
 
   /**
    * The period during which a digital agreement must be adopted.
    * Period
    * Cardinality: 0..1
    */
-  AdoptionPeriod: [Period] | undefined
+  AdoptionPeriod?: [Period] | undefined
 
   /**
    * The service level agreement which regulates the quality, availability and responsibilities of digital services.
@@ -33,5 +33,5 @@ export interface DigitalAgreementTerms {
    * Cardinality: 0..n
    * Alternative business terms: SLA
    */
-  ServiceLevelAgreement: Array<ServiceLevelAgreement> | undefined
+  ServiceLevelAgreement?: Array<ServiceLevelAgreement> | undefined
 }

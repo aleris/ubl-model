@@ -20,33 +20,33 @@ export interface NotificationRequirement {
    * Measure
    * Cardinality: 0..1
    */
-  PostEventNotificationDurationMeasure: [Measure] | undefined
+  PostEventNotificationDurationMeasure?: [Measure] | undefined
 
   /**
    * The length of time to elapse between the issuance of a notification and the occurrence of the event it relates to.
    * Measure
    * Cardinality: 0..1
    */
-  PreEventNotificationDurationMeasure: [Measure] | undefined
+  PreEventNotificationDurationMeasure?: [Measure] | undefined
 
   /**
    * A party to be notified.
    * Party
    * Cardinality: 0..n
    */
-  NotifyParty: Array<Party> | undefined
+  NotifyParty?: Array<Party> | undefined
 
   /**
    * A period during which a notification should be issued.
    * Period
    * Cardinality: 0..n
    */
-  NotificationPeriod: Array<Period> | undefined
+  NotificationPeriod?: Array<Period> | undefined
 
   /**
    * A location at which a notification should be issued.
    * Location
    * Cardinality: 0..n
    */
-  NotificationLocation: Array<Location> | undefined
+  NotificationLocation?: Array<Location> | undefined
 }

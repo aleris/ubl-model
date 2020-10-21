@@ -19,19 +19,19 @@ export interface EncryptionData {
    * Attachment
    * Cardinality: 0..1
    */
-  EncryptionCertificateAttachment: [Attachment] | undefined
+  EncryptionCertificateAttachment?: [Attachment] | undefined
 
   /**
    * A reference to the path chain defined for the encryption process.
    * Encryption Certificate Path Chain
    * Cardinality: 0..n
    */
-  EncryptionCertificatePathChain: Array<EncryptionCertificatePathChain> | undefined
+  EncryptionCertificatePathChain?: Array<EncryptionCertificatePathChain> | undefined
 
   /**
    * A reference to the symmetric algorithm used for the encryption process.
    * Encryption Symmetric Algorithm
    * Cardinality: 0..n
    */
-  EncryptionSymmetricAlgorithm: Array<EncryptionSymmetricAlgorithm> | undefined
+  EncryptionSymmetricAlgorithm?: Array<EncryptionSymmetricAlgorithm> | undefined
 }

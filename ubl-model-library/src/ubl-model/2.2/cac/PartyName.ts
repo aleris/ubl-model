@@ -8,7 +8,7 @@ export interface PartyName {
    * The name of the party.
    * Name
    * Cardinality: 1
-   * Examples: Microsoft 
+   * Examples: Microsoft
    */
   Name: [Text]
 }

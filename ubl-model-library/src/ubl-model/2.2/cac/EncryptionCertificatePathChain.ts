@@ -10,12 +10,12 @@ export interface EncryptionCertificatePathChain {
    * Text
    * Cardinality: 0..1
    */
-  Value: [Text] | undefined
+  Value?: [Text] | undefined
 
   /**
    * The path chain value references external to the instance.
    * Identifier
    * Cardinality: 0..1
    */
-  URI: [Identifier] | undefined
+  URI?: [Identifier] | undefined
 }

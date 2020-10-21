@@ -20,28 +20,28 @@ export interface TenderResult {
    * Identifier
    * Cardinality: 0..1
    */
-  AwardID: [Identifier] | undefined
+  AwardID?: [Identifier] | undefined
 
   /**
    * A code signifying the result of the tendering process.
    * Code
    * Cardinality: 0..1
    */
-  TenderResultCode: [Code] | undefined
+  TenderResultCode?: [Code] | undefined
 
   /**
    * Text describing the result of the tendering process.
    * Text
    * Cardinality: 0..n
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 
   /**
-   * The monetary value of the advertisement for this tendering process. 
+   * The monetary value of the advertisement for this tendering process.
    * Amount
    * Cardinality: 0..1
    */
-  AdvertisementAmount: [Amount] | undefined
+  AdvertisementAmount?: [Amount] | undefined
 
   /**
    * The date on which this result was formalized.
@@ -55,82 +55,82 @@ export interface TenderResult {
    * Time
    * Cardinality: 0..1
    */
-  AwardTime: [Time] | undefined
+  AwardTime?: [Time] | undefined
 
   /**
    * The total number of tenders received in this tendering process.
    * Quantity
    * Cardinality: 0..1
    */
-  ReceivedTenderQuantity: [Quantity] | undefined
+  ReceivedTenderQuantity?: [Quantity] | undefined
 
   /**
    * The least expensive tender received in the tendering process.
    * Amount
    * Cardinality: 0..1
    */
-  LowerTenderAmount: [Amount] | undefined
+  LowerTenderAmount?: [Amount] | undefined
 
   /**
    * The most expensive tender received in this tendering process.
    * Amount
    * Cardinality: 0..1
    */
-  HigherTenderAmount: [Amount] | undefined
+  HigherTenderAmount?: [Amount] | undefined
 
   /**
    * The date on which the awarded contract begins.
    * Date
    * Cardinality: 0..1
    */
-  StartDate: [Date] | undefined
+  StartDate?: [Date] | undefined
 
   /**
    * The number of electronic tenders received.
    * Quantity
    * Cardinality: 0..1
    */
-  ReceivedElectronicTenderQuantity: [Quantity] | undefined
+  ReceivedElectronicTenderQuantity?: [Quantity] | undefined
 
   /**
    * The number of foreing tenders received.
    * Quantity
    * Cardinality: 0..1
    */
-  ReceivedForeignTenderQuantity: [Quantity] | undefined
+  ReceivedForeignTenderQuantity?: [Quantity] | undefined
 
   /**
    * A contract governing this tender result.
    * Contract
    * Cardinality: 0..1
    */
-  Contract: [Contract] | undefined
+  Contract?: [Contract] | undefined
 
   /**
    * The awarded tendered project associated with this tender result.
    * Tendered Project
    * Cardinality: 0..1
    */
-  AwardedTenderedProject: [TenderedProject] | undefined
+  AwardedTenderedProject?: [TenderedProject] | undefined
 
   /**
    * The period during which a contract associated with the awarded project is to be formalized.
    * Period
    * Cardinality: 0..1
    */
-  ContractFormalizationPeriod: [Period] | undefined
+  ContractFormalizationPeriod?: [Period] | undefined
 
   /**
    * Subcontract terms for this tender result.
    * Subcontract Terms
    * Cardinality: 0..n
    */
-  SubcontractTerms: Array<SubcontractTerms> | undefined
+  SubcontractTerms?: Array<SubcontractTerms> | undefined
 
   /**
    * A party that is identified as the awarded by a tender result.
    * Winning Party
    * Cardinality: 0..n
    */
-  WinningParty: Array<WinningParty> | undefined
+  WinningParty?: Array<WinningParty> | undefined
 }

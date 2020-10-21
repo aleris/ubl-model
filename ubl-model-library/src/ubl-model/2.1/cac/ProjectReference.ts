@@ -18,19 +18,19 @@ export interface ProjectReference {
    * Identifier
    * Cardinality: 0..1
    */
-  UUID: [Identifier] | undefined
+  UUID?: [Identifier] | undefined
 
   /**
    * The date on which the referenced project was issued.
    * Date
    * Cardinality: 0..1
    */
-  IssueDate: [Date] | undefined
+  IssueDate?: [Date] | undefined
 
   /**
    * A specific phase of work in the referenced project.
    * Work Phase Reference
    * Cardinality: 0..n
    */
-  WorkPhaseReference: Array<WorkPhaseReference> | undefined
+  WorkPhaseReference?: Array<WorkPhaseReference> | undefined
 }

@@ -12,7 +12,7 @@ export interface DocumentDistribution {
    * Code
    * Cardinality: 0..1
    */
-  DocumentTypeCode: [Code] | undefined
+  DocumentTypeCode?: [Code] | undefined
 
   /**
    * Text describing the interested party's distribution rights.
@@ -26,14 +26,14 @@ export interface DocumentDistribution {
    * Numeric
    * Cardinality: 0..1
    */
-  MaximumCopiesNumeric: [Numeric] | undefined
+  MaximumCopiesNumeric?: [Numeric] | undefined
 
   /**
    * The maximum number of printed originals of the document that the interested party is allowed to make.
    * Numeric
    * Cardinality: 0..1
    */
-  MaximumOriginalsNumeric: [Numeric] | undefined
+  MaximumOriginalsNumeric?: [Numeric] | undefined
 
   /**
    * The interested party to which the document should be distributed.

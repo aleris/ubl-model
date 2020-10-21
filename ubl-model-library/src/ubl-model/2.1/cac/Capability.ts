@@ -15,40 +15,40 @@ export interface Capability {
    * Code
    * Cardinality: 0..1
    */
-  CapabilityTypeCode: [Code] | undefined
+  CapabilityTypeCode?: [Code] | undefined
 
   /**
    * Text describing this capability.
    * Text
    * Cardinality: 0..n
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 
   /**
    * A monetary amount as a measure of this capability.
    * Amount
    * Cardinality: 0..1
    */
-  ValueAmount: [Amount] | undefined
+  ValueAmount?: [Amount] | undefined
 
   /**
    * A quantity as a measure of this capability.
    * Quantity
    * Cardinality: 0..1
    */
-  ValueQuantity: [Quantity] | undefined
+  ValueQuantity?: [Quantity] | undefined
 
   /**
    * The evidence that supports the capability claim.
    * Evidence Supplied
    * Cardinality: 0..n
    */
-  EvidenceSupplied: Array<EvidenceSupplied> | undefined
+  EvidenceSupplied?: Array<EvidenceSupplied> | undefined
 
   /**
    * The period of time for which this capability is (or has been) valid.
    * Period
    * Cardinality: 0..1
    */
-  ValidityPeriod: [Period] | undefined
+  ValidityPeriod?: [Period] | undefined
 }

@@ -16,21 +16,21 @@ export interface VerifiedGrossMass {
    * Identifier
    * Cardinality: 0..1
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * The weighing date.
    * Date
    * Cardinality: 0..1
    */
-  WeighingDate: [Date] | undefined
+  WeighingDate?: [Date] | undefined
 
   /**
    * The weighing time.
    * Time
    * Cardinality: 0..1
    */
-  WeighingTime: [Time] | undefined
+  WeighingTime?: [Time] | undefined
 
   /**
    * A code signifying the weighing method used (e.g. according the SOLAS Convention).
@@ -46,7 +46,7 @@ export interface VerifiedGrossMass {
    * Cardinality: 0..1
    * Examples: WeighScale-01
    */
-  WeighingDeviceID: [Identifier] | undefined
+  WeighingDeviceID?: [Identifier] | undefined
 
   /**
    * Text describing the weighing device type used for executing the weight measurement.
@@ -54,7 +54,7 @@ export interface VerifiedGrossMass {
    * Cardinality: 0..1
    * Examples: Truck Scale, Weighbridge
    */
-  WeighingDeviceType: [Text] | undefined
+  WeighingDeviceType?: [Text] | undefined
 
   /**
    * The total verified gross mass of a packed container which includes the cargo weight, block and bracing materials
@@ -70,7 +70,7 @@ export interface VerifiedGrossMass {
    * Party
    * Cardinality: 0..1
    */
-  WeighingParty: [Party] | undefined
+  WeighingParty?: [Party] | undefined
 
   /**
    * The party playing the role of the Shipper (BCO, FF or NVOCC) who is responsible for the VGM (e.g. according the
@@ -78,14 +78,14 @@ export interface VerifiedGrossMass {
    * Party
    * Cardinality: 0..1
    */
-  ShipperParty: [Party] | undefined
+  ShipperParty?: [Party] | undefined
 
   /**
    * The party responsible for signing the VGM on behalf of the Shipper.
    * Party
    * Cardinality: 0..1
    */
-  ResponsibleParty: [Party] | undefined
+  ResponsibleParty?: [Party] | undefined
 
   /**
    * A reference to the VGM documentary evidence.

@@ -20,7 +20,7 @@ export interface DigitalAgreement {
    * A container for all extensions present in the document.
    * Cardinality: 0..1
    */
-  UBLExtensions: [UBLExtensions] | undefined
+  UBLExtensions?: [UBLExtensions] | undefined
 
   /**
    * Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that
@@ -29,7 +29,7 @@ export interface DigitalAgreement {
    * Cardinality: 0..1
    * Examples: 2.2
    */
-  UBLVersionID: [Identifier] | undefined
+  UBLVersionID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined customization of UBL for a specific use.
@@ -37,7 +37,7 @@ export interface DigitalAgreement {
    * Cardinality: 0..1
    * Examples: EESPA
    */
-  CustomizationID: [Identifier] | undefined
+  CustomizationID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined profile of the customization of UBL being used.
@@ -45,7 +45,7 @@ export interface DigitalAgreement {
    * Cardinality: 0..1
    * Examples: BasicProcurementProcess
    */
-  ProfileID: [Identifier] | undefined
+  ProfileID?: [Identifier] | undefined
 
   /**
    * Identifies an instance of executing a profile, to associate all transactions in a collaboration.
@@ -53,7 +53,7 @@ export interface DigitalAgreement {
    * Cardinality: 0..1
    * Examples: BPP-1001
    */
-  ProfileExecutionID: [Identifier] | undefined
+  ProfileExecutionID?: [Identifier] | undefined
 
   /**
    * An identifier for this document, assigned by the sender.
@@ -67,7 +67,7 @@ export interface DigitalAgreement {
    * Identifier
    * Cardinality: 0..1
    */
-  UUID: [Identifier] | undefined
+  UUID?: [Identifier] | undefined
 
   /**
    * The date, assigned by the sender, on which this document was issued.
@@ -81,7 +81,7 @@ export interface DigitalAgreement {
    * Time
    * Cardinality: 0..1
    */
-  IssueTime: [Time] | undefined
+  IssueTime?: [Time] | undefined
 
   /**
    * A code signifying the type of digital agreement (e.g. bi-lateral, multi-lateral).
@@ -89,7 +89,7 @@ export interface DigitalAgreement {
    * Cardinality: 0..1
    * Examples: multi-lateral
    */
-  AgreementTypeCode: [Code] | undefined
+  AgreementTypeCode?: [Code] | undefined
 
   /**
    * Identifies the current version of this digital agreement.
@@ -105,7 +105,7 @@ export interface DigitalAgreement {
    * Cardinality: 0..1
    * Examples: 1
    */
-  PreviousVersionID: [Identifier] | undefined
+  PreviousVersionID?: [Identifier] | undefined
 
   /**
    * A code signifying the minimum response message level the parties are required to provide (e.g. EESPA response
@@ -114,21 +114,21 @@ export interface DigitalAgreement {
    * Cardinality: 0..1
    * Examples: RM2
    */
-  RequiredResponseMessageLevelCode: [Code] | undefined
+  RequiredResponseMessageLevelCode?: [Code] | undefined
 
   /**
    * A signature applied to this document.
    * Signature
    * Cardinality: 0..n
    */
-  Signature: Array<Signature> | undefined
+  Signature?: Array<Signature> | undefined
 
   /**
    * The party governing the agreement (e.g. a multi-lateral digital agreement).
    * Party
    * Cardinality: 0..1
    */
-  GovernorParty: [Party] | undefined
+  GovernorParty?: [Party] | undefined
 
   /**
    * The business parties agreeing on a set of digital processes, terms and conditions to ensure interoperability.
@@ -142,21 +142,21 @@ export interface DigitalAgreement {
    * Country
    * Cardinality: 0..n
    */
-  AgreementCountry: Array<Country> | undefined
+  AgreementCountry?: Array<Country> | undefined
 
   /**
    * A reference to a certification document required by this digital agreement.
    * Document Reference
    * Cardinality: 0..n
    */
-  RequiredCertificationDocumentReference: Array<DocumentReference> | undefined
+  RequiredCertificationDocumentReference?: Array<DocumentReference> | undefined
 
   /**
    * A reference to digital agreement terms and conditions.
    * Digital Agreement Terms
    * Cardinality: 0..1
    */
-  DigitalAgreementTerms: [DigitalAgreementTerms] | undefined
+  DigitalAgreementTerms?: [DigitalAgreementTerms] | undefined
 
   /**
    * The digital processes in scope of this digital agreement.

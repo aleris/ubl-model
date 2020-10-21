@@ -35,7 +35,7 @@ export interface ForecastException {
    * Time
    * Cardinality: 0..1
    */
-  IssueTime: [Time] | undefined
+  IssueTime?: [Time] | undefined
 
   /**
    * A code signifying the partner who provides this information.
@@ -49,19 +49,19 @@ export interface ForecastException {
    * Code
    * Cardinality: 0..1
    */
-  ComparisonDataCode: [Code] | undefined
+  ComparisonDataCode?: [Code] | undefined
 
   /**
    * The time at which this comparison forecast was issued.
    * Time
    * Cardinality: 0..1
    */
-  ComparisonForecastIssueTime: [Time] | undefined
+  ComparisonForecastIssueTime?: [Time] | undefined
 
   /**
    * The date on which this comparison forecast was issued.
    * Date
    * Cardinality: 0..1
    */
-  ComparisonForecastIssueDate: [Date] | undefined
+  ComparisonForecastIssueDate?: [Date] | undefined
 }

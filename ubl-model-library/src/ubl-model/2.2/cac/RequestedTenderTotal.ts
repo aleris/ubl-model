@@ -12,54 +12,54 @@ export interface RequestedTenderTotal {
    * Amount
    * Cardinality: 0..1
    */
-  EstimatedOverallContractAmount: [Amount] | undefined
+  EstimatedOverallContractAmount?: [Amount] | undefined
 
   /**
-   * The monetary amount of the total budget including net amount, taxes, and material and instalment costs. 
+   * The monetary amount of the total budget including net amount, taxes, and material and instalment costs.
    * Amount
    * Cardinality: 0..1
    */
-  TotalAmount: [Amount] | undefined
+  TotalAmount?: [Amount] | undefined
 
   /**
    * Indicates whether the amounts are taxes included (true) or not (false).
    * Indicator
    * Cardinality: 0..1
    */
-  TaxIncludedIndicator: [Indicator] | undefined
+  TaxIncludedIndicator?: [Indicator] | undefined
 
   /**
    * The minimum monetary amount of the budget.
    * Amount
    * Cardinality: 0..1
    */
-  MinimumAmount: [Amount] | undefined
+  MinimumAmount?: [Amount] | undefined
 
   /**
    * The maximum monetary amount of the budget.
    * Amount
    * Cardinality: 0..1
    */
-  MaximumAmount: [Amount] | undefined
+  MaximumAmount?: [Amount] | undefined
 
   /**
    * A description of the monetary scope of the budget.
    * Text
    * Cardinality: 0..n
    */
-  MonetaryScope: Array<Text> | undefined
+  MonetaryScope?: Array<Text> | undefined
 
   /**
    * The average monetary amount for the subsequent contracts following this budget amount.
    * Amount
    * Cardinality: 0..1
    */
-  AverageSubsequentContractAmount: [Amount] | undefined
+  AverageSubsequentContractAmount?: [Amount] | undefined
 
   /**
    * Describes the categories of taxes that apply to the budget amount.
    * Tax Category
    * Cardinality: 0..n
    */
-  ApplicableTaxCategory: Array<TaxCategory> | undefined
+  ApplicableTaxCategory?: Array<TaxCategory> | undefined
 }

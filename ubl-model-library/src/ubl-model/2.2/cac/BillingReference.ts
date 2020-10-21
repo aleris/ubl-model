@@ -10,54 +10,54 @@ export interface BillingReference {
    * Document Reference
    * Cardinality: 0..1
    */
-  InvoiceDocumentReference: [DocumentReference] | undefined
+  InvoiceDocumentReference?: [DocumentReference] | undefined
 
   /**
    * A reference to a self billed invoice.
    * Document Reference
    * Cardinality: 0..1
    */
-  SelfBilledInvoiceDocumentReference: [DocumentReference] | undefined
+  SelfBilledInvoiceDocumentReference?: [DocumentReference] | undefined
 
   /**
    * A reference to a credit note.
    * Document Reference
    * Cardinality: 0..1
    */
-  CreditNoteDocumentReference: [DocumentReference] | undefined
+  CreditNoteDocumentReference?: [DocumentReference] | undefined
 
   /**
    * A reference to a self billed credit note.
    * Document Reference
    * Cardinality: 0..1
    */
-  SelfBilledCreditNoteDocumentReference: [DocumentReference] | undefined
+  SelfBilledCreditNoteDocumentReference?: [DocumentReference] | undefined
 
   /**
    * A reference to a debit note.
    * Document Reference
    * Cardinality: 0..1
    */
-  DebitNoteDocumentReference: [DocumentReference] | undefined
+  DebitNoteDocumentReference?: [DocumentReference] | undefined
 
   /**
    * A reference to a billing reminder.
    * Document Reference
    * Cardinality: 0..1
    */
-  ReminderDocumentReference: [DocumentReference] | undefined
+  ReminderDocumentReference?: [DocumentReference] | undefined
 
   /**
    * A reference to an additional document.
    * Document Reference
    * Cardinality: 0..1
    */
-  AdditionalDocumentReference: [DocumentReference] | undefined
+  AdditionalDocumentReference?: [DocumentReference] | undefined
 
   /**
    * A reference to a transaction line in the billing document.
    * Billing Reference Line
    * Cardinality: 0..n
    */
-  BillingReferenceLine: Array<BillingReferenceLine> | undefined
+  BillingReferenceLine?: Array<BillingReferenceLine> | undefined
 }

@@ -16,36 +16,36 @@ export interface TaxCategory {
    * Cardinality: 0..1
    * Examples: http://www.unece.org/uncefact/codelist/standard/UNECE_DutyorTaxorFeeCategoryCode_D09B.xsd
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * The name of this tax category.
    * Name
    * Cardinality: 0..1
-   * Examples: Luxury Goods , Wine Equalization , Exempt 
+   * Examples: Luxury Goods , Wine Equalization , Exempt
    */
-  Name: [Text] | undefined
+  Name?: [Text] | undefined
 
   /**
    * The tax rate for this category, expressed as a percentage.
    * Percent
    * Cardinality: 0..1
    */
-  Percent: [Numeric] | undefined
+  Percent?: [Numeric] | undefined
 
   /**
    * A Unit of Measures used as the basic for the tax calculation applied at a certain rate per unit.
    * Measure
    * Cardinality: 0..1
    */
-  BaseUnitMeasure: [Measure] | undefined
+  BaseUnitMeasure?: [Measure] | undefined
 
   /**
    * Where a tax is applied at a certain rate per unit, the rate per unit applied.
    * Amount
    * Cardinality: 0..1
    */
-  PerUnitAmount: [Amount] | undefined
+  PerUnitAmount?: [Amount] | undefined
 
   /**
    * The reason for tax being exempted, expressed as a code.
@@ -53,14 +53,14 @@ export interface TaxCategory {
    * Cardinality: 0..1
    * Examples: http://www.unece.org/uncefact/codelist/standard/UNECE_DutyTaxFeeTypeCode_D09B.xsd
    */
-  TaxExemptionReasonCode: [Code] | undefined
+  TaxExemptionReasonCode?: [Code] | undefined
 
   /**
    * The reason for tax being exempted, expressed as text.
    * Text
    * Cardinality: 0..n
    */
-  TaxExemptionReason: Array<Text> | undefined
+  TaxExemptionReason?: Array<Text> | undefined
 
   /**
    * Where a tax is tiered, the range of taxable amounts that determines the rate of tax applicable to this tax
@@ -68,7 +68,7 @@ export interface TaxCategory {
    * Text
    * Cardinality: 0..1
    */
-  TierRange: [Text] | undefined
+  TierRange?: [Text] | undefined
 
   /**
    * Where a tax is tiered, the tax rate that applies within the specified range of taxable amounts for this tax
@@ -76,7 +76,7 @@ export interface TaxCategory {
    * Percent
    * Cardinality: 0..1
    */
-  TierRatePercent: [Numeric] | undefined
+  TierRatePercent?: [Numeric] | undefined
 
   /**
    * The taxation scheme within which this tax category is defined.

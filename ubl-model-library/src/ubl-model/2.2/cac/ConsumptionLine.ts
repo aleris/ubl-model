@@ -29,7 +29,7 @@ export interface ConsumptionLine {
    * Cardinality: 0..1
    * Examples: Consumption
    */
-  ParentDocumentLineReferenceID: [Identifier] | undefined
+  ParentDocumentLineReferenceID?: [Identifier] | undefined
 
   /**
    * The quantity invoiced.
@@ -50,28 +50,28 @@ export interface ConsumptionLine {
    * Period
    * Cardinality: 0..1
    */
-  Period: [Period] | undefined
+  Period?: [Period] | undefined
 
   /**
    * A delivery of the utility item on this consumption line.
    * Delivery
    * Cardinality: 0..n
    */
-  Delivery: Array<Delivery> | undefined
+  Delivery?: Array<Delivery> | undefined
 
   /**
    * An allowance or charge that applies to this consumption line.
    * Allowance Charge
    * Cardinality: 0..n
    */
-  AllowanceCharge: Array<AllowanceCharge> | undefined
+  AllowanceCharge?: Array<AllowanceCharge> | undefined
 
   /**
    * A total amount of taxes of a particular kind applicable to this consumption line.
    * Tax Total
    * Cardinality: 0..n
    */
-  TaxTotal: Array<TaxTotal> | undefined
+  TaxTotal?: Array<TaxTotal> | undefined
 
   /**
    * The utility item consumed.
@@ -85,7 +85,7 @@ export interface ConsumptionLine {
    * Price
    * Cardinality: 0..1
    */
-  Price: [Price] | undefined
+  Price?: [Price] | undefined
 
   /**
    * The price associated with this consumption line expressed in a less structured form that includes just the amount
@@ -93,5 +93,5 @@ export interface ConsumptionLine {
    * Unstructured Price
    * Cardinality: 0..1
    */
-  UnstructuredPrice: [UnstructuredPrice] | undefined
+  UnstructuredPrice?: [UnstructuredPrice] | undefined
 }

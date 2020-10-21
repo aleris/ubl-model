@@ -9,12 +9,12 @@ export interface ItemPropertyRange {
    * Text
    * Cardinality: 0..1
    */
-  MinimumValue: [Text] | undefined
+  MinimumValue?: [Text] | undefined
 
   /**
    * The maximum value in this range of values.
    * Text
    * Cardinality: 0..1
    */
-  MaximumValue: [Text] | undefined
+  MaximumValue?: [Text] | undefined
 }

@@ -23,7 +23,7 @@ export interface CataloguePricingUpdate {
    * A container for all extensions present in the document.
    * Cardinality: 0..1
    */
-  UBLExtensions: [UBLExtensions] | undefined
+  UBLExtensions?: [UBLExtensions] | undefined
 
   /**
    * Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that
@@ -32,7 +32,7 @@ export interface CataloguePricingUpdate {
    * Cardinality: 0..1
    * Examples: 2.0.5
    */
-  UBLVersionID: [Identifier] | undefined
+  UBLVersionID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined customization of UBL for a specific use.
@@ -40,7 +40,7 @@ export interface CataloguePricingUpdate {
    * Cardinality: 0..1
    * Examples: NES
    */
-  CustomizationID: [Identifier] | undefined
+  CustomizationID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined profile of the subset of UBL being used.
@@ -48,14 +48,14 @@ export interface CataloguePricingUpdate {
    * Cardinality: 0..1
    * Examples: BasicProcurementProcess
    */
-  ProfileID: [Identifier] | undefined
+  ProfileID?: [Identifier] | undefined
 
   /**
    * Identifies an instance of executing a profile, to associate all transactions in a collaboration.
    * Identifier
    * Cardinality: 0..1
    */
-  ProfileExecutionID: [Identifier] | undefined
+  ProfileExecutionID?: [Identifier] | undefined
 
   /**
    * An identifier for this document, assigned by the sender.
@@ -69,15 +69,15 @@ export interface CataloguePricingUpdate {
    * Identifier
    * Cardinality: 0..1
    */
-  UUID: [Identifier] | undefined
+  UUID?: [Identifier] | undefined
 
   /**
    * Text, assigned by the sender, that identifies this document to business users.
    * Name
    * Cardinality: 0..1
-   * Examples: Seasonal Promotion 
+   * Examples: Seasonal Promotion
    */
-  Name: [Text] | undefined
+  Name?: [Text] | undefined
 
   /**
    * The date, assigned by the sender, on which this document was issued.
@@ -91,21 +91,21 @@ export interface CataloguePricingUpdate {
    * Time
    * Cardinality: 0..1
    */
-  IssueTime: [Time] | undefined
+  IssueTime?: [Time] | undefined
 
   /**
    * The date, assigned by the seller, on which the Catalogue was revised.
    * Date
    * Cardinality: 0..1
    */
-  RevisionDate: [Date] | undefined
+  RevisionDate?: [Date] | undefined
 
   /**
    * The time, assigned by the seller, at which the Catalogue was revised.
    * Time
    * Cardinality: 0..1
    */
-  RevisionTime: [Time] | undefined
+  RevisionTime?: [Time] | undefined
 
   /**
    * Free-form text pertinent to this document, conveying information that is not contained explicitly in other
@@ -113,30 +113,30 @@ export interface CataloguePricingUpdate {
    * Text
    * Cardinality: 0..n
    */
-  Note: Array<Text> | undefined
+  Note?: Array<Text> | undefined
 
   /**
    * Describes the Catalogue Revision.
    * Text
    * Cardinality: 0..n
-   * Examples: adjustment of prices for Christmas trading period 
+   * Examples: adjustment of prices for Christmas trading period
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 
   /**
    * Indicates the current version of the catalogue.
    * Identifier
    * Cardinality: 0..1
-   * Examples: 1.1 
+   * Examples: 1.1
    */
-  VersionID: [Identifier] | undefined
+  VersionID?: [Identifier] | undefined
 
   /**
    * The number of lines in the document.
    * Numeric
    * Cardinality: 0..1
    */
-  LineCountNumeric: [Numeric] | undefined
+  LineCountNumeric?: [Numeric] | undefined
 
   /**
    * A period, assigned by the seller, during which the information in the Catalogue Revision is effective. This may be
@@ -144,7 +144,7 @@ export interface CataloguePricingUpdate {
    * Period
    * Cardinality: 0..n
    */
-  ValidityPeriod: Array<Period> | undefined
+  ValidityPeriod?: Array<Period> | undefined
 
   /**
    * A reference to the Catalogue being updated.
@@ -158,14 +158,14 @@ export interface CataloguePricingUpdate {
    * Contract
    * Cardinality: 0..n
    */
-  ReferencedContract: Array<Contract> | undefined
+  ReferencedContract?: Array<Contract> | undefined
 
   /**
    * A signature applied to this document.
    * Signature
    * Cardinality: 0..n
    */
-  Signature: Array<Signature> | undefined
+  Signature?: Array<Signature> | undefined
 
   /**
    * The party sending the Catalogue Pricing Update.
@@ -186,28 +186,28 @@ export interface CataloguePricingUpdate {
    * Supplier Party
    * Cardinality: 0..1
    */
-  SellerSupplierParty: [SupplierParty] | undefined
+  SellerSupplierParty?: [SupplierParty] | undefined
 
   /**
    * The customer party responsible for the contracts with which the Catalogue is associated.
    * Customer Party
    * Cardinality: 0..1
    */
-  ContractorCustomerParty: [CustomerParty] | undefined
+  ContractorCustomerParty?: [CustomerParty] | undefined
 
   /**
    * The trading terms associated with the Catalogue.
    * Trading Terms
    * Cardinality: 0..1
    */
-  TradingTerms: [TradingTerms] | undefined
+  TradingTerms?: [TradingTerms] | undefined
 
   /**
    * The default language for the catalogue pricing update.
    * Language
    * Cardinality: 0..1
    */
-  DefaultLanguage: [Language] | undefined
+  DefaultLanguage?: [Language] | undefined
 
   /**
    * One or more lines in the Catalogue Pricing Update, each line updating a specific catalogue item.

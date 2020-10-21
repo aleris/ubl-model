@@ -21,7 +21,7 @@ export interface PerformanceDataLine {
    * Text
    * Cardinality: 0..n
    */
-  Note: Array<Text> | undefined
+  Note?: Array<Text> | undefined
 
   /**
    * The value of the reported attribute.
@@ -42,12 +42,12 @@ export interface PerformanceDataLine {
    * Period
    * Cardinality: 0..1
    */
-  Period: [Period] | undefined
+  Period?: [Period] | undefined
 
   /**
    * The item whose performance is reported in this data line.
    * Item
    * Cardinality: 0..1
    */
-  Item: [Item] | undefined
+  Item?: [Item] | undefined
 }

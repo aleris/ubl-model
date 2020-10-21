@@ -10,12 +10,12 @@ export interface ContractingActivity {
    * Code
    * Cardinality: 0..1
    */
-  ActivityTypeCode: [Code] | undefined
+  ActivityTypeCode?: [Code] | undefined
 
   /**
    * The nature of the type of business of the organization, expressed as text.
    * Text
    * Cardinality: 0..1
    */
-  ActivityType: [Text] | undefined
+  ActivityType?: [Text] | undefined
 }

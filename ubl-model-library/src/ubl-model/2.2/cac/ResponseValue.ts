@@ -19,96 +19,96 @@ export interface ResponseValue {
    * Identifier
    * Cardinality: 0..1
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * A description of the response value to the criterion requirement.
    * Text
    * Cardinality: 0..n
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 
   /**
    * A text or name used as a reply to the criterion requirement.
    * Text
    * Cardinality: 0..n
    */
-  Response: Array<Text> | undefined
+  Response?: Array<Text> | undefined
 
   /**
    * An amount used as a reply to the criterion requirement.
    * Amount
    * Cardinality: 0..1
    */
-  ResponseAmount: [Amount] | undefined
+  ResponseAmount?: [Amount] | undefined
 
   /**
    * A binary graphic, picture, sound or video object used as a reply to the criterion requirement.
    * Binary Object
    * Cardinality: 0..1
    */
-  ResponseBinaryObject: [BinaryObject] | undefined
+  ResponseBinaryObject?: [BinaryObject] | undefined
 
   /**
    * A code used as a reply to the criterion requirement.
    * Code
    * Cardinality: 0..1
    */
-  ResponseCode: [Code] | undefined
+  ResponseCode?: [Code] | undefined
 
   /**
    * A date used as a reply to the criterion requirement.
    * Date
    * Cardinality: 0..1
    */
-  ResponseDate: [Date] | undefined
+  ResponseDate?: [Date] | undefined
 
   /**
    * An identifier used as a reply to the criterion requirement.
    * Identifier
    * Cardinality: 0..1
    */
-  ResponseID: [Identifier] | undefined
+  ResponseID?: [Identifier] | undefined
 
   /**
    * An indicator used as a reply to the criterion requirement.
    * Indicator
    * Cardinality: 0..1
    */
-  ResponseIndicator: [Indicator] | undefined
+  ResponseIndicator?: [Indicator] | undefined
 
   /**
    * A measure used as a reply to the criterion requirement.
    * Measure
    * Cardinality: 0..1
    */
-  ResponseMeasure: [Measure] | undefined
+  ResponseMeasure?: [Measure] | undefined
 
   /**
    * A number, rate or percent used as a reply to the criterion requirement.
    * Numeric
    * Cardinality: 0..1
    */
-  ResponseNumeric: [Numeric] | undefined
+  ResponseNumeric?: [Numeric] | undefined
 
   /**
    * A quantity used as a reply to the criterion requirement.
    * Quantity
    * Cardinality: 0..1
    */
-  ResponseQuantity: [Quantity] | undefined
+  ResponseQuantity?: [Quantity] | undefined
 
   /**
    * A time used as a reply to the criterion requirement.
    * Time
    * Cardinality: 0..1
    */
-  ResponseTime: [Time] | undefined
+  ResponseTime?: [Time] | undefined
 
   /**
    * A URI value used as a reply to the criterion requirement.
    * Identifier
    * Cardinality: 0..1
    */
-  ResponseURI: [Identifier] | undefined
+  ResponseURI?: [Identifier] | undefined
 }

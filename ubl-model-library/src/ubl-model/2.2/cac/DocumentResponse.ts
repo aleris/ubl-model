@@ -26,19 +26,19 @@ export interface DocumentResponse {
    * Party
    * Cardinality: 0..1
    */
-  IssuerParty: [Party] | undefined
+  IssuerParty?: [Party] | undefined
 
   /**
    * The party for which the document is intended.
    * Party
    * Cardinality: 0..1
    */
-  RecipientParty: [Party] | undefined
+  RecipientParty?: [Party] | undefined
 
   /**
    * A response to a particular line in the document.
    * Line Response
    * Cardinality: 0..n
    */
-  LineResponse: Array<LineResponse> | undefined
+  LineResponse?: Array<LineResponse> | undefined
 }

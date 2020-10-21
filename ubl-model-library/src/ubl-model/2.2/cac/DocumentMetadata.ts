@@ -11,7 +11,7 @@ export interface DocumentMetadata {
    * Identifier
    * Cardinality: 0..1
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * An identifier for the document format (e.g. standard business vocabularies).
@@ -36,12 +36,12 @@ export interface DocumentMetadata {
    * Cardinality: 0..1
    * Examples: urn:oasis:names:specification:ubl:schema:xsd:Invoice-2, INVOIC
    */
-  SchemaURI: [Identifier] | undefined
+  SchemaURI?: [Identifier] | undefined
 
   /**
    * The type of document, expressed as a code.
    * Code
    * Cardinality: 0..1
    */
-  DocumentTypeCode: [Code] | undefined
+  DocumentTypeCode?: [Code] | undefined
 }

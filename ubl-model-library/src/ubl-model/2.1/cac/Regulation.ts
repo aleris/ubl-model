@@ -18,12 +18,12 @@ export interface Regulation {
    * Cardinality: 0..1
    * Examples: Art. 45 2 b
    */
-  LegalReference: [Text] | undefined
+  LegalReference?: [Text] | undefined
 
   /**
    * The Uniform Resource Identifier (URI) of an ontology related to this regulation.
    * Identifier
    * Cardinality: 0..1
    */
-  OntologyURI: [Identifier] | undefined
+  OntologyURI?: [Identifier] | undefined
 }

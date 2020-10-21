@@ -32,7 +32,7 @@ export interface CertificateOfOriginApplication {
    * Code
    * Cardinality: 0..1
    */
-  ApplicationStatusCode: [Code] | undefined
+  ApplicationStatusCode?: [Code] | undefined
 
   /**
    * The latest job number given to the CoO application. This is used by the system to keep track of amendments to or
@@ -47,14 +47,14 @@ export interface CertificateOfOriginApplication {
    * Identifier
    * Cardinality: 0..1
    */
-  PreviousJobID: [Identifier] | undefined
+  PreviousJobID?: [Identifier] | undefined
 
   /**
    * Remarks by the applicant for the CoO.
    * Text
    * Cardinality: 0..n
    */
-  Remarks: Array<Text> | undefined
+  Remarks?: Array<Text> | undefined
 
   /**
    * The shipment of goods covered by the CoO.
@@ -91,7 +91,7 @@ export interface CertificateOfOriginApplication {
    * Cardinality: 0..1
    * Alternative business terms: Exporter (WCO ID 41 and 42)
    */
-  ExporterParty: [Party] | undefined
+  ExporterParty?: [Party] | undefined
 
   /**
    * The party making an import declaration, or on behalf of which a customs clearing agent or other authorized person
@@ -101,7 +101,7 @@ export interface CertificateOfOriginApplication {
    * Cardinality: 0..1
    * Alternative business terms: Importer (WCO ID 39 and 40)
    */
-  ImporterParty: [Party] | undefined
+  ImporterParty?: [Party] | undefined
 
   /**
    * The country where the requested CoO will be issued.
@@ -115,19 +115,19 @@ export interface CertificateOfOriginApplication {
    * Document Distribution
    * Cardinality: 0..n
    */
-  DocumentDistribution: Array<DocumentDistribution> | undefined
+  DocumentDistribution?: Array<DocumentDistribution> | undefined
 
   /**
    * A reference to a document supporting this application.
    * Document Reference
    * Cardinality: 0..n
    */
-  SupportingDocumentReference: Array<DocumentReference> | undefined
+  SupportingDocumentReference?: Array<DocumentReference> | undefined
 
   /**
    * A signature applied to this application.
    * Signature
    * Cardinality: 0..n
    */
-  Signature: Array<Signature> | undefined
+  Signature?: Array<Signature> | undefined
 }

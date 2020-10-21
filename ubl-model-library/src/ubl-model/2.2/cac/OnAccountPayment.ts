@@ -20,7 +20,7 @@ export interface OnAccountPayment {
    * Examples: We make a reservation for price regulations. You will receive you next yearly statement about one year
    * Examples: from today.
    */
-  Note: Array<Text> | undefined
+  Note?: Array<Text> | undefined
 
   /**
    * A specification of payment terms associated with this payment.

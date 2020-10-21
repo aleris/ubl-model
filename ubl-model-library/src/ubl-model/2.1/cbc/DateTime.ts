@@ -11,5 +11,5 @@ export interface DateTime {
    * The format of the date time content
    * Text
    */
-  DateTimeFormat: string | undefined
+  DateTimeFormat?: string | undefined
 }

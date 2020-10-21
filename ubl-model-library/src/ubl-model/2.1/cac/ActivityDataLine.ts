@@ -29,21 +29,21 @@ export interface ActivityDataLine {
    * Customer Party
    * Cardinality: 0..1
    */
-  BuyerCustomerParty: [CustomerParty] | undefined
+  BuyerCustomerParty?: [CustomerParty] | undefined
 
   /**
    * The seller of the item.
    * Supplier Party
    * Cardinality: 0..1
    */
-  SellerSupplierParty: [SupplierParty] | undefined
+  SellerSupplierParty?: [SupplierParty] | undefined
 
   /**
    * The period during which the activity is realized.
    * Period
    * Cardinality: 0..1
    */
-  ActivityPeriod: [Period] | undefined
+  ActivityPeriod?: [Period] | undefined
 
   /**
    * Either the location where the movement of goods is observed or the location from which the goods are moved.
@@ -57,7 +57,7 @@ export interface ActivityDataLine {
    * Location
    * Cardinality: 0..1
    */
-  ActivityFinalLocation: [Location] | undefined
+  ActivityFinalLocation?: [Location] | undefined
 
   /**
    * Sales information for an item to which this line applies.

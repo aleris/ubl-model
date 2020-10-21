@@ -11,12 +11,12 @@ export interface Clause {
    * Identifier
    * Cardinality: 0..1
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * The text of this clause.
    * Text
    * Cardinality: 0..n
    */
-  Content: Array<Text> | undefined
+  Content?: Array<Text> | undefined
 }

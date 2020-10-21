@@ -13,35 +13,35 @@ export interface TaxScheme {
    * Cardinality: 0..1
    * Examples: http://www.unece.org/uncefact/codelist/standard/EDIFICASEU_TaxExemptionReason_D09B.xsd
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * The name of this taxation scheme.
    * Name
    * Cardinality: 0..1
-   * Examples: Value Added Tax , Wholesale Tax , Sales Tax , State Tax 
+   * Examples: Value Added Tax , Wholesale Tax , Sales Tax , State Tax
    */
-  Name: [Text] | undefined
+  Name?: [Text] | undefined
 
   /**
    * A code signifying the type of tax.
    * Code
    * Cardinality: 0..1
-   * Examples: Consumption , Sales 
+   * Examples: Consumption , Sales
    */
-  TaxTypeCode: [Code] | undefined
+  TaxTypeCode?: [Code] | undefined
 
   /**
    * A code signifying the currency in which the tax is collected and reported.
    * Code
    * Cardinality: 0..1
    */
-  CurrencyCode: [Code] | undefined
+  CurrencyCode?: [Code] | undefined
 
   /**
    * A geographic area in which this taxation scheme applies.
    * Address
    * Cardinality: 0..n
    */
-  JurisdictionRegionAddress: Array<Address> | undefined
+  JurisdictionRegionAddress?: Array<Address> | undefined
 }

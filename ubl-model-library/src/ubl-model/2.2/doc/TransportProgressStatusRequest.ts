@@ -18,7 +18,7 @@ export interface TransportProgressStatusRequest {
    * A container for all extensions present in the document.
    * Cardinality: 0..1
    */
-  UBLExtensions: [UBLExtensions] | undefined
+  UBLExtensions?: [UBLExtensions] | undefined
 
   /**
    * Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that
@@ -26,28 +26,28 @@ export interface TransportProgressStatusRequest {
    * Identifier
    * Cardinality: 0..1
    */
-  UBLVersionID: [Identifier] | undefined
+  UBLVersionID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined customization of UBL for a specific use.
    * Identifier
    * Cardinality: 0..1
    */
-  CustomizationID: [Identifier] | undefined
+  CustomizationID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined profile of the customization of UBL being used.
    * Identifier
    * Cardinality: 0..1
    */
-  ProfileID: [Identifier] | undefined
+  ProfileID?: [Identifier] | undefined
 
   /**
    * Identifies an instance of executing a profile, to associate all transactions in a collaboration.
    * Identifier
    * Cardinality: 0..1
    */
-  ProfileExecutionID: [Identifier] | undefined
+  ProfileExecutionID?: [Identifier] | undefined
 
   /**
    * An identifier for this document, assigned by the sender.
@@ -61,14 +61,14 @@ export interface TransportProgressStatusRequest {
    * Indicator
    * Cardinality: 0..1
    */
-  CopyIndicator: [Indicator] | undefined
+  CopyIndicator?: [Indicator] | undefined
 
   /**
    * A universally unique identifier for an instance of this document.
    * Identifier
    * Cardinality: 0..1
    */
-  UUID: [Identifier] | undefined
+  UUID?: [Identifier] | undefined
 
   /**
    * The date, assigned by the sender, on which this document was issued.
@@ -90,28 +90,28 @@ export interface TransportProgressStatusRequest {
    * Text
    * Cardinality: 0..n
    */
-  Note: Array<Text> | undefined
+  Note?: Array<Text> | undefined
 
   /**
    * A signature applied to this document.
    * Signature
    * Cardinality: 0..n
    */
-  Signature: Array<Signature> | undefined
+  Signature?: Array<Signature> | undefined
 
   /**
    * The party sending the Transport Progress Status Request.
    * Party
    * Cardinality: 0..1
    */
-  SenderParty: [Party] | undefined
+  SenderParty?: [Party] | undefined
 
   /**
    * The party receiving the Transport Progress Status Request.
    * Party
    * Cardinality: 0..1
    */
-  ReceiverParty: [Party] | undefined
+  ReceiverParty?: [Party] | undefined
 
   /**
    * The transport means by which the current transport service is effectuated and for which status is requested.
@@ -125,5 +125,5 @@ export interface TransportProgressStatusRequest {
    * Location
    * Cardinality: 0..n
    */
-  StatusLocation: Array<Location> | undefined
+  StatusLocation?: Array<Location> | undefined
 }

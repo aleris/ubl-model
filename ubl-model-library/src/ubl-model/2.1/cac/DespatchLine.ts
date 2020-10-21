@@ -23,63 +23,63 @@ export interface DespatchLine {
    * Identifier
    * Cardinality: 0..1
    */
-  UUID: [Identifier] | undefined
+  UUID?: [Identifier] | undefined
 
   /**
    * Free-form text conveying information that is not contained explicitly in other structures.
    * Text
    * Cardinality: 0..n
    */
-  Note: Array<Text> | undefined
+  Note?: Array<Text> | undefined
 
   /**
    * A code signifying the status of this despatch line with respect to its original state.
    * Code
    * Cardinality: 0..1
    */
-  LineStatusCode: [Code] | undefined
+  LineStatusCode?: [Code] | undefined
 
   /**
    * The quantity despatched (picked up).
    * Quantity
    * Cardinality: 0..1
    */
-  DeliveredQuantity: [Quantity] | undefined
+  DeliveredQuantity?: [Quantity] | undefined
 
   /**
    * The quantity on back order at the supplier.
    * Quantity
    * Cardinality: 0..1
    */
-  BackorderQuantity: [Quantity] | undefined
+  BackorderQuantity?: [Quantity] | undefined
 
   /**
    * The reason for the back order.
    * Text
    * Cardinality: 0..n
    */
-  BackorderReason: Array<Text> | undefined
+  BackorderReason?: Array<Text> | undefined
 
   /**
    * The quantity outstanding (which will follow in a later despatch).
    * Quantity
    * Cardinality: 0..1
    */
-  OutstandingQuantity: [Quantity] | undefined
+  OutstandingQuantity?: [Quantity] | undefined
 
   /**
    * The reason for the outstanding quantity.
    * Text
    * Cardinality: 0..n
    */
-  OutstandingReason: Array<Text> | undefined
+  OutstandingReason?: Array<Text> | undefined
 
   /**
    * The quantity over-supplied, i.e., the quantity over and above that ordered.
    * Quantity
    * Cardinality: 0..1
    */
-  OversupplyQuantity: [Quantity] | undefined
+  OversupplyQuantity?: [Quantity] | undefined
 
   /**
    * A reference to an order line associated with this despatch line.
@@ -93,7 +93,7 @@ export interface DespatchLine {
    * Document Reference
    * Cardinality: 0..n
    */
-  DocumentReference: Array<DocumentReference> | undefined
+  DocumentReference?: Array<DocumentReference> | undefined
 
   /**
    * The item associated with this despatch line.
@@ -107,5 +107,5 @@ export interface DespatchLine {
    * Shipment
    * Cardinality: 0..n
    */
-  Shipment: Array<Shipment> | undefined
+  Shipment?: Array<Shipment> | undefined
 }

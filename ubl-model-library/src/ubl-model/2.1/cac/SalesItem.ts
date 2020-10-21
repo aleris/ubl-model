@@ -19,21 +19,21 @@ export interface SalesItem {
    * Activity Property
    * Cardinality: 0..n
    */
-  ActivityProperty: Array<ActivityProperty> | undefined
+  ActivityProperty?: Array<ActivityProperty> | undefined
 
   /**
    * A price for this sales item, exclusive of tax.
    * Price
    * Cardinality: 0..n
    */
-  TaxExclusivePrice: Array<Price> | undefined
+  TaxExclusivePrice?: Array<Price> | undefined
 
   /**
    * A price for this sales item, including tax.
    * Price
    * Cardinality: 0..n
    */
-  TaxInclusivePrice: Array<Price> | undefined
+  TaxInclusivePrice?: Array<Price> | undefined
 
   /**
    * The sales item itself.

@@ -21,7 +21,7 @@ export interface GoodsItemItinerary {
    * A container for all extensions present in the document.
    * Cardinality: 0..1
    */
-  UBLExtensions: [UBLExtensions] | undefined
+  UBLExtensions?: [UBLExtensions] | undefined
 
   /**
    * Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that
@@ -29,28 +29,28 @@ export interface GoodsItemItinerary {
    * Identifier
    * Cardinality: 0..1
    */
-  UBLVersionID: [Identifier] | undefined
+  UBLVersionID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined customization of UBL for a specific use.
    * Identifier
    * Cardinality: 0..1
    */
-  CustomizationID: [Identifier] | undefined
+  CustomizationID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined profile of the customization of UBL being used.
    * Identifier
    * Cardinality: 0..1
    */
-  ProfileID: [Identifier] | undefined
+  ProfileID?: [Identifier] | undefined
 
   /**
    * Identifies an instance of executing a profile, to associate all transactions in a collaboration.
    * Identifier
    * Cardinality: 0..1
    */
-  ProfileExecutionID: [Identifier] | undefined
+  ProfileExecutionID?: [Identifier] | undefined
 
   /**
    * An identifier for this document, assigned by the sender.
@@ -64,14 +64,14 @@ export interface GoodsItemItinerary {
    * Indicator
    * Cardinality: 0..1
    */
-  CopyIndicator: [Indicator] | undefined
+  CopyIndicator?: [Indicator] | undefined
 
   /**
    * A universally unique identifier for an instance of this document.
    * Identifier
    * Cardinality: 0..1
    */
-  UUID: [Identifier] | undefined
+  UUID?: [Identifier] | undefined
 
   /**
    * The date, assigned by the sender, on which this document was issued.
@@ -93,7 +93,7 @@ export interface GoodsItemItinerary {
    * Text
    * Cardinality: 0..n
    */
-  Note: Array<Text> | undefined
+  Note?: Array<Text> | undefined
 
   /**
    * Identifies a version of a Goods Item Itinerary in order to distinguish updates.
@@ -114,49 +114,49 @@ export interface GoodsItemItinerary {
    * Signature
    * Cardinality: 0..n
    */
-  Signature: Array<Signature> | undefined
+  Signature?: Array<Signature> | undefined
 
   /**
    * The sender of this Goods Item Itinerary.
    * Party
    * Cardinality: 0..1
    */
-  SenderParty: [Party] | undefined
+  SenderParty?: [Party] | undefined
 
   /**
    * The receiver of this Goods Item Itinerary.
    * Party
    * Cardinality: 0..1
    */
-  ReceiverParty: [Party] | undefined
+  ReceiverParty?: [Party] | undefined
 
   /**
    * A consignment being transported in the transport service associated with this Goods Item Itinerary.
    * Consignment
    * Cardinality: 0..n
    */
-  ReferencedConsignment: Array<Consignment> | undefined
+  ReferencedConsignment?: Array<Consignment> | undefined
 
   /**
    * Transport equipment being transported in the transport service associated with this Goods Item Itinerary.
    * Transport Equipment
    * Cardinality: 0..n
    */
-  ReferencedTransportEquipment: Array<TransportEquipment> | undefined
+  ReferencedTransportEquipment?: Array<TransportEquipment> | undefined
 
   /**
    * A package being transported in the transport service associated with this Goods Item Itinerary.
    * Package
    * Cardinality: 0..n
    */
-  ReferencedPackage: Array<Package> | undefined
+  ReferencedPackage?: Array<Package> | undefined
 
   /**
    * An item of goods being transported in the transport service associated with this Goods Item Itinerary.
    * Goods Item
    * Cardinality: 0..n
    */
-  ReferencedGoodsItem: Array<GoodsItem> | undefined
+  ReferencedGoodsItem?: Array<GoodsItem> | undefined
 
   /**
    * A part of a transport service that has its own Transport Execution Plan. A Transportation Segment may cover

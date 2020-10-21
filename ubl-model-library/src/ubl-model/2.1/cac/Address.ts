@@ -15,66 +15,66 @@ export interface Address {
    * Cardinality: 0..1
    * Alternative business terms: DetailsKey
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * A mutually agreed code signifying the type of this address.
    * Code
    * Cardinality: 0..1
    */
-  AddressTypeCode: [Code] | undefined
+  AddressTypeCode?: [Code] | undefined
 
   /**
    * A mutually agreed code signifying the format of this address.
    * Code
    * Cardinality: 0..1
    */
-  AddressFormatCode: [Code] | undefined
+  AddressFormatCode?: [Code] | undefined
 
   /**
    * A post office box number registered for postal delivery by a postal service provider.
    * Text
    * Cardinality: 0..1
    * Alternative business terms: PostBox, PO Box
-   * Examples: 123 
+   * Examples: 123
    */
-  Postbox: [Text] | undefined
+  Postbox?: [Text] | undefined
 
   /**
    * An identifiable floor of a building.
    * Text
    * Cardinality: 0..1
    * Alternative business terms: SubPremiseNumber
-   * Examples: 30 
+   * Examples: 30
    */
-  Floor: [Text] | undefined
+  Floor?: [Text] | undefined
 
   /**
    * An identifiable room, suite, or apartment of a building.
    * Text
    * Cardinality: 0..1
    * Alternative business terms: SubPremiseNumber
-   * Examples: Reception 
+   * Examples: Reception
    */
-  Room: [Text] | undefined
+  Room?: [Text] | undefined
 
   /**
    * The name of the street, road, avenue, way, etc. to which the number of the building is attached.
    * Name
    * Cardinality: 0..1
    * Alternative business terms: Thoroughfare
-   * Examples: Kwun Tong Road 
+   * Examples: Kwun Tong Road
    */
-  StreetName: [Text] | undefined
+  StreetName?: [Text] | undefined
 
   /**
    * An additional street name used to further clarify the address.
    * Name
    * Cardinality: 0..1
    * Alternative business terms: Thoroughfare
-   * Examples: Cnr Aberdeen Road 
+   * Examples: Cnr Aberdeen Road
    */
-  AdditionalStreetName: [Text] | undefined
+  AdditionalStreetName?: [Text] | undefined
 
   /**
    * The name of the block (an area surrounded by streets and usually containing several buildings) in which this
@@ -83,25 +83,25 @@ export interface Address {
    * Cardinality: 0..1
    * Examples: Seabird
    */
-  BlockName: [Text] | undefined
+  BlockName?: [Text] | undefined
 
   /**
    * The name of a building.
    * Name
    * Cardinality: 0..1
    * Alternative business terms: BuildingName
-   * Examples: Plot 421 
+   * Examples: Plot 421
    */
-  BuildingName: [Text] | undefined
+  BuildingName?: [Text] | undefined
 
   /**
    * The number of a building within the street.
    * Text
    * Cardinality: 0..1
    * Alternative business terms: PremiseNumber
-   * Examples: 388 
+   * Examples: 388
    */
-  BuildingNumber: [Text] | undefined
+  BuildingNumber?: [Text] | undefined
 
   /**
    * The specific identifable location within a building where mail is delivered.
@@ -109,16 +109,16 @@ export interface Address {
    * Cardinality: 0..1
    * Alternative business terms: MailStop
    */
-  InhouseMail: [Text] | undefined
+  InhouseMail?: [Text] | undefined
 
   /**
    * The department of the addressee.
    * Text
    * Cardinality: 0..1
    * Alternative business terms: Department
-   * Examples: Accounts Payable 
+   * Examples: Accounts Payable
    */
-  Department: [Text] | undefined
+  Department?: [Text] | undefined
 
   /**
    * The name, expressed as text, of a person or department in an organization to whose attention incoming mail is
@@ -126,7 +126,7 @@ export interface Address {
    * Text
    * Cardinality: 0..1
    */
-  MarkAttention: [Text] | undefined
+  MarkAttention?: [Text] | undefined
 
   /**
    * The name, expressed as text, of a person or organization at this address into whose care incoming mail is
@@ -134,14 +134,14 @@ export interface Address {
    * Text
    * Cardinality: 0..1
    */
-  MarkCare: [Text] | undefined
+  MarkCare?: [Text] | undefined
 
   /**
    * An identifier (e.g., a parcel number) for the piece of land associated with this address.
    * Text
    * Cardinality: 0..1
    */
-  PlotIdentification: [Text] | undefined
+  PlotIdentification?: [Text] | undefined
 
   /**
    * The name of the subdivision of a city, town, or village in which this address is located, such as the name of its
@@ -149,16 +149,16 @@ export interface Address {
    * Name
    * Cardinality: 0..1
    */
-  CitySubdivisionName: [Text] | undefined
+  CitySubdivisionName?: [Text] | undefined
 
   /**
    * The name of a city, town, or village.
    * Name
    * Cardinality: 0..1
    * Alternative business terms: LocalityName
-   * Examples: Hong Kong 
+   * Examples: Hong Kong
    */
-  CityName: [Text] | undefined
+  CityName?: [Text] | undefined
 
   /**
    * The postal identifier for this address according to the relevant national postal service, such as a ZIP code or
@@ -166,9 +166,9 @@ export interface Address {
    * Text
    * Cardinality: 0..1
    * Alternative business terms: PostalCodeNumber
-   * Examples: SW11 4EW 2500 GG 
+   * Examples: SW11 4EW 2500 GG
    */
-  PostalZone: [Text] | undefined
+  PostalZone?: [Text] | undefined
 
   /**
    * The political or administrative division of a country in which this address is located, such as the name of its
@@ -176,9 +176,9 @@ export interface Address {
    * Text
    * Cardinality: 0..1
    * Alternative business terms: AdministrativeArea, State, Country, Shire, Canton
-   * Examples: Florida , Tamilnadu 
+   * Examples: Florida , Tamilnadu
    */
-  CountrySubentity: [Text] | undefined
+  CountrySubentity?: [Text] | undefined
 
   /**
    * The political or administrative division of a country in which this address is located, such as a county, province,
@@ -187,53 +187,53 @@ export interface Address {
    * Cardinality: 0..1
    * Alternative business terms: AdministrativeAreaCode, State Code
    */
-  CountrySubentityCode: [Code] | undefined
+  CountrySubentityCode?: [Code] | undefined
 
   /**
    * The recognized geographic or economic region or group of countries in which this address is located.
    * Text
    * Cardinality: 0..1
    * Alternative business terms: LocalityName, Economic Zone
-   * Examples: European Union 
+   * Examples: European Union
    */
-  Region: [Text] | undefined
+  Region?: [Text] | undefined
 
   /**
    * The district or geographical division of a country or region in which this address is located.
    * Text
    * Cardinality: 0..1
    * Alternative business terms: LocalityName, Area
-   * Examples: East Coast 
+   * Examples: East Coast
    */
-  District: [Text] | undefined
+  District?: [Text] | undefined
 
   /**
    * The time zone in which this address is located (as an offset from Universal Coordinated Time (UTC)) at the time of
    * exchange.
    * Text
    * Cardinality: 0..1
-   * Examples: +8:00 -3:00 
+   * Examples: +8:00 -3:00
    */
-  TimezoneOffset: [Text] | undefined
+  TimezoneOffset?: [Text] | undefined
 
   /**
    * An unstructured address line.
    * Address Line
    * Cardinality: 0..n
    */
-  AddressLine: Array<AddressLine> | undefined
+  AddressLine?: Array<AddressLine> | undefined
 
   /**
    * The country in which this address is situated.
    * Country
    * Cardinality: 0..1
    */
-  Country: [Country] | undefined
+  Country?: [Country] | undefined
 
   /**
    * The geographical coordinates of this address.
    * Location Coordinate
    * Cardinality: 0..n
    */
-  LocationCoordinate: Array<LocationCoordinate> | undefined
+  LocationCoordinate?: Array<LocationCoordinate> | undefined
 }

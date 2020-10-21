@@ -12,19 +12,19 @@ export interface ContractingSystem {
    * Identifier
    * Cardinality: 0..1
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
-   * A code signifying the type of contracting system (e.g., framework agreement, dynamic purchasing system). 
+   * A code signifying the type of contracting system (e.g., framework agreement, dynamic purchasing system).
    * Code
    * Cardinality: 0..1
    */
-  ContractingSystemTypeCode: [Code] | undefined
+  ContractingSystemTypeCode?: [Code] | undefined
 
   /**
    * The description of the contracting system
    * Text
    * Cardinality: 0..n
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 }

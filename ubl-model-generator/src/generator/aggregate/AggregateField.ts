@@ -1,6 +1,6 @@
 import {
-  formatLongComment,
-  MAX_LINE_LENGTH
+  formatComment,
+  getMinOccurOptionalProps, singleQuoteEscape
 } from '../type-gen-utils'
 import { Documentation } from '../Documentation'
 import { PrefixedName } from '../PrefixedName'
@@ -8,6 +8,7 @@ import { TypeResolver } from '../TypeResolver'
 import { UblModule } from '../UblModule'
 
 export class AggregateField {
+  public readonly fieldName: String
   public readonly resolvedType: PrefixedName
 
   constructor(
@@ -17,6 +18,7 @@ export class AggregateField {
     public readonly maxOccurs: string,
     public readonly documentation: Documentation
   ) {
+    this.fieldName = PrefixedName.extractNameWithoutPrefix(ref)
     this.resolvedType = this.typeResolver.resolveTypeByPrefixedName(new PrefixedName(this.ref))
   }
 
@@ -33,44 +35,63 @@ export class AggregateField {
     )
   }
 
-  asImportString(contextModule: UblModule) {
+  asImportString(contextModule: UblModule, contextPath: string = '') {
     const prefix = this.resolvedType.prefix
     const type = this.resolvedType.name
 
     if (prefix === contextModule) {
-      return `import { ${type} } from './${type}'`
+      return `import { ${type} } from './${contextPath}${type}'`
     } else {
-      return `import { ${type} } from '../${prefix}/${type}'`
+      return `import { ${type} } from '../${contextPath}${prefix}/${type}'`
     }
   }
 
   asCodeString() {
-    const fieldName = PrefixedName.extractNameWithoutPrefix(this.ref)
     const typeAsArray = this.maxOccurs === '1' ? `[${this.resolvedType.name}]` : `Array<${this.resolvedType.name}>`
-    const optional = this.minOccur === '0' ? ' | undefined' : ''
-    const cardinality = this.getCardinalityWithFallback()
+    const { optionalField, optionalUndefined } = getMinOccurOptionalProps(this.minOccur)
+    const cardinality = this.getCardinalityWithFallbackToOccur()
     return `  /**${
-      formatLongComment('   * ', MAX_LINE_LENGTH, this.documentation.definition)
+      formatComment('   * ', this.documentation.definition)
     }${
-      formatLongComment('   * ', MAX_LINE_LENGTH, this.documentation.representationTerm)
+      formatComment('   * ', this.documentation.representationTerm)
     }
    * Cardinality: ${
       cardinality
     }${
-      formatLongComment('   * Alternative business terms: ', MAX_LINE_LENGTH, this.documentation.alternativeBusinessTerms)
+      formatComment('   * Alternative business terms: ', this.documentation.alternativeBusinessTerms)
     }${
-      formatLongComment('   * Examples: ', MAX_LINE_LENGTH, this.documentation.examples)
+      formatComment('   * Examples: ', this.documentation.examples)
     }
    */
-  ${fieldName}: ${typeAsArray}${optional}`
+  ${this.fieldName}${optionalField}: ${typeAsArray}${optionalUndefined}`
   }
 
-  private getCardinalityWithFallback() {
+  asFieldMetaCodeString(containingTypeName: String) {
+    return `export const ${containingTypeName}FieldMeta${this.fieldName} = new FieldMeta<${containingTypeName}Field>(
+  ${containingTypeName}Field.${this.fieldName},
+  '${this.fieldName}',
+  '${this.getPropertyTermWithFallbackToName()}',
+  '${this.resolvedType.name}',
+  ${singleQuoteEscape(this.documentation.definition)},
+  '${this.getCardinalityWithFallbackToOccur()}',
+  ${this.documentation.alternativeBusinessTerms ? singleQuoteEscape(this.documentation.alternativeBusinessTerms) : 'undefined'},
+  ${this.documentation.examples ? singleQuoteEscape(this.documentation.examples) : 'undefined'}
+)`
+  }
+
+  private getCardinalityWithFallbackToOccur() {
     if (this.documentation.cardinality !== undefined) {
       return this.documentation.cardinality
     }
 
     const max = this.maxOccurs === 'unbounded' ? 'n' : this.maxOccurs
     return `${this.minOccur}..${max}`
+  }
+
+  private getPropertyTermWithFallbackToName() {
+    if (this.documentation.propertyTerm !== undefined) {
+      return this.documentation.propertyTerm
+    }
+    return this.documentation.propertyTermName
   }
 }

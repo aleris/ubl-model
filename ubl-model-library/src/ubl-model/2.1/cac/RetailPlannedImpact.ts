@@ -33,5 +33,5 @@ export interface RetailPlannedImpact {
    * Period
    * Cardinality: 0..1
    */
-  Period: [Period] | undefined
+  Period?: [Period] | undefined
 }

@@ -24,7 +24,7 @@ export interface CatalogueLine {
    * An identifier for the line in the catalogue.
    * Identifier
    * Cardinality: 1
-   * Examples: 1 
+   * Examples: 1
    */
   ID: [Identifier]
 
@@ -32,32 +32,32 @@ export interface CatalogueLine {
    * A code signifying the action required to synchronize this catalogue line. Recommend codes (delete, update, add)
    * Code
    * Cardinality: 0..1
-   * Examples: Replace , Update , Delete , Add 
+   * Examples: Replace , Update , Delete , Add
    */
-  ActionCode: [Code] | undefined
+  ActionCode?: [Code] | undefined
 
   /**
    * A code signifying the life cycle status of this catalogue line. Examples are pre-order, end of production
    * Code
    * Cardinality: 0..1
-   * Examples: new - announcement only , new and available , deleted - announcement only 
+   * Examples: new - announcement only , new and available , deleted - announcement only
    */
-  LifeCycleStatusCode: [Code] | undefined
+  LifeCycleStatusCode?: [Code] | undefined
 
   /**
    * A subdivision of a contract or tender covering this catalogue line.
    * Text
    * Cardinality: 0..1
-   * Examples: Installation , Phase One , Support and Maintenance 
+   * Examples: Installation , Phase One , Support and Maintenance
    */
-  ContractSubdivision: [Text] | undefined
+  ContractSubdivision?: [Text] | undefined
 
   /**
    * Free-form text conveying information that is not contained explicitly in other structures.
    * Text
    * Cardinality: 0..n
    */
-  Note: Array<Text> | undefined
+  Note?: Array<Text> | undefined
 
   /**
    * An indicator that this catalogue line describes an orderable item (true) or is included for reference purposes only
@@ -66,14 +66,14 @@ export interface CatalogueLine {
    * Cardinality: 0..1
    * Examples: TRUE means orderable, FALSE means not orderable
    */
-  OrderableIndicator: [Indicator] | undefined
+  OrderableIndicator?: [Indicator] | undefined
 
   /**
    * A textual description of the units in which the item described in this catalogue line can be ordered.
    * Text
    * Cardinality: 0..1
    */
-  OrderableUnit: [Text] | undefined
+  OrderableUnit?: [Text] | undefined
 
   /**
    * The numeric quantity of the ordering unit (and units of measure) of the catalogue line.
@@ -81,30 +81,30 @@ export interface CatalogueLine {
    * Cardinality: 0..1
    * Examples: If order unit measure identifier is each , then content unit quantity is 1 .
    */
-  ContentUnitQuantity: [Quantity] | undefined
+  ContentUnitQuantity?: [Quantity] | undefined
 
   /**
    * The number of items that can set the order quantity increments.
    * Numeric
    * Cardinality: 0..1
    */
-  OrderQuantityIncrementNumeric: [Numeric] | undefined
+  OrderQuantityIncrementNumeric?: [Numeric] | undefined
 
   /**
    * The minimum amount of the item described in this catalogue line that can be ordered.
    * Quantity
    * Cardinality: 0..1
-   * Examples: 10 boxes 
+   * Examples: 10 boxes
    */
-  MinimumOrderQuantity: [Quantity] | undefined
+  MinimumOrderQuantity?: [Quantity] | undefined
 
   /**
    * The maximum amount of the item described in this catalogue line that can be ordered.
    * Quantity
    * Cardinality: 0..1
-   * Examples: 1 tonne 
+   * Examples: 1 tonne
    */
-  MaximumOrderQuantity: [Quantity] | undefined
+  MaximumOrderQuantity?: [Quantity] | undefined
 
   /**
    * Text about a warranty (provided by WarrantyParty) for the good or service described in this catalogue line.
@@ -113,116 +113,116 @@ export interface CatalogueLine {
    * Examples: Unless specified otherwise and in addition to any rights the Customer may have under statute, Dell
    * Examples: warrants to the Customer that Dell branded Products (excluding third party products and software), will
    * Examples: be free from defects in materials and workmanship affecting normal use for a period of one year from
-   * Examples: invoice date ( Standard Warranty ). 
+   * Examples: invoice date ( Standard Warranty ).
    */
-  WarrantyInformation: Array<Text> | undefined
+  WarrantyInformation?: Array<Text> | undefined
 
   /**
    * A mutually agreed code signifying the level of packaging associated with the item described in this catalogue line.
    * Code
    * Cardinality: 0..1
    * Alternative business terms: Consumer Unit, Trading Unit
-   * Examples: level 2 , Group 4 
+   * Examples: level 2 , Group 4
    */
-  PackLevelCode: [Code] | undefined
+  PackLevelCode?: [Code] | undefined
 
   /**
    * The customer responsible for the contract with which this catalogue line is associated.
    * Customer Party
    * Cardinality: 0..1
    */
-  ContractorCustomerParty: [CustomerParty] | undefined
+  ContractorCustomerParty?: [CustomerParty] | undefined
 
   /**
    * The seller/supplier responsible for the contract with which this catalogue line is associated.
    * Supplier Party
    * Cardinality: 0..1
    */
-  SellerSupplierParty: [SupplierParty] | undefined
+  SellerSupplierParty?: [SupplierParty] | undefined
 
   /**
    * The party responsible for any warranty associated with the item described in this catalogue line.
    * Party
    * Cardinality: 0..1
    */
-  WarrantyParty: [Party] | undefined
+  WarrantyParty?: [Party] | undefined
 
   /**
    * The period for which a warranty associated with the item in this catalogue line is valid.
    * Period
    * Cardinality: 0..1
    */
-  WarrantyValidityPeriod: [Period] | undefined
+  WarrantyValidityPeriod?: [Period] | undefined
 
   /**
    * The period for which the information in this catalogue line is valid.
    * Period
    * Cardinality: 0..1
    */
-  LineValidityPeriod: [Period] | undefined
+  LineValidityPeriod?: [Period] | undefined
 
   /**
    * A combination of price and quantity used to provide price comparisons based on different sizes of order.
    * Item Comparison
    * Cardinality: 0..n
    */
-  ItemComparison: Array<ItemComparison> | undefined
+  ItemComparison?: Array<ItemComparison> | undefined
 
   /**
    * An item that may be a component of the item in this catalogue line.
    * Related Item
    * Cardinality: 0..n
    */
-  ComponentRelatedItem: Array<RelatedItem> | undefined
+  ComponentRelatedItem?: Array<RelatedItem> | undefined
 
   /**
    * An item that may be an optional accessory of the item in this catalogue line.
    * Related Item
    * Cardinality: 0..n
    */
-  AccessoryRelatedItem: Array<RelatedItem> | undefined
+  AccessoryRelatedItem?: Array<RelatedItem> | undefined
 
   /**
    * An item that may be required for the item in this catalogue line.
    * Related Item
    * Cardinality: 0..n
    */
-  RequiredRelatedItem: Array<RelatedItem> | undefined
+  RequiredRelatedItem?: Array<RelatedItem> | undefined
 
   /**
    * An item that may be a replacement for the item in this catalogue line.
    * Related Item
    * Cardinality: 0..n
    */
-  ReplacementRelatedItem: Array<RelatedItem> | undefined
+  ReplacementRelatedItem?: Array<RelatedItem> | undefined
 
   /**
    * An item that may complement the item in this catalogue line.
    * Related Item
    * Cardinality: 0..n
    */
-  ComplementaryRelatedItem: Array<RelatedItem> | undefined
+  ComplementaryRelatedItem?: Array<RelatedItem> | undefined
 
   /**
    * An item in an existing catalogue that is being replaced by the item in this catalogue line.
    * Related Item
    * Cardinality: 0..n
    */
-  ReplacedRelatedItem: Array<RelatedItem> | undefined
+  ReplacedRelatedItem?: Array<RelatedItem> | undefined
 
   /**
    * Properties of the item in this catalogue line that are dependent on location and quantity.
    * Item Location Quantity
    * Cardinality: 0..n
    */
-  RequiredItemLocationQuantity: Array<ItemLocationQuantity> | undefined
+  RequiredItemLocationQuantity?: Array<ItemLocationQuantity> | undefined
 
   /**
    * A reference to a document associated with this catalogue line.
    * Document Reference
    * Cardinality: 0..n
    */
-  DocumentReference: Array<DocumentReference> | undefined
+  DocumentReference?: Array<DocumentReference> | undefined
 
   /**
    * A specification of the item itself.
@@ -236,19 +236,19 @@ export interface CatalogueLine {
    * Item Property
    * Cardinality: 0..n
    */
-  KeywordItemProperty: Array<ItemProperty> | undefined
+  KeywordItemProperty?: Array<ItemProperty> | undefined
 
   /**
    * Reference to a Line on a Call For Tenders document.
    * Line Reference
    * Cardinality: 0..1
    */
-  CallForTendersLineReference: [LineReference] | undefined
+  CallForTendersLineReference?: [LineReference] | undefined
 
   /**
    * A class defining references to a Call For Tenders document.
    * Document Reference
    * Cardinality: 0..1
    */
-  CallForTendersDocumentReference: [DocumentReference] | undefined
+  CallForTendersDocumentReference?: [DocumentReference] | undefined
 }

@@ -14,7 +14,7 @@ export interface OrderReference {
    * An identifier for this order reference, assigned by the buyer.
    * Identifier
    * Cardinality: 1
-   * Examples: PO-001 3333-44-123 
+   * Examples: PO-001 3333-44-123
    */
   ID: [Identifier]
 
@@ -23,54 +23,54 @@ export interface OrderReference {
    * Identifier
    * Cardinality: 0..1
    */
-  SalesOrderID: [Identifier] | undefined
+  SalesOrderID?: [Identifier] | undefined
 
   /**
    * Indicates whether the referenced Order is a copy (true) or the original (false).
    * Indicator
    * Cardinality: 0..1
    */
-  CopyIndicator: [Indicator] | undefined
+  CopyIndicator?: [Indicator] | undefined
 
   /**
    * A universally unique identifier for this order reference.
    * Identifier
    * Cardinality: 0..1
    */
-  UUID: [Identifier] | undefined
+  UUID?: [Identifier] | undefined
 
   /**
    * The date on which the referenced Order was issued.
    * Date
    * Cardinality: 0..1
    */
-  IssueDate: [Date] | undefined
+  IssueDate?: [Date] | undefined
 
   /**
    * The time at which the referenced Order was issued.
    * Time
    * Cardinality: 0..1
    */
-  IssueTime: [Time] | undefined
+  IssueTime?: [Time] | undefined
 
   /**
    * Text used for tagging purchasing card transactions.
    * Text
    * Cardinality: 0..1
    */
-  CustomerReference: [Text] | undefined
+  CustomerReference?: [Text] | undefined
 
   /**
    * A code signifying the type of the referenced Order.
    * Code
    * Cardinality: 0..1
    */
-  OrderTypeCode: [Code] | undefined
+  OrderTypeCode?: [Code] | undefined
 
   /**
    * A document associated with this reference to an Order.
    * Document Reference
    * Cardinality: 0..1
    */
-  DocumentReference: [DocumentReference] | undefined
+  DocumentReference?: [DocumentReference] | undefined
 }

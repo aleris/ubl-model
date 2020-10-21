@@ -11,47 +11,47 @@ export interface CustomerParty {
    * Identifier
    * Cardinality: 0..1
    */
-  CustomerAssignedAccountID: [Identifier] | undefined
+  CustomerAssignedAccountID?: [Identifier] | undefined
 
   /**
    * An identifier for the customer's account, assigned by the supplier.
    * Identifier
    * Cardinality: 0..1
    */
-  SupplierAssignedAccountID: [Identifier] | undefined
+  SupplierAssignedAccountID?: [Identifier] | undefined
 
   /**
    * An identifier for the customer's account, assigned by a third party.
    * Identifier
    * Cardinality: 0..n
    */
-  AdditionalAccountID: Array<Identifier> | undefined
+  AdditionalAccountID?: Array<Identifier> | undefined
 
   /**
    * The customer party itself.
    * Party
    * Cardinality: 0..1
    */
-  Party: [Party] | undefined
+  Party?: [Party] | undefined
 
   /**
    * A customer contact for deliveries.
    * Contact
    * Cardinality: 0..1
    */
-  DeliveryContact: [Contact] | undefined
+  DeliveryContact?: [Contact] | undefined
 
   /**
    * A customer contact for accounting.
    * Contact
    * Cardinality: 0..1
    */
-  AccountingContact: [Contact] | undefined
+  AccountingContact?: [Contact] | undefined
 
   /**
    * A customer contact for purchasing.
    * Contact
    * Cardinality: 0..1
    */
-  BuyerContact: [Contact] | undefined
+  BuyerContact?: [Contact] | undefined
 }

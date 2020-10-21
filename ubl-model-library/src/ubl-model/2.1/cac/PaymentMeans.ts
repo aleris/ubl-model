@@ -17,7 +17,7 @@ export interface PaymentMeans {
    * Identifier
    * Cardinality: 0..1
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * A code signifying the type of this means of payment.
@@ -31,75 +31,75 @@ export interface PaymentMeans {
    * Date
    * Cardinality: 0..1
    */
-  PaymentDueDate: [Date] | undefined
+  PaymentDueDate?: [Date] | undefined
 
   /**
    * A code signifying the payment channel for this means of payment.
    * Code
    * Cardinality: 0..1
    */
-  PaymentChannelCode: [Code] | undefined
+  PaymentChannelCode?: [Code] | undefined
 
   /**
    * An identifier for the payment instruction.
    * Identifier
    * Cardinality: 0..1
    */
-  InstructionID: [Identifier] | undefined
+  InstructionID?: [Identifier] | undefined
 
   /**
    * Free-form text conveying information that is not contained explicitly in other structures.
    * Text
    * Cardinality: 0..n
    */
-  InstructionNote: Array<Text> | undefined
+  InstructionNote?: Array<Text> | undefined
 
   /**
    * An identifier for a payment made using this means of payment.
    * Identifier
    * Cardinality: 0..n
    */
-  PaymentID: Array<Identifier> | undefined
+  PaymentID?: Array<Identifier> | undefined
 
   /**
    * A credit card, debit card, or charge card account that constitutes this means of payment.
    * Card Account
    * Cardinality: 0..1
    */
-  CardAccount: [CardAccount] | undefined
+  CardAccount?: [CardAccount] | undefined
 
   /**
    * The payer's financial account.
    * Financial Account
    * Cardinality: 0..1
    */
-  PayerFinancialAccount: [FinancialAccount] | undefined
+  PayerFinancialAccount?: [FinancialAccount] | undefined
 
   /**
    * The payee's financial account.
    * Financial Account
    * Cardinality: 0..1
    */
-  PayeeFinancialAccount: [FinancialAccount] | undefined
+  PayeeFinancialAccount?: [FinancialAccount] | undefined
 
   /**
    * A credit account associated with this means of payment.
    * Credit Account
    * Cardinality: 0..1
    */
-  CreditAccount: [CreditAccount] | undefined
+  CreditAccount?: [CreditAccount] | undefined
 
   /**
    * The payment mandate associated with this means of payment.
    * Payment Mandate
    * Cardinality: 0..1
    */
-  PaymentMandate: [PaymentMandate] | undefined
+  PaymentMandate?: [PaymentMandate] | undefined
 
   /**
    * A trade finance agreement applicable to this means of payment.
    * Trade Financing
    * Cardinality: 0..1
    */
-  TradeFinancing: [TradeFinancing] | undefined
+  TradeFinancing?: [TradeFinancing] | undefined
 }

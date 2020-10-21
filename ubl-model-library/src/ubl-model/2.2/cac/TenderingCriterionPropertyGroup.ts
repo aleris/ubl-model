@@ -13,42 +13,42 @@ export interface TenderingCriterionPropertyGroup {
    * Identifier
    * Cardinality: 0..1
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * The name of the group.
    * Name
    * Cardinality: 0..1
    */
-  Name: [Text] | undefined
+  Name?: [Text] | undefined
 
   /**
    * The textual description for this group.
    * Text
    * Cardinality: 0..n
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 
   /**
    * A code signifying the type of the property group
    * Code
    * Cardinality: 0..1
    */
-  PropertyGroupTypeCode: [Code] | undefined
+  PropertyGroupTypeCode?: [Code] | undefined
 
   /**
    * An indication that this group of criteria have been fulfilled.
    * Indicator
    * Cardinality: 0..1
    */
-  FulfilmentIndicator: [Indicator] | undefined
+  FulfilmentIndicator?: [Indicator] | undefined
 
   /**
    * A code signifying how this group of criteria have been fulfilled.
    * Code
    * Cardinality: 0..1
    */
-  FulfilmentIndicatorTypeCode: [Code] | undefined
+  FulfilmentIndicatorTypeCode?: [Code] | undefined
 
   /**
    * All the criteria properties comprising the tendering criterion.
@@ -62,5 +62,5 @@ export interface TenderingCriterionPropertyGroup {
    * Tendering Criterion Property Group
    * Cardinality: 0..n
    */
-  SubsidiaryTenderingCriterionPropertyGroup: Array<TenderingCriterionPropertyGroup> | undefined
+  SubsidiaryTenderingCriterionPropertyGroup?: Array<TenderingCriterionPropertyGroup> | undefined
 }

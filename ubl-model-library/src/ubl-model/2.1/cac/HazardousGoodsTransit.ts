@@ -13,7 +13,7 @@ export interface HazardousGoodsTransit {
    * Cardinality: 0..1
    * Alternative business terms: TREM card
    */
-  TransportEmergencyCardCode: [Code] | undefined
+  TransportEmergencyCardCode?: [Code] | undefined
 
   /**
    * A code signifying the packaging requirement for transportation of the hazardous goods as assigned by IATA, IMDB,
@@ -22,14 +22,14 @@ export interface HazardousGoodsTransit {
    * Cardinality: 0..1
    * Alternative business terms: Packing Group
    */
-  PackingCriteriaCode: [Code] | undefined
+  PackingCriteriaCode?: [Code] | undefined
 
   /**
    * A code signifying the set of legal regulations governing the transportation of the hazardous goods.
    * Code
    * Cardinality: 0..1
    */
-  HazardousRegulationCode: [Code] | undefined
+  HazardousRegulationCode?: [Code] | undefined
 
   /**
    * A code signifying the Inhalation Toxicity Hazard Zone for the hazardous goods, as defined by the US Department of
@@ -37,7 +37,7 @@ export interface HazardousGoodsTransit {
    * Code
    * Cardinality: 0..1
    */
-  InhalationToxicityZoneCode: [Code] | undefined
+  InhalationToxicityZoneCode?: [Code] | undefined
 
   /**
    * A code signifying authorization for the transportation of hazardous cargo.
@@ -45,19 +45,19 @@ export interface HazardousGoodsTransit {
    * Cardinality: 0..1
    * Alternative business terms: Permission for Transport
    */
-  TransportAuthorizationCode: [Code] | undefined
+  TransportAuthorizationCode?: [Code] | undefined
 
   /**
    * The maximum temperature at which the hazardous goods can safely be transported.
    * Temperature
    * Cardinality: 0..1
    */
-  MaximumTemperature: [Temperature] | undefined
+  MaximumTemperature?: [Temperature] | undefined
 
   /**
    * The minimum temperature at which the hazardous goods can safely be transported.
    * Temperature
    * Cardinality: 0..1
    */
-  MinimumTemperature: [Temperature] | undefined
+  MinimumTemperature?: [Temperature] | undefined
 }

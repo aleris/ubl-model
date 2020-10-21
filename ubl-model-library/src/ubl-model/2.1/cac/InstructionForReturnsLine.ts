@@ -20,7 +20,7 @@ export interface InstructionForReturnsLine {
    * Text
    * Cardinality: 0..n
    */
-  Note: Array<Text> | undefined
+  Note?: Array<Text> | undefined
 
   /**
    * The quantity of goods being returned.
@@ -34,7 +34,7 @@ export interface InstructionForReturnsLine {
    * Party
    * Cardinality: 0..1
    */
-  ManufacturerParty: [Party] | undefined
+  ManufacturerParty?: [Party] | undefined
 
   /**
    * A description of the item being returned.

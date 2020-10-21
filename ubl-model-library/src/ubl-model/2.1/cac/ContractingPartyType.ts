@@ -10,12 +10,12 @@ export interface ContractingPartyType {
    * Code
    * Cardinality: 0..1
    */
-  PartyTypeCode: [Code] | undefined
+  PartyTypeCode?: [Code] | undefined
 
   /**
    * The type of party that is independent of its role, expressed as text.
    * Text
    * Cardinality: 0..1
    */
-  PartyType: [Text] | undefined
+  PartyType?: [Text] | undefined
 }

@@ -13,47 +13,47 @@ export interface SubcontractTerms {
    * Rate
    * Cardinality: 0..1
    */
-  Rate: [Numeric] | undefined
+  Rate?: [Numeric] | undefined
 
   /**
    * An indicator that the subcontract price is known (true) or not (false).
    * Indicator
    * Cardinality: 0..1
    */
-  UnknownPriceIndicator: [Indicator] | undefined
+  UnknownPriceIndicator?: [Indicator] | undefined
 
   /**
    * Text describing the subcontract terms.
    * Text
    * Cardinality: 0..n
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 
   /**
    * The monetary amount assigned to the subcontracted task.
    * Amount
    * Cardinality: 0..1
    */
-  Amount: [Amount] | undefined
+  Amount?: [Amount] | undefined
 
   /**
    * A code specifying the conditions for subcontracting.
    * Code
    * Cardinality: 0..1
    */
-  SubcontractingConditionsCode: [Code] | undefined
+  SubcontractingConditionsCode?: [Code] | undefined
 
   /**
    * The maximum percentage allowed to be subcontracted.
    * Percent
    * Cardinality: 0..1
    */
-  MaximumPercent: [Numeric] | undefined
+  MaximumPercent?: [Numeric] | undefined
 
   /**
    * The minimum percentage allowed to be subcontracted.
    * Percent
    * Cardinality: 0..1
    */
-  MinimumPercent: [Numeric] | undefined
+  MinimumPercent?: [Numeric] | undefined
 }

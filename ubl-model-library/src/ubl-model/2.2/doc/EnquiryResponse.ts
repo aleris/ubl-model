@@ -17,7 +17,7 @@ export interface EnquiryResponse {
    * A container for all extensions present in the document.
    * Cardinality: 0..1
    */
-  UBLExtensions: [UBLExtensions] | undefined
+  UBLExtensions?: [UBLExtensions] | undefined
 
   /**
    * Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that
@@ -26,7 +26,7 @@ export interface EnquiryResponse {
    * Cardinality: 0..1
    * Examples: 2.0.5
    */
-  UBLVersionID: [Identifier] | undefined
+  UBLVersionID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined customization of UBL for a specific use.
@@ -34,7 +34,7 @@ export interface EnquiryResponse {
    * Cardinality: 0..1
    * Examples: NES
    */
-  CustomizationID: [Identifier] | undefined
+  CustomizationID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined profile of the customization of UBL being used.
@@ -42,7 +42,7 @@ export interface EnquiryResponse {
    * Cardinality: 0..1
    * Examples: BasicProcurementProcess
    */
-  ProfileID: [Identifier] | undefined
+  ProfileID?: [Identifier] | undefined
 
   /**
    * Identifies an instance of executing a profile, to associate all transactions in a collaboration.
@@ -50,28 +50,28 @@ export interface EnquiryResponse {
    * Cardinality: 0..1
    * Examples: BPP-1001
    */
-  ProfileExecutionID: [Identifier] | undefined
+  ProfileExecutionID?: [Identifier] | undefined
 
   /**
    * An identifier for this document, assigned by the responder.
    * Identifier
    * Cardinality: 0..1
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * Indicates whether this document is a copy (true) or not (false).
    * Indicator
    * Cardinality: 0..1
    */
-  CopyIndicator: [Indicator] | undefined
+  CopyIndicator?: [Indicator] | undefined
 
   /**
    * A universally unique identifier for an instance of this document.
    * Identifier
    * Cardinality: 0..1
    */
-  UUID: [Identifier] | undefined
+  UUID?: [Identifier] | undefined
 
   /**
    * The date, assigned by the responder, at which this enquiry response was issued.
@@ -85,7 +85,7 @@ export interface EnquiryResponse {
    * Time
    * Cardinality: 0..1
    */
-  IssueTime: [Time] | undefined
+  IssueTime?: [Time] | undefined
 
   /**
    * Free-form text-only enquiry response description pertinent to this document, conveying information that is not
@@ -93,14 +93,14 @@ export interface EnquiryResponse {
    * Text
    * Cardinality: 0..n
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 
   /**
    * A signature applied to this document.
    * Signature
    * Cardinality: 0..n
    */
-  Signature: Array<Signature> | undefined
+  Signature?: Array<Signature> | undefined
 
   /**
    * The party issuing the enquiry.
@@ -128,12 +128,12 @@ export interface EnquiryResponse {
    * Document Reference
    * Cardinality: 0..n
    */
-  AdditionalDocumentReference: Array<DocumentReference> | undefined
+  AdditionalDocumentReference?: Array<DocumentReference> | undefined
 
   /**
    * Attachment that includes file-based response.
    * Attachment
    * Cardinality: 0..n
    */
-  Attachment: Array<Attachment> | undefined
+  Attachment?: Array<Attachment> | undefined
 }

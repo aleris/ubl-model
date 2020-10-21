@@ -21,7 +21,7 @@ export interface UtilityStatement {
    * A container for all extensions present in the document.
    * Cardinality: 0..1
    */
-  UBLExtensions: [UBLExtensions] | undefined
+  UBLExtensions?: [UBLExtensions] | undefined
 
   /**
    * Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that
@@ -30,7 +30,7 @@ export interface UtilityStatement {
    * Cardinality: 0..1
    * Examples: 2.0
    */
-  UBLVersionID: [Identifier] | undefined
+  UBLVersionID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined customization of UBL for a specific use.
@@ -38,7 +38,7 @@ export interface UtilityStatement {
    * Cardinality: 0..1
    * Examples: OIOUBL-2.02
    */
-  CustomizationID: [Identifier] | undefined
+  CustomizationID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined profile of the customization of UBL being used.
@@ -46,7 +46,7 @@ export interface UtilityStatement {
    * Cardinality: 0..1
    * Examples: Reference-Utility-1.0
    */
-  ProfileID: [Identifier] | undefined
+  ProfileID?: [Identifier] | undefined
 
   /**
    * Identifies an instance of executing a profile, to associate all transactions in a collaboration.
@@ -54,7 +54,7 @@ export interface UtilityStatement {
    * Cardinality: 0..1
    * Examples: BPP-1001
    */
-  ProfileExecutionID: [Identifier] | undefined
+  ProfileExecutionID?: [Identifier] | undefined
 
   /**
    * An identifier for this document, assigned by the sender.
@@ -69,7 +69,7 @@ export interface UtilityStatement {
    * Indicator
    * Cardinality: 0..1
    */
-  CopyIndicator: [Indicator] | undefined
+  CopyIndicator?: [Indicator] | undefined
 
   /**
    * A universally unique identifier for an instance of this document.
@@ -77,7 +77,7 @@ export interface UtilityStatement {
    * Cardinality: 0..1
    * Examples: 9756b4d0-8815-1029-857a-e388fe63f499
    */
-  UUID: [Identifier] | undefined
+  UUID?: [Identifier] | undefined
 
   /**
    * The date, assigned by the sender, on which this document was issued.
@@ -93,7 +93,7 @@ export interface UtilityStatement {
    * Cardinality: 0..1
    * Examples: 12:32:56
    */
-  IssueTime: [Time] | undefined
+  IssueTime?: [Time] | undefined
 
   /**
    * A code signifying the type of Utility Statement.
@@ -110,7 +110,7 @@ export interface UtilityStatement {
    * Cardinality: 0..n
    * Examples: Concerning account remark
    */
-  Note: Array<Text> | undefined
+  Note?: Array<Text> | undefined
 
   /**
    * A code signifying the default currency for this document.
@@ -125,14 +125,14 @@ export interface UtilityStatement {
    * Cardinality: 0..1
    * Examples: 5050.0
    */
-  AccountingCostCode: [Code] | undefined
+  AccountingCostCode?: [Code] | undefined
 
   /**
    * The buyer's accounting cost code, applied to the UtilityStatement, expressed as text.
    * Text
    * Cardinality: 0..1
    */
-  AccountingCost: [Text] | undefined
+  AccountingCost?: [Text] | undefined
 
   /**
    * A reference to the parent Invoice or Credit Note.
@@ -146,14 +146,14 @@ export interface UtilityStatement {
    * Document Reference
    * Cardinality: 0..n
    */
-  AdditionalDocumentReference: Array<DocumentReference> | undefined
+  AdditionalDocumentReference?: Array<DocumentReference> | undefined
 
   /**
    * A signature applied to this document.
    * Signature
    * Cardinality: 0..n
    */
-  Signature: Array<Signature> | undefined
+  Signature?: Array<Signature> | undefined
 
   /**
    * The party sending this document.
@@ -174,7 +174,7 @@ export interface UtilityStatement {
    * Customer Party
    * Cardinality: 0..1
    */
-  CustomerParty: [CustomerParty] | undefined
+  CustomerParty?: [CustomerParty] | undefined
 
   /**
    * The subscriber (user or receiver of the service), if different from the buyer and from the party receiving this
@@ -182,19 +182,19 @@ export interface UtilityStatement {
    * Party
    * Cardinality: 0..1
    */
-  SubscriberParty: [Party] | undefined
+  SubscriberParty?: [Party] | undefined
 
   /**
    * A payment on an account.
    * On Account Payment
    * Cardinality: 0..n
    */
-  MainOnAccountPayment: Array<OnAccountPayment> | undefined
+  MainOnAccountPayment?: Array<OnAccountPayment> | undefined
 
   /**
    * A utility statement for a particular consumption point.
    * Subscriber Consumption
    * Cardinality: 0..n
    */
-  SubscriberConsumption: Array<SubscriberConsumption> | undefined
+  SubscriberConsumption?: Array<SubscriberConsumption> | undefined
 }

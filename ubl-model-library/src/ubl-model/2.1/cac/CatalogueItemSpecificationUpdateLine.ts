@@ -11,7 +11,7 @@ export interface CatalogueItemSpecificationUpdateLine {
    * An identifier for the line to be updated in a catalogue.
    * Identifier
    * Cardinality: 1
-   * Examples: 1 
+   * Examples: 1
    */
   ID: [Identifier]
 
@@ -20,14 +20,14 @@ export interface CatalogueItemSpecificationUpdateLine {
    * Customer Party
    * Cardinality: 0..1
    */
-  ContractorCustomerParty: [CustomerParty] | undefined
+  ContractorCustomerParty?: [CustomerParty] | undefined
 
   /**
    * The seller/supplier responsible for the contract associated with the catalogue item.
    * Supplier Party
    * Cardinality: 0..1
    */
-  SellerSupplierParty: [SupplierParty] | undefined
+  SellerSupplierParty?: [SupplierParty] | undefined
 
   /**
    * The catalogue item to be updated.

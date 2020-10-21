@@ -11,7 +11,7 @@ export interface PromotionalSpecification {
    * Identifier
    * Cardinality: 0..1
    */
-  SpecificationID: [Identifier] | undefined
+  SpecificationID?: [Identifier] | undefined
 
   /**
    * A line item for a promotional event involving a specific product at a specific location; it describes the expected
@@ -26,5 +26,5 @@ export interface PromotionalSpecification {
    * Event Tactic
    * Cardinality: 0..n
    */
-  EventTactic: Array<EventTactic> | undefined
+  EventTactic?: Array<EventTactic> | undefined
 }

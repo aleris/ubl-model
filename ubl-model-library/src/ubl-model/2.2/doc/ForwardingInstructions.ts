@@ -28,7 +28,7 @@ export interface ForwardingInstructions {
    * A container for all extensions present in the document.
    * Cardinality: 0..1
    */
-  UBLExtensions: [UBLExtensions] | undefined
+  UBLExtensions?: [UBLExtensions] | undefined
 
   /**
    * Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that
@@ -37,7 +37,7 @@ export interface ForwardingInstructions {
    * Cardinality: 0..1
    * Examples: 2.0.5
    */
-  UBLVersionID: [Identifier] | undefined
+  UBLVersionID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined customization of UBL for a specific use.
@@ -45,7 +45,7 @@ export interface ForwardingInstructions {
    * Cardinality: 0..1
    * Examples: NES
    */
-  CustomizationID: [Identifier] | undefined
+  CustomizationID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined profile of the customization of UBL being used.
@@ -53,7 +53,7 @@ export interface ForwardingInstructions {
    * Cardinality: 0..1
    * Examples: BasicProcurementProcess
    */
-  ProfileID: [Identifier] | undefined
+  ProfileID?: [Identifier] | undefined
 
   /**
    * Identifies an instance of executing a profile, to associate all transactions in a collaboration.
@@ -61,7 +61,7 @@ export interface ForwardingInstructions {
    * Cardinality: 0..1
    * Examples: BPP-1001
    */
-  ProfileExecutionID: [Identifier] | undefined
+  ProfileExecutionID?: [Identifier] | undefined
 
   /**
    * An identifier for this document, assigned by the sender.
@@ -76,42 +76,42 @@ export interface ForwardingInstructions {
    * Identifier
    * Cardinality: 0..1
    */
-  CarrierAssignedID: [Identifier] | undefined
+  CarrierAssignedID?: [Identifier] | undefined
 
   /**
    * A universally unique identifier for an instance of this document.
    * Identifier
    * Cardinality: 0..1
    */
-  UUID: [Identifier] | undefined
+  UUID?: [Identifier] | undefined
 
   /**
    * The date, assigned by the sender, on which this document was issued.
    * Date
    * Cardinality: 0..1
    */
-  IssueDate: [Date] | undefined
+  IssueDate?: [Date] | undefined
 
   /**
    * The time, assigned by the sender, at which this document was issued.
    * Time
    * Cardinality: 0..1
    */
-  IssueTime: [Time] | undefined
+  IssueTime?: [Time] | undefined
 
   /**
    * Text, assigned by the sender, that identifies this document to business users.
    * Name
    * Cardinality: 0..1
    */
-  Name: [Text] | undefined
+  Name?: [Text] | undefined
 
   /**
    * Textual description of the document instance.
    * Text
    * Cardinality: 0..n
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 
   /**
    * Free-form text pertinent to this document, conveying information that is not contained explicitly in other
@@ -119,7 +119,7 @@ export interface ForwardingInstructions {
    * Text
    * Cardinality: 0..n
    */
-  Note: Array<Text> | undefined
+  Note?: Array<Text> | undefined
 
   /**
    * A code signifying the status of the Forwarding Instructions with respect to its original state. This code may be
@@ -128,21 +128,21 @@ export interface ForwardingInstructions {
    * Code
    * Cardinality: 0..1
    */
-  DocumentStatusCode: [Code] | undefined
+  DocumentStatusCode?: [Code] | undefined
 
   /**
    * Reference number to identify a Shipping Order.
    * Identifier
    * Cardinality: 0..1
    */
-  ShippingOrderID: [Identifier] | undefined
+  ShippingOrderID?: [Identifier] | undefined
 
   /**
    * Indicates whether the transport document is consigned to order.
    * Indicator
    * Cardinality: 0..1
    */
-  ToOrderIndicator: [Indicator] | undefined
+  ToOrderIndicator?: [Indicator] | undefined
 
   /**
    * A term used in commerce in reference to certain duties, called ad valorem duties, which are levied on commodities
@@ -150,7 +150,7 @@ export interface ForwardingInstructions {
    * Indicator
    * Cardinality: 0..1
    */
-  AdValoremIndicator: [Indicator] | undefined
+  AdValoremIndicator?: [Indicator] | undefined
 
   /**
    * Value declared by the shipper or his agent solely for the purpose of varying the carrier's level of liability from
@@ -158,7 +158,7 @@ export interface ForwardingInstructions {
    * Amount
    * Cardinality: 0..1
    */
-  DeclaredCarriageValueAmount: [Amount] | undefined
+  DeclaredCarriageValueAmount?: [Amount] | undefined
 
   /**
    * Contains other free-text instructions to the forwarders or carriers related to the shipment. This should only be
@@ -166,7 +166,7 @@ export interface ForwardingInstructions {
    * Text
    * Cardinality: 0..n
    */
-  OtherInstruction: Array<Text> | undefined
+  OtherInstruction?: Array<Text> | undefined
 
   /**
    * The party consigning goods, as stipulated in the transport contract by the party ordering transport.
@@ -174,7 +174,7 @@ export interface ForwardingInstructions {
    * Cardinality: 0..1
    * Alternative business terms: Consignor (WCO ID 71 and 72)
    */
-  ConsignorParty: [Party] | undefined
+  ConsignorParty?: [Party] | undefined
 
   /**
    * The party providing the transport of goods between named points.
@@ -183,7 +183,7 @@ export interface ForwardingInstructions {
    * Alternative business terms: Transport Company, Shipping Line, NVOCC, Airline, Haulier, Courier, Carrier (WCO ID 49
    * Alternative business terms: and 50)
    */
-  CarrierParty: [Party] | undefined
+  CarrierParty?: [Party] | undefined
 
   /**
    * A party combining individual smaller consignments into a single larger shipment (a so-called consolidated
@@ -193,7 +193,7 @@ export interface ForwardingInstructions {
    * Cardinality: 0..1
    * Alternative business terms: Consolidator (WCO ID 192 AND 193)
    */
-  FreightForwarderParty: [Party] | undefined
+  FreightForwarderParty?: [Party] | undefined
 
   /**
    * An identifiable collection of one or more goods items to be transported between the seller party and the buyer
@@ -208,26 +208,26 @@ export interface ForwardingInstructions {
    * Document Reference
    * Cardinality: 0..n
    */
-  DocumentReference: Array<DocumentReference> | undefined
+  DocumentReference?: Array<DocumentReference> | undefined
 
   /**
    * Information about the rate of exchange (conversion) between two currencies.
    * Exchange Rate
    * Cardinality: 0..n
    */
-  ExchangeRate: Array<ExchangeRate> | undefined
+  ExchangeRate?: Array<ExchangeRate> | undefined
 
   /**
    * A list of interested parties to whom this document is distributed.
    * Document Distribution
    * Cardinality: 0..n
    */
-  DocumentDistribution: Array<DocumentDistribution> | undefined
+  DocumentDistribution?: Array<DocumentDistribution> | undefined
 
   /**
    * A signature applied to this document.
    * Signature
    * Cardinality: 0..n
    */
-  Signature: Array<Signature> | undefined
+  Signature?: Array<Signature> | undefined
 }

@@ -8,7 +8,7 @@ export interface AddressLine {
    * An address line expressed as unstructured text.
    * Text
    * Cardinality: 1
-   * Examples: 123 Standard Chartered Tower 
+   * Examples: 123 Standard Chartered Tower
    */
   Line: [Text]
 }

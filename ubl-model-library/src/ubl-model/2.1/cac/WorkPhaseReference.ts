@@ -15,47 +15,47 @@ export interface WorkPhaseReference {
    * Identifier
    * Cardinality: 0..1
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * A code signifying this phase of work.
    * Code
    * Cardinality: 0..1
    */
-  WorkPhaseCode: [Code] | undefined
+  WorkPhaseCode?: [Code] | undefined
 
   /**
    * Text describing this phase of work.
    * Text
    * Cardinality: 0..n
    */
-  WorkPhase: Array<Text> | undefined
+  WorkPhase?: Array<Text> | undefined
 
   /**
    * The progress percentage of the work phase.
    * Percent
    * Cardinality: 0..1
    */
-  ProgressPercent: [Numeric] | undefined
+  ProgressPercent?: [Numeric] | undefined
 
   /**
    * The date on which this phase of work begins.
    * Date
    * Cardinality: 0..1
    */
-  StartDate: [Date] | undefined
+  StartDate?: [Date] | undefined
 
   /**
    * The date on which this phase of work ends.
    * Date
    * Cardinality: 0..1
    */
-  EndDate: [Date] | undefined
+  EndDate?: [Date] | undefined
 
   /**
    * A reference to a document regarding the work order for the project in which this phase of work takes place.
    * Document Reference
    * Cardinality: 0..n
    */
-  WorkOrderDocumentReference: Array<DocumentReference> | undefined
+  WorkOrderDocumentReference?: Array<DocumentReference> | undefined
 }

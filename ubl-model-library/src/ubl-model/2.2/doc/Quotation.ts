@@ -30,7 +30,7 @@ export interface Quotation {
    * A container for all extensions present in the document.
    * Cardinality: 0..1
    */
-  UBLExtensions: [UBLExtensions] | undefined
+  UBLExtensions?: [UBLExtensions] | undefined
 
   /**
    * Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that
@@ -39,7 +39,7 @@ export interface Quotation {
    * Cardinality: 0..1
    * Examples: 2.0.5
    */
-  UBLVersionID: [Identifier] | undefined
+  UBLVersionID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined customization of UBL for a specific use.
@@ -47,7 +47,7 @@ export interface Quotation {
    * Cardinality: 0..1
    * Examples: NES
    */
-  CustomizationID: [Identifier] | undefined
+  CustomizationID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined profile of the subset of UBL being used.
@@ -55,35 +55,35 @@ export interface Quotation {
    * Cardinality: 0..1
    * Examples: BasicProcurementProcess
    */
-  ProfileID: [Identifier] | undefined
+  ProfileID?: [Identifier] | undefined
 
   /**
    * Identifies an instance of executing a profile, to associate all transactions in a collaboration.
    * Identifier
    * Cardinality: 0..1
    */
-  ProfileExecutionID: [Identifier] | undefined
+  ProfileExecutionID?: [Identifier] | undefined
 
   /**
    * An identifier for this document, assigned by the sender.
    * Identifier
    * Cardinality: 0..1
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * Indicates whether this document is a copy (true) or not (false).
    * Indicator
    * Cardinality: 0..1
    */
-  CopyIndicator: [Indicator] | undefined
+  CopyIndicator?: [Indicator] | undefined
 
   /**
    * A universally unique identifier for an instance of this document.
    * Identifier
    * Cardinality: 0..1
    */
-  UUID: [Identifier] | undefined
+  UUID?: [Identifier] | undefined
 
   /**
    * The date, assigned by the sender, on which this document was issued.
@@ -97,7 +97,7 @@ export interface Quotation {
    * Time
    * Cardinality: 0..1
    */
-  IssueTime: [Time] | undefined
+  IssueTime?: [Time] | undefined
 
   /**
    * Free-form text pertinent to this document, conveying information that is not contained explicitly in other
@@ -105,56 +105,56 @@ export interface Quotation {
    * Text
    * Cardinality: 0..n
    */
-  Note: Array<Text> | undefined
+  Note?: Array<Text> | undefined
 
   /**
    * A code signifying the currency used for all prices in the Quotation.
    * Code
    * Cardinality: 0..1
    */
-  PricingCurrencyCode: [Code] | undefined
+  PricingCurrencyCode?: [Code] | undefined
 
   /**
    * The number of Quotation Lines in this document.
    * Numeric
    * Cardinality: 0..1
    */
-  LineCountNumeric: [Numeric] | undefined
+  LineCountNumeric?: [Numeric] | undefined
 
   /**
    * The period for which the Quotation is valid.
    * Period
    * Cardinality: 0..1
    */
-  ValidityPeriod: [Period] | undefined
+  ValidityPeriod?: [Period] | undefined
 
   /**
    * A reference to the Request for Quotation associated with this Quotation.
    * Document Reference
    * Cardinality: 0..1
    */
-  RequestForQuotationDocumentReference: [DocumentReference] | undefined
+  RequestForQuotationDocumentReference?: [DocumentReference] | undefined
 
   /**
    * A reference to an additional document associated with this document.
    * Document Reference
    * Cardinality: 0..n
    */
-  AdditionalDocumentReference: Array<DocumentReference> | undefined
+  AdditionalDocumentReference?: Array<DocumentReference> | undefined
 
   /**
    * A contract associated with this Quotation.
    * Contract
    * Cardinality: 0..n
    */
-  Contract: Array<Contract> | undefined
+  Contract?: Array<Contract> | undefined
 
   /**
    * A signature applied to this document.
    * Signature
    * Cardinality: 0..n
    */
-  Signature: Array<Signature> | undefined
+  Signature?: Array<Signature> | undefined
 
   /**
    * The seller.
@@ -168,63 +168,63 @@ export interface Quotation {
    * Customer Party
    * Cardinality: 0..1
    */
-  BuyerCustomerParty: [CustomerParty] | undefined
+  BuyerCustomerParty?: [CustomerParty] | undefined
 
   /**
    * The originator.
    * Customer Party
    * Cardinality: 0..1
    */
-  OriginatorCustomerParty: [CustomerParty] | undefined
+  OriginatorCustomerParty?: [CustomerParty] | undefined
 
   /**
    * A delivery associated with this document.
    * Delivery
    * Cardinality: 0..n
    */
-  Delivery: Array<Delivery> | undefined
+  Delivery?: Array<Delivery> | undefined
 
   /**
    * A set of delivery terms associated with this document.
    * Delivery Terms
    * Cardinality: 0..1
    */
-  DeliveryTerms: [DeliveryTerms] | undefined
+  DeliveryTerms?: [DeliveryTerms] | undefined
 
   /**
    * Expected means of payment.
    * Payment Means
    * Cardinality: 0..1
    */
-  PaymentMeans: [PaymentMeans] | undefined
+  PaymentMeans?: [PaymentMeans] | undefined
 
   /**
    * A specification of purchasing, sales, or payment conditions applying to Orders related to this Quotation.
    * Transaction Conditions
    * Cardinality: 0..1
    */
-  TransactionConditions: [TransactionConditions] | undefined
+  TransactionConditions?: [TransactionConditions] | undefined
 
   /**
    * A discount or charge that applies to a price component.
    * Allowance Charge
    * Cardinality: 0..n
    */
-  AllowanceCharge: Array<AllowanceCharge> | undefined
+  AllowanceCharge?: Array<AllowanceCharge> | undefined
 
   /**
    * The country of destination of potential orders (for customs purposes).
    * Country
    * Cardinality: 0..1
    */
-  DestinationCountry: [Country] | undefined
+  DestinationCountry?: [Country] | undefined
 
   /**
    * The total amount of a specific type of tax.
    * Tax Total
    * Cardinality: 0..n
    */
-  TaxTotal: Array<TaxTotal> | undefined
+  TaxTotal?: Array<TaxTotal> | undefined
 
   /**
    * The total amount of the Quotation.

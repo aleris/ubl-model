@@ -14,7 +14,7 @@ export interface MeterReading {
    * Cardinality: 0..1
    * Examples: 7411013716x
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * The type of this meter reading, expressed as text.
@@ -22,7 +22,7 @@ export interface MeterReading {
    * Cardinality: 0..1
    * Examples: Electricity
    */
-  MeterReadingType: [Text] | undefined
+  MeterReadingType?: [Text] | undefined
 
   /**
    * The type of this meter reading, expressed as a code.
@@ -30,7 +30,7 @@ export interface MeterReading {
    * Cardinality: 0..1
    * Examples: Electricity
    */
-  MeterReadingTypeCode: [Code] | undefined
+  MeterReadingTypeCode?: [Code] | undefined
 
   /**
    * The date of the previous meter reading.
@@ -70,7 +70,7 @@ export interface MeterReading {
    * Cardinality: 0..1
    * Examples: Manuel
    */
-  PreviousMeterReadingMethod: [Text] | undefined
+  PreviousMeterReadingMethod?: [Text] | undefined
 
   /**
    * The method used for the previous meter reading, expressed as a code.
@@ -78,7 +78,7 @@ export interface MeterReading {
    * Cardinality: 0..1
    * Examples: Estimated
    */
-  PreviousMeterReadingMethodCode: [Code] | undefined
+  PreviousMeterReadingMethodCode?: [Code] | undefined
 
   /**
    * The method used for the latest meter reading, expressed as text.
@@ -86,7 +86,7 @@ export interface MeterReading {
    * Cardinality: 0..1
    * Examples: Manuel
    */
-  LatestMeterReadingMethod: [Text] | undefined
+  LatestMeterReadingMethod?: [Text] | undefined
 
   /**
    * The method used for the latest meter reading, expressed as a code.
@@ -94,7 +94,7 @@ export interface MeterReading {
    * Cardinality: 0..1
    * Examples: Estimated
    */
-  LatestMeterReadingMethodCode: [Code] | undefined
+  LatestMeterReadingMethodCode?: [Code] | undefined
 
   /**
    * Text containing comments on this meter reading.
@@ -102,7 +102,7 @@ export interface MeterReading {
    * Cardinality: 0..n
    * Examples: The last stated meterstand is estimated
    */
-  MeterReadingComments: Array<Text> | undefined
+  MeterReadingComments?: Array<Text> | undefined
 
   /**
    * Consumption in the period from PreviousMeterReadingDate to LatestMeterReadingDate.

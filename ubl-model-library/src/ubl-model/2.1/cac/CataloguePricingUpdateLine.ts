@@ -11,7 +11,7 @@ export interface CataloguePricingUpdateLine {
    * An identifier for the catalogue line to be updated.
    * Identifier
    * Cardinality: 1
-   * Examples: 1 
+   * Examples: 1
    */
   ID: [Identifier]
 
@@ -20,19 +20,19 @@ export interface CataloguePricingUpdateLine {
    * Customer Party
    * Cardinality: 0..1
    */
-  ContractorCustomerParty: [CustomerParty] | undefined
+  ContractorCustomerParty?: [CustomerParty] | undefined
 
   /**
    * The seller/supplier responsible for the contract associated with the catalogue line being updated.
    * Supplier Party
    * Cardinality: 0..1
    */
-  SellerSupplierParty: [SupplierParty] | undefined
+  SellerSupplierParty?: [SupplierParty] | undefined
 
   /**
    * Updated properties of the item in this catalogue line that are dependent on location and quantity.
    * Item Location Quantity
    * Cardinality: 0..n
    */
-  RequiredItemLocationQuantity: Array<ItemLocationQuantity> | undefined
+  RequiredItemLocationQuantity?: Array<ItemLocationQuantity> | undefined
 }

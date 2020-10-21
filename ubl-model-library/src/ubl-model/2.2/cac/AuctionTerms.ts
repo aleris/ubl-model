@@ -12,47 +12,47 @@ export interface AuctionTerms {
    * Indicator
    * Cardinality: 0..1
    */
-  AuctionConstraintIndicator: [Indicator] | undefined
+  AuctionConstraintIndicator?: [Indicator] | undefined
 
   /**
    * Text describing a justification for the use of an auction in awarding the tender.
    * Text
    * Cardinality: 0..n
    */
-  JustificationDescription: Array<Text> | undefined
+  JustificationDescription?: Array<Text> | undefined
 
   /**
    * Text for tenderers describing terms governing the auction.
    * Text
    * Cardinality: 0..n
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 
   /**
    * Text describing the auction process.
    * Text
    * Cardinality: 0..n
    */
-  ProcessDescription: Array<Text> | undefined
+  ProcessDescription?: Array<Text> | undefined
 
   /**
    * Text describing the conditions under which the tenderers will be able to bid as part of the auction.
    * Text
    * Cardinality: 0..n
    */
-  ConditionsDescription: Array<Text> | undefined
+  ConditionsDescription?: Array<Text> | undefined
 
   /**
    * Text describing an electronic device used for the auction, including associated connectivity specifications.
    * Text
    * Cardinality: 0..n
    */
-  ElectronicDeviceDescription: Array<Text> | undefined
+  ElectronicDeviceDescription?: Array<Text> | undefined
 
   /**
    * The Uniform Resource Identifier (URI) of the electronic device used for the auction.
    * Identifier
    * Cardinality: 0..1
    */
-  AuctionURI: [Identifier] | undefined
+  AuctionURI?: [Identifier] | undefined
 }

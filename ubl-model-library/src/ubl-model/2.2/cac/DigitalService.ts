@@ -14,7 +14,7 @@ export interface DigitalService {
    * Cardinality: 0..1
    * Examples: urn:www.cenbii.eu:transaction:biitrns010:ver2.0
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined customization of this digital service (e.g. a PEPPOL customization).
@@ -22,7 +22,7 @@ export interface DigitalService {
    * Cardinality: 0..1
    * Examples: urn:www.cenbii.eu:transaction:biitrns010:ver2.0:extended:urn:www.peppol.eu:bis:peppol5a:ver2.0
    */
-  CustomizationID: [Identifier] | undefined
+  CustomizationID?: [Identifier] | undefined
 
   /**
    * The digital document metadata associated with this digital service.
@@ -36,12 +36,12 @@ export interface DigitalService {
    * Delivery Channel
    * Cardinality: 0..n
    */
-  DigitalDeliveryChannel: Array<DeliveryChannel> | undefined
+  DigitalDeliveryChannel?: Array<DeliveryChannel> | undefined
 
   /**
    * A reference to a certification document associated with this digital service.
    * Document Reference
    * Cardinality: 0..n
    */
-  CertificationDocumentReference: Array<DocumentReference> | undefined
+  CertificationDocumentReference?: Array<DocumentReference> | undefined
 }

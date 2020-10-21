@@ -12,5 +12,5 @@ export interface Numeric {
    * Whether the number is an integer, decimal, real number or percentage.
    * Text
    */
-  NumericFormat: string | undefined
+  NumericFormat?: string | undefined
 }

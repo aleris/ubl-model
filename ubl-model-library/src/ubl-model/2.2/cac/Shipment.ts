@@ -35,7 +35,7 @@ export interface Shipment {
    * Cardinality: 0..1
    * Alternative business terms: Service Level, Service Priority
    */
-  ShippingPriorityLevelCode: [Code] | undefined
+  ShippingPriorityLevelCode?: [Code] | undefined
 
   /**
    * The handling required for this shipment, expressed as a code.
@@ -43,14 +43,14 @@ export interface Shipment {
    * Cardinality: 0..1
    * Alternative business terms: Special Handling
    */
-  HandlingCode: [Code] | undefined
+  HandlingCode?: [Code] | undefined
 
   /**
    * The handling required for this shipment, expressed as text.
    * Text
    * Cardinality: 0..n
    */
-  HandlingInstructions: Array<Text> | undefined
+  HandlingInstructions?: Array<Text> | undefined
 
   /**
    * Free-form text pertinent to this shipment, conveying information that is not contained explicitly in other
@@ -58,49 +58,49 @@ export interface Shipment {
    * Text
    * Cardinality: 0..n
    */
-  Information: Array<Text> | undefined
+  Information?: Array<Text> | undefined
 
   /**
    * The total gross weight of a shipment; the weight of the goods plus packaging plus transport equipment.
    * Measure
    * Cardinality: 0..1
    */
-  GrossWeightMeasure: [Measure] | undefined
+  GrossWeightMeasure?: [Measure] | undefined
 
   /**
    * The net weight of this shipment, excluding packaging.
    * Measure
    * Cardinality: 0..1
    */
-  NetWeightMeasure: [Measure] | undefined
+  NetWeightMeasure?: [Measure] | undefined
 
   /**
    * The total net weight of this shipment, excluding packaging and transport equipment.
    * Measure
    * Cardinality: 0..1
    */
-  NetNetWeightMeasure: [Measure] | undefined
+  NetNetWeightMeasure?: [Measure] | undefined
 
   /**
    * The total volume of the goods in this shipment, including packaging.
    * Measure
    * Cardinality: 0..1
    */
-  GrossVolumeMeasure: [Measure] | undefined
+  GrossVolumeMeasure?: [Measure] | undefined
 
   /**
    * The total volume of the goods in this shipment, excluding packaging and transport equipment.
    * Measure
    * Cardinality: 0..1
    */
-  NetVolumeMeasure: [Measure] | undefined
+  NetVolumeMeasure?: [Measure] | undefined
 
   /**
    * The total number of goods items in this shipment.
    * Quantity
    * Cardinality: 0..1
    */
-  TotalGoodsItemQuantity: [Quantity] | undefined
+  TotalGoodsItemQuantity?: [Quantity] | undefined
 
   /**
    * The number of pieces of transport handling equipment (pallets, boxes, cases, etc.) in this shipment.
@@ -108,7 +108,7 @@ export interface Shipment {
    * Cardinality: 0..1
    * Alternative business terms: Number of THUs
    */
-  TotalTransportHandlingUnitQuantity: [Quantity] | undefined
+  TotalTransportHandlingUnitQuantity?: [Quantity] | undefined
 
   /**
    * The amount covered by insurance for this shipment.
@@ -116,7 +116,7 @@ export interface Shipment {
    * Cardinality: 0..1
    * Alternative business terms: Value Insured
    */
-  InsuranceValueAmount: [Amount] | undefined
+  InsuranceValueAmount?: [Amount] | undefined
 
   /**
    * The total declared value for customs purposes of those goods in this shipment that are subject to the same customs
@@ -124,7 +124,7 @@ export interface Shipment {
    * Amount
    * Cardinality: 0..1
    */
-  DeclaredCustomsValueAmount: [Amount] | undefined
+  DeclaredCustomsValueAmount?: [Amount] | undefined
 
   /**
    * The value of this shipment, declared by the shipper or his agent solely for the purpose of varying the carrier's
@@ -134,7 +134,7 @@ export interface Shipment {
    * Cardinality: 0..1
    * Alternative business terms: Declared value for carriage, Interest in delivery
    */
-  DeclaredForCarriageValueAmount: [Amount] | undefined
+  DeclaredForCarriageValueAmount?: [Amount] | undefined
 
   /**
    * The value, declared for statistical purposes, of those goods in this shipment that have the same statistical
@@ -143,7 +143,7 @@ export interface Shipment {
    * Cardinality: 0..1
    * Alternative business terms: Statistical Value
    */
-  DeclaredStatisticsValueAmount: [Amount] | undefined
+  DeclaredStatisticsValueAmount?: [Amount] | undefined
 
   /**
    * The monetary amount that has to be or has been paid as calculated under the applicable trade delivery.
@@ -151,77 +151,77 @@ export interface Shipment {
    * Cardinality: 0..1
    * Alternative business terms: FOB Value
    */
-  FreeOnBoardValueAmount: [Amount] | undefined
+  FreeOnBoardValueAmount?: [Amount] | undefined
 
   /**
    * Special instructions relating to this shipment.
    * Text
    * Cardinality: 0..n
    */
-  SpecialInstructions: Array<Text> | undefined
+  SpecialInstructions?: Array<Text> | undefined
 
   /**
    * Delivery instructions relating to this shipment.
    * Text
    * Cardinality: 0..n
    */
-  DeliveryInstructions: Array<Text> | undefined
+  DeliveryInstructions?: Array<Text> | undefined
 
   /**
    * An indicator that the consignment has been split in transit (true) or not (false).
    * Indicator
    * Cardinality: 0..1
    */
-  SplitConsignmentIndicator: [Indicator] | undefined
+  SplitConsignmentIndicator?: [Indicator] | undefined
 
   /**
    * The total number of consignments within this shipment.
    * Quantity
    * Cardinality: 0..1
    */
-  ConsignmentQuantity: [Quantity] | undefined
+  ConsignmentQuantity?: [Quantity] | undefined
 
   /**
    * A consignment covering this shipment.
    * Consignment
    * Cardinality: 0..n
    */
-  Consignment: Array<Consignment> | undefined
+  Consignment?: Array<Consignment> | undefined
 
   /**
    * A goods item included in this shipment.
    * Goods Item
    * Cardinality: 0..n
    */
-  GoodsItem: Array<GoodsItem> | undefined
+  GoodsItem?: Array<GoodsItem> | undefined
 
   /**
    * A stage in the transport movement of this shipment.
    * Shipment Stage
    * Cardinality: 0..n
    */
-  ShipmentStage: Array<ShipmentStage> | undefined
+  ShipmentStage?: Array<ShipmentStage> | undefined
 
   /**
    * The delivery of this shipment.
    * Delivery
    * Cardinality: 0..1
    */
-  Delivery: [Delivery] | undefined
+  Delivery?: [Delivery] | undefined
 
   /**
    * A transport handling unit associated with this shipment.
    * Transport Handling Unit
    * Cardinality: 0..n
    */
-  TransportHandlingUnit: Array<TransportHandlingUnit> | undefined
+  TransportHandlingUnit?: Array<TransportHandlingUnit> | undefined
 
   /**
    * The address to which a shipment should be returned.
    * Address
    * Cardinality: 0..1
    */
-  ReturnAddress: [Address] | undefined
+  ReturnAddress?: [Address] | undefined
 
   /**
    * The region in which the goods have been produced or manufactured, according to criteria laid down for the purposes
@@ -229,7 +229,7 @@ export interface Shipment {
    * Address
    * Cardinality: 0..1
    */
-  OriginAddress: [Address] | undefined
+  OriginAddress?: [Address] | undefined
 
   /**
    * The first arrival location of a shipment. This would be a port for sea, an airport for air, a terminal for rail, or
@@ -237,7 +237,7 @@ export interface Shipment {
    * Location
    * Cardinality: 0..1
    */
-  FirstArrivalPortLocation: [Location] | undefined
+  FirstArrivalPortLocation?: [Location] | undefined
 
   /**
    * The final exporting location for a shipment. This would be a port for sea, an airport for air, a terminal for rail,
@@ -245,7 +245,7 @@ export interface Shipment {
    * Location
    * Cardinality: 0..1
    */
-  LastExitPortLocation: [Location] | undefined
+  LastExitPortLocation?: [Location] | undefined
 
   /**
    * The country from which the goods were originally exported, without any commercial transaction taking place in
@@ -254,7 +254,7 @@ export interface Shipment {
    * Cardinality: 0..1
    * Alternative business terms: Country of exportation (WCO ID 062)
    */
-  ExportCountry: [Country] | undefined
+  ExportCountry?: [Country] | undefined
 
   /**
    * A cost incurred by the shipper in moving goods, by whatever means, from one place to another under the terms of the
@@ -264,5 +264,5 @@ export interface Shipment {
    * Cardinality: 0..n
    * Alternative business terms: Freight Costs
    */
-  FreightAllowanceCharge: Array<AllowanceCharge> | undefined
+  FreightAllowanceCharge?: Array<AllowanceCharge> | undefined
 }

@@ -15,23 +15,23 @@ export interface Contract {
    * An identifier for this contract.
    * Identifier
    * Cardinality: 0..1
-   * Examples: CC23 
+   * Examples: CC23
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * The date on which this contract was issued.
    * Date
    * Cardinality: 0..1
    */
-  IssueDate: [Date] | undefined
+  IssueDate?: [Date] | undefined
 
   /**
    * The time at which this contract was issued.
    * Time
    * Cardinality: 0..1
    */
-  IssueTime: [Time] | undefined
+  IssueTime?: [Time] | undefined
 
   /**
    * In a transportation contract, the deadline date by which the services referred to in the transport execution plan
@@ -40,7 +40,7 @@ export interface Contract {
    * Date
    * Cardinality: 0..1
    */
-  NominationDate: [Date] | undefined
+  NominationDate?: [Date] | undefined
 
   /**
    * In a transportation contract, the deadline time by which the services referred to in the transport execution plan
@@ -49,7 +49,7 @@ export interface Contract {
    * Time
    * Cardinality: 0..1
    */
-  NominationTime: [Time] | undefined
+  NominationTime?: [Time] | undefined
 
   /**
    * The type of this contract, expressed as a code, such as "Cost plus award fee" and "Cost plus fixed fee" from
@@ -57,7 +57,7 @@ export interface Contract {
    * Code
    * Cardinality: 0..1
    */
-  ContractTypeCode: [Code] | undefined
+  ContractTypeCode?: [Code] | undefined
 
   /**
    * The type of this contract, expressed as text, such as "Cost plus award fee" and "Cost plus fixed fee" from UNCEFACT
@@ -65,7 +65,7 @@ export interface Contract {
    * Text
    * Cardinality: 0..1
    */
-  ContractType: [Text] | undefined
+  ContractType?: [Text] | undefined
 
   /**
    * Free-form text conveying information that is not contained explicitly in other structures.
@@ -73,35 +73,35 @@ export interface Contract {
    * Cardinality: 0..n
    * Alternative business terms: Remarks
    */
-  Note: Array<Text> | undefined
+  Note?: Array<Text> | undefined
 
   /**
    * An identifier for the current version of this contract.
    * Identifier
    * Cardinality: 0..1
    */
-  VersionID: [Identifier] | undefined
+  VersionID?: [Identifier] | undefined
 
   /**
    * Text describing this contract.
    * Text
    * Cardinality: 0..n
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 
   /**
    * The period during which this contract is valid.
    * Period
    * Cardinality: 0..1
    */
-  ValidityPeriod: [Period] | undefined
+  ValidityPeriod?: [Period] | undefined
 
   /**
    * A reference to a contract document.
    * Document Reference
    * Cardinality: 0..n
    */
-  ContractDocumentReference: Array<DocumentReference> | undefined
+  ContractDocumentReference?: Array<DocumentReference> | undefined
 
   /**
    * In a transportation contract, the period required to book the services specified in the contract before the
@@ -109,12 +109,12 @@ export interface Contract {
    * Period
    * Cardinality: 0..1
    */
-  NominationPeriod: [Period] | undefined
+  NominationPeriod?: [Period] | undefined
 
   /**
    * In a transportation contract, the delivery of the services required to book the services specified in the contract.
    * Delivery
    * Cardinality: 0..1
    */
-  ContractualDelivery: [Delivery] | undefined
+  ContractualDelivery?: [Delivery] | undefined
 }

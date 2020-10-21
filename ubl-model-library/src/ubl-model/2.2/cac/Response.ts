@@ -14,40 +14,40 @@ export interface Response {
    * Identifier
    * Cardinality: 0..1
    */
-  ReferenceID: [Identifier] | undefined
+  ReferenceID?: [Identifier] | undefined
 
   /**
    * A code signifying the type of response.
    * Code
    * Cardinality: 0..1
    */
-  ResponseCode: [Code] | undefined
+  ResponseCode?: [Code] | undefined
 
   /**
    * Text describing this response.
    * Text
    * Cardinality: 0..n
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 
   /**
    * The date upon which this response is valid.
    * Date
    * Cardinality: 0..1
    */
-  EffectiveDate: [Date] | undefined
+  EffectiveDate?: [Date] | undefined
 
   /**
    * The time at which this response is valid.
    * Time
    * Cardinality: 0..1
    */
-  EffectiveTime: [Time] | undefined
+  EffectiveTime?: [Time] | undefined
 
   /**
    * A status report associated with this response.
    * Status
    * Cardinality: 0..n
    */
-  Status: Array<Status> | undefined
+  Status?: Array<Status> | undefined
 }

@@ -17,61 +17,61 @@ export interface Event {
    * Identifier
    * Cardinality: 0..1
    */
-  IdentificationID: [Identifier] | undefined
+  IdentificationID?: [Identifier] | undefined
 
   /**
    * The date of this event.
    * Date
    * Cardinality: 0..1
    */
-  OccurrenceDate: [Date] | undefined
+  OccurrenceDate?: [Date] | undefined
 
   /**
    * The time of this event.
    * Time
    * Cardinality: 0..1
    */
-  OccurrenceTime: [Time] | undefined
+  OccurrenceTime?: [Time] | undefined
 
   /**
    * A code signifying the type of this event.
    * Code
    * Cardinality: 0..1
    */
-  TypeCode: [Code] | undefined
+  TypeCode?: [Code] | undefined
 
   /**
    * Text describing this event.
    * Text
    * Cardinality: 0..n
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 
   /**
    * An indicator that this event has been completed (true) or not (false).
    * Indicator
    * Cardinality: 0..1
    */
-  CompletionIndicator: [Indicator] | undefined
+  CompletionIndicator?: [Indicator] | undefined
 
   /**
    * The current status of this event.
    * Status
    * Cardinality: 0..n
    */
-  CurrentStatus: Array<Status> | undefined
+  CurrentStatus?: Array<Status> | undefined
 
   /**
    * Contacts associated with this event.
    * Contact
    * Cardinality: 0..n
    */
-  Contact: Array<Contact> | undefined
+  Contact?: Array<Contact> | undefined
 
   /**
    * The location of this event.
    * Location
    * Cardinality: 0..1
    */
-  OccurenceLocation: [Location] | undefined
+  OccurenceLocation?: [Location] | undefined
 }

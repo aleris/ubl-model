@@ -11,13 +11,13 @@ export interface ItemComparison {
    * Amount
    * Cardinality: 0..1
    */
-  PriceAmount: [Amount] | undefined
+  PriceAmount?: [Amount] | undefined
 
   /**
    * The quantity for which this comparison is valid.
    * Quantity
    * Cardinality: 0..1
-   * Examples: per unit 
+   * Examples: per unit
    */
-  Quantity: [Quantity] | undefined
+  Quantity?: [Quantity] | undefined
 }

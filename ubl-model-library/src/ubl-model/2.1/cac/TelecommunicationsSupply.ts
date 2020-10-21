@@ -13,7 +13,7 @@ export interface TelecommunicationsSupply {
    * Cardinality: 0..1
    * Examples: Itemized tele Statement
    */
-  TelecommunicationsSupplyType: [Text] | undefined
+  TelecommunicationsSupplyType?: [Text] | undefined
 
   /**
    * The type of telecommunications supply, expressed as a code.
@@ -21,7 +21,7 @@ export interface TelecommunicationsSupply {
    * Cardinality: 0..1
    * Examples: TeleExtended
    */
-  TelecommunicationsSupplyTypeCode: [Code] | undefined
+  TelecommunicationsSupplyTypeCode?: [Code] | undefined
 
   /**
    * A code signifying the level of confidentiality of this information for this telecommunication supply.
@@ -37,14 +37,14 @@ export interface TelecommunicationsSupply {
    * Cardinality: 0..n
    * Examples: Extended conversation Statement January quarter 2008.
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 
   /**
    * The total amount associated with this telecommunications supply.
    * Amount
    * Cardinality: 0..1
    */
-  TotalAmount: [Amount] | undefined
+  TotalAmount?: [Amount] | undefined
 
   /**
    * Outlines the provided telecommunication supply

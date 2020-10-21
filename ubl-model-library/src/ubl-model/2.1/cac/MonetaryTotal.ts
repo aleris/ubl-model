@@ -10,49 +10,49 @@ export interface MonetaryTotal {
    * Amount
    * Cardinality: 0..1
    */
-  LineExtensionAmount: [Amount] | undefined
+  LineExtensionAmount?: [Amount] | undefined
 
   /**
    * The monetary amount of an extended transaction line, exclusive of taxes.
    * Amount
    * Cardinality: 0..1
    */
-  TaxExclusiveAmount: [Amount] | undefined
+  TaxExclusiveAmount?: [Amount] | undefined
 
   /**
    * The monetary amount including taxes; the sum of payable amount and prepaid amount.
    * Amount
    * Cardinality: 0..1
    */
-  TaxInclusiveAmount: [Amount] | undefined
+  TaxInclusiveAmount?: [Amount] | undefined
 
   /**
    * The total monetary amount of all allowances.
    * Amount
    * Cardinality: 0..1
    */
-  AllowanceTotalAmount: [Amount] | undefined
+  AllowanceTotalAmount?: [Amount] | undefined
 
   /**
    * The total monetary amount of all charges.
    * Amount
    * Cardinality: 0..1
    */
-  ChargeTotalAmount: [Amount] | undefined
+  ChargeTotalAmount?: [Amount] | undefined
 
   /**
    * The total prepaid monetary amount.
    * Amount
    * Cardinality: 0..1
    */
-  PrepaidAmount: [Amount] | undefined
+  PrepaidAmount?: [Amount] | undefined
 
   /**
    * The rounding amount (positive or negative) added to produce the line extension amount.
    * Amount
    * Cardinality: 0..1
    */
-  PayableRoundingAmount: [Amount] | undefined
+  PayableRoundingAmount?: [Amount] | undefined
 
   /**
    * The amount of the monetary total to be paid.
@@ -66,5 +66,5 @@ export interface MonetaryTotal {
    * Amount
    * Cardinality: 0..1
    */
-  PayableAlternativeAmount: [Amount] | undefined
+  PayableAlternativeAmount?: [Amount] | undefined
 }

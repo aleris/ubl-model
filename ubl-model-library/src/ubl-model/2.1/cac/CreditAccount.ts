@@ -8,7 +8,7 @@ export interface CreditAccount {
    * An identifier for this credit account.
    * Identifier
    * Cardinality: 1
-   * Examples: Customer Code 29 
+   * Examples: Customer Code 29
    */
   AccountID: [Identifier]
 }

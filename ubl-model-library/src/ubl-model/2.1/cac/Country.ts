@@ -10,7 +10,7 @@ export interface Country {
    * Code
    * Cardinality: 0..1
    */
-  IdentificationCode: [Code] | undefined
+  IdentificationCode?: [Code] | undefined
 
   /**
    * The name of this country.
@@ -18,5 +18,5 @@ export interface Country {
    * Cardinality: 0..1
    * Examples: SOUTH AFRICA
    */
-  Name: [Text] | undefined
+  Name?: [Text] | undefined
 }

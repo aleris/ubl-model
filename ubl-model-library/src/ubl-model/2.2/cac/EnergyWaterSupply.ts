@@ -12,26 +12,26 @@ export interface EnergyWaterSupply {
    * Consumption Report
    * Cardinality: 0..n
    */
-  ConsumptionReport: Array<ConsumptionReport> | undefined
+  ConsumptionReport?: Array<ConsumptionReport> | undefined
 
   /**
    * A tax on the consumption of energy or water.
    * Energy Tax Report
    * Cardinality: 0..n
    */
-  EnergyTaxReport: Array<EnergyTaxReport> | undefined
+  EnergyTaxReport?: Array<EnergyTaxReport> | undefined
 
   /**
    * A consumption average.
    * Consumption Average
    * Cardinality: 0..n
    */
-  ConsumptionAverage: Array<ConsumptionAverage> | undefined
+  ConsumptionAverage?: Array<ConsumptionAverage> | undefined
 
   /**
    * Describes any corrections or adjustments to the supply of energy or water.
    * Consumption Correction
    * Cardinality: 0..n
    */
-  EnergyWaterConsumptionCorrection: Array<ConsumptionCorrection> | undefined
+  EnergyWaterConsumptionCorrection?: Array<ConsumptionCorrection> | undefined
 }

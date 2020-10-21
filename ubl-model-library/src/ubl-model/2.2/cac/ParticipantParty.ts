@@ -11,28 +11,28 @@ export interface ParticipantParty {
    * Indicator
    * Cardinality: 0..1
    */
-  InitiatingPartyIndicator: [Indicator] | undefined
+  InitiatingPartyIndicator?: [Indicator] | undefined
 
   /**
    * An indicator that this party is a private entity (true) or not (false).
    * Indicator
    * Cardinality: 0..1
    */
-  PrivatePartyIndicator: [Indicator] | undefined
+  PrivatePartyIndicator?: [Indicator] | undefined
 
   /**
    * An indicator that this party is a public (governmental) entity (true) or not (false).
    * Indicator
    * Cardinality: 0..1
    */
-  PublicPartyIndicator: [Indicator] | undefined
+  PublicPartyIndicator?: [Indicator] | undefined
 
   /**
    * An indicator that this party is a service provider (true) or not (false).
    * Indicator
    * Cardinality: 0..1
    */
-  ServiceProviderPartyIndicator: [Indicator] | undefined
+  ServiceProviderPartyIndicator?: [Indicator] | undefined
 
   /**
    * The participant party itself.
@@ -46,26 +46,26 @@ export interface ParticipantParty {
    * Contact
    * Cardinality: 0..1
    */
-  LegalContact: [Contact] | undefined
+  LegalContact?: [Contact] | undefined
 
   /**
    * A technical contact associated to this participant.
    * Contact
    * Cardinality: 0..1
    */
-  TechnicalContact: [Contact] | undefined
+  TechnicalContact?: [Contact] | undefined
 
   /**
    * A support contact associated to this participant.
    * Contact
    * Cardinality: 0..1
    */
-  SupportContact: [Contact] | undefined
+  SupportContact?: [Contact] | undefined
 
   /**
    * A commercial contact associated to this participant.
    * Contact
    * Cardinality: 0..1
    */
-  CommercialContact: [Contact] | undefined
+  CommercialContact?: [Contact] | undefined
 }

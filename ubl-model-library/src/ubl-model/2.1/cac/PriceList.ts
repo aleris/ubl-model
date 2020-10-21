@@ -11,27 +11,27 @@ export interface PriceList {
    * Identifier
    * Cardinality: 0..1
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * A code signifying whether this price list is an original, copy, revision, or cancellation.
    * Code
    * Cardinality: 0..1
-   * Examples: new - announcement only , new and available , deleted - announcement only 
+   * Examples: new - announcement only , new and available , deleted - announcement only
    */
-  StatusCode: [Code] | undefined
+  StatusCode?: [Code] | undefined
 
   /**
    * A period during which this price list is valid.
    * Period
    * Cardinality: 0..n
    */
-  ValidityPeriod: Array<Period> | undefined
+  ValidityPeriod?: Array<Period> | undefined
 
   /**
    * The previous price list.
    * Price List
    * Cardinality: 0..1
    */
-  PreviousPriceList: [PriceList] | undefined
+  PreviousPriceList?: [PriceList] | undefined
 }

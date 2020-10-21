@@ -32,35 +32,35 @@ export interface TelecommunicationsSupplyLine {
    * Cardinality: 0..n
    * Examples: Additional informations
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 
   /**
    * An amount specifying the cost of this telecommunication line
    * Amount
    * Cardinality: 0..1
    */
-  LineExtensionAmount: [Amount] | undefined
+  LineExtensionAmount?: [Amount] | undefined
 
   /**
    * Exchanges rates used to calculate the amount for this line.
    * Exchange Rate
    * Cardinality: 0..n
    */
-  ExchangeRate: Array<ExchangeRate> | undefined
+  ExchangeRate?: Array<ExchangeRate> | undefined
 
   /**
    * An allowance or charge that applies to this telecommunication supply line.
    * Allowance Charge
    * Cardinality: 0..n
    */
-  AllowanceCharge: Array<AllowanceCharge> | undefined
+  AllowanceCharge?: Array<AllowanceCharge> | undefined
 
   /**
    * A total amount of taxes of a particular kind applicable to this telecommunications supply line
    * Tax Total
    * Cardinality: 0..n
    */
-  TaxTotal: Array<TaxTotal> | undefined
+  TaxTotal?: Array<TaxTotal> | undefined
 
   /**
    * A telecommunications service (e.g., a telephone call).

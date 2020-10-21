@@ -10,19 +10,19 @@ export interface LotDistribution {
    * Numeric
    * Cardinality: 0..1
    */
-  MaximumLotsAwardedNumeric: [Numeric] | undefined
+  MaximumLotsAwardedNumeric?: [Numeric] | undefined
 
   /**
    * The maximum number of lots to which a tenderer can submit an offer to.
    * Numeric
    * Cardinality: 0..1
    */
-  MaximumLotsSubmittedNumeric: [Numeric] | undefined
+  MaximumLotsSubmittedNumeric?: [Numeric] | undefined
 
   /**
    * Description on how to combine lots when submitting a tender.
    * Text
    * Cardinality: 0..n
    */
-  GroupingLots: Array<Text> | undefined
+  GroupingLots?: Array<Text> | undefined
 }

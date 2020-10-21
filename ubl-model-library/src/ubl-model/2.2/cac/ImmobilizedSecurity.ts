@@ -13,47 +13,47 @@ export interface ImmobilizedSecurity {
    * Identifier
    * Cardinality: 0..1
    */
-  ImmobilizationCertificateID: [Identifier] | undefined
+  ImmobilizationCertificateID?: [Identifier] | undefined
 
   /**
    * An identifier for the security being immobilized.
    * Identifier
    * Cardinality: 0..1
    */
-  SecurityID: [Identifier] | undefined
+  SecurityID?: [Identifier] | undefined
 
   /**
    * The date on which this immobilized security was issued.
    * Date
    * Cardinality: 0..1
    */
-  IssueDate: [Date] | undefined
+  IssueDate?: [Date] | undefined
 
   /**
    * The value of the security on the day it was immobilized.
    * Amount
    * Cardinality: 0..1
    */
-  FaceValueAmount: [Amount] | undefined
+  FaceValueAmount?: [Amount] | undefined
 
   /**
    * The current market value of the immobilized security.
    * Amount
    * Cardinality: 0..1
    */
-  MarketValueAmount: [Amount] | undefined
+  MarketValueAmount?: [Amount] | undefined
 
   /**
    * The number of shares immobilized.
    * Quantity
    * Cardinality: 0..1
    */
-  SharesNumberQuantity: [Quantity] | undefined
+  SharesNumberQuantity?: [Quantity] | undefined
 
   /**
    * The party issuing the immobilized security certificate.
    * Party
    * Cardinality: 0..1
    */
-  IssuerParty: [Party] | undefined
+  IssuerParty?: [Party] | undefined
 }

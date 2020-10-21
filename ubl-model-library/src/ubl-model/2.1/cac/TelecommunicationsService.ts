@@ -21,7 +21,7 @@ export interface TelecommunicationsService {
    * Identifier
    * Cardinality: 0..1
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * In the case of a telephone call, the date of the call.
@@ -53,7 +53,7 @@ export interface TelecommunicationsService {
    * Cardinality: 0..1
    * Examples: Subscription
    */
-  TelecommunicationsServiceCategory: [Text] | undefined
+  TelecommunicationsServiceCategory?: [Text] | undefined
 
   /**
    * The telecommunications category, expressed as a code.
@@ -61,7 +61,7 @@ export interface TelecommunicationsService {
    * Cardinality: 0..1
    * Examples: Subscription
    */
-  TelecommunicationsServiceCategoryCode: [Code] | undefined
+  TelecommunicationsServiceCategoryCode?: [Code] | undefined
 
   /**
    * The title of a movie delivered via this telecommunications service.
@@ -69,21 +69,21 @@ export interface TelecommunicationsService {
    * Cardinality: 0..1
    * Examples: The Matrix
    */
-  MovieTitle: [Text] | undefined
+  MovieTitle?: [Text] | undefined
 
   /**
    * Statement of the roaming partner name.
    * Name
    * Cardinality: 0..1
    */
-  RoamingPartnerName: [Text] | undefined
+  RoamingPartnerName?: [Text] | undefined
 
   /**
    * A pay-per-view delivered via this telecommunications service.
    * Text
    * Cardinality: 0..1
    */
-  PayPerView: [Text] | undefined
+  PayPerView?: [Text] | undefined
 
   /**
    * The number of calls.
@@ -91,7 +91,7 @@ export interface TelecommunicationsService {
    * Cardinality: 0..1
    * Examples: 5761
    */
-  Quantity: [Quantity] | undefined
+  Quantity?: [Quantity] | undefined
 
   /**
    * The telecommunications call described as a text
@@ -99,7 +99,7 @@ export interface TelecommunicationsService {
    * Cardinality: 0..1
    * Examples: CallAttempt
    */
-  TelecommunicationsServiceCall: [Text] | undefined
+  TelecommunicationsServiceCall?: [Text] | undefined
 
   /**
    * The telecommunications call described as a code
@@ -107,14 +107,14 @@ export interface TelecommunicationsService {
    * Cardinality: 0..1
    * Examples: CallAttempt
    */
-  TelecommunicationsServiceCallCode: [Code] | undefined
+  TelecommunicationsServiceCallCode?: [Code] | undefined
 
   /**
    * The amount to be payed as the base for one call
    * Amount
    * Cardinality: 0..1
    */
-  CallBaseAmount: [Amount] | undefined
+  CallBaseAmount?: [Amount] | undefined
 
   /**
    * The amount to be payed for the call
@@ -122,14 +122,14 @@ export interface TelecommunicationsService {
    * Cardinality: 0..1
    * Examples: 542.44
    */
-  CallExtensionAmount: [Amount] | undefined
+  CallExtensionAmount?: [Amount] | undefined
 
   /**
    * The price for using the telecommunication service
    * Price
    * Cardinality: 0..1
    */
-  Price: [Price] | undefined
+  Price?: [Price] | undefined
 
   /**
    * The country to which the service is provided. In case of a telephone call it is the country where the receiver is
@@ -137,40 +137,40 @@ export interface TelecommunicationsService {
    * Country
    * Cardinality: 0..1
    */
-  Country: [Country] | undefined
+  Country?: [Country] | undefined
 
   /**
    * A exchanges rates used in the pricing e.g.. when phone calls has crossed border lines.
    * Exchange Rate
    * Cardinality: 0..n
    */
-  ExchangeRate: Array<ExchangeRate> | undefined
+  ExchangeRate?: Array<ExchangeRate> | undefined
 
   /**
    * An allowance or charge that applies to the UtilityStatement as a whole.
    * Allowance Charge
    * Cardinality: 0..n
    */
-  AllowanceCharge: Array<AllowanceCharge> | undefined
+  AllowanceCharge?: Array<AllowanceCharge> | undefined
 
   /**
    * A total amount of taxes of a particular kind applicable to this telecommunications service.
    * Tax Total
    * Cardinality: 0..n
    */
-  TaxTotal: Array<TaxTotal> | undefined
+  TaxTotal?: Array<TaxTotal> | undefined
 
   /**
    * In the case of a telephone call, a duty on this call.
    * Duty
    * Cardinality: 0..n
    */
-  CallDuty: Array<Duty> | undefined
+  CallDuty?: Array<Duty> | undefined
 
   /**
    * A duty on a consumption of time.
    * Duty
    * Cardinality: 0..n
    */
-  TimeDuty: Array<Duty> | undefined
+  TimeDuty?: Array<Duty> | undefined
 }

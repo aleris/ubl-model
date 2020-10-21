@@ -24,7 +24,7 @@ export interface QualificationApplicationResponse {
    * A container for all extensions present in the document.
    * Cardinality: 0..1
    */
-  UBLExtensions: [UBLExtensions] | undefined
+  UBLExtensions?: [UBLExtensions] | undefined
 
   /**
    * Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that
@@ -33,7 +33,7 @@ export interface QualificationApplicationResponse {
    * Cardinality: 0..1
    * Examples: 2.0.5
    */
-  UBLVersionID: [Identifier] | undefined
+  UBLVersionID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined customization of UBL for a specific use.
@@ -41,7 +41,7 @@ export interface QualificationApplicationResponse {
    * Cardinality: 0..1
    * Examples: NES
    */
-  CustomizationID: [Identifier] | undefined
+  CustomizationID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined profile of the customization of UBL being used.
@@ -49,7 +49,7 @@ export interface QualificationApplicationResponse {
    * Cardinality: 0..1
    * Examples: BasicProcurementProcess
    */
-  ProfileID: [Identifier] | undefined
+  ProfileID?: [Identifier] | undefined
 
   /**
    * Identifies an instance of executing a profile, to associate all transactions in a collaboration.
@@ -57,28 +57,28 @@ export interface QualificationApplicationResponse {
    * Cardinality: 0..1
    * Examples: BPP-1001
    */
-  ProfileExecutionID: [Identifier] | undefined
+  ProfileExecutionID?: [Identifier] | undefined
 
   /**
    * An identifier for this document, assigned by the sender.
    * Identifier
    * Cardinality: 0..1
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * Indicates whether this document is a copy (true) or not (false).
    * Indicator
    * Cardinality: 0..1
    */
-  CopyIndicator: [Indicator] | undefined
+  CopyIndicator?: [Indicator] | undefined
 
   /**
    * A universally unique identifier for an instance of this document.
    * Identifier
    * Cardinality: 0..1
    */
-  UUID: [Identifier] | undefined
+  UUID?: [Identifier] | undefined
 
   /**
    * An identifier, assigned by the sender, for the process file (i.e., record) to which this document belongs.
@@ -92,7 +92,7 @@ export interface QualificationApplicationResponse {
    * Name
    * Cardinality: 0..n
    */
-  ContractName: Array<Text> | undefined
+  ContractName?: Array<Text> | undefined
 
   /**
    * The date, assigned by the sender, on which this document was issued.
@@ -106,30 +106,30 @@ export interface QualificationApplicationResponse {
    * Time
    * Cardinality: 0..1
    */
-  IssueTime: [Time] | undefined
+  IssueTime?: [Time] | undefined
 
   /**
    * Economic Operator Group Name associated with this Qualification.
    * Name
    * Cardinality: 0..1
    */
-  EconomicOperatorGroupName: [Text] | undefined
+  EconomicOperatorGroupName?: [Text] | undefined
 
   /**
    * Indicates the current version of the Qualification Application Response.
    * Identifier
    * Cardinality: 0..1
-   * Examples: 1.1 
+   * Examples: 1.1
    */
-  VersionID: [Identifier] | undefined
+  VersionID?: [Identifier] | undefined
 
   /**
    * Identifies the previous version of the Qualification Application Response which is superceded by this version.
    * Identifier
    * Cardinality: 0..1
-   * Examples: 1.0 
+   * Examples: 1.0
    */
-  PreviousVersionID: [Identifier] | undefined
+  PreviousVersionID?: [Identifier] | undefined
 
   /**
    * A code signifying the type of this tendering procedure.
@@ -137,7 +137,7 @@ export interface QualificationApplicationResponse {
    * Cardinality: 0..1
    * Examples: Open, Restricted, Negotiated
    */
-  ProcedureCode: [Code] | undefined
+  ProcedureCode?: [Code] | undefined
 
   /**
    * A code specifying the type of the Qualification Application.
@@ -145,14 +145,14 @@ export interface QualificationApplicationResponse {
    * Cardinality: 0..1
    * Examples: "Regulated", "Self-contained"
    */
-  QualificationApplicationTypeCode: [Code] | undefined
+  QualificationApplicationTypeCode?: [Code] | undefined
 
   /**
    * Free-form text to describe Weight Scoring Methodology.
    * Text
    * Cardinality: 0..n
    */
-  WeightScoringMethodologyNote: Array<Text> | undefined
+  WeightScoringMethodologyNote?: Array<Text> | undefined
 
   /**
    * A code specifying the Weighting type
@@ -160,7 +160,7 @@ export interface QualificationApplicationResponse {
    * Cardinality: 0..1
    * Examples: "Regulated", "Self-contained"
    */
-  WeightingTypeCode: [Code] | undefined
+  WeightingTypeCode?: [Code] | undefined
 
   /**
    * Free-form text pertinent to this document, conveying information that is not contained explicitly in other
@@ -168,7 +168,7 @@ export interface QualificationApplicationResponse {
    * Text
    * Cardinality: 0..n
    */
-  Note: Array<Text> | undefined
+  Note?: Array<Text> | undefined
 
   /**
    * The contracting party.
@@ -189,21 +189,21 @@ export interface QualificationApplicationResponse {
    * Procurement Project
    * Cardinality: 0..1
    */
-  ProcurementProject: [ProcurementProject] | undefined
+  ProcurementProject?: [ProcurementProject] | undefined
 
   /**
    * One of the procurement project lots into which this contract can be split.
    * Procurement Project Lot
    * Cardinality: 0..n
    */
-  ProcurementProjectLot: Array<ProcurementProjectLot> | undefined
+  ProcurementProjectLot?: Array<ProcurementProjectLot> | undefined
 
   /**
    * The criterion as described in the Qualification Application Request.
    * Tendering Criterion
    * Cardinality: 0..n
    */
-  TenderingCriterion: Array<TenderingCriterion> | undefined
+  TenderingCriterion?: Array<TenderingCriterion> | undefined
 
   /**
    * Each criterion requirement response.
@@ -217,19 +217,19 @@ export interface QualificationApplicationResponse {
    * Document Reference
    * Cardinality: 0..n
    */
-  AdditionalDocumentReference: Array<DocumentReference> | undefined
+  AdditionalDocumentReference?: Array<DocumentReference> | undefined
 
   /**
    * The evidence supporting this criterion requirement response.
    * Evidence
    * Cardinality: 0..n
    */
-  Evidence: Array<Evidence> | undefined
+  Evidence?: Array<Evidence> | undefined
 
   /**
    * A signature applied to this document.
    * Signature
    * Cardinality: 0..n
    */
-  Signature: Array<Signature> | undefined
+  Signature?: Array<Signature> | undefined
 }

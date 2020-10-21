@@ -29,61 +29,61 @@ export interface CardAccount {
    * Cardinality: 0..1
    * Examples: Debit Card, Credit Card, Procurement Card
    */
-  CardTypeCode: [Code] | undefined
+  CardTypeCode?: [Code] | undefined
 
   /**
    * The date from which the card is valid.
    * Date
    * Cardinality: 0..1
    */
-  ValidityStartDate: [Date] | undefined
+  ValidityStartDate?: [Date] | undefined
 
   /**
    * The date on which the card expires.
    * Date
    * Cardinality: 0..1
    */
-  ExpiryDate: [Date] | undefined
+  ExpiryDate?: [Date] | undefined
 
   /**
    * An identifier for the institution issuing the card.
    * Identifier
    * Cardinality: 0..1
    */
-  IssuerID: [Identifier] | undefined
+  IssuerID?: [Identifier] | undefined
 
   /**
    * An identifier for the card, specified by the issuer.
    * Identifier
    * Cardinality: 0..1
    */
-  IssueNumberID: [Identifier] | undefined
+  IssueNumberID?: [Identifier] | undefined
 
   /**
    * An identifier for the Card Verification Value (often found on the reverse of the card itself).
    * Identifier
    * Cardinality: 0..1
    */
-  CV2ID: [Identifier] | undefined
+  CV2ID?: [Identifier] | undefined
 
   /**
    * A mutually agreed code to distinguish between CHIP and MAG STRIPE cards.
    * Code
    * Cardinality: 0..1
    */
-  CardChipCode: [Code] | undefined
+  CardChipCode?: [Code] | undefined
 
   /**
    * An identifier on the chip card for the application that provides the quoted information; an AID (application ID).
    * Identifier
    * Cardinality: 0..1
    */
-  ChipApplicationID: [Identifier] | undefined
+  ChipApplicationID?: [Identifier] | undefined
 
   /**
    * The name of the cardholder.
    * Name
    * Cardinality: 0..1
    */
-  HolderName: [Text] | undefined
+  HolderName?: [Text] | undefined
 }

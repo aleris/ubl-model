@@ -12,35 +12,35 @@ export interface FrameworkAgreement {
    * Quantity
    * Cardinality: 0..1
    */
-  ExpectedOperatorQuantity: [Quantity] | undefined
+  ExpectedOperatorQuantity?: [Quantity] | undefined
 
   /**
    * The maximum number of economic operators allowed to participate in this framework agreement.
    * Quantity
    * Cardinality: 0..1
    */
-  MaximumOperatorQuantity: [Quantity] | undefined
+  MaximumOperatorQuantity?: [Quantity] | undefined
 
   /**
    * Text describing the justification for this framework agreement.
    * Text
    * Cardinality: 0..n
    */
-  Justification: Array<Text> | undefined
+  Justification?: Array<Text> | undefined
 
   /**
    * Text describing the frequency with which subsequent contracts will be awarded.
    * Text
    * Cardinality: 0..n
    */
-  Frequency: Array<Text> | undefined
+  Frequency?: Array<Text> | undefined
 
   /**
    * The period during which this framework agreement applies.
    * Period
    * Cardinality: 0..1
    */
-  DurationPeriod: [Period] | undefined
+  DurationPeriod?: [Period] | undefined
 
   /**
    * A tender requirement intended for consumption by downstream tendering processes derived from the establishment of
@@ -49,5 +49,5 @@ export interface FrameworkAgreement {
    * Cardinality: 0..n
    * Examples: Curricula required
    */
-  SubsequentProcessTenderRequirement: Array<TenderRequirement> | undefined
+  SubsequentProcessTenderRequirement?: Array<TenderRequirement> | undefined
 }

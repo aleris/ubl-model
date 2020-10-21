@@ -25,21 +25,21 @@ export interface ReceiptLine {
    * Identifier
    * Cardinality: 0..1
    */
-  UUID: [Identifier] | undefined
+  UUID?: [Identifier] | undefined
 
   /**
    * Free-form text conveying information that is not contained explicitly in other structures.
    * Text
    * Cardinality: 0..n
    */
-  Note: Array<Text> | undefined
+  Note?: Array<Text> | undefined
 
   /**
    * The quantity received.
    * Quantity
    * Cardinality: 0..1
    */
-  ReceivedQuantity: [Quantity] | undefined
+  ReceivedQuantity?: [Quantity] | undefined
 
   /**
    * The quantity received short; the difference between the quantity reported despatched and the quantity actually
@@ -47,35 +47,35 @@ export interface ReceiptLine {
    * Quantity
    * Cardinality: 0..1
    */
-  ShortQuantity: [Quantity] | undefined
+  ShortQuantity?: [Quantity] | undefined
 
   /**
    * A code signifying the action that the delivery party wishes the despatch party to take as the result of a shortage.
    * Code
    * Cardinality: 0..1
    */
-  ShortageActionCode: [Code] | undefined
+  ShortageActionCode?: [Code] | undefined
 
   /**
    * The quantity rejected.
    * Quantity
    * Cardinality: 0..1
    */
-  RejectedQuantity: [Quantity] | undefined
+  RejectedQuantity?: [Quantity] | undefined
 
   /**
    * The reason for a rejection, expressed as a code.
    * Code
    * Cardinality: 0..1
    */
-  RejectReasonCode: [Code] | undefined
+  RejectReasonCode?: [Code] | undefined
 
   /**
    * The reason for a rejection, expressed as text.
    * Text
    * Cardinality: 0..n
    */
-  RejectReason: Array<Text> | undefined
+  RejectReason?: Array<Text> | undefined
 
   /**
    * A code signifying the action that the delivery party wishes the despatch party to take as the result of a
@@ -83,75 +83,75 @@ export interface ReceiptLine {
    * Code
    * Cardinality: 0..1
    */
-  RejectActionCode: [Code] | undefined
+  RejectActionCode?: [Code] | undefined
 
   /**
    * A code signifying the type of a discrepancy in quantity.
    * Code
    * Cardinality: 0..1
    */
-  QuantityDiscrepancyCode: [Code] | undefined
+  QuantityDiscrepancyCode?: [Code] | undefined
 
   /**
    * The quantity over-supplied, i.e., the quantity over and above the quantity ordered.
    * Quantity
    * Cardinality: 0..1
    */
-  OversupplyQuantity: [Quantity] | undefined
+  OversupplyQuantity?: [Quantity] | undefined
 
   /**
    * The date on which the goods or services were received.
    * Date
    * Cardinality: 0..1
    */
-  ReceivedDate: [Date] | undefined
+  ReceivedDate?: [Date] | undefined
 
   /**
    * A complaint about the timing of delivery, expressed as a code.
    * Code
    * Cardinality: 0..1
    */
-  TimingComplaintCode: [Code] | undefined
+  TimingComplaintCode?: [Code] | undefined
 
   /**
    * A complaint about the timing of delivery, expressed as text.
    * Text
    * Cardinality: 0..1
    */
-  TimingComplaint: [Text] | undefined
+  TimingComplaint?: [Text] | undefined
 
   /**
    * A reference to the order line associated with this receipt line.
    * Order Line Reference
    * Cardinality: 0..1
    */
-  OrderLineReference: [OrderLineReference] | undefined
+  OrderLineReference?: [OrderLineReference] | undefined
 
   /**
    * A reference to a despatch line associated with this receipt line.
    * Line Reference
    * Cardinality: 0..n
    */
-  DespatchLineReference: Array<LineReference> | undefined
+  DespatchLineReference?: Array<LineReference> | undefined
 
   /**
    * A reference to a document associated with this receipt line.
    * Document Reference
    * Cardinality: 0..n
    */
-  DocumentReference: Array<DocumentReference> | undefined
+  DocumentReference?: Array<DocumentReference> | undefined
 
   /**
    * An item associated with this receipt line.
    * Item
    * Cardinality: 0..n
    */
-  Item: Array<Item> | undefined
+  Item?: Array<Item> | undefined
 
   /**
    * A shipment associated with this receipt line.
    * Shipment
    * Cardinality: 0..n
    */
-  Shipment: Array<Shipment> | undefined
+  Shipment?: Array<Shipment> | undefined
 }

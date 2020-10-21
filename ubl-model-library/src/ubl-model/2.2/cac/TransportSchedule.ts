@@ -21,28 +21,28 @@ export interface TransportSchedule {
    * Date
    * Cardinality: 0..1
    */
-  ReferenceDate: [Date] | undefined
+  ReferenceDate?: [Date] | undefined
 
   /**
    * The reference time for the transport schedule status.
    * Time
    * Cardinality: 0..1
    */
-  ReferenceTime: [Time] | undefined
+  ReferenceTime?: [Time] | undefined
 
   /**
    * The reliability of the transport schedule status, expressed as a percentage.
    * Percent
    * Cardinality: 0..1
    */
-  ReliabilityPercent: [Numeric] | undefined
+  ReliabilityPercent?: [Numeric] | undefined
 
   /**
    * Remarks related to the transport schedule status.
    * Text
    * Cardinality: 0..n
    */
-  Remarks: Array<Text> | undefined
+  Remarks?: Array<Text> | undefined
 
   /**
    * The location for which status is reported.
@@ -56,40 +56,40 @@ export interface TransportSchedule {
    * Transport Event
    * Cardinality: 0..1
    */
-  ActualArrivalTransportEvent: [TransportEvent] | undefined
+  ActualArrivalTransportEvent?: [TransportEvent] | undefined
 
   /**
    * The actual departure from a location.
    * Transport Event
    * Cardinality: 0..1
    */
-  ActualDepartureTransportEvent: [TransportEvent] | undefined
+  ActualDepartureTransportEvent?: [TransportEvent] | undefined
 
   /**
    * An estimated departure from a specified location.
    * Transport Event
    * Cardinality: 0..1
    */
-  EstimatedDepartureTransportEvent: [TransportEvent] | undefined
+  EstimatedDepartureTransportEvent?: [TransportEvent] | undefined
 
   /**
    * An estimated arrival at a specified location.
    * Transport Event
    * Cardinality: 0..1
    */
-  EstimatedArrivalTransportEvent: [TransportEvent] | undefined
+  EstimatedArrivalTransportEvent?: [TransportEvent] | undefined
 
   /**
    * The planned departure from a specified location.
    * Transport Event
    * Cardinality: 0..1
    */
-  PlannedDepartureTransportEvent: [TransportEvent] | undefined
+  PlannedDepartureTransportEvent?: [TransportEvent] | undefined
 
   /**
    * The planned arrival at a specified location.
    * Transport Event
    * Cardinality: 0..1
    */
-  PlannedArrivalTransportEvent: [TransportEvent] | undefined
+  PlannedArrivalTransportEvent?: [TransportEvent] | undefined
 }

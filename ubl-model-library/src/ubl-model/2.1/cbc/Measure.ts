@@ -12,11 +12,11 @@ export interface Measure {
    * Code
    * Reference UNECE Rec. 20 and X12 355
    */
-  MeasureUnitCode: string | undefined
+  MeasureUnitCode?: string | undefined
 
   /**
    * The version of the measure unit code list.
    * Identifier
    */
-  MeasureUnitCodeListVersionIdentifier: string | undefined
+  MeasureUnitCodeListVersionIdentifier?: string | undefined
 }

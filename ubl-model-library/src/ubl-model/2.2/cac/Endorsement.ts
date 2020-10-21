@@ -27,7 +27,7 @@ export interface Endorsement {
    * Text
    * Cardinality: 0..n
    */
-  Remarks: Array<Text> | undefined
+  Remarks?: Array<Text> | undefined
 
   /**
    * The type of party providing this endorsement.
@@ -41,5 +41,5 @@ export interface Endorsement {
    * Signature
    * Cardinality: 0..n
    */
-  Signature: Array<Signature> | undefined
+  Signature?: Array<Signature> | undefined
 }

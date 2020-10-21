@@ -26,12 +26,12 @@ export interface EnvironmentalEmission {
    * Text
    * Cardinality: 0..n
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 
   /**
    * A method used to calculate the amount of this emission.
    * Emission Calculation Method
    * Cardinality: 0..n
    */
-  EmissionCalculationMethod: Array<EmissionCalculationMethod> | undefined
+  EmissionCalculationMethod?: Array<EmissionCalculationMethod> | undefined
 }

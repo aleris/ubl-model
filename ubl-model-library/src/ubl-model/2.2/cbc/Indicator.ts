@@ -11,5 +11,5 @@ export interface Indicator {
    * Whether the indicator is numeric, textual or binary.
    * Text
    */
-  format: string | undefined
+  format?: string | undefined
 }

@@ -1,4 +1,4 @@
-import { extractTypeName, formatLongComment, mapPrimitiveType, MAX_LINE_LENGTH } from '../type-gen-utils'
+import { extractTypeName, formatComment, mapPrimitiveType } from '../type-gen-utils'
 import { Documentation } from '../Documentation'
 import { CoreTypeAttribute } from './CoreTypeAttribute'
 
@@ -55,7 +55,7 @@ class CoreTypeFormatterV20 implements CodeTypeFormatter {
 
   asCodeString(version: string, coreType: CoreType) {
     return `/**${
-      formatLongComment(' * ', MAX_LINE_LENGTH, coreType.documentation.definition)
+      formatComment(' * ', coreType.documentation.definition)
     }
  */
 export interface ${coreType.typeName} {
@@ -75,7 +75,7 @@ class CoreTypeFormatterV22 implements CodeTypeFormatter {
 
   asCodeString(version: string, coreType: CoreType) {
     return `/**${
-      formatLongComment(' * ', MAX_LINE_LENGTH, coreType.documentation.definition)
+      formatComment(' * ', coreType.documentation.definition)
     }
  */
 export interface ${coreType.typeName} {

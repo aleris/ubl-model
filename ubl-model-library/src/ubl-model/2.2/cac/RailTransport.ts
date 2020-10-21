@@ -17,5 +17,5 @@ export interface RailTransport {
    * Identifier
    * Cardinality: 0..1
    */
-  RailCarID: [Identifier] | undefined
+  RailCarID?: [Identifier] | undefined
 }

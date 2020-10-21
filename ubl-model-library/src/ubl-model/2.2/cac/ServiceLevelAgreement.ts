@@ -16,7 +16,7 @@ export interface ServiceLevelAgreement {
    * Identifier
    * Cardinality: 0..1
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * A specific type of service subject to this service level agreement.
@@ -24,14 +24,14 @@ export interface ServiceLevelAgreement {
    * Cardinality: 0..1
    * Examples: AP, SMP
    */
-  ServiceTypeCode: [Code] | undefined
+  ServiceTypeCode?: [Code] | undefined
 
   /**
    * A specific type of service subject to this service level agreement, expressed as text.
    * Text
    * Cardinality: 0..n
    */
-  ServiceType: Array<Text> | undefined
+  ServiceType?: Array<Text> | undefined
 
   /**
    * The availability percentage (e.g. 98.5% of the time).
@@ -40,56 +40,56 @@ export interface ServiceLevelAgreement {
    * Alternative business terms: Time Service Factor
    * Examples: 98.5
    */
-  AvailabilityTimePercent: [Numeric] | undefined
+  AvailabilityTimePercent?: [Numeric] | undefined
 
   /**
    * Indicates whether this service is available on monday (true) or not (false).
    * Indicator
    * Cardinality: 0..1
    */
-  MondayAvailabilityIndicator: [Indicator] | undefined
+  MondayAvailabilityIndicator?: [Indicator] | undefined
 
   /**
    * Indicates whether this service is available on tuesday (true) or not (false).
    * Indicator
    * Cardinality: 0..1
    */
-  TuesdayAvailabilityIndicator: [Indicator] | undefined
+  TuesdayAvailabilityIndicator?: [Indicator] | undefined
 
   /**
    * Indicates whether this service is available on wednesday (true) or not (false).
    * Indicator
    * Cardinality: 0..1
    */
-  WednesdayAvailabilityIndicator: [Indicator] | undefined
+  WednesdayAvailabilityIndicator?: [Indicator] | undefined
 
   /**
    * Indicates whether this service is available on thursday (true) or not (false).
    * Indicator
    * Cardinality: 0..1
    */
-  ThursdayAvailabilityIndicator: [Indicator] | undefined
+  ThursdayAvailabilityIndicator?: [Indicator] | undefined
 
   /**
    * Indicates whether this service is available on friday (true) or not (false).
    * Indicator
    * Cardinality: 0..1
    */
-  FridayAvailabilityIndicator: [Indicator] | undefined
+  FridayAvailabilityIndicator?: [Indicator] | undefined
 
   /**
    * Indicates whether this service is available on saturday (true) or not (false).
    * Indicator
    * Cardinality: 0..1
    */
-  SaturdayAvailabilityIndicator: [Indicator] | undefined
+  SaturdayAvailabilityIndicator?: [Indicator] | undefined
 
   /**
    * Indicates whether this service is available on sunday (true) or not (false).
    * Indicator
    * Cardinality: 0..1
    */
-  SundayAvailabilityIndicator: [Indicator] | undefined
+  SundayAvailabilityIndicator?: [Indicator] | undefined
 
   /**
    * The response time for aknowledgment (e.g. to send a receipt to a sending Access Point within 300 seconds).
@@ -97,7 +97,7 @@ export interface ServiceLevelAgreement {
    * Cardinality: 0..1
    * Examples: 300
    */
-  MinimumResponseTimeDurationMeasure: [Measure] | undefined
+  MinimumResponseTimeDurationMeasure?: [Measure] | undefined
 
   /**
    * The minimum down time schedule for programmed maintenance (e.g. scheduled 3 days before).
@@ -105,7 +105,7 @@ export interface ServiceLevelAgreement {
    * Cardinality: 0..1
    * Examples: 3
    */
-  MinimumDownTimeScheduleDurationMeasure: [Measure] | undefined
+  MinimumDownTimeScheduleDurationMeasure?: [Measure] | undefined
 
   /**
    * The maximum length of time between the occurrence of an incident and the issuance of a notification (e.g. within 4
@@ -114,7 +114,7 @@ export interface ServiceLevelAgreement {
    * Cardinality: 0..1
    * Examples: 4
    */
-  MaximumIncidentNotificationDurationMeasure: [Measure] | undefined
+  MaximumIncidentNotificationDurationMeasure?: [Measure] | undefined
 
   /**
    * The maximum data loss permitted (e.g. last 24 hours).
@@ -122,7 +122,7 @@ export interface ServiceLevelAgreement {
    * Cardinality: 0..1
    * Examples: 24
    */
-  MaximumDataLossDurationMeasure: [Measure] | undefined
+  MaximumDataLossDurationMeasure?: [Measure] | undefined
 
   /**
    * The time taken to recover after an outage of service (e.g. 3 hours).
@@ -131,7 +131,7 @@ export interface ServiceLevelAgreement {
    * Alternative business terms: MTTR
    * Examples: 3
    */
-  MeanTimeToRecoverDurationMeasure: [Measure] | undefined
+  MeanTimeToRecoverDurationMeasure?: [Measure] | undefined
 
   /**
    * The period for which the service is available.
@@ -139,7 +139,7 @@ export interface ServiceLevelAgreement {
    * Cardinality: 0..n
    * Alternative business terms: Uptime
    */
-  ServiceAvailabilityPeriod: Array<Period> | undefined
+  ServiceAvailabilityPeriod?: Array<Period> | undefined
 
   /**
    * The period of time designated in advance by the technical staff, during which preventive maintenance that could
@@ -148,5 +148,5 @@ export interface ServiceLevelAgreement {
    * Cardinality: 0..n
    * Alternative business terms: Downtime
    */
-  ServiceMaintenancePeriod: Array<Period> | undefined
+  ServiceMaintenancePeriod?: Array<Period> | undefined
 }

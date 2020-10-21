@@ -22,7 +22,7 @@ export interface ConsumptionReportReference {
    * Cardinality: 0..1
    * Examples: Consumption
    */
-  ConsumptionType: [Text] | undefined
+  ConsumptionType?: [Text] | undefined
 
   /**
    * The reported consumption type, expressed as a code.
@@ -30,7 +30,7 @@ export interface ConsumptionReportReference {
    * Cardinality: 0..1
    * Examples: Consumption
    */
-  ConsumptionTypeCode: [Code] | undefined
+  ConsumptionTypeCode?: [Code] | undefined
 
   /**
    * The total quantity consumed during the period of the referenced report.

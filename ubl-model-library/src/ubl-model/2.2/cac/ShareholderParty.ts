@@ -10,12 +10,12 @@ export interface ShareholderParty {
    * Percent
    * Cardinality: 0..1
    */
-  PartecipationPercent: [Numeric] | undefined
+  PartecipationPercent?: [Numeric] | undefined
 
   /**
    * The shareholder party.
    * Party
    * Cardinality: 0..1
    */
-  Party: [Party] | undefined
+  Party?: [Party] | undefined
 }

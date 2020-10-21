@@ -12,26 +12,26 @@ export interface Declaration {
    * Name
    * Cardinality: 0..n
    */
-  Name: Array<Text> | undefined
+  Name?: Array<Text> | undefined
 
   /**
    * A code signifying the type of this declaration.
    * Code
    * Cardinality: 0..1
    */
-  DeclarationTypeCode: [Code] | undefined
+  DeclarationTypeCode?: [Code] | undefined
 
   /**
    * Text describing this declaration.
    * Text
    * Cardinality: 0..n
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 
   /**
    * The evidence supporting this declaration.
    * Evidence Supplied
    * Cardinality: 0..n
    */
-  EvidenceSupplied: Array<EvidenceSupplied> | undefined
+  EvidenceSupplied?: Array<EvidenceSupplied> | undefined
 }

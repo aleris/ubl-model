@@ -13,7 +13,7 @@ export interface ConsumptionCorrection {
    * Cardinality: 0..1
    * Examples: Heating Correction
    */
-  CorrectionType: [Text] | undefined
+  CorrectionType?: [Text] | undefined
 
   /**
    * Statement at the code for the correction type.
@@ -21,7 +21,7 @@ export interface ConsumptionCorrection {
    * Cardinality: 0..1
    * Examples: HeatingCorrection
    */
-  CorrectionTypeCode: [Code] | undefined
+  CorrectionTypeCode?: [Code] | undefined
 
   /**
    * Statement for meter number.
@@ -29,14 +29,14 @@ export interface ConsumptionCorrection {
    * Cardinality: 0..1
    * Examples: 530071575
    */
-  MeterNumber: [Text] | undefined
+  MeterNumber?: [Text] | undefined
 
   /**
    * Correction of the gas pressure.
    * Quantity
    * Cardinality: 0..1
    */
-  GasPressureQuantity: [Quantity] | undefined
+  GasPressureQuantity?: [Quantity] | undefined
 
   /**
    * Statement for the actuel heating correction temperature.
@@ -44,7 +44,7 @@ export interface ConsumptionCorrection {
    * Cardinality: 0..1
    * Examples: -36.69
    */
-  ActualTemperatureReductionQuantity: [Quantity] | undefined
+  ActualTemperatureReductionQuantity?: [Quantity] | undefined
 
   /**
    * Statement for the standard for heating correction temperature.
@@ -52,7 +52,7 @@ export interface ConsumptionCorrection {
    * Cardinality: 0..1
    * Examples: -37.00
    */
-  NormalTemperatureReductionQuantity: [Quantity] | undefined
+  NormalTemperatureReductionQuantity?: [Quantity] | undefined
 
   /**
    * Deviation from standard heating correction.
@@ -60,14 +60,14 @@ export interface ConsumptionCorrection {
    * Cardinality: 0..1
    * Examples: 0.31
    */
-  DifferenceTemperatureReductionQuantity: [Quantity] | undefined
+  DifferenceTemperatureReductionQuantity?: [Quantity] | undefined
 
   /**
    * Description related to the corrections.
    * Text
    * Cardinality: 0..n
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 
   /**
    * Correction per MWH per degree C.
@@ -75,7 +75,7 @@ export interface ConsumptionCorrection {
    * Cardinality: 0..1
    * Examples: 0.0000
    */
-  CorrectionUnitAmount: [Amount] | undefined
+  CorrectionUnitAmount?: [Amount] | undefined
 
   /**
    * Your consumpt for district heating energy.
@@ -83,7 +83,7 @@ export interface ConsumptionCorrection {
    * Cardinality: 0..1
    * Examples: 563.6240
    */
-  ConsumptionEnergyQuantity: [Quantity] | undefined
+  ConsumptionEnergyQuantity?: [Quantity] | undefined
 
   /**
    * Your consumpt for district heating water.
@@ -91,7 +91,7 @@ export interface ConsumptionCorrection {
    * Cardinality: 0..1
    * Examples: 13212.14
    */
-  ConsumptionWaterQuantity: [Quantity] | undefined
+  ConsumptionWaterQuantity?: [Quantity] | undefined
 
   /**
    * Your correction for heating correction.
@@ -99,5 +99,5 @@ export interface ConsumptionCorrection {
    * Cardinality: 0..1
    * Examples: 0.00
    */
-  CorrectionAmount: [Amount] | undefined
+  CorrectionAmount?: [Amount] | undefined
 }

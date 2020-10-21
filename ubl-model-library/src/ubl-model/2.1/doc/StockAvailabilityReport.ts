@@ -22,7 +22,7 @@ export interface StockAvailabilityReport {
    * A container for all extensions present in the document.
    * Cardinality: 0..1
    */
-  UBLExtensions: [UBLExtensions] | undefined
+  UBLExtensions?: [UBLExtensions] | undefined
 
   /**
    * Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that
@@ -31,7 +31,7 @@ export interface StockAvailabilityReport {
    * Cardinality: 0..1
    * Examples: 2.0.5
    */
-  UBLVersionID: [Identifier] | undefined
+  UBLVersionID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined customization of UBL for a specific use.
@@ -39,7 +39,7 @@ export interface StockAvailabilityReport {
    * Cardinality: 0..1
    * Examples: NES
    */
-  CustomizationID: [Identifier] | undefined
+  CustomizationID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined profile of the customization of UBL being used.
@@ -47,7 +47,7 @@ export interface StockAvailabilityReport {
    * Cardinality: 0..1
    * Examples: BasicProcurementProcess
    */
-  ProfileID: [Identifier] | undefined
+  ProfileID?: [Identifier] | undefined
 
   /**
    * Identifies an instance of executing a profile, to associate all transactions in a collaboration.
@@ -55,7 +55,7 @@ export interface StockAvailabilityReport {
    * Cardinality: 0..1
    * Examples: BPP-1001
    */
-  ProfileExecutionID: [Identifier] | undefined
+  ProfileExecutionID?: [Identifier] | undefined
 
   /**
    * An identifier for this document, assigned by the sender.
@@ -70,14 +70,14 @@ export interface StockAvailabilityReport {
    * Indicator
    * Cardinality: 0..1
    */
-  CopyIndicator: [Indicator] | undefined
+  CopyIndicator?: [Indicator] | undefined
 
   /**
    * A universally unique identifier for an instance of this document.
    * Identifier
    * Cardinality: 0..1
    */
-  UUID: [Identifier] | undefined
+  UUID?: [Identifier] | undefined
 
   /**
    * The date, assigned by the sender, on which this document was issued.
@@ -91,7 +91,7 @@ export interface StockAvailabilityReport {
    * Time
    * Cardinality: 0..1
    */
-  IssueTime: [Time] | undefined
+  IssueTime?: [Time] | undefined
 
   /**
    * Free-form text pertinent to this document, conveying information that is not contained explicitly in other
@@ -99,35 +99,35 @@ export interface StockAvailabilityReport {
    * Text
    * Cardinality: 0..n
    */
-  Note: Array<Text> | undefined
+  Note?: Array<Text> | undefined
 
   /**
    * A code signifying the default currency for this document.
    * Code
    * Cardinality: 0..1
    */
-  DocumentCurrencyCode: [Code] | undefined
+  DocumentCurrencyCode?: [Code] | undefined
 
   /**
    * The inventory period covered by the Report.
    * Period
    * Cardinality: 0..1
    */
-  InventoryPeriod: [Period] | undefined
+  InventoryPeriod?: [Period] | undefined
 
   /**
    * A reference to another document associated with this document.
    * Document Reference
    * Cardinality: 0..n
    */
-  DocumentReference: Array<DocumentReference> | undefined
+  DocumentReference?: Array<DocumentReference> | undefined
 
   /**
    * A signature applied to this document.
    * Signature
    * Cardinality: 0..n
    */
-  Signature: Array<Signature> | undefined
+  Signature?: Array<Signature> | undefined
 
   /**
    * The seller.
@@ -141,7 +141,7 @@ export interface StockAvailabilityReport {
    * Customer Party
    * Cardinality: 0..1
    */
-  RetailerCustomerParty: [CustomerParty] | undefined
+  RetailerCustomerParty?: [CustomerParty] | undefined
 
   /**
    * The party that will receive and use the Stock Availability Report (normally the branch for which the stock is

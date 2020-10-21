@@ -11,12 +11,12 @@ export interface UnstructuredPrice {
    * Cardinality: 0..1
    * Examples: 23.45
    */
-  PriceAmount: [Amount] | undefined
+  PriceAmount?: [Amount] | undefined
 
   /**
    * The usage time upon which the price is based.
    * Text
    * Cardinality: 0..1
    */
-  TimeAmount: [Text] | undefined
+  TimeAmount?: [Text] | undefined
 }

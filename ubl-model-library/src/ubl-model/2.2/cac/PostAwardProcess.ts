@@ -10,26 +10,26 @@ export interface PostAwardProcess {
    * Indicator
    * Cardinality: 0..1
    */
-  ElectronicCatalogueUsageIndicator: [Indicator] | undefined
+  ElectronicCatalogueUsageIndicator?: [Indicator] | undefined
 
   /**
    * An indicator on whether the electronic invoice is allowed for this process.
    * Indicator
    * Cardinality: 0..1
    */
-  ElectronicInvoiceAcceptedIndicator: [Indicator] | undefined
+  ElectronicInvoiceAcceptedIndicator?: [Indicator] | undefined
 
   /**
    * An indicator on whether electronic ordering shall be used in the post award process.
    * Indicator
    * Cardinality: 0..1
    */
-  ElectronicOrderUsageIndicator: [Indicator] | undefined
+  ElectronicOrderUsageIndicator?: [Indicator] | undefined
 
   /**
    * An indicator on whether electronic payment shall be used in the post award process.
    * Indicator
    * Cardinality: 0..n
    */
-  ElectronicPaymentUsageIndicator: Array<Indicator> | undefined
+  ElectronicPaymentUsageIndicator?: Array<Indicator> | undefined
 }

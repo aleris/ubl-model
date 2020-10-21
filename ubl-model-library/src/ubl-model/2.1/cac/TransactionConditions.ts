@@ -12,26 +12,26 @@ export interface TransactionConditions {
    * Identifier
    * Cardinality: 0..1
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * A code signifying a type of action relating to sales or payment conditions.
    * Code
    * Cardinality: 0..1
    */
-  ActionCode: [Code] | undefined
+  ActionCode?: [Code] | undefined
 
   /**
    * Text describing the transaction conditions.
    * Text
    * Cardinality: 0..n
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 
   /**
    * A document associated with these transaction conditions.
    * Document Reference
    * Cardinality: 0..n
    */
-  DocumentReference: Array<DocumentReference> | undefined
+  DocumentReference?: Array<DocumentReference> | undefined
 }

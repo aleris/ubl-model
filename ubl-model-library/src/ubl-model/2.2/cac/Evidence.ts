@@ -15,61 +15,61 @@ export interface Evidence {
    * Identifier
    * Cardinality: 0..1
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * A code signifying the type of evidence.
    * Code
    * Cardinality: 0..1
    */
-  EvidenceTypeCode: [Code] | undefined
+  EvidenceTypeCode?: [Code] | undefined
 
   /**
    * The name of the evidence.
    * Name
    * Cardinality: 0..1
    */
-  Name: [Text] | undefined
+  Name?: [Text] | undefined
 
   /**
    * The textual description for this Evidence.
    * Text
    * Cardinality: 0..n
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 
   /**
    * Information about a candidate statement that the contracting authority accepts as a sufficient response.
    * Text
    * Cardinality: 0..n
    */
-  CandidateStatement: Array<Text> | undefined
+  CandidateStatement?: Array<Text> | undefined
 
   /**
    * A code specifying the confidentiality level of this evidence.
    * Code
    * Cardinality: 0..1
    */
-  ConfidentialityLevelCode: [Code] | undefined
+  ConfidentialityLevelCode?: [Code] | undefined
 
   /**
    * A class to describe a party issuing an evidentiary document.
    * Party
    * Cardinality: 0..1
    */
-  EvidenceIssuingParty: [Party] | undefined
+  EvidenceIssuingParty?: [Party] | undefined
 
   /**
    * A reference to the evidentiary document.
    * Document Reference
    * Cardinality: 0..n
    */
-  DocumentReference: Array<DocumentReference> | undefined
+  DocumentReference?: Array<DocumentReference> | undefined
 
   /**
    * Information about a required translation to be part of the response, i.e. the language.
    * Language
    * Cardinality: 0..1
    */
-  Language: [Language] | undefined
+  Language?: [Language] | undefined
 }

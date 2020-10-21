@@ -12,33 +12,33 @@ export interface AppealTerms {
    * Text
    * Cardinality: 0..n
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 
   /**
    * The period during which an appeal can be presented.
    * Period
    * Cardinality: 0..1
    */
-  PresentationPeriod: [Period] | undefined
+  PresentationPeriod?: [Period] | undefined
 
   /**
    * The party presenting the information for an appeal.
    * Party
    * Cardinality: 0..1
    */
-  AppealInformationParty: [Party] | undefined
+  AppealInformationParty?: [Party] | undefined
 
   /**
    * The party to whom an appeal should be presented.
    * Party
    * Cardinality: 0..1
    */
-  AppealReceiverParty: [Party] | undefined
+  AppealReceiverParty?: [Party] | undefined
 
   /**
    * The party that has been appointed to mediate any appeal.
    * Party
    * Cardinality: 0..1
    */
-  MediationParty: [Party] | undefined
+  MediationParty?: [Party] | undefined
 }

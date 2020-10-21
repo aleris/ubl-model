@@ -12,11 +12,11 @@ export interface Amount {
    * Identifier
    * Reference UNECE Rec 9, using 3-letter alphabetic codes.
    */
-  currencyID: string | undefined
+  currencyID?: string | undefined
 
   /**
    * The VersionID of the UN/ECE Rec9 code list.
    * Identifier
    */
-  currencyCodeListVersionID: string | undefined
+  currencyCodeListVersionID?: string | undefined
 }

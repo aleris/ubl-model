@@ -14,54 +14,54 @@ export interface TenderingCriterionResponse {
    * Identifier
    * Cardinality: 0..1
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * The name of the criterion property response
    * Name
    * Cardinality: 0..1
    */
-  Name: [Text] | undefined
+  Name?: [Text] | undefined
 
   /**
    * A description of the criterion response
    * Text
    * Cardinality: 0..n
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 
   /**
    * An identifier for this item of criterion support.
    * Identifier
    * Cardinality: 0..1
    */
-  ValidatedCriterionPropertyID: [Identifier] | undefined
+  ValidatedCriterionPropertyID?: [Identifier] | undefined
 
   /**
    * A code specifying the confidentiality level of the response to this criterion.
    * Code
    * Cardinality: 0..1
    */
-  ConfidentialityLevelCode: [Code] | undefined
+  ConfidentialityLevelCode?: [Code] | undefined
 
   /**
    * The criterion requirement property values.
    * Response Value
    * Cardinality: 0..n
    */
-  ResponseValue: Array<ResponseValue> | undefined
+  ResponseValue?: Array<ResponseValue> | undefined
 
   /**
    * The period to which this criterion property response applies.
    * Period
    * Cardinality: 0..n
    */
-  ApplicablePeriod: Array<Period> | undefined
+  ApplicablePeriod?: Array<Period> | undefined
 
   /**
    * A reference to the evidence supporting this criterion property response.
    * Evidence Supplied
    * Cardinality: 0..n
    */
-  EvidenceSupplied: Array<EvidenceSupplied> | undefined
+  EvidenceSupplied?: Array<EvidenceSupplied> | undefined
 }

@@ -34,7 +34,7 @@ export interface DebitNote {
    * A container for all extensions present in the document.
    * Cardinality: 0..1
    */
-  UBLExtensions: [UBLExtensions] | undefined
+  UBLExtensions?: [UBLExtensions] | undefined
 
   /**
    * Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that
@@ -43,7 +43,7 @@ export interface DebitNote {
    * Cardinality: 0..1
    * Examples: 2.0.5
    */
-  UBLVersionID: [Identifier] | undefined
+  UBLVersionID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined customization of UBL for a specific use.
@@ -51,7 +51,7 @@ export interface DebitNote {
    * Cardinality: 0..1
    * Examples: NES
    */
-  CustomizationID: [Identifier] | undefined
+  CustomizationID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined profile of the customization of UBL being used.
@@ -59,7 +59,7 @@ export interface DebitNote {
    * Cardinality: 0..1
    * Examples: BasicProcurementProcess
    */
-  ProfileID: [Identifier] | undefined
+  ProfileID?: [Identifier] | undefined
 
   /**
    * Identifies an instance of executing a profile, to associate all transactions in a collaboration.
@@ -67,7 +67,7 @@ export interface DebitNote {
    * Cardinality: 0..1
    * Examples: BPP-1001
    */
-  ProfileExecutionID: [Identifier] | undefined
+  ProfileExecutionID?: [Identifier] | undefined
 
   /**
    * An identifier for this document, assigned by the sender.
@@ -81,14 +81,14 @@ export interface DebitNote {
    * Indicator
    * Cardinality: 0..1
    */
-  CopyIndicator: [Indicator] | undefined
+  CopyIndicator?: [Indicator] | undefined
 
   /**
    * A universally unique identifier for an instance of this document.
    * Identifier
    * Cardinality: 0..1
    */
-  UUID: [Identifier] | undefined
+  UUID?: [Identifier] | undefined
 
   /**
    * The date, assigned by the sender, on which this document was issued.
@@ -102,7 +102,7 @@ export interface DebitNote {
    * Time
    * Cardinality: 0..1
    */
-  IssueTime: [Time] | undefined
+  IssueTime?: [Time] | undefined
 
   /**
    * Free-form text pertinent to this document, conveying information that is not contained explicitly in other
@@ -110,140 +110,140 @@ export interface DebitNote {
    * Text
    * Cardinality: 0..n
    */
-  Note: Array<Text> | undefined
+  Note?: Array<Text> | undefined
 
   /**
    * The date of the Debit Note, used to indicate the point at which tax becomes applicable.
    * Date
    * Cardinality: 0..1
    */
-  TaxPointDate: [Date] | undefined
+  TaxPointDate?: [Date] | undefined
 
   /**
    * A code signifying the default currency for this document.
    * Code
    * Cardinality: 0..1
    */
-  DocumentCurrencyCode: [Code] | undefined
+  DocumentCurrencyCode?: [Code] | undefined
 
   /**
    * A code signifying the currency used for tax amounts in the Debit Note.
    * Code
    * Cardinality: 0..1
    */
-  TaxCurrencyCode: [Code] | undefined
+  TaxCurrencyCode?: [Code] | undefined
 
   /**
    * A code signifying the currency used for prices in the Debit Note.
    * Code
    * Cardinality: 0..1
    */
-  PricingCurrencyCode: [Code] | undefined
+  PricingCurrencyCode?: [Code] | undefined
 
   /**
    * A code signifying the currency used for payment in the Debit Note.
    * Code
    * Cardinality: 0..1
    */
-  PaymentCurrencyCode: [Code] | undefined
+  PaymentCurrencyCode?: [Code] | undefined
 
   /**
    * A code signifying the alternative currency used for payment in the Debit Note.
    * Code
    * Cardinality: 0..1
    */
-  PaymentAlternativeCurrencyCode: [Code] | undefined
+  PaymentAlternativeCurrencyCode?: [Code] | undefined
 
   /**
    * The Buyer's accounting code, applied to the Credit Note as a whole.
    * Code
    * Cardinality: 0..1
    */
-  AccountingCostCode: [Code] | undefined
+  AccountingCostCode?: [Code] | undefined
 
   /**
    * The Buyer's accounting code, applied to the Credit Note as a whole, expressed as text.
    * Text
    * Cardinality: 0..1
    */
-  AccountingCost: [Text] | undefined
+  AccountingCost?: [Text] | undefined
 
   /**
    * The number of Debit Note Lines in this document.
    * Numeric
    * Cardinality: 0..1
    */
-  LineCountNumeric: [Numeric] | undefined
+  LineCountNumeric?: [Numeric] | undefined
 
   /**
    * A period (rather than a specific invoice) associated with this document.
    * Period
    * Cardinality: 0..n
    */
-  InvoicePeriod: Array<Period> | undefined
+  InvoicePeriod?: Array<Period> | undefined
 
   /**
    * A reason for the Debit Note as a whole.
    * Response
    * Cardinality: 0..n
    */
-  DiscrepancyResponse: Array<Response> | undefined
+  DiscrepancyResponse?: Array<Response> | undefined
 
   /**
    * A reference to an Order with which this Debit Note is associated.
    * Order Reference
    * Cardinality: 0..1
    */
-  OrderReference: [OrderReference] | undefined
+  OrderReference?: [OrderReference] | undefined
 
   /**
    * A reference to a billing document associated with this document.
    * Billing Reference
    * Cardinality: 0..n
    */
-  BillingReference: Array<BillingReference> | undefined
+  BillingReference?: Array<BillingReference> | undefined
 
   /**
    * A reference to a Despatch Advice associated with this document.
    * Document Reference
    * Cardinality: 0..n
    */
-  DespatchDocumentReference: Array<DocumentReference> | undefined
+  DespatchDocumentReference?: Array<DocumentReference> | undefined
 
   /**
    * A reference to a Receipt Advice associated with this document.
    * Document Reference
    * Cardinality: 0..n
    */
-  ReceiptDocumentReference: Array<DocumentReference> | undefined
+  ReceiptDocumentReference?: Array<DocumentReference> | undefined
 
   /**
    * A reference to a Statement associated with this document.
    * Document Reference
    * Cardinality: 0..n
    */
-  StatementDocumentReference: Array<DocumentReference> | undefined
+  StatementDocumentReference?: Array<DocumentReference> | undefined
 
   /**
    * A reference to a contract associated with this document.
    * Document Reference
    * Cardinality: 0..n
    */
-  ContractDocumentReference: Array<DocumentReference> | undefined
+  ContractDocumentReference?: Array<DocumentReference> | undefined
 
   /**
    * A reference to an additional document associated with this document.
    * Document Reference
    * Cardinality: 0..n
    */
-  AdditionalDocumentReference: Array<DocumentReference> | undefined
+  AdditionalDocumentReference?: Array<DocumentReference> | undefined
 
   /**
    * A signature applied to this document.
    * Signature
    * Cardinality: 0..n
    */
-  Signature: Array<Signature> | undefined
+  Signature?: Array<Signature> | undefined
 
   /**
    * The accounting supplier party.
@@ -264,105 +264,105 @@ export interface DebitNote {
    * Party
    * Cardinality: 0..1
    */
-  PayeeParty: [Party] | undefined
+  PayeeParty?: [Party] | undefined
 
   /**
    * The buyer.
    * Customer Party
    * Cardinality: 0..1
    */
-  BuyerCustomerParty: [CustomerParty] | undefined
+  BuyerCustomerParty?: [CustomerParty] | undefined
 
   /**
    * The seller.
    * Supplier Party
    * Cardinality: 0..1
    */
-  SellerSupplierParty: [SupplierParty] | undefined
+  SellerSupplierParty?: [SupplierParty] | undefined
 
   /**
    * The tax representative.
    * Party
    * Cardinality: 0..1
    */
-  TaxRepresentativeParty: [Party] | undefined
+  TaxRepresentativeParty?: [Party] | undefined
 
   /**
    * A prepaid payment.
    * Payment
    * Cardinality: 0..n
    */
-  PrepaidPayment: Array<Payment> | undefined
+  PrepaidPayment?: Array<Payment> | undefined
 
   /**
    * A discount or charge that applies to a price component.
    * Allowance Charge
    * Cardinality: 0..n
    */
-  AllowanceCharge: Array<AllowanceCharge> | undefined
+  AllowanceCharge?: Array<AllowanceCharge> | undefined
 
   /**
    * A delivery associated with this document.
    * Delivery
    * Cardinality: 0..n
    */
-  Delivery: Array<Delivery> | undefined
+  Delivery?: Array<Delivery> | undefined
 
   /**
    * A set of delivery terms associated with this document.
    * Delivery Terms
    * Cardinality: 0..n
    */
-  DeliveryTerms: Array<DeliveryTerms> | undefined
+  DeliveryTerms?: Array<DeliveryTerms> | undefined
 
   /**
    * Expected means of payment.
    * Payment Means
    * Cardinality: 0..n
    */
-  PaymentMeans: Array<PaymentMeans> | undefined
+  PaymentMeans?: Array<PaymentMeans> | undefined
 
   /**
    * A set of payment terms associated with this document.
    * Payment Terms
    * Cardinality: 0..n
    */
-  PaymentTerms: Array<PaymentTerms> | undefined
+  PaymentTerms?: Array<PaymentTerms> | undefined
 
   /**
    * The exchange rate between the document currency and the tax currency.
    * Exchange Rate
    * Cardinality: 0..1
    */
-  TaxExchangeRate: [ExchangeRate] | undefined
+  TaxExchangeRate?: [ExchangeRate] | undefined
 
   /**
    * The exchange rate between the document currency and the pricing currency.
    * Exchange Rate
    * Cardinality: 0..1
    */
-  PricingExchangeRate: [ExchangeRate] | undefined
+  PricingExchangeRate?: [ExchangeRate] | undefined
 
   /**
    * The exchange rate between the document currency and the payment currency.
    * Exchange Rate
    * Cardinality: 0..1
    */
-  PaymentExchangeRate: [ExchangeRate] | undefined
+  PaymentExchangeRate?: [ExchangeRate] | undefined
 
   /**
    * The exchange rate between the document currency and the payment alternative currency.
    * Exchange Rate
    * Cardinality: 0..1
    */
-  PaymentAlternativeExchangeRate: [ExchangeRate] | undefined
+  PaymentAlternativeExchangeRate?: [ExchangeRate] | undefined
 
   /**
    * The total amount of a specific type of tax.
    * Tax Total
    * Cardinality: 0..n
    */
-  TaxTotal: Array<TaxTotal> | undefined
+  TaxTotal?: Array<TaxTotal> | undefined
 
   /**
    * The total amount payable on the Debit Note, including allowances, charges, and taxes.

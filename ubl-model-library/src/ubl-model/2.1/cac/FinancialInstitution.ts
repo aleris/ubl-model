@@ -12,19 +12,19 @@ export interface FinancialInstitution {
    * Identifier
    * Cardinality: 0..1
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * The name of this financial institution.
    * Name
    * Cardinality: 0..1
    */
-  Name: [Text] | undefined
+  Name?: [Text] | undefined
 
   /**
    * The address of this financial institution.
    * Address
    * Cardinality: 0..1
    */
-  Address: [Address] | undefined
+  Address?: [Address] | undefined
 }

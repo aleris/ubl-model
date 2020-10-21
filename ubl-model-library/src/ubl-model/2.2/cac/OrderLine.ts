@@ -17,14 +17,14 @@ export interface OrderLine {
    * Code
    * Cardinality: 0..1
    */
-  SubstitutionStatusCode: [Code] | undefined
+  SubstitutionStatusCode?: [Code] | undefined
 
   /**
    * Free-form text conveying information that is not contained explicitly in other structures.
    * Text
    * Cardinality: 0..n
    */
-  Note: Array<Text> | undefined
+  Note?: Array<Text> | undefined
 
   /**
    * The line item itself.
@@ -39,7 +39,7 @@ export interface OrderLine {
    * Line Item
    * Cardinality: 0..n
    */
-  SellerProposedSubstituteLineItem: Array<LineItem> | undefined
+  SellerProposedSubstituteLineItem?: Array<LineItem> | undefined
 
   /**
    * In Order Response, a line item that has replaced the original order line item. The specified quantity and pricing
@@ -48,7 +48,7 @@ export interface OrderLine {
    * Line Item
    * Cardinality: 0..n
    */
-  SellerSubstitutedLineItem: Array<LineItem> | undefined
+  SellerSubstitutedLineItem?: Array<LineItem> | undefined
 
   /**
    * A description of an item proposed by the buyer as a possible alternative to the item associated with this order
@@ -56,21 +56,21 @@ export interface OrderLine {
    * Line Item
    * Cardinality: 0..n
    */
-  BuyerProposedSubstituteLineItem: Array<LineItem> | undefined
+  BuyerProposedSubstituteLineItem?: Array<LineItem> | undefined
 
   /**
    * A reference to a catalogue line associated with this order line.
    * Line Reference
    * Cardinality: 0..1
    */
-  CatalogueLineReference: [LineReference] | undefined
+  CatalogueLineReference?: [LineReference] | undefined
 
   /**
    * A reference to a quotation line associated with this order line.
    * Line Reference
    * Cardinality: 0..1
    */
-  QuotationLineReference: [LineReference] | undefined
+  QuotationLineReference?: [LineReference] | undefined
 
   /**
    * A reference to another order line, such as in a replacement order or another line on the same order that is
@@ -78,12 +78,12 @@ export interface OrderLine {
    * Order Line Reference
    * Cardinality: 0..n
    */
-  OrderLineReference: Array<OrderLineReference> | undefined
+  OrderLineReference?: Array<OrderLineReference> | undefined
 
   /**
    * A reference to a document associated with this order line.
    * Document Reference
    * Cardinality: 0..n
    */
-  DocumentReference: Array<DocumentReference> | undefined
+  DocumentReference?: Array<DocumentReference> | undefined
 }

@@ -10,7 +10,7 @@ export interface WinningParty {
    * Text
    * Cardinality: 0..1
    */
-  Rank: [Text] | undefined
+  Rank?: [Text] | undefined
 
   /**
    * Information about an organization, sub-organization, or individual fulfilling a role in a business process.

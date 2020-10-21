@@ -11,12 +11,12 @@ export interface Attachment {
    * Binary Object
    * Cardinality: 0..1
    */
-  EmbeddedDocumentBinaryObject: [BinaryObject] | undefined
+  EmbeddedDocumentBinaryObject?: [BinaryObject] | undefined
 
   /**
    * A reference to an attached document that is external to the document(s) being exchanged.
    * External Reference
    * Cardinality: 0..1
    */
-  ExternalReference: [ExternalReference] | undefined
+  ExternalReference?: [ExternalReference] | undefined
 }

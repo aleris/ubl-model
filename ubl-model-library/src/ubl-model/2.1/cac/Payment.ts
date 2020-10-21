@@ -12,40 +12,40 @@ export interface Payment {
    * Identifier
    * Cardinality: 0..1
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * The amount of this payment.
    * Amount
    * Cardinality: 0..1
    */
-  PaidAmount: [Amount] | undefined
+  PaidAmount?: [Amount] | undefined
 
   /**
    * The date on which this payment was received.
    * Date
    * Cardinality: 0..1
    */
-  ReceivedDate: [Date] | undefined
+  ReceivedDate?: [Date] | undefined
 
   /**
    * The date on which this payment was made.
    * Date
    * Cardinality: 0..1
    */
-  PaidDate: [Date] | undefined
+  PaidDate?: [Date] | undefined
 
   /**
    * The time at which this payment was made.
    * Time
    * Cardinality: 0..1
    */
-  PaidTime: [Time] | undefined
+  PaidTime?: [Time] | undefined
 
   /**
    * An identifier for the payment instruction.
    * Identifier
    * Cardinality: 0..1
    */
-  InstructionID: [Identifier] | undefined
+  InstructionID?: [Identifier] | undefined
 }

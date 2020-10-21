@@ -19,7 +19,7 @@ export interface SubscriberConsumption {
    * Identifier
    * Cardinality: 0..1
    */
-  ConsumptionID: [Identifier] | undefined
+  ConsumptionID?: [Identifier] | undefined
 
   /**
    * The code which specifies the type of this specification, e.g. an on account specification or the yearly
@@ -27,7 +27,7 @@ export interface SubscriberConsumption {
    * Code
    * Cardinality: 0..1
    */
-  SpecificationTypeCode: [Code] | undefined
+  SpecificationTypeCode?: [Code] | undefined
 
   /**
    * Free-form text conveying information that is not contained explicitly in other structures.
@@ -35,7 +35,7 @@ export interface SubscriberConsumption {
    * Cardinality: 0..n
    * Examples: This is how we have calculating your yearly statement
    */
-  Note: Array<Text> | undefined
+  Note?: Array<Text> | undefined
 
   /**
    * The total quantity consumed, as calculated from meter readings.
@@ -43,14 +43,14 @@ export interface SubscriberConsumption {
    * Cardinality: 0..1
    * Examples: 2000.0
    */
-  TotalMeteredQuantity: [Quantity] | undefined
+  TotalMeteredQuantity?: [Quantity] | undefined
 
   /**
    * The party subscribing to the utility.
    * Party
    * Cardinality: 0..1
    */
-  SubscriberParty: [Party] | undefined
+  SubscriberParty?: [Party] | undefined
 
   /**
    * The point at which the utility is consumed.
@@ -64,19 +64,19 @@ export interface SubscriberConsumption {
    * On Account Payment
    * Cardinality: 0..n
    */
-  OnAccountPayment: Array<OnAccountPayment> | undefined
+  OnAccountPayment?: Array<OnAccountPayment> | undefined
 
   /**
    * The consumption in case the consumption is from one and only one supplier.
    * Consumption
    * Cardinality: 0..1
    */
-  Consumption: [Consumption] | undefined
+  Consumption?: [Consumption] | undefined
 
   /**
    * The consumption in case the consumption is from more than one supplier.
    * Supplier Consumption
    * Cardinality: 0..n
    */
-  SupplierConsumption: Array<SupplierConsumption> | undefined
+  SupplierConsumption?: Array<SupplierConsumption> | undefined
 }

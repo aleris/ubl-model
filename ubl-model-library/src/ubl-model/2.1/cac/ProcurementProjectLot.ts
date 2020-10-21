@@ -19,12 +19,12 @@ export interface ProcurementProjectLot {
    * Tendering Terms
    * Cardinality: 0..1
    */
-  TenderingTerms: [TenderingTerms] | undefined
+  TenderingTerms?: [TenderingTerms] | undefined
 
   /**
    * A description of the procurement project to be divided.
    * Procurement Project
    * Cardinality: 0..1
    */
-  ProcurementProject: [ProcurementProject] | undefined
+  ProcurementProject?: [ProcurementProject] | undefined
 }

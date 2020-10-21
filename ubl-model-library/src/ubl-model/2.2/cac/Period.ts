@@ -13,47 +13,47 @@ export interface Period {
    * Date
    * Cardinality: 0..1
    */
-  StartDate: [Date] | undefined
+  StartDate?: [Date] | undefined
 
   /**
    * The time at which this period begins.
    * Time
    * Cardinality: 0..1
    */
-  StartTime: [Time] | undefined
+  StartTime?: [Time] | undefined
 
   /**
    * The date on which this period ends.
    * Date
    * Cardinality: 0..1
    */
-  EndDate: [Date] | undefined
+  EndDate?: [Date] | undefined
 
   /**
    * The time at which this period ends.
    * Time
    * Cardinality: 0..1
    */
-  EndTime: [Time] | undefined
+  EndTime?: [Time] | undefined
 
   /**
    * The duration of this period, expressed as an ISO 8601 code.
    * Measure
    * Cardinality: 0..1
    */
-  DurationMeasure: [Measure] | undefined
+  DurationMeasure?: [Measure] | undefined
 
   /**
    * A description of this period, expressed as a code.
    * Code
    * Cardinality: 0..n
    */
-  DescriptionCode: Array<Code> | undefined
+  DescriptionCode?: Array<Code> | undefined
 
   /**
    * A description of this period, expressed as text.
    * Text
    * Cardinality: 0..n
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 }

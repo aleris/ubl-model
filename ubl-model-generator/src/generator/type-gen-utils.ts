@@ -1,5 +1,3 @@
-export const MAX_LINE_LENGTH = 120
-
 export function extractTypeName(typeName: string) {
   return typeName.replace(/Type$/, '')
 }
@@ -20,24 +18,19 @@ export function uncapitalize(text: string) {
   return text.substr(0, 1).toLowerCase() + text.substr(1)
 }
 
-export function onNewLineIfDefined(prefix: string, text?: string) {
-  if (!text) {
-    return ''
-  }
-  return `\n${prefix}${text}`
-}
+const MAX_LINE_LENGTH = 120
 
-export function formatLongComment(linePrefix: string, maxLength: number, text?: string) {
+export function formatComment(linePrefix: string, text?: string) {
   if (!text) {
     return ''
   }
   const lines = []
-  const words = text.split(' ')
+  const words = text.trim().split(' ')
   let line = linePrefix
   let firstWordOnLine = true
   for (const word of words) {
     const wouldBeLine = line + (firstWordOnLine ? '' : ' ') + word
-    if (maxLength < wouldBeLine.length && !firstWordOnLine) {
+    if (MAX_LINE_LENGTH < wouldBeLine.length && !firstWordOnLine) {
       lines.push(line)
       line = linePrefix + word
       continue
@@ -49,4 +42,30 @@ export function formatLongComment(linePrefix: string, maxLength: number, text?: 
     lines.push(line)
   }
   return '\n' + lines.join('\n')
+}
+
+function getOptionalProps(isOptional: boolean) {
+  return {
+    optionalField: isOptional ? '?' : '',
+    optionalUndefined: isOptional ? ' | undefined' : ''
+  }
+}
+
+export function getUseOptionalProps(use: string) {
+  return getOptionalProps(use === 'optional')
+}
+
+export function getMinOccurOptionalProps(minOccur: string) {
+  return getOptionalProps(minOccur === '0')
+}
+
+export function singleQuoteEscape(text: string | undefined) {
+  if (!text) {
+    return `''`
+  }
+  const escaped = text.trim()
+    .replace(/'/g, '\\\'')
+    .replace(/\\n/g, ' ')
+    .trim()
+  return `'${escaped}'`
 }

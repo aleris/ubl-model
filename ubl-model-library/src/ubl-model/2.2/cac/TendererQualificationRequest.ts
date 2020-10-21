@@ -15,63 +15,63 @@ export interface TendererQualificationRequest {
    * Code
    * Cardinality: 0..1
    */
-  CompanyLegalFormCode: [Code] | undefined
+  CompanyLegalFormCode?: [Code] | undefined
 
   /**
    * The legal status requested for potential tenderers, expressed as text
    * Text
    * Cardinality: 0..1
    */
-  CompanyLegalForm: [Text] | undefined
+  CompanyLegalForm?: [Text] | undefined
 
   /**
    * Text describing the personal situation of the economic operators in this tendering process.
    * Text
    * Cardinality: 0..n
    */
-  PersonalSituation: Array<Text> | undefined
+  PersonalSituation?: Array<Text> | undefined
 
   /**
    * Textual description of the legal form required for potential tenderers.
    * Quantity
    * Cardinality: 0..1
    */
-  OperatingYearsQuantity: [Quantity] | undefined
+  OperatingYearsQuantity?: [Quantity] | undefined
 
   /**
    * Textual description of the legal form required for potential tenderers.
    * Quantity
    * Cardinality: 0..1
    */
-  EmployeeQuantity: [Quantity] | undefined
+  EmployeeQuantity?: [Quantity] | undefined
 
   /**
    * Text describing the evaluation requirements for this tenderer.
    * Text
    * Cardinality: 0..n
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 
   /**
    * A classification scheme for the business profile.
    * Classification Scheme
    * Cardinality: 0..n
    */
-  RequiredBusinessClassificationScheme: Array<ClassificationScheme> | undefined
+  RequiredBusinessClassificationScheme?: Array<ClassificationScheme> | undefined
 
   /**
    * A technical evaluation criterion required for an economic operator in a tendering process.
    * Evaluation Criterion
    * Cardinality: 0..n
    */
-  TechnicalEvaluationCriterion: Array<EvaluationCriterion> | undefined
+  TechnicalEvaluationCriterion?: Array<EvaluationCriterion> | undefined
 
   /**
    * A financial evaluation criterion required for an economic operator in a tendering process.
    * Evaluation Criterion
    * Cardinality: 0..n
    */
-  FinancialEvaluationCriterion: Array<EvaluationCriterion> | undefined
+  FinancialEvaluationCriterion?: Array<EvaluationCriterion> | undefined
 
   /**
    * A requirement to be met by a tenderer.
@@ -79,12 +79,12 @@ export interface TendererQualificationRequest {
    * Cardinality: 0..n
    * Examples: Preregistration in a Business Registry
    */
-  SpecificTendererRequirement: Array<TendererRequirement> | undefined
+  SpecificTendererRequirement?: Array<TendererRequirement> | undefined
 
   /**
    * A class to describe the tenderer contracting role.
    * Economic Operator Role
    * Cardinality: 0..n
    */
-  EconomicOperatorRole: Array<EconomicOperatorRole> | undefined
+  EconomicOperatorRole?: Array<EconomicOperatorRole> | undefined
 }

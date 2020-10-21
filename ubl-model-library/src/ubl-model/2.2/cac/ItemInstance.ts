@@ -13,28 +13,28 @@ export interface ItemInstance {
    * Identifier
    * Cardinality: 0..1
    */
-  ProductTraceID: [Identifier] | undefined
+  ProductTraceID?: [Identifier] | undefined
 
   /**
    * The date on which this item instance was manufactured.
    * Date
    * Cardinality: 0..1
    */
-  ManufactureDate: [Date] | undefined
+  ManufactureDate?: [Date] | undefined
 
   /**
    * The time at which this item instance was manufactured.
    * Time
    * Cardinality: 0..1
    */
-  ManufactureTime: [Time] | undefined
+  ManufactureTime?: [Time] | undefined
 
   /**
    * The date before which it is best to use this item instance.
    * Date
    * Cardinality: 0..1
    */
-  BestBeforeDate: [Date] | undefined
+  BestBeforeDate?: [Date] | undefined
 
   /**
    * The registration identifier of this item instance.
@@ -42,7 +42,7 @@ export interface ItemInstance {
    * Cardinality: 0..1
    * Examples: car registration or licensing number
    */
-  RegistrationID: [Identifier] | undefined
+  RegistrationID?: [Identifier] | undefined
 
   /**
    * The serial number of this item instance.
@@ -50,19 +50,19 @@ export interface ItemInstance {
    * Cardinality: 0..1
    * Examples: chassis number of a car
    */
-  SerialID: [Identifier] | undefined
+  SerialID?: [Identifier] | undefined
 
   /**
    * An additional property of this item instance.
    * Item Property
    * Cardinality: 0..n
    */
-  AdditionalItemProperty: Array<ItemProperty> | undefined
+  AdditionalItemProperty?: Array<ItemProperty> | undefined
 
   /**
    * The lot identifier of this item instance (the identifier that allows recall of the item if necessary).
    * Lot Identification
    * Cardinality: 0..1
    */
-  LotIdentification: [LotIdentification] | undefined
+  LotIdentification?: [LotIdentification] | undefined
 }

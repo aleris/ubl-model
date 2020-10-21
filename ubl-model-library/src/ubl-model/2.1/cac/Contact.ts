@@ -10,38 +10,38 @@ export interface Contact {
    * An identifier for this contact.
    * Identifier
    * Cardinality: 0..1
-   * Examples: Receivals Clerk 
+   * Examples: Receivals Clerk
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * The name of this contact. It is recommended that this be used for a functional name and not a personal name.
    * Name
    * Cardinality: 0..1
-   * Examples: Delivery Dock 
+   * Examples: Delivery Dock
    */
-  Name: [Text] | undefined
+  Name?: [Text] | undefined
 
   /**
    * The primary telephone number of this contact.
    * Text
    * Cardinality: 0..1
    */
-  Telephone: [Text] | undefined
+  Telephone?: [Text] | undefined
 
   /**
    * The primary fax number of this contact.
    * Text
    * Cardinality: 0..1
    */
-  Telefax: [Text] | undefined
+  Telefax?: [Text] | undefined
 
   /**
    * The primary email address of this contact.
    * Text
    * Cardinality: 0..1
    */
-  ElectronicMail: [Text] | undefined
+  ElectronicMail?: [Text] | undefined
 
   /**
    * Free-form text conveying information that is not contained explicitly in other structures; in particular, a textual
@@ -49,12 +49,12 @@ export interface Contact {
    * Text
    * Cardinality: 0..n
    */
-  Note: Array<Text> | undefined
+  Note?: Array<Text> | undefined
 
   /**
    * Another means of communication with this contact.
    * Communication
    * Cardinality: 0..n
    */
-  OtherCommunication: Array<Communication> | undefined
+  OtherCommunication?: Array<Communication> | undefined
 }

@@ -13,7 +13,7 @@ export interface Stowage {
    * Cardinality: 0..1
    * Alternative business terms: Cell Location, coded
    */
-  LocationID: [Identifier] | undefined
+  LocationID?: [Identifier] | undefined
 
   /**
    * Text describing the location.
@@ -21,12 +21,12 @@ export interface Stowage {
    * Cardinality: 0..n
    * Alternative business terms: Cell Location
    */
-  Location: Array<Text> | undefined
+  Location?: Array<Text> | undefined
 
   /**
    * A measurable dimension (length, mass, weight, or volume) of this stowage.
    * Dimension
    * Cardinality: 0..n
    */
-  MeasurementDimension: Array<Dimension> | undefined
+  MeasurementDimension?: Array<Dimension> | undefined
 }

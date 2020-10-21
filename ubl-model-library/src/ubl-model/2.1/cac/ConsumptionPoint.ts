@@ -24,7 +24,7 @@ export interface ConsumptionPoint {
    * Cardinality: 0..n
    * Examples: Additional informations concerning the consumption point
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 
   /**
    * An identifier for the subscriber responsible for the consumption at this consumption point.
@@ -32,14 +32,14 @@ export interface ConsumptionPoint {
    * Cardinality: 0..1
    * Examples: 98143211
    */
-  SubscriberID: [Identifier] | undefined
+  SubscriberID?: [Identifier] | undefined
 
   /**
    * The type of subscriber, expressed as text.
    * Text
    * Cardinality: 0..1
    */
-  SubscriberType: [Text] | undefined
+  SubscriberType?: [Text] | undefined
 
   /**
    * The type of subscriber, expressed as a code.
@@ -47,7 +47,7 @@ export interface ConsumptionPoint {
    * Cardinality: 0..1
    * Examples: APL
    */
-  SubscriberTypeCode: [Code] | undefined
+  SubscriberTypeCode?: [Code] | undefined
 
   /**
    * The total quantity delivered, calculated at this consumption point.
@@ -55,26 +55,26 @@ export interface ConsumptionPoint {
    * Cardinality: 0..1
    * Examples: 5761.00
    */
-  TotalDeliveredQuantity: [Quantity] | undefined
+  TotalDeliveredQuantity?: [Quantity] | undefined
 
   /**
    * The address of this consumption point.
    * Address
    * Cardinality: 0..1
    */
-  Address: [Address] | undefined
+  Address?: [Address] | undefined
 
   /**
    * Access information for the website of this consumption point.
    * Web Site Access
    * Cardinality: 0..1
    */
-  WebSiteAccess: [WebSiteAccess] | undefined
+  WebSiteAccess?: [WebSiteAccess] | undefined
 
   /**
    * A meter at this consumption point.
    * Meter
    * Cardinality: 0..n
    */
-  UtilityMeter: Array<Meter> | undefined
+  UtilityMeter?: Array<Meter> | undefined
 }

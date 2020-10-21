@@ -10,7 +10,7 @@ export interface PhysicalAttribute {
    * An identifier for this physical attribute.
    * Identifier
    * Cardinality: 1
-   * Examples: colour style 
+   * Examples: colour style
    */
   AttributeID: [Identifier]
 
@@ -19,20 +19,20 @@ export interface PhysicalAttribute {
    * Code
    * Cardinality: 0..1
    */
-  PositionCode: [Code] | undefined
+  PositionCode?: [Code] | undefined
 
   /**
    * A description of the physical attribute, expressed as a code.
    * Code
    * Cardinality: 0..1
-   * Examples: XXL , Small 
+   * Examples: XXL , Small
    */
-  DescriptionCode: [Code] | undefined
+  DescriptionCode?: [Code] | undefined
 
   /**
    * A description of the physical attribute, expressed as text.
    * Text
    * Cardinality: 0..n
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 }

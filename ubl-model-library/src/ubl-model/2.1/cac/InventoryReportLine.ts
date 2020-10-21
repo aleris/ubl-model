@@ -23,7 +23,7 @@ export interface InventoryReportLine {
    * Text
    * Cardinality: 0..n
    */
-  Note: Array<Text> | undefined
+  Note?: Array<Text> | undefined
 
   /**
    * The quantity of the item reported that is currently in stock.
@@ -37,21 +37,21 @@ export interface InventoryReportLine {
    * Amount
    * Cardinality: 0..1
    */
-  InventoryValueAmount: [Amount] | undefined
+  InventoryValueAmount?: [Amount] | undefined
 
   /**
    * The date from which the goods will be available. If not present, the goods are available now.
    * Date
    * Cardinality: 0..1
    */
-  AvailabilityDate: [Date] | undefined
+  AvailabilityDate?: [Date] | undefined
 
   /**
    * A code signifying the item's level of availability.
    * Code
    * Cardinality: 0..1
    */
-  AvailabilityStatusCode: [Code] | undefined
+  AvailabilityStatusCode?: [Code] | undefined
 
   /**
    * The item associated with this inventory report line.
@@ -65,5 +65,5 @@ export interface InventoryReportLine {
    * Location
    * Cardinality: 0..1
    */
-  InventoryLocation: [Location] | undefined
+  InventoryLocation?: [Location] | undefined
 }

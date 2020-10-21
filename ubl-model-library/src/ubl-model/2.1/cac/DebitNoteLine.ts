@@ -31,21 +31,21 @@ export interface DebitNoteLine {
    * Identifier
    * Cardinality: 0..1
    */
-  UUID: [Identifier] | undefined
+  UUID?: [Identifier] | undefined
 
   /**
    * Free-form text conveying information that is not contained explicitly in other structures.
    * Text
    * Cardinality: 0..n
    */
-  Note: Array<Text> | undefined
+  Note?: Array<Text> | undefined
 
   /**
    * The quantity of Items debited in this debit note line.
    * Quantity
    * Cardinality: 0..1
    */
-  DebitedQuantity: [Quantity] | undefined
+  DebitedQuantity?: [Quantity] | undefined
 
   /**
    * The total amount for this debit note line, including allowance charges but net of taxes.
@@ -59,98 +59,98 @@ export interface DebitNoteLine {
    * Date
    * Cardinality: 0..1
    */
-  TaxPointDate: [Date] | undefined
+  TaxPointDate?: [Date] | undefined
 
   /**
    * The buyer's accounting cost centre for this debit note line, expressed as a code.
    * Code
    * Cardinality: 0..1
    */
-  AccountingCostCode: [Code] | undefined
+  AccountingCostCode?: [Code] | undefined
 
   /**
    * The buyer's accounting cost centre for this debit note line, expressed as text.
    * Text
    * Cardinality: 0..1
    */
-  AccountingCost: [Text] | undefined
+  AccountingCost?: [Text] | undefined
 
   /**
    * A code signifying the business purpose for this payment.
    * Code
    * Cardinality: 0..1
    */
-  PaymentPurposeCode: [Code] | undefined
+  PaymentPurposeCode?: [Code] | undefined
 
   /**
    * A reason for the debit.
    * Response
    * Cardinality: 0..n
    */
-  DiscrepancyResponse: Array<Response> | undefined
+  DiscrepancyResponse?: Array<Response> | undefined
 
   /**
    * A reference to a despatch line associated with this debit note line.
    * Line Reference
    * Cardinality: 0..n
    */
-  DespatchLineReference: Array<LineReference> | undefined
+  DespatchLineReference?: Array<LineReference> | undefined
 
   /**
    * A reference to a receipt line associated with this debit note line.
    * Line Reference
    * Cardinality: 0..n
    */
-  ReceiptLineReference: Array<LineReference> | undefined
+  ReceiptLineReference?: Array<LineReference> | undefined
 
   /**
    * A reference to a billing document associated with this debit note line.
    * Billing Reference
    * Cardinality: 0..n
    */
-  BillingReference: Array<BillingReference> | undefined
+  BillingReference?: Array<BillingReference> | undefined
 
   /**
    * A reference to a document associated with this debit note line.
    * Document Reference
    * Cardinality: 0..n
    */
-  DocumentReference: Array<DocumentReference> | undefined
+  DocumentReference?: Array<DocumentReference> | undefined
 
   /**
    * A reference to pricing and item location information associated with this debit note line.
    * Pricing Reference
    * Cardinality: 0..1
    */
-  PricingReference: [PricingReference] | undefined
+  PricingReference?: [PricingReference] | undefined
 
   /**
    * A delivery associated with this debit note line.
    * Delivery
    * Cardinality: 0..n
    */
-  Delivery: Array<Delivery> | undefined
+  Delivery?: Array<Delivery> | undefined
 
   /**
    * A total amount of taxes of a particular kind applicable to this debit note line.
    * Tax Total
    * Cardinality: 0..n
    */
-  TaxTotal: Array<TaxTotal> | undefined
+  TaxTotal?: Array<TaxTotal> | undefined
 
   /**
    * An allowance or charge associated with this debit note.
    * Allowance Charge
    * Cardinality: 0..n
    */
-  AllowanceCharge: Array<AllowanceCharge> | undefined
+  AllowanceCharge?: Array<AllowanceCharge> | undefined
 
   /**
    * The item associated with this debit note line.
    * Item
    * Cardinality: 0..1
    */
-  Item: [Item] | undefined
+  Item?: [Item] | undefined
 
   /**
    * The price of the item associated with this debit note line.
@@ -158,12 +158,12 @@ export interface DebitNoteLine {
    * Cardinality: 0..1
    * Alternative business terms: Unit Price, Base Price
    */
-  Price: [Price] | undefined
+  Price?: [Price] | undefined
 
   /**
    * A recursive description of a debit note line subsidiary to this debit note line.
    * Debit Note Line
    * Cardinality: 0..n
    */
-  SubDebitNoteLine: Array<DebitNoteLine> | undefined
+  SubDebitNoteLine?: Array<DebitNoteLine> | undefined
 }

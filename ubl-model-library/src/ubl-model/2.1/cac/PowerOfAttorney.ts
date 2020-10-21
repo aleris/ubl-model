@@ -14,35 +14,35 @@ export interface PowerOfAttorney {
    * Identifier
    * Cardinality: 0..1
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * The date on which this power of attorney was issued.
    * Date
    * Cardinality: 0..1
    */
-  IssueDate: [Date] | undefined
+  IssueDate?: [Date] | undefined
 
   /**
    * The time at which this power of attorney was issued.
    * Time
    * Cardinality: 0..1
    */
-  IssueTime: [Time] | undefined
+  IssueTime?: [Time] | undefined
 
   /**
    * Text describing this power of attorney.
    * Text
    * Cardinality: 0..n
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 
   /**
    * The party notarizing this power of attorney.
    * Party
    * Cardinality: 0..1
    */
-  NotaryParty: [Party] | undefined
+  NotaryParty?: [Party] | undefined
 
   /**
    * The party who acts as an agent or fiduciary for the principal and who holds this power of attorney on behalf of the
@@ -57,12 +57,12 @@ export interface PowerOfAttorney {
    * Party
    * Cardinality: 0..n
    */
-  WitnessParty: Array<Party> | undefined
+  WitnessParty?: Array<Party> | undefined
 
   /**
    * A reference to a mandate associated with this power of attorney.
    * Document Reference
    * Cardinality: 0..n
    */
-  MandateDocumentReference: Array<DocumentReference> | undefined
+  MandateDocumentReference?: Array<DocumentReference> | undefined
 }

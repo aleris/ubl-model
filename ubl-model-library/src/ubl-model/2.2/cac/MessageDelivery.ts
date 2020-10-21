@@ -11,7 +11,7 @@ export interface MessageDelivery {
    * Cardinality: 0..1
    * Examples: AS2, ebMS2, AS4, WS-RM
    */
-  ProtocolID: [Identifier] | undefined
+  ProtocolID?: [Identifier] | undefined
 
   /**
    * A code signifying the type of envelope to be used within this message delivery (e.g. OASIS BDX Business Document
@@ -20,7 +20,7 @@ export interface MessageDelivery {
    * Cardinality: 0..1
    * Examples: BDE
    */
-  EnvelopeTypeCode: [Code] | undefined
+  EnvelopeTypeCode?: [Code] | undefined
 
   /**
    * The Uniform Resource Identifier (URI) of the access point (e.g. an HTTP URL including the port).
@@ -28,5 +28,5 @@ export interface MessageDelivery {
    * Cardinality: 0..1
    * Examples: https://services.enterprise.com/participant-id/rx
    */
-  EndpointURI: [Identifier] | undefined
+  EndpointURI?: [Identifier] | undefined
 }

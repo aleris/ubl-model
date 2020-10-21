@@ -12,54 +12,54 @@ export interface Code {
    * The identification of a list of codes.
    * Identifier
    */
-  listID: string | undefined
+  listID?: string | undefined
 
   /**
    * An agency that maintains one or more lists of codes.
    * Identifier
    * Defaults to the UN/EDIFACT data element 3055 code list.
    */
-  listAgencyID: string | undefined
+  listAgencyID?: string | undefined
 
   /**
    * The name of the agency that maintains the list of codes.
    * Text
    */
-  listAgencyName: string | undefined
+  listAgencyName?: string | undefined
 
   /**
    * The name of a list of codes.
    * Text
    */
-  listName: string | undefined
+  listName?: string | undefined
 
   /**
    * The version of the list of codes.
    * Identifier
    */
-  listVersionID: string | undefined
+  listVersionID?: string | undefined
 
   /**
    * The textual equivalent of the code content component.
    * Text
    */
-  name: string | undefined
+  name?: string | undefined
 
   /**
    * The identifier of the language used in the code name.
    * Identifier
    */
-  languageID: string | undefined
+  languageID?: string | undefined
 
   /**
    * The Uniform Resource Identifier that identifies where the code list is located.
    * Identifier
    */
-  listURI: string | undefined
+  listURI?: string | undefined
 
   /**
    * The Uniform Resource Identifier that identifies where the code list scheme is located.
    * Identifier
    */
-  listSchemeURI: string | undefined
+  listSchemeURI?: string | undefined
 }

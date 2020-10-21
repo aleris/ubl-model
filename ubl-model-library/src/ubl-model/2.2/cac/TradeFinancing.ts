@@ -14,7 +14,7 @@ export interface TradeFinancing {
    * Identifier
    * Cardinality: 0..1
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * A code signifying the type of this financing instrument.
@@ -22,23 +22,22 @@ export interface TradeFinancing {
    * Cardinality: 0..1
    * Examples: Factoring , Invoice Financing , Pre-shipment Financing , Letter of Credit , Irrevocable Letter of Credit
    * Examples: .
-
    */
-  FinancingInstrumentCode: [Code] | undefined
+  FinancingInstrumentCode?: [Code] | undefined
 
   /**
    * A reference to a contract document.
    * Document Reference
    * Cardinality: 0..1
    */
-  ContractDocumentReference: [DocumentReference] | undefined
+  ContractDocumentReference?: [DocumentReference] | undefined
 
   /**
    * A reference to a document associated with this trade financing instrument.
    * Document Reference
    * Cardinality: 0..n
    */
-  DocumentReference: Array<DocumentReference> | undefined
+  DocumentReference?: Array<DocumentReference> | undefined
 
   /**
    * The financing party (bank or other enabled party).
@@ -53,12 +52,12 @@ export interface TradeFinancing {
    * Financial Account
    * Cardinality: 0..1
    */
-  FinancingFinancialAccount: [FinancialAccount] | undefined
+  FinancingFinancialAccount?: [FinancialAccount] | undefined
 
   /**
    * A clause applicable to this trade financing instrument.
    * Clause
    * Cardinality: 0..n
    */
-  Clause: Array<Clause> | undefined
+  Clause?: Array<Clause> | undefined
 }

@@ -10,12 +10,12 @@ export interface EconomicOperatorRole {
    * Code
    * Cardinality: 0..1
    */
-  RoleCode: [Code] | undefined
+  RoleCode?: [Code] | undefined
 
   /**
    * A textual description of the party role.
    * Text
    * Cardinality: 0..n
    */
-  RoleDescription: Array<Text> | undefined
+  RoleDescription?: Array<Text> | undefined
 }

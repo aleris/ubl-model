@@ -10,7 +10,7 @@ export interface TendererPartyQualification {
    * Procurement Project Lot
    * Cardinality: 0..n
    */
-  InterestedProcurementProjectLot: Array<ProcurementProjectLot> | undefined
+  InterestedProcurementProjectLot?: Array<ProcurementProjectLot> | undefined
 
   /**
    * The qualifications of the main tenderer party.
@@ -24,5 +24,5 @@ export interface TendererPartyQualification {
    * Qualifying Party
    * Cardinality: 0..n
    */
-  AdditionalQualifyingParty: Array<QualifyingParty> | undefined
+  AdditionalQualifyingParty?: Array<QualifyingParty> | undefined
 }

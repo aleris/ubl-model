@@ -14,49 +14,49 @@ export interface RequestForQuotationLine {
    * Identifier
    * Cardinality: 0..1
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * A universally unique identifier for this line in the request for quotation.
    * Identifier
    * Cardinality: 0..1
    */
-  UUID: [Identifier] | undefined
+  UUID?: [Identifier] | undefined
 
   /**
    * Free-form text conveying information that is not contained explicitly in other structures.
    * Text
    * Cardinality: 0..n
    */
-  Note: Array<Text> | undefined
+  Note?: Array<Text> | undefined
 
   /**
    * An indication whether this line is optional (true) or not (false) for purposes of this request for quotation.
    * Indicator
    * Cardinality: 0..1
    */
-  OptionalLineItemIndicator: [Indicator] | undefined
+  OptionalLineItemIndicator?: [Indicator] | undefined
 
   /**
    * A code signifying the level of confidentiality of this request for quotation line.
    * Code
    * Cardinality: 0..1
    */
-  PrivacyCode: [Code] | undefined
+  PrivacyCode?: [Code] | undefined
 
   /**
    * A code signifying the security classification of this request for quotation line.
    * Code
    * Cardinality: 0..1
    */
-  SecurityClassificationCode: [Code] | undefined
+  SecurityClassificationCode?: [Code] | undefined
 
   /**
    * A document associated with this request for quotation line.
    * Document Reference
    * Cardinality: 0..n
    */
-  DocumentReference: Array<DocumentReference> | undefined
+  DocumentReference?: Array<DocumentReference> | undefined
 
   /**
    * A description of the item for which a quotation is requested.

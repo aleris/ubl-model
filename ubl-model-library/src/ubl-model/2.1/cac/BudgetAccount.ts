@@ -11,19 +11,19 @@ export interface BudgetAccount {
    * Identifier
    * Cardinality: 0..1
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * The number of the year for this budget account, e.g. 2012
    * Numeric
    * Cardinality: 0..1
    */
-  BudgetYearNumeric: [Numeric] | undefined
+  BudgetYearNumeric?: [Numeric] | undefined
 
   /**
    * A classification scheme required for this budget account.
    * Classification Scheme
    * Cardinality: 0..1
    */
-  RequiredClassificationScheme: [ClassificationScheme] | undefined
+  RequiredClassificationScheme?: [ClassificationScheme] | undefined
 }

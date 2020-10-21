@@ -15,35 +15,35 @@ export interface ItemManagementProfile {
    * Numeric
    * Cardinality: 0..1
    */
-  FrozenPeriodDaysNumeric: [Numeric] | undefined
+  FrozenPeriodDaysNumeric?: [Numeric] | undefined
 
   /**
    * The quantity of the item that should trigger a replenishment order to avoid depleting the safety stock.
    * Quantity
    * Cardinality: 0..1
    */
-  MinimumInventoryQuantity: [Quantity] | undefined
+  MinimumInventoryQuantity?: [Quantity] | undefined
 
   /**
    * The order quantity multiples in which the product may be ordered.
    * Quantity
    * Cardinality: 0..1
    */
-  MultipleOrderQuantity: [Quantity] | undefined
+  MultipleOrderQuantity?: [Quantity] | undefined
 
   /**
    * The number of days between regular replenishment orders for the product.
    * Numeric
    * Cardinality: 0..1
    */
-  OrderIntervalDaysNumeric: [Numeric] | undefined
+  OrderIntervalDaysNumeric?: [Numeric] | undefined
 
   /**
    * The trading partner maintaining this item management profile.
    * Text
    * Cardinality: 0..n
    */
-  ReplenishmentOwnerDescription: Array<Text> | undefined
+  ReplenishmentOwnerDescription?: Array<Text> | undefined
 
   /**
    * The Unit Service Level the trading partners expect to be maintained, expressed as a percentage. Unite Service Level
@@ -52,14 +52,14 @@ export interface ItemManagementProfile {
    * Percent
    * Cardinality: 0..1
    */
-  TargetServicePercent: [Numeric] | undefined
+  TargetServicePercent?: [Numeric] | undefined
 
   /**
    * The target inventory quantity.
    * Quantity
    * Cardinality: 0..1
    */
-  TargetInventoryQuantity: [Quantity] | undefined
+  TargetInventoryQuantity?: [Quantity] | undefined
 
   /**
    * The period during which this profile is effective.
@@ -80,5 +80,5 @@ export interface ItemManagementProfile {
    * Item Location Quantity
    * Cardinality: 0..1
    */
-  ItemLocationQuantity: [ItemLocationQuantity] | undefined
+  ItemLocationQuantity?: [ItemLocationQuantity] | undefined
 }

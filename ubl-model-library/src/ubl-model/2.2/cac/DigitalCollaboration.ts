@@ -10,19 +10,19 @@ export interface DigitalCollaboration {
    * Identifier
    * Cardinality: 0..1
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * The sending digital service associated with this digital collaboration.
    * Digital Service
    * Cardinality: 0..1
    */
-  SendingDigitalService: [DigitalService] | undefined
+  SendingDigitalService?: [DigitalService] | undefined
 
   /**
    * The receiving digital service associated with this digital collaboration.
    * Digital Service
    * Cardinality: 0..1
    */
-  ReceivingDigitalService: [DigitalService] | undefined
+  ReceivingDigitalService?: [DigitalService] | undefined
 }

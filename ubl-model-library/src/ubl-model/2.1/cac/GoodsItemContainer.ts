@@ -20,12 +20,12 @@ export interface GoodsItemContainer {
    * Cardinality: 0..1
    * Alternative business terms: Number of packages stuffed
    */
-  Quantity: [Quantity] | undefined
+  Quantity?: [Quantity] | undefined
 
   /**
    * A piece of transport equipment used to contain a single goods item.
    * Transport Equipment
    * Cardinality: 0..n
    */
-  TransportEquipment: Array<TransportEquipment> | undefined
+  TransportEquipment?: Array<TransportEquipment> | undefined
 }

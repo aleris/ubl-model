@@ -24,84 +24,84 @@ export interface ReminderLine {
    * Text
    * Cardinality: 0..n
    */
-  Note: Array<Text> | undefined
+  Note?: Array<Text> | undefined
 
   /**
    * A universally unique identifier for this reminder line.
    * Identifier
    * Cardinality: 0..1
    */
-  UUID: [Identifier] | undefined
+  UUID?: [Identifier] | undefined
 
   /**
    * An indication that this reminder line contains a balance brought forward (true) or does not (false).
    * Indicator
    * Cardinality: 0..1
    */
-  BalanceBroughtForwardIndicator: [Indicator] | undefined
+  BalanceBroughtForwardIndicator?: [Indicator] | undefined
 
   /**
    * The amount debited on this reminder line.
    * Amount
    * Cardinality: 0..1
    */
-  DebitLineAmount: [Amount] | undefined
+  DebitLineAmount?: [Amount] | undefined
 
   /**
    * The amount credited on this reminder line.
    * Amount
    * Cardinality: 0..1
    */
-  CreditLineAmount: [Amount] | undefined
+  CreditLineAmount?: [Amount] | undefined
 
   /**
    * The buyer's accounting cost centre for this reminder line, expressed as a code.
    * Code
    * Cardinality: 0..1
    */
-  AccountingCostCode: [Code] | undefined
+  AccountingCostCode?: [Code] | undefined
 
   /**
    * The buyer's accounting cost centre for this reminder line, expressed as text.
    * Text
    * Cardinality: 0..1
    */
-  AccountingCost: [Text] | undefined
+  AccountingCost?: [Text] | undefined
 
   /**
    * The penalty for late payment, expressed as a percentage.
    * Percent
    * Cardinality: 0..1
    */
-  PenaltySurchargePercent: [Numeric] | undefined
+  PenaltySurchargePercent?: [Numeric] | undefined
 
   /**
    * The amount on this reminder line.
    * Amount
    * Cardinality: 0..1
    */
-  Amount: [Amount] | undefined
+  Amount?: [Amount] | undefined
 
   /**
    * A code signifying the business purpose for this payment.
    * Code
    * Cardinality: 0..1
    */
-  PaymentPurposeCode: [Code] | undefined
+  PaymentPurposeCode?: [Code] | undefined
 
   /**
    * A period to which this reminder line applies.
    * Period
    * Cardinality: 0..n
    */
-  ReminderPeriod: Array<Period> | undefined
+  ReminderPeriod?: Array<Period> | undefined
 
   /**
    * A reference to a billing document associated with this reminder line.
    * Billing Reference
    * Cardinality: 0..n
    */
-  BillingReference: Array<BillingReference> | undefined
+  BillingReference?: Array<BillingReference> | undefined
 
   /**
    * The rate of exchange between the currency of the Reminder and the currency of the document described in the
@@ -109,5 +109,5 @@ export interface ReminderLine {
    * Exchange Rate
    * Cardinality: 0..1
    */
-  ExchangeRate: [ExchangeRate] | undefined
+  ExchangeRate?: [ExchangeRate] | undefined
 }

@@ -1,7 +1,6 @@
 import {
   extractTypeName,
-  formatLongComment,
-  MAX_LINE_LENGTH
+  formatComment
 } from '../type-gen-utils'
 import { Documentation } from '../Documentation'
 import { PrefixedName } from '../PrefixedName'
@@ -40,17 +39,41 @@ export class AggregateType {
   }
 
   asCodeString(contextModule: UblModule) {
-    const importFields = this.getImportFields()
-    const imports = importFields.length == 0
-      ? ''
-      : `${importFields.map(field => field.asImportString(contextModule)).join('\n')}\n\n`
+    const imports = this.getImports(contextModule)
     return `${imports}/**${
-      formatLongComment(' * ', MAX_LINE_LENGTH, this.documentation.definition)
+      formatComment(' * ', this.documentation.definition)
     }
  */
 export interface ${this.typeName} {
 ${this.fields.map(field => field.asCodeString()).join('\n\n')}
 }
+`
+  }
+
+  private getImports(contextModule: UblModule, contextPath: string = '') {
+    const importFields = this.getImportFields()
+    const imports = importFields.length == 0
+      ? ''
+      : `${importFields.map(field => field.asImportString(contextModule, contextPath)).join('\n')}\n\n`
+    return imports
+  }
+
+  asMetaCodeString(contextModule: UblModule) {
+    return `import { FieldMeta } from '../../FieldMeta'
+
+export enum ${this.typeName}Field {
+${this.fields.map(field => `  ${field.fieldName} = '${field.fieldName}'`).join(',\n')}
+}
+
+${this.fields.map(field => field.asFieldMetaCodeString(this.typeName)).join('\n\n')}
+
+export class ${this.typeName}FieldMeta {
+${this.fields.map(field => `  public static readonly ${field.fieldName} = ${this.typeName}FieldMeta${field.fieldName}`).join('\n')}
+}
+
+export const ${this.typeName}FieldMap = new Map([
+${this.fields.map(field => `  [${this.typeName}Field.${field.fieldName}, ${this.typeName}FieldMeta${field.fieldName}]`).join(',\n')}
+])
 `
   }
 

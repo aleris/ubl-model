@@ -12,7 +12,7 @@ export interface SocialMediaProfile {
    * Cardinality: 0..1
    * Examples: FB
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * The common name of the social media.
@@ -20,7 +20,7 @@ export interface SocialMediaProfile {
    * Cardinality: 0..1
    * Examples: Facebook
    */
-  Name: [Text] | undefined
+  Name?: [Text] | undefined
 
   /**
    * A code that specifies the type of social media.
@@ -28,7 +28,7 @@ export interface SocialMediaProfile {
    * Cardinality: 0..1
    * Examples: BusinessNetwork, SocialNetwork, ...
    */
-  SocialMediaTypeCode: [Code] | undefined
+  SocialMediaTypeCode?: [Code] | undefined
 
   /**
    * The Uniform Resource Identifier (URI) of a party profile in the social media; i.e., its Uniform Resource Locator

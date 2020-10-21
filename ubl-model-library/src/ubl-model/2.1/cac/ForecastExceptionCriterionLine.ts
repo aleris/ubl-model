@@ -26,7 +26,7 @@ export interface ForecastExceptionCriterionLine {
    * Code
    * Cardinality: 0..1
    */
-  ComparisonDataSourceCode: [Code] | undefined
+  ComparisonDataSourceCode?: [Code] | undefined
 
   /**
    * Indication of the partner who provides the information.
@@ -40,5 +40,5 @@ export interface ForecastExceptionCriterionLine {
    * Quantity
    * Cardinality: 0..1
    */
-  TimeDeltaDaysQuantity: [Quantity] | undefined
+  TimeDeltaDaysQuantity?: [Quantity] | undefined
 }

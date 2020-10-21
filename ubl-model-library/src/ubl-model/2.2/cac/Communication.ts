@@ -11,7 +11,7 @@ export interface Communication {
    * Cardinality: 0..1
    * Examples: Phone Fax Email
    */
-  ChannelCode: [Code] | undefined
+  ChannelCode?: [Code] | undefined
 
   /**
    * The method of communication, expressed as text.
@@ -19,13 +19,13 @@ export interface Communication {
    * Cardinality: 0..1
    * Examples: Skype
    */
-  Channel: [Text] | undefined
+  Channel?: [Text] | undefined
 
   /**
    * An identifying value (phone number, email address, etc.) for this channel of communication
    * Text
    * Cardinality: 0..1
-   * Examples: +44 1 2345 6789 president@whitehouse.com 
+   * Examples: +44 1 2345 6789 president@whitehouse.com
    */
-  Value: [Text] | undefined
+  Value?: [Text] | undefined
 }

@@ -10,7 +10,7 @@ export interface ProcessJustification {
    * Code
    * Cardinality: 0..1
    */
-  PreviousCancellationReasonCode: [Code] | undefined
+  PreviousCancellationReasonCode?: [Code] | undefined
 
   /**
    * The reason why the contracting authority has followed a particular tendering procedure for the awarding of a
@@ -18,7 +18,7 @@ export interface ProcessJustification {
    * Code
    * Cardinality: 0..1
    */
-  ProcessReasonCode: [Code] | undefined
+  ProcessReasonCode?: [Code] | undefined
 
   /**
    * The reason why the contracting authority has followed a particular tendering procedure for the awarding of a
@@ -26,12 +26,12 @@ export interface ProcessJustification {
    * Text
    * Cardinality: 0..n
    */
-  ProcessReason: Array<Text> | undefined
+  ProcessReason?: Array<Text> | undefined
 
   /**
    * Text providing justification for the selection of this process.
    * Text
    * Cardinality: 0..n
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 }

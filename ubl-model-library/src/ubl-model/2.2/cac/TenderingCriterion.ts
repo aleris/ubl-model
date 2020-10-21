@@ -16,35 +16,35 @@ export interface TenderingCriterion {
    * Identifier
    * Cardinality: 0..1
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * A code signifying the type of criterion.
    * Code
    * Cardinality: 0..1
    */
-  CriterionTypeCode: [Code] | undefined
+  CriterionTypeCode?: [Code] | undefined
 
   /**
    * The name of the criterion.
    * Name
    * Cardinality: 0..1
    */
-  Name: [Text] | undefined
+  Name?: [Text] | undefined
 
   /**
    * The textual description for this criterion.
    * Text
    * Cardinality: 0..n
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 
   /**
    * A weighting to provide for automatic scoring of the criterion.
    * Numeric
    * Cardinality: 0..1
    */
-  WeightNumeric: [Numeric] | undefined
+  WeightNumeric?: [Numeric] | undefined
 
   /**
    * An indication that this criterion has been fulfilled.
@@ -52,15 +52,14 @@ export interface TenderingCriterion {
    * Cardinality: 0..1
    * Examples: TRUE means fulfilled, FALSE means not fulfilled
    */
-  FulfilmentIndicator: [Indicator] | undefined
+  FulfilmentIndicator?: [Indicator] | undefined
 
   /**
    * A code signifying how this criterion has been fulfilled.
-
    * Code
    * Cardinality: 0..1
    */
-  FulfilmentIndicatorTypeCode: [Code] | undefined
+  FulfilmentIndicatorTypeCode?: [Code] | undefined
 
   /**
    * A code signifying the type of Evaluation.
@@ -68,28 +67,28 @@ export interface TenderingCriterion {
    * Cardinality: 0..1
    * Examples: Weight
    */
-  EvaluationMethodTypeCode: [Code] | undefined
+  EvaluationMethodTypeCode?: [Code] | undefined
 
   /**
    * The textual description of the Weighting Description
    * Text
    * Cardinality: 0..n
    */
-  WeightingConsiderationDescription: Array<Text> | undefined
+  WeightingConsiderationDescription?: Array<Text> | undefined
 
   /**
    * One or more tendering subcriteria.
    * Tendering Criterion
    * Cardinality: 0..n
    */
-  SubTenderingCriterion: Array<TenderingCriterion> | undefined
+  SubTenderingCriterion?: Array<TenderingCriterion> | undefined
 
   /**
    * The legislation reference for the criterion.
    * Legislation
    * Cardinality: 0..n
    */
-  Legislation: Array<Legislation> | undefined
+  Legislation?: Array<Legislation> | undefined
 
   /**
    * The sets of properties that can be used to fulfil the tendering criterion.

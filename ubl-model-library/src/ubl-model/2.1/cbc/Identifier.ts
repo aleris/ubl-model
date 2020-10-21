@@ -12,42 +12,42 @@ export interface Identifier {
    * The identification of the identification scheme.
    * Identifier
    */
-  IdentifierSchemeIdentifier: string | undefined
+  IdentifierSchemeIdentifier?: string | undefined
 
   /**
    * The name of the identification scheme.
    * Text
    */
-  IdentifierSchemeName: string | undefined
+  IdentifierSchemeName?: string | undefined
 
   /**
    * The identification of the agency that maintains the identification scheme.
    * Identifier
    * Defaults to the UN/EDIFACT data element 3055 code list.
    */
-  IdentifierSchemeAgencyIdentifier: string | undefined
+  IdentifierSchemeAgencyIdentifier?: string | undefined
 
   /**
    * The name of the agency that maintains the identification scheme.
    * Text
    */
-  IdentifierSchemeAgencyName: string | undefined
+  IdentifierSchemeAgencyName?: string | undefined
 
   /**
    * The version of the identification scheme.
    * Identifier
    */
-  IdentifierSchemeVersionIdentifier: string | undefined
+  IdentifierSchemeVersionIdentifier?: string | undefined
 
   /**
    * The Uniform Resource Identifier that identifies where the identification scheme data is located.
    * Identifier
    */
-  IdentifierSchemeDataURI: string | undefined
+  IdentifierSchemeDataURI?: string | undefined
 
   /**
    * The Uniform Resource Identifier that identifies where the identification scheme is located.
    * Identifier
    */
-  IdentifierSchemeURI: string | undefined
+  IdentifierSchemeURI?: string | undefined
 }

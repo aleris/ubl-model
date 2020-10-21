@@ -22,7 +22,7 @@ export interface DespatchAdvice {
    * A container for all extensions present in the document.
    * Cardinality: 0..1
    */
-  UBLExtensions: [UBLExtensions] | undefined
+  UBLExtensions?: [UBLExtensions] | undefined
 
   /**
    * Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that
@@ -31,7 +31,7 @@ export interface DespatchAdvice {
    * Cardinality: 0..1
    * Examples: 2.0.5
    */
-  UBLVersionID: [Identifier] | undefined
+  UBLVersionID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined customization of UBL for a specific use.
@@ -39,7 +39,7 @@ export interface DespatchAdvice {
    * Cardinality: 0..1
    * Examples: NES
    */
-  CustomizationID: [Identifier] | undefined
+  CustomizationID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined profile of the customization of UBL being used.
@@ -47,14 +47,14 @@ export interface DespatchAdvice {
    * Cardinality: 0..1
    * Examples: BasicProcurementProcess
    */
-  ProfileID: [Identifier] | undefined
+  ProfileID?: [Identifier] | undefined
 
   /**
    * Identifies an instance of executing a profile, to associate all transactions in a collaboration.
    * Identifier
    * Cardinality: 0..1
    */
-  ProfileExecutionID: [Identifier] | undefined
+  ProfileExecutionID?: [Identifier] | undefined
 
   /**
    * An identifier for this document, assigned by the sender.
@@ -68,14 +68,14 @@ export interface DespatchAdvice {
    * Indicator
    * Cardinality: 0..1
    */
-  CopyIndicator: [Indicator] | undefined
+  CopyIndicator?: [Indicator] | undefined
 
   /**
    * A universally unique identifier for an instance of this document.
    * Identifier
    * Cardinality: 0..1
    */
-  UUID: [Identifier] | undefined
+  UUID?: [Identifier] | undefined
 
   /**
    * The date, assigned by the sender, on which this document was issued.
@@ -89,7 +89,7 @@ export interface DespatchAdvice {
    * Time
    * Cardinality: 0..1
    */
-  IssueTime: [Time] | undefined
+  IssueTime?: [Time] | undefined
 
   /**
    * A code signifying the status of the Despatch Advice with respect to its original state. This code may be used if
@@ -97,14 +97,14 @@ export interface DespatchAdvice {
    * Code
    * Cardinality: 0..1
    */
-  DocumentStatusCode: [Code] | undefined
+  DocumentStatusCode?: [Code] | undefined
 
   /**
    * A code signifying the type of the Despatch Advice.
    * Code
    * Cardinality: 0..1
    */
-  DespatchAdviceTypeCode: [Code] | undefined
+  DespatchAdviceTypeCode?: [Code] | undefined
 
   /**
    * Free-form text pertinent to this document, conveying information that is not contained explicitly in other
@@ -112,35 +112,35 @@ export interface DespatchAdvice {
    * Text
    * Cardinality: 0..n
    */
-  Note: Array<Text> | undefined
+  Note?: Array<Text> | undefined
 
   /**
    * The number of Despatch Lines in this document.
    * Numeric
    * Cardinality: 0..1
    */
-  LineCountNumeric: [Numeric] | undefined
+  LineCountNumeric?: [Numeric] | undefined
 
   /**
    * A reference to an Order with which this Despatch Advice is associated.
    * Order Reference
    * Cardinality: 0..n
    */
-  OrderReference: Array<OrderReference> | undefined
+  OrderReference?: Array<OrderReference> | undefined
 
   /**
    * A reference to an additional document associated with this document.
    * Document Reference
    * Cardinality: 0..n
    */
-  AdditionalDocumentReference: Array<DocumentReference> | undefined
+  AdditionalDocumentReference?: Array<DocumentReference> | undefined
 
   /**
    * A signature applied to this document.
    * Signature
    * Cardinality: 0..n
    */
-  Signature: Array<Signature> | undefined
+  Signature?: Array<Signature> | undefined
 
   /**
    * The despatch party.
@@ -161,28 +161,28 @@ export interface DespatchAdvice {
    * Customer Party
    * Cardinality: 0..1
    */
-  BuyerCustomerParty: [CustomerParty] | undefined
+  BuyerCustomerParty?: [CustomerParty] | undefined
 
   /**
    * The seller.
    * Supplier Party
    * Cardinality: 0..1
    */
-  SellerSupplierParty: [SupplierParty] | undefined
+  SellerSupplierParty?: [SupplierParty] | undefined
 
   /**
    * A customer party as originator.
    * Customer Party
    * Cardinality: 0..1
    */
-  OriginatorCustomerParty: [CustomerParty] | undefined
+  OriginatorCustomerParty?: [CustomerParty] | undefined
 
   /**
    * The shipment.
    * Shipment
    * Cardinality: 0..1
    */
-  Shipment: [Shipment] | undefined
+  Shipment?: [Shipment] | undefined
 
   /**
    * A Despatch Line associated with a kind of item delivered.

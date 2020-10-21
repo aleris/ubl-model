@@ -15,7 +15,7 @@ export interface ConsumptionHistory {
    * Cardinality: 0..1
    * Examples: 61722x
    */
-  MeterNumber: [Text] | undefined
+  MeterNumber?: [Text] | undefined
 
   /**
    * The quantity consumed.
@@ -30,7 +30,7 @@ export interface ConsumptionHistory {
    * Amount
    * Cardinality: 0..1
    */
-  Amount: [Amount] | undefined
+  Amount?: [Amount] | undefined
 
   /**
    * The consumption level, expressed as a code used explain the consumption quantity, e.g.. diversion from the normal.
@@ -38,7 +38,7 @@ export interface ConsumptionHistory {
    * Cardinality: 0..1
    * Examples: B
    */
-  ConsumptionLevelCode: [Code] | undefined
+  ConsumptionLevelCode?: [Code] | undefined
 
   /**
    * The consumption level, expressed as text, used explain the consumption quantity, e.g.. diversion from the normal.
@@ -46,7 +46,7 @@ export interface ConsumptionHistory {
    * Cardinality: 0..1
    * Examples: Average
    */
-  ConsumptionLevel: [Text] | undefined
+  ConsumptionLevel?: [Text] | undefined
 
   /**
    * Text describing the consumption itself.
@@ -54,7 +54,7 @@ export interface ConsumptionHistory {
    * Cardinality: 0..n
    * Examples: 2004/2005
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 
   /**
    * The period during which the consumption took place.

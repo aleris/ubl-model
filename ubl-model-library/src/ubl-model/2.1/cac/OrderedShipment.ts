@@ -17,5 +17,5 @@ export interface OrderedShipment {
    * Package
    * Cardinality: 0..n
    */
-  Package: Array<Package> | undefined
+  Package?: Array<Package> | undefined
 }

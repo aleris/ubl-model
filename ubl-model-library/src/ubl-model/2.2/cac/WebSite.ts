@@ -13,7 +13,7 @@ export interface WebSite {
    * Cardinality: 0..1
    * Examples: UBL
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * The common name of the web site.
@@ -21,7 +21,7 @@ export interface WebSite {
    * Cardinality: 0..1
    * Examples: UBL Online Community
    */
-  Name: [Text] | undefined
+  Name?: [Text] | undefined
 
   /**
    * Text describing the web site.
@@ -29,7 +29,7 @@ export interface WebSite {
    * Cardinality: 0..n
    * Examples: Online community for the Universal Business Language (UBL) OASIS Standard
    */
-  Description: Array<Text> | undefined
+  Description?: Array<Text> | undefined
 
   /**
    * A code that specifies the type web site.
@@ -37,7 +37,7 @@ export interface WebSite {
    * Cardinality: 0..1
    * Examples: Satellite, Portal, Operative, Industry, ...
    */
-  WebSiteTypeCode: [Code] | undefined
+  WebSiteTypeCode?: [Code] | undefined
 
   /**
    * The Uniform Resource Identifier (URI) of the web site; i.e., its Uniform Resource Locator (URL).
@@ -52,5 +52,5 @@ export interface WebSite {
    * Web Site Access
    * Cardinality: 0..n
    */
-  WebSiteAccess: Array<WebSiteAccess> | undefined
+  WebSiteAccess?: Array<WebSiteAccess> | undefined
 }

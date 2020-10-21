@@ -12,26 +12,26 @@ export interface Branch {
    * Identifier
    * Cardinality: 0..1
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * The name of this branch or division of an organization.
    * Name
    * Cardinality: 0..1
    */
-  Name: [Text] | undefined
+  Name?: [Text] | undefined
 
   /**
    * The financial institution that this branch belongs to (if applicable).
    * Financial Institution
    * Cardinality: 0..1
    */
-  FinancialInstitution: [FinancialInstitution] | undefined
+  FinancialInstitution?: [FinancialInstitution] | undefined
 
   /**
    * The address of this branch or division.
    * Address
    * Cardinality: 0..1
    */
-  Address: [Address] | undefined
+  Address?: [Address] | undefined
 }

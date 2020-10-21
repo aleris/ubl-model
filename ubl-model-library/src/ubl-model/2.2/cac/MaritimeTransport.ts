@@ -15,7 +15,7 @@ export interface MaritimeTransport {
    * Alternative business terms: Lloyds Number, Registration Number (WCO ID 167)
    * Examples: International Maritime Organisation number of a vessel
    */
-  VesselID: [Identifier] | undefined
+  VesselID?: [Identifier] | undefined
 
   /**
    * The name of the vessel.
@@ -23,7 +23,7 @@ export interface MaritimeTransport {
    * Cardinality: 0..1
    * Alternative business terms: Ships Name
    */
-  VesselName: [Text] | undefined
+  VesselName?: [Text] | undefined
 
   /**
    * The radio call sign of the vessel.
@@ -31,7 +31,7 @@ export interface MaritimeTransport {
    * Cardinality: 0..1
    * Examples: NES
    */
-  RadioCallSignID: [Identifier] | undefined
+  RadioCallSignID?: [Identifier] | undefined
 
   /**
    * Information about what services a vessel will require when it arrives at a port, such as refueling, maintenance,
@@ -39,7 +39,7 @@ export interface MaritimeTransport {
    * Text
    * Cardinality: 0..n
    */
-  ShipsRequirements: Array<Text> | undefined
+  ShipsRequirements?: Array<Text> | undefined
 
   /**
    * Gross tonnage is calculated by measuring a ship's volume (from keel to funnel, to the outside of the hull framing)
@@ -48,7 +48,7 @@ export interface MaritimeTransport {
    * Measure
    * Cardinality: 0..1
    */
-  GrossTonnageMeasure: [Measure] | undefined
+  GrossTonnageMeasure?: [Measure] | undefined
 
   /**
    * Net tonnage is calculated by measuring a ship's internal volume and applying a mathematical formula and is used to
@@ -56,19 +56,19 @@ export interface MaritimeTransport {
    * Measure
    * Cardinality: 0..1
    */
-  NetTonnageMeasure: [Measure] | undefined
+  NetTonnageMeasure?: [Measure] | undefined
 
   /**
    * The certificate issued to the ship by the ships registry in a given flag state.
    * Document Reference
    * Cardinality: 0..1
    */
-  RegistryCertificateDocumentReference: [DocumentReference] | undefined
+  RegistryCertificateDocumentReference?: [DocumentReference] | undefined
 
   /**
    * The port in which a vessel is registered or permanently based.
    * Location
    * Cardinality: 0..1
    */
-  RegistryPortLocation: [Location] | undefined
+  RegistryPortLocation?: [Location] | undefined
 }

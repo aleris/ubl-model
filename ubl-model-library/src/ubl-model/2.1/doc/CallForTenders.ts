@@ -23,7 +23,7 @@ export interface CallForTenders {
    * A container for all extensions present in the document.
    * Cardinality: 0..1
    */
-  UBLExtensions: [UBLExtensions] | undefined
+  UBLExtensions?: [UBLExtensions] | undefined
 
   /**
    * Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that
@@ -31,49 +31,49 @@ export interface CallForTenders {
    * Identifier
    * Cardinality: 0..1
    */
-  UBLVersionID: [Identifier] | undefined
+  UBLVersionID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined customization of UBL for a specific use.
    * Identifier
    * Cardinality: 0..1
    */
-  CustomizationID: [Identifier] | undefined
+  CustomizationID?: [Identifier] | undefined
 
   /**
    * Identifies a user-defined profile of the customization of UBL being used.
    * Identifier
    * Cardinality: 0..1
    */
-  ProfileID: [Identifier] | undefined
+  ProfileID?: [Identifier] | undefined
 
   /**
    * Identifies an instance of executing a profile, to associate all transactions in a collaboration.
    * Identifier
    * Cardinality: 0..1
    */
-  ProfileExecutionID: [Identifier] | undefined
+  ProfileExecutionID?: [Identifier] | undefined
 
   /**
    * An identifier for this document, assigned by the sender.
    * Identifier
    * Cardinality: 0..1
    */
-  ID: [Identifier] | undefined
+  ID?: [Identifier] | undefined
 
   /**
    * Indicates whether this document is a copy (true) or not (false).
    * Indicator
    * Cardinality: 0..1
    */
-  CopyIndicator: [Indicator] | undefined
+  CopyIndicator?: [Indicator] | undefined
 
   /**
    * A universally unique identifier for an instance of this document.
    * Identifier
    * Cardinality: 0..1
    */
-  UUID: [Identifier] | undefined
+  UUID?: [Identifier] | undefined
 
   /**
    * An identifier, assigned by the sender, for the process file (i.e., record) to which this document belongs.
@@ -87,7 +87,7 @@ export interface CallForTenders {
    * Date
    * Cardinality: 0..1
    */
-  ApprovalDate: [Date] | undefined
+  ApprovalDate?: [Date] | undefined
 
   /**
    * The date, assigned by the sender, on which this document was issued.
@@ -101,7 +101,7 @@ export interface CallForTenders {
    * Time
    * Cardinality: 0..1
    */
-  IssueTime: [Time] | undefined
+  IssueTime?: [Time] | undefined
 
   /**
    * Free-form text pertinent to this document, conveying information that is not contained explicitly in other
@@ -109,51 +109,51 @@ export interface CallForTenders {
    * Text
    * Cardinality: 0..n
    */
-  Note: Array<Text> | undefined
+  Note?: Array<Text> | undefined
 
   /**
    * Indicates the current version of the Call for Tenders.
    * Identifier
    * Cardinality: 0..1
-   * Examples: 1.1 
+   * Examples: 1.1
    */
-  VersionID: [Identifier] | undefined
+  VersionID?: [Identifier] | undefined
 
   /**
    * Identifies the previous version of the Call for Tenders which is superceded by this version.
    * Identifier
    * Cardinality: 0..1
-   * Examples: 1.0 
+   * Examples: 1.0
    */
-  PreviousVersionID: [Identifier] | undefined
+  PreviousVersionID?: [Identifier] | undefined
 
   /**
    * A reference to a legal document.
    * Document Reference
    * Cardinality: 0..1
    */
-  LegalDocumentReference: [DocumentReference] | undefined
+  LegalDocumentReference?: [DocumentReference] | undefined
 
   /**
    * A reference to a technical document.
    * Document Reference
    * Cardinality: 0..1
    */
-  TechnicalDocumentReference: [DocumentReference] | undefined
+  TechnicalDocumentReference?: [DocumentReference] | undefined
 
   /**
    * A reference to an additional document associated with this document.
    * Document Reference
    * Cardinality: 0..n
    */
-  AdditionalDocumentReference: Array<DocumentReference> | undefined
+  AdditionalDocumentReference?: Array<DocumentReference> | undefined
 
   /**
    * A signature applied to this document.
    * Signature
    * Cardinality: 0..n
    */
-  Signature: Array<Signature> | undefined
+  Signature?: Array<Signature> | undefined
 
   /**
    * The contracting party.
@@ -167,28 +167,28 @@ export interface CallForTenders {
    * Customer Party
    * Cardinality: 0..n
    */
-  OriginatorCustomerParty: Array<CustomerParty> | undefined
+  OriginatorCustomerParty?: Array<CustomerParty> | undefined
 
   /**
    * The party receiving this document.
    * Party
    * Cardinality: 0..1
    */
-  ReceiverParty: [Party] | undefined
+  ReceiverParty?: [Party] | undefined
 
   /**
    * The tendering terms associated with this tendering process.
    * Tendering Terms
    * Cardinality: 0..1
    */
-  TenderingTerms: [TenderingTerms] | undefined
+  TenderingTerms?: [TenderingTerms] | undefined
 
   /**
    * A description of the tendering process itself.
    * Tendering Process
    * Cardinality: 0..1
    */
-  TenderingProcess: [TenderingProcess] | undefined
+  TenderingProcess?: [TenderingProcess] | undefined
 
   /**
    * An overall definition of this procurement project.
@@ -202,5 +202,5 @@ export interface CallForTenders {
    * Procurement Project Lot
    * Cardinality: 0..n
    */
-  ProcurementProjectLot: Array<ProcurementProjectLot> | undefined
+  ProcurementProjectLot?: Array<ProcurementProjectLot> | undefined
 }

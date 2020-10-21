@@ -1,9 +1,8 @@
 import {
   capitalize,
-  formatLongComment,
+  formatComment,
+  getUseOptionalProps,
   mapPrimitiveType,
-  MAX_LINE_LENGTH,
-  onNewLineIfDefined,
   uncapitalize
 } from '../type-gen-utils'
 import { Documentation } from '../Documentation'
@@ -55,17 +54,17 @@ class CoreTypeAttributeFormatterV20 implements CoreTypeAttributeCodeFormatter {
   asCodeString(coreType: CoreType, coreTypeAttribute: CoreTypeAttribute) {
     const type = mapPrimitiveType(coreTypeAttribute.documentation.primitiveType)
     const fieldName = this.formatFieldName(coreTypeAttribute.name)
-    const optional = coreTypeAttribute.use === 'optional' ? ' | undefined' : ''
+    const { optionalField, optionalUndefined } = getUseOptionalProps(coreTypeAttribute.use)
     return `  /**${
-      formatLongComment('   * ', MAX_LINE_LENGTH, coreTypeAttribute.documentation.definition)
+      formatComment('   * ', coreTypeAttribute.documentation.definition)
     }
    * ${
       coreTypeAttribute.documentation.representationTermName
     }${
-      onNewLineIfDefined('   * ', coreTypeAttribute.documentation.usageRule)
+      formatComment('   * ', coreTypeAttribute.documentation.usageRule)
     }
    */
-  ${coreType.typeName}${fieldName}: ${type}${optional}`
+  ${coreType.typeName}${fieldName}${optionalField}: ${type}${optionalUndefined}`
   }
 
   private formatFieldName(name: string) {
@@ -80,16 +79,16 @@ class CoreTypeAttributeFormatterV22 implements CoreTypeAttributeCodeFormatter {
   asCodeString(coreType: CoreType, coreTypeAttribute: CoreTypeAttribute) {
     const type = mapPrimitiveType(coreTypeAttribute.documentation.primitiveType)
     const fieldName = uncapitalize(coreTypeAttribute.name)
-    const optional = coreTypeAttribute.use === 'optional' ? ' | undefined' : ''
+    const { optionalField, optionalUndefined } = getUseOptionalProps(coreTypeAttribute.use)
     return `  /**${
-      formatLongComment('   * ', MAX_LINE_LENGTH, coreTypeAttribute.documentation.definition)
+      formatComment('   * ', coreTypeAttribute.documentation.definition)
     }
    * ${
       coreTypeAttribute.documentation.representationTermName
     }${
-      onNewLineIfDefined('   * ', coreTypeAttribute.documentation.usageRule)
+      formatComment('   * ', coreTypeAttribute.documentation.usageRule)
     }
    */
-  ${fieldName}: ${type}${optional}`
+  ${fieldName}${optionalField}: ${type}${optionalUndefined}`
   }
 }

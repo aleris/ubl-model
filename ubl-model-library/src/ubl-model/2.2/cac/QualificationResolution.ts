@@ -21,14 +21,14 @@ export interface QualificationResolution {
    * Text
    * Cardinality: 0..n
    */
-  ExclusionReason: Array<Text> | undefined
+  ExclusionReason?: Array<Text> | undefined
 
   /**
    * Text describing this qualification resolution.
    * Text
    * Cardinality: 0..n
    */
-  Resolution: Array<Text> | undefined
+  Resolution?: Array<Text> | undefined
 
   /**
    * The date on which this qualification resolution was formalized.
@@ -42,12 +42,12 @@ export interface QualificationResolution {
    * Time
    * Cardinality: 0..1
    */
-  ResolutionTime: [Time] | undefined
+  ResolutionTime?: [Time] | undefined
 
   /**
    * The Procurement project lot to which this tenderer is accepted or rejected.
    * Procurement Project Lot
    * Cardinality: 0..1
    */
-  ProcurementProjectLot: [ProcurementProjectLot] | undefined
+  ProcurementProjectLot?: [ProcurementProjectLot] | undefined
 }
