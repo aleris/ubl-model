@@ -10,10 +10,10 @@ export class AggregateFieldMetaCodeGenerator extends AggregateFieldCodeGenerator
     return `export const ${containingTypeName}FieldMeta${fieldType.fieldName} = new FieldMeta<${containingTypeName}Field>(
   ${containingTypeName}Field.${fieldType.fieldName},
   '${fieldType.fieldName}',
-  '${this.getPropertyTermWithFallbackToName(fieldType)}',
+  '${fieldType.propertyTermWithFallbackToName}',
   '${fieldType.resolvedType.name}',
   ${singleQuoteEscape(fieldType.documentation.definition)},
-  '${this.getCardinalityWithFallbackToOccur(fieldType)}',
+  '${fieldType.cardinalityWithFallbackToOccur}',
   ${fieldType.documentation.alternativeBusinessTerms ? singleQuoteEscape(fieldType.documentation.alternativeBusinessTerms) : 'undefined'},
   ${fieldType.documentation.examples ? singleQuoteEscape(fieldType.documentation.examples) : 'undefined'}
 )`

@@ -9,6 +9,7 @@ import { CodeFile } from './CodeGenerator'
 
 export type TypeDescriptor = [
   name: string,
+  cardinality: string,
   ref?: string | undefined
 ]
 
@@ -18,7 +19,7 @@ export type TypeDescriptorMap = {
 
 export class FieldMapGenerator {
   async generateFieldMaps(version: string) {
-    console.log("Generating tree maps...")
+    console.log(`Generating field maps for UBL version ${version}...`)
     const ublSchema = new UblSchema(version)
     const typeDictionary = await new TypeDictionary(ublSchema).loadFromSchema()
     const typeResolver = new TypeResolver(typeDictionary)
@@ -27,19 +28,19 @@ export class FieldMapGenerator {
     const codeFileWriter = new CodeFileWriter(rootGenDirPath, version)
     const refTypes = await aggregateTypesReader.readAllTypes()
     const mapBuilder = new FieldMapBuilder(refTypes, typeResolver)
-    for (const mainDocFileName of ublSchema.listMainDocFileNames()) {
+    const allTypes = await Promise.all(ublSchema.listMainDocFileNames().map(async (mainDocFileName) => {
       const types = await aggregateTypesReader.readTypes(UblModule.doc, mainDocFileName)
-      const mainDocType = types[0]!
-      const map = mapBuilder.build(mainDocType)
-      const name = `${mainDocType.typeName}FieldMap`
-      const code = `export const ${name} = ${JSON.stringify(map)}`
-      const codeFile: CodeFile = {
-        dirPath: 'doc/map',
-        fileName: name,
-        content: code
-      }
-      codeFileWriter.write(codeFile)
+      return types[0]
+    }))
+    const map = mapBuilder.buildForAll(allTypes)
+    const name = `DocFieldsMap`
+    const code = `export const ${name} = ${JSON.stringify(map)}`
+    const codeFile: CodeFile = {
+      dirPath: 'doc/map',
+      fileName: name,
+      content: code
     }
-    console.log("Done generating tree maps.")
+    codeFileWriter.write(codeFile)
+    console.log(`${codeFileWriter.counter} field maps files generated for UBL model version ${version}`)
   }
 }

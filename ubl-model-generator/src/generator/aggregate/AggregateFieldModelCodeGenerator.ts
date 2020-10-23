@@ -7,14 +7,13 @@ export class AggregateFieldModelCodeGenerator extends AggregateFieldCodeGenerato
   asCodeString(type: AggregateType, fieldType: AggregateField): string {
     const typeAsArray = fieldType.maxOccurs === '1' ? `[${fieldType.resolvedType.name}]` : `Array<${fieldType.resolvedType.name}>`
     const { optionalField, optionalUndefined } = getMinOccurOptionalProps(fieldType.minOccur)
-    const cardinality = this.getCardinalityWithFallbackToOccur(fieldType)
     return `  /**${
       formatComment('   * ', fieldType.documentation.definition)
     }${
       formatComment('   * ', fieldType.documentation.representationTerm)
     }
    * Cardinality: ${
-      cardinality
+      fieldType.cardinalityWithFallbackToOccur
     }${
       formatComment('   * Alternative business terms: ', fieldType.documentation.alternativeBusinessTerms)
     }${

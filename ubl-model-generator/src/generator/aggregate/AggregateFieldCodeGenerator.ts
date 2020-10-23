@@ -16,20 +16,4 @@ export abstract class AggregateFieldCodeGenerator implements FieldCodeGenerator<
       return `import { ${fieldTypeName} } from '../${prefix}/${fieldTypeName}'`
     }
   }
-
-  protected getCardinalityWithFallbackToOccur(aggregateField: AggregateField) {
-    if (aggregateField.documentation.cardinality !== undefined) {
-      return aggregateField.documentation.cardinality
-    }
-
-    const max = aggregateField.maxOccurs === 'unbounded' ? 'n' : aggregateField.maxOccurs
-    return `${aggregateField.minOccur}..${max}`
-  }
-
-  protected getPropertyTermWithFallbackToName(aggregateField: AggregateField) {
-    if (aggregateField.documentation.propertyTerm !== undefined) {
-      return aggregateField.documentation.propertyTerm
-    }
-    return aggregateField.documentation.propertyTermName
-  }
 }

@@ -3,6 +3,7 @@ import { CodeFile } from './CodeGenerator'
 
 export class CodeFileWriter {
   public readonly genDirPath: string
+  public counter = 0
 
   constructor(public readonly rootDirPath: string, public readonly version: string) {
     this.genDirPath = `${this.rootDirPath}/${this.version}`
@@ -15,5 +16,6 @@ export class CodeFileWriter {
     const path = `${dir}/${codeFile.fileName}.ts`
     console.log(`Writing ${path}`)
     fs.writeFileSync(path, codeFile.content)
+    this.counter++
   }
 }

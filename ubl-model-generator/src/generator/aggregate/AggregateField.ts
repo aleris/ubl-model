@@ -6,6 +6,8 @@ import { AggregateType } from './AggregateType'
 export class AggregateField {
   public readonly fieldName: string
   public readonly resolvedType: PrefixedName
+  public readonly cardinalityWithFallbackToOccur: string
+  public readonly propertyTermWithFallbackToName: string | undefined
 
   constructor(
     private readonly typeResolver: TypeResolver,
@@ -17,6 +19,8 @@ export class AggregateField {
   ) {
     this.fieldName = PrefixedName.extractNameWithoutPrefix(ref)
     this.resolvedType = this.typeResolver.resolveTypeByPrefixedName(new PrefixedName(this.ref))
+    this.cardinalityWithFallbackToOccur = this.getCardinalityWithFallbackToOccur()
+    this.propertyTermWithFallbackToName = this.getPropertyTermWithFallbackToName()
   }
 
   static fromJsonNode(aggregateType: AggregateType, typeResolver: TypeResolver, jsonNode: any) {
@@ -32,5 +36,21 @@ export class AggregateField {
       jsonNode.$['maxOccurs'],
       Documentation.fromTypeJsonNode(jsonNode)
     )
+  }
+
+  private getCardinalityWithFallbackToOccur() {
+    if (this.documentation.cardinality !== undefined) {
+      return this.documentation.cardinality
+    }
+
+    const max = this.maxOccurs === 'unbounded' ? 'n' : this.maxOccurs
+    return `${this.minOccur}..${max}`
+  }
+
+  protected getPropertyTermWithFallbackToName() {
+    if (this.documentation.propertyTerm !== undefined) {
+      return this.documentation.propertyTerm
+    }
+    return this.documentation.propertyTermName
   }
 }

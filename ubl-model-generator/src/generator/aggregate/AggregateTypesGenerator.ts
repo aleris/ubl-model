@@ -26,6 +26,6 @@ export class AggregateTypesGenerator {
         this.codeFileWriter.write(codeFile)
       }
     }
-    console.log(`Done generating ${ublModule}.`)
+    console.log(`Done generating ${ublModule} for ${schemaFileName}.`)
   }
 }

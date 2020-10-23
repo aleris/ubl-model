@@ -40,5 +40,6 @@ export class ModelGenerator {
     for (const mainDocPath of ublSchema.listMainDocFileNames()) {
       await aggregateTypesGenerator.generate(UblModule.doc, mainDocPath)
     }
+    console.log(`${codeFileWriter.counter} UBL model files generated for version ${version}`)
   }
 }
