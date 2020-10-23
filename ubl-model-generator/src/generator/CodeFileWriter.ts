@@ -1,6 +1,7 @@
 import fs from 'fs'
+import { CodeFile } from './CodeGenerator'
 
-export class GeneratedWriter {
+export class CodeFileWriter {
   public readonly genDirPath: string
 
   constructor(public readonly rootDirPath: string, public readonly version: string) {
@@ -8,11 +9,11 @@ export class GeneratedWriter {
     fs.mkdirSync(this.genDirPath, { recursive: true })
   }
 
-  write(module: string, name: string, content: string) {
-    const dir = `${this.genDirPath}/${module}`
+  write(codeFile: CodeFile) {
+    const dir = `${this.genDirPath}/${codeFile.dirPath}`
     fs.mkdirSync(dir, { recursive: true })
-    const path = `${dir}/${name}.ts`
+    const path = `${dir}/${codeFile.fileName}.ts`
     console.log(`Writing ${path}`)
-    fs.writeFileSync(path, content)
+    fs.writeFileSync(path, codeFile.content)
   }
 }

@@ -1,37 +1,28 @@
-import { CoreType, DateAndTimeType } from './CoreType'
 import { UblSchema } from '../UblSchema'
-import { UblModule } from '../UblModule'
-import { GeneratedWriter } from '../GeneratedWriter'
+import { CodeFileWriter } from '../CodeFileWriter'
+import { TypeCodeGenerator } from '../CodeGenerator'
+import { CoreTypesReader } from './CoreTypesReader'
 
 export class CoreTypesGenerator {
-  private static readonly module = UblModule.cbc
-
+  private readonly coreTypesReader: CoreTypesReader
   constructor(
     private readonly ublSchema: UblSchema,
-    private readonly generatedWriter: GeneratedWriter
-  ) { }
+    private readonly codeFileWriter: CodeFileWriter,
+    private readonly codeGenerators: TypeCodeGenerator<any>[]
+  ) {
+    this.coreTypesReader = new CoreTypesReader(this.ublSchema)
+  }
 
   async generate() {
     console.log("Generating Core Components...")
-    const json = await this.ublSchema.readAsJson('common/CCTS_CCT_SchemaModule')
-    const typeNodes = json['xsd:schema']['xsd:complexType'] as Array<any>
-    const types = typeNodes.map((jsonNode: any) => CoreType.fromJsonNode(jsonNode))
-    types.forEach(type =>
-      this.generatedWriter.write(CoreTypesGenerator.module, type.typeName, type.asCodeString(this.ublSchema.version))
-    )
-
-    // there are no Date and Time separate types defined in UBL, see note in UBL-UnqualifiedDataTypes-2.2.xsd
-    // however for JSON representation it is expected to have separate types similar with DateTime one
-    this.generatedWriter.write(
-      CoreTypesGenerator.module,
-      'Date',
-      new DateAndTimeType().asCodeString(this.ublSchema.version, 'Date')
-    )
-    this.generatedWriter.write(
-      CoreTypesGenerator.module,
-      'Time',
-      new DateAndTimeType().asCodeString(this.ublSchema.version, 'Time')
-    )
+    const types = await this.coreTypesReader.readTypes()
+    for (const codeGenerator of this.codeGenerators) {
+      const codeFiles = [...codeGenerator.globals(), ...types.map(type => codeGenerator.asCodeString(type))]
+      for (const codeFile of codeFiles) {
+        this.codeFileWriter.write(codeFile)
+      }
+    }
     console.log("Done generating Core Components.")
   }
+
 }

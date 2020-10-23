@@ -11,7 +11,7 @@ export class UblSchema {
     return await this.parser.parseStringPromise(content)
   }
 
-  listMainDocNames() {
+  listMainDocFileNames() {
     return fs.readdirSync(`./ubl-schema/UBL-${this.version}/xsd/maindoc`)
       .map(path => `maindoc/${path.replace(/-\d.+$/, '')}`)
   }
