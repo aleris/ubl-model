@@ -2,14 +2,6 @@ export function extractTypeName(typeName: string) {
   return typeName.replace(/Type$/, '')
 }
 
-export function mapPrimitiveType(primitiveType?: string): string {
-  switch(primitiveType) {
-    case 'decimal': return 'number'
-    case 'binary': return 'string'
-    default: return primitiveType ?? 'unknown'
-  }
-}
-
 export function capitalize(text: string) {
   return text.substr(0, 1).toUpperCase() + text.substr(1)
 }

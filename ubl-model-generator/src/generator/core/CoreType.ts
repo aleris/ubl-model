@@ -1,6 +1,6 @@
-import { extractTypeName, formatComment, mapPrimitiveType } from '../type-gen-utils'
+import { extractTypeName } from '../type-gen-utils'
 import { Documentation } from '../Documentation'
-import { CoreTypeAttribute } from './CoreTypeAttribute'
+import { CoreTypeAttribute, mapPrimitiveType } from './CoreTypeAttribute'
 
 export class CoreType {
   public readonly typeName: string
@@ -13,7 +13,7 @@ export class CoreType {
     public readonly attributes: Array<CoreTypeAttribute>
   ) {
     this.typeName = extractTypeName(this.name)
-    this.resolvedType = mapPrimitiveType(this.documentation.primitiveType)
+    this.resolvedType = mapPrimitiveType(this, this.documentation.primitiveType)
   }
 
   static fromJsonNode(jsonNode: any) {

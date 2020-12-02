@@ -13,7 +13,7 @@ export class CodeFileWriter {
   write(codeFile: CodeFile) {
     const dir = `${this.genDirPath}/${codeFile.dirPath}`
     fs.mkdirSync(dir, { recursive: true })
-    const path = `${dir}/${codeFile.fileName}.ts`
+    const path = `${dir}/${codeFile.fileName}`
     console.log(`Writing ${path}`)
     fs.writeFileSync(path, codeFile.content)
     this.counter++

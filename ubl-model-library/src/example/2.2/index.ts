@@ -1,5 +1,5 @@
 import fs from 'fs'
-import { Invoice } from '../../ubl-model/2.2/doc/Invoice'
+import { Invoice } from '../../ubl/2.2/doc/Invoice'
 
 export function example22() {
     console.log('Example with UBL JSON version 2.2 model:')

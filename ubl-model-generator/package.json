@@ -5,7 +5,7 @@
   "main": "dist/generator/index.js",
   "scripts": {
     "build": "tsc",
-    "start": "rm -r -f ../ubl-model-library/src/ubl-model && npm run build && node ./dist/generator/index.js",
+    "start": "rm -r -f ../ubl-model-library/src/ubl && npm run build && node ./dist/generator/index.js",
     "test": "jest"
   },
   "keywords": [

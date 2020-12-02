@@ -2,16 +2,17 @@ import { UblSchema } from './UblSchema'
 import { CodeFileWriter } from './CodeFileWriter'
 import { TypeDictionary } from './TypeDictionary'
 import { TypeResolver } from './TypeResolver'
-import { CoreTypeModelCodeGenerator } from './core/CoreTypeModelCodeGenerator'
 import { CoreTypesGenerator } from './core/CoreTypesGenerator'
-import { AggregateTypeModelCodeGenerator } from './aggregate/AggregateTypeModelCodeGenerator'
-import { AggregateTypeMetaCodeGenerator } from './aggregate/AggregateTypeMetaCodeGenerator'
+import { CoreModelGenerator } from './core/CoreModelGenerator'
 import { AggregateTypesGenerator } from './aggregate/AggregateTypesGenerator'
+import { ModelTypeGenerator } from './aggregate/ModelTypeGenerator'
+import { MetaTypeGenerator } from './aggregate/MetaTypeGenerator'
+import { DisplayTypeGenerator } from './aggregate/DisplayTypeGenerator'
 import { UblModule } from './UblModule'
 
 export class ModelGenerator {
   async generateModels(version: string) {
-    const rootGenDirPath = '../ubl-model-library/src/ubl-model'
+    const rootGenDirPath = '../ubl-model-library/src/ubl'
     await ModelGenerator.generateForVersion(version, rootGenDirPath)
   }
 
@@ -22,11 +23,15 @@ export class ModelGenerator {
     const typeDictionary = await new TypeDictionary(ublSchema).loadFromSchema()
     const typeResolver = new TypeResolver(typeDictionary)
 
-    const coreTypesCodeGenerators = [new CoreTypeModelCodeGenerator(version)]
+    const coreTypesCodeGenerators = [new CoreModelGenerator(version)]
     const coreTypesGenerator = new CoreTypesGenerator(ublSchema, codeFileWriter, coreTypesCodeGenerators)
     await coreTypesGenerator.generate()
 
-    const aggregateTypesCodeGenerators = [new AggregateTypeModelCodeGenerator(), new AggregateTypeMetaCodeGenerator()]
+    const aggregateTypesCodeGenerators = [
+      new ModelTypeGenerator(),
+      new MetaTypeGenerator(),
+      new DisplayTypeGenerator(),
+    ]
     const aggregateTypesGenerator = new AggregateTypesGenerator(
       ublSchema,
       typeResolver,

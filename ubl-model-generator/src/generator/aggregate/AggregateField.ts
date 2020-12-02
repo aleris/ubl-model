@@ -49,7 +49,9 @@ export class AggregateField {
 
   protected getPropertyTermWithFallbackToName() {
     if (this.documentation.propertyTerm !== undefined) {
-      return this.documentation.propertyTerm
+      return this.documentation.propertyTermQualifier
+        ? `${this.documentation.propertyTermQualifier} ${this.documentation.propertyTerm}`
+        : this.documentation.propertyTerm
     }
     return this.documentation.propertyTermName
   }
