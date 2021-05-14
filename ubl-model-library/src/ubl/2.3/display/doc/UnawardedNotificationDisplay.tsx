@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { UnawardedNotification } from  '../../model/doc/UnawardedNotification'
 import { UnawardedNotificationFieldMeta } from  '../../meta/doc/UnawardedNotificationMeta'
@@ -26,173 +27,294 @@ import { Time } from '../../model/cbc/Time'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: UnawardedNotification
   meta: FieldMeta<T>
 }
 
-export default function UnawardedNotificationDisplay<T>({ value, meta }: Params<T>) {
+export default function UnawardedNotificationDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-doc ubl-UnawardedNotification ubl-UnawardedNotificationType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-UnawardedNotification ubl-UBLExtensions"
           meta={UnawardedNotificationFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={UnawardedNotificationFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={UnawardedNotificationFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-UnawardedNotification ubl-Identifier ubl-UBLVersionID"
           meta={UnawardedNotificationFieldMeta.UBLVersionID} 
           value={value.UBLVersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={UnawardedNotificationFieldMeta.UBLVersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UBL Version Identifier"
+              value={itemValue}
+              meta={UnawardedNotificationFieldMeta.UBLVersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-UnawardedNotification ubl-Identifier ubl-CustomizationID"
           meta={UnawardedNotificationFieldMeta.CustomizationID} 
           value={value.CustomizationID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={UnawardedNotificationFieldMeta.CustomizationID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Customization Identifier"
+              value={itemValue}
+              meta={UnawardedNotificationFieldMeta.CustomizationID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-UnawardedNotification ubl-Identifier ubl-ProfileID"
           meta={UnawardedNotificationFieldMeta.ProfileID} 
           value={value.ProfileID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={UnawardedNotificationFieldMeta.ProfileID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Identifier"
+              value={itemValue}
+              meta={UnawardedNotificationFieldMeta.ProfileID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-UnawardedNotification ubl-Identifier ubl-ProfileExecutionID"
           meta={UnawardedNotificationFieldMeta.ProfileExecutionID} 
           value={value.ProfileExecutionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={UnawardedNotificationFieldMeta.ProfileExecutionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Execution Identifier"
+              value={itemValue}
+              meta={UnawardedNotificationFieldMeta.ProfileExecutionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-UnawardedNotification ubl-Identifier ubl-ID"
           meta={UnawardedNotificationFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={UnawardedNotificationFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={UnawardedNotificationFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-UnawardedNotification ubl-Indicator ubl-CopyIndicator"
           meta={UnawardedNotificationFieldMeta.CopyIndicator} 
           value={value.CopyIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={UnawardedNotificationFieldMeta.CopyIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Copy Indicator"
+              value={itemValue}
+              meta={UnawardedNotificationFieldMeta.CopyIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-UnawardedNotification ubl-Identifier ubl-UUID"
           meta={UnawardedNotificationFieldMeta.UUID} 
           value={value.UUID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={UnawardedNotificationFieldMeta.UUID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UUID"
+              value={itemValue}
+              meta={UnawardedNotificationFieldMeta.UUID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-UnawardedNotification ubl-Identifier ubl-ContractFolderID"
           meta={UnawardedNotificationFieldMeta.ContractFolderID} 
           value={value.ContractFolderID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={UnawardedNotificationFieldMeta.ContractFolderID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Contract Folder Identifier"
+              value={itemValue}
+              meta={UnawardedNotificationFieldMeta.ContractFolderID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-UnawardedNotification ubl-Date ubl-IssueDate"
           meta={UnawardedNotificationFieldMeta.IssueDate} 
           value={value.IssueDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={UnawardedNotificationFieldMeta.IssueDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Issue Date"
+              value={itemValue}
+              meta={UnawardedNotificationFieldMeta.IssueDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-UnawardedNotification ubl-Time ubl-IssueTime"
           meta={UnawardedNotificationFieldMeta.IssueTime} 
           value={value.IssueTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={UnawardedNotificationFieldMeta.IssueTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Issue Time"
+              value={itemValue}
+              meta={UnawardedNotificationFieldMeta.IssueTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-UnawardedNotification ubl-Text ubl-ContractName"
           meta={UnawardedNotificationFieldMeta.ContractName} 
           value={value.ContractName}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={UnawardedNotificationFieldMeta.ContractName} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Contract Name"
+              value={itemValue}
+              meta={UnawardedNotificationFieldMeta.ContractName}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-UnawardedNotification ubl-Text ubl-Note"
           meta={UnawardedNotificationFieldMeta.Note} 
           value={value.Note}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={UnawardedNotificationFieldMeta.Note} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Note"
+              value={itemValue}
+              meta={UnawardedNotificationFieldMeta.Note}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-UnawardedNotification ubl-Signature"
           meta={UnawardedNotificationFieldMeta.Signature} 
           value={value.Signature}
           itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay key={key} meta={UnawardedNotificationFieldMeta.Signature} value={itemValue} />
+            <SignatureDisplay
+              key={key}
+              label="Signature"
+              value={itemValue}
+              meta={UnawardedNotificationFieldMeta.Signature}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-UnawardedNotification ubl-Party ubl-SenderParty"
           meta={UnawardedNotificationFieldMeta.SenderParty} 
           value={value.SenderParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={UnawardedNotificationFieldMeta.SenderParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Sender Party"
+              value={itemValue}
+              meta={UnawardedNotificationFieldMeta.SenderParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-UnawardedNotification ubl-Party ubl-ReceiverParty"
           meta={UnawardedNotificationFieldMeta.ReceiverParty} 
           value={value.ReceiverParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={UnawardedNotificationFieldMeta.ReceiverParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Receiver Party"
+              value={itemValue}
+              meta={UnawardedNotificationFieldMeta.ReceiverParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-UnawardedNotification ubl-DocumentReference ubl-MinutesDocumentReference"
           meta={UnawardedNotificationFieldMeta.MinutesDocumentReference} 
           value={value.MinutesDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={UnawardedNotificationFieldMeta.MinutesDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Minutes Document Reference"
+              value={itemValue}
+              meta={UnawardedNotificationFieldMeta.MinutesDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-UnawardedNotification ubl-DocumentReference ubl-AdditionalDocumentReference"
           meta={UnawardedNotificationFieldMeta.AdditionalDocumentReference} 
           value={value.AdditionalDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={UnawardedNotificationFieldMeta.AdditionalDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Additional Document Reference"
+              value={itemValue}
+              meta={UnawardedNotificationFieldMeta.AdditionalDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-UnawardedNotification ubl-TenderResult"
           meta={UnawardedNotificationFieldMeta.TenderResult} 
           value={value.TenderResult}
           itemDisplay={ (itemValue: TenderResult, key: string | number) =>
-            <TenderResultDisplay key={key} meta={UnawardedNotificationFieldMeta.TenderResult} value={itemValue} />
+            <TenderResultDisplay
+              key={key}
+              label="Tender Result"
+              value={itemValue}
+              meta={UnawardedNotificationFieldMeta.TenderResult}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-UnawardedNotification ubl-AppealTerms"
           meta={UnawardedNotificationFieldMeta.AppealTerms} 
           value={value.AppealTerms}
           itemDisplay={ (itemValue: AppealTerms, key: string | number) =>
-            <AppealTermsDisplay key={key} meta={UnawardedNotificationFieldMeta.AppealTerms} value={itemValue} />
+            <AppealTermsDisplay
+              key={key}
+              label="Appeal Terms"
+              value={itemValue}
+              meta={UnawardedNotificationFieldMeta.AppealTerms}
+            />
           }
         />
         </div>

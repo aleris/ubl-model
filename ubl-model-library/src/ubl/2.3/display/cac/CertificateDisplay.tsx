@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Certificate } from  '../../model/cac/Certificate'
 import { CertificateFieldMeta } from  '../../meta/cac/CertificateMeta'
@@ -18,77 +19,126 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: Certificate
   meta: FieldMeta<T>
 }
 
-export default function CertificateDisplay<T>({ value, meta }: Params<T>) {
+export default function CertificateDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-Certificate ubl-CertificateType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-Certificate ubl-UBLExtensions"
           meta={CertificateFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={CertificateFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={CertificateFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Certificate ubl-Identifier ubl-ID"
           meta={CertificateFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CertificateFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={CertificateFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Certificate ubl-Code ubl-CertificateTypeCode"
           meta={CertificateFieldMeta.CertificateTypeCode} 
           value={value.CertificateTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={CertificateFieldMeta.CertificateTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Certificate Type Code"
+              value={itemValue}
+              meta={CertificateFieldMeta.CertificateTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Certificate ubl-Text ubl-CertificateType"
           meta={CertificateFieldMeta.CertificateType} 
           value={value.CertificateType}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={CertificateFieldMeta.CertificateType} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Certificate Type"
+              value={itemValue}
+              meta={CertificateFieldMeta.CertificateType}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Certificate ubl-Text ubl-Remarks"
           meta={CertificateFieldMeta.Remarks} 
           value={value.Remarks}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={CertificateFieldMeta.Remarks} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Remarks"
+              value={itemValue}
+              meta={CertificateFieldMeta.Remarks}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Certificate ubl-Party ubl-IssuerParty"
           meta={CertificateFieldMeta.IssuerParty} 
           value={value.IssuerParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={CertificateFieldMeta.IssuerParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Issuer Party"
+              value={itemValue}
+              meta={CertificateFieldMeta.IssuerParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Certificate ubl-DocumentReference"
           meta={CertificateFieldMeta.DocumentReference} 
           value={value.DocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={CertificateFieldMeta.DocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Document Reference"
+              value={itemValue}
+              meta={CertificateFieldMeta.DocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Certificate ubl-Signature"
           meta={CertificateFieldMeta.Signature} 
           value={value.Signature}
           itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay key={key} meta={CertificateFieldMeta.Signature} value={itemValue} />
+            <SignatureDisplay
+              key={key}
+              label="Signature"
+              value={itemValue}
+              meta={CertificateFieldMeta.Signature}
+            />
           }
         />
         </div>

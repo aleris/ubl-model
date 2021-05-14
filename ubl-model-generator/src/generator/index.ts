@@ -8,7 +8,7 @@ async function generate() {
   const fieldMapGenerator = new FieldMapGenerator()
   for (const version of versions) {
     await modelGenerator.generateModels(version)
-    await fieldMapGenerator.generateFieldMaps('2.3')
+    // await fieldMapGenerator.generateFieldMaps(version)
   }
 }
 

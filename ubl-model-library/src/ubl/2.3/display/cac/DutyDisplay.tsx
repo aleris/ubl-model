@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Duty } from  '../../model/cac/Duty'
 import { DutyFieldMeta } from  '../../meta/cac/DutyMeta'
@@ -14,53 +15,84 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: Duty
   meta: FieldMeta<T>
 }
 
-export default function DutyDisplay<T>({ value, meta }: Params<T>) {
+export default function DutyDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-Duty ubl-DutyType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-Duty ubl-UBLExtensions"
           meta={DutyFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={DutyFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={DutyFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Duty ubl-Amount"
           meta={DutyFieldMeta.Amount} 
           value={value.Amount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={DutyFieldMeta.Amount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Amount"
+              value={itemValue}
+              meta={DutyFieldMeta.Amount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Duty ubl-Text"
           meta={DutyFieldMeta.Duty} 
           value={value.Duty}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={DutyFieldMeta.Duty} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Duty"
+              value={itemValue}
+              meta={DutyFieldMeta.Duty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Duty ubl-Code ubl-DutyCode"
           meta={DutyFieldMeta.DutyCode} 
           value={value.DutyCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={DutyFieldMeta.DutyCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Duty Code"
+              value={itemValue}
+              meta={DutyFieldMeta.DutyCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Duty ubl-TaxCategory"
           meta={DutyFieldMeta.TaxCategory} 
           value={value.TaxCategory}
           itemDisplay={ (itemValue: TaxCategory, key: string | number) =>
-            <TaxCategoryDisplay key={key} meta={DutyFieldMeta.TaxCategory} value={itemValue} />
+            <TaxCategoryDisplay
+              key={key}
+              label="Tax Category"
+              value={itemValue}
+              meta={DutyFieldMeta.TaxCategory}
+            />
           }
         />
         </div>

@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Status } from  '../../model/cac/Status'
 import { StatusFieldMeta } from  '../../meta/cac/StatusMeta'
@@ -22,125 +23,210 @@ import { Time } from '../../model/cbc/Time'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: Status
   meta: FieldMeta<T>
 }
 
-export default function StatusDisplay<T>({ value, meta }: Params<T>) {
+export default function StatusDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-Status ubl-StatusType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-Status ubl-UBLExtensions"
           meta={StatusFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={StatusFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={StatusFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Status ubl-Code ubl-ConditionCode"
           meta={StatusFieldMeta.ConditionCode} 
           value={value.ConditionCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={StatusFieldMeta.ConditionCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Condition Code"
+              value={itemValue}
+              meta={StatusFieldMeta.ConditionCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Status ubl-Date ubl-ReferenceDate"
           meta={StatusFieldMeta.ReferenceDate} 
           value={value.ReferenceDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={StatusFieldMeta.ReferenceDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Reference Date"
+              value={itemValue}
+              meta={StatusFieldMeta.ReferenceDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Status ubl-Time ubl-ReferenceTime"
           meta={StatusFieldMeta.ReferenceTime} 
           value={value.ReferenceTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={StatusFieldMeta.ReferenceTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Reference Time"
+              value={itemValue}
+              meta={StatusFieldMeta.ReferenceTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Status ubl-Text ubl-Description"
           meta={StatusFieldMeta.Description} 
           value={value.Description}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={StatusFieldMeta.Description} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Description"
+              value={itemValue}
+              meta={StatusFieldMeta.Description}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Status ubl-Code ubl-StatusReasonCode"
           meta={StatusFieldMeta.StatusReasonCode} 
           value={value.StatusReasonCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={StatusFieldMeta.StatusReasonCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Status Reason Code"
+              value={itemValue}
+              meta={StatusFieldMeta.StatusReasonCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Status ubl-Text ubl-StatusReason"
           meta={StatusFieldMeta.StatusReason} 
           value={value.StatusReason}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={StatusFieldMeta.StatusReason} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Status Reason"
+              value={itemValue}
+              meta={StatusFieldMeta.StatusReason}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Status ubl-Identifier ubl-SequenceID"
           meta={StatusFieldMeta.SequenceID} 
           value={value.SequenceID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={StatusFieldMeta.SequenceID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Sequence Identifier"
+              value={itemValue}
+              meta={StatusFieldMeta.SequenceID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Status ubl-Text"
           meta={StatusFieldMeta.Text} 
           value={value.Text}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={StatusFieldMeta.Text} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Text"
+              value={itemValue}
+              meta={StatusFieldMeta.Text}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Status ubl-Indicator ubl-IndicationIndicator"
           meta={StatusFieldMeta.IndicationIndicator} 
           value={value.IndicationIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={StatusFieldMeta.IndicationIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Indication Indicator"
+              value={itemValue}
+              meta={StatusFieldMeta.IndicationIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Status ubl-Numeric ubl-Percent"
           meta={StatusFieldMeta.Percent} 
           value={value.Percent}
           itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay key={key} meta={StatusFieldMeta.Percent} value={itemValue} />
+            <NumericDisplay
+              key={key}
+              label="Percent"
+              value={itemValue}
+              meta={StatusFieldMeta.Percent}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Status ubl-Numeric ubl-ReliabilityPercent"
           meta={StatusFieldMeta.ReliabilityPercent} 
           value={value.ReliabilityPercent}
           itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay key={key} meta={StatusFieldMeta.ReliabilityPercent} value={itemValue} />
+            <NumericDisplay
+              key={key}
+              label="Reliability Percent"
+              value={itemValue}
+              meta={StatusFieldMeta.ReliabilityPercent}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Status ubl-SubStatus"
           meta={StatusFieldMeta.SubStatus} 
           value={value.SubStatus}
           itemDisplay={ (itemValue: Status, key: string | number) =>
-            <StatusDisplay key={key} meta={StatusFieldMeta.SubStatus} value={itemValue} />
+            <StatusDisplay
+              key={key}
+              label="Sub Status"
+              value={itemValue}
+              meta={StatusFieldMeta.SubStatus}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Status ubl-Condition"
           meta={StatusFieldMeta.Condition} 
           value={value.Condition}
           itemDisplay={ (itemValue: Condition, key: string | number) =>
-            <ConditionDisplay key={key} meta={StatusFieldMeta.Condition} value={itemValue} />
+            <ConditionDisplay
+              key={key}
+              label="Condition"
+              value={itemValue}
+              meta={StatusFieldMeta.Condition}
+            />
           }
         />
         </div>

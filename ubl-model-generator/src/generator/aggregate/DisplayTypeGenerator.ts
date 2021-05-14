@@ -10,42 +10,45 @@ export class DisplayTypeGenerator implements TypeCodeGenerator<AggregateType> {
 
   globals(): CodeFile[] {
       return [
-        ...fs.readdirSync(path.resolve('src/generator/globals/2.2/display/cbc'), { withFileTypes: true })
+        ...fs.readdirSync(path.resolve('src/generator/globals/2.3/display/cbc'), { withFileTypes: true })
           .filter(file => file.isFile())
           .map(file => ({
             dirPath: `display/cbc`,
             fileName: `${file.name.replace(/\.tsxt$/, '.tsx')}`,
-            content: fs.readFileSync(path.resolve(`src/generator/globals/2.2/display/cbc/${file.name}`)).toString()
+            content: fs.readFileSync(path.resolve(`src/generator/globals/2.3/display/cbc/${file.name}`)).toString()
           })),
-        ...fs.readdirSync(path.resolve('src/generator/globals/2.2/display'), { withFileTypes: true })
+        ...fs.readdirSync(path.resolve('src/generator/globals/2.3/display'), { withFileTypes: true })
           .filter(file => file.isFile())
           .map(file => ({
           dirPath: `display`,
           fileName: `${file.name.replace(/\.tsxt$/, '.tsx')}`,
-          content: fs.readFileSync(path.resolve(`src/generator/globals/2.2/display/${file.name}`)).toString()
+          content: fs.readFileSync(path.resolve(`src/generator/globals/2.3/display/${file.name}`)).toString()
         }))
       ]
   }
 
   asCodeString(aggregateType: AggregateType) {
+    const className = `ubl-${aggregateType.module} ubl-${aggregateType.typeName} ubl-${aggregateType.name}`
     const imports = this.getImports(aggregateType)
     const code = `import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ${aggregateType.typeName} } from  '../../model/${aggregateType.module}/${aggregateType.typeName}'
 import { ${aggregateType.typeName}FieldMeta } from  '../../meta/${aggregateType.module}/${aggregateType.typeName}Meta'
 ${imports}
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: ${aggregateType.typeName}
   meta: FieldMeta<T>
 }
 
-export default function ${aggregateType.typeName}Display<T>({ value, meta }: Params<T>) {
+export default function ${aggregateType.typeName}Display<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
+    <div className="${className}">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
 ${aggregateType
   .fields
   .map(field => this.aggregateFieldDisplayCodeGenerator.asCodeString(aggregateType, field))

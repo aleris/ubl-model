@@ -24,7 +24,7 @@ export class FieldMapGenerator {
     const typeDictionary = await new TypeDictionary(ublSchema).loadFromSchema()
     const typeResolver = new TypeResolver(typeDictionary)
     const aggregateTypesReader = new AggregateTypesReader(ublSchema, typeResolver)
-    const rootGenDirPath = '../ubl-model-library/src/ubl-model'
+    const rootGenDirPath = '../ubl-model-library/src/ubl'
     const codeFileWriter = new CodeFileWriter(rootGenDirPath, version)
     const refTypes = await aggregateTypesReader.readAllTypes()
     const mapBuilder = new FieldMapBuilder(refTypes, typeResolver)
@@ -37,7 +37,7 @@ export class FieldMapGenerator {
     const code = `export const ${name} = ${JSON.stringify(map)}`
     const codeFile: CodeFile = {
       dirPath: 'doc/map',
-      fileName: name,
+      fileName: `${name}.ts`,
       content: code
     }
     codeFileWriter.write(codeFile)

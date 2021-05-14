@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ConsumptionHistory } from  '../../model/cac/ConsumptionHistory'
 import { ConsumptionHistoryFieldMeta } from  '../../meta/cac/ConsumptionHistoryMeta'
@@ -16,77 +17,126 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: ConsumptionHistory
   meta: FieldMeta<T>
 }
 
-export default function ConsumptionHistoryDisplay<T>({ value, meta }: Params<T>) {
+export default function ConsumptionHistoryDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-ConsumptionHistory ubl-ConsumptionHistoryType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-ConsumptionHistory ubl-UBLExtensions"
           meta={ConsumptionHistoryFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={ConsumptionHistoryFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={ConsumptionHistoryFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ConsumptionHistory ubl-Text ubl-MeterNumber"
           meta={ConsumptionHistoryFieldMeta.MeterNumber} 
           value={value.MeterNumber}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ConsumptionHistoryFieldMeta.MeterNumber} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Meter Number"
+              value={itemValue}
+              meta={ConsumptionHistoryFieldMeta.MeterNumber}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ConsumptionHistory ubl-Quantity"
           meta={ConsumptionHistoryFieldMeta.Quantity} 
           value={value.Quantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={ConsumptionHistoryFieldMeta.Quantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Quantity"
+              value={itemValue}
+              meta={ConsumptionHistoryFieldMeta.Quantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ConsumptionHistory ubl-Amount"
           meta={ConsumptionHistoryFieldMeta.Amount} 
           value={value.Amount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={ConsumptionHistoryFieldMeta.Amount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Amount"
+              value={itemValue}
+              meta={ConsumptionHistoryFieldMeta.Amount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ConsumptionHistory ubl-Code ubl-ConsumptionLevelCode"
           meta={ConsumptionHistoryFieldMeta.ConsumptionLevelCode} 
           value={value.ConsumptionLevelCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={ConsumptionHistoryFieldMeta.ConsumptionLevelCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Consumption Level Code"
+              value={itemValue}
+              meta={ConsumptionHistoryFieldMeta.ConsumptionLevelCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ConsumptionHistory ubl-Text ubl-ConsumptionLevel"
           meta={ConsumptionHistoryFieldMeta.ConsumptionLevel} 
           value={value.ConsumptionLevel}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ConsumptionHistoryFieldMeta.ConsumptionLevel} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Consumption Level Text"
+              value={itemValue}
+              meta={ConsumptionHistoryFieldMeta.ConsumptionLevel}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-ConsumptionHistory ubl-Text ubl-Description"
           meta={ConsumptionHistoryFieldMeta.Description} 
           value={value.Description}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ConsumptionHistoryFieldMeta.Description} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Description"
+              value={itemValue}
+              meta={ConsumptionHistoryFieldMeta.Description}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-ConsumptionHistory ubl-Period"
           meta={ConsumptionHistoryFieldMeta.Period} 
           value={value.Period}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={ConsumptionHistoryFieldMeta.Period} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Period"
+              value={itemValue}
+              meta={ConsumptionHistoryFieldMeta.Period}
+            />
           }
         />
         </div>

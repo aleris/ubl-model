@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { MiscellaneousEvent } from  '../../model/cac/MiscellaneousEvent'
 import { MiscellaneousEventFieldMeta } from  '../../meta/cac/MiscellaneousEventMeta'
@@ -10,37 +11,56 @@ import { EventLineItem } from '../../model/cac/EventLineItem'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: MiscellaneousEvent
   meta: FieldMeta<T>
 }
 
-export default function MiscellaneousEventDisplay<T>({ value, meta }: Params<T>) {
+export default function MiscellaneousEventDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-MiscellaneousEvent ubl-MiscellaneousEventType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-MiscellaneousEvent ubl-UBLExtensions"
           meta={MiscellaneousEventFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={MiscellaneousEventFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={MiscellaneousEventFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-MiscellaneousEvent ubl-Code ubl-MiscellaneousEventTypeCode"
           meta={MiscellaneousEventFieldMeta.MiscellaneousEventTypeCode} 
           value={value.MiscellaneousEventTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={MiscellaneousEventFieldMeta.MiscellaneousEventTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Miscellaneous Event Type Code"
+              value={itemValue}
+              meta={MiscellaneousEventFieldMeta.MiscellaneousEventTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-MiscellaneousEvent ubl-EventLineItem"
           meta={MiscellaneousEventFieldMeta.EventLineItem} 
           value={value.EventLineItem}
           itemDisplay={ (itemValue: EventLineItem, key: string | number) =>
-            <EventLineItemDisplay key={key} meta={MiscellaneousEventFieldMeta.EventLineItem} value={itemValue} />
+            <EventLineItemDisplay
+              key={key}
+              label="Event Line Item"
+              value={itemValue}
+              meta={MiscellaneousEventFieldMeta.EventLineItem}
+            />
           }
         />
         </div>

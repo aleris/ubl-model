@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { RequestedTenderTotal } from  '../../model/cac/RequestedTenderTotal'
 import { RequestedTenderTotalFieldMeta } from  '../../meta/cac/RequestedTenderTotalMeta'
@@ -14,93 +15,154 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: RequestedTenderTotal
   meta: FieldMeta<T>
 }
 
-export default function RequestedTenderTotalDisplay<T>({ value, meta }: Params<T>) {
+export default function RequestedTenderTotalDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-RequestedTenderTotal ubl-RequestedTenderTotalType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-RequestedTenderTotal ubl-UBLExtensions"
           meta={RequestedTenderTotalFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={RequestedTenderTotalFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={RequestedTenderTotalFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-RequestedTenderTotal ubl-Amount ubl-EstimatedOverallContractAmount"
           meta={RequestedTenderTotalFieldMeta.EstimatedOverallContractAmount} 
           value={value.EstimatedOverallContractAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={RequestedTenderTotalFieldMeta.EstimatedOverallContractAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Estimated Overall Contract"
+              value={itemValue}
+              meta={RequestedTenderTotalFieldMeta.EstimatedOverallContractAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-RequestedTenderTotal ubl-Amount ubl-EstimatedOverallFrameworkContractsAmount"
           meta={RequestedTenderTotalFieldMeta.EstimatedOverallFrameworkContractsAmount} 
           value={value.EstimatedOverallFrameworkContractsAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={RequestedTenderTotalFieldMeta.EstimatedOverallFrameworkContractsAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Estimated Overall Framework Contracts"
+              value={itemValue}
+              meta={RequestedTenderTotalFieldMeta.EstimatedOverallFrameworkContractsAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-RequestedTenderTotal ubl-Amount ubl-TotalAmount"
           meta={RequestedTenderTotalFieldMeta.TotalAmount} 
           value={value.TotalAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={RequestedTenderTotalFieldMeta.TotalAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Total Amount"
+              value={itemValue}
+              meta={RequestedTenderTotalFieldMeta.TotalAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-RequestedTenderTotal ubl-Indicator ubl-TaxIncludedIndicator"
           meta={RequestedTenderTotalFieldMeta.TaxIncludedIndicator} 
           value={value.TaxIncludedIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={RequestedTenderTotalFieldMeta.TaxIncludedIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Tax Included Indicator"
+              value={itemValue}
+              meta={RequestedTenderTotalFieldMeta.TaxIncludedIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-RequestedTenderTotal ubl-Amount ubl-MinimumAmount"
           meta={RequestedTenderTotalFieldMeta.MinimumAmount} 
           value={value.MinimumAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={RequestedTenderTotalFieldMeta.MinimumAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Minimum Amount"
+              value={itemValue}
+              meta={RequestedTenderTotalFieldMeta.MinimumAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-RequestedTenderTotal ubl-Amount ubl-MaximumAmount"
           meta={RequestedTenderTotalFieldMeta.MaximumAmount} 
           value={value.MaximumAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={RequestedTenderTotalFieldMeta.MaximumAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Maximum Amount"
+              value={itemValue}
+              meta={RequestedTenderTotalFieldMeta.MaximumAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-RequestedTenderTotal ubl-Text ubl-MonetaryScope"
           meta={RequestedTenderTotalFieldMeta.MonetaryScope} 
           value={value.MonetaryScope}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={RequestedTenderTotalFieldMeta.MonetaryScope} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Monetary Scope"
+              value={itemValue}
+              meta={RequestedTenderTotalFieldMeta.MonetaryScope}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-RequestedTenderTotal ubl-Amount ubl-AverageSubsequentContractAmount"
           meta={RequestedTenderTotalFieldMeta.AverageSubsequentContractAmount} 
           value={value.AverageSubsequentContractAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={RequestedTenderTotalFieldMeta.AverageSubsequentContractAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Average Subsequent Contract"
+              value={itemValue}
+              meta={RequestedTenderTotalFieldMeta.AverageSubsequentContractAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-RequestedTenderTotal ubl-TaxCategory ubl-ApplicableTaxCategory"
           meta={RequestedTenderTotalFieldMeta.ApplicableTaxCategory} 
           value={value.ApplicableTaxCategory}
           itemDisplay={ (itemValue: TaxCategory, key: string | number) =>
-            <TaxCategoryDisplay key={key} meta={RequestedTenderTotalFieldMeta.ApplicableTaxCategory} value={itemValue} />
+            <TaxCategoryDisplay
+              key={key}
+              label="Applicable Tax Category"
+              value={itemValue}
+              meta={RequestedTenderTotalFieldMeta.ApplicableTaxCategory}
+            />
           }
         />
         </div>

@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Person } from  '../../model/cac/Person'
 import { PersonFieldMeta } from  '../../meta/cac/PersonMeta'
@@ -24,173 +25,294 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: Person
   meta: FieldMeta<T>
 }
 
-export default function PersonDisplay<T>({ value, meta }: Params<T>) {
+export default function PersonDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-Person ubl-PersonType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-Person ubl-UBLExtensions"
           meta={PersonFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={PersonFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={PersonFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Person ubl-Identifier ubl-ID"
           meta={PersonFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={PersonFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={PersonFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Person ubl-Text ubl-FirstName"
           meta={PersonFieldMeta.FirstName} 
           value={value.FirstName}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={PersonFieldMeta.FirstName} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="First Name"
+              value={itemValue}
+              meta={PersonFieldMeta.FirstName}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Person ubl-Text ubl-FamilyName"
           meta={PersonFieldMeta.FamilyName} 
           value={value.FamilyName}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={PersonFieldMeta.FamilyName} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Family Name"
+              value={itemValue}
+              meta={PersonFieldMeta.FamilyName}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Person ubl-Text ubl-Title"
           meta={PersonFieldMeta.Title} 
           value={value.Title}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={PersonFieldMeta.Title} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Title"
+              value={itemValue}
+              meta={PersonFieldMeta.Title}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Person ubl-Text ubl-MiddleName"
           meta={PersonFieldMeta.MiddleName} 
           value={value.MiddleName}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={PersonFieldMeta.MiddleName} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Middle Name"
+              value={itemValue}
+              meta={PersonFieldMeta.MiddleName}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Person ubl-Text ubl-OtherName"
           meta={PersonFieldMeta.OtherName} 
           value={value.OtherName}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={PersonFieldMeta.OtherName} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Other Name"
+              value={itemValue}
+              meta={PersonFieldMeta.OtherName}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Person ubl-Text ubl-NameSuffix"
           meta={PersonFieldMeta.NameSuffix} 
           value={value.NameSuffix}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={PersonFieldMeta.NameSuffix} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Name Suffix"
+              value={itemValue}
+              meta={PersonFieldMeta.NameSuffix}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Person ubl-Text ubl-JobTitle"
           meta={PersonFieldMeta.JobTitle} 
           value={value.JobTitle}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={PersonFieldMeta.JobTitle} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Job Title"
+              value={itemValue}
+              meta={PersonFieldMeta.JobTitle}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Person ubl-Identifier ubl-NationalityID"
           meta={PersonFieldMeta.NationalityID} 
           value={value.NationalityID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={PersonFieldMeta.NationalityID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Nationality"
+              value={itemValue}
+              meta={PersonFieldMeta.NationalityID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Person ubl-Code ubl-GenderCode"
           meta={PersonFieldMeta.GenderCode} 
           value={value.GenderCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={PersonFieldMeta.GenderCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Gender Code"
+              value={itemValue}
+              meta={PersonFieldMeta.GenderCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Person ubl-Date ubl-BirthDate"
           meta={PersonFieldMeta.BirthDate} 
           value={value.BirthDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={PersonFieldMeta.BirthDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Birth Date"
+              value={itemValue}
+              meta={PersonFieldMeta.BirthDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Person ubl-Text ubl-BirthplaceName"
           meta={PersonFieldMeta.BirthplaceName} 
           value={value.BirthplaceName}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={PersonFieldMeta.BirthplaceName} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Birthplace Name"
+              value={itemValue}
+              meta={PersonFieldMeta.BirthplaceName}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Person ubl-Text ubl-OrganizationDepartment"
           meta={PersonFieldMeta.OrganizationDepartment} 
           value={value.OrganizationDepartment}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={PersonFieldMeta.OrganizationDepartment} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Organization Department"
+              value={itemValue}
+              meta={PersonFieldMeta.OrganizationDepartment}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Person ubl-Code ubl-RoleCode"
           meta={PersonFieldMeta.RoleCode} 
           value={value.RoleCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={PersonFieldMeta.RoleCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Role Code"
+              value={itemValue}
+              meta={PersonFieldMeta.RoleCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Person ubl-Country ubl-CitizenshipCountry"
           meta={PersonFieldMeta.CitizenshipCountry} 
           value={value.CitizenshipCountry}
           itemDisplay={ (itemValue: Country, key: string | number) =>
-            <CountryDisplay key={key} meta={PersonFieldMeta.CitizenshipCountry} value={itemValue} />
+            <CountryDisplay
+              key={key}
+              label="Citizenship Country"
+              value={itemValue}
+              meta={PersonFieldMeta.CitizenshipCountry}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Person ubl-Contact"
           meta={PersonFieldMeta.Contact} 
           value={value.Contact}
           itemDisplay={ (itemValue: Contact, key: string | number) =>
-            <ContactDisplay key={key} meta={PersonFieldMeta.Contact} value={itemValue} />
+            <ContactDisplay
+              key={key}
+              label="Contact"
+              value={itemValue}
+              meta={PersonFieldMeta.Contact}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Person ubl-FinancialAccount"
           meta={PersonFieldMeta.FinancialAccount} 
           value={value.FinancialAccount}
           itemDisplay={ (itemValue: FinancialAccount, key: string | number) =>
-            <FinancialAccountDisplay key={key} meta={PersonFieldMeta.FinancialAccount} value={itemValue} />
+            <FinancialAccountDisplay
+              key={key}
+              label="Financial Account"
+              value={itemValue}
+              meta={PersonFieldMeta.FinancialAccount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Person ubl-DocumentReference ubl-IdentityDocumentReference"
           meta={PersonFieldMeta.IdentityDocumentReference} 
           value={value.IdentityDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={PersonFieldMeta.IdentityDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Identity Document Reference"
+              value={itemValue}
+              meta={PersonFieldMeta.IdentityDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Person ubl-Address ubl-ResidenceAddress"
           meta={PersonFieldMeta.ResidenceAddress} 
           value={value.ResidenceAddress}
           itemDisplay={ (itemValue: Address, key: string | number) =>
-            <AddressDisplay key={key} meta={PersonFieldMeta.ResidenceAddress} value={itemValue} />
+            <AddressDisplay
+              key={key}
+              label="Residence Address"
+              value={itemValue}
+              meta={PersonFieldMeta.ResidenceAddress}
+            />
           }
         />
         </div>

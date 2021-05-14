@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { PackingList } from  '../../model/doc/PackingList'
 import { PackingListFieldMeta } from  '../../meta/doc/PackingListMeta'
@@ -24,181 +25,308 @@ import { Time } from '../../model/cbc/Time'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: PackingList
   meta: FieldMeta<T>
 }
 
-export default function PackingListDisplay<T>({ value, meta }: Params<T>) {
+export default function PackingListDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-doc ubl-PackingList ubl-PackingListType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-PackingList ubl-UBLExtensions"
           meta={PackingListFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={PackingListFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={PackingListFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-PackingList ubl-Identifier ubl-UBLVersionID"
           meta={PackingListFieldMeta.UBLVersionID} 
           value={value.UBLVersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={PackingListFieldMeta.UBLVersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UBL Version Identifier"
+              value={itemValue}
+              meta={PackingListFieldMeta.UBLVersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-PackingList ubl-Identifier ubl-CustomizationID"
           meta={PackingListFieldMeta.CustomizationID} 
           value={value.CustomizationID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={PackingListFieldMeta.CustomizationID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Customization Identifier"
+              value={itemValue}
+              meta={PackingListFieldMeta.CustomizationID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-PackingList ubl-Identifier ubl-ProfileID"
           meta={PackingListFieldMeta.ProfileID} 
           value={value.ProfileID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={PackingListFieldMeta.ProfileID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Identifier"
+              value={itemValue}
+              meta={PackingListFieldMeta.ProfileID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-PackingList ubl-Identifier ubl-ProfileExecutionID"
           meta={PackingListFieldMeta.ProfileExecutionID} 
           value={value.ProfileExecutionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={PackingListFieldMeta.ProfileExecutionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Execution Identifier"
+              value={itemValue}
+              meta={PackingListFieldMeta.ProfileExecutionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-PackingList ubl-Identifier ubl-ID"
           meta={PackingListFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={PackingListFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={PackingListFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-PackingList ubl-Identifier ubl-UUID"
           meta={PackingListFieldMeta.UUID} 
           value={value.UUID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={PackingListFieldMeta.UUID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UUID"
+              value={itemValue}
+              meta={PackingListFieldMeta.UUID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-PackingList ubl-Date ubl-IssueDate"
           meta={PackingListFieldMeta.IssueDate} 
           value={value.IssueDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={PackingListFieldMeta.IssueDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Issue Date"
+              value={itemValue}
+              meta={PackingListFieldMeta.IssueDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-PackingList ubl-Time ubl-IssueTime"
           meta={PackingListFieldMeta.IssueTime} 
           value={value.IssueTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={PackingListFieldMeta.IssueTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Issue Time"
+              value={itemValue}
+              meta={PackingListFieldMeta.IssueTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-PackingList ubl-Text ubl-Name"
           meta={PackingListFieldMeta.Name} 
           value={value.Name}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={PackingListFieldMeta.Name} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Name"
+              value={itemValue}
+              meta={PackingListFieldMeta.Name}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-PackingList ubl-Text ubl-Description"
           meta={PackingListFieldMeta.Description} 
           value={value.Description}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={PackingListFieldMeta.Description} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Description"
+              value={itemValue}
+              meta={PackingListFieldMeta.Description}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-PackingList ubl-Text ubl-Note"
           meta={PackingListFieldMeta.Note} 
           value={value.Note}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={PackingListFieldMeta.Note} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Note"
+              value={itemValue}
+              meta={PackingListFieldMeta.Note}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-PackingList ubl-Identifier ubl-VersionID"
           meta={PackingListFieldMeta.VersionID} 
           value={value.VersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={PackingListFieldMeta.VersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Version"
+              value={itemValue}
+              meta={PackingListFieldMeta.VersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-PackingList ubl-Text ubl-OtherInstruction"
           meta={PackingListFieldMeta.OtherInstruction} 
           value={value.OtherInstruction}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={PackingListFieldMeta.OtherInstruction} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Other Instruction"
+              value={itemValue}
+              meta={PackingListFieldMeta.OtherInstruction}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-PackingList ubl-Party ubl-ConsignorParty"
           meta={PackingListFieldMeta.ConsignorParty} 
           value={value.ConsignorParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={PackingListFieldMeta.ConsignorParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Consignor Party"
+              value={itemValue}
+              meta={PackingListFieldMeta.ConsignorParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-PackingList ubl-Party ubl-CarrierParty"
           meta={PackingListFieldMeta.CarrierParty} 
           value={value.CarrierParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={PackingListFieldMeta.CarrierParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Carrier Party"
+              value={itemValue}
+              meta={PackingListFieldMeta.CarrierParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-PackingList ubl-Party ubl-FreightForwarderParty"
           meta={PackingListFieldMeta.FreightForwarderParty} 
           value={value.FreightForwarderParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={PackingListFieldMeta.FreightForwarderParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Freight Forwarder Party"
+              value={itemValue}
+              meta={PackingListFieldMeta.FreightForwarderParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-PackingList ubl-Shipment"
           meta={PackingListFieldMeta.Shipment} 
           value={value.Shipment}
           itemDisplay={ (itemValue: Shipment, key: string | number) =>
-            <ShipmentDisplay key={key} meta={PackingListFieldMeta.Shipment} value={itemValue} />
+            <ShipmentDisplay
+              key={key}
+              label="Shipment"
+              value={itemValue}
+              meta={PackingListFieldMeta.Shipment}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-PackingList ubl-DocumentReference"
           meta={PackingListFieldMeta.DocumentReference} 
           value={value.DocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={PackingListFieldMeta.DocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Document Reference"
+              value={itemValue}
+              meta={PackingListFieldMeta.DocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-PackingList ubl-DocumentDistribution"
           meta={PackingListFieldMeta.DocumentDistribution} 
           value={value.DocumentDistribution}
           itemDisplay={ (itemValue: DocumentDistribution, key: string | number) =>
-            <DocumentDistributionDisplay key={key} meta={PackingListFieldMeta.DocumentDistribution} value={itemValue} />
+            <DocumentDistributionDisplay
+              key={key}
+              label="Document Distribution"
+              value={itemValue}
+              meta={PackingListFieldMeta.DocumentDistribution}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-PackingList ubl-Signature"
           meta={PackingListFieldMeta.Signature} 
           value={value.Signature}
           itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay key={key} meta={PackingListFieldMeta.Signature} value={itemValue} />
+            <SignatureDisplay
+              key={key}
+              label="Signature"
+              value={itemValue}
+              meta={PackingListFieldMeta.Signature}
+            />
           }
         />
         </div>

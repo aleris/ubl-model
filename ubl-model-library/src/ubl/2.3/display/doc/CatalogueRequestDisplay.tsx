@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { CatalogueRequest } from  '../../model/doc/CatalogueRequest'
 import { CatalogueRequestFieldMeta } from  '../../meta/doc/CatalogueRequestMeta'
@@ -44,245 +45,420 @@ import { TradingTerms } from '../../model/cac/TradingTerms'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: CatalogueRequest
   meta: FieldMeta<T>
 }
 
-export default function CatalogueRequestDisplay<T>({ value, meta }: Params<T>) {
+export default function CatalogueRequestDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-doc ubl-CatalogueRequest ubl-CatalogueRequestType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-CatalogueRequest ubl-UBLExtensions"
           meta={CatalogueRequestFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={CatalogueRequestFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={CatalogueRequestFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CatalogueRequest ubl-Identifier ubl-UBLVersionID"
           meta={CatalogueRequestFieldMeta.UBLVersionID} 
           value={value.UBLVersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CatalogueRequestFieldMeta.UBLVersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UBL Version Identifier"
+              value={itemValue}
+              meta={CatalogueRequestFieldMeta.UBLVersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CatalogueRequest ubl-Identifier ubl-CustomizationID"
           meta={CatalogueRequestFieldMeta.CustomizationID} 
           value={value.CustomizationID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CatalogueRequestFieldMeta.CustomizationID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Customization Identifier"
+              value={itemValue}
+              meta={CatalogueRequestFieldMeta.CustomizationID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CatalogueRequest ubl-Identifier ubl-ProfileID"
           meta={CatalogueRequestFieldMeta.ProfileID} 
           value={value.ProfileID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CatalogueRequestFieldMeta.ProfileID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Identifier"
+              value={itemValue}
+              meta={CatalogueRequestFieldMeta.ProfileID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CatalogueRequest ubl-Identifier ubl-ProfileExecutionID"
           meta={CatalogueRequestFieldMeta.ProfileExecutionID} 
           value={value.ProfileExecutionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CatalogueRequestFieldMeta.ProfileExecutionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Execution Identifier"
+              value={itemValue}
+              meta={CatalogueRequestFieldMeta.ProfileExecutionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CatalogueRequest ubl-Identifier ubl-ID"
           meta={CatalogueRequestFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CatalogueRequestFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={CatalogueRequestFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CatalogueRequest ubl-Identifier ubl-UUID"
           meta={CatalogueRequestFieldMeta.UUID} 
           value={value.UUID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CatalogueRequestFieldMeta.UUID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UUID"
+              value={itemValue}
+              meta={CatalogueRequestFieldMeta.UUID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CatalogueRequest ubl-Text ubl-Name"
           meta={CatalogueRequestFieldMeta.Name} 
           value={value.Name}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={CatalogueRequestFieldMeta.Name} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Name"
+              value={itemValue}
+              meta={CatalogueRequestFieldMeta.Name}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CatalogueRequest ubl-Date ubl-IssueDate"
           meta={CatalogueRequestFieldMeta.IssueDate} 
           value={value.IssueDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={CatalogueRequestFieldMeta.IssueDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Issue Date"
+              value={itemValue}
+              meta={CatalogueRequestFieldMeta.IssueDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CatalogueRequest ubl-Time ubl-IssueTime"
           meta={CatalogueRequestFieldMeta.IssueTime} 
           value={value.IssueTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={CatalogueRequestFieldMeta.IssueTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Issue Time"
+              value={itemValue}
+              meta={CatalogueRequestFieldMeta.IssueTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-CatalogueRequest ubl-Text ubl-Note"
           meta={CatalogueRequestFieldMeta.Note} 
           value={value.Note}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={CatalogueRequestFieldMeta.Note} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Note"
+              value={itemValue}
+              meta={CatalogueRequestFieldMeta.Note}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-CatalogueRequest ubl-Text ubl-Description"
           meta={CatalogueRequestFieldMeta.Description} 
           value={value.Description}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={CatalogueRequestFieldMeta.Description} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Description"
+              value={itemValue}
+              meta={CatalogueRequestFieldMeta.Description}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CatalogueRequest ubl-Indicator ubl-PricingUpdateRequestIndicator"
           meta={CatalogueRequestFieldMeta.PricingUpdateRequestIndicator} 
           value={value.PricingUpdateRequestIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={CatalogueRequestFieldMeta.PricingUpdateRequestIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Pricing Update Request Indicator"
+              value={itemValue}
+              meta={CatalogueRequestFieldMeta.PricingUpdateRequestIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CatalogueRequest ubl-Indicator ubl-ItemUpdateRequestIndicator"
           meta={CatalogueRequestFieldMeta.ItemUpdateRequestIndicator} 
           value={value.ItemUpdateRequestIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={CatalogueRequestFieldMeta.ItemUpdateRequestIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Item Update Request Indicator"
+              value={itemValue}
+              meta={CatalogueRequestFieldMeta.ItemUpdateRequestIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CatalogueRequest ubl-Numeric ubl-LineCountNumeric"
           meta={CatalogueRequestFieldMeta.LineCountNumeric} 
           value={value.LineCountNumeric}
           itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay key={key} meta={CatalogueRequestFieldMeta.LineCountNumeric} value={itemValue} />
+            <NumericDisplay
+              key={key}
+              label="Line Count"
+              value={itemValue}
+              meta={CatalogueRequestFieldMeta.LineCountNumeric}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-CatalogueRequest ubl-Period ubl-ValidityPeriod"
           meta={CatalogueRequestFieldMeta.ValidityPeriod} 
           value={value.ValidityPeriod}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={CatalogueRequestFieldMeta.ValidityPeriod} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Validity Period"
+              value={itemValue}
+              meta={CatalogueRequestFieldMeta.ValidityPeriod}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-CatalogueRequest ubl-Signature"
           meta={CatalogueRequestFieldMeta.Signature} 
           value={value.Signature}
           itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay key={key} meta={CatalogueRequestFieldMeta.Signature} value={itemValue} />
+            <SignatureDisplay
+              key={key}
+              label="Signature"
+              value={itemValue}
+              meta={CatalogueRequestFieldMeta.Signature}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-CatalogueRequest ubl-Party ubl-ReceiverParty"
           meta={CatalogueRequestFieldMeta.ReceiverParty} 
           value={value.ReceiverParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={CatalogueRequestFieldMeta.ReceiverParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Receiver Party"
+              value={itemValue}
+              meta={CatalogueRequestFieldMeta.ReceiverParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-CatalogueRequest ubl-Party ubl-ProviderParty"
           meta={CatalogueRequestFieldMeta.ProviderParty} 
           value={value.ProviderParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={CatalogueRequestFieldMeta.ProviderParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Provider Party"
+              value={itemValue}
+              meta={CatalogueRequestFieldMeta.ProviderParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-CatalogueRequest ubl-SupplierParty ubl-SellerSupplierParty"
           meta={CatalogueRequestFieldMeta.SellerSupplierParty} 
           value={value.SellerSupplierParty}
           itemDisplay={ (itemValue: SupplierParty, key: string | number) =>
-            <SupplierPartyDisplay key={key} meta={CatalogueRequestFieldMeta.SellerSupplierParty} value={itemValue} />
+            <SupplierPartyDisplay
+              key={key}
+              label="Seller Supplier Party"
+              value={itemValue}
+              meta={CatalogueRequestFieldMeta.SellerSupplierParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-CatalogueRequest ubl-CustomerParty ubl-ContractorCustomerParty"
           meta={CatalogueRequestFieldMeta.ContractorCustomerParty} 
           value={value.ContractorCustomerParty}
           itemDisplay={ (itemValue: CustomerParty, key: string | number) =>
-            <CustomerPartyDisplay key={key} meta={CatalogueRequestFieldMeta.ContractorCustomerParty} value={itemValue} />
+            <CustomerPartyDisplay
+              key={key}
+              label="Contractor Customer Party"
+              value={itemValue}
+              meta={CatalogueRequestFieldMeta.ContractorCustomerParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-CatalogueRequest ubl-CatalogueReference ubl-RequestedCatalogueReference"
           meta={CatalogueRequestFieldMeta.RequestedCatalogueReference} 
           value={value.RequestedCatalogueReference}
           itemDisplay={ (itemValue: CatalogueReference, key: string | number) =>
-            <CatalogueReferenceDisplay key={key} meta={CatalogueRequestFieldMeta.RequestedCatalogueReference} value={itemValue} />
+            <CatalogueReferenceDisplay
+              key={key}
+              label="Requested Catalogue Reference"
+              value={itemValue}
+              meta={CatalogueRequestFieldMeta.RequestedCatalogueReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-CatalogueRequest ubl-Contract ubl-ReferencedContract"
           meta={CatalogueRequestFieldMeta.ReferencedContract} 
           value={value.ReferencedContract}
           itemDisplay={ (itemValue: Contract, key: string | number) =>
-            <ContractDisplay key={key} meta={CatalogueRequestFieldMeta.ReferencedContract} value={itemValue} />
+            <ContractDisplay
+              key={key}
+              label="Referenced Contract"
+              value={itemValue}
+              meta={CatalogueRequestFieldMeta.ReferencedContract}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-CatalogueRequest ubl-TradingTerms"
           meta={CatalogueRequestFieldMeta.TradingTerms} 
           value={value.TradingTerms}
           itemDisplay={ (itemValue: TradingTerms, key: string | number) =>
-            <TradingTermsDisplay key={key} meta={CatalogueRequestFieldMeta.TradingTerms} value={itemValue} />
+            <TradingTermsDisplay
+              key={key}
+              label="Trading Terms"
+              value={itemValue}
+              meta={CatalogueRequestFieldMeta.TradingTerms}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-CatalogueRequest ubl-DocumentReference"
           meta={CatalogueRequestFieldMeta.DocumentReference} 
           value={value.DocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={CatalogueRequestFieldMeta.DocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Document Reference"
+              value={itemValue}
+              meta={CatalogueRequestFieldMeta.DocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-CatalogueRequest ubl-Address ubl-ApplicableTerritoryAddress"
           meta={CatalogueRequestFieldMeta.ApplicableTerritoryAddress} 
           value={value.ApplicableTerritoryAddress}
           itemDisplay={ (itemValue: Address, key: string | number) =>
-            <AddressDisplay key={key} meta={CatalogueRequestFieldMeta.ApplicableTerritoryAddress} value={itemValue} />
+            <AddressDisplay
+              key={key}
+              label="Applicable Territory Address"
+              value={itemValue}
+              meta={CatalogueRequestFieldMeta.ApplicableTerritoryAddress}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-CatalogueRequest ubl-Language ubl-RequestedLanguage"
           meta={CatalogueRequestFieldMeta.RequestedLanguage} 
           value={value.RequestedLanguage}
           itemDisplay={ (itemValue: Language, key: string | number) =>
-            <LanguageDisplay key={key} meta={CatalogueRequestFieldMeta.RequestedLanguage} value={itemValue} />
+            <LanguageDisplay
+              key={key}
+              label="Requested Language"
+              value={itemValue}
+              meta={CatalogueRequestFieldMeta.RequestedLanguage}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-CatalogueRequest ubl-ClassificationScheme ubl-RequestedClassificationScheme"
           meta={CatalogueRequestFieldMeta.RequestedClassificationScheme} 
           value={value.RequestedClassificationScheme}
           itemDisplay={ (itemValue: ClassificationScheme, key: string | number) =>
-            <ClassificationSchemeDisplay key={key} meta={CatalogueRequestFieldMeta.RequestedClassificationScheme} value={itemValue} />
+            <ClassificationSchemeDisplay
+              key={key}
+              label="Requested Classification Scheme"
+              value={itemValue}
+              meta={CatalogueRequestFieldMeta.RequestedClassificationScheme}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-CatalogueRequest ubl-CatalogueRequestLine"
           meta={CatalogueRequestFieldMeta.CatalogueRequestLine} 
           value={value.CatalogueRequestLine}
           itemDisplay={ (itemValue: CatalogueRequestLine, key: string | number) =>
-            <CatalogueRequestLineDisplay key={key} meta={CatalogueRequestFieldMeta.CatalogueRequestLine} value={itemValue} />
+            <CatalogueRequestLineDisplay
+              key={key}
+              label="Catalogue Request Line"
+              value={itemValue}
+              meta={CatalogueRequestFieldMeta.CatalogueRequestLine}
+            />
           }
         />
         </div>

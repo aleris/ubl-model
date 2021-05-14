@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { PromotionalEvent } from  '../../model/cac/PromotionalEvent'
 import { PromotionalEventFieldMeta } from  '../../meta/cac/PromotionalEventMeta'
@@ -12,61 +13,98 @@ import { PromotionalSpecification } from '../../model/cac/PromotionalSpecificati
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: PromotionalEvent
   meta: FieldMeta<T>
 }
 
-export default function PromotionalEventDisplay<T>({ value, meta }: Params<T>) {
+export default function PromotionalEventDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-PromotionalEvent ubl-PromotionalEventType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-PromotionalEvent ubl-UBLExtensions"
           meta={PromotionalEventFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={PromotionalEventFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={PromotionalEventFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-PromotionalEvent ubl-Code ubl-PromotionalEventTypeCode"
           meta={PromotionalEventFieldMeta.PromotionalEventTypeCode} 
           value={value.PromotionalEventTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={PromotionalEventFieldMeta.PromotionalEventTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Promotional Event Type Code"
+              value={itemValue}
+              meta={PromotionalEventFieldMeta.PromotionalEventTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-PromotionalEvent ubl-Date ubl-SubmissionDate"
           meta={PromotionalEventFieldMeta.SubmissionDate} 
           value={value.SubmissionDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={PromotionalEventFieldMeta.SubmissionDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Submission"
+              value={itemValue}
+              meta={PromotionalEventFieldMeta.SubmissionDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-PromotionalEvent ubl-Date ubl-FirstShipmentAvailibilityDate"
           meta={PromotionalEventFieldMeta.FirstShipmentAvailibilityDate} 
           value={value.FirstShipmentAvailibilityDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={PromotionalEventFieldMeta.FirstShipmentAvailibilityDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="First Shipment Availibility Date"
+              value={itemValue}
+              meta={PromotionalEventFieldMeta.FirstShipmentAvailibilityDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-PromotionalEvent ubl-Date ubl-LatestProposalAcceptanceDate"
           meta={PromotionalEventFieldMeta.LatestProposalAcceptanceDate} 
           value={value.LatestProposalAcceptanceDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={PromotionalEventFieldMeta.LatestProposalAcceptanceDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Latest Proposal Acceptance Date"
+              value={itemValue}
+              meta={PromotionalEventFieldMeta.LatestProposalAcceptanceDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-PromotionalEvent ubl-PromotionalSpecification"
           meta={PromotionalEventFieldMeta.PromotionalSpecification} 
           value={value.PromotionalSpecification}
           itemDisplay={ (itemValue: PromotionalSpecification, key: string | number) =>
-            <PromotionalSpecificationDisplay key={key} meta={PromotionalEventFieldMeta.PromotionalSpecification} value={itemValue} />
+            <PromotionalSpecificationDisplay
+              key={key}
+              label="Promotional Specification"
+              value={itemValue}
+              meta={PromotionalEventFieldMeta.PromotionalSpecification}
+            />
           }
         />
         </div>

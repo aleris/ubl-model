@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TransportationSegment } from  '../../model/cac/TransportationSegment'
 import { TransportationSegmentFieldMeta } from  '../../meta/cac/TransportationSegmentMeta'
@@ -18,69 +19,112 @@ import { TransportationService } from '../../model/cac/TransportationService'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: TransportationSegment
   meta: FieldMeta<T>
 }
 
-export default function TransportationSegmentDisplay<T>({ value, meta }: Params<T>) {
+export default function TransportationSegmentDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-TransportationSegment ubl-TransportationSegmentType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-TransportationSegment ubl-UBLExtensions"
           meta={TransportationSegmentFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={TransportationSegmentFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={TransportationSegmentFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportationSegment ubl-Numeric ubl-SequenceNumeric"
           meta={TransportationSegmentFieldMeta.SequenceNumeric} 
           value={value.SequenceNumeric}
           itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay key={key} meta={TransportationSegmentFieldMeta.SequenceNumeric} value={itemValue} />
+            <NumericDisplay
+              key={key}
+              label="Sequence"
+              value={itemValue}
+              meta={TransportationSegmentFieldMeta.SequenceNumeric}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportationSegment ubl-Identifier ubl-TransportExecutionPlanReferenceID"
           meta={TransportationSegmentFieldMeta.TransportExecutionPlanReferenceID} 
           value={value.TransportExecutionPlanReferenceID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={TransportationSegmentFieldMeta.TransportExecutionPlanReferenceID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Transport Execution Plan Reference"
+              value={itemValue}
+              meta={TransportationSegmentFieldMeta.TransportExecutionPlanReferenceID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TransportationSegment ubl-TransportationService"
           meta={TransportationSegmentFieldMeta.TransportationService} 
           value={value.TransportationService}
           itemDisplay={ (itemValue: TransportationService, key: string | number) =>
-            <TransportationServiceDisplay key={key} meta={TransportationSegmentFieldMeta.TransportationService} value={itemValue} />
+            <TransportationServiceDisplay
+              key={key}
+              label="Transportation Service"
+              value={itemValue}
+              meta={TransportationSegmentFieldMeta.TransportationService}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TransportationSegment ubl-Party ubl-TransportServiceProviderParty"
           meta={TransportationSegmentFieldMeta.TransportServiceProviderParty} 
           value={value.TransportServiceProviderParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={TransportationSegmentFieldMeta.TransportServiceProviderParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Transport Service Provider Party"
+              value={itemValue}
+              meta={TransportationSegmentFieldMeta.TransportServiceProviderParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TransportationSegment ubl-Consignment ubl-ReferencedConsignment"
           meta={TransportationSegmentFieldMeta.ReferencedConsignment} 
           value={value.ReferencedConsignment}
           itemDisplay={ (itemValue: Consignment, key: string | number) =>
-            <ConsignmentDisplay key={key} meta={TransportationSegmentFieldMeta.ReferencedConsignment} value={itemValue} />
+            <ConsignmentDisplay
+              key={key}
+              label="Referenced Consignment"
+              value={itemValue}
+              meta={TransportationSegmentFieldMeta.ReferencedConsignment}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportationSegment ubl-ShipmentStage"
           meta={TransportationSegmentFieldMeta.ShipmentStage} 
           value={value.ShipmentStage}
           itemDisplay={ (itemValue: ShipmentStage, key: string | number) =>
-            <ShipmentStageDisplay key={key} meta={TransportationSegmentFieldMeta.ShipmentStage} value={itemValue} />
+            <ShipmentStageDisplay
+              key={key}
+              label="Shipment Stage"
+              value={itemValue}
+              meta={TransportationSegmentFieldMeta.ShipmentStage}
+            />
           }
         />
         </div>

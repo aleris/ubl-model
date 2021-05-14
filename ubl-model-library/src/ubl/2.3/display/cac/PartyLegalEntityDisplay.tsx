@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { PartyLegalEntity } from  '../../model/cac/PartyLegalEntity'
 import { PartyLegalEntityFieldMeta } from  '../../meta/cac/PartyLegalEntityMeta'
@@ -26,133 +27,224 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: PartyLegalEntity
   meta: FieldMeta<T>
 }
 
-export default function PartyLegalEntityDisplay<T>({ value, meta }: Params<T>) {
+export default function PartyLegalEntityDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-PartyLegalEntity ubl-PartyLegalEntityType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-PartyLegalEntity ubl-UBLExtensions"
           meta={PartyLegalEntityFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={PartyLegalEntityFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={PartyLegalEntityFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-PartyLegalEntity ubl-Text ubl-RegistrationName"
           meta={PartyLegalEntityFieldMeta.RegistrationName} 
           value={value.RegistrationName}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={PartyLegalEntityFieldMeta.RegistrationName} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Registration Name"
+              value={itemValue}
+              meta={PartyLegalEntityFieldMeta.RegistrationName}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-PartyLegalEntity ubl-Identifier ubl-CompanyID"
           meta={PartyLegalEntityFieldMeta.CompanyID} 
           value={value.CompanyID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={PartyLegalEntityFieldMeta.CompanyID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Company Identifier"
+              value={itemValue}
+              meta={PartyLegalEntityFieldMeta.CompanyID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-PartyLegalEntity ubl-Date ubl-RegistrationDate"
           meta={PartyLegalEntityFieldMeta.RegistrationDate} 
           value={value.RegistrationDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={PartyLegalEntityFieldMeta.RegistrationDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Registration Date"
+              value={itemValue}
+              meta={PartyLegalEntityFieldMeta.RegistrationDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-PartyLegalEntity ubl-Date ubl-RegistrationExpirationDate"
           meta={PartyLegalEntityFieldMeta.RegistrationExpirationDate} 
           value={value.RegistrationExpirationDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={PartyLegalEntityFieldMeta.RegistrationExpirationDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Registration Expiration Date"
+              value={itemValue}
+              meta={PartyLegalEntityFieldMeta.RegistrationExpirationDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-PartyLegalEntity ubl-Code ubl-CompanyLegalFormCode"
           meta={PartyLegalEntityFieldMeta.CompanyLegalFormCode} 
           value={value.CompanyLegalFormCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={PartyLegalEntityFieldMeta.CompanyLegalFormCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Company Legal Form Code"
+              value={itemValue}
+              meta={PartyLegalEntityFieldMeta.CompanyLegalFormCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-PartyLegalEntity ubl-Text ubl-CompanyLegalForm"
           meta={PartyLegalEntityFieldMeta.CompanyLegalForm} 
           value={value.CompanyLegalForm}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={PartyLegalEntityFieldMeta.CompanyLegalForm} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Company Legal Form"
+              value={itemValue}
+              meta={PartyLegalEntityFieldMeta.CompanyLegalForm}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-PartyLegalEntity ubl-Indicator ubl-SoleProprietorshipIndicator"
           meta={PartyLegalEntityFieldMeta.SoleProprietorshipIndicator} 
           value={value.SoleProprietorshipIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={PartyLegalEntityFieldMeta.SoleProprietorshipIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Sole Proprietorship Indicator"
+              value={itemValue}
+              meta={PartyLegalEntityFieldMeta.SoleProprietorshipIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-PartyLegalEntity ubl-Code ubl-CompanyLiquidationStatusCode"
           meta={PartyLegalEntityFieldMeta.CompanyLiquidationStatusCode} 
           value={value.CompanyLiquidationStatusCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={PartyLegalEntityFieldMeta.CompanyLiquidationStatusCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Company Liquidation Status Code"
+              value={itemValue}
+              meta={PartyLegalEntityFieldMeta.CompanyLiquidationStatusCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-PartyLegalEntity ubl-Amount ubl-CorporateStockAmount"
           meta={PartyLegalEntityFieldMeta.CorporateStockAmount} 
           value={value.CorporateStockAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={PartyLegalEntityFieldMeta.CorporateStockAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Corporate Stock Amount"
+              value={itemValue}
+              meta={PartyLegalEntityFieldMeta.CorporateStockAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-PartyLegalEntity ubl-Indicator ubl-FullyPaidSharesIndicator"
           meta={PartyLegalEntityFieldMeta.FullyPaidSharesIndicator} 
           value={value.FullyPaidSharesIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={PartyLegalEntityFieldMeta.FullyPaidSharesIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Fully Paid Shares Indicator"
+              value={itemValue}
+              meta={PartyLegalEntityFieldMeta.FullyPaidSharesIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-PartyLegalEntity ubl-Address ubl-RegistrationAddress"
           meta={PartyLegalEntityFieldMeta.RegistrationAddress} 
           value={value.RegistrationAddress}
           itemDisplay={ (itemValue: Address, key: string | number) =>
-            <AddressDisplay key={key} meta={PartyLegalEntityFieldMeta.RegistrationAddress} value={itemValue} />
+            <AddressDisplay
+              key={key}
+              label="Registration Address"
+              value={itemValue}
+              meta={PartyLegalEntityFieldMeta.RegistrationAddress}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-PartyLegalEntity ubl-CorporateRegistrationScheme"
           meta={PartyLegalEntityFieldMeta.CorporateRegistrationScheme} 
           value={value.CorporateRegistrationScheme}
           itemDisplay={ (itemValue: CorporateRegistrationScheme, key: string | number) =>
-            <CorporateRegistrationSchemeDisplay key={key} meta={PartyLegalEntityFieldMeta.CorporateRegistrationScheme} value={itemValue} />
+            <CorporateRegistrationSchemeDisplay
+              key={key}
+              label="Corporate Registration Scheme"
+              value={itemValue}
+              meta={PartyLegalEntityFieldMeta.CorporateRegistrationScheme}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-PartyLegalEntity ubl-Party ubl-HeadOfficeParty"
           meta={PartyLegalEntityFieldMeta.HeadOfficeParty} 
           value={value.HeadOfficeParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={PartyLegalEntityFieldMeta.HeadOfficeParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Head Office Party"
+              value={itemValue}
+              meta={PartyLegalEntityFieldMeta.HeadOfficeParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-PartyLegalEntity ubl-ShareholderParty"
           meta={PartyLegalEntityFieldMeta.ShareholderParty} 
           value={value.ShareholderParty}
           itemDisplay={ (itemValue: ShareholderParty, key: string | number) =>
-            <ShareholderPartyDisplay key={key} meta={PartyLegalEntityFieldMeta.ShareholderParty} value={itemValue} />
+            <ShareholderPartyDisplay
+              key={key}
+              label="Shareholder Party"
+              value={itemValue}
+              meta={PartyLegalEntityFieldMeta.ShareholderParty}
+            />
           }
         />
         </div>

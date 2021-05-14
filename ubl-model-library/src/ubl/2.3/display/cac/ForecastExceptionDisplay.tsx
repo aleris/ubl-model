@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ForecastException } from  '../../model/cac/ForecastException'
 import { ForecastExceptionFieldMeta } from  '../../meta/cac/ForecastExceptionMeta'
@@ -12,85 +13,140 @@ import { Time } from '../../model/cbc/Time'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: ForecastException
   meta: FieldMeta<T>
 }
 
-export default function ForecastExceptionDisplay<T>({ value, meta }: Params<T>) {
+export default function ForecastExceptionDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-ForecastException ubl-ForecastExceptionType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-ForecastException ubl-UBLExtensions"
           meta={ForecastExceptionFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={ForecastExceptionFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={ForecastExceptionFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ForecastException ubl-Code ubl-ForecastPurposeCode"
           meta={ForecastExceptionFieldMeta.ForecastPurposeCode} 
           value={value.ForecastPurposeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={ForecastExceptionFieldMeta.ForecastPurposeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Forecast Purpose Code"
+              value={itemValue}
+              meta={ForecastExceptionFieldMeta.ForecastPurposeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ForecastException ubl-Code ubl-ForecastTypeCode"
           meta={ForecastExceptionFieldMeta.ForecastTypeCode} 
           value={value.ForecastTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={ForecastExceptionFieldMeta.ForecastTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Forecast Type Code"
+              value={itemValue}
+              meta={ForecastExceptionFieldMeta.ForecastTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ForecastException ubl-Date ubl-IssueDate"
           meta={ForecastExceptionFieldMeta.IssueDate} 
           value={value.IssueDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={ForecastExceptionFieldMeta.IssueDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Issue Date"
+              value={itemValue}
+              meta={ForecastExceptionFieldMeta.IssueDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ForecastException ubl-Time ubl-IssueTime"
           meta={ForecastExceptionFieldMeta.IssueTime} 
           value={value.IssueTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={ForecastExceptionFieldMeta.IssueTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Issue Time"
+              value={itemValue}
+              meta={ForecastExceptionFieldMeta.IssueTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ForecastException ubl-Code ubl-DataSourceCode"
           meta={ForecastExceptionFieldMeta.DataSourceCode} 
           value={value.DataSourceCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={ForecastExceptionFieldMeta.DataSourceCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Data Source Code"
+              value={itemValue}
+              meta={ForecastExceptionFieldMeta.DataSourceCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ForecastException ubl-Code ubl-ComparisonDataCode"
           meta={ForecastExceptionFieldMeta.ComparisonDataCode} 
           value={value.ComparisonDataCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={ForecastExceptionFieldMeta.ComparisonDataCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Comparison Data Code"
+              value={itemValue}
+              meta={ForecastExceptionFieldMeta.ComparisonDataCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ForecastException ubl-Time ubl-ComparisonForecastIssueTime"
           meta={ForecastExceptionFieldMeta.ComparisonForecastIssueTime} 
           value={value.ComparisonForecastIssueTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={ForecastExceptionFieldMeta.ComparisonForecastIssueTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Comparison Forecast Issue Time"
+              value={itemValue}
+              meta={ForecastExceptionFieldMeta.ComparisonForecastIssueTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ForecastException ubl-Date ubl-ComparisonForecastIssueDate"
           meta={ForecastExceptionFieldMeta.ComparisonForecastIssueDate} 
           value={value.ComparisonForecastIssueDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={ForecastExceptionFieldMeta.ComparisonForecastIssueDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Comparison Forecast Issue Date"
+              value={itemValue}
+              meta={ForecastExceptionFieldMeta.ComparisonForecastIssueDate}
+            />
           }
         />
         </div>

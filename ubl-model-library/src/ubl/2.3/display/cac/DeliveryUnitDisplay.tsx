@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { DeliveryUnit } from  '../../model/cac/DeliveryUnit'
 import { DeliveryUnitFieldMeta } from  '../../meta/cac/DeliveryUnitMeta'
@@ -10,45 +11,70 @@ import { Quantity } from '../../model/cbc/Quantity'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: DeliveryUnit
   meta: FieldMeta<T>
 }
 
-export default function DeliveryUnitDisplay<T>({ value, meta }: Params<T>) {
+export default function DeliveryUnitDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-DeliveryUnit ubl-DeliveryUnitType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-DeliveryUnit ubl-UBLExtensions"
           meta={DeliveryUnitFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={DeliveryUnitFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={DeliveryUnitFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DeliveryUnit ubl-Quantity ubl-BatchQuantity"
           meta={DeliveryUnitFieldMeta.BatchQuantity} 
           value={value.BatchQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={DeliveryUnitFieldMeta.BatchQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Batch Quantity"
+              value={itemValue}
+              meta={DeliveryUnitFieldMeta.BatchQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DeliveryUnit ubl-Quantity ubl-ConsumerUnitQuantity"
           meta={DeliveryUnitFieldMeta.ConsumerUnitQuantity} 
           value={value.ConsumerUnitQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={DeliveryUnitFieldMeta.ConsumerUnitQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Consumer Unit"
+              value={itemValue}
+              meta={DeliveryUnitFieldMeta.ConsumerUnitQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DeliveryUnit ubl-Indicator ubl-HazardousRiskIndicator"
           meta={DeliveryUnitFieldMeta.HazardousRiskIndicator} 
           value={value.HazardousRiskIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={DeliveryUnitFieldMeta.HazardousRiskIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Hazardous Risk Indicator"
+              value={itemValue}
+              meta={DeliveryUnitFieldMeta.HazardousRiskIndicator}
+            />
           }
         />
         </div>

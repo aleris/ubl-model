@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { CustomerParty } from  '../../model/cac/CustomerParty'
 import { CustomerPartyFieldMeta } from  '../../meta/cac/CustomerPartyMeta'
@@ -12,77 +13,126 @@ import { Party } from '../../model/cac/Party'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: CustomerParty
   meta: FieldMeta<T>
 }
 
-export default function CustomerPartyDisplay<T>({ value, meta }: Params<T>) {
+export default function CustomerPartyDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-CustomerParty ubl-CustomerPartyType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-CustomerParty ubl-UBLExtensions"
           meta={CustomerPartyFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={CustomerPartyFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={CustomerPartyFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CustomerParty ubl-Identifier ubl-CustomerAssignedAccountID"
           meta={CustomerPartyFieldMeta.CustomerAssignedAccountID} 
           value={value.CustomerAssignedAccountID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CustomerPartyFieldMeta.CustomerAssignedAccountID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Customer Assigned Account Identifier"
+              value={itemValue}
+              meta={CustomerPartyFieldMeta.CustomerAssignedAccountID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CustomerParty ubl-Identifier ubl-SupplierAssignedAccountID"
           meta={CustomerPartyFieldMeta.SupplierAssignedAccountID} 
           value={value.SupplierAssignedAccountID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CustomerPartyFieldMeta.SupplierAssignedAccountID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Supplier Assigned Account Identifier"
+              value={itemValue}
+              meta={CustomerPartyFieldMeta.SupplierAssignedAccountID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-CustomerParty ubl-Identifier ubl-AdditionalAccountID"
           meta={CustomerPartyFieldMeta.AdditionalAccountID} 
           value={value.AdditionalAccountID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CustomerPartyFieldMeta.AdditionalAccountID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Additional Account Identifier"
+              value={itemValue}
+              meta={CustomerPartyFieldMeta.AdditionalAccountID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-CustomerParty ubl-Party"
           meta={CustomerPartyFieldMeta.Party} 
           value={value.Party}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={CustomerPartyFieldMeta.Party} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Party"
+              value={itemValue}
+              meta={CustomerPartyFieldMeta.Party}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-CustomerParty ubl-Contact ubl-DeliveryContact"
           meta={CustomerPartyFieldMeta.DeliveryContact} 
           value={value.DeliveryContact}
           itemDisplay={ (itemValue: Contact, key: string | number) =>
-            <ContactDisplay key={key} meta={CustomerPartyFieldMeta.DeliveryContact} value={itemValue} />
+            <ContactDisplay
+              key={key}
+              label="Delivery Contact"
+              value={itemValue}
+              meta={CustomerPartyFieldMeta.DeliveryContact}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-CustomerParty ubl-Contact ubl-AccountingContact"
           meta={CustomerPartyFieldMeta.AccountingContact} 
           value={value.AccountingContact}
           itemDisplay={ (itemValue: Contact, key: string | number) =>
-            <ContactDisplay key={key} meta={CustomerPartyFieldMeta.AccountingContact} value={itemValue} />
+            <ContactDisplay
+              key={key}
+              label="Accounting Contact"
+              value={itemValue}
+              meta={CustomerPartyFieldMeta.AccountingContact}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-CustomerParty ubl-Contact ubl-BuyerContact"
           meta={CustomerPartyFieldMeta.BuyerContact} 
           value={value.BuyerContact}
           itemDisplay={ (itemValue: Contact, key: string | number) =>
-            <ContactDisplay key={key} meta={CustomerPartyFieldMeta.BuyerContact} value={itemValue} />
+            <ContactDisplay
+              key={key}
+              label="Buyer Contact"
+              value={itemValue}
+              meta={CustomerPartyFieldMeta.BuyerContact}
+            />
           }
         />
         </div>

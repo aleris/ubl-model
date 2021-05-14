@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Contract } from  '../../model/cac/Contract'
 import { ContractFieldMeta } from  '../../meta/cac/ContractMeta'
@@ -22,149 +23,252 @@ import { Time } from '../../model/cbc/Time'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: Contract
   meta: FieldMeta<T>
 }
 
-export default function ContractDisplay<T>({ value, meta }: Params<T>) {
+export default function ContractDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-Contract ubl-ContractType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-Contract ubl-UBLExtensions"
           meta={ContractFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={ContractFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={ContractFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Contract ubl-Identifier ubl-ID"
           meta={ContractFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ContractFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={ContractFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Contract ubl-Date ubl-IssueDate"
           meta={ContractFieldMeta.IssueDate} 
           value={value.IssueDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={ContractFieldMeta.IssueDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Issue Date"
+              value={itemValue}
+              meta={ContractFieldMeta.IssueDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Contract ubl-Time ubl-IssueTime"
           meta={ContractFieldMeta.IssueTime} 
           value={value.IssueTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={ContractFieldMeta.IssueTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Issue Time"
+              value={itemValue}
+              meta={ContractFieldMeta.IssueTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Contract ubl-Date ubl-NominationDate"
           meta={ContractFieldMeta.NominationDate} 
           value={value.NominationDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={ContractFieldMeta.NominationDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Nomination Date"
+              value={itemValue}
+              meta={ContractFieldMeta.NominationDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Contract ubl-Time ubl-NominationTime"
           meta={ContractFieldMeta.NominationTime} 
           value={value.NominationTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={ContractFieldMeta.NominationTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Nomination Time"
+              value={itemValue}
+              meta={ContractFieldMeta.NominationTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Contract ubl-Code ubl-ContractTypeCode"
           meta={ContractFieldMeta.ContractTypeCode} 
           value={value.ContractTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={ContractFieldMeta.ContractTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Contract Type Code"
+              value={itemValue}
+              meta={ContractFieldMeta.ContractTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Contract ubl-Text ubl-ContractType"
           meta={ContractFieldMeta.ContractType} 
           value={value.ContractType}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ContractFieldMeta.ContractType} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Contract Type"
+              value={itemValue}
+              meta={ContractFieldMeta.ContractType}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Contract ubl-Text ubl-Note"
           meta={ContractFieldMeta.Note} 
           value={value.Note}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ContractFieldMeta.Note} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Note"
+              value={itemValue}
+              meta={ContractFieldMeta.Note}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Contract ubl-Identifier ubl-VersionID"
           meta={ContractFieldMeta.VersionID} 
           value={value.VersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ContractFieldMeta.VersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Version"
+              value={itemValue}
+              meta={ContractFieldMeta.VersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Contract ubl-Code ubl-ModificationReasonCode"
           meta={ContractFieldMeta.ModificationReasonCode} 
           value={value.ModificationReasonCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={ContractFieldMeta.ModificationReasonCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Modification Reason Code"
+              value={itemValue}
+              meta={ContractFieldMeta.ModificationReasonCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Contract ubl-Text ubl-ModificationReasonDescription"
           meta={ContractFieldMeta.ModificationReasonDescription} 
           value={value.ModificationReasonDescription}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ContractFieldMeta.ModificationReasonDescription} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Modification Reason Description"
+              value={itemValue}
+              meta={ContractFieldMeta.ModificationReasonDescription}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Contract ubl-Text ubl-Description"
           meta={ContractFieldMeta.Description} 
           value={value.Description}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ContractFieldMeta.Description} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Description"
+              value={itemValue}
+              meta={ContractFieldMeta.Description}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Contract ubl-Period ubl-ValidityPeriod"
           meta={ContractFieldMeta.ValidityPeriod} 
           value={value.ValidityPeriod}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={ContractFieldMeta.ValidityPeriod} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Validity Period"
+              value={itemValue}
+              meta={ContractFieldMeta.ValidityPeriod}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Contract ubl-DocumentReference ubl-ContractDocumentReference"
           meta={ContractFieldMeta.ContractDocumentReference} 
           value={value.ContractDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={ContractFieldMeta.ContractDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Contract Document Reference"
+              value={itemValue}
+              meta={ContractFieldMeta.ContractDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Contract ubl-Period ubl-NominationPeriod"
           meta={ContractFieldMeta.NominationPeriod} 
           value={value.NominationPeriod}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={ContractFieldMeta.NominationPeriod} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Nomination Period"
+              value={itemValue}
+              meta={ContractFieldMeta.NominationPeriod}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Contract ubl-Delivery ubl-ContractualDelivery"
           meta={ContractFieldMeta.ContractualDelivery} 
           value={value.ContractualDelivery}
           itemDisplay={ (itemValue: Delivery, key: string | number) =>
-            <DeliveryDisplay key={key} meta={ContractFieldMeta.ContractualDelivery} value={itemValue} />
+            <DeliveryDisplay
+              key={key}
+              label="Contractual Delivery"
+              value={itemValue}
+              meta={ContractFieldMeta.ContractualDelivery}
+            />
           }
         />
         </div>

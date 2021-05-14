@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ItemInformationRequestLine } from  '../../model/cac/ItemInformationRequestLine'
 import { ItemInformationRequestLineFieldMeta } from  '../../meta/cac/ItemInformationRequestLineMeta'
@@ -12,69 +13,112 @@ import { SalesItem } from '../../model/cac/SalesItem'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: ItemInformationRequestLine
   meta: FieldMeta<T>
 }
 
-export default function ItemInformationRequestLineDisplay<T>({ value, meta }: Params<T>) {
+export default function ItemInformationRequestLineDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-ItemInformationRequestLine ubl-ItemInformationRequestLineType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-ItemInformationRequestLine ubl-UBLExtensions"
           meta={ItemInformationRequestLineFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={ItemInformationRequestLineFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={ItemInformationRequestLineFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ItemInformationRequestLine ubl-Code ubl-TimeFrequencyCode"
           meta={ItemInformationRequestLineFieldMeta.TimeFrequencyCode} 
           value={value.TimeFrequencyCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={ItemInformationRequestLineFieldMeta.TimeFrequencyCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Time Frequency Code"
+              value={itemValue}
+              meta={ItemInformationRequestLineFieldMeta.TimeFrequencyCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ItemInformationRequestLine ubl-Code ubl-SupplyChainActivityTypeCode"
           meta={ItemInformationRequestLineFieldMeta.SupplyChainActivityTypeCode} 
           value={value.SupplyChainActivityTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={ItemInformationRequestLineFieldMeta.SupplyChainActivityTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Supply Chain Activity Type Code"
+              value={itemValue}
+              meta={ItemInformationRequestLineFieldMeta.SupplyChainActivityTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ItemInformationRequestLine ubl-Code ubl-ForecastTypeCode"
           meta={ItemInformationRequestLineFieldMeta.ForecastTypeCode} 
           value={value.ForecastTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={ItemInformationRequestLineFieldMeta.ForecastTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Forecast Type Code"
+              value={itemValue}
+              meta={ItemInformationRequestLineFieldMeta.ForecastTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ItemInformationRequestLine ubl-Code ubl-PerformanceMetricTypeCode"
           meta={ItemInformationRequestLineFieldMeta.PerformanceMetricTypeCode} 
           value={value.PerformanceMetricTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={ItemInformationRequestLineFieldMeta.PerformanceMetricTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Performance Metric Type Code"
+              value={itemValue}
+              meta={ItemInformationRequestLineFieldMeta.PerformanceMetricTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-ItemInformationRequestLine ubl-Period"
           meta={ItemInformationRequestLineFieldMeta.Period} 
           value={value.Period}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={ItemInformationRequestLineFieldMeta.Period} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Period"
+              value={itemValue}
+              meta={ItemInformationRequestLineFieldMeta.Period}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-ItemInformationRequestLine ubl-SalesItem"
           meta={ItemInformationRequestLineFieldMeta.SalesItem} 
           value={value.SalesItem}
           itemDisplay={ (itemValue: SalesItem, key: string | number) =>
-            <SalesItemDisplay key={key} meta={ItemInformationRequestLineFieldMeta.SalesItem} value={itemValue} />
+            <SalesItemDisplay
+              key={key}
+              label="Sales Item"
+              value={itemValue}
+              meta={ItemInformationRequestLineFieldMeta.SalesItem}
+            />
           }
         />
         </div>

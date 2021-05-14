@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ForecastLine } from  '../../model/cac/ForecastLine'
 import { ForecastLineFieldMeta } from  '../../meta/cac/ForecastLineMeta'
@@ -18,69 +19,112 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: ForecastLine
   meta: FieldMeta<T>
 }
 
-export default function ForecastLineDisplay<T>({ value, meta }: Params<T>) {
+export default function ForecastLineDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-ForecastLine ubl-ForecastLineType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-ForecastLine ubl-UBLExtensions"
           meta={ForecastLineFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={ForecastLineFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={ForecastLineFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ForecastLine ubl-Identifier ubl-ID"
           meta={ForecastLineFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ForecastLineFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={ForecastLineFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-ForecastLine ubl-Text ubl-Note"
           meta={ForecastLineFieldMeta.Note} 
           value={value.Note}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ForecastLineFieldMeta.Note} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Note"
+              value={itemValue}
+              meta={ForecastLineFieldMeta.Note}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ForecastLine ubl-Indicator ubl-FrozenDocumentIndicator"
           meta={ForecastLineFieldMeta.FrozenDocumentIndicator} 
           value={value.FrozenDocumentIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={ForecastLineFieldMeta.FrozenDocumentIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Frozen Document Indicator"
+              value={itemValue}
+              meta={ForecastLineFieldMeta.FrozenDocumentIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ForecastLine ubl-Code ubl-ForecastTypeCode"
           meta={ForecastLineFieldMeta.ForecastTypeCode} 
           value={value.ForecastTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={ForecastLineFieldMeta.ForecastTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Forecast Type Code"
+              value={itemValue}
+              meta={ForecastLineFieldMeta.ForecastTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-ForecastLine ubl-Period ubl-ForecastPeriod"
           meta={ForecastLineFieldMeta.ForecastPeriod} 
           value={value.ForecastPeriod}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={ForecastLineFieldMeta.ForecastPeriod} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Forecast Period"
+              value={itemValue}
+              meta={ForecastLineFieldMeta.ForecastPeriod}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-ForecastLine ubl-SalesItem"
           meta={ForecastLineFieldMeta.SalesItem} 
           value={value.SalesItem}
           itemDisplay={ (itemValue: SalesItem, key: string | number) =>
-            <SalesItemDisplay key={key} meta={ForecastLineFieldMeta.SalesItem} value={itemValue} />
+            <SalesItemDisplay
+              key={key}
+              label="Sales Item"
+              value={itemValue}
+              meta={ForecastLineFieldMeta.SalesItem}
+            />
           }
         />
         </div>

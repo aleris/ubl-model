@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { SubcontractTerms } from  '../../model/cac/SubcontractTerms'
 import { SubcontractTermsFieldMeta } from  '../../meta/cac/SubcontractTermsMeta'
@@ -16,77 +17,126 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: SubcontractTerms
   meta: FieldMeta<T>
 }
 
-export default function SubcontractTermsDisplay<T>({ value, meta }: Params<T>) {
+export default function SubcontractTermsDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-SubcontractTerms ubl-SubcontractTermsType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-SubcontractTerms ubl-UBLExtensions"
           meta={SubcontractTermsFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={SubcontractTermsFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={SubcontractTermsFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-SubcontractTerms ubl-Numeric ubl-Rate"
           meta={SubcontractTermsFieldMeta.Rate} 
           value={value.Rate}
           itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay key={key} meta={SubcontractTermsFieldMeta.Rate} value={itemValue} />
+            <NumericDisplay
+              key={key}
+              label="Rate"
+              value={itemValue}
+              meta={SubcontractTermsFieldMeta.Rate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-SubcontractTerms ubl-Indicator ubl-UnknownPriceIndicator"
           meta={SubcontractTermsFieldMeta.UnknownPriceIndicator} 
           value={value.UnknownPriceIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={SubcontractTermsFieldMeta.UnknownPriceIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Unknown Price"
+              value={itemValue}
+              meta={SubcontractTermsFieldMeta.UnknownPriceIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-SubcontractTerms ubl-Text ubl-Description"
           meta={SubcontractTermsFieldMeta.Description} 
           value={value.Description}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={SubcontractTermsFieldMeta.Description} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Description"
+              value={itemValue}
+              meta={SubcontractTermsFieldMeta.Description}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-SubcontractTerms ubl-Amount"
           meta={SubcontractTermsFieldMeta.Amount} 
           value={value.Amount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={SubcontractTermsFieldMeta.Amount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Amount"
+              value={itemValue}
+              meta={SubcontractTermsFieldMeta.Amount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-SubcontractTerms ubl-Code ubl-SubcontractingConditionsCode"
           meta={SubcontractTermsFieldMeta.SubcontractingConditionsCode} 
           value={value.SubcontractingConditionsCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={SubcontractTermsFieldMeta.SubcontractingConditionsCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Subcontracting Conditions Code"
+              value={itemValue}
+              meta={SubcontractTermsFieldMeta.SubcontractingConditionsCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-SubcontractTerms ubl-Numeric ubl-MaximumPercent"
           meta={SubcontractTermsFieldMeta.MaximumPercent} 
           value={value.MaximumPercent}
           itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay key={key} meta={SubcontractTermsFieldMeta.MaximumPercent} value={itemValue} />
+            <NumericDisplay
+              key={key}
+              label="Maximum Percent"
+              value={itemValue}
+              meta={SubcontractTermsFieldMeta.MaximumPercent}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-SubcontractTerms ubl-Numeric ubl-MinimumPercent"
           meta={SubcontractTermsFieldMeta.MinimumPercent} 
           value={value.MinimumPercent}
           itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay key={key} meta={SubcontractTermsFieldMeta.MinimumPercent} value={itemValue} />
+            <NumericDisplay
+              key={key}
+              label="Minimum Percent"
+              value={itemValue}
+              meta={SubcontractTermsFieldMeta.MinimumPercent}
+            />
           }
         />
         </div>

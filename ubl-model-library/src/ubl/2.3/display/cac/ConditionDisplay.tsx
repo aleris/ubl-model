@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Condition } from  '../../model/cac/Condition'
 import { ConditionFieldMeta } from  '../../meta/cac/ConditionMeta'
@@ -12,61 +13,98 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: Condition
   meta: FieldMeta<T>
 }
 
-export default function ConditionDisplay<T>({ value, meta }: Params<T>) {
+export default function ConditionDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-Condition ubl-ConditionType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-Condition ubl-UBLExtensions"
           meta={ConditionFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={ConditionFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={ConditionFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Condition ubl-Identifier ubl-AttributeID"
           meta={ConditionFieldMeta.AttributeID} 
           value={value.AttributeID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ConditionFieldMeta.AttributeID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Attribute Identifier"
+              value={itemValue}
+              meta={ConditionFieldMeta.AttributeID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Condition ubl-Measure"
           meta={ConditionFieldMeta.Measure} 
           value={value.Measure}
           itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay key={key} meta={ConditionFieldMeta.Measure} value={itemValue} />
+            <MeasureDisplay
+              key={key}
+              label="Measure"
+              value={itemValue}
+              meta={ConditionFieldMeta.Measure}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Condition ubl-Text ubl-Description"
           meta={ConditionFieldMeta.Description} 
           value={value.Description}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ConditionFieldMeta.Description} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Description"
+              value={itemValue}
+              meta={ConditionFieldMeta.Description}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Condition ubl-Measure ubl-MinimumMeasure"
           meta={ConditionFieldMeta.MinimumMeasure} 
           value={value.MinimumMeasure}
           itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay key={key} meta={ConditionFieldMeta.MinimumMeasure} value={itemValue} />
+            <MeasureDisplay
+              key={key}
+              label="Minimum Measure"
+              value={itemValue}
+              meta={ConditionFieldMeta.MinimumMeasure}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Condition ubl-Measure ubl-MaximumMeasure"
           meta={ConditionFieldMeta.MaximumMeasure} 
           value={value.MaximumMeasure}
           itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay key={key} meta={ConditionFieldMeta.MaximumMeasure} value={itemValue} />
+            <MeasureDisplay
+              key={key}
+              label="Maximum Measure"
+              value={itemValue}
+              meta={ConditionFieldMeta.MaximumMeasure}
+            />
           }
         />
         </div>

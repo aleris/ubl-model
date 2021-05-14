@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ConsumptionLine } from  '../../model/cac/ConsumptionLine'
 import { ConsumptionLineFieldMeta } from  '../../meta/cac/ConsumptionLineMeta'
@@ -26,117 +27,196 @@ import { UnstructuredPrice } from '../../model/cac/UnstructuredPrice'
 import UtilityItemDisplay from './UtilityItemDisplay'
 import { UtilityItem } from '../../model/cac/UtilityItem'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: ConsumptionLine
   meta: FieldMeta<T>
 }
 
-export default function ConsumptionLineDisplay<T>({ value, meta }: Params<T>) {
+export default function ConsumptionLineDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-ConsumptionLine ubl-ConsumptionLineType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-ConsumptionLine ubl-UBLExtensions"
           meta={ConsumptionLineFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={ConsumptionLineFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={ConsumptionLineFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ConsumptionLine ubl-Identifier ubl-ID"
           meta={ConsumptionLineFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ConsumptionLineFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={ConsumptionLineFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ConsumptionLine ubl-Identifier ubl-ParentDocumentLineReferenceID"
           meta={ConsumptionLineFieldMeta.ParentDocumentLineReferenceID} 
           value={value.ParentDocumentLineReferenceID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ConsumptionLineFieldMeta.ParentDocumentLineReferenceID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Parent Document Line Reference Identifier"
+              value={itemValue}
+              meta={ConsumptionLineFieldMeta.ParentDocumentLineReferenceID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ConsumptionLine ubl-Quantity ubl-InvoicedQuantity"
           meta={ConsumptionLineFieldMeta.InvoicedQuantity} 
           value={value.InvoicedQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={ConsumptionLineFieldMeta.InvoicedQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Invoiced Quantity"
+              value={itemValue}
+              meta={ConsumptionLineFieldMeta.InvoicedQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ConsumptionLine ubl-Amount ubl-LineExtensionAmount"
           meta={ConsumptionLineFieldMeta.LineExtensionAmount} 
           value={value.LineExtensionAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={ConsumptionLineFieldMeta.LineExtensionAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Line Extension Amount"
+              value={itemValue}
+              meta={ConsumptionLineFieldMeta.LineExtensionAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ConsumptionLine ubl-Amount ubl-TaxInclusiveLineExtensionAmount"
           meta={ConsumptionLineFieldMeta.TaxInclusiveLineExtensionAmount} 
           value={value.TaxInclusiveLineExtensionAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={ConsumptionLineFieldMeta.TaxInclusiveLineExtensionAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Tax Inclusive Line Extension Amount"
+              value={itemValue}
+              meta={ConsumptionLineFieldMeta.TaxInclusiveLineExtensionAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-ConsumptionLine ubl-Period"
           meta={ConsumptionLineFieldMeta.Period} 
           value={value.Period}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={ConsumptionLineFieldMeta.Period} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Period"
+              value={itemValue}
+              meta={ConsumptionLineFieldMeta.Period}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-ConsumptionLine ubl-Delivery"
           meta={ConsumptionLineFieldMeta.Delivery} 
           value={value.Delivery}
           itemDisplay={ (itemValue: Delivery, key: string | number) =>
-            <DeliveryDisplay key={key} meta={ConsumptionLineFieldMeta.Delivery} value={itemValue} />
+            <DeliveryDisplay
+              key={key}
+              label="Delivery"
+              value={itemValue}
+              meta={ConsumptionLineFieldMeta.Delivery}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-ConsumptionLine ubl-AllowanceCharge"
           meta={ConsumptionLineFieldMeta.AllowanceCharge} 
           value={value.AllowanceCharge}
           itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-            <AllowanceChargeDisplay key={key} meta={ConsumptionLineFieldMeta.AllowanceCharge} value={itemValue} />
+            <AllowanceChargeDisplay
+              key={key}
+              label="Allowance Charge"
+              value={itemValue}
+              meta={ConsumptionLineFieldMeta.AllowanceCharge}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-ConsumptionLine ubl-TaxTotal"
           meta={ConsumptionLineFieldMeta.TaxTotal} 
           value={value.TaxTotal}
           itemDisplay={ (itemValue: TaxTotal, key: string | number) =>
-            <TaxTotalDisplay key={key} meta={ConsumptionLineFieldMeta.TaxTotal} value={itemValue} />
+            <TaxTotalDisplay
+              key={key}
+              label="Tax Total"
+              value={itemValue}
+              meta={ConsumptionLineFieldMeta.TaxTotal}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-ConsumptionLine ubl-UtilityItem"
           meta={ConsumptionLineFieldMeta.UtilityItem} 
           value={value.UtilityItem}
           itemDisplay={ (itemValue: UtilityItem, key: string | number) =>
-            <UtilityItemDisplay key={key} meta={ConsumptionLineFieldMeta.UtilityItem} value={itemValue} />
+            <UtilityItemDisplay
+              key={key}
+              label="Utility Item"
+              value={itemValue}
+              meta={ConsumptionLineFieldMeta.UtilityItem}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-ConsumptionLine ubl-Price"
           meta={ConsumptionLineFieldMeta.Price} 
           value={value.Price}
           itemDisplay={ (itemValue: Price, key: string | number) =>
-            <PriceDisplay key={key} meta={ConsumptionLineFieldMeta.Price} value={itemValue} />
+            <PriceDisplay
+              key={key}
+              label="Price"
+              value={itemValue}
+              meta={ConsumptionLineFieldMeta.Price}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-ConsumptionLine ubl-UnstructuredPrice"
           meta={ConsumptionLineFieldMeta.UnstructuredPrice} 
           value={value.UnstructuredPrice}
           itemDisplay={ (itemValue: UnstructuredPrice, key: string | number) =>
-            <UnstructuredPriceDisplay key={key} meta={ConsumptionLineFieldMeta.UnstructuredPrice} value={itemValue} />
+            <UnstructuredPriceDisplay
+              key={key}
+              label="Unstructured Price"
+              value={itemValue}
+              meta={ConsumptionLineFieldMeta.UnstructuredPrice}
+            />
           }
         />
         </div>

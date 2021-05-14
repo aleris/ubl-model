@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ExpressionOfInterestRequest } from  '../../model/doc/ExpressionOfInterestRequest'
 import { ExpressionOfInterestRequestFieldMeta } from  '../../meta/doc/ExpressionOfInterestRequestMeta'
@@ -32,181 +33,308 @@ import { Time } from '../../model/cbc/Time'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: ExpressionOfInterestRequest
   meta: FieldMeta<T>
 }
 
-export default function ExpressionOfInterestRequestDisplay<T>({ value, meta }: Params<T>) {
+export default function ExpressionOfInterestRequestDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-doc ubl-ExpressionOfInterestRequest ubl-ExpressionOfInterestRequestType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-ExpressionOfInterestRequest ubl-UBLExtensions"
           meta={ExpressionOfInterestRequestFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={ExpressionOfInterestRequestFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={ExpressionOfInterestRequestFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ExpressionOfInterestRequest ubl-Identifier ubl-UBLVersionID"
           meta={ExpressionOfInterestRequestFieldMeta.UBLVersionID} 
           value={value.UBLVersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ExpressionOfInterestRequestFieldMeta.UBLVersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UBL Version Identifier"
+              value={itemValue}
+              meta={ExpressionOfInterestRequestFieldMeta.UBLVersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ExpressionOfInterestRequest ubl-Identifier ubl-CustomizationID"
           meta={ExpressionOfInterestRequestFieldMeta.CustomizationID} 
           value={value.CustomizationID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ExpressionOfInterestRequestFieldMeta.CustomizationID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Customization Identifier"
+              value={itemValue}
+              meta={ExpressionOfInterestRequestFieldMeta.CustomizationID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ExpressionOfInterestRequest ubl-Identifier ubl-ProfileID"
           meta={ExpressionOfInterestRequestFieldMeta.ProfileID} 
           value={value.ProfileID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ExpressionOfInterestRequestFieldMeta.ProfileID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Identifier"
+              value={itemValue}
+              meta={ExpressionOfInterestRequestFieldMeta.ProfileID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ExpressionOfInterestRequest ubl-Identifier ubl-ProfileExecutionID"
           meta={ExpressionOfInterestRequestFieldMeta.ProfileExecutionID} 
           value={value.ProfileExecutionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ExpressionOfInterestRequestFieldMeta.ProfileExecutionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Execution Identifier"
+              value={itemValue}
+              meta={ExpressionOfInterestRequestFieldMeta.ProfileExecutionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ExpressionOfInterestRequest ubl-Identifier ubl-ID"
           meta={ExpressionOfInterestRequestFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ExpressionOfInterestRequestFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={ExpressionOfInterestRequestFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ExpressionOfInterestRequest ubl-Indicator ubl-CopyIndicator"
           meta={ExpressionOfInterestRequestFieldMeta.CopyIndicator} 
           value={value.CopyIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={ExpressionOfInterestRequestFieldMeta.CopyIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Copy Indicator"
+              value={itemValue}
+              meta={ExpressionOfInterestRequestFieldMeta.CopyIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ExpressionOfInterestRequest ubl-Identifier ubl-UUID"
           meta={ExpressionOfInterestRequestFieldMeta.UUID} 
           value={value.UUID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ExpressionOfInterestRequestFieldMeta.UUID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UUID"
+              value={itemValue}
+              meta={ExpressionOfInterestRequestFieldMeta.UUID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ExpressionOfInterestRequest ubl-Identifier ubl-ContractFolderID"
           meta={ExpressionOfInterestRequestFieldMeta.ContractFolderID} 
           value={value.ContractFolderID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ExpressionOfInterestRequestFieldMeta.ContractFolderID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Contract Folder Identifier"
+              value={itemValue}
+              meta={ExpressionOfInterestRequestFieldMeta.ContractFolderID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ExpressionOfInterestRequest ubl-Date ubl-IssueDate"
           meta={ExpressionOfInterestRequestFieldMeta.IssueDate} 
           value={value.IssueDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={ExpressionOfInterestRequestFieldMeta.IssueDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Issue Date"
+              value={itemValue}
+              meta={ExpressionOfInterestRequestFieldMeta.IssueDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ExpressionOfInterestRequest ubl-Time ubl-IssueTime"
           meta={ExpressionOfInterestRequestFieldMeta.IssueTime} 
           value={value.IssueTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={ExpressionOfInterestRequestFieldMeta.IssueTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Issue Time"
+              value={itemValue}
+              meta={ExpressionOfInterestRequestFieldMeta.IssueTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-ExpressionOfInterestRequest ubl-Text ubl-ContractName"
           meta={ExpressionOfInterestRequestFieldMeta.ContractName} 
           value={value.ContractName}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ExpressionOfInterestRequestFieldMeta.ContractName} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Contract Name"
+              value={itemValue}
+              meta={ExpressionOfInterestRequestFieldMeta.ContractName}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ExpressionOfInterestRequest ubl-Code ubl-PreferredLanguageLocaleCode"
           meta={ExpressionOfInterestRequestFieldMeta.PreferredLanguageLocaleCode} 
           value={value.PreferredLanguageLocaleCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={ExpressionOfInterestRequestFieldMeta.PreferredLanguageLocaleCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Preferred Language Locale Code"
+              value={itemValue}
+              meta={ExpressionOfInterestRequestFieldMeta.PreferredLanguageLocaleCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-ExpressionOfInterestRequest ubl-Text ubl-Note"
           meta={ExpressionOfInterestRequestFieldMeta.Note} 
           value={value.Note}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ExpressionOfInterestRequestFieldMeta.Note} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Note"
+              value={itemValue}
+              meta={ExpressionOfInterestRequestFieldMeta.Note}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-ExpressionOfInterestRequest ubl-Period ubl-ValidityPeriod"
           meta={ExpressionOfInterestRequestFieldMeta.ValidityPeriod} 
           value={value.ValidityPeriod}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={ExpressionOfInterestRequestFieldMeta.ValidityPeriod} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Validity Period"
+              value={itemValue}
+              meta={ExpressionOfInterestRequestFieldMeta.ValidityPeriod}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-ExpressionOfInterestRequest ubl-DocumentReference"
           meta={ExpressionOfInterestRequestFieldMeta.DocumentReference} 
           value={value.DocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={ExpressionOfInterestRequestFieldMeta.DocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Document Reference"
+              value={itemValue}
+              meta={ExpressionOfInterestRequestFieldMeta.DocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-ExpressionOfInterestRequest ubl-Signature"
           meta={ExpressionOfInterestRequestFieldMeta.Signature} 
           value={value.Signature}
           itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay key={key} meta={ExpressionOfInterestRequestFieldMeta.Signature} value={itemValue} />
+            <SignatureDisplay
+              key={key}
+              label="Signature"
+              value={itemValue}
+              meta={ExpressionOfInterestRequestFieldMeta.Signature}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-ExpressionOfInterestRequest ubl-EconomicOperatorParty"
           meta={ExpressionOfInterestRequestFieldMeta.EconomicOperatorParty} 
           value={value.EconomicOperatorParty}
           itemDisplay={ (itemValue: EconomicOperatorParty, key: string | number) =>
-            <EconomicOperatorPartyDisplay key={key} meta={ExpressionOfInterestRequestFieldMeta.EconomicOperatorParty} value={itemValue} />
+            <EconomicOperatorPartyDisplay
+              key={key}
+              label="Economic Operator Party"
+              value={itemValue}
+              meta={ExpressionOfInterestRequestFieldMeta.EconomicOperatorParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-ExpressionOfInterestRequest ubl-ContractingParty"
           meta={ExpressionOfInterestRequestFieldMeta.ContractingParty} 
           value={value.ContractingParty}
           itemDisplay={ (itemValue: ContractingParty, key: string | number) =>
-            <ContractingPartyDisplay key={key} meta={ExpressionOfInterestRequestFieldMeta.ContractingParty} value={itemValue} />
+            <ContractingPartyDisplay
+              key={key}
+              label="Contracting Party"
+              value={itemValue}
+              meta={ExpressionOfInterestRequestFieldMeta.ContractingParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-ExpressionOfInterestRequest ubl-ProcurementProject"
           meta={ExpressionOfInterestRequestFieldMeta.ProcurementProject} 
           value={value.ProcurementProject}
           itemDisplay={ (itemValue: ProcurementProject, key: string | number) =>
-            <ProcurementProjectDisplay key={key} meta={ExpressionOfInterestRequestFieldMeta.ProcurementProject} value={itemValue} />
+            <ProcurementProjectDisplay
+              key={key}
+              label="Procurement Project"
+              value={itemValue}
+              meta={ExpressionOfInterestRequestFieldMeta.ProcurementProject}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-ExpressionOfInterestRequest ubl-ProcurementProjectLotReference"
           meta={ExpressionOfInterestRequestFieldMeta.ProcurementProjectLotReference} 
           value={value.ProcurementProjectLotReference}
           itemDisplay={ (itemValue: ProcurementProjectLotReference, key: string | number) =>
-            <ProcurementProjectLotReferenceDisplay key={key} meta={ExpressionOfInterestRequestFieldMeta.ProcurementProjectLotReference} value={itemValue} />
+            <ProcurementProjectLotReferenceDisplay
+              key={key}
+              label="Procurement Project Lot Reference"
+              value={itemValue}
+              meta={ExpressionOfInterestRequestFieldMeta.ProcurementProjectLotReference}
+            />
           }
         />
         </div>

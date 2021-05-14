@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ContractingPartyType } from  '../../model/cac/ContractingPartyType'
 import { ContractingPartyTypeFieldMeta } from  '../../meta/cac/ContractingPartyTypeMeta'
@@ -10,37 +11,56 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: ContractingPartyType
   meta: FieldMeta<T>
 }
 
-export default function ContractingPartyTypeDisplay<T>({ value, meta }: Params<T>) {
+export default function ContractingPartyTypeDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-ContractingPartyType ubl-ContractingPartyTypeType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-ContractingPartyType ubl-UBLExtensions"
           meta={ContractingPartyTypeFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={ContractingPartyTypeFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={ContractingPartyTypeFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ContractingPartyType ubl-Code ubl-PartyTypeCode"
           meta={ContractingPartyTypeFieldMeta.PartyTypeCode} 
           value={value.PartyTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={ContractingPartyTypeFieldMeta.PartyTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Party Type Code"
+              value={itemValue}
+              meta={ContractingPartyTypeFieldMeta.PartyTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ContractingPartyType ubl-Text ubl-PartyType"
           meta={ContractingPartyTypeFieldMeta.PartyType} 
           value={value.PartyType}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ContractingPartyTypeFieldMeta.PartyType} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Party Type"
+              value={itemValue}
+              meta={ContractingPartyTypeFieldMeta.PartyType}
+            />
           }
         />
         </div>

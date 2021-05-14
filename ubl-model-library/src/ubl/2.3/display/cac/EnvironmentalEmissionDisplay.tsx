@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { EnvironmentalEmission } from  '../../model/cac/EnvironmentalEmission'
 import { EnvironmentalEmissionFieldMeta } from  '../../meta/cac/EnvironmentalEmissionMeta'
@@ -14,53 +15,84 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: EnvironmentalEmission
   meta: FieldMeta<T>
 }
 
-export default function EnvironmentalEmissionDisplay<T>({ value, meta }: Params<T>) {
+export default function EnvironmentalEmissionDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-EnvironmentalEmission ubl-EnvironmentalEmissionType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-EnvironmentalEmission ubl-UBLExtensions"
           meta={EnvironmentalEmissionFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={EnvironmentalEmissionFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={EnvironmentalEmissionFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-EnvironmentalEmission ubl-Code ubl-EnvironmentalEmissionTypeCode"
           meta={EnvironmentalEmissionFieldMeta.EnvironmentalEmissionTypeCode} 
           value={value.EnvironmentalEmissionTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={EnvironmentalEmissionFieldMeta.EnvironmentalEmissionTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Environmental Emission Type Code"
+              value={itemValue}
+              meta={EnvironmentalEmissionFieldMeta.EnvironmentalEmissionTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-EnvironmentalEmission ubl-Measure ubl-ValueMeasure"
           meta={EnvironmentalEmissionFieldMeta.ValueMeasure} 
           value={value.ValueMeasure}
           itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay key={key} meta={EnvironmentalEmissionFieldMeta.ValueMeasure} value={itemValue} />
+            <MeasureDisplay
+              key={key}
+              label="Value"
+              value={itemValue}
+              meta={EnvironmentalEmissionFieldMeta.ValueMeasure}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-EnvironmentalEmission ubl-Text ubl-Description"
           meta={EnvironmentalEmissionFieldMeta.Description} 
           value={value.Description}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={EnvironmentalEmissionFieldMeta.Description} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Description"
+              value={itemValue}
+              meta={EnvironmentalEmissionFieldMeta.Description}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-EnvironmentalEmission ubl-EmissionCalculationMethod"
           meta={EnvironmentalEmissionFieldMeta.EmissionCalculationMethod} 
           value={value.EmissionCalculationMethod}
           itemDisplay={ (itemValue: EmissionCalculationMethod, key: string | number) =>
-            <EmissionCalculationMethodDisplay key={key} meta={EnvironmentalEmissionFieldMeta.EmissionCalculationMethod} value={itemValue} />
+            <EmissionCalculationMethodDisplay
+              key={key}
+              label="Emission Calculation Method"
+              value={itemValue}
+              meta={EnvironmentalEmissionFieldMeta.EmissionCalculationMethod}
+            />
           }
         />
         </div>

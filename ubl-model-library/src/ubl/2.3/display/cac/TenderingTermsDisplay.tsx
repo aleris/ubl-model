@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TenderingTerms } from  '../../model/cac/TenderingTerms'
 import { TenderingTermsFieldMeta } from  '../../meta/cac/TenderingTermsMeta'
@@ -58,461 +59,798 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: TenderingTerms
   meta: FieldMeta<T>
 }
 
-export default function TenderingTermsDisplay<T>({ value, meta }: Params<T>) {
+export default function TenderingTermsDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-TenderingTerms ubl-TenderingTermsType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-TenderingTerms ubl-UBLExtensions"
           meta={TenderingTermsFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={TenderingTermsFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TenderingTerms ubl-Code ubl-AwardingMethodTypeCode"
           meta={TenderingTermsFieldMeta.AwardingMethodTypeCode} 
           value={value.AwardingMethodTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={TenderingTermsFieldMeta.AwardingMethodTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Awarding Method Type Code"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.AwardingMethodTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TenderingTerms ubl-Code ubl-PriceEvaluationCode"
           meta={TenderingTermsFieldMeta.PriceEvaluationCode} 
           value={value.PriceEvaluationCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={TenderingTermsFieldMeta.PriceEvaluationCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Price Evaluation Code"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.PriceEvaluationCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TenderingTerms ubl-Quantity ubl-MaximumVariantQuantity"
           meta={TenderingTermsFieldMeta.MaximumVariantQuantity} 
           value={value.MaximumVariantQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={TenderingTermsFieldMeta.MaximumVariantQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Maximum Variant Quantity"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.MaximumVariantQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TenderingTerms ubl-Indicator ubl-VariantConstraintIndicator"
           meta={TenderingTermsFieldMeta.VariantConstraintIndicator} 
           value={value.VariantConstraintIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={TenderingTermsFieldMeta.VariantConstraintIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Variant Constraint"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.VariantConstraintIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-TenderingTerms ubl-Text ubl-AcceptedVariantsDescription"
           meta={TenderingTermsFieldMeta.AcceptedVariantsDescription} 
           value={value.AcceptedVariantsDescription}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={TenderingTermsFieldMeta.AcceptedVariantsDescription} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Accepted Variants Description"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.AcceptedVariantsDescription}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-TenderingTerms ubl-Text ubl-PriceRevisionFormulaDescription"
           meta={TenderingTermsFieldMeta.PriceRevisionFormulaDescription} 
           value={value.PriceRevisionFormulaDescription}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={TenderingTermsFieldMeta.PriceRevisionFormulaDescription} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Price Revision Formula Description"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.PriceRevisionFormulaDescription}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TenderingTerms ubl-Code ubl-FundingProgramCode"
           meta={TenderingTermsFieldMeta.FundingProgramCode} 
           value={value.FundingProgramCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={TenderingTermsFieldMeta.FundingProgramCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Funding Program Code"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.FundingProgramCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-TenderingTerms ubl-Text ubl-FundingProgram"
           meta={TenderingTermsFieldMeta.FundingProgram} 
           value={value.FundingProgram}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={TenderingTermsFieldMeta.FundingProgram} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Funding Program"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.FundingProgram}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TenderingTerms ubl-Amount ubl-MaximumAdvertisementAmount"
           meta={TenderingTermsFieldMeta.MaximumAdvertisementAmount} 
           value={value.MaximumAdvertisementAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={TenderingTermsFieldMeta.MaximumAdvertisementAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Maximum Advertisement"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.MaximumAdvertisementAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-TenderingTerms ubl-Text ubl-Note"
           meta={TenderingTermsFieldMeta.Note} 
           value={value.Note}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={TenderingTermsFieldMeta.Note} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Note"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.Note}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TenderingTerms ubl-Code ubl-PaymentFrequencyCode"
           meta={TenderingTermsFieldMeta.PaymentFrequencyCode} 
           value={value.PaymentFrequencyCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={TenderingTermsFieldMeta.PaymentFrequencyCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Payment Frequency Code"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.PaymentFrequencyCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TenderingTerms ubl-Identifier ubl-EconomicOperatorRegistryURI"
           meta={TenderingTermsFieldMeta.EconomicOperatorRegistryURI} 
           value={value.EconomicOperatorRegistryURI}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={TenderingTermsFieldMeta.EconomicOperatorRegistryURI} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Economic Operator Registry URI"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.EconomicOperatorRegistryURI}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TenderingTerms ubl-Indicator ubl-RequiredCurriculaIndicator"
           meta={TenderingTermsFieldMeta.RequiredCurriculaIndicator} 
           value={value.RequiredCurriculaIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={TenderingTermsFieldMeta.RequiredCurriculaIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Required Curricula"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.RequiredCurriculaIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TenderingTerms ubl-Code ubl-RequiredCurriculaCode"
           meta={TenderingTermsFieldMeta.RequiredCurriculaCode} 
           value={value.RequiredCurriculaCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={TenderingTermsFieldMeta.RequiredCurriculaCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Required Curricula"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.RequiredCurriculaCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TenderingTerms ubl-Indicator ubl-OtherConditionsIndicator"
           meta={TenderingTermsFieldMeta.OtherConditionsIndicator} 
           value={value.OtherConditionsIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={TenderingTermsFieldMeta.OtherConditionsIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Other Conditions"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.OtherConditionsIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TenderingTerms ubl-Indicator ubl-RecurringProcurementIndicator"
           meta={TenderingTermsFieldMeta.RecurringProcurementIndicator} 
           value={value.RecurringProcurementIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={TenderingTermsFieldMeta.RecurringProcurementIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Recurring Procurement"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.RecurringProcurementIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-TenderingTerms ubl-Text ubl-RecurringProcurementDescription"
           meta={TenderingTermsFieldMeta.RecurringProcurementDescription} 
           value={value.RecurringProcurementDescription}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={TenderingTermsFieldMeta.RecurringProcurementDescription} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Recurring Procurement Description"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.RecurringProcurementDescription}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-TenderingTerms ubl-Text ubl-EstimatedTimingFurtherPublication"
           meta={TenderingTermsFieldMeta.EstimatedTimingFurtherPublication} 
           value={value.EstimatedTimingFurtherPublication}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={TenderingTermsFieldMeta.EstimatedTimingFurtherPublication} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Estimated Timing Further Publication"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.EstimatedTimingFurtherPublication}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-TenderingTerms ubl-Text ubl-AdditionalConditions"
           meta={TenderingTermsFieldMeta.AdditionalConditions} 
           value={value.AdditionalConditions}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={TenderingTermsFieldMeta.AdditionalConditions} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Additional Conditions"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.AdditionalConditions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TenderingTerms ubl-Date ubl-LatestSecurityClearanceDate"
           meta={TenderingTermsFieldMeta.LatestSecurityClearanceDate} 
           value={value.LatestSecurityClearanceDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={TenderingTermsFieldMeta.LatestSecurityClearanceDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Latest Security Clearance Date"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.LatestSecurityClearanceDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TenderingTerms ubl-Amount ubl-DocumentationFeeAmount"
           meta={TenderingTermsFieldMeta.DocumentationFeeAmount} 
           value={value.DocumentationFeeAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={TenderingTermsFieldMeta.DocumentationFeeAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Documentation Fee Amount"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.DocumentationFeeAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TenderingTerms ubl-Code ubl-MultipleTendersCode"
           meta={TenderingTermsFieldMeta.MultipleTendersCode} 
           value={value.MultipleTendersCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={TenderingTermsFieldMeta.MultipleTendersCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Multiple Tenders"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.MultipleTendersCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TenderingTerms ubl-Code ubl-VariantConstraintCode"
           meta={TenderingTermsFieldMeta.VariantConstraintCode} 
           value={value.VariantConstraintCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={TenderingTermsFieldMeta.VariantConstraintCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Variant Constraint"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.VariantConstraintCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TenderingTerms ubl-Clause ubl-PenaltyClause"
           meta={TenderingTermsFieldMeta.PenaltyClause} 
           value={value.PenaltyClause}
           itemDisplay={ (itemValue: Clause, key: string | number) =>
-            <ClauseDisplay key={key} meta={TenderingTermsFieldMeta.PenaltyClause} value={itemValue} />
+            <ClauseDisplay
+              key={key}
+              label="Penalty Clause"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.PenaltyClause}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TenderingTerms ubl-FinancialGuarantee ubl-RequiredFinancialGuarantee"
           meta={TenderingTermsFieldMeta.RequiredFinancialGuarantee} 
           value={value.RequiredFinancialGuarantee}
           itemDisplay={ (itemValue: FinancialGuarantee, key: string | number) =>
-            <FinancialGuaranteeDisplay key={key} meta={TenderingTermsFieldMeta.RequiredFinancialGuarantee} value={itemValue} />
+            <FinancialGuaranteeDisplay
+              key={key}
+              label="Required Financial Guarantee"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.RequiredFinancialGuarantee}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TenderingTerms ubl-DocumentReference ubl-ProcurementLegislationDocumentReference"
           meta={TenderingTermsFieldMeta.ProcurementLegislationDocumentReference} 
           value={value.ProcurementLegislationDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={TenderingTermsFieldMeta.ProcurementLegislationDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Procurement Legislation Document Reference"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.ProcurementLegislationDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TenderingTerms ubl-DocumentReference ubl-FiscalLegislationDocumentReference"
           meta={TenderingTermsFieldMeta.FiscalLegislationDocumentReference} 
           value={value.FiscalLegislationDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={TenderingTermsFieldMeta.FiscalLegislationDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Fiscal Legislation Document Reference"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.FiscalLegislationDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TenderingTerms ubl-DocumentReference ubl-EnvironmentalLegislationDocumentReference"
           meta={TenderingTermsFieldMeta.EnvironmentalLegislationDocumentReference} 
           value={value.EnvironmentalLegislationDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={TenderingTermsFieldMeta.EnvironmentalLegislationDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Environmental Legislation Document Reference"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.EnvironmentalLegislationDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TenderingTerms ubl-DocumentReference ubl-EmploymentLegislationDocumentReference"
           meta={TenderingTermsFieldMeta.EmploymentLegislationDocumentReference} 
           value={value.EmploymentLegislationDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={TenderingTermsFieldMeta.EmploymentLegislationDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Employment Legislation Document Reference"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.EmploymentLegislationDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TenderingTerms ubl-DocumentReference ubl-ContractualDocumentReference"
           meta={TenderingTermsFieldMeta.ContractualDocumentReference} 
           value={value.ContractualDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={TenderingTermsFieldMeta.ContractualDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Contractual Document Reference"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.ContractualDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TenderingTerms ubl-DocumentReference ubl-CallForTendersDocumentReference"
           meta={TenderingTermsFieldMeta.CallForTendersDocumentReference} 
           value={value.CallForTendersDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={TenderingTermsFieldMeta.CallForTendersDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Call For Tenders Document Reference"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.CallForTendersDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TenderingTerms ubl-Period ubl-WarrantyValidityPeriod"
           meta={TenderingTermsFieldMeta.WarrantyValidityPeriod} 
           value={value.WarrantyValidityPeriod}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={TenderingTermsFieldMeta.WarrantyValidityPeriod} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Warranty Validity Period"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.WarrantyValidityPeriod}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TenderingTerms ubl-PaymentTerms"
           meta={TenderingTermsFieldMeta.PaymentTerms} 
           value={value.PaymentTerms}
           itemDisplay={ (itemValue: PaymentTerms, key: string | number) =>
-            <PaymentTermsDisplay key={key} meta={TenderingTermsFieldMeta.PaymentTerms} value={itemValue} />
+            <PaymentTermsDisplay
+              key={key}
+              label="Payment Terms"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.PaymentTerms}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TenderingTerms ubl-TendererQualificationRequest"
           meta={TenderingTermsFieldMeta.TendererQualificationRequest} 
           value={value.TendererQualificationRequest}
           itemDisplay={ (itemValue: TendererQualificationRequest, key: string | number) =>
-            <TendererQualificationRequestDisplay key={key} meta={TenderingTermsFieldMeta.TendererQualificationRequest} value={itemValue} />
+            <TendererQualificationRequestDisplay
+              key={key}
+              label="Tenderer Qualification Request"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.TendererQualificationRequest}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TenderingTerms ubl-SubcontractTerms ubl-AllowedSubcontractTerms"
           meta={TenderingTermsFieldMeta.AllowedSubcontractTerms} 
           value={value.AllowedSubcontractTerms}
           itemDisplay={ (itemValue: SubcontractTerms, key: string | number) =>
-            <SubcontractTermsDisplay key={key} meta={TenderingTermsFieldMeta.AllowedSubcontractTerms} value={itemValue} />
+            <SubcontractTermsDisplay
+              key={key}
+              label="Allowed Subcontract Terms"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.AllowedSubcontractTerms}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TenderingTerms ubl-TenderPreparation"
           meta={TenderingTermsFieldMeta.TenderPreparation} 
           value={value.TenderPreparation}
           itemDisplay={ (itemValue: TenderPreparation, key: string | number) =>
-            <TenderPreparationDisplay key={key} meta={TenderingTermsFieldMeta.TenderPreparation} value={itemValue} />
+            <TenderPreparationDisplay
+              key={key}
+              label="Tender Preparation"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.TenderPreparation}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TenderingTerms ubl-ContractExecutionRequirement"
           meta={TenderingTermsFieldMeta.ContractExecutionRequirement} 
           value={value.ContractExecutionRequirement}
           itemDisplay={ (itemValue: ContractExecutionRequirement, key: string | number) =>
-            <ContractExecutionRequirementDisplay key={key} meta={TenderingTermsFieldMeta.ContractExecutionRequirement} value={itemValue} />
+            <ContractExecutionRequirementDisplay
+              key={key}
+              label="Contract Execution Requirement"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.ContractExecutionRequirement}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TenderingTerms ubl-AwardingTerms"
           meta={TenderingTermsFieldMeta.AwardingTerms} 
           value={value.AwardingTerms}
           itemDisplay={ (itemValue: AwardingTerms, key: string | number) =>
-            <AwardingTermsDisplay key={key} meta={TenderingTermsFieldMeta.AwardingTerms} value={itemValue} />
+            <AwardingTermsDisplay
+              key={key}
+              label="Awarding Terms"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.AwardingTerms}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TenderingTerms ubl-Party ubl-AdditionalInformationParty"
           meta={TenderingTermsFieldMeta.AdditionalInformationParty} 
           value={value.AdditionalInformationParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={TenderingTermsFieldMeta.AdditionalInformationParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Additional Information Party"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.AdditionalInformationParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TenderingTerms ubl-Party ubl-DocumentProviderParty"
           meta={TenderingTermsFieldMeta.DocumentProviderParty} 
           value={value.DocumentProviderParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={TenderingTermsFieldMeta.DocumentProviderParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Document Provider Party"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.DocumentProviderParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TenderingTerms ubl-Party ubl-TenderRecipientParty"
           meta={TenderingTermsFieldMeta.TenderRecipientParty} 
           value={value.TenderRecipientParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={TenderingTermsFieldMeta.TenderRecipientParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Tender Recipient Party"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.TenderRecipientParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TenderingTerms ubl-Party ubl-ContractResponsibleParty"
           meta={TenderingTermsFieldMeta.ContractResponsibleParty} 
           value={value.ContractResponsibleParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={TenderingTermsFieldMeta.ContractResponsibleParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Contract Responsible Party"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.ContractResponsibleParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TenderingTerms ubl-Party ubl-TenderEvaluationParty"
           meta={TenderingTermsFieldMeta.TenderEvaluationParty} 
           value={value.TenderEvaluationParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={TenderingTermsFieldMeta.TenderEvaluationParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Tender Evaluation Party"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.TenderEvaluationParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TenderingTerms ubl-Party ubl-QualificationRequestRecipientParty"
           meta={TenderingTermsFieldMeta.QualificationRequestRecipientParty} 
           value={value.QualificationRequestRecipientParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={TenderingTermsFieldMeta.QualificationRequestRecipientParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Qualification Request Recipient Party"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.QualificationRequestRecipientParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TenderingTerms ubl-Period ubl-TenderValidityPeriod"
           meta={TenderingTermsFieldMeta.TenderValidityPeriod} 
           value={value.TenderValidityPeriod}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={TenderingTermsFieldMeta.TenderValidityPeriod} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Tender Validity Period"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.TenderValidityPeriod}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TenderingTerms ubl-Period ubl-ContractAcceptancePeriod"
           meta={TenderingTermsFieldMeta.ContractAcceptancePeriod} 
           value={value.ContractAcceptancePeriod}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={TenderingTermsFieldMeta.ContractAcceptancePeriod} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Contract Acceptance Period"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.ContractAcceptancePeriod}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TenderingTerms ubl-AppealTerms"
           meta={TenderingTermsFieldMeta.AppealTerms} 
           value={value.AppealTerms}
           itemDisplay={ (itemValue: AppealTerms, key: string | number) =>
-            <AppealTermsDisplay key={key} meta={TenderingTermsFieldMeta.AppealTerms} value={itemValue} />
+            <AppealTermsDisplay
+              key={key}
+              label="Appeal Terms"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.AppealTerms}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TenderingTerms ubl-Language"
           meta={TenderingTermsFieldMeta.Language} 
           value={value.Language}
           itemDisplay={ (itemValue: Language, key: string | number) =>
-            <LanguageDisplay key={key} meta={TenderingTermsFieldMeta.Language} value={itemValue} />
+            <LanguageDisplay
+              key={key}
+              label="Language"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.Language}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TenderingTerms ubl-BudgetAccountLine"
           meta={TenderingTermsFieldMeta.BudgetAccountLine} 
           value={value.BudgetAccountLine}
           itemDisplay={ (itemValue: BudgetAccountLine, key: string | number) =>
-            <BudgetAccountLineDisplay key={key} meta={TenderingTermsFieldMeta.BudgetAccountLine} value={itemValue} />
+            <BudgetAccountLineDisplay
+              key={key}
+              label="Budget Account Line"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.BudgetAccountLine}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TenderingTerms ubl-DocumentReference ubl-ReplacedNoticeDocumentReference"
           meta={TenderingTermsFieldMeta.ReplacedNoticeDocumentReference} 
           value={value.ReplacedNoticeDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={TenderingTermsFieldMeta.ReplacedNoticeDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Replaced Notice Document Reference"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.ReplacedNoticeDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TenderingTerms ubl-LotDistribution"
           meta={TenderingTermsFieldMeta.LotDistribution} 
           value={value.LotDistribution}
           itemDisplay={ (itemValue: LotDistribution, key: string | number) =>
-            <LotDistributionDisplay key={key} meta={TenderingTermsFieldMeta.LotDistribution} value={itemValue} />
+            <LotDistributionDisplay
+              key={key}
+              label="Lot Distribution"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.LotDistribution}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TenderingTerms ubl-PostAwardProcess"
           meta={TenderingTermsFieldMeta.PostAwardProcess} 
           value={value.PostAwardProcess}
           itemDisplay={ (itemValue: PostAwardProcess, key: string | number) =>
-            <PostAwardProcessDisplay key={key} meta={TenderingTermsFieldMeta.PostAwardProcess} value={itemValue} />
+            <PostAwardProcessDisplay
+              key={key}
+              label="Post Award Process"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.PostAwardProcess}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TenderingTerms ubl-EconomicOperatorShortList"
           meta={TenderingTermsFieldMeta.EconomicOperatorShortList} 
           value={value.EconomicOperatorShortList}
           itemDisplay={ (itemValue: EconomicOperatorShortList, key: string | number) =>
-            <EconomicOperatorShortListDisplay key={key} meta={TenderingTermsFieldMeta.EconomicOperatorShortList} value={itemValue} />
+            <EconomicOperatorShortListDisplay
+              key={key}
+              label="Economic Operator Short List"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.EconomicOperatorShortList}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TenderingTerms ubl-Prize"
           meta={TenderingTermsFieldMeta.Prize} 
           value={value.Prize}
           itemDisplay={ (itemValue: Prize, key: string | number) =>
-            <PrizeDisplay key={key} meta={TenderingTermsFieldMeta.Prize} value={itemValue} />
+            <PrizeDisplay
+              key={key}
+              label="Prize"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.Prize}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TenderingTerms ubl-SecurityClearanceTerm"
           meta={TenderingTermsFieldMeta.SecurityClearanceTerm} 
           value={value.SecurityClearanceTerm}
           itemDisplay={ (itemValue: SecurityClearanceTerm, key: string | number) =>
-            <SecurityClearanceTermDisplay key={key} meta={TenderingTermsFieldMeta.SecurityClearanceTerm} value={itemValue} />
+            <SecurityClearanceTermDisplay
+              key={key}
+              label="Security Clearance Term"
+              value={itemValue}
+              meta={TenderingTermsFieldMeta.SecurityClearanceTerm}
+            />
           }
         />
         </div>

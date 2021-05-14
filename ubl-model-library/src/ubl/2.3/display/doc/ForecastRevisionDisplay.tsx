@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ForecastRevision } from  '../../model/doc/ForecastRevision'
 import { ForecastRevisionFieldMeta } from  '../../meta/doc/ForecastRevisionMeta'
@@ -32,189 +33,322 @@ import { Time } from '../../model/cbc/Time'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: ForecastRevision
   meta: FieldMeta<T>
 }
 
-export default function ForecastRevisionDisplay<T>({ value, meta }: Params<T>) {
+export default function ForecastRevisionDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-doc ubl-ForecastRevision ubl-ForecastRevisionType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-ForecastRevision ubl-UBLExtensions"
           meta={ForecastRevisionFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={ForecastRevisionFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={ForecastRevisionFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ForecastRevision ubl-Identifier ubl-UBLVersionID"
           meta={ForecastRevisionFieldMeta.UBLVersionID} 
           value={value.UBLVersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ForecastRevisionFieldMeta.UBLVersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UBL Version Identifier"
+              value={itemValue}
+              meta={ForecastRevisionFieldMeta.UBLVersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ForecastRevision ubl-Identifier ubl-CustomizationID"
           meta={ForecastRevisionFieldMeta.CustomizationID} 
           value={value.CustomizationID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ForecastRevisionFieldMeta.CustomizationID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Customization Identifier"
+              value={itemValue}
+              meta={ForecastRevisionFieldMeta.CustomizationID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ForecastRevision ubl-Identifier ubl-ProfileID"
           meta={ForecastRevisionFieldMeta.ProfileID} 
           value={value.ProfileID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ForecastRevisionFieldMeta.ProfileID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Identifier"
+              value={itemValue}
+              meta={ForecastRevisionFieldMeta.ProfileID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ForecastRevision ubl-Identifier ubl-ProfileExecutionID"
           meta={ForecastRevisionFieldMeta.ProfileExecutionID} 
           value={value.ProfileExecutionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ForecastRevisionFieldMeta.ProfileExecutionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Execution Identifier"
+              value={itemValue}
+              meta={ForecastRevisionFieldMeta.ProfileExecutionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ForecastRevision ubl-Identifier ubl-ID"
           meta={ForecastRevisionFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ForecastRevisionFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={ForecastRevisionFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ForecastRevision ubl-Indicator ubl-CopyIndicator"
           meta={ForecastRevisionFieldMeta.CopyIndicator} 
           value={value.CopyIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={ForecastRevisionFieldMeta.CopyIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Copy Indicator"
+              value={itemValue}
+              meta={ForecastRevisionFieldMeta.CopyIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ForecastRevision ubl-Identifier ubl-UUID"
           meta={ForecastRevisionFieldMeta.UUID} 
           value={value.UUID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ForecastRevisionFieldMeta.UUID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UUID"
+              value={itemValue}
+              meta={ForecastRevisionFieldMeta.UUID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ForecastRevision ubl-Date ubl-IssueDate"
           meta={ForecastRevisionFieldMeta.IssueDate} 
           value={value.IssueDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={ForecastRevisionFieldMeta.IssueDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Issue Date"
+              value={itemValue}
+              meta={ForecastRevisionFieldMeta.IssueDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ForecastRevision ubl-Time ubl-IssueTime"
           meta={ForecastRevisionFieldMeta.IssueTime} 
           value={value.IssueTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={ForecastRevisionFieldMeta.IssueTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Issue Time"
+              value={itemValue}
+              meta={ForecastRevisionFieldMeta.IssueTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-ForecastRevision ubl-Text ubl-Note"
           meta={ForecastRevisionFieldMeta.Note} 
           value={value.Note}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ForecastRevisionFieldMeta.Note} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Note"
+              value={itemValue}
+              meta={ForecastRevisionFieldMeta.Note}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ForecastRevision ubl-Identifier ubl-SequenceNumberID"
           meta={ForecastRevisionFieldMeta.SequenceNumberID} 
           value={value.SequenceNumberID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ForecastRevisionFieldMeta.SequenceNumberID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Sequence Number"
+              value={itemValue}
+              meta={ForecastRevisionFieldMeta.SequenceNumberID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ForecastRevision ubl-Code ubl-RevisionStatusCode"
           meta={ForecastRevisionFieldMeta.RevisionStatusCode} 
           value={value.RevisionStatusCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={ForecastRevisionFieldMeta.RevisionStatusCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Revision Status Code"
+              value={itemValue}
+              meta={ForecastRevisionFieldMeta.RevisionStatusCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ForecastRevision ubl-Code ubl-PurposeCode"
           meta={ForecastRevisionFieldMeta.PurposeCode} 
           value={value.PurposeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={ForecastRevisionFieldMeta.PurposeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Purpose Code"
+              value={itemValue}
+              meta={ForecastRevisionFieldMeta.PurposeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-ForecastRevision ubl-Period ubl-ForecastPeriod"
           meta={ForecastRevisionFieldMeta.ForecastPeriod} 
           value={value.ForecastPeriod}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={ForecastRevisionFieldMeta.ForecastPeriod} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Forecast Period"
+              value={itemValue}
+              meta={ForecastRevisionFieldMeta.ForecastPeriod}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-ForecastRevision ubl-DocumentReference ubl-OriginalDocumentReference"
           meta={ForecastRevisionFieldMeta.OriginalDocumentReference} 
           value={value.OriginalDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={ForecastRevisionFieldMeta.OriginalDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Original Document Reference"
+              value={itemValue}
+              meta={ForecastRevisionFieldMeta.OriginalDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-ForecastRevision ubl-Signature"
           meta={ForecastRevisionFieldMeta.Signature} 
           value={value.Signature}
           itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay key={key} meta={ForecastRevisionFieldMeta.Signature} value={itemValue} />
+            <SignatureDisplay
+              key={key}
+              label="Signature"
+              value={itemValue}
+              meta={ForecastRevisionFieldMeta.Signature}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-ForecastRevision ubl-Party ubl-SenderParty"
           meta={ForecastRevisionFieldMeta.SenderParty} 
           value={value.SenderParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={ForecastRevisionFieldMeta.SenderParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Sender Party"
+              value={itemValue}
+              meta={ForecastRevisionFieldMeta.SenderParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-ForecastRevision ubl-Party ubl-ReceiverParty"
           meta={ForecastRevisionFieldMeta.ReceiverParty} 
           value={value.ReceiverParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={ForecastRevisionFieldMeta.ReceiverParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Receiver Party"
+              value={itemValue}
+              meta={ForecastRevisionFieldMeta.ReceiverParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-ForecastRevision ubl-CustomerParty ubl-BuyerCustomerParty"
           meta={ForecastRevisionFieldMeta.BuyerCustomerParty} 
           value={value.BuyerCustomerParty}
           itemDisplay={ (itemValue: CustomerParty, key: string | number) =>
-            <CustomerPartyDisplay key={key} meta={ForecastRevisionFieldMeta.BuyerCustomerParty} value={itemValue} />
+            <CustomerPartyDisplay
+              key={key}
+              label="Buyer Customer Party"
+              value={itemValue}
+              meta={ForecastRevisionFieldMeta.BuyerCustomerParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-ForecastRevision ubl-SupplierParty ubl-SellerSupplierParty"
           meta={ForecastRevisionFieldMeta.SellerSupplierParty} 
           value={value.SellerSupplierParty}
           itemDisplay={ (itemValue: SupplierParty, key: string | number) =>
-            <SupplierPartyDisplay key={key} meta={ForecastRevisionFieldMeta.SellerSupplierParty} value={itemValue} />
+            <SupplierPartyDisplay
+              key={key}
+              label="Seller Supplier Party"
+              value={itemValue}
+              meta={ForecastRevisionFieldMeta.SellerSupplierParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-ForecastRevision ubl-ForecastRevisionLine"
           meta={ForecastRevisionFieldMeta.ForecastRevisionLine} 
           value={value.ForecastRevisionLine}
           itemDisplay={ (itemValue: ForecastRevisionLine, key: string | number) =>
-            <ForecastRevisionLineDisplay key={key} meta={ForecastRevisionFieldMeta.ForecastRevisionLine} value={itemValue} />
+            <ForecastRevisionLineDisplay
+              key={key}
+              label="Forecast Revision Line"
+              value={itemValue}
+              meta={ForecastRevisionFieldMeta.ForecastRevisionLine}
+            />
           }
         />
         </div>

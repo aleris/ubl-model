@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TransportHandlingUnit } from  '../../model/cac/TransportHandlingUnit'
 import { TransportHandlingUnitFieldMeta } from  '../../meta/cac/TransportHandlingUnitMeta'
@@ -42,237 +43,406 @@ import { TransportMeans } from '../../model/cac/TransportMeans'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: TransportHandlingUnit
   meta: FieldMeta<T>
 }
 
-export default function TransportHandlingUnitDisplay<T>({ value, meta }: Params<T>) {
+export default function TransportHandlingUnitDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-TransportHandlingUnit ubl-TransportHandlingUnitType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-TransportHandlingUnit ubl-UBLExtensions"
           meta={TransportHandlingUnitFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={TransportHandlingUnitFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={TransportHandlingUnitFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportHandlingUnit ubl-Identifier ubl-ID"
           meta={TransportHandlingUnitFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={TransportHandlingUnitFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={TransportHandlingUnitFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportHandlingUnit ubl-Code ubl-TransportHandlingUnitTypeCode"
           meta={TransportHandlingUnitFieldMeta.TransportHandlingUnitTypeCode} 
           value={value.TransportHandlingUnitTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={TransportHandlingUnitFieldMeta.TransportHandlingUnitTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Transport Handling Unit Type Code"
+              value={itemValue}
+              meta={TransportHandlingUnitFieldMeta.TransportHandlingUnitTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportHandlingUnit ubl-Code ubl-HandlingCode"
           meta={TransportHandlingUnitFieldMeta.HandlingCode} 
           value={value.HandlingCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={TransportHandlingUnitFieldMeta.HandlingCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Handling Code"
+              value={itemValue}
+              meta={TransportHandlingUnitFieldMeta.HandlingCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-TransportHandlingUnit ubl-Text ubl-HandlingInstructions"
           meta={TransportHandlingUnitFieldMeta.HandlingInstructions} 
           value={value.HandlingInstructions}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={TransportHandlingUnitFieldMeta.HandlingInstructions} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Handling Instructions"
+              value={itemValue}
+              meta={TransportHandlingUnitFieldMeta.HandlingInstructions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportHandlingUnit ubl-Indicator ubl-HazardousRiskIndicator"
           meta={TransportHandlingUnitFieldMeta.HazardousRiskIndicator} 
           value={value.HazardousRiskIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={TransportHandlingUnitFieldMeta.HazardousRiskIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Hazardous Risk Indicator"
+              value={itemValue}
+              meta={TransportHandlingUnitFieldMeta.HazardousRiskIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportHandlingUnit ubl-Quantity ubl-TotalGoodsItemQuantity"
           meta={TransportHandlingUnitFieldMeta.TotalGoodsItemQuantity} 
           value={value.TotalGoodsItemQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={TransportHandlingUnitFieldMeta.TotalGoodsItemQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Total Goods Item Quantity"
+              value={itemValue}
+              meta={TransportHandlingUnitFieldMeta.TotalGoodsItemQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportHandlingUnit ubl-Quantity ubl-TotalPackageQuantity"
           meta={TransportHandlingUnitFieldMeta.TotalPackageQuantity} 
           value={value.TotalPackageQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={TransportHandlingUnitFieldMeta.TotalPackageQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Total Package Quantity"
+              value={itemValue}
+              meta={TransportHandlingUnitFieldMeta.TotalPackageQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-TransportHandlingUnit ubl-Text ubl-DamageRemarks"
           meta={TransportHandlingUnitFieldMeta.DamageRemarks} 
           value={value.DamageRemarks}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={TransportHandlingUnitFieldMeta.DamageRemarks} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Damage Remarks"
+              value={itemValue}
+              meta={TransportHandlingUnitFieldMeta.DamageRemarks}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-TransportHandlingUnit ubl-Text ubl-ShippingMarks"
           meta={TransportHandlingUnitFieldMeta.ShippingMarks} 
           value={value.ShippingMarks}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={TransportHandlingUnitFieldMeta.ShippingMarks} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Shipping Marks"
+              value={itemValue}
+              meta={TransportHandlingUnitFieldMeta.ShippingMarks}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportHandlingUnit ubl-Identifier ubl-TraceID"
           meta={TransportHandlingUnitFieldMeta.TraceID} 
           value={value.TraceID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={TransportHandlingUnitFieldMeta.TraceID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Trace Identifier"
+              value={itemValue}
+              meta={TransportHandlingUnitFieldMeta.TraceID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportHandlingUnit ubl-DespatchLine ubl-HandlingUnitDespatchLine"
           meta={TransportHandlingUnitFieldMeta.HandlingUnitDespatchLine} 
           value={value.HandlingUnitDespatchLine}
           itemDisplay={ (itemValue: DespatchLine, key: string | number) =>
-            <DespatchLineDisplay key={key} meta={TransportHandlingUnitFieldMeta.HandlingUnitDespatchLine} value={itemValue} />
+            <DespatchLineDisplay
+              key={key}
+              label="Handling Unit Despatch Line"
+              value={itemValue}
+              meta={TransportHandlingUnitFieldMeta.HandlingUnitDespatchLine}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportHandlingUnit ubl-Package ubl-ActualPackage"
           meta={TransportHandlingUnitFieldMeta.ActualPackage} 
           value={value.ActualPackage}
           itemDisplay={ (itemValue: Package, key: string | number) =>
-            <PackageDisplay key={key} meta={TransportHandlingUnitFieldMeta.ActualPackage} value={itemValue} />
+            <PackageDisplay
+              key={key}
+              label="Actual Package"
+              value={itemValue}
+              meta={TransportHandlingUnitFieldMeta.ActualPackage}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportHandlingUnit ubl-ReceiptLine ubl-ReceivedHandlingUnitReceiptLine"
           meta={TransportHandlingUnitFieldMeta.ReceivedHandlingUnitReceiptLine} 
           value={value.ReceivedHandlingUnitReceiptLine}
           itemDisplay={ (itemValue: ReceiptLine, key: string | number) =>
-            <ReceiptLineDisplay key={key} meta={TransportHandlingUnitFieldMeta.ReceivedHandlingUnitReceiptLine} value={itemValue} />
+            <ReceiptLineDisplay
+              key={key}
+              label="Received Handling Unit Receipt Line"
+              value={itemValue}
+              meta={TransportHandlingUnitFieldMeta.ReceivedHandlingUnitReceiptLine}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportHandlingUnit ubl-TransportEquipment"
           meta={TransportHandlingUnitFieldMeta.TransportEquipment} 
           value={value.TransportEquipment}
           itemDisplay={ (itemValue: TransportEquipment, key: string | number) =>
-            <TransportEquipmentDisplay key={key} meta={TransportHandlingUnitFieldMeta.TransportEquipment} value={itemValue} />
+            <TransportEquipmentDisplay
+              key={key}
+              label="Transport Equipment"
+              value={itemValue}
+              meta={TransportHandlingUnitFieldMeta.TransportEquipment}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportHandlingUnit ubl-TransportMeans"
           meta={TransportHandlingUnitFieldMeta.TransportMeans} 
           value={value.TransportMeans}
           itemDisplay={ (itemValue: TransportMeans, key: string | number) =>
-            <TransportMeansDisplay key={key} meta={TransportHandlingUnitFieldMeta.TransportMeans} value={itemValue} />
+            <TransportMeansDisplay
+              key={key}
+              label="Transport Means"
+              value={itemValue}
+              meta={TransportHandlingUnitFieldMeta.TransportMeans}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportHandlingUnit ubl-HazardousGoodsTransit"
           meta={TransportHandlingUnitFieldMeta.HazardousGoodsTransit} 
           value={value.HazardousGoodsTransit}
           itemDisplay={ (itemValue: HazardousGoodsTransit, key: string | number) =>
-            <HazardousGoodsTransitDisplay key={key} meta={TransportHandlingUnitFieldMeta.HazardousGoodsTransit} value={itemValue} />
+            <HazardousGoodsTransitDisplay
+              key={key}
+              label="Hazardous Goods Transit"
+              value={itemValue}
+              meta={TransportHandlingUnitFieldMeta.HazardousGoodsTransit}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportHandlingUnit ubl-Dimension ubl-MeasurementDimension"
           meta={TransportHandlingUnitFieldMeta.MeasurementDimension} 
           value={value.MeasurementDimension}
           itemDisplay={ (itemValue: Dimension, key: string | number) =>
-            <DimensionDisplay key={key} meta={TransportHandlingUnitFieldMeta.MeasurementDimension} value={itemValue} />
+            <DimensionDisplay
+              key={key}
+              label="Measurement Dimension"
+              value={itemValue}
+              meta={TransportHandlingUnitFieldMeta.MeasurementDimension}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TransportHandlingUnit ubl-Temperature ubl-MinimumTemperature"
           meta={TransportHandlingUnitFieldMeta.MinimumTemperature} 
           value={value.MinimumTemperature}
           itemDisplay={ (itemValue: Temperature, key: string | number) =>
-            <TemperatureDisplay key={key} meta={TransportHandlingUnitFieldMeta.MinimumTemperature} value={itemValue} />
+            <TemperatureDisplay
+              key={key}
+              label="Minimum Temperature"
+              value={itemValue}
+              meta={TransportHandlingUnitFieldMeta.MinimumTemperature}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TransportHandlingUnit ubl-Temperature ubl-MaximumTemperature"
           meta={TransportHandlingUnitFieldMeta.MaximumTemperature} 
           value={value.MaximumTemperature}
           itemDisplay={ (itemValue: Temperature, key: string | number) =>
-            <TemperatureDisplay key={key} meta={TransportHandlingUnitFieldMeta.MaximumTemperature} value={itemValue} />
+            <TemperatureDisplay
+              key={key}
+              label="Maximum Temperature"
+              value={itemValue}
+              meta={TransportHandlingUnitFieldMeta.MaximumTemperature}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportHandlingUnit ubl-GoodsItem"
           meta={TransportHandlingUnitFieldMeta.GoodsItem} 
           value={value.GoodsItem}
           itemDisplay={ (itemValue: GoodsItem, key: string | number) =>
-            <GoodsItemDisplay key={key} meta={TransportHandlingUnitFieldMeta.GoodsItem} value={itemValue} />
+            <GoodsItemDisplay
+              key={key}
+              label="Goods Item"
+              value={itemValue}
+              meta={TransportHandlingUnitFieldMeta.GoodsItem}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TransportHandlingUnit ubl-Dimension ubl-FloorSpaceMeasurementDimension"
           meta={TransportHandlingUnitFieldMeta.FloorSpaceMeasurementDimension} 
           value={value.FloorSpaceMeasurementDimension}
           itemDisplay={ (itemValue: Dimension, key: string | number) =>
-            <DimensionDisplay key={key} meta={TransportHandlingUnitFieldMeta.FloorSpaceMeasurementDimension} value={itemValue} />
+            <DimensionDisplay
+              key={key}
+              label="Floor Space Measurement Dimension"
+              value={itemValue}
+              meta={TransportHandlingUnitFieldMeta.FloorSpaceMeasurementDimension}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TransportHandlingUnit ubl-Dimension ubl-PalletSpaceMeasurementDimension"
           meta={TransportHandlingUnitFieldMeta.PalletSpaceMeasurementDimension} 
           value={value.PalletSpaceMeasurementDimension}
           itemDisplay={ (itemValue: Dimension, key: string | number) =>
-            <DimensionDisplay key={key} meta={TransportHandlingUnitFieldMeta.PalletSpaceMeasurementDimension} value={itemValue} />
+            <DimensionDisplay
+              key={key}
+              label="Pallet Space Measurement Dimension"
+              value={itemValue}
+              meta={TransportHandlingUnitFieldMeta.PalletSpaceMeasurementDimension}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportHandlingUnit ubl-DocumentReference ubl-ShipmentDocumentReference"
           meta={TransportHandlingUnitFieldMeta.ShipmentDocumentReference} 
           value={value.ShipmentDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={TransportHandlingUnitFieldMeta.ShipmentDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Shipment Document Reference"
+              value={itemValue}
+              meta={TransportHandlingUnitFieldMeta.ShipmentDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportHandlingUnit ubl-Status"
           meta={TransportHandlingUnitFieldMeta.Status} 
           value={value.Status}
           itemDisplay={ (itemValue: Status, key: string | number) =>
-            <StatusDisplay key={key} meta={TransportHandlingUnitFieldMeta.Status} value={itemValue} />
+            <StatusDisplay
+              key={key}
+              label="Status"
+              value={itemValue}
+              meta={TransportHandlingUnitFieldMeta.Status}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportHandlingUnit ubl-CustomsDeclaration"
           meta={TransportHandlingUnitFieldMeta.CustomsDeclaration} 
           value={value.CustomsDeclaration}
           itemDisplay={ (itemValue: CustomsDeclaration, key: string | number) =>
-            <CustomsDeclarationDisplay key={key} meta={TransportHandlingUnitFieldMeta.CustomsDeclaration} value={itemValue} />
+            <CustomsDeclarationDisplay
+              key={key}
+              label="Customs Declaration"
+              value={itemValue}
+              meta={TransportHandlingUnitFieldMeta.CustomsDeclaration}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportHandlingUnit ubl-Shipment ubl-ReferencedShipment"
           meta={TransportHandlingUnitFieldMeta.ReferencedShipment} 
           value={value.ReferencedShipment}
           itemDisplay={ (itemValue: Shipment, key: string | number) =>
-            <ShipmentDisplay key={key} meta={TransportHandlingUnitFieldMeta.ReferencedShipment} value={itemValue} />
+            <ShipmentDisplay
+              key={key}
+              label="Referenced Shipment"
+              value={itemValue}
+              meta={TransportHandlingUnitFieldMeta.ReferencedShipment}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportHandlingUnit ubl-Package"
           meta={TransportHandlingUnitFieldMeta.Package} 
           value={value.Package}
           itemDisplay={ (itemValue: Package, key: string | number) =>
-            <PackageDisplay key={key} meta={TransportHandlingUnitFieldMeta.Package} value={itemValue} />
+            <PackageDisplay
+              key={key}
+              label="Package"
+              value={itemValue}
+              meta={TransportHandlingUnitFieldMeta.Package}
+            />
           }
         />
         </div>

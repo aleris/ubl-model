@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Event } from  '../../model/cac/Event'
 import { EventFieldMeta } from  '../../meta/cac/EventMeta'
@@ -24,93 +25,154 @@ import { Time } from '../../model/cbc/Time'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: Event
   meta: FieldMeta<T>
 }
 
-export default function EventDisplay<T>({ value, meta }: Params<T>) {
+export default function EventDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-Event ubl-EventType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-Event ubl-UBLExtensions"
           meta={EventFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={EventFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={EventFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Event ubl-Identifier ubl-IdentificationID"
           meta={EventFieldMeta.IdentificationID} 
           value={value.IdentificationID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={EventFieldMeta.IdentificationID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identification"
+              value={itemValue}
+              meta={EventFieldMeta.IdentificationID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Event ubl-Date ubl-OccurrenceDate"
           meta={EventFieldMeta.OccurrenceDate} 
           value={value.OccurrenceDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={EventFieldMeta.OccurrenceDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Occurrence Date"
+              value={itemValue}
+              meta={EventFieldMeta.OccurrenceDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Event ubl-Time ubl-OccurrenceTime"
           meta={EventFieldMeta.OccurrenceTime} 
           value={value.OccurrenceTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={EventFieldMeta.OccurrenceTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Occurrence Time"
+              value={itemValue}
+              meta={EventFieldMeta.OccurrenceTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Event ubl-Code ubl-TypeCode"
           meta={EventFieldMeta.TypeCode} 
           value={value.TypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={EventFieldMeta.TypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Type Code"
+              value={itemValue}
+              meta={EventFieldMeta.TypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Event ubl-Text ubl-Description"
           meta={EventFieldMeta.Description} 
           value={value.Description}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={EventFieldMeta.Description} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Description"
+              value={itemValue}
+              meta={EventFieldMeta.Description}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Event ubl-Indicator ubl-CompletionIndicator"
           meta={EventFieldMeta.CompletionIndicator} 
           value={value.CompletionIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={EventFieldMeta.CompletionIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Completion Indicator"
+              value={itemValue}
+              meta={EventFieldMeta.CompletionIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Event ubl-Status ubl-CurrentStatus"
           meta={EventFieldMeta.CurrentStatus} 
           value={value.CurrentStatus}
           itemDisplay={ (itemValue: Status, key: string | number) =>
-            <StatusDisplay key={key} meta={EventFieldMeta.CurrentStatus} value={itemValue} />
+            <StatusDisplay
+              key={key}
+              label="Current Status"
+              value={itemValue}
+              meta={EventFieldMeta.CurrentStatus}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Event ubl-Contact"
           meta={EventFieldMeta.Contact} 
           value={value.Contact}
           itemDisplay={ (itemValue: Contact, key: string | number) =>
-            <ContactDisplay key={key} meta={EventFieldMeta.Contact} value={itemValue} />
+            <ContactDisplay
+              key={key}
+              label="Contact"
+              value={itemValue}
+              meta={EventFieldMeta.Contact}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Event ubl-Location ubl-OccurenceLocation"
           meta={EventFieldMeta.OccurenceLocation} 
           value={value.OccurenceLocation}
           itemDisplay={ (itemValue: Location, key: string | number) =>
-            <LocationDisplay key={key} meta={EventFieldMeta.OccurenceLocation} value={itemValue} />
+            <LocationDisplay
+              key={key}
+              label="Occurence Location"
+              value={itemValue}
+              meta={EventFieldMeta.OccurenceLocation}
+            />
           }
         />
         </div>

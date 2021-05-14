@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { CriterionItem } from  '../../model/cac/CriterionItem'
 import { CriterionItemFieldMeta } from  '../../meta/cac/CriterionItemMeta'
@@ -14,53 +15,84 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: CriterionItem
   meta: FieldMeta<T>
 }
 
-export default function CriterionItemDisplay<T>({ value, meta }: Params<T>) {
+export default function CriterionItemDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-CriterionItem ubl-CriterionItemType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-CriterionItem ubl-UBLExtensions"
           meta={CriterionItemFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={CriterionItemFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={CriterionItemFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CriterionItem ubl-Identifier ubl-ID"
           meta={CriterionItemFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CriterionItemFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={CriterionItemFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CriterionItem ubl-Code ubl-TypeCode"
           meta={CriterionItemFieldMeta.TypeCode} 
           value={value.TypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={CriterionItemFieldMeta.TypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Type Code"
+              value={itemValue}
+              meta={CriterionItemFieldMeta.TypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-CriterionItem ubl-Text ubl-CriterionDescription"
           meta={CriterionItemFieldMeta.CriterionDescription} 
           value={value.CriterionDescription}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={CriterionItemFieldMeta.CriterionDescription} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Criterion Description"
+              value={itemValue}
+              meta={CriterionItemFieldMeta.CriterionDescription}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-CriterionItem ubl-Item ubl-DeclaredPropertyItem"
           meta={CriterionItemFieldMeta.DeclaredPropertyItem} 
           value={value.DeclaredPropertyItem}
           itemDisplay={ (itemValue: Item, key: string | number) =>
-            <ItemDisplay key={key} meta={CriterionItemFieldMeta.DeclaredPropertyItem} value={itemValue} />
+            <ItemDisplay
+              key={key}
+              label="Declared Property Item"
+              value={itemValue}
+              meta={CriterionItemFieldMeta.DeclaredPropertyItem}
+            />
           }
         />
         </div>

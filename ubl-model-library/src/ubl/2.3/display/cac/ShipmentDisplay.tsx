@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Shipment } from  '../../model/cac/Shipment'
 import { ShipmentFieldMeta } from  '../../meta/cac/ShipmentMeta'
@@ -38,277 +39,476 @@ import { TransportHandlingUnit } from '../../model/cac/TransportHandlingUnit'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: Shipment
   meta: FieldMeta<T>
 }
 
-export default function ShipmentDisplay<T>({ value, meta }: Params<T>) {
+export default function ShipmentDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-Shipment ubl-ShipmentType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-Shipment ubl-UBLExtensions"
           meta={ShipmentFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={ShipmentFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={ShipmentFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Shipment ubl-Identifier ubl-ID"
           meta={ShipmentFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ShipmentFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={ShipmentFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Shipment ubl-Code ubl-ShippingPriorityLevelCode"
           meta={ShipmentFieldMeta.ShippingPriorityLevelCode} 
           value={value.ShippingPriorityLevelCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={ShipmentFieldMeta.ShippingPriorityLevelCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Shipping Priority Level Code"
+              value={itemValue}
+              meta={ShipmentFieldMeta.ShippingPriorityLevelCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Shipment ubl-Code ubl-HandlingCode"
           meta={ShipmentFieldMeta.HandlingCode} 
           value={value.HandlingCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={ShipmentFieldMeta.HandlingCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Handling Code"
+              value={itemValue}
+              meta={ShipmentFieldMeta.HandlingCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Shipment ubl-Text ubl-HandlingInstructions"
           meta={ShipmentFieldMeta.HandlingInstructions} 
           value={value.HandlingInstructions}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ShipmentFieldMeta.HandlingInstructions} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Handling Instructions"
+              value={itemValue}
+              meta={ShipmentFieldMeta.HandlingInstructions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Shipment ubl-Text ubl-Information"
           meta={ShipmentFieldMeta.Information} 
           value={value.Information}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ShipmentFieldMeta.Information} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Information"
+              value={itemValue}
+              meta={ShipmentFieldMeta.Information}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Shipment ubl-Measure ubl-GrossWeightMeasure"
           meta={ShipmentFieldMeta.GrossWeightMeasure} 
           value={value.GrossWeightMeasure}
           itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay key={key} meta={ShipmentFieldMeta.GrossWeightMeasure} value={itemValue} />
+            <MeasureDisplay
+              key={key}
+              label="Gross Weight"
+              value={itemValue}
+              meta={ShipmentFieldMeta.GrossWeightMeasure}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Shipment ubl-Measure ubl-NetWeightMeasure"
           meta={ShipmentFieldMeta.NetWeightMeasure} 
           value={value.NetWeightMeasure}
           itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay key={key} meta={ShipmentFieldMeta.NetWeightMeasure} value={itemValue} />
+            <MeasureDisplay
+              key={key}
+              label="Net Weight"
+              value={itemValue}
+              meta={ShipmentFieldMeta.NetWeightMeasure}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Shipment ubl-Measure ubl-NetNetWeightMeasure"
           meta={ShipmentFieldMeta.NetNetWeightMeasure} 
           value={value.NetNetWeightMeasure}
           itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay key={key} meta={ShipmentFieldMeta.NetNetWeightMeasure} value={itemValue} />
+            <MeasureDisplay
+              key={key}
+              label="Net Net Weight"
+              value={itemValue}
+              meta={ShipmentFieldMeta.NetNetWeightMeasure}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Shipment ubl-Measure ubl-GrossVolumeMeasure"
           meta={ShipmentFieldMeta.GrossVolumeMeasure} 
           value={value.GrossVolumeMeasure}
           itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay key={key} meta={ShipmentFieldMeta.GrossVolumeMeasure} value={itemValue} />
+            <MeasureDisplay
+              key={key}
+              label="Gross Volume"
+              value={itemValue}
+              meta={ShipmentFieldMeta.GrossVolumeMeasure}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Shipment ubl-Measure ubl-NetVolumeMeasure"
           meta={ShipmentFieldMeta.NetVolumeMeasure} 
           value={value.NetVolumeMeasure}
           itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay key={key} meta={ShipmentFieldMeta.NetVolumeMeasure} value={itemValue} />
+            <MeasureDisplay
+              key={key}
+              label="Net Volume"
+              value={itemValue}
+              meta={ShipmentFieldMeta.NetVolumeMeasure}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Shipment ubl-Quantity ubl-TotalGoodsItemQuantity"
           meta={ShipmentFieldMeta.TotalGoodsItemQuantity} 
           value={value.TotalGoodsItemQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={ShipmentFieldMeta.TotalGoodsItemQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Total Goods Item Quantity"
+              value={itemValue}
+              meta={ShipmentFieldMeta.TotalGoodsItemQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Shipment ubl-Quantity ubl-TotalTransportHandlingUnitQuantity"
           meta={ShipmentFieldMeta.TotalTransportHandlingUnitQuantity} 
           value={value.TotalTransportHandlingUnitQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={ShipmentFieldMeta.TotalTransportHandlingUnitQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Total Transport Handling Unit Quantity"
+              value={itemValue}
+              meta={ShipmentFieldMeta.TotalTransportHandlingUnitQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Shipment ubl-Amount ubl-InsuranceValueAmount"
           meta={ShipmentFieldMeta.InsuranceValueAmount} 
           value={value.InsuranceValueAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={ShipmentFieldMeta.InsuranceValueAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Insurance Value"
+              value={itemValue}
+              meta={ShipmentFieldMeta.InsuranceValueAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Shipment ubl-Amount ubl-DeclaredCustomsValueAmount"
           meta={ShipmentFieldMeta.DeclaredCustomsValueAmount} 
           value={value.DeclaredCustomsValueAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={ShipmentFieldMeta.DeclaredCustomsValueAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Declared Customs Value"
+              value={itemValue}
+              meta={ShipmentFieldMeta.DeclaredCustomsValueAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Shipment ubl-Amount ubl-DeclaredForCarriageValueAmount"
           meta={ShipmentFieldMeta.DeclaredForCarriageValueAmount} 
           value={value.DeclaredForCarriageValueAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={ShipmentFieldMeta.DeclaredForCarriageValueAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Declared For Carriage Value"
+              value={itemValue}
+              meta={ShipmentFieldMeta.DeclaredForCarriageValueAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Shipment ubl-Amount ubl-DeclaredStatisticsValueAmount"
           meta={ShipmentFieldMeta.DeclaredStatisticsValueAmount} 
           value={value.DeclaredStatisticsValueAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={ShipmentFieldMeta.DeclaredStatisticsValueAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Declared Statistics Value"
+              value={itemValue}
+              meta={ShipmentFieldMeta.DeclaredStatisticsValueAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Shipment ubl-Amount ubl-FreeOnBoardValueAmount"
           meta={ShipmentFieldMeta.FreeOnBoardValueAmount} 
           value={value.FreeOnBoardValueAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={ShipmentFieldMeta.FreeOnBoardValueAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Free On Board Value"
+              value={itemValue}
+              meta={ShipmentFieldMeta.FreeOnBoardValueAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Shipment ubl-Text ubl-SpecialInstructions"
           meta={ShipmentFieldMeta.SpecialInstructions} 
           value={value.SpecialInstructions}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ShipmentFieldMeta.SpecialInstructions} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Special Instructions"
+              value={itemValue}
+              meta={ShipmentFieldMeta.SpecialInstructions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Shipment ubl-Text ubl-DeliveryInstructions"
           meta={ShipmentFieldMeta.DeliveryInstructions} 
           value={value.DeliveryInstructions}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ShipmentFieldMeta.DeliveryInstructions} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Delivery Instructions"
+              value={itemValue}
+              meta={ShipmentFieldMeta.DeliveryInstructions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Shipment ubl-Indicator ubl-SplitConsignmentIndicator"
           meta={ShipmentFieldMeta.SplitConsignmentIndicator} 
           value={value.SplitConsignmentIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={ShipmentFieldMeta.SplitConsignmentIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Split Consignment Indicator"
+              value={itemValue}
+              meta={ShipmentFieldMeta.SplitConsignmentIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Shipment ubl-Quantity ubl-ConsignmentQuantity"
           meta={ShipmentFieldMeta.ConsignmentQuantity} 
           value={value.ConsignmentQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={ShipmentFieldMeta.ConsignmentQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Consignment Quantity"
+              value={itemValue}
+              meta={ShipmentFieldMeta.ConsignmentQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Shipment ubl-Consignment"
           meta={ShipmentFieldMeta.Consignment} 
           value={value.Consignment}
           itemDisplay={ (itemValue: Consignment, key: string | number) =>
-            <ConsignmentDisplay key={key} meta={ShipmentFieldMeta.Consignment} value={itemValue} />
+            <ConsignmentDisplay
+              key={key}
+              label="Consignment"
+              value={itemValue}
+              meta={ShipmentFieldMeta.Consignment}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Shipment ubl-GoodsItem"
           meta={ShipmentFieldMeta.GoodsItem} 
           value={value.GoodsItem}
           itemDisplay={ (itemValue: GoodsItem, key: string | number) =>
-            <GoodsItemDisplay key={key} meta={ShipmentFieldMeta.GoodsItem} value={itemValue} />
+            <GoodsItemDisplay
+              key={key}
+              label="Goods Item"
+              value={itemValue}
+              meta={ShipmentFieldMeta.GoodsItem}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Shipment ubl-ShipmentStage"
           meta={ShipmentFieldMeta.ShipmentStage} 
           value={value.ShipmentStage}
           itemDisplay={ (itemValue: ShipmentStage, key: string | number) =>
-            <ShipmentStageDisplay key={key} meta={ShipmentFieldMeta.ShipmentStage} value={itemValue} />
+            <ShipmentStageDisplay
+              key={key}
+              label="Shipment Stage"
+              value={itemValue}
+              meta={ShipmentFieldMeta.ShipmentStage}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Shipment ubl-Delivery"
           meta={ShipmentFieldMeta.Delivery} 
           value={value.Delivery}
           itemDisplay={ (itemValue: Delivery, key: string | number) =>
-            <DeliveryDisplay key={key} meta={ShipmentFieldMeta.Delivery} value={itemValue} />
+            <DeliveryDisplay
+              key={key}
+              label="Delivery"
+              value={itemValue}
+              meta={ShipmentFieldMeta.Delivery}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Shipment ubl-TransportHandlingUnit"
           meta={ShipmentFieldMeta.TransportHandlingUnit} 
           value={value.TransportHandlingUnit}
           itemDisplay={ (itemValue: TransportHandlingUnit, key: string | number) =>
-            <TransportHandlingUnitDisplay key={key} meta={ShipmentFieldMeta.TransportHandlingUnit} value={itemValue} />
+            <TransportHandlingUnitDisplay
+              key={key}
+              label="Transport Handling Unit"
+              value={itemValue}
+              meta={ShipmentFieldMeta.TransportHandlingUnit}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Shipment ubl-Address ubl-ReturnAddress"
           meta={ShipmentFieldMeta.ReturnAddress} 
           value={value.ReturnAddress}
           itemDisplay={ (itemValue: Address, key: string | number) =>
-            <AddressDisplay key={key} meta={ShipmentFieldMeta.ReturnAddress} value={itemValue} />
+            <AddressDisplay
+              key={key}
+              label="Return Address"
+              value={itemValue}
+              meta={ShipmentFieldMeta.ReturnAddress}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Shipment ubl-Address ubl-OriginAddress"
           meta={ShipmentFieldMeta.OriginAddress} 
           value={value.OriginAddress}
           itemDisplay={ (itemValue: Address, key: string | number) =>
-            <AddressDisplay key={key} meta={ShipmentFieldMeta.OriginAddress} value={itemValue} />
+            <AddressDisplay
+              key={key}
+              label="Origin Address"
+              value={itemValue}
+              meta={ShipmentFieldMeta.OriginAddress}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Shipment ubl-Location ubl-FirstArrivalPortLocation"
           meta={ShipmentFieldMeta.FirstArrivalPortLocation} 
           value={value.FirstArrivalPortLocation}
           itemDisplay={ (itemValue: Location, key: string | number) =>
-            <LocationDisplay key={key} meta={ShipmentFieldMeta.FirstArrivalPortLocation} value={itemValue} />
+            <LocationDisplay
+              key={key}
+              label="First Arrival Port Location"
+              value={itemValue}
+              meta={ShipmentFieldMeta.FirstArrivalPortLocation}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Shipment ubl-Location ubl-LastExitPortLocation"
           meta={ShipmentFieldMeta.LastExitPortLocation} 
           value={value.LastExitPortLocation}
           itemDisplay={ (itemValue: Location, key: string | number) =>
-            <LocationDisplay key={key} meta={ShipmentFieldMeta.LastExitPortLocation} value={itemValue} />
+            <LocationDisplay
+              key={key}
+              label="Last Exit Port Location"
+              value={itemValue}
+              meta={ShipmentFieldMeta.LastExitPortLocation}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Shipment ubl-Country ubl-ExportCountry"
           meta={ShipmentFieldMeta.ExportCountry} 
           value={value.ExportCountry}
           itemDisplay={ (itemValue: Country, key: string | number) =>
-            <CountryDisplay key={key} meta={ShipmentFieldMeta.ExportCountry} value={itemValue} />
+            <CountryDisplay
+              key={key}
+              label="Export Country"
+              value={itemValue}
+              meta={ShipmentFieldMeta.ExportCountry}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Shipment ubl-AllowanceCharge ubl-FreightAllowanceCharge"
           meta={ShipmentFieldMeta.FreightAllowanceCharge} 
           value={value.FreightAllowanceCharge}
           itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-            <AllowanceChargeDisplay key={key} meta={ShipmentFieldMeta.FreightAllowanceCharge} value={itemValue} />
+            <AllowanceChargeDisplay
+              key={key}
+              label="Freight Allowance Charge"
+              value={itemValue}
+              meta={ShipmentFieldMeta.FreightAllowanceCharge}
+            />
           }
         />
         </div>

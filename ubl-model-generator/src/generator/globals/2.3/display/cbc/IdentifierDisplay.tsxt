@@ -3,12 +3,13 @@ import { FieldMeta } from '../../meta/FieldMeta'
 import { Identifier } from '../../model/cbc/Identifier'
 import FieldDisplay from '../FieldDisplay'
 
-type Params = {
+type Props = {
+  label: string
   meta: FieldMeta<any>
   value: Identifier
 }
 
-export default function IdentifierDisplay({ meta, value }: Params) {
+export default function IdentifierDisplay({ label, meta, value }: Props) {
   const stringValue = value.schemeID ? `${value.schemeID}:${value._}` : value._
-  return <FieldDisplay label={meta.label} value={stringValue} />
+  return <FieldDisplay label={label} value={stringValue} />
 }

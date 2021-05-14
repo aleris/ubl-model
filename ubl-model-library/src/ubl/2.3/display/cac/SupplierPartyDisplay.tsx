@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { SupplierParty } from  '../../model/cac/SupplierParty'
 import { SupplierPartyFieldMeta } from  '../../meta/cac/SupplierPartyMeta'
@@ -14,77 +15,126 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: SupplierParty
   meta: FieldMeta<T>
 }
 
-export default function SupplierPartyDisplay<T>({ value, meta }: Params<T>) {
+export default function SupplierPartyDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-SupplierParty ubl-SupplierPartyType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-SupplierParty ubl-UBLExtensions"
           meta={SupplierPartyFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={SupplierPartyFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={SupplierPartyFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-SupplierParty ubl-Identifier ubl-CustomerAssignedAccountID"
           meta={SupplierPartyFieldMeta.CustomerAssignedAccountID} 
           value={value.CustomerAssignedAccountID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={SupplierPartyFieldMeta.CustomerAssignedAccountID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Customer Assigned Account Identifier"
+              value={itemValue}
+              meta={SupplierPartyFieldMeta.CustomerAssignedAccountID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-SupplierParty ubl-Identifier ubl-AdditionalAccountID"
           meta={SupplierPartyFieldMeta.AdditionalAccountID} 
           value={value.AdditionalAccountID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={SupplierPartyFieldMeta.AdditionalAccountID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Additional Account Identifier"
+              value={itemValue}
+              meta={SupplierPartyFieldMeta.AdditionalAccountID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-SupplierParty ubl-Text ubl-DataSendingCapability"
           meta={SupplierPartyFieldMeta.DataSendingCapability} 
           value={value.DataSendingCapability}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={SupplierPartyFieldMeta.DataSendingCapability} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Data Sending Capability"
+              value={itemValue}
+              meta={SupplierPartyFieldMeta.DataSendingCapability}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-SupplierParty ubl-Party"
           meta={SupplierPartyFieldMeta.Party} 
           value={value.Party}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={SupplierPartyFieldMeta.Party} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Party"
+              value={itemValue}
+              meta={SupplierPartyFieldMeta.Party}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-SupplierParty ubl-Contact ubl-DespatchContact"
           meta={SupplierPartyFieldMeta.DespatchContact} 
           value={value.DespatchContact}
           itemDisplay={ (itemValue: Contact, key: string | number) =>
-            <ContactDisplay key={key} meta={SupplierPartyFieldMeta.DespatchContact} value={itemValue} />
+            <ContactDisplay
+              key={key}
+              label="Despatch Contact"
+              value={itemValue}
+              meta={SupplierPartyFieldMeta.DespatchContact}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-SupplierParty ubl-Contact ubl-AccountingContact"
           meta={SupplierPartyFieldMeta.AccountingContact} 
           value={value.AccountingContact}
           itemDisplay={ (itemValue: Contact, key: string | number) =>
-            <ContactDisplay key={key} meta={SupplierPartyFieldMeta.AccountingContact} value={itemValue} />
+            <ContactDisplay
+              key={key}
+              label="Accounting Contact"
+              value={itemValue}
+              meta={SupplierPartyFieldMeta.AccountingContact}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-SupplierParty ubl-Contact ubl-SellerContact"
           meta={SupplierPartyFieldMeta.SellerContact} 
           value={value.SellerContact}
           itemDisplay={ (itemValue: Contact, key: string | number) =>
-            <ContactDisplay key={key} meta={SupplierPartyFieldMeta.SellerContact} value={itemValue} />
+            <ContactDisplay
+              key={key}
+              label="Seller Contact"
+              value={itemValue}
+              meta={SupplierPartyFieldMeta.SellerContact}
+            />
           }
         />
         </div>

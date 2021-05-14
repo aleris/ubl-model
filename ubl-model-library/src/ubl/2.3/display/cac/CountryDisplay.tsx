@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Country } from  '../../model/cac/Country'
 import { CountryFieldMeta } from  '../../meta/cac/CountryMeta'
@@ -10,37 +11,56 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: Country
   meta: FieldMeta<T>
 }
 
-export default function CountryDisplay<T>({ value, meta }: Params<T>) {
+export default function CountryDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-Country ubl-CountryType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-Country ubl-UBLExtensions"
           meta={CountryFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={CountryFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={CountryFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Country ubl-Code ubl-IdentificationCode"
           meta={CountryFieldMeta.IdentificationCode} 
           value={value.IdentificationCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={CountryFieldMeta.IdentificationCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Identification Code"
+              value={itemValue}
+              meta={CountryFieldMeta.IdentificationCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Country ubl-Text ubl-Name"
           meta={CountryFieldMeta.Name} 
           value={value.Name}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={CountryFieldMeta.Name} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Name"
+              value={itemValue}
+              meta={CountryFieldMeta.Name}
+            />
           }
         />
         </div>

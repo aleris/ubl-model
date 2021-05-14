@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { WebSite } from  '../../model/cac/WebSite'
 import { WebSiteFieldMeta } from  '../../meta/cac/WebSiteMeta'
@@ -14,69 +15,112 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 import WebSiteAccessDisplay from './WebSiteAccessDisplay'
 import { WebSiteAccess } from '../../model/cac/WebSiteAccess'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: WebSite
   meta: FieldMeta<T>
 }
 
-export default function WebSiteDisplay<T>({ value, meta }: Params<T>) {
+export default function WebSiteDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-WebSite ubl-WebSiteType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-WebSite ubl-UBLExtensions"
           meta={WebSiteFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={WebSiteFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={WebSiteFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-WebSite ubl-Identifier ubl-ID"
           meta={WebSiteFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={WebSiteFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={WebSiteFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-WebSite ubl-Text ubl-Name"
           meta={WebSiteFieldMeta.Name} 
           value={value.Name}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={WebSiteFieldMeta.Name} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Name"
+              value={itemValue}
+              meta={WebSiteFieldMeta.Name}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-WebSite ubl-Text ubl-Description"
           meta={WebSiteFieldMeta.Description} 
           value={value.Description}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={WebSiteFieldMeta.Description} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Description"
+              value={itemValue}
+              meta={WebSiteFieldMeta.Description}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-WebSite ubl-Code ubl-WebSiteTypeCode"
           meta={WebSiteFieldMeta.WebSiteTypeCode} 
           value={value.WebSiteTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={WebSiteFieldMeta.WebSiteTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Web Site Type Code"
+              value={itemValue}
+              meta={WebSiteFieldMeta.WebSiteTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-WebSite ubl-Identifier ubl-URI"
           meta={WebSiteFieldMeta.URI} 
           value={value.URI}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={WebSiteFieldMeta.URI} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="URI"
+              value={itemValue}
+              meta={WebSiteFieldMeta.URI}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-WebSite ubl-WebSiteAccess"
           meta={WebSiteFieldMeta.WebSiteAccess} 
           value={value.WebSiteAccess}
           itemDisplay={ (itemValue: WebSiteAccess, key: string | number) =>
-            <WebSiteAccessDisplay key={key} meta={WebSiteFieldMeta.WebSiteAccess} value={itemValue} />
+            <WebSiteAccessDisplay
+              key={key}
+              label="Web Site Access"
+              value={itemValue}
+              meta={WebSiteFieldMeta.WebSiteAccess}
+            />
           }
         />
         </div>

@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { BillingReference } from  '../../model/cac/BillingReference'
 import { BillingReferenceFieldMeta } from  '../../meta/cac/BillingReferenceMeta'
@@ -10,85 +11,140 @@ import { DocumentReference } from '../../model/cac/DocumentReference'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: BillingReference
   meta: FieldMeta<T>
 }
 
-export default function BillingReferenceDisplay<T>({ value, meta }: Params<T>) {
+export default function BillingReferenceDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-BillingReference ubl-BillingReferenceType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-BillingReference ubl-UBLExtensions"
           meta={BillingReferenceFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={BillingReferenceFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={BillingReferenceFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-BillingReference ubl-DocumentReference ubl-InvoiceDocumentReference"
           meta={BillingReferenceFieldMeta.InvoiceDocumentReference} 
           value={value.InvoiceDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={BillingReferenceFieldMeta.InvoiceDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Invoice Document Reference"
+              value={itemValue}
+              meta={BillingReferenceFieldMeta.InvoiceDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-BillingReference ubl-DocumentReference ubl-SelfBilledInvoiceDocumentReference"
           meta={BillingReferenceFieldMeta.SelfBilledInvoiceDocumentReference} 
           value={value.SelfBilledInvoiceDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={BillingReferenceFieldMeta.SelfBilledInvoiceDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Self Billed Invoice Document Reference"
+              value={itemValue}
+              meta={BillingReferenceFieldMeta.SelfBilledInvoiceDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-BillingReference ubl-DocumentReference ubl-CreditNoteDocumentReference"
           meta={BillingReferenceFieldMeta.CreditNoteDocumentReference} 
           value={value.CreditNoteDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={BillingReferenceFieldMeta.CreditNoteDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Credit Note Document Reference"
+              value={itemValue}
+              meta={BillingReferenceFieldMeta.CreditNoteDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-BillingReference ubl-DocumentReference ubl-SelfBilledCreditNoteDocumentReference"
           meta={BillingReferenceFieldMeta.SelfBilledCreditNoteDocumentReference} 
           value={value.SelfBilledCreditNoteDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={BillingReferenceFieldMeta.SelfBilledCreditNoteDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Self Billed Credit Note Document Reference"
+              value={itemValue}
+              meta={BillingReferenceFieldMeta.SelfBilledCreditNoteDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-BillingReference ubl-DocumentReference ubl-DebitNoteDocumentReference"
           meta={BillingReferenceFieldMeta.DebitNoteDocumentReference} 
           value={value.DebitNoteDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={BillingReferenceFieldMeta.DebitNoteDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Debit Note Document Reference"
+              value={itemValue}
+              meta={BillingReferenceFieldMeta.DebitNoteDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-BillingReference ubl-DocumentReference ubl-ReminderDocumentReference"
           meta={BillingReferenceFieldMeta.ReminderDocumentReference} 
           value={value.ReminderDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={BillingReferenceFieldMeta.ReminderDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Reminder Document Reference"
+              value={itemValue}
+              meta={BillingReferenceFieldMeta.ReminderDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-BillingReference ubl-DocumentReference ubl-AdditionalDocumentReference"
           meta={BillingReferenceFieldMeta.AdditionalDocumentReference} 
           value={value.AdditionalDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={BillingReferenceFieldMeta.AdditionalDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Additional Document Reference"
+              value={itemValue}
+              meta={BillingReferenceFieldMeta.AdditionalDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-BillingReference ubl-BillingReferenceLine"
           meta={BillingReferenceFieldMeta.BillingReferenceLine} 
           value={value.BillingReferenceLine}
           itemDisplay={ (itemValue: BillingReferenceLine, key: string | number) =>
-            <BillingReferenceLineDisplay key={key} meta={BillingReferenceFieldMeta.BillingReferenceLine} value={itemValue} />
+            <BillingReferenceLineDisplay
+              key={key}
+              label="Billing Reference Line"
+              value={itemValue}
+              meta={BillingReferenceFieldMeta.BillingReferenceLine}
+            />
           }
         />
         </div>

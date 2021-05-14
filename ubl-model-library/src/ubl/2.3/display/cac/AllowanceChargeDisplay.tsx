@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { AllowanceCharge } from  '../../model/cac/AllowanceCharge'
 import { AllowanceChargeFieldMeta } from  '../../meta/cac/AllowanceChargeMeta'
@@ -24,141 +25,238 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: AllowanceCharge
   meta: FieldMeta<T>
 }
 
-export default function AllowanceChargeDisplay<T>({ value, meta }: Params<T>) {
+export default function AllowanceChargeDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-AllowanceCharge ubl-AllowanceChargeType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-AllowanceCharge ubl-UBLExtensions"
           meta={AllowanceChargeFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={AllowanceChargeFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={AllowanceChargeFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-AllowanceCharge ubl-Identifier ubl-ID"
           meta={AllowanceChargeFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={AllowanceChargeFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={AllowanceChargeFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-AllowanceCharge ubl-Indicator ubl-ChargeIndicator"
           meta={AllowanceChargeFieldMeta.ChargeIndicator} 
           value={value.ChargeIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={AllowanceChargeFieldMeta.ChargeIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Charge Indicator"
+              value={itemValue}
+              meta={AllowanceChargeFieldMeta.ChargeIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-AllowanceCharge ubl-Code ubl-AllowanceChargeReasonCode"
           meta={AllowanceChargeFieldMeta.AllowanceChargeReasonCode} 
           value={value.AllowanceChargeReasonCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={AllowanceChargeFieldMeta.AllowanceChargeReasonCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Allowance Charge Reason Code"
+              value={itemValue}
+              meta={AllowanceChargeFieldMeta.AllowanceChargeReasonCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-AllowanceCharge ubl-Text ubl-AllowanceChargeReason"
           meta={AllowanceChargeFieldMeta.AllowanceChargeReason} 
           value={value.AllowanceChargeReason}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={AllowanceChargeFieldMeta.AllowanceChargeReason} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Allowance Charge Reason"
+              value={itemValue}
+              meta={AllowanceChargeFieldMeta.AllowanceChargeReason}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-AllowanceCharge ubl-Numeric ubl-MultiplierFactorNumeric"
           meta={AllowanceChargeFieldMeta.MultiplierFactorNumeric} 
           value={value.MultiplierFactorNumeric}
           itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay key={key} meta={AllowanceChargeFieldMeta.MultiplierFactorNumeric} value={itemValue} />
+            <NumericDisplay
+              key={key}
+              label="Multiplier Factor"
+              value={itemValue}
+              meta={AllowanceChargeFieldMeta.MultiplierFactorNumeric}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-AllowanceCharge ubl-Indicator ubl-PrepaidIndicator"
           meta={AllowanceChargeFieldMeta.PrepaidIndicator} 
           value={value.PrepaidIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={AllowanceChargeFieldMeta.PrepaidIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Prepaid Indicator"
+              value={itemValue}
+              meta={AllowanceChargeFieldMeta.PrepaidIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-AllowanceCharge ubl-Numeric ubl-SequenceNumeric"
           meta={AllowanceChargeFieldMeta.SequenceNumeric} 
           value={value.SequenceNumeric}
           itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay key={key} meta={AllowanceChargeFieldMeta.SequenceNumeric} value={itemValue} />
+            <NumericDisplay
+              key={key}
+              label="Sequence"
+              value={itemValue}
+              meta={AllowanceChargeFieldMeta.SequenceNumeric}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-AllowanceCharge ubl-Amount"
           meta={AllowanceChargeFieldMeta.Amount} 
           value={value.Amount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={AllowanceChargeFieldMeta.Amount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Amount"
+              value={itemValue}
+              meta={AllowanceChargeFieldMeta.Amount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-AllowanceCharge ubl-Amount ubl-BaseAmount"
           meta={AllowanceChargeFieldMeta.BaseAmount} 
           value={value.BaseAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={AllowanceChargeFieldMeta.BaseAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Base Amount"
+              value={itemValue}
+              meta={AllowanceChargeFieldMeta.BaseAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-AllowanceCharge ubl-Code ubl-AccountingCostCode"
           meta={AllowanceChargeFieldMeta.AccountingCostCode} 
           value={value.AccountingCostCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={AllowanceChargeFieldMeta.AccountingCostCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Accounting Cost Code"
+              value={itemValue}
+              meta={AllowanceChargeFieldMeta.AccountingCostCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-AllowanceCharge ubl-Text ubl-AccountingCost"
           meta={AllowanceChargeFieldMeta.AccountingCost} 
           value={value.AccountingCost}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={AllowanceChargeFieldMeta.AccountingCost} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Accounting Cost"
+              value={itemValue}
+              meta={AllowanceChargeFieldMeta.AccountingCost}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-AllowanceCharge ubl-Amount ubl-PerUnitAmount"
           meta={AllowanceChargeFieldMeta.PerUnitAmount} 
           value={value.PerUnitAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={AllowanceChargeFieldMeta.PerUnitAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Per Unit Amount"
+              value={itemValue}
+              meta={AllowanceChargeFieldMeta.PerUnitAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-AllowanceCharge ubl-TaxCategory"
           meta={AllowanceChargeFieldMeta.TaxCategory} 
           value={value.TaxCategory}
           itemDisplay={ (itemValue: TaxCategory, key: string | number) =>
-            <TaxCategoryDisplay key={key} meta={AllowanceChargeFieldMeta.TaxCategory} value={itemValue} />
+            <TaxCategoryDisplay
+              key={key}
+              label="Tax Category"
+              value={itemValue}
+              meta={AllowanceChargeFieldMeta.TaxCategory}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-AllowanceCharge ubl-TaxTotal"
           meta={AllowanceChargeFieldMeta.TaxTotal} 
           value={value.TaxTotal}
           itemDisplay={ (itemValue: TaxTotal, key: string | number) =>
-            <TaxTotalDisplay key={key} meta={AllowanceChargeFieldMeta.TaxTotal} value={itemValue} />
+            <TaxTotalDisplay
+              key={key}
+              label="Tax Total"
+              value={itemValue}
+              meta={AllowanceChargeFieldMeta.TaxTotal}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-AllowanceCharge ubl-PaymentMeans"
           meta={AllowanceChargeFieldMeta.PaymentMeans} 
           value={value.PaymentMeans}
           itemDisplay={ (itemValue: PaymentMeans, key: string | number) =>
-            <PaymentMeansDisplay key={key} meta={AllowanceChargeFieldMeta.PaymentMeans} value={itemValue} />
+            <PaymentMeansDisplay
+              key={key}
+              label="Payment Means"
+              value={itemValue}
+              meta={AllowanceChargeFieldMeta.PaymentMeans}
+            />
           }
         />
         </div>

@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { PartyTaxScheme } from  '../../model/cac/PartyTaxScheme'
 import { PartyTaxSchemeFieldMeta } from  '../../meta/cac/PartyTaxSchemeMeta'
@@ -16,77 +17,126 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: PartyTaxScheme
   meta: FieldMeta<T>
 }
 
-export default function PartyTaxSchemeDisplay<T>({ value, meta }: Params<T>) {
+export default function PartyTaxSchemeDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-PartyTaxScheme ubl-PartyTaxSchemeType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-PartyTaxScheme ubl-UBLExtensions"
           meta={PartyTaxSchemeFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={PartyTaxSchemeFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={PartyTaxSchemeFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-PartyTaxScheme ubl-Text ubl-RegistrationName"
           meta={PartyTaxSchemeFieldMeta.RegistrationName} 
           value={value.RegistrationName}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={PartyTaxSchemeFieldMeta.RegistrationName} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Registration Name"
+              value={itemValue}
+              meta={PartyTaxSchemeFieldMeta.RegistrationName}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-PartyTaxScheme ubl-Identifier ubl-CompanyID"
           meta={PartyTaxSchemeFieldMeta.CompanyID} 
           value={value.CompanyID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={PartyTaxSchemeFieldMeta.CompanyID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Company Identifier"
+              value={itemValue}
+              meta={PartyTaxSchemeFieldMeta.CompanyID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-PartyTaxScheme ubl-Code ubl-TaxLevelCode"
           meta={PartyTaxSchemeFieldMeta.TaxLevelCode} 
           value={value.TaxLevelCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={PartyTaxSchemeFieldMeta.TaxLevelCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Tax Level Code"
+              value={itemValue}
+              meta={PartyTaxSchemeFieldMeta.TaxLevelCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-PartyTaxScheme ubl-Code ubl-ExemptionReasonCode"
           meta={PartyTaxSchemeFieldMeta.ExemptionReasonCode} 
           value={value.ExemptionReasonCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={PartyTaxSchemeFieldMeta.ExemptionReasonCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Exemption Reason Code"
+              value={itemValue}
+              meta={PartyTaxSchemeFieldMeta.ExemptionReasonCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-PartyTaxScheme ubl-Text ubl-ExemptionReason"
           meta={PartyTaxSchemeFieldMeta.ExemptionReason} 
           value={value.ExemptionReason}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={PartyTaxSchemeFieldMeta.ExemptionReason} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Exemption Reason"
+              value={itemValue}
+              meta={PartyTaxSchemeFieldMeta.ExemptionReason}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-PartyTaxScheme ubl-Address ubl-RegistrationAddress"
           meta={PartyTaxSchemeFieldMeta.RegistrationAddress} 
           value={value.RegistrationAddress}
           itemDisplay={ (itemValue: Address, key: string | number) =>
-            <AddressDisplay key={key} meta={PartyTaxSchemeFieldMeta.RegistrationAddress} value={itemValue} />
+            <AddressDisplay
+              key={key}
+              label="Registration Address"
+              value={itemValue}
+              meta={PartyTaxSchemeFieldMeta.RegistrationAddress}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-PartyTaxScheme ubl-TaxScheme"
           meta={PartyTaxSchemeFieldMeta.TaxScheme} 
           value={value.TaxScheme}
           itemDisplay={ (itemValue: TaxScheme, key: string | number) =>
-            <TaxSchemeDisplay key={key} meta={PartyTaxSchemeFieldMeta.TaxScheme} value={itemValue} />
+            <TaxSchemeDisplay
+              key={key}
+              label="Tax Scheme"
+              value={itemValue}
+              meta={PartyTaxSchemeFieldMeta.TaxScheme}
+            />
           }
         />
         </div>

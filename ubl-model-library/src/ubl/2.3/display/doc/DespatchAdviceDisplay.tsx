@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { DespatchAdvice } from  '../../model/doc/DespatchAdvice'
 import { DespatchAdviceFieldMeta } from  '../../meta/doc/DespatchAdviceMeta'
@@ -34,205 +35,350 @@ import { Time } from '../../model/cbc/Time'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: DespatchAdvice
   meta: FieldMeta<T>
 }
 
-export default function DespatchAdviceDisplay<T>({ value, meta }: Params<T>) {
+export default function DespatchAdviceDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-doc ubl-DespatchAdvice ubl-DespatchAdviceType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-DespatchAdvice ubl-UBLExtensions"
           meta={DespatchAdviceFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={DespatchAdviceFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={DespatchAdviceFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DespatchAdvice ubl-Identifier ubl-UBLVersionID"
           meta={DespatchAdviceFieldMeta.UBLVersionID} 
           value={value.UBLVersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={DespatchAdviceFieldMeta.UBLVersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UBL Version Identifier"
+              value={itemValue}
+              meta={DespatchAdviceFieldMeta.UBLVersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DespatchAdvice ubl-Identifier ubl-CustomizationID"
           meta={DespatchAdviceFieldMeta.CustomizationID} 
           value={value.CustomizationID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={DespatchAdviceFieldMeta.CustomizationID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Customization Identifier"
+              value={itemValue}
+              meta={DespatchAdviceFieldMeta.CustomizationID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DespatchAdvice ubl-Identifier ubl-ProfileID"
           meta={DespatchAdviceFieldMeta.ProfileID} 
           value={value.ProfileID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={DespatchAdviceFieldMeta.ProfileID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Identifier"
+              value={itemValue}
+              meta={DespatchAdviceFieldMeta.ProfileID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DespatchAdvice ubl-Identifier ubl-ProfileExecutionID"
           meta={DespatchAdviceFieldMeta.ProfileExecutionID} 
           value={value.ProfileExecutionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={DespatchAdviceFieldMeta.ProfileExecutionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Execution Identifier"
+              value={itemValue}
+              meta={DespatchAdviceFieldMeta.ProfileExecutionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DespatchAdvice ubl-Identifier ubl-ID"
           meta={DespatchAdviceFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={DespatchAdviceFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={DespatchAdviceFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DespatchAdvice ubl-Indicator ubl-CopyIndicator"
           meta={DespatchAdviceFieldMeta.CopyIndicator} 
           value={value.CopyIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={DespatchAdviceFieldMeta.CopyIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Copy Indicator"
+              value={itemValue}
+              meta={DespatchAdviceFieldMeta.CopyIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DespatchAdvice ubl-Identifier ubl-UUID"
           meta={DespatchAdviceFieldMeta.UUID} 
           value={value.UUID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={DespatchAdviceFieldMeta.UUID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UUID"
+              value={itemValue}
+              meta={DespatchAdviceFieldMeta.UUID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DespatchAdvice ubl-Date ubl-IssueDate"
           meta={DespatchAdviceFieldMeta.IssueDate} 
           value={value.IssueDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={DespatchAdviceFieldMeta.IssueDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Issue Date"
+              value={itemValue}
+              meta={DespatchAdviceFieldMeta.IssueDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DespatchAdvice ubl-Time ubl-IssueTime"
           meta={DespatchAdviceFieldMeta.IssueTime} 
           value={value.IssueTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={DespatchAdviceFieldMeta.IssueTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Issue Time"
+              value={itemValue}
+              meta={DespatchAdviceFieldMeta.IssueTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DespatchAdvice ubl-Code ubl-DocumentStatusCode"
           meta={DespatchAdviceFieldMeta.DocumentStatusCode} 
           value={value.DocumentStatusCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={DespatchAdviceFieldMeta.DocumentStatusCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Document Status Code"
+              value={itemValue}
+              meta={DespatchAdviceFieldMeta.DocumentStatusCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DespatchAdvice ubl-Code ubl-DespatchAdviceTypeCode"
           meta={DespatchAdviceFieldMeta.DespatchAdviceTypeCode} 
           value={value.DespatchAdviceTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={DespatchAdviceFieldMeta.DespatchAdviceTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Despatch Advice Type Code"
+              value={itemValue}
+              meta={DespatchAdviceFieldMeta.DespatchAdviceTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-DespatchAdvice ubl-Text ubl-Note"
           meta={DespatchAdviceFieldMeta.Note} 
           value={value.Note}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={DespatchAdviceFieldMeta.Note} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Note"
+              value={itemValue}
+              meta={DespatchAdviceFieldMeta.Note}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DespatchAdvice ubl-Numeric ubl-LineCountNumeric"
           meta={DespatchAdviceFieldMeta.LineCountNumeric} 
           value={value.LineCountNumeric}
           itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay key={key} meta={DespatchAdviceFieldMeta.LineCountNumeric} value={itemValue} />
+            <NumericDisplay
+              key={key}
+              label="Line Count"
+              value={itemValue}
+              meta={DespatchAdviceFieldMeta.LineCountNumeric}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-DespatchAdvice ubl-OrderReference"
           meta={DespatchAdviceFieldMeta.OrderReference} 
           value={value.OrderReference}
           itemDisplay={ (itemValue: OrderReference, key: string | number) =>
-            <OrderReferenceDisplay key={key} meta={DespatchAdviceFieldMeta.OrderReference} value={itemValue} />
+            <OrderReferenceDisplay
+              key={key}
+              label="Order Reference"
+              value={itemValue}
+              meta={DespatchAdviceFieldMeta.OrderReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-DespatchAdvice ubl-DocumentReference ubl-AdditionalDocumentReference"
           meta={DespatchAdviceFieldMeta.AdditionalDocumentReference} 
           value={value.AdditionalDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={DespatchAdviceFieldMeta.AdditionalDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Additional Document Reference"
+              value={itemValue}
+              meta={DespatchAdviceFieldMeta.AdditionalDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-DespatchAdvice ubl-Signature"
           meta={DespatchAdviceFieldMeta.Signature} 
           value={value.Signature}
           itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay key={key} meta={DespatchAdviceFieldMeta.Signature} value={itemValue} />
+            <SignatureDisplay
+              key={key}
+              label="Signature"
+              value={itemValue}
+              meta={DespatchAdviceFieldMeta.Signature}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-DespatchAdvice ubl-SupplierParty ubl-DespatchSupplierParty"
           meta={DespatchAdviceFieldMeta.DespatchSupplierParty} 
           value={value.DespatchSupplierParty}
           itemDisplay={ (itemValue: SupplierParty, key: string | number) =>
-            <SupplierPartyDisplay key={key} meta={DespatchAdviceFieldMeta.DespatchSupplierParty} value={itemValue} />
+            <SupplierPartyDisplay
+              key={key}
+              label="Despatch Supplier Party"
+              value={itemValue}
+              meta={DespatchAdviceFieldMeta.DespatchSupplierParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-DespatchAdvice ubl-CustomerParty ubl-DeliveryCustomerParty"
           meta={DespatchAdviceFieldMeta.DeliveryCustomerParty} 
           value={value.DeliveryCustomerParty}
           itemDisplay={ (itemValue: CustomerParty, key: string | number) =>
-            <CustomerPartyDisplay key={key} meta={DespatchAdviceFieldMeta.DeliveryCustomerParty} value={itemValue} />
+            <CustomerPartyDisplay
+              key={key}
+              label="Delivery Customer Party"
+              value={itemValue}
+              meta={DespatchAdviceFieldMeta.DeliveryCustomerParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-DespatchAdvice ubl-CustomerParty ubl-BuyerCustomerParty"
           meta={DespatchAdviceFieldMeta.BuyerCustomerParty} 
           value={value.BuyerCustomerParty}
           itemDisplay={ (itemValue: CustomerParty, key: string | number) =>
-            <CustomerPartyDisplay key={key} meta={DespatchAdviceFieldMeta.BuyerCustomerParty} value={itemValue} />
+            <CustomerPartyDisplay
+              key={key}
+              label="Buyer Customer Party"
+              value={itemValue}
+              meta={DespatchAdviceFieldMeta.BuyerCustomerParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-DespatchAdvice ubl-SupplierParty ubl-SellerSupplierParty"
           meta={DespatchAdviceFieldMeta.SellerSupplierParty} 
           value={value.SellerSupplierParty}
           itemDisplay={ (itemValue: SupplierParty, key: string | number) =>
-            <SupplierPartyDisplay key={key} meta={DespatchAdviceFieldMeta.SellerSupplierParty} value={itemValue} />
+            <SupplierPartyDisplay
+              key={key}
+              label="Seller Supplier Party"
+              value={itemValue}
+              meta={DespatchAdviceFieldMeta.SellerSupplierParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-DespatchAdvice ubl-CustomerParty ubl-OriginatorCustomerParty"
           meta={DespatchAdviceFieldMeta.OriginatorCustomerParty} 
           value={value.OriginatorCustomerParty}
           itemDisplay={ (itemValue: CustomerParty, key: string | number) =>
-            <CustomerPartyDisplay key={key} meta={DespatchAdviceFieldMeta.OriginatorCustomerParty} value={itemValue} />
+            <CustomerPartyDisplay
+              key={key}
+              label="Originator Customer Party"
+              value={itemValue}
+              meta={DespatchAdviceFieldMeta.OriginatorCustomerParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-DespatchAdvice ubl-Shipment"
           meta={DespatchAdviceFieldMeta.Shipment} 
           value={value.Shipment}
           itemDisplay={ (itemValue: Shipment, key: string | number) =>
-            <ShipmentDisplay key={key} meta={DespatchAdviceFieldMeta.Shipment} value={itemValue} />
+            <ShipmentDisplay
+              key={key}
+              label="Shipment"
+              value={itemValue}
+              meta={DespatchAdviceFieldMeta.Shipment}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-DespatchAdvice ubl-DespatchLine"
           meta={DespatchAdviceFieldMeta.DespatchLine} 
           value={value.DespatchLine}
           itemDisplay={ (itemValue: DespatchLine, key: string | number) =>
-            <DespatchLineDisplay key={key} meta={DespatchAdviceFieldMeta.DespatchLine} value={itemValue} />
+            <DespatchLineDisplay
+              key={key}
+              label="Despatch Line"
+              value={itemValue}
+              meta={DespatchAdviceFieldMeta.DespatchLine}
+            />
           }
         />
         </div>

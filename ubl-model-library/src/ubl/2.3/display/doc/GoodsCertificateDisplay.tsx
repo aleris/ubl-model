@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { GoodsCertificate } from  '../../model/doc/GoodsCertificate'
 import { GoodsCertificateFieldMeta } from  '../../meta/doc/GoodsCertificateMeta'
@@ -32,253 +33,434 @@ import { Time } from '../../model/cbc/Time'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: GoodsCertificate
   meta: FieldMeta<T>
 }
 
-export default function GoodsCertificateDisplay<T>({ value, meta }: Params<T>) {
+export default function GoodsCertificateDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-doc ubl-GoodsCertificate ubl-GoodsCertificateType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-GoodsCertificate ubl-UBLExtensions"
           meta={GoodsCertificateFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={GoodsCertificateFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={GoodsCertificateFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-GoodsCertificate ubl-Identifier ubl-UBLVersionID"
           meta={GoodsCertificateFieldMeta.UBLVersionID} 
           value={value.UBLVersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={GoodsCertificateFieldMeta.UBLVersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UBL Version Identifier"
+              value={itemValue}
+              meta={GoodsCertificateFieldMeta.UBLVersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-GoodsCertificate ubl-Identifier ubl-CustomizationID"
           meta={GoodsCertificateFieldMeta.CustomizationID} 
           value={value.CustomizationID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={GoodsCertificateFieldMeta.CustomizationID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Customization Identifier"
+              value={itemValue}
+              meta={GoodsCertificateFieldMeta.CustomizationID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-GoodsCertificate ubl-Identifier ubl-ProfileID"
           meta={GoodsCertificateFieldMeta.ProfileID} 
           value={value.ProfileID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={GoodsCertificateFieldMeta.ProfileID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Identifier"
+              value={itemValue}
+              meta={GoodsCertificateFieldMeta.ProfileID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-GoodsCertificate ubl-Identifier ubl-ProfileExecutionID"
           meta={GoodsCertificateFieldMeta.ProfileExecutionID} 
           value={value.ProfileExecutionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={GoodsCertificateFieldMeta.ProfileExecutionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Execution Identifier"
+              value={itemValue}
+              meta={GoodsCertificateFieldMeta.ProfileExecutionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-GoodsCertificate ubl-Identifier ubl-ID"
           meta={GoodsCertificateFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={GoodsCertificateFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={GoodsCertificateFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-GoodsCertificate ubl-Identifier ubl-UUID"
           meta={GoodsCertificateFieldMeta.UUID} 
           value={value.UUID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={GoodsCertificateFieldMeta.UUID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UUID"
+              value={itemValue}
+              meta={GoodsCertificateFieldMeta.UUID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-GoodsCertificate ubl-Date ubl-IssueDate"
           meta={GoodsCertificateFieldMeta.IssueDate} 
           value={value.IssueDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={GoodsCertificateFieldMeta.IssueDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Issue Date"
+              value={itemValue}
+              meta={GoodsCertificateFieldMeta.IssueDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-GoodsCertificate ubl-Time ubl-IssueTime"
           meta={GoodsCertificateFieldMeta.IssueTime} 
           value={value.IssueTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={GoodsCertificateFieldMeta.IssueTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Issue Time"
+              value={itemValue}
+              meta={GoodsCertificateFieldMeta.IssueTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-GoodsCertificate ubl-Code ubl-TypeCode"
           meta={GoodsCertificateFieldMeta.TypeCode} 
           value={value.TypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={GoodsCertificateFieldMeta.TypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Type Code"
+              value={itemValue}
+              meta={GoodsCertificateFieldMeta.TypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-GoodsCertificate ubl-Text ubl-Description"
           meta={GoodsCertificateFieldMeta.Description} 
           value={value.Description}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={GoodsCertificateFieldMeta.Description} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Description"
+              value={itemValue}
+              meta={GoodsCertificateFieldMeta.Description}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-GoodsCertificate ubl-Text ubl-Note"
           meta={GoodsCertificateFieldMeta.Note} 
           value={value.Note}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={GoodsCertificateFieldMeta.Note} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Note"
+              value={itemValue}
+              meta={GoodsCertificateFieldMeta.Note}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-GoodsCertificate ubl-Identifier ubl-VersionID"
           meta={GoodsCertificateFieldMeta.VersionID} 
           value={value.VersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={GoodsCertificateFieldMeta.VersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Version"
+              value={itemValue}
+              meta={GoodsCertificateFieldMeta.VersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-GoodsCertificate ubl-Period ubl-ValidityPeriod"
           meta={GoodsCertificateFieldMeta.ValidityPeriod} 
           value={value.ValidityPeriod}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={GoodsCertificateFieldMeta.ValidityPeriod} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Validity Period"
+              value={itemValue}
+              meta={GoodsCertificateFieldMeta.ValidityPeriod}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-GoodsCertificate ubl-Address ubl-ApplicableTerritoryAddress"
           meta={GoodsCertificateFieldMeta.ApplicableTerritoryAddress} 
           value={value.ApplicableTerritoryAddress}
           itemDisplay={ (itemValue: Address, key: string | number) =>
-            <AddressDisplay key={key} meta={GoodsCertificateFieldMeta.ApplicableTerritoryAddress} value={itemValue} />
+            <AddressDisplay
+              key={key}
+              label="Applicable Territory Address"
+              value={itemValue}
+              meta={GoodsCertificateFieldMeta.ApplicableTerritoryAddress}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-GoodsCertificate ubl-Party ubl-ExporterParty"
           meta={GoodsCertificateFieldMeta.ExporterParty} 
           value={value.ExporterParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={GoodsCertificateFieldMeta.ExporterParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Exporter Party"
+              value={itemValue}
+              meta={GoodsCertificateFieldMeta.ExporterParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-GoodsCertificate ubl-Party ubl-ImporterParty"
           meta={GoodsCertificateFieldMeta.ImporterParty} 
           value={value.ImporterParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={GoodsCertificateFieldMeta.ImporterParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Importer Party"
+              value={itemValue}
+              meta={GoodsCertificateFieldMeta.ImporterParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-GoodsCertificate ubl-Party ubl-WarehouseParty"
           meta={GoodsCertificateFieldMeta.WarehouseParty} 
           value={value.WarehouseParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={GoodsCertificateFieldMeta.WarehouseParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Warehouse Party"
+              value={itemValue}
+              meta={GoodsCertificateFieldMeta.WarehouseParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-GoodsCertificate ubl-Party ubl-ConsignorParty"
           meta={GoodsCertificateFieldMeta.ConsignorParty} 
           value={value.ConsignorParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={GoodsCertificateFieldMeta.ConsignorParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Consignor Party"
+              value={itemValue}
+              meta={GoodsCertificateFieldMeta.ConsignorParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-GoodsCertificate ubl-Party ubl-ConsigneeParty"
           meta={GoodsCertificateFieldMeta.ConsigneeParty} 
           value={value.ConsigneeParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={GoodsCertificateFieldMeta.ConsigneeParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Consignee Party"
+              value={itemValue}
+              meta={GoodsCertificateFieldMeta.ConsigneeParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-GoodsCertificate ubl-Party ubl-FreightForwarderParty"
           meta={GoodsCertificateFieldMeta.FreightForwarderParty} 
           value={value.FreightForwarderParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={GoodsCertificateFieldMeta.FreightForwarderParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Freight Forwarder Party"
+              value={itemValue}
+              meta={GoodsCertificateFieldMeta.FreightForwarderParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-GoodsCertificate ubl-Party ubl-IssuerParty"
           meta={GoodsCertificateFieldMeta.IssuerParty} 
           value={value.IssuerParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={GoodsCertificateFieldMeta.IssuerParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Issuer Party"
+              value={itemValue}
+              meta={GoodsCertificateFieldMeta.IssuerParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-GoodsCertificate ubl-Party ubl-LegalAuthorityParty"
           meta={GoodsCertificateFieldMeta.LegalAuthorityParty} 
           value={value.LegalAuthorityParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={GoodsCertificateFieldMeta.LegalAuthorityParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Legal Authority Party"
+              value={itemValue}
+              meta={GoodsCertificateFieldMeta.LegalAuthorityParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-GoodsCertificate ubl-Shipment"
           meta={GoodsCertificateFieldMeta.Shipment} 
           value={value.Shipment}
           itemDisplay={ (itemValue: Shipment, key: string | number) =>
-            <ShipmentDisplay key={key} meta={GoodsCertificateFieldMeta.Shipment} value={itemValue} />
+            <ShipmentDisplay
+              key={key}
+              label="Shipment"
+              value={itemValue}
+              meta={GoodsCertificateFieldMeta.Shipment}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-GoodsCertificate ubl-Attestation"
           meta={GoodsCertificateFieldMeta.Attestation} 
           value={value.Attestation}
           itemDisplay={ (itemValue: Attestation, key: string | number) =>
-            <AttestationDisplay key={key} meta={GoodsCertificateFieldMeta.Attestation} value={itemValue} />
+            <AttestationDisplay
+              key={key}
+              label="Attestation"
+              value={itemValue}
+              meta={GoodsCertificateFieldMeta.Attestation}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-GoodsCertificate ubl-GoodsProcessing"
           meta={GoodsCertificateFieldMeta.GoodsProcessing} 
           value={value.GoodsProcessing}
           itemDisplay={ (itemValue: GoodsProcessing, key: string | number) =>
-            <GoodsProcessingDisplay key={key} meta={GoodsCertificateFieldMeta.GoodsProcessing} value={itemValue} />
+            <GoodsProcessingDisplay
+              key={key}
+              label="Goods Processing"
+              value={itemValue}
+              meta={GoodsCertificateFieldMeta.GoodsProcessing}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-GoodsCertificate ubl-DocumentReference ubl-OriginalDocumentReference"
           meta={GoodsCertificateFieldMeta.OriginalDocumentReference} 
           value={value.OriginalDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={GoodsCertificateFieldMeta.OriginalDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Original Document Reference"
+              value={itemValue}
+              meta={GoodsCertificateFieldMeta.OriginalDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-GoodsCertificate ubl-DocumentReference ubl-PreviousDocumentReference"
           meta={GoodsCertificateFieldMeta.PreviousDocumentReference} 
           value={value.PreviousDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={GoodsCertificateFieldMeta.PreviousDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Previous Document Reference"
+              value={itemValue}
+              meta={GoodsCertificateFieldMeta.PreviousDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-GoodsCertificate ubl-DocumentReference ubl-AdditionalDocumentReference"
           meta={GoodsCertificateFieldMeta.AdditionalDocumentReference} 
           value={value.AdditionalDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={GoodsCertificateFieldMeta.AdditionalDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Additional Document Reference"
+              value={itemValue}
+              meta={GoodsCertificateFieldMeta.AdditionalDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-GoodsCertificate ubl-Signature"
           meta={GoodsCertificateFieldMeta.Signature} 
           value={value.Signature}
           itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay key={key} meta={GoodsCertificateFieldMeta.Signature} value={itemValue} />
+            <SignatureDisplay
+              key={key}
+              label="Signature"
+              value={itemValue}
+              meta={GoodsCertificateFieldMeta.Signature}
+            />
           }
         />
         </div>

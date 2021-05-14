@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Contact } from  '../../model/cac/Contact'
 import { ContactFieldMeta } from  '../../meta/cac/ContactMeta'
@@ -12,93 +13,154 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: Contact
   meta: FieldMeta<T>
 }
 
-export default function ContactDisplay<T>({ value, meta }: Params<T>) {
+export default function ContactDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-Contact ubl-ContactType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-Contact ubl-UBLExtensions"
           meta={ContactFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={ContactFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={ContactFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Contact ubl-Identifier ubl-ID"
           meta={ContactFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ContactFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={ContactFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Contact ubl-Text ubl-Name"
           meta={ContactFieldMeta.Name} 
           value={value.Name}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ContactFieldMeta.Name} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Name"
+              value={itemValue}
+              meta={ContactFieldMeta.Name}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Contact ubl-Text ubl-JobTitle"
           meta={ContactFieldMeta.JobTitle} 
           value={value.JobTitle}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ContactFieldMeta.JobTitle} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Job Title"
+              value={itemValue}
+              meta={ContactFieldMeta.JobTitle}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Contact ubl-Text ubl-Department"
           meta={ContactFieldMeta.Department} 
           value={value.Department}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ContactFieldMeta.Department} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Department"
+              value={itemValue}
+              meta={ContactFieldMeta.Department}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Contact ubl-Text ubl-Telephone"
           meta={ContactFieldMeta.Telephone} 
           value={value.Telephone}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ContactFieldMeta.Telephone} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Telephone"
+              value={itemValue}
+              meta={ContactFieldMeta.Telephone}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Contact ubl-Text ubl-Telefax"
           meta={ContactFieldMeta.Telefax} 
           value={value.Telefax}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ContactFieldMeta.Telefax} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Telefax"
+              value={itemValue}
+              meta={ContactFieldMeta.Telefax}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Contact ubl-Text ubl-ElectronicMail"
           meta={ContactFieldMeta.ElectronicMail} 
           value={value.ElectronicMail}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ContactFieldMeta.ElectronicMail} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Electronic Mail"
+              value={itemValue}
+              meta={ContactFieldMeta.ElectronicMail}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Contact ubl-Text ubl-Note"
           meta={ContactFieldMeta.Note} 
           value={value.Note}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ContactFieldMeta.Note} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Note"
+              value={itemValue}
+              meta={ContactFieldMeta.Note}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Contact ubl-Communication ubl-OtherCommunication"
           meta={ContactFieldMeta.OtherCommunication} 
           value={value.OtherCommunication}
           itemDisplay={ (itemValue: Communication, key: string | number) =>
-            <CommunicationDisplay key={key} meta={ContactFieldMeta.OtherCommunication} value={itemValue} />
+            <CommunicationDisplay
+              key={key}
+              label="Other Communication"
+              value={itemValue}
+              meta={ContactFieldMeta.OtherCommunication}
+            />
           }
         />
         </div>

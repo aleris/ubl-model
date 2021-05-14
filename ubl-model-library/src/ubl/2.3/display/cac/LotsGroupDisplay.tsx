@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { LotsGroup } from  '../../model/cac/LotsGroup'
 import { LotsGroupFieldMeta } from  '../../meta/cac/LotsGroupMeta'
@@ -10,37 +11,56 @@ import { ProcurementProjectLot } from '../../model/cac/ProcurementProjectLot'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: LotsGroup
   meta: FieldMeta<T>
 }
 
-export default function LotsGroupDisplay<T>({ value, meta }: Params<T>) {
+export default function LotsGroupDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-LotsGroup ubl-LotsGroupType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-LotsGroup ubl-UBLExtensions"
           meta={LotsGroupFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={LotsGroupFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={LotsGroupFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-LotsGroup ubl-Identifier ubl-LotLotsGroupID"
           meta={LotsGroupFieldMeta.LotLotsGroupID} 
           value={value.LotLotsGroupID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={LotsGroupFieldMeta.LotLotsGroupID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Lot Lots Group"
+              value={itemValue}
+              meta={LotsGroupFieldMeta.LotLotsGroupID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-LotsGroup ubl-ProcurementProjectLot"
           meta={LotsGroupFieldMeta.ProcurementProjectLot} 
           value={value.ProcurementProjectLot}
           itemDisplay={ (itemValue: ProcurementProjectLot, key: string | number) =>
-            <ProcurementProjectLotDisplay key={key} meta={LotsGroupFieldMeta.ProcurementProjectLot} value={itemValue} />
+            <ProcurementProjectLotDisplay
+              key={key}
+              label="Procurement Project Lot"
+              value={itemValue}
+              meta={LotsGroupFieldMeta.ProcurementProjectLot}
+            />
           }
         />
         </div>

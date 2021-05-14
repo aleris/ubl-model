@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { FinancialGuarantee } from  '../../model/cac/FinancialGuarantee'
 import { FinancialGuaranteeFieldMeta } from  '../../meta/cac/FinancialGuaranteeMeta'
@@ -16,61 +17,98 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: FinancialGuarantee
   meta: FieldMeta<T>
 }
 
-export default function FinancialGuaranteeDisplay<T>({ value, meta }: Params<T>) {
+export default function FinancialGuaranteeDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-FinancialGuarantee ubl-FinancialGuaranteeType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-FinancialGuarantee ubl-UBLExtensions"
           meta={FinancialGuaranteeFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={FinancialGuaranteeFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={FinancialGuaranteeFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-FinancialGuarantee ubl-Code ubl-GuaranteeTypeCode"
           meta={FinancialGuaranteeFieldMeta.GuaranteeTypeCode} 
           value={value.GuaranteeTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={FinancialGuaranteeFieldMeta.GuaranteeTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Guarantee Type Code"
+              value={itemValue}
+              meta={FinancialGuaranteeFieldMeta.GuaranteeTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-FinancialGuarantee ubl-Text ubl-Description"
           meta={FinancialGuaranteeFieldMeta.Description} 
           value={value.Description}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={FinancialGuaranteeFieldMeta.Description} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Description"
+              value={itemValue}
+              meta={FinancialGuaranteeFieldMeta.Description}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-FinancialGuarantee ubl-Amount ubl-LiabilityAmount"
           meta={FinancialGuaranteeFieldMeta.LiabilityAmount} 
           value={value.LiabilityAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={FinancialGuaranteeFieldMeta.LiabilityAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Liability"
+              value={itemValue}
+              meta={FinancialGuaranteeFieldMeta.LiabilityAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-FinancialGuarantee ubl-Numeric ubl-AmountRate"
           meta={FinancialGuaranteeFieldMeta.AmountRate} 
           value={value.AmountRate}
           itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay key={key} meta={FinancialGuaranteeFieldMeta.AmountRate} value={itemValue} />
+            <NumericDisplay
+              key={key}
+              label="Amount"
+              value={itemValue}
+              meta={FinancialGuaranteeFieldMeta.AmountRate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-FinancialGuarantee ubl-Period ubl-ConstitutionPeriod"
           meta={FinancialGuaranteeFieldMeta.ConstitutionPeriod} 
           value={value.ConstitutionPeriod}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={FinancialGuaranteeFieldMeta.ConstitutionPeriod} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Constitution Period"
+              value={itemValue}
+              meta={FinancialGuaranteeFieldMeta.ConstitutionPeriod}
+            />
           }
         />
         </div>

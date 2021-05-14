@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { AttestationLine } from  '../../model/cac/AttestationLine'
 import { AttestationLineFieldMeta } from  '../../meta/cac/AttestationLineMeta'
@@ -14,61 +15,98 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: AttestationLine
   meta: FieldMeta<T>
 }
 
-export default function AttestationLineDisplay<T>({ value, meta }: Params<T>) {
+export default function AttestationLineDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-AttestationLine ubl-AttestationLineType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-AttestationLine ubl-UBLExtensions"
           meta={AttestationLineFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={AttestationLineFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={AttestationLineFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-AttestationLine ubl-Identifier ubl-ID"
           meta={AttestationLineFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={AttestationLineFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={AttestationLineFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-AttestationLine ubl-Code ubl-TypeCode"
           meta={AttestationLineFieldMeta.TypeCode} 
           value={value.TypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={AttestationLineFieldMeta.TypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Type Code"
+              value={itemValue}
+              meta={AttestationLineFieldMeta.TypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-AttestationLine ubl-Text ubl-Description"
           meta={AttestationLineFieldMeta.Description} 
           value={value.Description}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={AttestationLineFieldMeta.Description} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Description"
+              value={itemValue}
+              meta={AttestationLineFieldMeta.Description}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-AttestationLine ubl-CriterionItem"
           meta={AttestationLineFieldMeta.CriterionItem} 
           value={value.CriterionItem}
           itemDisplay={ (itemValue: CriterionItem, key: string | number) =>
-            <CriterionItemDisplay key={key} meta={AttestationLineFieldMeta.CriterionItem} value={itemValue} />
+            <CriterionItemDisplay
+              key={key}
+              label="Criterion Item"
+              value={itemValue}
+              meta={AttestationLineFieldMeta.CriterionItem}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-AttestationLine ubl-SubAttestationLine"
           meta={AttestationLineFieldMeta.SubAttestationLine} 
           value={value.SubAttestationLine}
           itemDisplay={ (itemValue: AttestationLine, key: string | number) =>
-            <AttestationLineDisplay key={key} meta={AttestationLineFieldMeta.SubAttestationLine} value={itemValue} />
+            <AttestationLineDisplay
+              key={key}
+              label="Sub Attestation Line"
+              value={itemValue}
+              meta={AttestationLineFieldMeta.SubAttestationLine}
+            />
           }
         />
         </div>

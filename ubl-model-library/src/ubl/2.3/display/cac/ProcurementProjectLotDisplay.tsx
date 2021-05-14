@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ProcurementProjectLot } from  '../../model/cac/ProcurementProjectLot'
 import { ProcurementProjectLotFieldMeta } from  '../../meta/cac/ProcurementProjectLotMeta'
@@ -16,93 +17,154 @@ import { TenderingTerms } from '../../model/cac/TenderingTerms'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: ProcurementProjectLot
   meta: FieldMeta<T>
 }
 
-export default function ProcurementProjectLotDisplay<T>({ value, meta }: Params<T>) {
+export default function ProcurementProjectLotDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-ProcurementProjectLot ubl-ProcurementProjectLotType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-ProcurementProjectLot ubl-UBLExtensions"
           meta={ProcurementProjectLotFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={ProcurementProjectLotFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={ProcurementProjectLotFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ProcurementProjectLot ubl-Identifier ubl-ID"
           meta={ProcurementProjectLotFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ProcurementProjectLotFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={ProcurementProjectLotFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-ProcurementProjectLot ubl-DocumentReference ubl-LegalDocumentReference"
           meta={ProcurementProjectLotFieldMeta.LegalDocumentReference} 
           value={value.LegalDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={ProcurementProjectLotFieldMeta.LegalDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Legal Document Reference"
+              value={itemValue}
+              meta={ProcurementProjectLotFieldMeta.LegalDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-ProcurementProjectLot ubl-DocumentReference ubl-TechnicalDocumentReference"
           meta={ProcurementProjectLotFieldMeta.TechnicalDocumentReference} 
           value={value.TechnicalDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={ProcurementProjectLotFieldMeta.TechnicalDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Technical Document Reference"
+              value={itemValue}
+              meta={ProcurementProjectLotFieldMeta.TechnicalDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-ProcurementProjectLot ubl-DocumentReference ubl-RequiredDocumentReference"
           meta={ProcurementProjectLotFieldMeta.RequiredDocumentReference} 
           value={value.RequiredDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={ProcurementProjectLotFieldMeta.RequiredDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Required Document Reference"
+              value={itemValue}
+              meta={ProcurementProjectLotFieldMeta.RequiredDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-ProcurementProjectLot ubl-DocumentReference ubl-ProvidedDocumentReference"
           meta={ProcurementProjectLotFieldMeta.ProvidedDocumentReference} 
           value={value.ProvidedDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={ProcurementProjectLotFieldMeta.ProvidedDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Provided Document Reference"
+              value={itemValue}
+              meta={ProcurementProjectLotFieldMeta.ProvidedDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-ProcurementProjectLot ubl-DocumentReference ubl-AdditionalDocumentReference"
           meta={ProcurementProjectLotFieldMeta.AdditionalDocumentReference} 
           value={value.AdditionalDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={ProcurementProjectLotFieldMeta.AdditionalDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Additional Document Reference"
+              value={itemValue}
+              meta={ProcurementProjectLotFieldMeta.AdditionalDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-ProcurementProjectLot ubl-TenderingTerms"
           meta={ProcurementProjectLotFieldMeta.TenderingTerms} 
           value={value.TenderingTerms}
           itemDisplay={ (itemValue: TenderingTerms, key: string | number) =>
-            <TenderingTermsDisplay key={key} meta={ProcurementProjectLotFieldMeta.TenderingTerms} value={itemValue} />
+            <TenderingTermsDisplay
+              key={key}
+              label="Tendering Terms"
+              value={itemValue}
+              meta={ProcurementProjectLotFieldMeta.TenderingTerms}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-ProcurementProjectLot ubl-TenderingProcess"
           meta={ProcurementProjectLotFieldMeta.TenderingProcess} 
           value={value.TenderingProcess}
           itemDisplay={ (itemValue: TenderingProcess, key: string | number) =>
-            <TenderingProcessDisplay key={key} meta={ProcurementProjectLotFieldMeta.TenderingProcess} value={itemValue} />
+            <TenderingProcessDisplay
+              key={key}
+              label="Tendering Process"
+              value={itemValue}
+              meta={ProcurementProjectLotFieldMeta.TenderingProcess}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-ProcurementProjectLot ubl-ProcurementProject"
           meta={ProcurementProjectLotFieldMeta.ProcurementProject} 
           value={value.ProcurementProject}
           itemDisplay={ (itemValue: ProcurementProject, key: string | number) =>
-            <ProcurementProjectDisplay key={key} meta={ProcurementProjectLotFieldMeta.ProcurementProject} value={itemValue} />
+            <ProcurementProjectDisplay
+              key={key}
+              label="Procurement Project"
+              value={itemValue}
+              meta={ProcurementProjectLotFieldMeta.ProcurementProject}
+            />
           }
         />
         </div>

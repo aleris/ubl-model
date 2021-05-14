@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ExportCustomsDeclaration } from  '../../model/doc/ExportCustomsDeclaration'
 import { ExportCustomsDeclarationFieldMeta } from  '../../meta/doc/ExportCustomsDeclarationMeta'
@@ -22,141 +23,238 @@ import { Time } from '../../model/cbc/Time'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: ExportCustomsDeclaration
   meta: FieldMeta<T>
 }
 
-export default function ExportCustomsDeclarationDisplay<T>({ value, meta }: Params<T>) {
+export default function ExportCustomsDeclarationDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-doc ubl-ExportCustomsDeclaration ubl-ExportCustomsDeclarationType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-ExportCustomsDeclaration ubl-UBLExtensions"
           meta={ExportCustomsDeclarationFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={ExportCustomsDeclarationFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={ExportCustomsDeclarationFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ExportCustomsDeclaration ubl-Identifier ubl-UBLVersionID"
           meta={ExportCustomsDeclarationFieldMeta.UBLVersionID} 
           value={value.UBLVersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ExportCustomsDeclarationFieldMeta.UBLVersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UBL Version Identifier"
+              value={itemValue}
+              meta={ExportCustomsDeclarationFieldMeta.UBLVersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ExportCustomsDeclaration ubl-Identifier ubl-CustomizationID"
           meta={ExportCustomsDeclarationFieldMeta.CustomizationID} 
           value={value.CustomizationID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ExportCustomsDeclarationFieldMeta.CustomizationID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Customization Identifier"
+              value={itemValue}
+              meta={ExportCustomsDeclarationFieldMeta.CustomizationID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ExportCustomsDeclaration ubl-Identifier ubl-ProfileID"
           meta={ExportCustomsDeclarationFieldMeta.ProfileID} 
           value={value.ProfileID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ExportCustomsDeclarationFieldMeta.ProfileID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Identifier"
+              value={itemValue}
+              meta={ExportCustomsDeclarationFieldMeta.ProfileID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ExportCustomsDeclaration ubl-Identifier ubl-ProfileExecutionID"
           meta={ExportCustomsDeclarationFieldMeta.ProfileExecutionID} 
           value={value.ProfileExecutionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ExportCustomsDeclarationFieldMeta.ProfileExecutionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Execution Identifier"
+              value={itemValue}
+              meta={ExportCustomsDeclarationFieldMeta.ProfileExecutionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ExportCustomsDeclaration ubl-Identifier ubl-ID"
           meta={ExportCustomsDeclarationFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ExportCustomsDeclarationFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={ExportCustomsDeclarationFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ExportCustomsDeclaration ubl-Identifier ubl-UUID"
           meta={ExportCustomsDeclarationFieldMeta.UUID} 
           value={value.UUID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ExportCustomsDeclarationFieldMeta.UUID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UUID"
+              value={itemValue}
+              meta={ExportCustomsDeclarationFieldMeta.UUID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ExportCustomsDeclaration ubl-Date ubl-IssueDate"
           meta={ExportCustomsDeclarationFieldMeta.IssueDate} 
           value={value.IssueDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={ExportCustomsDeclarationFieldMeta.IssueDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Issue Date"
+              value={itemValue}
+              meta={ExportCustomsDeclarationFieldMeta.IssueDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ExportCustomsDeclaration ubl-Time ubl-IssueTime"
           meta={ExportCustomsDeclarationFieldMeta.IssueTime} 
           value={value.IssueTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={ExportCustomsDeclarationFieldMeta.IssueTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Issue Time"
+              value={itemValue}
+              meta={ExportCustomsDeclarationFieldMeta.IssueTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ExportCustomsDeclaration ubl-Code ubl-ExportTypeCode"
           meta={ExportCustomsDeclarationFieldMeta.ExportTypeCode} 
           value={value.ExportTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={ExportCustomsDeclarationFieldMeta.ExportTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Export Type Code"
+              value={itemValue}
+              meta={ExportCustomsDeclarationFieldMeta.ExportTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ExportCustomsDeclaration ubl-Code ubl-ExportReasonCode"
           meta={ExportCustomsDeclarationFieldMeta.ExportReasonCode} 
           value={value.ExportReasonCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={ExportCustomsDeclarationFieldMeta.ExportReasonCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Export Reason Code"
+              value={itemValue}
+              meta={ExportCustomsDeclarationFieldMeta.ExportReasonCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-ExportCustomsDeclaration ubl-Text ubl-Note"
           meta={ExportCustomsDeclarationFieldMeta.Note} 
           value={value.Note}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ExportCustomsDeclarationFieldMeta.Note} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Note"
+              value={itemValue}
+              meta={ExportCustomsDeclarationFieldMeta.Note}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ExportCustomsDeclaration ubl-Identifier ubl-VersionID"
           meta={ExportCustomsDeclarationFieldMeta.VersionID} 
           value={value.VersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ExportCustomsDeclarationFieldMeta.VersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Version"
+              value={itemValue}
+              meta={ExportCustomsDeclarationFieldMeta.VersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-ExportCustomsDeclaration ubl-Party ubl-ExporterParty"
           meta={ExportCustomsDeclarationFieldMeta.ExporterParty} 
           value={value.ExporterParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={ExportCustomsDeclarationFieldMeta.ExporterParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Exporter Party"
+              value={itemValue}
+              meta={ExportCustomsDeclarationFieldMeta.ExporterParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-ExportCustomsDeclaration ubl-CustomsDeclaration"
           meta={ExportCustomsDeclarationFieldMeta.CustomsDeclaration} 
           value={value.CustomsDeclaration}
           itemDisplay={ (itemValue: CustomsDeclaration, key: string | number) =>
-            <CustomsDeclarationDisplay key={key} meta={ExportCustomsDeclarationFieldMeta.CustomsDeclaration} value={itemValue} />
+            <CustomsDeclarationDisplay
+              key={key}
+              label="Customs Declaration"
+              value={itemValue}
+              meta={ExportCustomsDeclarationFieldMeta.CustomsDeclaration}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-ExportCustomsDeclaration ubl-Signature"
           meta={ExportCustomsDeclarationFieldMeta.Signature} 
           value={value.Signature}
           itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay key={key} meta={ExportCustomsDeclarationFieldMeta.Signature} value={itemValue} />
+            <SignatureDisplay
+              key={key}
+              label="Signature"
+              value={itemValue}
+              meta={ExportCustomsDeclarationFieldMeta.Signature}
+            />
           }
         />
         </div>

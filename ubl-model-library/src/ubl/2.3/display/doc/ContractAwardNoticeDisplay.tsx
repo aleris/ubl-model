@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ContractAwardNotice } from  '../../model/doc/ContractAwardNotice'
 import { ContractAwardNoticeFieldMeta } from  '../../meta/doc/ContractAwardNoticeMeta'
@@ -40,261 +41,448 @@ import { Time } from '../../model/cbc/Time'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: ContractAwardNotice
   meta: FieldMeta<T>
 }
 
-export default function ContractAwardNoticeDisplay<T>({ value, meta }: Params<T>) {
+export default function ContractAwardNoticeDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-doc ubl-ContractAwardNotice ubl-ContractAwardNoticeType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-ContractAwardNotice ubl-UBLExtensions"
           meta={ContractAwardNoticeFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={ContractAwardNoticeFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={ContractAwardNoticeFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ContractAwardNotice ubl-Identifier ubl-UBLVersionID"
           meta={ContractAwardNoticeFieldMeta.UBLVersionID} 
           value={value.UBLVersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ContractAwardNoticeFieldMeta.UBLVersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UBL Version Identifier"
+              value={itemValue}
+              meta={ContractAwardNoticeFieldMeta.UBLVersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ContractAwardNotice ubl-Identifier ubl-CustomizationID"
           meta={ContractAwardNoticeFieldMeta.CustomizationID} 
           value={value.CustomizationID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ContractAwardNoticeFieldMeta.CustomizationID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Customization Identifier"
+              value={itemValue}
+              meta={ContractAwardNoticeFieldMeta.CustomizationID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ContractAwardNotice ubl-Identifier ubl-ProfileID"
           meta={ContractAwardNoticeFieldMeta.ProfileID} 
           value={value.ProfileID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ContractAwardNoticeFieldMeta.ProfileID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Identifier"
+              value={itemValue}
+              meta={ContractAwardNoticeFieldMeta.ProfileID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ContractAwardNotice ubl-Identifier ubl-ProfileExecutionID"
           meta={ContractAwardNoticeFieldMeta.ProfileExecutionID} 
           value={value.ProfileExecutionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ContractAwardNoticeFieldMeta.ProfileExecutionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Execution Identifier"
+              value={itemValue}
+              meta={ContractAwardNoticeFieldMeta.ProfileExecutionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ContractAwardNotice ubl-Identifier ubl-ID"
           meta={ContractAwardNoticeFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ContractAwardNoticeFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={ContractAwardNoticeFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ContractAwardNotice ubl-Indicator ubl-CopyIndicator"
           meta={ContractAwardNoticeFieldMeta.CopyIndicator} 
           value={value.CopyIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={ContractAwardNoticeFieldMeta.CopyIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Copy Indicator"
+              value={itemValue}
+              meta={ContractAwardNoticeFieldMeta.CopyIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ContractAwardNotice ubl-Identifier ubl-UUID"
           meta={ContractAwardNoticeFieldMeta.UUID} 
           value={value.UUID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ContractAwardNoticeFieldMeta.UUID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UUID"
+              value={itemValue}
+              meta={ContractAwardNoticeFieldMeta.UUID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ContractAwardNotice ubl-Identifier ubl-ContractFolderID"
           meta={ContractAwardNoticeFieldMeta.ContractFolderID} 
           value={value.ContractFolderID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ContractAwardNoticeFieldMeta.ContractFolderID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Contract Folder Identifier"
+              value={itemValue}
+              meta={ContractAwardNoticeFieldMeta.ContractFolderID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ContractAwardNotice ubl-Date ubl-IssueDate"
           meta={ContractAwardNoticeFieldMeta.IssueDate} 
           value={value.IssueDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={ContractAwardNoticeFieldMeta.IssueDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Issue Date"
+              value={itemValue}
+              meta={ContractAwardNoticeFieldMeta.IssueDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ContractAwardNotice ubl-Time ubl-IssueTime"
           meta={ContractAwardNoticeFieldMeta.IssueTime} 
           value={value.IssueTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={ContractAwardNoticeFieldMeta.IssueTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Issue Time"
+              value={itemValue}
+              meta={ContractAwardNoticeFieldMeta.IssueTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-ContractAwardNotice ubl-Text ubl-Note"
           meta={ContractAwardNoticeFieldMeta.Note} 
           value={value.Note}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ContractAwardNoticeFieldMeta.Note} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Note"
+              value={itemValue}
+              meta={ContractAwardNoticeFieldMeta.Note}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ContractAwardNotice ubl-Identifier ubl-VersionID"
           meta={ContractAwardNoticeFieldMeta.VersionID} 
           value={value.VersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ContractAwardNoticeFieldMeta.VersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Version Identifier"
+              value={itemValue}
+              meta={ContractAwardNoticeFieldMeta.VersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ContractAwardNotice ubl-Identifier ubl-PreviousVersionID"
           meta={ContractAwardNoticeFieldMeta.PreviousVersionID} 
           value={value.PreviousVersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ContractAwardNoticeFieldMeta.PreviousVersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Previous Version Identifier"
+              value={itemValue}
+              meta={ContractAwardNoticeFieldMeta.PreviousVersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ContractAwardNotice ubl-Date ubl-RequestedPublicationDate"
           meta={ContractAwardNoticeFieldMeta.RequestedPublicationDate} 
           value={value.RequestedPublicationDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={ContractAwardNoticeFieldMeta.RequestedPublicationDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Requested Publication Date"
+              value={itemValue}
+              meta={ContractAwardNoticeFieldMeta.RequestedPublicationDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-ContractAwardNotice ubl-Text ubl-RegulatoryDomain"
           meta={ContractAwardNoticeFieldMeta.RegulatoryDomain} 
           value={value.RegulatoryDomain}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ContractAwardNoticeFieldMeta.RegulatoryDomain} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Regulatory Domain"
+              value={itemValue}
+              meta={ContractAwardNoticeFieldMeta.RegulatoryDomain}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ContractAwardNotice ubl-Code ubl-NoticeTypeCode"
           meta={ContractAwardNoticeFieldMeta.NoticeTypeCode} 
           value={value.NoticeTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={ContractAwardNoticeFieldMeta.NoticeTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Notice Type Code"
+              value={itemValue}
+              meta={ContractAwardNoticeFieldMeta.NoticeTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ContractAwardNotice ubl-Indicator ubl-PublishAwardIndicator"
           meta={ContractAwardNoticeFieldMeta.PublishAwardIndicator} 
           value={value.PublishAwardIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={ContractAwardNoticeFieldMeta.PublishAwardIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Publish Award Indicator"
+              value={itemValue}
+              meta={ContractAwardNoticeFieldMeta.PublishAwardIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ContractAwardNotice ubl-Code ubl-NoticeLanguageCode"
           meta={ContractAwardNoticeFieldMeta.NoticeLanguageCode} 
           value={value.NoticeLanguageCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={ContractAwardNoticeFieldMeta.NoticeLanguageCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Notice Language Code"
+              value={itemValue}
+              meta={ContractAwardNoticeFieldMeta.NoticeLanguageCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-ContractAwardNotice ubl-Language ubl-AdditionalNoticeLanguage"
           meta={ContractAwardNoticeFieldMeta.AdditionalNoticeLanguage} 
           value={value.AdditionalNoticeLanguage}
           itemDisplay={ (itemValue: Language, key: string | number) =>
-            <LanguageDisplay key={key} meta={ContractAwardNoticeFieldMeta.AdditionalNoticeLanguage} value={itemValue} />
+            <LanguageDisplay
+              key={key}
+              label="Additional Notice Language"
+              value={itemValue}
+              meta={ContractAwardNoticeFieldMeta.AdditionalNoticeLanguage}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-ContractAwardNotice ubl-DocumentReference ubl-PreviousDocumentReference"
           meta={ContractAwardNoticeFieldMeta.PreviousDocumentReference} 
           value={value.PreviousDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={ContractAwardNoticeFieldMeta.PreviousDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Previous Document Reference"
+              value={itemValue}
+              meta={ContractAwardNoticeFieldMeta.PreviousDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-ContractAwardNotice ubl-DocumentReference ubl-MinutesDocumentReference"
           meta={ContractAwardNoticeFieldMeta.MinutesDocumentReference} 
           value={value.MinutesDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={ContractAwardNoticeFieldMeta.MinutesDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Minutes Document Reference"
+              value={itemValue}
+              meta={ContractAwardNoticeFieldMeta.MinutesDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-ContractAwardNotice ubl-Signature"
           meta={ContractAwardNoticeFieldMeta.Signature} 
           value={value.Signature}
           itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay key={key} meta={ContractAwardNoticeFieldMeta.Signature} value={itemValue} />
+            <SignatureDisplay
+              key={key}
+              label="Signature"
+              value={itemValue}
+              meta={ContractAwardNoticeFieldMeta.Signature}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-ContractAwardNotice ubl-ContractingParty"
           meta={ContractAwardNoticeFieldMeta.ContractingParty} 
           value={value.ContractingParty}
           itemDisplay={ (itemValue: ContractingParty, key: string | number) =>
-            <ContractingPartyDisplay key={key} meta={ContractAwardNoticeFieldMeta.ContractingParty} value={itemValue} />
+            <ContractingPartyDisplay
+              key={key}
+              label="Contracting Party"
+              value={itemValue}
+              meta={ContractAwardNoticeFieldMeta.ContractingParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-ContractAwardNotice ubl-CustomerParty ubl-OriginatorCustomerParty"
           meta={ContractAwardNoticeFieldMeta.OriginatorCustomerParty} 
           value={value.OriginatorCustomerParty}
           itemDisplay={ (itemValue: CustomerParty, key: string | number) =>
-            <CustomerPartyDisplay key={key} meta={ContractAwardNoticeFieldMeta.OriginatorCustomerParty} value={itemValue} />
+            <CustomerPartyDisplay
+              key={key}
+              label="Originator Customer Party"
+              value={itemValue}
+              meta={ContractAwardNoticeFieldMeta.OriginatorCustomerParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-ContractAwardNotice ubl-Party ubl-ReceiverParty"
           meta={ContractAwardNoticeFieldMeta.ReceiverParty} 
           value={value.ReceiverParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={ContractAwardNoticeFieldMeta.ReceiverParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Receiver Party"
+              value={itemValue}
+              meta={ContractAwardNoticeFieldMeta.ReceiverParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-ContractAwardNotice ubl-TenderingTerms"
           meta={ContractAwardNoticeFieldMeta.TenderingTerms} 
           value={value.TenderingTerms}
           itemDisplay={ (itemValue: TenderingTerms, key: string | number) =>
-            <TenderingTermsDisplay key={key} meta={ContractAwardNoticeFieldMeta.TenderingTerms} value={itemValue} />
+            <TenderingTermsDisplay
+              key={key}
+              label="Tendering Terms"
+              value={itemValue}
+              meta={ContractAwardNoticeFieldMeta.TenderingTerms}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-ContractAwardNotice ubl-TenderingProcess"
           meta={ContractAwardNoticeFieldMeta.TenderingProcess} 
           value={value.TenderingProcess}
           itemDisplay={ (itemValue: TenderingProcess, key: string | number) =>
-            <TenderingProcessDisplay key={key} meta={ContractAwardNoticeFieldMeta.TenderingProcess} value={itemValue} />
+            <TenderingProcessDisplay
+              key={key}
+              label="Tendering Process"
+              value={itemValue}
+              meta={ContractAwardNoticeFieldMeta.TenderingProcess}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-ContractAwardNotice ubl-ProcurementProject"
           meta={ContractAwardNoticeFieldMeta.ProcurementProject} 
           value={value.ProcurementProject}
           itemDisplay={ (itemValue: ProcurementProject, key: string | number) =>
-            <ProcurementProjectDisplay key={key} meta={ContractAwardNoticeFieldMeta.ProcurementProject} value={itemValue} />
+            <ProcurementProjectDisplay
+              key={key}
+              label="Procurement Project"
+              value={itemValue}
+              meta={ContractAwardNoticeFieldMeta.ProcurementProject}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-ContractAwardNotice ubl-ProcurementProjectLot"
           meta={ContractAwardNoticeFieldMeta.ProcurementProjectLot} 
           value={value.ProcurementProjectLot}
           itemDisplay={ (itemValue: ProcurementProjectLot, key: string | number) =>
-            <ProcurementProjectLotDisplay key={key} meta={ContractAwardNoticeFieldMeta.ProcurementProjectLot} value={itemValue} />
+            <ProcurementProjectLotDisplay
+              key={key}
+              label="Procurement Project Lot"
+              value={itemValue}
+              meta={ContractAwardNoticeFieldMeta.ProcurementProjectLot}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-ContractAwardNotice ubl-TenderResult"
           meta={ContractAwardNoticeFieldMeta.TenderResult} 
           value={value.TenderResult}
           itemDisplay={ (itemValue: TenderResult, key: string | number) =>
-            <TenderResultDisplay key={key} meta={ContractAwardNoticeFieldMeta.TenderResult} value={itemValue} />
+            <TenderResultDisplay
+              key={key}
+              label="Tender Result"
+              value={itemValue}
+              meta={ContractAwardNoticeFieldMeta.TenderResult}
+            />
           }
         />
         </div>

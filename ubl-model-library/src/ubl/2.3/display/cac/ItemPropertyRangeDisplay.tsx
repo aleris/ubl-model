@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ItemPropertyRange } from  '../../model/cac/ItemPropertyRange'
 import { ItemPropertyRangeFieldMeta } from  '../../meta/cac/ItemPropertyRangeMeta'
@@ -8,37 +9,56 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: ItemPropertyRange
   meta: FieldMeta<T>
 }
 
-export default function ItemPropertyRangeDisplay<T>({ value, meta }: Params<T>) {
+export default function ItemPropertyRangeDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-ItemPropertyRange ubl-ItemPropertyRangeType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-ItemPropertyRange ubl-UBLExtensions"
           meta={ItemPropertyRangeFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={ItemPropertyRangeFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={ItemPropertyRangeFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ItemPropertyRange ubl-Text ubl-MinimumValue"
           meta={ItemPropertyRangeFieldMeta.MinimumValue} 
           value={value.MinimumValue}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ItemPropertyRangeFieldMeta.MinimumValue} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Minimum Value"
+              value={itemValue}
+              meta={ItemPropertyRangeFieldMeta.MinimumValue}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ItemPropertyRange ubl-Text ubl-MaximumValue"
           meta={ItemPropertyRangeFieldMeta.MaximumValue} 
           value={value.MaximumValue}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ItemPropertyRangeFieldMeta.MaximumValue} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Maximum Value"
+              value={itemValue}
+              meta={ItemPropertyRangeFieldMeta.MaximumValue}
+            />
           }
         />
         </div>

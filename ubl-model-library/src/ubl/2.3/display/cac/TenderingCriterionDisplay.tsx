@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TenderingCriterion } from  '../../model/cac/TenderingCriterion'
 import { TenderingCriterionFieldMeta } from  '../../meta/cac/TenderingCriterionMeta'
@@ -24,133 +25,224 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: TenderingCriterion
   meta: FieldMeta<T>
 }
 
-export default function TenderingCriterionDisplay<T>({ value, meta }: Params<T>) {
+export default function TenderingCriterionDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-TenderingCriterion ubl-TenderingCriterionType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-TenderingCriterion ubl-UBLExtensions"
           meta={TenderingCriterionFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={TenderingCriterionFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={TenderingCriterionFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TenderingCriterion ubl-Identifier ubl-ID"
           meta={TenderingCriterionFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={TenderingCriterionFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={TenderingCriterionFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TenderingCriterion ubl-Code ubl-CriterionTypeCode"
           meta={TenderingCriterionFieldMeta.CriterionTypeCode} 
           value={value.CriterionTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={TenderingCriterionFieldMeta.CriterionTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Criterion Type Code"
+              value={itemValue}
+              meta={TenderingCriterionFieldMeta.CriterionTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-TenderingCriterion ubl-Text ubl-Name"
           meta={TenderingCriterionFieldMeta.Name} 
           value={value.Name}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={TenderingCriterionFieldMeta.Name} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Name"
+              value={itemValue}
+              meta={TenderingCriterionFieldMeta.Name}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-TenderingCriterion ubl-Text ubl-Description"
           meta={TenderingCriterionFieldMeta.Description} 
           value={value.Description}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={TenderingCriterionFieldMeta.Description} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Description"
+              value={itemValue}
+              meta={TenderingCriterionFieldMeta.Description}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TenderingCriterion ubl-Numeric ubl-WeightNumeric"
           meta={TenderingCriterionFieldMeta.WeightNumeric} 
           value={value.WeightNumeric}
           itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay key={key} meta={TenderingCriterionFieldMeta.WeightNumeric} value={itemValue} />
+            <NumericDisplay
+              key={key}
+              label="Weight Numeric"
+              value={itemValue}
+              meta={TenderingCriterionFieldMeta.WeightNumeric}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TenderingCriterion ubl-Indicator ubl-FulfilmentIndicator"
           meta={TenderingCriterionFieldMeta.FulfilmentIndicator} 
           value={value.FulfilmentIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={TenderingCriterionFieldMeta.FulfilmentIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Fulfilment Indicator"
+              value={itemValue}
+              meta={TenderingCriterionFieldMeta.FulfilmentIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TenderingCriterion ubl-Code ubl-FulfilmentIndicatorTypeCode"
           meta={TenderingCriterionFieldMeta.FulfilmentIndicatorTypeCode} 
           value={value.FulfilmentIndicatorTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={TenderingCriterionFieldMeta.FulfilmentIndicatorTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Fulfilment Indicator Type Code"
+              value={itemValue}
+              meta={TenderingCriterionFieldMeta.FulfilmentIndicatorTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TenderingCriterion ubl-Code ubl-EvaluationMethodTypeCode"
           meta={TenderingCriterionFieldMeta.EvaluationMethodTypeCode} 
           value={value.EvaluationMethodTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={TenderingCriterionFieldMeta.EvaluationMethodTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Evaluation Method Type Code"
+              value={itemValue}
+              meta={TenderingCriterionFieldMeta.EvaluationMethodTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-TenderingCriterion ubl-Text ubl-WeightingConsiderationDescription"
           meta={TenderingCriterionFieldMeta.WeightingConsiderationDescription} 
           value={value.WeightingConsiderationDescription}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={TenderingCriterionFieldMeta.WeightingConsiderationDescription} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Weighting Consideration Description"
+              value={itemValue}
+              meta={TenderingCriterionFieldMeta.WeightingConsiderationDescription}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TenderingCriterion ubl-ProcurementProjectLotReference"
           meta={TenderingCriterionFieldMeta.ProcurementProjectLotReference} 
           value={value.ProcurementProjectLotReference}
           itemDisplay={ (itemValue: ProcurementProjectLotReference, key: string | number) =>
-            <ProcurementProjectLotReferenceDisplay key={key} meta={TenderingCriterionFieldMeta.ProcurementProjectLotReference} value={itemValue} />
+            <ProcurementProjectLotReferenceDisplay
+              key={key}
+              label="Procurement Project Lot Reference"
+              value={itemValue}
+              meta={TenderingCriterionFieldMeta.ProcurementProjectLotReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TenderingCriterion ubl-CommodityClassification"
           meta={TenderingCriterionFieldMeta.CommodityClassification} 
           value={value.CommodityClassification}
           itemDisplay={ (itemValue: CommodityClassification, key: string | number) =>
-            <CommodityClassificationDisplay key={key} meta={TenderingCriterionFieldMeta.CommodityClassification} value={itemValue} />
+            <CommodityClassificationDisplay
+              key={key}
+              label="Commodity Classification"
+              value={itemValue}
+              meta={TenderingCriterionFieldMeta.CommodityClassification}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TenderingCriterion ubl-SubTenderingCriterion"
           meta={TenderingCriterionFieldMeta.SubTenderingCriterion} 
           value={value.SubTenderingCriterion}
           itemDisplay={ (itemValue: TenderingCriterion, key: string | number) =>
-            <TenderingCriterionDisplay key={key} meta={TenderingCriterionFieldMeta.SubTenderingCriterion} value={itemValue} />
+            <TenderingCriterionDisplay
+              key={key}
+              label="Sub Tendering Criterion"
+              value={itemValue}
+              meta={TenderingCriterionFieldMeta.SubTenderingCriterion}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TenderingCriterion ubl-Legislation"
           meta={TenderingCriterionFieldMeta.Legislation} 
           value={value.Legislation}
           itemDisplay={ (itemValue: Legislation, key: string | number) =>
-            <LegislationDisplay key={key} meta={TenderingCriterionFieldMeta.Legislation} value={itemValue} />
+            <LegislationDisplay
+              key={key}
+              label="Legislation"
+              value={itemValue}
+              meta={TenderingCriterionFieldMeta.Legislation}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TenderingCriterion ubl-TenderingCriterionPropertyGroup"
           meta={TenderingCriterionFieldMeta.TenderingCriterionPropertyGroup} 
           value={value.TenderingCriterionPropertyGroup}
           itemDisplay={ (itemValue: TenderingCriterionPropertyGroup, key: string | number) =>
-            <TenderingCriterionPropertyGroupDisplay key={key} meta={TenderingCriterionFieldMeta.TenderingCriterionPropertyGroup} value={itemValue} />
+            <TenderingCriterionPropertyGroupDisplay
+              key={key}
+              label="Tendering Criterion Property Group"
+              value={itemValue}
+              meta={TenderingCriterionFieldMeta.TenderingCriterionPropertyGroup}
+            />
           }
         />
         </div>

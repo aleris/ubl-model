@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { LocationCoordinate } from  '../../model/cac/LocationCoordinate'
 import { LocationCoordinateFieldMeta } from  '../../meta/cac/LocationCoordinateMeta'
@@ -10,85 +11,140 @@ import { Measure } from '../../model/cbc/Measure'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: LocationCoordinate
   meta: FieldMeta<T>
 }
 
-export default function LocationCoordinateDisplay<T>({ value, meta }: Params<T>) {
+export default function LocationCoordinateDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-LocationCoordinate ubl-LocationCoordinateType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-LocationCoordinate ubl-UBLExtensions"
           meta={LocationCoordinateFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={LocationCoordinateFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={LocationCoordinateFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-LocationCoordinate ubl-Code ubl-CoordinateSystemCode"
           meta={LocationCoordinateFieldMeta.CoordinateSystemCode} 
           value={value.CoordinateSystemCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={LocationCoordinateFieldMeta.CoordinateSystemCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Coordinate System Code"
+              value={itemValue}
+              meta={LocationCoordinateFieldMeta.CoordinateSystemCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-LocationCoordinate ubl-Measure ubl-LatitudeDegreesMeasure"
           meta={LocationCoordinateFieldMeta.LatitudeDegreesMeasure} 
           value={value.LatitudeDegreesMeasure}
           itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay key={key} meta={LocationCoordinateFieldMeta.LatitudeDegreesMeasure} value={itemValue} />
+            <MeasureDisplay
+              key={key}
+              label="Latitude Degrees"
+              value={itemValue}
+              meta={LocationCoordinateFieldMeta.LatitudeDegreesMeasure}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-LocationCoordinate ubl-Measure ubl-LatitudeMinutesMeasure"
           meta={LocationCoordinateFieldMeta.LatitudeMinutesMeasure} 
           value={value.LatitudeMinutesMeasure}
           itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay key={key} meta={LocationCoordinateFieldMeta.LatitudeMinutesMeasure} value={itemValue} />
+            <MeasureDisplay
+              key={key}
+              label="Latitude Minutes"
+              value={itemValue}
+              meta={LocationCoordinateFieldMeta.LatitudeMinutesMeasure}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-LocationCoordinate ubl-Code ubl-LatitudeDirectionCode"
           meta={LocationCoordinateFieldMeta.LatitudeDirectionCode} 
           value={value.LatitudeDirectionCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={LocationCoordinateFieldMeta.LatitudeDirectionCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Latitude Direction Code"
+              value={itemValue}
+              meta={LocationCoordinateFieldMeta.LatitudeDirectionCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-LocationCoordinate ubl-Measure ubl-LongitudeDegreesMeasure"
           meta={LocationCoordinateFieldMeta.LongitudeDegreesMeasure} 
           value={value.LongitudeDegreesMeasure}
           itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay key={key} meta={LocationCoordinateFieldMeta.LongitudeDegreesMeasure} value={itemValue} />
+            <MeasureDisplay
+              key={key}
+              label="Longitude Degrees"
+              value={itemValue}
+              meta={LocationCoordinateFieldMeta.LongitudeDegreesMeasure}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-LocationCoordinate ubl-Measure ubl-LongitudeMinutesMeasure"
           meta={LocationCoordinateFieldMeta.LongitudeMinutesMeasure} 
           value={value.LongitudeMinutesMeasure}
           itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay key={key} meta={LocationCoordinateFieldMeta.LongitudeMinutesMeasure} value={itemValue} />
+            <MeasureDisplay
+              key={key}
+              label="Longitude Minutes"
+              value={itemValue}
+              meta={LocationCoordinateFieldMeta.LongitudeMinutesMeasure}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-LocationCoordinate ubl-Code ubl-LongitudeDirectionCode"
           meta={LocationCoordinateFieldMeta.LongitudeDirectionCode} 
           value={value.LongitudeDirectionCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={LocationCoordinateFieldMeta.LongitudeDirectionCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Longitude Direction Code"
+              value={itemValue}
+              meta={LocationCoordinateFieldMeta.LongitudeDirectionCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-LocationCoordinate ubl-Measure ubl-AltitudeMeasure"
           meta={LocationCoordinateFieldMeta.AltitudeMeasure} 
           value={value.AltitudeMeasure}
           itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay key={key} meta={LocationCoordinateFieldMeta.AltitudeMeasure} value={itemValue} />
+            <MeasureDisplay
+              key={key}
+              label="Altitude"
+              value={itemValue}
+              meta={LocationCoordinateFieldMeta.AltitudeMeasure}
+            />
           }
         />
         </div>

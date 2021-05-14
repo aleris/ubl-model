@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Period } from  '../../model/cac/Period'
 import { PeriodFieldMeta } from  '../../meta/cac/PeriodMeta'
@@ -16,77 +17,126 @@ import { Time } from '../../model/cbc/Time'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: Period
   meta: FieldMeta<T>
 }
 
-export default function PeriodDisplay<T>({ value, meta }: Params<T>) {
+export default function PeriodDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-Period ubl-PeriodType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-Period ubl-UBLExtensions"
           meta={PeriodFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={PeriodFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={PeriodFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Period ubl-Date ubl-StartDate"
           meta={PeriodFieldMeta.StartDate} 
           value={value.StartDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={PeriodFieldMeta.StartDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Start Date"
+              value={itemValue}
+              meta={PeriodFieldMeta.StartDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Period ubl-Time ubl-StartTime"
           meta={PeriodFieldMeta.StartTime} 
           value={value.StartTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={PeriodFieldMeta.StartTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Start Time"
+              value={itemValue}
+              meta={PeriodFieldMeta.StartTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Period ubl-Date ubl-EndDate"
           meta={PeriodFieldMeta.EndDate} 
           value={value.EndDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={PeriodFieldMeta.EndDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="End Date"
+              value={itemValue}
+              meta={PeriodFieldMeta.EndDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Period ubl-Time ubl-EndTime"
           meta={PeriodFieldMeta.EndTime} 
           value={value.EndTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={PeriodFieldMeta.EndTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="End Time"
+              value={itemValue}
+              meta={PeriodFieldMeta.EndTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Period ubl-Measure ubl-DurationMeasure"
           meta={PeriodFieldMeta.DurationMeasure} 
           value={value.DurationMeasure}
           itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay key={key} meta={PeriodFieldMeta.DurationMeasure} value={itemValue} />
+            <MeasureDisplay
+              key={key}
+              label="Duration"
+              value={itemValue}
+              meta={PeriodFieldMeta.DurationMeasure}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Period ubl-Code ubl-DescriptionCode"
           meta={PeriodFieldMeta.DescriptionCode} 
           value={value.DescriptionCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={PeriodFieldMeta.DescriptionCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Description Code"
+              value={itemValue}
+              meta={PeriodFieldMeta.DescriptionCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Period ubl-Text ubl-Description"
           meta={PeriodFieldMeta.Description} 
           value={value.Description}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={PeriodFieldMeta.Description} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Description"
+              value={itemValue}
+              meta={PeriodFieldMeta.Description}
+            />
           }
         />
         </div>

@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { OrderReference } from  '../../model/cac/OrderReference'
 import { OrderReferenceFieldMeta } from  '../../meta/cac/OrderReferenceMeta'
@@ -20,93 +21,154 @@ import { Time } from '../../model/cbc/Time'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: OrderReference
   meta: FieldMeta<T>
 }
 
-export default function OrderReferenceDisplay<T>({ value, meta }: Params<T>) {
+export default function OrderReferenceDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-OrderReference ubl-OrderReferenceType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-OrderReference ubl-UBLExtensions"
           meta={OrderReferenceFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={OrderReferenceFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={OrderReferenceFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-OrderReference ubl-Identifier ubl-ID"
           meta={OrderReferenceFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={OrderReferenceFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={OrderReferenceFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-OrderReference ubl-Identifier ubl-SalesOrderID"
           meta={OrderReferenceFieldMeta.SalesOrderID} 
           value={value.SalesOrderID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={OrderReferenceFieldMeta.SalesOrderID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Sales Order Identifier"
+              value={itemValue}
+              meta={OrderReferenceFieldMeta.SalesOrderID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-OrderReference ubl-Indicator ubl-CopyIndicator"
           meta={OrderReferenceFieldMeta.CopyIndicator} 
           value={value.CopyIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={OrderReferenceFieldMeta.CopyIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Copy Indicator"
+              value={itemValue}
+              meta={OrderReferenceFieldMeta.CopyIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-OrderReference ubl-Identifier ubl-UUID"
           meta={OrderReferenceFieldMeta.UUID} 
           value={value.UUID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={OrderReferenceFieldMeta.UUID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UUID"
+              value={itemValue}
+              meta={OrderReferenceFieldMeta.UUID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-OrderReference ubl-Date ubl-IssueDate"
           meta={OrderReferenceFieldMeta.IssueDate} 
           value={value.IssueDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={OrderReferenceFieldMeta.IssueDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Issue Date"
+              value={itemValue}
+              meta={OrderReferenceFieldMeta.IssueDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-OrderReference ubl-Time ubl-IssueTime"
           meta={OrderReferenceFieldMeta.IssueTime} 
           value={value.IssueTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={OrderReferenceFieldMeta.IssueTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Issue Time"
+              value={itemValue}
+              meta={OrderReferenceFieldMeta.IssueTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-OrderReference ubl-Text ubl-CustomerReference"
           meta={OrderReferenceFieldMeta.CustomerReference} 
           value={value.CustomerReference}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={OrderReferenceFieldMeta.CustomerReference} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Customer Reference"
+              value={itemValue}
+              meta={OrderReferenceFieldMeta.CustomerReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-OrderReference ubl-Code ubl-OrderTypeCode"
           meta={OrderReferenceFieldMeta.OrderTypeCode} 
           value={value.OrderTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={OrderReferenceFieldMeta.OrderTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Order Type Code"
+              value={itemValue}
+              meta={OrderReferenceFieldMeta.OrderTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-OrderReference ubl-DocumentReference"
           meta={OrderReferenceFieldMeta.DocumentReference} 
           value={value.DocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={OrderReferenceFieldMeta.DocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Document Reference"
+              value={itemValue}
+              meta={OrderReferenceFieldMeta.DocumentReference}
+            />
           }
         />
         </div>

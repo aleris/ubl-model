@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { HazardousGoodsTransit } from  '../../model/cac/HazardousGoodsTransit'
 import { HazardousGoodsTransitFieldMeta } from  '../../meta/cac/HazardousGoodsTransitMeta'
@@ -10,77 +11,126 @@ import { Temperature } from '../../model/cac/Temperature'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: HazardousGoodsTransit
   meta: FieldMeta<T>
 }
 
-export default function HazardousGoodsTransitDisplay<T>({ value, meta }: Params<T>) {
+export default function HazardousGoodsTransitDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-HazardousGoodsTransit ubl-HazardousGoodsTransitType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-HazardousGoodsTransit ubl-UBLExtensions"
           meta={HazardousGoodsTransitFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={HazardousGoodsTransitFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={HazardousGoodsTransitFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-HazardousGoodsTransit ubl-Code ubl-TransportEmergencyCardCode"
           meta={HazardousGoodsTransitFieldMeta.TransportEmergencyCardCode} 
           value={value.TransportEmergencyCardCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={HazardousGoodsTransitFieldMeta.TransportEmergencyCardCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Transport Emergency Card Code"
+              value={itemValue}
+              meta={HazardousGoodsTransitFieldMeta.TransportEmergencyCardCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-HazardousGoodsTransit ubl-Code ubl-PackingCriteriaCode"
           meta={HazardousGoodsTransitFieldMeta.PackingCriteriaCode} 
           value={value.PackingCriteriaCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={HazardousGoodsTransitFieldMeta.PackingCriteriaCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Packing Criteria Code"
+              value={itemValue}
+              meta={HazardousGoodsTransitFieldMeta.PackingCriteriaCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-HazardousGoodsTransit ubl-Code ubl-HazardousRegulationCode"
           meta={HazardousGoodsTransitFieldMeta.HazardousRegulationCode} 
           value={value.HazardousRegulationCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={HazardousGoodsTransitFieldMeta.HazardousRegulationCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Hazardous Regulation Code"
+              value={itemValue}
+              meta={HazardousGoodsTransitFieldMeta.HazardousRegulationCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-HazardousGoodsTransit ubl-Code ubl-InhalationToxicityZoneCode"
           meta={HazardousGoodsTransitFieldMeta.InhalationToxicityZoneCode} 
           value={value.InhalationToxicityZoneCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={HazardousGoodsTransitFieldMeta.InhalationToxicityZoneCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Inhalation Toxicity Zone Code"
+              value={itemValue}
+              meta={HazardousGoodsTransitFieldMeta.InhalationToxicityZoneCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-HazardousGoodsTransit ubl-Code ubl-TransportAuthorizationCode"
           meta={HazardousGoodsTransitFieldMeta.TransportAuthorizationCode} 
           value={value.TransportAuthorizationCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={HazardousGoodsTransitFieldMeta.TransportAuthorizationCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Transport Authorization Code"
+              value={itemValue}
+              meta={HazardousGoodsTransitFieldMeta.TransportAuthorizationCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-HazardousGoodsTransit ubl-Temperature ubl-MaximumTemperature"
           meta={HazardousGoodsTransitFieldMeta.MaximumTemperature} 
           value={value.MaximumTemperature}
           itemDisplay={ (itemValue: Temperature, key: string | number) =>
-            <TemperatureDisplay key={key} meta={HazardousGoodsTransitFieldMeta.MaximumTemperature} value={itemValue} />
+            <TemperatureDisplay
+              key={key}
+              label="Maximum Temperature"
+              value={itemValue}
+              meta={HazardousGoodsTransitFieldMeta.MaximumTemperature}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-HazardousGoodsTransit ubl-Temperature ubl-MinimumTemperature"
           meta={HazardousGoodsTransitFieldMeta.MinimumTemperature} 
           value={value.MinimumTemperature}
           itemDisplay={ (itemValue: Temperature, key: string | number) =>
-            <TemperatureDisplay key={key} meta={HazardousGoodsTransitFieldMeta.MinimumTemperature} value={itemValue} />
+            <TemperatureDisplay
+              key={key}
+              label="Minimum Temperature"
+              value={itemValue}
+              meta={HazardousGoodsTransitFieldMeta.MinimumTemperature}
+            />
           }
         />
         </div>

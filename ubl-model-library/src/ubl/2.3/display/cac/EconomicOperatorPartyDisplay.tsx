@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { EconomicOperatorParty } from  '../../model/cac/EconomicOperatorParty'
 import { EconomicOperatorPartyFieldMeta } from  '../../meta/cac/EconomicOperatorPartyMeta'
@@ -12,45 +13,70 @@ import { QualifyingParty } from '../../model/cac/QualifyingParty'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: EconomicOperatorParty
   meta: FieldMeta<T>
 }
 
-export default function EconomicOperatorPartyDisplay<T>({ value, meta }: Params<T>) {
+export default function EconomicOperatorPartyDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-EconomicOperatorParty ubl-EconomicOperatorPartyType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-EconomicOperatorParty ubl-UBLExtensions"
           meta={EconomicOperatorPartyFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={EconomicOperatorPartyFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={EconomicOperatorPartyFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-EconomicOperatorParty ubl-QualifyingParty"
           meta={EconomicOperatorPartyFieldMeta.QualifyingParty} 
           value={value.QualifyingParty}
           itemDisplay={ (itemValue: QualifyingParty, key: string | number) =>
-            <QualifyingPartyDisplay key={key} meta={EconomicOperatorPartyFieldMeta.QualifyingParty} value={itemValue} />
+            <QualifyingPartyDisplay
+              key={key}
+              label="Qualifying Party"
+              value={itemValue}
+              meta={EconomicOperatorPartyFieldMeta.QualifyingParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-EconomicOperatorParty ubl-EconomicOperatorRole"
           meta={EconomicOperatorPartyFieldMeta.EconomicOperatorRole} 
           value={value.EconomicOperatorRole}
           itemDisplay={ (itemValue: EconomicOperatorRole, key: string | number) =>
-            <EconomicOperatorRoleDisplay key={key} meta={EconomicOperatorPartyFieldMeta.EconomicOperatorRole} value={itemValue} />
+            <EconomicOperatorRoleDisplay
+              key={key}
+              label="Economic Operator Role"
+              value={itemValue}
+              meta={EconomicOperatorPartyFieldMeta.EconomicOperatorRole}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-EconomicOperatorParty ubl-Party"
           meta={EconomicOperatorPartyFieldMeta.Party} 
           value={value.Party}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={EconomicOperatorPartyFieldMeta.Party} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Party"
+              value={itemValue}
+              meta={EconomicOperatorPartyFieldMeta.Party}
+            />
           }
         />
         </div>

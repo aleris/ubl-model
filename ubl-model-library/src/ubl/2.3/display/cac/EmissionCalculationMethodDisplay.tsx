@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { EmissionCalculationMethod } from  '../../model/cac/EmissionCalculationMethod'
 import { EmissionCalculationMethodFieldMeta } from  '../../meta/cac/EmissionCalculationMethodMeta'
@@ -10,53 +11,84 @@ import { Location } from '../../model/cac/Location'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: EmissionCalculationMethod
   meta: FieldMeta<T>
 }
 
-export default function EmissionCalculationMethodDisplay<T>({ value, meta }: Params<T>) {
+export default function EmissionCalculationMethodDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-EmissionCalculationMethod ubl-EmissionCalculationMethodType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-EmissionCalculationMethod ubl-UBLExtensions"
           meta={EmissionCalculationMethodFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={EmissionCalculationMethodFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={EmissionCalculationMethodFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-EmissionCalculationMethod ubl-Code ubl-CalculationMethodCode"
           meta={EmissionCalculationMethodFieldMeta.CalculationMethodCode} 
           value={value.CalculationMethodCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={EmissionCalculationMethodFieldMeta.CalculationMethodCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Calculation Method Code"
+              value={itemValue}
+              meta={EmissionCalculationMethodFieldMeta.CalculationMethodCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-EmissionCalculationMethod ubl-Code ubl-FullnessIndicationCode"
           meta={EmissionCalculationMethodFieldMeta.FullnessIndicationCode} 
           value={value.FullnessIndicationCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={EmissionCalculationMethodFieldMeta.FullnessIndicationCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Fullness Indication Code"
+              value={itemValue}
+              meta={EmissionCalculationMethodFieldMeta.FullnessIndicationCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-EmissionCalculationMethod ubl-Location ubl-MeasurementFromLocation"
           meta={EmissionCalculationMethodFieldMeta.MeasurementFromLocation} 
           value={value.MeasurementFromLocation}
           itemDisplay={ (itemValue: Location, key: string | number) =>
-            <LocationDisplay key={key} meta={EmissionCalculationMethodFieldMeta.MeasurementFromLocation} value={itemValue} />
+            <LocationDisplay
+              key={key}
+              label="Measurement From Location"
+              value={itemValue}
+              meta={EmissionCalculationMethodFieldMeta.MeasurementFromLocation}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-EmissionCalculationMethod ubl-Location ubl-MeasurementToLocation"
           meta={EmissionCalculationMethodFieldMeta.MeasurementToLocation} 
           value={value.MeasurementToLocation}
           itemDisplay={ (itemValue: Location, key: string | number) =>
-            <LocationDisplay key={key} meta={EmissionCalculationMethodFieldMeta.MeasurementToLocation} value={itemValue} />
+            <LocationDisplay
+              key={key}
+              label="Measurement To Location"
+              value={itemValue}
+              meta={EmissionCalculationMethodFieldMeta.MeasurementToLocation}
+            />
           }
         />
         </div>

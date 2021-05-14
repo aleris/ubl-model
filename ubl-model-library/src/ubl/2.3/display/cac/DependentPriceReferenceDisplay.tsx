@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { DependentPriceReference } from  '../../model/cac/DependentPriceReference'
 import { DependentPriceReferenceFieldMeta } from  '../../meta/cac/DependentPriceReferenceMeta'
@@ -12,45 +13,70 @@ import { Numeric } from '../../model/cbc/Numeric'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: DependentPriceReference
   meta: FieldMeta<T>
 }
 
-export default function DependentPriceReferenceDisplay<T>({ value, meta }: Params<T>) {
+export default function DependentPriceReferenceDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-DependentPriceReference ubl-DependentPriceReferenceType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-DependentPriceReference ubl-UBLExtensions"
           meta={DependentPriceReferenceFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={DependentPriceReferenceFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={DependentPriceReferenceFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DependentPriceReference ubl-Numeric ubl-Percent"
           meta={DependentPriceReferenceFieldMeta.Percent} 
           value={value.Percent}
           itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay key={key} meta={DependentPriceReferenceFieldMeta.Percent} value={itemValue} />
+            <NumericDisplay
+              key={key}
+              label="Percent"
+              value={itemValue}
+              meta={DependentPriceReferenceFieldMeta.Percent}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-DependentPriceReference ubl-Address ubl-LocationAddress"
           meta={DependentPriceReferenceFieldMeta.LocationAddress} 
           value={value.LocationAddress}
           itemDisplay={ (itemValue: Address, key: string | number) =>
-            <AddressDisplay key={key} meta={DependentPriceReferenceFieldMeta.LocationAddress} value={itemValue} />
+            <AddressDisplay
+              key={key}
+              label="Location Address"
+              value={itemValue}
+              meta={DependentPriceReferenceFieldMeta.LocationAddress}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-DependentPriceReference ubl-LineReference ubl-DependentLineReference"
           meta={DependentPriceReferenceFieldMeta.DependentLineReference} 
           value={value.DependentLineReference}
           itemDisplay={ (itemValue: LineReference, key: string | number) =>
-            <LineReferenceDisplay key={key} meta={DependentPriceReferenceFieldMeta.DependentLineReference} value={itemValue} />
+            <LineReferenceDisplay
+              key={key}
+              label="Dependent Line Reference"
+              value={itemValue}
+              meta={DependentPriceReferenceFieldMeta.DependentLineReference}
+            />
           }
         />
         </div>

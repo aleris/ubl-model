@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Authorization } from  '../../model/cac/Authorization'
 import { AuthorizationFieldMeta } from  '../../meta/cac/AuthorizationMeta'
@@ -14,53 +15,84 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: Authorization
   meta: FieldMeta<T>
 }
 
-export default function AuthorizationDisplay<T>({ value, meta }: Params<T>) {
+export default function AuthorizationDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-Authorization ubl-AuthorizationType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-Authorization ubl-UBLExtensions"
           meta={AuthorizationFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={AuthorizationFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={AuthorizationFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Authorization ubl-Code ubl-PurposeCode"
           meta={AuthorizationFieldMeta.PurposeCode} 
           value={value.PurposeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={AuthorizationFieldMeta.PurposeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Purpose Code"
+              value={itemValue}
+              meta={AuthorizationFieldMeta.PurposeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Authorization ubl-Text ubl-Purpose"
           meta={AuthorizationFieldMeta.Purpose} 
           value={value.Purpose}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={AuthorizationFieldMeta.Purpose} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Purpose"
+              value={itemValue}
+              meta={AuthorizationFieldMeta.Purpose}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Authorization ubl-Period ubl-ValidityPeriod"
           meta={AuthorizationFieldMeta.ValidityPeriod} 
           value={value.ValidityPeriod}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={AuthorizationFieldMeta.ValidityPeriod} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Validity Period"
+              value={itemValue}
+              meta={AuthorizationFieldMeta.ValidityPeriod}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Authorization ubl-Certificate"
           meta={AuthorizationFieldMeta.Certificate} 
           value={value.Certificate}
           itemDisplay={ (itemValue: Certificate, key: string | number) =>
-            <CertificateDisplay key={key} meta={AuthorizationFieldMeta.Certificate} value={itemValue} />
+            <CertificateDisplay
+              key={key}
+              label="Certificate"
+              value={itemValue}
+              meta={AuthorizationFieldMeta.Certificate}
+            />
           }
         />
         </div>

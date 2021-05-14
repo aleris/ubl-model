@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TransportationService } from  '../../model/cac/TransportationService'
 import { TransportationServiceFieldMeta } from  '../../meta/cac/TransportationServiceMeta'
@@ -36,205 +37,350 @@ import { TransportEvent } from '../../model/cac/TransportEvent'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: TransportationService
   meta: FieldMeta<T>
 }
 
-export default function TransportationServiceDisplay<T>({ value, meta }: Params<T>) {
+export default function TransportationServiceDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-TransportationService ubl-TransportationServiceType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-TransportationService ubl-UBLExtensions"
           meta={TransportationServiceFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={TransportationServiceFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={TransportationServiceFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportationService ubl-Code ubl-TransportServiceCode"
           meta={TransportationServiceFieldMeta.TransportServiceCode} 
           value={value.TransportServiceCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={TransportationServiceFieldMeta.TransportServiceCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Transport Service Code"
+              value={itemValue}
+              meta={TransportationServiceFieldMeta.TransportServiceCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportationService ubl-Code ubl-TariffClassCode"
           meta={TransportationServiceFieldMeta.TariffClassCode} 
           value={value.TariffClassCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={TransportationServiceFieldMeta.TariffClassCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Tariff Class Code"
+              value={itemValue}
+              meta={TransportationServiceFieldMeta.TariffClassCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportationService ubl-Text ubl-Priority"
           meta={TransportationServiceFieldMeta.Priority} 
           value={value.Priority}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={TransportationServiceFieldMeta.Priority} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Priority"
+              value={itemValue}
+              meta={TransportationServiceFieldMeta.Priority}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportationService ubl-Code ubl-FreightRateClassCode"
           meta={TransportationServiceFieldMeta.FreightRateClassCode} 
           value={value.FreightRateClassCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={TransportationServiceFieldMeta.FreightRateClassCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Freight Rate Class Code"
+              value={itemValue}
+              meta={TransportationServiceFieldMeta.FreightRateClassCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-TransportationService ubl-Text ubl-TransportationServiceDescription"
           meta={TransportationServiceFieldMeta.TransportationServiceDescription} 
           value={value.TransportationServiceDescription}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={TransportationServiceFieldMeta.TransportationServiceDescription} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Transportation Service Description"
+              value={itemValue}
+              meta={TransportationServiceFieldMeta.TransportationServiceDescription}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportationService ubl-Identifier ubl-TransportationServiceDetailsURI"
           meta={TransportationServiceFieldMeta.TransportationServiceDetailsURI} 
           value={value.TransportationServiceDetailsURI}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={TransportationServiceFieldMeta.TransportationServiceDetailsURI} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Transportation Service Details URI"
+              value={itemValue}
+              meta={TransportationServiceFieldMeta.TransportationServiceDetailsURI}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportationService ubl-Date ubl-NominationDate"
           meta={TransportationServiceFieldMeta.NominationDate} 
           value={value.NominationDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={TransportationServiceFieldMeta.NominationDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Nomination Date"
+              value={itemValue}
+              meta={TransportationServiceFieldMeta.NominationDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportationService ubl-Time ubl-NominationTime"
           meta={TransportationServiceFieldMeta.NominationTime} 
           value={value.NominationTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={TransportationServiceFieldMeta.NominationTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Nomination Time"
+              value={itemValue}
+              meta={TransportationServiceFieldMeta.NominationTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportationService ubl-Text ubl-Name"
           meta={TransportationServiceFieldMeta.Name} 
           value={value.Name}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={TransportationServiceFieldMeta.Name} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Name"
+              value={itemValue}
+              meta={TransportationServiceFieldMeta.Name}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportationService ubl-Numeric ubl-SequenceNumeric"
           meta={TransportationServiceFieldMeta.SequenceNumeric} 
           value={value.SequenceNumeric}
           itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay key={key} meta={TransportationServiceFieldMeta.SequenceNumeric} value={itemValue} />
+            <NumericDisplay
+              key={key}
+              label="Sequence"
+              value={itemValue}
+              meta={TransportationServiceFieldMeta.SequenceNumeric}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportationService ubl-TransportEquipment"
           meta={TransportationServiceFieldMeta.TransportEquipment} 
           value={value.TransportEquipment}
           itemDisplay={ (itemValue: TransportEquipment, key: string | number) =>
-            <TransportEquipmentDisplay key={key} meta={TransportationServiceFieldMeta.TransportEquipment} value={itemValue} />
+            <TransportEquipmentDisplay
+              key={key}
+              label="Transport Equipment"
+              value={itemValue}
+              meta={TransportationServiceFieldMeta.TransportEquipment}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportationService ubl-TransportEquipment ubl-SupportedTransportEquipment"
           meta={TransportationServiceFieldMeta.SupportedTransportEquipment} 
           value={value.SupportedTransportEquipment}
           itemDisplay={ (itemValue: TransportEquipment, key: string | number) =>
-            <TransportEquipmentDisplay key={key} meta={TransportationServiceFieldMeta.SupportedTransportEquipment} value={itemValue} />
+            <TransportEquipmentDisplay
+              key={key}
+              label="Supported Transport Equipment"
+              value={itemValue}
+              meta={TransportationServiceFieldMeta.SupportedTransportEquipment}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportationService ubl-TransportEquipment ubl-UnsupportedTransportEquipment"
           meta={TransportationServiceFieldMeta.UnsupportedTransportEquipment} 
           value={value.UnsupportedTransportEquipment}
           itemDisplay={ (itemValue: TransportEquipment, key: string | number) =>
-            <TransportEquipmentDisplay key={key} meta={TransportationServiceFieldMeta.UnsupportedTransportEquipment} value={itemValue} />
+            <TransportEquipmentDisplay
+              key={key}
+              label="Unsupported Transport Equipment"
+              value={itemValue}
+              meta={TransportationServiceFieldMeta.UnsupportedTransportEquipment}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportationService ubl-CommodityClassification"
           meta={TransportationServiceFieldMeta.CommodityClassification} 
           value={value.CommodityClassification}
           itemDisplay={ (itemValue: CommodityClassification, key: string | number) =>
-            <CommodityClassificationDisplay key={key} meta={TransportationServiceFieldMeta.CommodityClassification} value={itemValue} />
+            <CommodityClassificationDisplay
+              key={key}
+              label="Commodity Classification"
+              value={itemValue}
+              meta={TransportationServiceFieldMeta.CommodityClassification}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportationService ubl-CommodityClassification ubl-SupportedCommodityClassification"
           meta={TransportationServiceFieldMeta.SupportedCommodityClassification} 
           value={value.SupportedCommodityClassification}
           itemDisplay={ (itemValue: CommodityClassification, key: string | number) =>
-            <CommodityClassificationDisplay key={key} meta={TransportationServiceFieldMeta.SupportedCommodityClassification} value={itemValue} />
+            <CommodityClassificationDisplay
+              key={key}
+              label="Supported Commodity Classification"
+              value={itemValue}
+              meta={TransportationServiceFieldMeta.SupportedCommodityClassification}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportationService ubl-CommodityClassification ubl-UnsupportedCommodityClassification"
           meta={TransportationServiceFieldMeta.UnsupportedCommodityClassification} 
           value={value.UnsupportedCommodityClassification}
           itemDisplay={ (itemValue: CommodityClassification, key: string | number) =>
-            <CommodityClassificationDisplay key={key} meta={TransportationServiceFieldMeta.UnsupportedCommodityClassification} value={itemValue} />
+            <CommodityClassificationDisplay
+              key={key}
+              label="Unsupported Commodity Classification"
+              value={itemValue}
+              meta={TransportationServiceFieldMeta.UnsupportedCommodityClassification}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TransportationService ubl-Dimension ubl-TotalCapacityDimension"
           meta={TransportationServiceFieldMeta.TotalCapacityDimension} 
           value={value.TotalCapacityDimension}
           itemDisplay={ (itemValue: Dimension, key: string | number) =>
-            <DimensionDisplay key={key} meta={TransportationServiceFieldMeta.TotalCapacityDimension} value={itemValue} />
+            <DimensionDisplay
+              key={key}
+              label="Total Capacity Dimension"
+              value={itemValue}
+              meta={TransportationServiceFieldMeta.TotalCapacityDimension}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportationService ubl-ShipmentStage"
           meta={TransportationServiceFieldMeta.ShipmentStage} 
           value={value.ShipmentStage}
           itemDisplay={ (itemValue: ShipmentStage, key: string | number) =>
-            <ShipmentStageDisplay key={key} meta={TransportationServiceFieldMeta.ShipmentStage} value={itemValue} />
+            <ShipmentStageDisplay
+              key={key}
+              label="Shipment Stage"
+              value={itemValue}
+              meta={TransportationServiceFieldMeta.ShipmentStage}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportationService ubl-TransportEvent"
           meta={TransportationServiceFieldMeta.TransportEvent} 
           value={value.TransportEvent}
           itemDisplay={ (itemValue: TransportEvent, key: string | number) =>
-            <TransportEventDisplay key={key} meta={TransportationServiceFieldMeta.TransportEvent} value={itemValue} />
+            <TransportEventDisplay
+              key={key}
+              label="Transport Event"
+              value={itemValue}
+              meta={TransportationServiceFieldMeta.TransportEvent}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TransportationService ubl-Party ubl-ResponsibleTransportServiceProviderParty"
           meta={TransportationServiceFieldMeta.ResponsibleTransportServiceProviderParty} 
           value={value.ResponsibleTransportServiceProviderParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={TransportationServiceFieldMeta.ResponsibleTransportServiceProviderParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Responsible Transport Service Provider Party"
+              value={itemValue}
+              meta={TransportationServiceFieldMeta.ResponsibleTransportServiceProviderParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportationService ubl-EnvironmentalEmission"
           meta={TransportationServiceFieldMeta.EnvironmentalEmission} 
           value={value.EnvironmentalEmission}
           itemDisplay={ (itemValue: EnvironmentalEmission, key: string | number) =>
-            <EnvironmentalEmissionDisplay key={key} meta={TransportationServiceFieldMeta.EnvironmentalEmission} value={itemValue} />
+            <EnvironmentalEmissionDisplay
+              key={key}
+              label="Environmental Emission"
+              value={itemValue}
+              meta={TransportationServiceFieldMeta.EnvironmentalEmission}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TransportationService ubl-Period ubl-EstimatedDurationPeriod"
           meta={TransportationServiceFieldMeta.EstimatedDurationPeriod} 
           value={value.EstimatedDurationPeriod}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={TransportationServiceFieldMeta.EstimatedDurationPeriod} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Estimated Duration Period"
+              value={itemValue}
+              meta={TransportationServiceFieldMeta.EstimatedDurationPeriod}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportationService ubl-ServiceFrequency ubl-ScheduledServiceFrequency"
           meta={TransportationServiceFieldMeta.ScheduledServiceFrequency} 
           value={value.ScheduledServiceFrequency}
           itemDisplay={ (itemValue: ServiceFrequency, key: string | number) =>
-            <ServiceFrequencyDisplay key={key} meta={TransportationServiceFieldMeta.ScheduledServiceFrequency} value={itemValue} />
+            <ServiceFrequencyDisplay
+              key={key}
+              label="Scheduled Service Frequency"
+              value={itemValue}
+              meta={TransportationServiceFieldMeta.ScheduledServiceFrequency}
+            />
           }
         />
         </div>

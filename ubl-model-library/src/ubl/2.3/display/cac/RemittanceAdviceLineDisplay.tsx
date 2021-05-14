@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { RemittanceAdviceLine } from  '../../model/cac/RemittanceAdviceLine'
 import { RemittanceAdviceLineFieldMeta } from  '../../meta/cac/RemittanceAdviceLineMeta'
@@ -28,165 +29,280 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: RemittanceAdviceLine
   meta: FieldMeta<T>
 }
 
-export default function RemittanceAdviceLineDisplay<T>({ value, meta }: Params<T>) {
+export default function RemittanceAdviceLineDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-RemittanceAdviceLine ubl-RemittanceAdviceLineType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-RemittanceAdviceLine ubl-UBLExtensions"
           meta={RemittanceAdviceLineFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={RemittanceAdviceLineFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={RemittanceAdviceLineFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-RemittanceAdviceLine ubl-Identifier ubl-ID"
           meta={RemittanceAdviceLineFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={RemittanceAdviceLineFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={RemittanceAdviceLineFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-RemittanceAdviceLine ubl-Text ubl-Note"
           meta={RemittanceAdviceLineFieldMeta.Note} 
           value={value.Note}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={RemittanceAdviceLineFieldMeta.Note} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Note"
+              value={itemValue}
+              meta={RemittanceAdviceLineFieldMeta.Note}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-RemittanceAdviceLine ubl-Identifier ubl-UUID"
           meta={RemittanceAdviceLineFieldMeta.UUID} 
           value={value.UUID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={RemittanceAdviceLineFieldMeta.UUID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UUID"
+              value={itemValue}
+              meta={RemittanceAdviceLineFieldMeta.UUID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-RemittanceAdviceLine ubl-Amount ubl-DebitLineAmount"
           meta={RemittanceAdviceLineFieldMeta.DebitLineAmount} 
           value={value.DebitLineAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={RemittanceAdviceLineFieldMeta.DebitLineAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Debit Line Amount"
+              value={itemValue}
+              meta={RemittanceAdviceLineFieldMeta.DebitLineAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-RemittanceAdviceLine ubl-Amount ubl-CreditLineAmount"
           meta={RemittanceAdviceLineFieldMeta.CreditLineAmount} 
           value={value.CreditLineAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={RemittanceAdviceLineFieldMeta.CreditLineAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Credit Line Amount"
+              value={itemValue}
+              meta={RemittanceAdviceLineFieldMeta.CreditLineAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-RemittanceAdviceLine ubl-Amount ubl-BalanceAmount"
           meta={RemittanceAdviceLineFieldMeta.BalanceAmount} 
           value={value.BalanceAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={RemittanceAdviceLineFieldMeta.BalanceAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Balance Amount"
+              value={itemValue}
+              meta={RemittanceAdviceLineFieldMeta.BalanceAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-RemittanceAdviceLine ubl-Code ubl-PaymentPurposeCode"
           meta={RemittanceAdviceLineFieldMeta.PaymentPurposeCode} 
           value={value.PaymentPurposeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={RemittanceAdviceLineFieldMeta.PaymentPurposeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Payment Purpose Code"
+              value={itemValue}
+              meta={RemittanceAdviceLineFieldMeta.PaymentPurposeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-RemittanceAdviceLine ubl-Text ubl-InvoicingPartyReference"
           meta={RemittanceAdviceLineFieldMeta.InvoicingPartyReference} 
           value={value.InvoicingPartyReference}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={RemittanceAdviceLineFieldMeta.InvoicingPartyReference} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Invoicing Party Reference"
+              value={itemValue}
+              meta={RemittanceAdviceLineFieldMeta.InvoicingPartyReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-RemittanceAdviceLine ubl-SupplierParty ubl-AccountingSupplierParty"
           meta={RemittanceAdviceLineFieldMeta.AccountingSupplierParty} 
           value={value.AccountingSupplierParty}
           itemDisplay={ (itemValue: SupplierParty, key: string | number) =>
-            <SupplierPartyDisplay key={key} meta={RemittanceAdviceLineFieldMeta.AccountingSupplierParty} value={itemValue} />
+            <SupplierPartyDisplay
+              key={key}
+              label="Accounting Supplier Party"
+              value={itemValue}
+              meta={RemittanceAdviceLineFieldMeta.AccountingSupplierParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-RemittanceAdviceLine ubl-CustomerParty ubl-AccountingCustomerParty"
           meta={RemittanceAdviceLineFieldMeta.AccountingCustomerParty} 
           value={value.AccountingCustomerParty}
           itemDisplay={ (itemValue: CustomerParty, key: string | number) =>
-            <CustomerPartyDisplay key={key} meta={RemittanceAdviceLineFieldMeta.AccountingCustomerParty} value={itemValue} />
+            <CustomerPartyDisplay
+              key={key}
+              label="Accounting Customer Party"
+              value={itemValue}
+              meta={RemittanceAdviceLineFieldMeta.AccountingCustomerParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-RemittanceAdviceLine ubl-CustomerParty ubl-BuyerCustomerParty"
           meta={RemittanceAdviceLineFieldMeta.BuyerCustomerParty} 
           value={value.BuyerCustomerParty}
           itemDisplay={ (itemValue: CustomerParty, key: string | number) =>
-            <CustomerPartyDisplay key={key} meta={RemittanceAdviceLineFieldMeta.BuyerCustomerParty} value={itemValue} />
+            <CustomerPartyDisplay
+              key={key}
+              label="Buyer Customer Party"
+              value={itemValue}
+              meta={RemittanceAdviceLineFieldMeta.BuyerCustomerParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-RemittanceAdviceLine ubl-SupplierParty ubl-SellerSupplierParty"
           meta={RemittanceAdviceLineFieldMeta.SellerSupplierParty} 
           value={value.SellerSupplierParty}
           itemDisplay={ (itemValue: SupplierParty, key: string | number) =>
-            <SupplierPartyDisplay key={key} meta={RemittanceAdviceLineFieldMeta.SellerSupplierParty} value={itemValue} />
+            <SupplierPartyDisplay
+              key={key}
+              label="Seller Supplier Party"
+              value={itemValue}
+              meta={RemittanceAdviceLineFieldMeta.SellerSupplierParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-RemittanceAdviceLine ubl-CustomerParty ubl-OriginatorCustomerParty"
           meta={RemittanceAdviceLineFieldMeta.OriginatorCustomerParty} 
           value={value.OriginatorCustomerParty}
           itemDisplay={ (itemValue: CustomerParty, key: string | number) =>
-            <CustomerPartyDisplay key={key} meta={RemittanceAdviceLineFieldMeta.OriginatorCustomerParty} value={itemValue} />
+            <CustomerPartyDisplay
+              key={key}
+              label="Originator Customer Party"
+              value={itemValue}
+              meta={RemittanceAdviceLineFieldMeta.OriginatorCustomerParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-RemittanceAdviceLine ubl-Party ubl-PayeeParty"
           meta={RemittanceAdviceLineFieldMeta.PayeeParty} 
           value={value.PayeeParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={RemittanceAdviceLineFieldMeta.PayeeParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Payee Party"
+              value={itemValue}
+              meta={RemittanceAdviceLineFieldMeta.PayeeParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-RemittanceAdviceLine ubl-Period ubl-InvoicePeriod"
           meta={RemittanceAdviceLineFieldMeta.InvoicePeriod} 
           value={value.InvoicePeriod}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={RemittanceAdviceLineFieldMeta.InvoicePeriod} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Invoice Period"
+              value={itemValue}
+              meta={RemittanceAdviceLineFieldMeta.InvoicePeriod}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-RemittanceAdviceLine ubl-BillingReference"
           meta={RemittanceAdviceLineFieldMeta.BillingReference} 
           value={value.BillingReference}
           itemDisplay={ (itemValue: BillingReference, key: string | number) =>
-            <BillingReferenceDisplay key={key} meta={RemittanceAdviceLineFieldMeta.BillingReference} value={itemValue} />
+            <BillingReferenceDisplay
+              key={key}
+              label="Billing Reference"
+              value={itemValue}
+              meta={RemittanceAdviceLineFieldMeta.BillingReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-RemittanceAdviceLine ubl-DocumentReference"
           meta={RemittanceAdviceLineFieldMeta.DocumentReference} 
           value={value.DocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={RemittanceAdviceLineFieldMeta.DocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Document Reference"
+              value={itemValue}
+              meta={RemittanceAdviceLineFieldMeta.DocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-RemittanceAdviceLine ubl-ExchangeRate"
           meta={RemittanceAdviceLineFieldMeta.ExchangeRate} 
           value={value.ExchangeRate}
           itemDisplay={ (itemValue: ExchangeRate, key: string | number) =>
-            <ExchangeRateDisplay key={key} meta={RemittanceAdviceLineFieldMeta.ExchangeRate} value={itemValue} />
+            <ExchangeRateDisplay
+              key={key}
+              label="Exchange Rate"
+              value={itemValue}
+              meta={RemittanceAdviceLineFieldMeta.ExchangeRate}
+            />
           }
         />
         </div>

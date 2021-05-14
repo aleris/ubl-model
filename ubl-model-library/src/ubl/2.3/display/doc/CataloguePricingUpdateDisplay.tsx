@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { CataloguePricingUpdate } from  '../../model/doc/CataloguePricingUpdate'
 import { CataloguePricingUpdateFieldMeta } from  '../../meta/doc/CataloguePricingUpdateMeta'
@@ -36,229 +37,392 @@ import { TradingTerms } from '../../model/cac/TradingTerms'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: CataloguePricingUpdate
   meta: FieldMeta<T>
 }
 
-export default function CataloguePricingUpdateDisplay<T>({ value, meta }: Params<T>) {
+export default function CataloguePricingUpdateDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-doc ubl-CataloguePricingUpdate ubl-CataloguePricingUpdateType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-CataloguePricingUpdate ubl-UBLExtensions"
           meta={CataloguePricingUpdateFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={CataloguePricingUpdateFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={CataloguePricingUpdateFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CataloguePricingUpdate ubl-Identifier ubl-UBLVersionID"
           meta={CataloguePricingUpdateFieldMeta.UBLVersionID} 
           value={value.UBLVersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CataloguePricingUpdateFieldMeta.UBLVersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UBL Version Identifier"
+              value={itemValue}
+              meta={CataloguePricingUpdateFieldMeta.UBLVersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CataloguePricingUpdate ubl-Identifier ubl-CustomizationID"
           meta={CataloguePricingUpdateFieldMeta.CustomizationID} 
           value={value.CustomizationID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CataloguePricingUpdateFieldMeta.CustomizationID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Customization Identifier"
+              value={itemValue}
+              meta={CataloguePricingUpdateFieldMeta.CustomizationID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CataloguePricingUpdate ubl-Identifier ubl-ProfileID"
           meta={CataloguePricingUpdateFieldMeta.ProfileID} 
           value={value.ProfileID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CataloguePricingUpdateFieldMeta.ProfileID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Identifier"
+              value={itemValue}
+              meta={CataloguePricingUpdateFieldMeta.ProfileID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CataloguePricingUpdate ubl-Identifier ubl-ProfileExecutionID"
           meta={CataloguePricingUpdateFieldMeta.ProfileExecutionID} 
           value={value.ProfileExecutionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CataloguePricingUpdateFieldMeta.ProfileExecutionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Execution Identifier"
+              value={itemValue}
+              meta={CataloguePricingUpdateFieldMeta.ProfileExecutionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CataloguePricingUpdate ubl-Identifier ubl-ID"
           meta={CataloguePricingUpdateFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CataloguePricingUpdateFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={CataloguePricingUpdateFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CataloguePricingUpdate ubl-Identifier ubl-UUID"
           meta={CataloguePricingUpdateFieldMeta.UUID} 
           value={value.UUID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CataloguePricingUpdateFieldMeta.UUID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UUID"
+              value={itemValue}
+              meta={CataloguePricingUpdateFieldMeta.UUID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CataloguePricingUpdate ubl-Text ubl-Name"
           meta={CataloguePricingUpdateFieldMeta.Name} 
           value={value.Name}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={CataloguePricingUpdateFieldMeta.Name} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Name"
+              value={itemValue}
+              meta={CataloguePricingUpdateFieldMeta.Name}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CataloguePricingUpdate ubl-Date ubl-IssueDate"
           meta={CataloguePricingUpdateFieldMeta.IssueDate} 
           value={value.IssueDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={CataloguePricingUpdateFieldMeta.IssueDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Issue Date"
+              value={itemValue}
+              meta={CataloguePricingUpdateFieldMeta.IssueDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CataloguePricingUpdate ubl-Time ubl-IssueTime"
           meta={CataloguePricingUpdateFieldMeta.IssueTime} 
           value={value.IssueTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={CataloguePricingUpdateFieldMeta.IssueTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Issue Time"
+              value={itemValue}
+              meta={CataloguePricingUpdateFieldMeta.IssueTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CataloguePricingUpdate ubl-Date ubl-RevisionDate"
           meta={CataloguePricingUpdateFieldMeta.RevisionDate} 
           value={value.RevisionDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={CataloguePricingUpdateFieldMeta.RevisionDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Revision Date"
+              value={itemValue}
+              meta={CataloguePricingUpdateFieldMeta.RevisionDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CataloguePricingUpdate ubl-Time ubl-RevisionTime"
           meta={CataloguePricingUpdateFieldMeta.RevisionTime} 
           value={value.RevisionTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={CataloguePricingUpdateFieldMeta.RevisionTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Revision Time"
+              value={itemValue}
+              meta={CataloguePricingUpdateFieldMeta.RevisionTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-CataloguePricingUpdate ubl-Text ubl-Note"
           meta={CataloguePricingUpdateFieldMeta.Note} 
           value={value.Note}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={CataloguePricingUpdateFieldMeta.Note} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Note"
+              value={itemValue}
+              meta={CataloguePricingUpdateFieldMeta.Note}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-CataloguePricingUpdate ubl-Text ubl-Description"
           meta={CataloguePricingUpdateFieldMeta.Description} 
           value={value.Description}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={CataloguePricingUpdateFieldMeta.Description} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Description"
+              value={itemValue}
+              meta={CataloguePricingUpdateFieldMeta.Description}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CataloguePricingUpdate ubl-Identifier ubl-VersionID"
           meta={CataloguePricingUpdateFieldMeta.VersionID} 
           value={value.VersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CataloguePricingUpdateFieldMeta.VersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Version"
+              value={itemValue}
+              meta={CataloguePricingUpdateFieldMeta.VersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CataloguePricingUpdate ubl-Numeric ubl-LineCountNumeric"
           meta={CataloguePricingUpdateFieldMeta.LineCountNumeric} 
           value={value.LineCountNumeric}
           itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay key={key} meta={CataloguePricingUpdateFieldMeta.LineCountNumeric} value={itemValue} />
+            <NumericDisplay
+              key={key}
+              label="Line Count"
+              value={itemValue}
+              meta={CataloguePricingUpdateFieldMeta.LineCountNumeric}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-CataloguePricingUpdate ubl-Period ubl-ValidityPeriod"
           meta={CataloguePricingUpdateFieldMeta.ValidityPeriod} 
           value={value.ValidityPeriod}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={CataloguePricingUpdateFieldMeta.ValidityPeriod} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Validity Period"
+              value={itemValue}
+              meta={CataloguePricingUpdateFieldMeta.ValidityPeriod}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-CataloguePricingUpdate ubl-CatalogueReference ubl-RelatedCatalogueReference"
           meta={CataloguePricingUpdateFieldMeta.RelatedCatalogueReference} 
           value={value.RelatedCatalogueReference}
           itemDisplay={ (itemValue: CatalogueReference, key: string | number) =>
-            <CatalogueReferenceDisplay key={key} meta={CataloguePricingUpdateFieldMeta.RelatedCatalogueReference} value={itemValue} />
+            <CatalogueReferenceDisplay
+              key={key}
+              label="Related Catalogue Reference"
+              value={itemValue}
+              meta={CataloguePricingUpdateFieldMeta.RelatedCatalogueReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-CataloguePricingUpdate ubl-Contract ubl-ReferencedContract"
           meta={CataloguePricingUpdateFieldMeta.ReferencedContract} 
           value={value.ReferencedContract}
           itemDisplay={ (itemValue: Contract, key: string | number) =>
-            <ContractDisplay key={key} meta={CataloguePricingUpdateFieldMeta.ReferencedContract} value={itemValue} />
+            <ContractDisplay
+              key={key}
+              label="Referenced Contract"
+              value={itemValue}
+              meta={CataloguePricingUpdateFieldMeta.ReferencedContract}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-CataloguePricingUpdate ubl-Signature"
           meta={CataloguePricingUpdateFieldMeta.Signature} 
           value={value.Signature}
           itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay key={key} meta={CataloguePricingUpdateFieldMeta.Signature} value={itemValue} />
+            <SignatureDisplay
+              key={key}
+              label="Signature"
+              value={itemValue}
+              meta={CataloguePricingUpdateFieldMeta.Signature}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-CataloguePricingUpdate ubl-Party ubl-ProviderParty"
           meta={CataloguePricingUpdateFieldMeta.ProviderParty} 
           value={value.ProviderParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={CataloguePricingUpdateFieldMeta.ProviderParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Provider Party"
+              value={itemValue}
+              meta={CataloguePricingUpdateFieldMeta.ProviderParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-CataloguePricingUpdate ubl-Party ubl-ReceiverParty"
           meta={CataloguePricingUpdateFieldMeta.ReceiverParty} 
           value={value.ReceiverParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={CataloguePricingUpdateFieldMeta.ReceiverParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Receiver Party"
+              value={itemValue}
+              meta={CataloguePricingUpdateFieldMeta.ReceiverParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-CataloguePricingUpdate ubl-SupplierParty ubl-SellerSupplierParty"
           meta={CataloguePricingUpdateFieldMeta.SellerSupplierParty} 
           value={value.SellerSupplierParty}
           itemDisplay={ (itemValue: SupplierParty, key: string | number) =>
-            <SupplierPartyDisplay key={key} meta={CataloguePricingUpdateFieldMeta.SellerSupplierParty} value={itemValue} />
+            <SupplierPartyDisplay
+              key={key}
+              label="Seller Supplier Party"
+              value={itemValue}
+              meta={CataloguePricingUpdateFieldMeta.SellerSupplierParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-CataloguePricingUpdate ubl-CustomerParty ubl-ContractorCustomerParty"
           meta={CataloguePricingUpdateFieldMeta.ContractorCustomerParty} 
           value={value.ContractorCustomerParty}
           itemDisplay={ (itemValue: CustomerParty, key: string | number) =>
-            <CustomerPartyDisplay key={key} meta={CataloguePricingUpdateFieldMeta.ContractorCustomerParty} value={itemValue} />
+            <CustomerPartyDisplay
+              key={key}
+              label="Contractor Customer Party"
+              value={itemValue}
+              meta={CataloguePricingUpdateFieldMeta.ContractorCustomerParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-CataloguePricingUpdate ubl-TradingTerms"
           meta={CataloguePricingUpdateFieldMeta.TradingTerms} 
           value={value.TradingTerms}
           itemDisplay={ (itemValue: TradingTerms, key: string | number) =>
-            <TradingTermsDisplay key={key} meta={CataloguePricingUpdateFieldMeta.TradingTerms} value={itemValue} />
+            <TradingTermsDisplay
+              key={key}
+              label="Trading Terms"
+              value={itemValue}
+              meta={CataloguePricingUpdateFieldMeta.TradingTerms}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-CataloguePricingUpdate ubl-Language ubl-DefaultLanguage"
           meta={CataloguePricingUpdateFieldMeta.DefaultLanguage} 
           value={value.DefaultLanguage}
           itemDisplay={ (itemValue: Language, key: string | number) =>
-            <LanguageDisplay key={key} meta={CataloguePricingUpdateFieldMeta.DefaultLanguage} value={itemValue} />
+            <LanguageDisplay
+              key={key}
+              label="Default Language"
+              value={itemValue}
+              meta={CataloguePricingUpdateFieldMeta.DefaultLanguage}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-CataloguePricingUpdate ubl-CataloguePricingUpdateLine"
           meta={CataloguePricingUpdateFieldMeta.CataloguePricingUpdateLine} 
           value={value.CataloguePricingUpdateLine}
           itemDisplay={ (itemValue: CataloguePricingUpdateLine, key: string | number) =>
-            <CataloguePricingUpdateLineDisplay key={key} meta={CataloguePricingUpdateFieldMeta.CataloguePricingUpdateLine} value={itemValue} />
+            <CataloguePricingUpdateLineDisplay
+              key={key}
+              label="Catalogue Pricing Update Line"
+              value={itemValue}
+              meta={CataloguePricingUpdateFieldMeta.CataloguePricingUpdateLine}
+            />
           }
         />
         </div>

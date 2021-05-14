@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { UnstructuredPrice } from  '../../model/cac/UnstructuredPrice'
 import { UnstructuredPriceFieldMeta } from  '../../meta/cac/UnstructuredPriceMeta'
@@ -10,37 +11,56 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: UnstructuredPrice
   meta: FieldMeta<T>
 }
 
-export default function UnstructuredPriceDisplay<T>({ value, meta }: Params<T>) {
+export default function UnstructuredPriceDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-UnstructuredPrice ubl-UnstructuredPriceType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-UnstructuredPrice ubl-UBLExtensions"
           meta={UnstructuredPriceFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={UnstructuredPriceFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={UnstructuredPriceFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-UnstructuredPrice ubl-Amount ubl-PriceAmount"
           meta={UnstructuredPriceFieldMeta.PriceAmount} 
           value={value.PriceAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={UnstructuredPriceFieldMeta.PriceAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Price Amount"
+              value={itemValue}
+              meta={UnstructuredPriceFieldMeta.PriceAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-UnstructuredPrice ubl-Text ubl-TimeAmount"
           meta={UnstructuredPriceFieldMeta.TimeAmount} 
           value={value.TimeAmount}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={UnstructuredPriceFieldMeta.TimeAmount} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Time Amount"
+              value={itemValue}
+              meta={UnstructuredPriceFieldMeta.TimeAmount}
+            />
           }
         />
         </div>

@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ReceiptLine } from  '../../model/cac/ReceiptLine'
 import { ReceiptLineFieldMeta } from  '../../meta/cac/ReceiptLineMeta'
@@ -26,181 +27,308 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: ReceiptLine
   meta: FieldMeta<T>
 }
 
-export default function ReceiptLineDisplay<T>({ value, meta }: Params<T>) {
+export default function ReceiptLineDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-ReceiptLine ubl-ReceiptLineType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-ReceiptLine ubl-UBLExtensions"
           meta={ReceiptLineFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={ReceiptLineFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={ReceiptLineFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ReceiptLine ubl-Identifier ubl-ID"
           meta={ReceiptLineFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ReceiptLineFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={ReceiptLineFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ReceiptLine ubl-Identifier ubl-UUID"
           meta={ReceiptLineFieldMeta.UUID} 
           value={value.UUID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ReceiptLineFieldMeta.UUID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UUID"
+              value={itemValue}
+              meta={ReceiptLineFieldMeta.UUID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-ReceiptLine ubl-Text ubl-Note"
           meta={ReceiptLineFieldMeta.Note} 
           value={value.Note}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ReceiptLineFieldMeta.Note} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Note"
+              value={itemValue}
+              meta={ReceiptLineFieldMeta.Note}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ReceiptLine ubl-Quantity ubl-ReceivedQuantity"
           meta={ReceiptLineFieldMeta.ReceivedQuantity} 
           value={value.ReceivedQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={ReceiptLineFieldMeta.ReceivedQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Received Quantity"
+              value={itemValue}
+              meta={ReceiptLineFieldMeta.ReceivedQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ReceiptLine ubl-Quantity ubl-ShortQuantity"
           meta={ReceiptLineFieldMeta.ShortQuantity} 
           value={value.ShortQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={ReceiptLineFieldMeta.ShortQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Short Quantity"
+              value={itemValue}
+              meta={ReceiptLineFieldMeta.ShortQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ReceiptLine ubl-Code ubl-ShortageActionCode"
           meta={ReceiptLineFieldMeta.ShortageActionCode} 
           value={value.ShortageActionCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={ReceiptLineFieldMeta.ShortageActionCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Shortage Action Code"
+              value={itemValue}
+              meta={ReceiptLineFieldMeta.ShortageActionCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ReceiptLine ubl-Quantity ubl-RejectedQuantity"
           meta={ReceiptLineFieldMeta.RejectedQuantity} 
           value={value.RejectedQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={ReceiptLineFieldMeta.RejectedQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Rejected Quantity"
+              value={itemValue}
+              meta={ReceiptLineFieldMeta.RejectedQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ReceiptLine ubl-Code ubl-RejectReasonCode"
           meta={ReceiptLineFieldMeta.RejectReasonCode} 
           value={value.RejectReasonCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={ReceiptLineFieldMeta.RejectReasonCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Reject Reason Code"
+              value={itemValue}
+              meta={ReceiptLineFieldMeta.RejectReasonCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-ReceiptLine ubl-Text ubl-RejectReason"
           meta={ReceiptLineFieldMeta.RejectReason} 
           value={value.RejectReason}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ReceiptLineFieldMeta.RejectReason} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Reject Reason"
+              value={itemValue}
+              meta={ReceiptLineFieldMeta.RejectReason}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ReceiptLine ubl-Code ubl-RejectActionCode"
           meta={ReceiptLineFieldMeta.RejectActionCode} 
           value={value.RejectActionCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={ReceiptLineFieldMeta.RejectActionCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Reject Action Code"
+              value={itemValue}
+              meta={ReceiptLineFieldMeta.RejectActionCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ReceiptLine ubl-Code ubl-QuantityDiscrepancyCode"
           meta={ReceiptLineFieldMeta.QuantityDiscrepancyCode} 
           value={value.QuantityDiscrepancyCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={ReceiptLineFieldMeta.QuantityDiscrepancyCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Quantity Discrepancy Code"
+              value={itemValue}
+              meta={ReceiptLineFieldMeta.QuantityDiscrepancyCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ReceiptLine ubl-Quantity ubl-OversupplyQuantity"
           meta={ReceiptLineFieldMeta.OversupplyQuantity} 
           value={value.OversupplyQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={ReceiptLineFieldMeta.OversupplyQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Oversupply Quantity"
+              value={itemValue}
+              meta={ReceiptLineFieldMeta.OversupplyQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ReceiptLine ubl-Date ubl-ReceivedDate"
           meta={ReceiptLineFieldMeta.ReceivedDate} 
           value={value.ReceivedDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={ReceiptLineFieldMeta.ReceivedDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Received Date"
+              value={itemValue}
+              meta={ReceiptLineFieldMeta.ReceivedDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ReceiptLine ubl-Code ubl-TimingComplaintCode"
           meta={ReceiptLineFieldMeta.TimingComplaintCode} 
           value={value.TimingComplaintCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={ReceiptLineFieldMeta.TimingComplaintCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Timing Complaint Code"
+              value={itemValue}
+              meta={ReceiptLineFieldMeta.TimingComplaintCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ReceiptLine ubl-Text ubl-TimingComplaint"
           meta={ReceiptLineFieldMeta.TimingComplaint} 
           value={value.TimingComplaint}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ReceiptLineFieldMeta.TimingComplaint} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Timing Complaint"
+              value={itemValue}
+              meta={ReceiptLineFieldMeta.TimingComplaint}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-ReceiptLine ubl-OrderLineReference"
           meta={ReceiptLineFieldMeta.OrderLineReference} 
           value={value.OrderLineReference}
           itemDisplay={ (itemValue: OrderLineReference, key: string | number) =>
-            <OrderLineReferenceDisplay key={key} meta={ReceiptLineFieldMeta.OrderLineReference} value={itemValue} />
+            <OrderLineReferenceDisplay
+              key={key}
+              label="Order Line Reference"
+              value={itemValue}
+              meta={ReceiptLineFieldMeta.OrderLineReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-ReceiptLine ubl-LineReference ubl-DespatchLineReference"
           meta={ReceiptLineFieldMeta.DespatchLineReference} 
           value={value.DespatchLineReference}
           itemDisplay={ (itemValue: LineReference, key: string | number) =>
-            <LineReferenceDisplay key={key} meta={ReceiptLineFieldMeta.DespatchLineReference} value={itemValue} />
+            <LineReferenceDisplay
+              key={key}
+              label="Despatch Line Reference"
+              value={itemValue}
+              meta={ReceiptLineFieldMeta.DespatchLineReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-ReceiptLine ubl-DocumentReference"
           meta={ReceiptLineFieldMeta.DocumentReference} 
           value={value.DocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={ReceiptLineFieldMeta.DocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Document Reference"
+              value={itemValue}
+              meta={ReceiptLineFieldMeta.DocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-ReceiptLine ubl-Item"
           meta={ReceiptLineFieldMeta.Item} 
           value={value.Item}
           itemDisplay={ (itemValue: Item, key: string | number) =>
-            <ItemDisplay key={key} meta={ReceiptLineFieldMeta.Item} value={itemValue} />
+            <ItemDisplay
+              key={key}
+              label="Item"
+              value={itemValue}
+              meta={ReceiptLineFieldMeta.Item}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-ReceiptLine ubl-Shipment"
           meta={ReceiptLineFieldMeta.Shipment} 
           value={value.Shipment}
           itemDisplay={ (itemValue: Shipment, key: string | number) =>
-            <ShipmentDisplay key={key} meta={ReceiptLineFieldMeta.Shipment} value={itemValue} />
+            <ShipmentDisplay
+              key={key}
+              label="Shipment"
+              value={itemValue}
+              meta={ReceiptLineFieldMeta.Shipment}
+            />
           }
         />
         </div>

@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { OrderResponse } from  '../../model/doc/OrderResponse'
 import { OrderResponseFieldMeta } from  '../../meta/doc/OrderResponseMeta'
@@ -62,437 +63,756 @@ import { TransactionConditions } from '../../model/cac/TransactionConditions'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: OrderResponse
   meta: FieldMeta<T>
 }
 
-export default function OrderResponseDisplay<T>({ value, meta }: Params<T>) {
+export default function OrderResponseDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-doc ubl-OrderResponse ubl-OrderResponseType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-OrderResponse ubl-UBLExtensions"
           meta={OrderResponseFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={OrderResponseFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-OrderResponse ubl-Identifier ubl-UBLVersionID"
           meta={OrderResponseFieldMeta.UBLVersionID} 
           value={value.UBLVersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={OrderResponseFieldMeta.UBLVersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UBL Version Identifier"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.UBLVersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-OrderResponse ubl-Identifier ubl-CustomizationID"
           meta={OrderResponseFieldMeta.CustomizationID} 
           value={value.CustomizationID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={OrderResponseFieldMeta.CustomizationID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Customization Identifier"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.CustomizationID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-OrderResponse ubl-Identifier ubl-ProfileID"
           meta={OrderResponseFieldMeta.ProfileID} 
           value={value.ProfileID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={OrderResponseFieldMeta.ProfileID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Identifier"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.ProfileID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-OrderResponse ubl-Identifier ubl-ProfileExecutionID"
           meta={OrderResponseFieldMeta.ProfileExecutionID} 
           value={value.ProfileExecutionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={OrderResponseFieldMeta.ProfileExecutionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Execution Identifier"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.ProfileExecutionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-OrderResponse ubl-Identifier ubl-ID"
           meta={OrderResponseFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={OrderResponseFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-OrderResponse ubl-Identifier ubl-SalesOrderID"
           meta={OrderResponseFieldMeta.SalesOrderID} 
           value={value.SalesOrderID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={OrderResponseFieldMeta.SalesOrderID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Sales Order Identifier"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.SalesOrderID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-OrderResponse ubl-Indicator ubl-CopyIndicator"
           meta={OrderResponseFieldMeta.CopyIndicator} 
           value={value.CopyIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={OrderResponseFieldMeta.CopyIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Copy Indicator"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.CopyIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-OrderResponse ubl-Identifier ubl-UUID"
           meta={OrderResponseFieldMeta.UUID} 
           value={value.UUID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={OrderResponseFieldMeta.UUID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UUID"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.UUID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-OrderResponse ubl-Date ubl-IssueDate"
           meta={OrderResponseFieldMeta.IssueDate} 
           value={value.IssueDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={OrderResponseFieldMeta.IssueDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Issue Date"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.IssueDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-OrderResponse ubl-Time ubl-IssueTime"
           meta={OrderResponseFieldMeta.IssueTime} 
           value={value.IssueTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={OrderResponseFieldMeta.IssueTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Issue Time"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.IssueTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-OrderResponse ubl-Code ubl-OrderResponseCode"
           meta={OrderResponseFieldMeta.OrderResponseCode} 
           value={value.OrderResponseCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={OrderResponseFieldMeta.OrderResponseCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Order Response Code"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.OrderResponseCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-OrderResponse ubl-Text ubl-Note"
           meta={OrderResponseFieldMeta.Note} 
           value={value.Note}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={OrderResponseFieldMeta.Note} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Note"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.Note}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-OrderResponse ubl-Code ubl-DocumentCurrencyCode"
           meta={OrderResponseFieldMeta.DocumentCurrencyCode} 
           value={value.DocumentCurrencyCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={OrderResponseFieldMeta.DocumentCurrencyCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Document Currency Code"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.DocumentCurrencyCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-OrderResponse ubl-Code ubl-PricingCurrencyCode"
           meta={OrderResponseFieldMeta.PricingCurrencyCode} 
           value={value.PricingCurrencyCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={OrderResponseFieldMeta.PricingCurrencyCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Pricing Currency Code"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.PricingCurrencyCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-OrderResponse ubl-Code ubl-TaxCurrencyCode"
           meta={OrderResponseFieldMeta.TaxCurrencyCode} 
           value={value.TaxCurrencyCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={OrderResponseFieldMeta.TaxCurrencyCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Tax Currency Code"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.TaxCurrencyCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-OrderResponse ubl-Quantity ubl-TotalPackagesQuantity"
           meta={OrderResponseFieldMeta.TotalPackagesQuantity} 
           value={value.TotalPackagesQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={OrderResponseFieldMeta.TotalPackagesQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Total Packages Quantity"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.TotalPackagesQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-OrderResponse ubl-Measure ubl-GrossWeightMeasure"
           meta={OrderResponseFieldMeta.GrossWeightMeasure} 
           value={value.GrossWeightMeasure}
           itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay key={key} meta={OrderResponseFieldMeta.GrossWeightMeasure} value={itemValue} />
+            <MeasureDisplay
+              key={key}
+              label="Gross Weight"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.GrossWeightMeasure}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-OrderResponse ubl-Measure ubl-NetWeightMeasure"
           meta={OrderResponseFieldMeta.NetWeightMeasure} 
           value={value.NetWeightMeasure}
           itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay key={key} meta={OrderResponseFieldMeta.NetWeightMeasure} value={itemValue} />
+            <MeasureDisplay
+              key={key}
+              label="Net Weight"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.NetWeightMeasure}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-OrderResponse ubl-Measure ubl-NetNetWeightMeasure"
           meta={OrderResponseFieldMeta.NetNetWeightMeasure} 
           value={value.NetNetWeightMeasure}
           itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay key={key} meta={OrderResponseFieldMeta.NetNetWeightMeasure} value={itemValue} />
+            <MeasureDisplay
+              key={key}
+              label="Net Net Weight"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.NetNetWeightMeasure}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-OrderResponse ubl-Measure ubl-GrossVolumeMeasure"
           meta={OrderResponseFieldMeta.GrossVolumeMeasure} 
           value={value.GrossVolumeMeasure}
           itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay key={key} meta={OrderResponseFieldMeta.GrossVolumeMeasure} value={itemValue} />
+            <MeasureDisplay
+              key={key}
+              label="Gross Volume"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.GrossVolumeMeasure}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-OrderResponse ubl-Measure ubl-NetVolumeMeasure"
           meta={OrderResponseFieldMeta.NetVolumeMeasure} 
           value={value.NetVolumeMeasure}
           itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay key={key} meta={OrderResponseFieldMeta.NetVolumeMeasure} value={itemValue} />
+            <MeasureDisplay
+              key={key}
+              label="Net Volume"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.NetVolumeMeasure}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-OrderResponse ubl-Text ubl-CustomerReference"
           meta={OrderResponseFieldMeta.CustomerReference} 
           value={value.CustomerReference}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={OrderResponseFieldMeta.CustomerReference} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Customer Reference"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.CustomerReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-OrderResponse ubl-Code ubl-AccountingCostCode"
           meta={OrderResponseFieldMeta.AccountingCostCode} 
           value={value.AccountingCostCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={OrderResponseFieldMeta.AccountingCostCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Accounting Cost Code"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.AccountingCostCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-OrderResponse ubl-Text ubl-AccountingCost"
           meta={OrderResponseFieldMeta.AccountingCost} 
           value={value.AccountingCost}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={OrderResponseFieldMeta.AccountingCost} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Accounting Cost"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.AccountingCost}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-OrderResponse ubl-Numeric ubl-LineCountNumeric"
           meta={OrderResponseFieldMeta.LineCountNumeric} 
           value={value.LineCountNumeric}
           itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay key={key} meta={OrderResponseFieldMeta.LineCountNumeric} value={itemValue} />
+            <NumericDisplay
+              key={key}
+              label="Line Count"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.LineCountNumeric}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-OrderResponse ubl-Period ubl-ValidityPeriod"
           meta={OrderResponseFieldMeta.ValidityPeriod} 
           value={value.ValidityPeriod}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={OrderResponseFieldMeta.ValidityPeriod} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Validity Period"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.ValidityPeriod}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-OrderResponse ubl-OrderReference"
           meta={OrderResponseFieldMeta.OrderReference} 
           value={value.OrderReference}
           itemDisplay={ (itemValue: OrderReference, key: string | number) =>
-            <OrderReferenceDisplay key={key} meta={OrderResponseFieldMeta.OrderReference} value={itemValue} />
+            <OrderReferenceDisplay
+              key={key}
+              label="Order Reference"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.OrderReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-OrderResponse ubl-DocumentReference ubl-OrderDocumentReference"
           meta={OrderResponseFieldMeta.OrderDocumentReference} 
           value={value.OrderDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={OrderResponseFieldMeta.OrderDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Order Document Reference"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.OrderDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-OrderResponse ubl-DocumentReference ubl-OrderChangeDocumentReference"
           meta={OrderResponseFieldMeta.OrderChangeDocumentReference} 
           value={value.OrderChangeDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={OrderResponseFieldMeta.OrderChangeDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Order Change Document Reference"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.OrderChangeDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-OrderResponse ubl-DocumentReference ubl-OriginatorDocumentReference"
           meta={OrderResponseFieldMeta.OriginatorDocumentReference} 
           value={value.OriginatorDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={OrderResponseFieldMeta.OriginatorDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Originator Document Reference"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.OriginatorDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-OrderResponse ubl-DocumentReference ubl-AdditionalDocumentReference"
           meta={OrderResponseFieldMeta.AdditionalDocumentReference} 
           value={value.AdditionalDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={OrderResponseFieldMeta.AdditionalDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Additional Document Reference"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.AdditionalDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-OrderResponse ubl-Contract"
           meta={OrderResponseFieldMeta.Contract} 
           value={value.Contract}
           itemDisplay={ (itemValue: Contract, key: string | number) =>
-            <ContractDisplay key={key} meta={OrderResponseFieldMeta.Contract} value={itemValue} />
+            <ContractDisplay
+              key={key}
+              label="Contract"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.Contract}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-OrderResponse ubl-Signature"
           meta={OrderResponseFieldMeta.Signature} 
           value={value.Signature}
           itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay key={key} meta={OrderResponseFieldMeta.Signature} value={itemValue} />
+            <SignatureDisplay
+              key={key}
+              label="Signature"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.Signature}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-OrderResponse ubl-SupplierParty ubl-SellerSupplierParty"
           meta={OrderResponseFieldMeta.SellerSupplierParty} 
           value={value.SellerSupplierParty}
           itemDisplay={ (itemValue: SupplierParty, key: string | number) =>
-            <SupplierPartyDisplay key={key} meta={OrderResponseFieldMeta.SellerSupplierParty} value={itemValue} />
+            <SupplierPartyDisplay
+              key={key}
+              label="Seller Supplier Party"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.SellerSupplierParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-OrderResponse ubl-CustomerParty ubl-BuyerCustomerParty"
           meta={OrderResponseFieldMeta.BuyerCustomerParty} 
           value={value.BuyerCustomerParty}
           itemDisplay={ (itemValue: CustomerParty, key: string | number) =>
-            <CustomerPartyDisplay key={key} meta={OrderResponseFieldMeta.BuyerCustomerParty} value={itemValue} />
+            <CustomerPartyDisplay
+              key={key}
+              label="Buyer Customer Party"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.BuyerCustomerParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-OrderResponse ubl-CustomerParty ubl-OriginatorCustomerParty"
           meta={OrderResponseFieldMeta.OriginatorCustomerParty} 
           value={value.OriginatorCustomerParty}
           itemDisplay={ (itemValue: CustomerParty, key: string | number) =>
-            <CustomerPartyDisplay key={key} meta={OrderResponseFieldMeta.OriginatorCustomerParty} value={itemValue} />
+            <CustomerPartyDisplay
+              key={key}
+              label="Originator Customer Party"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.OriginatorCustomerParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-OrderResponse ubl-Party ubl-FreightForwarderParty"
           meta={OrderResponseFieldMeta.FreightForwarderParty} 
           value={value.FreightForwarderParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={OrderResponseFieldMeta.FreightForwarderParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Freight Forwarder Party"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.FreightForwarderParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-OrderResponse ubl-SupplierParty ubl-AccountingSupplierParty"
           meta={OrderResponseFieldMeta.AccountingSupplierParty} 
           value={value.AccountingSupplierParty}
           itemDisplay={ (itemValue: SupplierParty, key: string | number) =>
-            <SupplierPartyDisplay key={key} meta={OrderResponseFieldMeta.AccountingSupplierParty} value={itemValue} />
+            <SupplierPartyDisplay
+              key={key}
+              label="Accounting Supplier Party"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.AccountingSupplierParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-OrderResponse ubl-CustomerParty ubl-AccountingCustomerParty"
           meta={OrderResponseFieldMeta.AccountingCustomerParty} 
           value={value.AccountingCustomerParty}
           itemDisplay={ (itemValue: CustomerParty, key: string | number) =>
-            <CustomerPartyDisplay key={key} meta={OrderResponseFieldMeta.AccountingCustomerParty} value={itemValue} />
+            <CustomerPartyDisplay
+              key={key}
+              label="Accounting Customer Party"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.AccountingCustomerParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-OrderResponse ubl-Delivery"
           meta={OrderResponseFieldMeta.Delivery} 
           value={value.Delivery}
           itemDisplay={ (itemValue: Delivery, key: string | number) =>
-            <DeliveryDisplay key={key} meta={OrderResponseFieldMeta.Delivery} value={itemValue} />
+            <DeliveryDisplay
+              key={key}
+              label="Delivery"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.Delivery}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-OrderResponse ubl-DeliveryTerms"
           meta={OrderResponseFieldMeta.DeliveryTerms} 
           value={value.DeliveryTerms}
           itemDisplay={ (itemValue: DeliveryTerms, key: string | number) =>
-            <DeliveryTermsDisplay key={key} meta={OrderResponseFieldMeta.DeliveryTerms} value={itemValue} />
+            <DeliveryTermsDisplay
+              key={key}
+              label="Delivery Terms"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.DeliveryTerms}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-OrderResponse ubl-PaymentMeans"
           meta={OrderResponseFieldMeta.PaymentMeans} 
           value={value.PaymentMeans}
           itemDisplay={ (itemValue: PaymentMeans, key: string | number) =>
-            <PaymentMeansDisplay key={key} meta={OrderResponseFieldMeta.PaymentMeans} value={itemValue} />
+            <PaymentMeansDisplay
+              key={key}
+              label="Payment Means"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.PaymentMeans}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-OrderResponse ubl-PaymentTerms"
           meta={OrderResponseFieldMeta.PaymentTerms} 
           value={value.PaymentTerms}
           itemDisplay={ (itemValue: PaymentTerms, key: string | number) =>
-            <PaymentTermsDisplay key={key} meta={OrderResponseFieldMeta.PaymentTerms} value={itemValue} />
+            <PaymentTermsDisplay
+              key={key}
+              label="Payment Terms"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.PaymentTerms}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-OrderResponse ubl-AllowanceCharge"
           meta={OrderResponseFieldMeta.AllowanceCharge} 
           value={value.AllowanceCharge}
           itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-            <AllowanceChargeDisplay key={key} meta={OrderResponseFieldMeta.AllowanceCharge} value={itemValue} />
+            <AllowanceChargeDisplay
+              key={key}
+              label="Allowance Charge"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.AllowanceCharge}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-OrderResponse ubl-TransactionConditions"
           meta={OrderResponseFieldMeta.TransactionConditions} 
           value={value.TransactionConditions}
           itemDisplay={ (itemValue: TransactionConditions, key: string | number) =>
-            <TransactionConditionsDisplay key={key} meta={OrderResponseFieldMeta.TransactionConditions} value={itemValue} />
+            <TransactionConditionsDisplay
+              key={key}
+              label="Transaction Conditions"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.TransactionConditions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-OrderResponse ubl-ExchangeRate ubl-TaxExchangeRate"
           meta={OrderResponseFieldMeta.TaxExchangeRate} 
           value={value.TaxExchangeRate}
           itemDisplay={ (itemValue: ExchangeRate, key: string | number) =>
-            <ExchangeRateDisplay key={key} meta={OrderResponseFieldMeta.TaxExchangeRate} value={itemValue} />
+            <ExchangeRateDisplay
+              key={key}
+              label="Tax Exchange Rate"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.TaxExchangeRate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-OrderResponse ubl-ExchangeRate ubl-PricingExchangeRate"
           meta={OrderResponseFieldMeta.PricingExchangeRate} 
           value={value.PricingExchangeRate}
           itemDisplay={ (itemValue: ExchangeRate, key: string | number) =>
-            <ExchangeRateDisplay key={key} meta={OrderResponseFieldMeta.PricingExchangeRate} value={itemValue} />
+            <ExchangeRateDisplay
+              key={key}
+              label="Pricing Exchange Rate"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.PricingExchangeRate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-OrderResponse ubl-ExchangeRate ubl-PaymentExchangeRate"
           meta={OrderResponseFieldMeta.PaymentExchangeRate} 
           value={value.PaymentExchangeRate}
           itemDisplay={ (itemValue: ExchangeRate, key: string | number) =>
-            <ExchangeRateDisplay key={key} meta={OrderResponseFieldMeta.PaymentExchangeRate} value={itemValue} />
+            <ExchangeRateDisplay
+              key={key}
+              label="Payment Exchange Rate"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.PaymentExchangeRate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-OrderResponse ubl-Country ubl-DestinationCountry"
           meta={OrderResponseFieldMeta.DestinationCountry} 
           value={value.DestinationCountry}
           itemDisplay={ (itemValue: Country, key: string | number) =>
-            <CountryDisplay key={key} meta={OrderResponseFieldMeta.DestinationCountry} value={itemValue} />
+            <CountryDisplay
+              key={key}
+              label="Destination Country"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.DestinationCountry}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-OrderResponse ubl-TaxTotal"
           meta={OrderResponseFieldMeta.TaxTotal} 
           value={value.TaxTotal}
           itemDisplay={ (itemValue: TaxTotal, key: string | number) =>
-            <TaxTotalDisplay key={key} meta={OrderResponseFieldMeta.TaxTotal} value={itemValue} />
+            <TaxTotalDisplay
+              key={key}
+              label="Tax Total"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.TaxTotal}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-OrderResponse ubl-MonetaryTotal ubl-LegalMonetaryTotal"
           meta={OrderResponseFieldMeta.LegalMonetaryTotal} 
           value={value.LegalMonetaryTotal}
           itemDisplay={ (itemValue: MonetaryTotal, key: string | number) =>
-            <MonetaryTotalDisplay key={key} meta={OrderResponseFieldMeta.LegalMonetaryTotal} value={itemValue} />
+            <MonetaryTotalDisplay
+              key={key}
+              label="Legal Monetary Total"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.LegalMonetaryTotal}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-OrderResponse ubl-OrderLine"
           meta={OrderResponseFieldMeta.OrderLine} 
           value={value.OrderLine}
           itemDisplay={ (itemValue: OrderLine, key: string | number) =>
-            <OrderLineDisplay key={key} meta={OrderResponseFieldMeta.OrderLine} value={itemValue} />
+            <OrderLineDisplay
+              key={key}
+              label="Order Line"
+              value={itemValue}
+              meta={OrderResponseFieldMeta.OrderLine}
+            />
           }
         />
         </div>

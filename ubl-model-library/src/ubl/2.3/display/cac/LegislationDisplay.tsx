@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Legislation } from  '../../model/cac/Legislation'
 import { LegislationFieldMeta } from  '../../meta/cac/LegislationMeta'
@@ -14,85 +15,140 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: Legislation
   meta: FieldMeta<T>
 }
 
-export default function LegislationDisplay<T>({ value, meta }: Params<T>) {
+export default function LegislationDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-Legislation ubl-LegislationType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-Legislation ubl-UBLExtensions"
           meta={LegislationFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={LegislationFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={LegislationFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Legislation ubl-Identifier ubl-ID"
           meta={LegislationFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={LegislationFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={LegislationFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Legislation ubl-Text ubl-Title"
           meta={LegislationFieldMeta.Title} 
           value={value.Title}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={LegislationFieldMeta.Title} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Title"
+              value={itemValue}
+              meta={LegislationFieldMeta.Title}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Legislation ubl-Text ubl-Description"
           meta={LegislationFieldMeta.Description} 
           value={value.Description}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={LegislationFieldMeta.Description} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Description"
+              value={itemValue}
+              meta={LegislationFieldMeta.Description}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Legislation ubl-Text ubl-JurisdictionLevel"
           meta={LegislationFieldMeta.JurisdictionLevel} 
           value={value.JurisdictionLevel}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={LegislationFieldMeta.JurisdictionLevel} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Jurisdiction Level"
+              value={itemValue}
+              meta={LegislationFieldMeta.JurisdictionLevel}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Legislation ubl-Text ubl-Article"
           meta={LegislationFieldMeta.Article} 
           value={value.Article}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={LegislationFieldMeta.Article} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Article"
+              value={itemValue}
+              meta={LegislationFieldMeta.Article}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Legislation ubl-Identifier ubl-URI"
           meta={LegislationFieldMeta.URI} 
           value={value.URI}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={LegislationFieldMeta.URI} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="URI"
+              value={itemValue}
+              meta={LegislationFieldMeta.URI}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Legislation ubl-Language"
           meta={LegislationFieldMeta.Language} 
           value={value.Language}
           itemDisplay={ (itemValue: Language, key: string | number) =>
-            <LanguageDisplay key={key} meta={LegislationFieldMeta.Language} value={itemValue} />
+            <LanguageDisplay
+              key={key}
+              label="Language"
+              value={itemValue}
+              meta={LegislationFieldMeta.Language}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Legislation ubl-Address ubl-JurisdictionRegionAddress"
           meta={LegislationFieldMeta.JurisdictionRegionAddress} 
           value={value.JurisdictionRegionAddress}
           itemDisplay={ (itemValue: Address, key: string | number) =>
-            <AddressDisplay key={key} meta={LegislationFieldMeta.JurisdictionRegionAddress} value={itemValue} />
+            <AddressDisplay
+              key={key}
+              label="Jurisdiction Region Address"
+              value={itemValue}
+              meta={LegislationFieldMeta.JurisdictionRegionAddress}
+            />
           }
         />
         </div>

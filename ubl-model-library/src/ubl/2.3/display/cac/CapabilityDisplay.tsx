@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Capability } from  '../../model/cac/Capability'
 import { CapabilityFieldMeta } from  '../../meta/cac/CapabilityMeta'
@@ -20,77 +21,126 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 import WebSiteDisplay from './WebSiteDisplay'
 import { WebSite } from '../../model/cac/WebSite'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: Capability
   meta: FieldMeta<T>
 }
 
-export default function CapabilityDisplay<T>({ value, meta }: Params<T>) {
+export default function CapabilityDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-Capability ubl-CapabilityType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-Capability ubl-UBLExtensions"
           meta={CapabilityFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={CapabilityFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={CapabilityFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Capability ubl-Code ubl-CapabilityTypeCode"
           meta={CapabilityFieldMeta.CapabilityTypeCode} 
           value={value.CapabilityTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={CapabilityFieldMeta.CapabilityTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Capability Type Code"
+              value={itemValue}
+              meta={CapabilityFieldMeta.CapabilityTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Capability ubl-Text ubl-Description"
           meta={CapabilityFieldMeta.Description} 
           value={value.Description}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={CapabilityFieldMeta.Description} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Description"
+              value={itemValue}
+              meta={CapabilityFieldMeta.Description}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Capability ubl-Amount ubl-ValueAmount"
           meta={CapabilityFieldMeta.ValueAmount} 
           value={value.ValueAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={CapabilityFieldMeta.ValueAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Value"
+              value={itemValue}
+              meta={CapabilityFieldMeta.ValueAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Capability ubl-Quantity ubl-ValueQuantity"
           meta={CapabilityFieldMeta.ValueQuantity} 
           value={value.ValueQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={CapabilityFieldMeta.ValueQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Value Quantity"
+              value={itemValue}
+              meta={CapabilityFieldMeta.ValueQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Capability ubl-EvidenceSupplied"
           meta={CapabilityFieldMeta.EvidenceSupplied} 
           value={value.EvidenceSupplied}
           itemDisplay={ (itemValue: EvidenceSupplied, key: string | number) =>
-            <EvidenceSuppliedDisplay key={key} meta={CapabilityFieldMeta.EvidenceSupplied} value={itemValue} />
+            <EvidenceSuppliedDisplay
+              key={key}
+              label="Evidence Supplied"
+              value={itemValue}
+              meta={CapabilityFieldMeta.EvidenceSupplied}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Capability ubl-Period ubl-ValidityPeriod"
           meta={CapabilityFieldMeta.ValidityPeriod} 
           value={value.ValidityPeriod}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={CapabilityFieldMeta.ValidityPeriod} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Validity Period"
+              value={itemValue}
+              meta={CapabilityFieldMeta.ValidityPeriod}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Capability ubl-WebSite"
           meta={CapabilityFieldMeta.WebSite} 
           value={value.WebSite}
           itemDisplay={ (itemValue: WebSite, key: string | number) =>
-            <WebSiteDisplay key={key} meta={CapabilityFieldMeta.WebSite} value={itemValue} />
+            <WebSiteDisplay
+              key={key}
+              label="Web Site"
+              value={itemValue}
+              meta={CapabilityFieldMeta.WebSite}
+            />
           }
         />
         </div>

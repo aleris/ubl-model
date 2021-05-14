@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ClassificationScheme } from  '../../model/cac/ClassificationScheme'
 import { ClassificationSchemeFieldMeta } from  '../../meta/cac/ClassificationSchemeMeta'
@@ -16,133 +17,224 @@ import { Time } from '../../model/cbc/Time'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: ClassificationScheme
   meta: FieldMeta<T>
 }
 
-export default function ClassificationSchemeDisplay<T>({ value, meta }: Params<T>) {
+export default function ClassificationSchemeDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-ClassificationScheme ubl-ClassificationSchemeType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-ClassificationScheme ubl-UBLExtensions"
           meta={ClassificationSchemeFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={ClassificationSchemeFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={ClassificationSchemeFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ClassificationScheme ubl-Identifier ubl-ID"
           meta={ClassificationSchemeFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ClassificationSchemeFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={ClassificationSchemeFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ClassificationScheme ubl-Identifier ubl-UUID"
           meta={ClassificationSchemeFieldMeta.UUID} 
           value={value.UUID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ClassificationSchemeFieldMeta.UUID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UUID"
+              value={itemValue}
+              meta={ClassificationSchemeFieldMeta.UUID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ClassificationScheme ubl-Date ubl-LastRevisionDate"
           meta={ClassificationSchemeFieldMeta.LastRevisionDate} 
           value={value.LastRevisionDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={ClassificationSchemeFieldMeta.LastRevisionDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Last Revision Date"
+              value={itemValue}
+              meta={ClassificationSchemeFieldMeta.LastRevisionDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ClassificationScheme ubl-Time ubl-LastRevisionTime"
           meta={ClassificationSchemeFieldMeta.LastRevisionTime} 
           value={value.LastRevisionTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={ClassificationSchemeFieldMeta.LastRevisionTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Last Revision Time"
+              value={itemValue}
+              meta={ClassificationSchemeFieldMeta.LastRevisionTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-ClassificationScheme ubl-Text ubl-Note"
           meta={ClassificationSchemeFieldMeta.Note} 
           value={value.Note}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ClassificationSchemeFieldMeta.Note} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Note"
+              value={itemValue}
+              meta={ClassificationSchemeFieldMeta.Note}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ClassificationScheme ubl-Text ubl-Name"
           meta={ClassificationSchemeFieldMeta.Name} 
           value={value.Name}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ClassificationSchemeFieldMeta.Name} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Name"
+              value={itemValue}
+              meta={ClassificationSchemeFieldMeta.Name}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-ClassificationScheme ubl-Text ubl-Description"
           meta={ClassificationSchemeFieldMeta.Description} 
           value={value.Description}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ClassificationSchemeFieldMeta.Description} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Description"
+              value={itemValue}
+              meta={ClassificationSchemeFieldMeta.Description}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ClassificationScheme ubl-Identifier ubl-AgencyID"
           meta={ClassificationSchemeFieldMeta.AgencyID} 
           value={value.AgencyID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ClassificationSchemeFieldMeta.AgencyID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Agency Identifier"
+              value={itemValue}
+              meta={ClassificationSchemeFieldMeta.AgencyID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ClassificationScheme ubl-Text ubl-AgencyName"
           meta={ClassificationSchemeFieldMeta.AgencyName} 
           value={value.AgencyName}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ClassificationSchemeFieldMeta.AgencyName} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Agency Name"
+              value={itemValue}
+              meta={ClassificationSchemeFieldMeta.AgencyName}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ClassificationScheme ubl-Identifier ubl-VersionID"
           meta={ClassificationSchemeFieldMeta.VersionID} 
           value={value.VersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ClassificationSchemeFieldMeta.VersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Version"
+              value={itemValue}
+              meta={ClassificationSchemeFieldMeta.VersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ClassificationScheme ubl-Identifier ubl-URI"
           meta={ClassificationSchemeFieldMeta.URI} 
           value={value.URI}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ClassificationSchemeFieldMeta.URI} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="URI"
+              value={itemValue}
+              meta={ClassificationSchemeFieldMeta.URI}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ClassificationScheme ubl-Identifier ubl-SchemeURI"
           meta={ClassificationSchemeFieldMeta.SchemeURI} 
           value={value.SchemeURI}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ClassificationSchemeFieldMeta.SchemeURI} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Scheme URI"
+              value={itemValue}
+              meta={ClassificationSchemeFieldMeta.SchemeURI}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ClassificationScheme ubl-Identifier ubl-LanguageID"
           meta={ClassificationSchemeFieldMeta.LanguageID} 
           value={value.LanguageID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ClassificationSchemeFieldMeta.LanguageID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Language"
+              value={itemValue}
+              meta={ClassificationSchemeFieldMeta.LanguageID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-ClassificationScheme ubl-ClassificationCategory"
           meta={ClassificationSchemeFieldMeta.ClassificationCategory} 
           value={value.ClassificationCategory}
           itemDisplay={ (itemValue: ClassificationCategory, key: string | number) =>
-            <ClassificationCategoryDisplay key={key} meta={ClassificationSchemeFieldMeta.ClassificationCategory} value={itemValue} />
+            <ClassificationCategoryDisplay
+              key={key}
+              label="Classification Category"
+              value={itemValue}
+              meta={ClassificationSchemeFieldMeta.ClassificationCategory}
+            />
           }
         />
         </div>

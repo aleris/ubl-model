@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TaxSubtotal } from  '../../model/cac/TaxSubtotal'
 import { TaxSubtotalFieldMeta } from  '../../meta/cac/TaxSubtotalMeta'
@@ -16,101 +17,168 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: TaxSubtotal
   meta: FieldMeta<T>
 }
 
-export default function TaxSubtotalDisplay<T>({ value, meta }: Params<T>) {
+export default function TaxSubtotalDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-TaxSubtotal ubl-TaxSubtotalType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-TaxSubtotal ubl-UBLExtensions"
           meta={TaxSubtotalFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={TaxSubtotalFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={TaxSubtotalFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TaxSubtotal ubl-Amount ubl-TaxableAmount"
           meta={TaxSubtotalFieldMeta.TaxableAmount} 
           value={value.TaxableAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={TaxSubtotalFieldMeta.TaxableAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Taxable Amount"
+              value={itemValue}
+              meta={TaxSubtotalFieldMeta.TaxableAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TaxSubtotal ubl-Amount ubl-TaxAmount"
           meta={TaxSubtotalFieldMeta.TaxAmount} 
           value={value.TaxAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={TaxSubtotalFieldMeta.TaxAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Tax Amount"
+              value={itemValue}
+              meta={TaxSubtotalFieldMeta.TaxAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TaxSubtotal ubl-Numeric ubl-CalculationSequenceNumeric"
           meta={TaxSubtotalFieldMeta.CalculationSequenceNumeric} 
           value={value.CalculationSequenceNumeric}
           itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay key={key} meta={TaxSubtotalFieldMeta.CalculationSequenceNumeric} value={itemValue} />
+            <NumericDisplay
+              key={key}
+              label="Calculation Sequence"
+              value={itemValue}
+              meta={TaxSubtotalFieldMeta.CalculationSequenceNumeric}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TaxSubtotal ubl-Amount ubl-TransactionCurrencyTaxAmount"
           meta={TaxSubtotalFieldMeta.TransactionCurrencyTaxAmount} 
           value={value.TransactionCurrencyTaxAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={TaxSubtotalFieldMeta.TransactionCurrencyTaxAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Transaction Currency Tax Amount"
+              value={itemValue}
+              meta={TaxSubtotalFieldMeta.TransactionCurrencyTaxAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TaxSubtotal ubl-Numeric ubl-Percent"
           meta={TaxSubtotalFieldMeta.Percent} 
           value={value.Percent}
           itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay key={key} meta={TaxSubtotalFieldMeta.Percent} value={itemValue} />
+            <NumericDisplay
+              key={key}
+              label="Percent"
+              value={itemValue}
+              meta={TaxSubtotalFieldMeta.Percent}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TaxSubtotal ubl-Measure ubl-BaseUnitMeasure"
           meta={TaxSubtotalFieldMeta.BaseUnitMeasure} 
           value={value.BaseUnitMeasure}
           itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay key={key} meta={TaxSubtotalFieldMeta.BaseUnitMeasure} value={itemValue} />
+            <MeasureDisplay
+              key={key}
+              label="Base Unit Measure"
+              value={itemValue}
+              meta={TaxSubtotalFieldMeta.BaseUnitMeasure}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TaxSubtotal ubl-Amount ubl-PerUnitAmount"
           meta={TaxSubtotalFieldMeta.PerUnitAmount} 
           value={value.PerUnitAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={TaxSubtotalFieldMeta.PerUnitAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Per Unit Amount"
+              value={itemValue}
+              meta={TaxSubtotalFieldMeta.PerUnitAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TaxSubtotal ubl-Text ubl-TierRange"
           meta={TaxSubtotalFieldMeta.TierRange} 
           value={value.TierRange}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={TaxSubtotalFieldMeta.TierRange} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Tier Range"
+              value={itemValue}
+              meta={TaxSubtotalFieldMeta.TierRange}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TaxSubtotal ubl-Numeric ubl-TierRatePercent"
           meta={TaxSubtotalFieldMeta.TierRatePercent} 
           value={value.TierRatePercent}
           itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay key={key} meta={TaxSubtotalFieldMeta.TierRatePercent} value={itemValue} />
+            <NumericDisplay
+              key={key}
+              label="Tier Rate"
+              value={itemValue}
+              meta={TaxSubtotalFieldMeta.TierRatePercent}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TaxSubtotal ubl-TaxCategory"
           meta={TaxSubtotalFieldMeta.TaxCategory} 
           value={value.TaxCategory}
           itemDisplay={ (itemValue: TaxCategory, key: string | number) =>
-            <TaxCategoryDisplay key={key} meta={TaxSubtotalFieldMeta.TaxCategory} value={itemValue} />
+            <TaxCategoryDisplay
+              key={key}
+              label="Tax Category"
+              value={itemValue}
+              meta={TaxSubtotalFieldMeta.TaxCategory}
+            />
           }
         />
         </div>

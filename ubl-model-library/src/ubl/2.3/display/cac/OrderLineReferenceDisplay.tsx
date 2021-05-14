@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { OrderLineReference } from  '../../model/cac/OrderLineReference'
 import { OrderLineReferenceFieldMeta } from  '../../meta/cac/OrderLineReferenceMeta'
@@ -12,61 +13,98 @@ import { OrderReference } from '../../model/cac/OrderReference'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: OrderLineReference
   meta: FieldMeta<T>
 }
 
-export default function OrderLineReferenceDisplay<T>({ value, meta }: Params<T>) {
+export default function OrderLineReferenceDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-OrderLineReference ubl-OrderLineReferenceType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-OrderLineReference ubl-UBLExtensions"
           meta={OrderLineReferenceFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={OrderLineReferenceFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={OrderLineReferenceFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-OrderLineReference ubl-Identifier ubl-LineID"
           meta={OrderLineReferenceFieldMeta.LineID} 
           value={value.LineID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={OrderLineReferenceFieldMeta.LineID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Line Identifier"
+              value={itemValue}
+              meta={OrderLineReferenceFieldMeta.LineID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-OrderLineReference ubl-Identifier ubl-SalesOrderLineID"
           meta={OrderLineReferenceFieldMeta.SalesOrderLineID} 
           value={value.SalesOrderLineID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={OrderLineReferenceFieldMeta.SalesOrderLineID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Sales Order Line Identifier"
+              value={itemValue}
+              meta={OrderLineReferenceFieldMeta.SalesOrderLineID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-OrderLineReference ubl-Identifier ubl-UUID"
           meta={OrderLineReferenceFieldMeta.UUID} 
           value={value.UUID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={OrderLineReferenceFieldMeta.UUID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UUID"
+              value={itemValue}
+              meta={OrderLineReferenceFieldMeta.UUID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-OrderLineReference ubl-Code ubl-LineStatusCode"
           meta={OrderLineReferenceFieldMeta.LineStatusCode} 
           value={value.LineStatusCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={OrderLineReferenceFieldMeta.LineStatusCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Line Status Code"
+              value={itemValue}
+              meta={OrderLineReferenceFieldMeta.LineStatusCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-OrderLineReference ubl-OrderReference"
           meta={OrderLineReferenceFieldMeta.OrderReference} 
           value={value.OrderReference}
           itemDisplay={ (itemValue: OrderReference, key: string | number) =>
-            <OrderReferenceDisplay key={key} meta={OrderLineReferenceFieldMeta.OrderReference} value={itemValue} />
+            <OrderReferenceDisplay
+              key={key}
+              label="Order Reference"
+              value={itemValue}
+              meta={OrderLineReferenceFieldMeta.OrderReference}
+            />
           }
         />
         </div>

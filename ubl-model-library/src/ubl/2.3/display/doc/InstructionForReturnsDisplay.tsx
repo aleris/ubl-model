@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { InstructionForReturns } from  '../../model/doc/InstructionForReturns'
 import { InstructionForReturnsFieldMeta } from  '../../meta/doc/InstructionForReturnsMeta'
@@ -30,157 +31,266 @@ import { Time } from '../../model/cbc/Time'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: InstructionForReturns
   meta: FieldMeta<T>
 }
 
-export default function InstructionForReturnsDisplay<T>({ value, meta }: Params<T>) {
+export default function InstructionForReturnsDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-doc ubl-InstructionForReturns ubl-InstructionForReturnsType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-InstructionForReturns ubl-UBLExtensions"
           meta={InstructionForReturnsFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={InstructionForReturnsFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={InstructionForReturnsFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-InstructionForReturns ubl-Identifier ubl-UBLVersionID"
           meta={InstructionForReturnsFieldMeta.UBLVersionID} 
           value={value.UBLVersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={InstructionForReturnsFieldMeta.UBLVersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UBL Version Identifier"
+              value={itemValue}
+              meta={InstructionForReturnsFieldMeta.UBLVersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-InstructionForReturns ubl-Identifier ubl-CustomizationID"
           meta={InstructionForReturnsFieldMeta.CustomizationID} 
           value={value.CustomizationID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={InstructionForReturnsFieldMeta.CustomizationID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Customization Identifier"
+              value={itemValue}
+              meta={InstructionForReturnsFieldMeta.CustomizationID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-InstructionForReturns ubl-Identifier ubl-ProfileID"
           meta={InstructionForReturnsFieldMeta.ProfileID} 
           value={value.ProfileID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={InstructionForReturnsFieldMeta.ProfileID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Identifier"
+              value={itemValue}
+              meta={InstructionForReturnsFieldMeta.ProfileID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-InstructionForReturns ubl-Identifier ubl-ProfileExecutionID"
           meta={InstructionForReturnsFieldMeta.ProfileExecutionID} 
           value={value.ProfileExecutionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={InstructionForReturnsFieldMeta.ProfileExecutionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Execution Identifier"
+              value={itemValue}
+              meta={InstructionForReturnsFieldMeta.ProfileExecutionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-InstructionForReturns ubl-Identifier ubl-ID"
           meta={InstructionForReturnsFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={InstructionForReturnsFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={InstructionForReturnsFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-InstructionForReturns ubl-Indicator ubl-CopyIndicator"
           meta={InstructionForReturnsFieldMeta.CopyIndicator} 
           value={value.CopyIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={InstructionForReturnsFieldMeta.CopyIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Copy Indicator"
+              value={itemValue}
+              meta={InstructionForReturnsFieldMeta.CopyIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-InstructionForReturns ubl-Identifier ubl-UUID"
           meta={InstructionForReturnsFieldMeta.UUID} 
           value={value.UUID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={InstructionForReturnsFieldMeta.UUID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UUID"
+              value={itemValue}
+              meta={InstructionForReturnsFieldMeta.UUID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-InstructionForReturns ubl-Date ubl-IssueDate"
           meta={InstructionForReturnsFieldMeta.IssueDate} 
           value={value.IssueDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={InstructionForReturnsFieldMeta.IssueDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Issue Date"
+              value={itemValue}
+              meta={InstructionForReturnsFieldMeta.IssueDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-InstructionForReturns ubl-Time ubl-IssueTime"
           meta={InstructionForReturnsFieldMeta.IssueTime} 
           value={value.IssueTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={InstructionForReturnsFieldMeta.IssueTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Issue Time"
+              value={itemValue}
+              meta={InstructionForReturnsFieldMeta.IssueTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-InstructionForReturns ubl-Text ubl-Note"
           meta={InstructionForReturnsFieldMeta.Note} 
           value={value.Note}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={InstructionForReturnsFieldMeta.Note} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Note"
+              value={itemValue}
+              meta={InstructionForReturnsFieldMeta.Note}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-InstructionForReturns ubl-DocumentReference"
           meta={InstructionForReturnsFieldMeta.DocumentReference} 
           value={value.DocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={InstructionForReturnsFieldMeta.DocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Document Reference"
+              value={itemValue}
+              meta={InstructionForReturnsFieldMeta.DocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-InstructionForReturns ubl-Signature"
           meta={InstructionForReturnsFieldMeta.Signature} 
           value={value.Signature}
           itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay key={key} meta={InstructionForReturnsFieldMeta.Signature} value={itemValue} />
+            <SignatureDisplay
+              key={key}
+              label="Signature"
+              value={itemValue}
+              meta={InstructionForReturnsFieldMeta.Signature}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-InstructionForReturns ubl-SupplierParty ubl-SellerSupplierParty"
           meta={InstructionForReturnsFieldMeta.SellerSupplierParty} 
           value={value.SellerSupplierParty}
           itemDisplay={ (itemValue: SupplierParty, key: string | number) =>
-            <SupplierPartyDisplay key={key} meta={InstructionForReturnsFieldMeta.SellerSupplierParty} value={itemValue} />
+            <SupplierPartyDisplay
+              key={key}
+              label="Seller Supplier Party"
+              value={itemValue}
+              meta={InstructionForReturnsFieldMeta.SellerSupplierParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-InstructionForReturns ubl-CustomerParty ubl-RetailerCustomerParty"
           meta={InstructionForReturnsFieldMeta.RetailerCustomerParty} 
           value={value.RetailerCustomerParty}
           itemDisplay={ (itemValue: CustomerParty, key: string | number) =>
-            <CustomerPartyDisplay key={key} meta={InstructionForReturnsFieldMeta.RetailerCustomerParty} value={itemValue} />
+            <CustomerPartyDisplay
+              key={key}
+              label="Retailer Customer Party"
+              value={itemValue}
+              meta={InstructionForReturnsFieldMeta.RetailerCustomerParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-InstructionForReturns ubl-Party ubl-ManufacturerParty"
           meta={InstructionForReturnsFieldMeta.ManufacturerParty} 
           value={value.ManufacturerParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={InstructionForReturnsFieldMeta.ManufacturerParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Manufacturer Party"
+              value={itemValue}
+              meta={InstructionForReturnsFieldMeta.ManufacturerParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-InstructionForReturns ubl-Shipment"
           meta={InstructionForReturnsFieldMeta.Shipment} 
           value={value.Shipment}
           itemDisplay={ (itemValue: Shipment, key: string | number) =>
-            <ShipmentDisplay key={key} meta={InstructionForReturnsFieldMeta.Shipment} value={itemValue} />
+            <ShipmentDisplay
+              key={key}
+              label="Shipment"
+              value={itemValue}
+              meta={InstructionForReturnsFieldMeta.Shipment}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-InstructionForReturns ubl-InstructionForReturnsLine"
           meta={InstructionForReturnsFieldMeta.InstructionForReturnsLine} 
           value={value.InstructionForReturnsLine}
           itemDisplay={ (itemValue: InstructionForReturnsLine, key: string | number) =>
-            <InstructionForReturnsLineDisplay key={key} meta={InstructionForReturnsFieldMeta.InstructionForReturnsLine} value={itemValue} />
+            <InstructionForReturnsLineDisplay
+              key={key}
+              label="Instruction For Returns Line"
+              value={itemValue}
+              meta={InstructionForReturnsFieldMeta.InstructionForReturnsLine}
+            />
           }
         />
         </div>

@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TendererQualificationResponse } from  '../../model/doc/TendererQualificationResponse'
 import { TendererQualificationResponseFieldMeta } from  '../../meta/doc/TendererQualificationResponseMeta'
@@ -26,165 +27,280 @@ import { Time } from '../../model/cbc/Time'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: TendererQualificationResponse
   meta: FieldMeta<T>
 }
 
-export default function TendererQualificationResponseDisplay<T>({ value, meta }: Params<T>) {
+export default function TendererQualificationResponseDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-doc ubl-TendererQualificationResponse ubl-TendererQualificationResponseType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-TendererQualificationResponse ubl-UBLExtensions"
           meta={TendererQualificationResponseFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={TendererQualificationResponseFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={TendererQualificationResponseFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TendererQualificationResponse ubl-Identifier ubl-UBLVersionID"
           meta={TendererQualificationResponseFieldMeta.UBLVersionID} 
           value={value.UBLVersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={TendererQualificationResponseFieldMeta.UBLVersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UBL Version Identifier"
+              value={itemValue}
+              meta={TendererQualificationResponseFieldMeta.UBLVersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TendererQualificationResponse ubl-Identifier ubl-CustomizationID"
           meta={TendererQualificationResponseFieldMeta.CustomizationID} 
           value={value.CustomizationID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={TendererQualificationResponseFieldMeta.CustomizationID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Customization Identifier"
+              value={itemValue}
+              meta={TendererQualificationResponseFieldMeta.CustomizationID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TendererQualificationResponse ubl-Identifier ubl-ProfileID"
           meta={TendererQualificationResponseFieldMeta.ProfileID} 
           value={value.ProfileID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={TendererQualificationResponseFieldMeta.ProfileID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Identifier"
+              value={itemValue}
+              meta={TendererQualificationResponseFieldMeta.ProfileID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TendererQualificationResponse ubl-Identifier ubl-ProfileExecutionID"
           meta={TendererQualificationResponseFieldMeta.ProfileExecutionID} 
           value={value.ProfileExecutionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={TendererQualificationResponseFieldMeta.ProfileExecutionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Execution Identifier"
+              value={itemValue}
+              meta={TendererQualificationResponseFieldMeta.ProfileExecutionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TendererQualificationResponse ubl-Identifier ubl-ID"
           meta={TendererQualificationResponseFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={TendererQualificationResponseFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={TendererQualificationResponseFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TendererQualificationResponse ubl-Indicator ubl-CopyIndicator"
           meta={TendererQualificationResponseFieldMeta.CopyIndicator} 
           value={value.CopyIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={TendererQualificationResponseFieldMeta.CopyIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Copy Indicator"
+              value={itemValue}
+              meta={TendererQualificationResponseFieldMeta.CopyIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TendererQualificationResponse ubl-Identifier ubl-UUID"
           meta={TendererQualificationResponseFieldMeta.UUID} 
           value={value.UUID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={TendererQualificationResponseFieldMeta.UUID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UUID"
+              value={itemValue}
+              meta={TendererQualificationResponseFieldMeta.UUID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TendererQualificationResponse ubl-Identifier ubl-ContractFolderID"
           meta={TendererQualificationResponseFieldMeta.ContractFolderID} 
           value={value.ContractFolderID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={TendererQualificationResponseFieldMeta.ContractFolderID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Contract Folder Identifier"
+              value={itemValue}
+              meta={TendererQualificationResponseFieldMeta.ContractFolderID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-TendererQualificationResponse ubl-Text ubl-ContractName"
           meta={TendererQualificationResponseFieldMeta.ContractName} 
           value={value.ContractName}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={TendererQualificationResponseFieldMeta.ContractName} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Contract Name"
+              value={itemValue}
+              meta={TendererQualificationResponseFieldMeta.ContractName}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TendererQualificationResponse ubl-Date ubl-IssueDate"
           meta={TendererQualificationResponseFieldMeta.IssueDate} 
           value={value.IssueDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={TendererQualificationResponseFieldMeta.IssueDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Issue Date"
+              value={itemValue}
+              meta={TendererQualificationResponseFieldMeta.IssueDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TendererQualificationResponse ubl-Time ubl-IssueTime"
           meta={TendererQualificationResponseFieldMeta.IssueTime} 
           value={value.IssueTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={TendererQualificationResponseFieldMeta.IssueTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Issue Time"
+              value={itemValue}
+              meta={TendererQualificationResponseFieldMeta.IssueTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-TendererQualificationResponse ubl-Text ubl-Note"
           meta={TendererQualificationResponseFieldMeta.Note} 
           value={value.Note}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={TendererQualificationResponseFieldMeta.Note} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Note"
+              value={itemValue}
+              meta={TendererQualificationResponseFieldMeta.Note}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TendererQualificationResponse ubl-Party ubl-SenderParty"
           meta={TendererQualificationResponseFieldMeta.SenderParty} 
           value={value.SenderParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={TendererQualificationResponseFieldMeta.SenderParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Sender Party"
+              value={itemValue}
+              meta={TendererQualificationResponseFieldMeta.SenderParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TendererQualificationResponse ubl-Party ubl-ReceiverParty"
           meta={TendererQualificationResponseFieldMeta.ReceiverParty} 
           value={value.ReceiverParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={TendererQualificationResponseFieldMeta.ReceiverParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Receiver Party"
+              value={itemValue}
+              meta={TendererQualificationResponseFieldMeta.ReceiverParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TendererQualificationResponse ubl-DocumentReference ubl-ResolutionDocumentReference"
           meta={TendererQualificationResponseFieldMeta.ResolutionDocumentReference} 
           value={value.ResolutionDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={TendererQualificationResponseFieldMeta.ResolutionDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Resolution Document Reference"
+              value={itemValue}
+              meta={TendererQualificationResponseFieldMeta.ResolutionDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TendererQualificationResponse ubl-QualificationResolution"
           meta={TendererQualificationResponseFieldMeta.QualificationResolution} 
           value={value.QualificationResolution}
           itemDisplay={ (itemValue: QualificationResolution, key: string | number) =>
-            <QualificationResolutionDisplay key={key} meta={TendererQualificationResponseFieldMeta.QualificationResolution} value={itemValue} />
+            <QualificationResolutionDisplay
+              key={key}
+              label="Qualification Resolution"
+              value={itemValue}
+              meta={TendererQualificationResponseFieldMeta.QualificationResolution}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TendererQualificationResponse ubl-AppealTerms"
           meta={TendererQualificationResponseFieldMeta.AppealTerms} 
           value={value.AppealTerms}
           itemDisplay={ (itemValue: AppealTerms, key: string | number) =>
-            <AppealTermsDisplay key={key} meta={TendererQualificationResponseFieldMeta.AppealTerms} value={itemValue} />
+            <AppealTermsDisplay
+              key={key}
+              label="Appeal Terms"
+              value={itemValue}
+              meta={TendererQualificationResponseFieldMeta.AppealTerms}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TendererQualificationResponse ubl-Signature"
           meta={TendererQualificationResponseFieldMeta.Signature} 
           value={value.Signature}
           itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay key={key} meta={TendererQualificationResponseFieldMeta.Signature} value={itemValue} />
+            <SignatureDisplay
+              key={key}
+              label="Signature"
+              value={itemValue}
+              meta={TendererQualificationResponseFieldMeta.Signature}
+            />
           }
         />
         </div>

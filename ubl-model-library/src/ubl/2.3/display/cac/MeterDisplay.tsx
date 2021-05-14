@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Meter } from  '../../model/cac/Meter'
 import { MeterFieldMeta } from  '../../meta/cac/MeterMeta'
@@ -16,77 +17,126 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: Meter
   meta: FieldMeta<T>
 }
 
-export default function MeterDisplay<T>({ value, meta }: Params<T>) {
+export default function MeterDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-Meter ubl-MeterType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-Meter ubl-UBLExtensions"
           meta={MeterFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={MeterFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={MeterFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Meter ubl-Text ubl-MeterNumber"
           meta={MeterFieldMeta.MeterNumber} 
           value={value.MeterNumber}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={MeterFieldMeta.MeterNumber} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Meter Number"
+              value={itemValue}
+              meta={MeterFieldMeta.MeterNumber}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Meter ubl-Text ubl-MeterName"
           meta={MeterFieldMeta.MeterName} 
           value={value.MeterName}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={MeterFieldMeta.MeterName} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Meter Name"
+              value={itemValue}
+              meta={MeterFieldMeta.MeterName}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Meter ubl-Text ubl-MeterConstant"
           meta={MeterFieldMeta.MeterConstant} 
           value={value.MeterConstant}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={MeterFieldMeta.MeterConstant} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Meter Constant"
+              value={itemValue}
+              meta={MeterFieldMeta.MeterConstant}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Meter ubl-Code ubl-MeterConstantCode"
           meta={MeterFieldMeta.MeterConstantCode} 
           value={value.MeterConstantCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={MeterFieldMeta.MeterConstantCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Meter Constant Code"
+              value={itemValue}
+              meta={MeterFieldMeta.MeterConstantCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Meter ubl-Quantity ubl-TotalDeliveredQuantity"
           meta={MeterFieldMeta.TotalDeliveredQuantity} 
           value={value.TotalDeliveredQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={MeterFieldMeta.TotalDeliveredQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Total Delivered Quantity"
+              value={itemValue}
+              meta={MeterFieldMeta.TotalDeliveredQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Meter ubl-MeterReading"
           meta={MeterFieldMeta.MeterReading} 
           value={value.MeterReading}
           itemDisplay={ (itemValue: MeterReading, key: string | number) =>
-            <MeterReadingDisplay key={key} meta={MeterFieldMeta.MeterReading} value={itemValue} />
+            <MeterReadingDisplay
+              key={key}
+              label="Meter Reading"
+              value={itemValue}
+              meta={MeterFieldMeta.MeterReading}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Meter ubl-MeterProperty"
           meta={MeterFieldMeta.MeterProperty} 
           value={value.MeterProperty}
           itemDisplay={ (itemValue: MeterProperty, key: string | number) =>
-            <MeterPropertyDisplay key={key} meta={MeterFieldMeta.MeterProperty} value={itemValue} />
+            <MeterPropertyDisplay
+              key={key}
+              label="Meter Property"
+              value={itemValue}
+              meta={MeterFieldMeta.MeterProperty}
+            />
           }
         />
         </div>

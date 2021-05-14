@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { QualificationApplicationResponse } from  '../../model/doc/QualificationApplicationResponse'
 import { QualificationApplicationResponseFieldMeta } from  '../../meta/doc/QualificationApplicationResponseMeta'
@@ -36,245 +37,420 @@ import { Time } from '../../model/cbc/Time'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: QualificationApplicationResponse
   meta: FieldMeta<T>
 }
 
-export default function QualificationApplicationResponseDisplay<T>({ value, meta }: Params<T>) {
+export default function QualificationApplicationResponseDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-doc ubl-QualificationApplicationResponse ubl-QualificationApplicationResponseType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-QualificationApplicationResponse ubl-UBLExtensions"
           meta={QualificationApplicationResponseFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={QualificationApplicationResponseFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={QualificationApplicationResponseFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-QualificationApplicationResponse ubl-Identifier ubl-UBLVersionID"
           meta={QualificationApplicationResponseFieldMeta.UBLVersionID} 
           value={value.UBLVersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={QualificationApplicationResponseFieldMeta.UBLVersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UBL Version Identifier"
+              value={itemValue}
+              meta={QualificationApplicationResponseFieldMeta.UBLVersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-QualificationApplicationResponse ubl-Identifier ubl-CustomizationID"
           meta={QualificationApplicationResponseFieldMeta.CustomizationID} 
           value={value.CustomizationID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={QualificationApplicationResponseFieldMeta.CustomizationID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Customization Identifier"
+              value={itemValue}
+              meta={QualificationApplicationResponseFieldMeta.CustomizationID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-QualificationApplicationResponse ubl-Identifier ubl-ProfileID"
           meta={QualificationApplicationResponseFieldMeta.ProfileID} 
           value={value.ProfileID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={QualificationApplicationResponseFieldMeta.ProfileID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Identifier"
+              value={itemValue}
+              meta={QualificationApplicationResponseFieldMeta.ProfileID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-QualificationApplicationResponse ubl-Identifier ubl-ProfileExecutionID"
           meta={QualificationApplicationResponseFieldMeta.ProfileExecutionID} 
           value={value.ProfileExecutionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={QualificationApplicationResponseFieldMeta.ProfileExecutionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Execution Identifier"
+              value={itemValue}
+              meta={QualificationApplicationResponseFieldMeta.ProfileExecutionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-QualificationApplicationResponse ubl-Identifier ubl-ID"
           meta={QualificationApplicationResponseFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={QualificationApplicationResponseFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={QualificationApplicationResponseFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-QualificationApplicationResponse ubl-Indicator ubl-CopyIndicator"
           meta={QualificationApplicationResponseFieldMeta.CopyIndicator} 
           value={value.CopyIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={QualificationApplicationResponseFieldMeta.CopyIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Copy Indicator"
+              value={itemValue}
+              meta={QualificationApplicationResponseFieldMeta.CopyIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-QualificationApplicationResponse ubl-Identifier ubl-UUID"
           meta={QualificationApplicationResponseFieldMeta.UUID} 
           value={value.UUID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={QualificationApplicationResponseFieldMeta.UUID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UUID"
+              value={itemValue}
+              meta={QualificationApplicationResponseFieldMeta.UUID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-QualificationApplicationResponse ubl-Identifier ubl-ContractFolderID"
           meta={QualificationApplicationResponseFieldMeta.ContractFolderID} 
           value={value.ContractFolderID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={QualificationApplicationResponseFieldMeta.ContractFolderID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Contract Folder Identifier"
+              value={itemValue}
+              meta={QualificationApplicationResponseFieldMeta.ContractFolderID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-QualificationApplicationResponse ubl-Text ubl-ContractName"
           meta={QualificationApplicationResponseFieldMeta.ContractName} 
           value={value.ContractName}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={QualificationApplicationResponseFieldMeta.ContractName} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Contract Name"
+              value={itemValue}
+              meta={QualificationApplicationResponseFieldMeta.ContractName}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-QualificationApplicationResponse ubl-Date ubl-IssueDate"
           meta={QualificationApplicationResponseFieldMeta.IssueDate} 
           value={value.IssueDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={QualificationApplicationResponseFieldMeta.IssueDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Issue Date"
+              value={itemValue}
+              meta={QualificationApplicationResponseFieldMeta.IssueDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-QualificationApplicationResponse ubl-Time ubl-IssueTime"
           meta={QualificationApplicationResponseFieldMeta.IssueTime} 
           value={value.IssueTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={QualificationApplicationResponseFieldMeta.IssueTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Issue Time"
+              value={itemValue}
+              meta={QualificationApplicationResponseFieldMeta.IssueTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-QualificationApplicationResponse ubl-Text ubl-EconomicOperatorGroupName"
           meta={QualificationApplicationResponseFieldMeta.EconomicOperatorGroupName} 
           value={value.EconomicOperatorGroupName}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={QualificationApplicationResponseFieldMeta.EconomicOperatorGroupName} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Economic Operator Group Name"
+              value={itemValue}
+              meta={QualificationApplicationResponseFieldMeta.EconomicOperatorGroupName}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-QualificationApplicationResponse ubl-Identifier ubl-VersionID"
           meta={QualificationApplicationResponseFieldMeta.VersionID} 
           value={value.VersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={QualificationApplicationResponseFieldMeta.VersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Version"
+              value={itemValue}
+              meta={QualificationApplicationResponseFieldMeta.VersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-QualificationApplicationResponse ubl-Identifier ubl-PreviousVersionID"
           meta={QualificationApplicationResponseFieldMeta.PreviousVersionID} 
           value={value.PreviousVersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={QualificationApplicationResponseFieldMeta.PreviousVersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Previous Version"
+              value={itemValue}
+              meta={QualificationApplicationResponseFieldMeta.PreviousVersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-QualificationApplicationResponse ubl-Code ubl-ProcedureCode"
           meta={QualificationApplicationResponseFieldMeta.ProcedureCode} 
           value={value.ProcedureCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={QualificationApplicationResponseFieldMeta.ProcedureCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Procedure Code"
+              value={itemValue}
+              meta={QualificationApplicationResponseFieldMeta.ProcedureCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-QualificationApplicationResponse ubl-Code ubl-QualificationApplicationTypeCode"
           meta={QualificationApplicationResponseFieldMeta.QualificationApplicationTypeCode} 
           value={value.QualificationApplicationTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={QualificationApplicationResponseFieldMeta.QualificationApplicationTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Qualification Application Type Code"
+              value={itemValue}
+              meta={QualificationApplicationResponseFieldMeta.QualificationApplicationTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-QualificationApplicationResponse ubl-Text ubl-WeightScoringMethodologyNote"
           meta={QualificationApplicationResponseFieldMeta.WeightScoringMethodologyNote} 
           value={value.WeightScoringMethodologyNote}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={QualificationApplicationResponseFieldMeta.WeightScoringMethodologyNote} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Weight Scoring Methodology Note"
+              value={itemValue}
+              meta={QualificationApplicationResponseFieldMeta.WeightScoringMethodologyNote}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-QualificationApplicationResponse ubl-Code ubl-WeightingTypeCode"
           meta={QualificationApplicationResponseFieldMeta.WeightingTypeCode} 
           value={value.WeightingTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={QualificationApplicationResponseFieldMeta.WeightingTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Weighting Type Code"
+              value={itemValue}
+              meta={QualificationApplicationResponseFieldMeta.WeightingTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-QualificationApplicationResponse ubl-Text ubl-Note"
           meta={QualificationApplicationResponseFieldMeta.Note} 
           value={value.Note}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={QualificationApplicationResponseFieldMeta.Note} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Note"
+              value={itemValue}
+              meta={QualificationApplicationResponseFieldMeta.Note}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-QualificationApplicationResponse ubl-ContractingParty"
           meta={QualificationApplicationResponseFieldMeta.ContractingParty} 
           value={value.ContractingParty}
           itemDisplay={ (itemValue: ContractingParty, key: string | number) =>
-            <ContractingPartyDisplay key={key} meta={QualificationApplicationResponseFieldMeta.ContractingParty} value={itemValue} />
+            <ContractingPartyDisplay
+              key={key}
+              label="Contracting Party"
+              value={itemValue}
+              meta={QualificationApplicationResponseFieldMeta.ContractingParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-QualificationApplicationResponse ubl-EconomicOperatorParty"
           meta={QualificationApplicationResponseFieldMeta.EconomicOperatorParty} 
           value={value.EconomicOperatorParty}
           itemDisplay={ (itemValue: EconomicOperatorParty, key: string | number) =>
-            <EconomicOperatorPartyDisplay key={key} meta={QualificationApplicationResponseFieldMeta.EconomicOperatorParty} value={itemValue} />
+            <EconomicOperatorPartyDisplay
+              key={key}
+              label="Economic Operator Party"
+              value={itemValue}
+              meta={QualificationApplicationResponseFieldMeta.EconomicOperatorParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-QualificationApplicationResponse ubl-ProcurementProject"
           meta={QualificationApplicationResponseFieldMeta.ProcurementProject} 
           value={value.ProcurementProject}
           itemDisplay={ (itemValue: ProcurementProject, key: string | number) =>
-            <ProcurementProjectDisplay key={key} meta={QualificationApplicationResponseFieldMeta.ProcurementProject} value={itemValue} />
+            <ProcurementProjectDisplay
+              key={key}
+              label="Procurement Project"
+              value={itemValue}
+              meta={QualificationApplicationResponseFieldMeta.ProcurementProject}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-QualificationApplicationResponse ubl-ProcurementProjectLot"
           meta={QualificationApplicationResponseFieldMeta.ProcurementProjectLot} 
           value={value.ProcurementProjectLot}
           itemDisplay={ (itemValue: ProcurementProjectLot, key: string | number) =>
-            <ProcurementProjectLotDisplay key={key} meta={QualificationApplicationResponseFieldMeta.ProcurementProjectLot} value={itemValue} />
+            <ProcurementProjectLotDisplay
+              key={key}
+              label="Procurement Project Lot"
+              value={itemValue}
+              meta={QualificationApplicationResponseFieldMeta.ProcurementProjectLot}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-QualificationApplicationResponse ubl-TenderingCriterion"
           meta={QualificationApplicationResponseFieldMeta.TenderingCriterion} 
           value={value.TenderingCriterion}
           itemDisplay={ (itemValue: TenderingCriterion, key: string | number) =>
-            <TenderingCriterionDisplay key={key} meta={QualificationApplicationResponseFieldMeta.TenderingCriterion} value={itemValue} />
+            <TenderingCriterionDisplay
+              key={key}
+              label="Tendering Criterion"
+              value={itemValue}
+              meta={QualificationApplicationResponseFieldMeta.TenderingCriterion}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-QualificationApplicationResponse ubl-TenderingCriterionResponse"
           meta={QualificationApplicationResponseFieldMeta.TenderingCriterionResponse} 
           value={value.TenderingCriterionResponse}
           itemDisplay={ (itemValue: TenderingCriterionResponse, key: string | number) =>
-            <TenderingCriterionResponseDisplay key={key} meta={QualificationApplicationResponseFieldMeta.TenderingCriterionResponse} value={itemValue} />
+            <TenderingCriterionResponseDisplay
+              key={key}
+              label="Tendering Criterion Response"
+              value={itemValue}
+              meta={QualificationApplicationResponseFieldMeta.TenderingCriterionResponse}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-QualificationApplicationResponse ubl-DocumentReference ubl-AdditionalDocumentReference"
           meta={QualificationApplicationResponseFieldMeta.AdditionalDocumentReference} 
           value={value.AdditionalDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={QualificationApplicationResponseFieldMeta.AdditionalDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Additional Document Reference"
+              value={itemValue}
+              meta={QualificationApplicationResponseFieldMeta.AdditionalDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-QualificationApplicationResponse ubl-Evidence"
           meta={QualificationApplicationResponseFieldMeta.Evidence} 
           value={value.Evidence}
           itemDisplay={ (itemValue: Evidence, key: string | number) =>
-            <EvidenceDisplay key={key} meta={QualificationApplicationResponseFieldMeta.Evidence} value={itemValue} />
+            <EvidenceDisplay
+              key={key}
+              label="Evidence"
+              value={itemValue}
+              meta={QualificationApplicationResponseFieldMeta.Evidence}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-QualificationApplicationResponse ubl-Signature"
           meta={QualificationApplicationResponseFieldMeta.Signature} 
           value={value.Signature}
           itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay key={key} meta={QualificationApplicationResponseFieldMeta.Signature} value={itemValue} />
+            <SignatureDisplay
+              key={key}
+              label="Signature"
+              value={itemValue}
+              meta={QualificationApplicationResponseFieldMeta.Signature}
+            />
           }
         />
         </div>

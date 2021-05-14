@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Prize } from  '../../model/cac/Prize'
 import { PrizeFieldMeta } from  '../../meta/cac/PrizeMeta'
@@ -12,45 +13,70 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: Prize
   meta: FieldMeta<T>
 }
 
-export default function PrizeDisplay<T>({ value, meta }: Params<T>) {
+export default function PrizeDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-Prize ubl-PrizeType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-Prize ubl-UBLExtensions"
           meta={PrizeFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={PrizeFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={PrizeFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Prize ubl-Numeric ubl-PreviousRankNumberNumeric"
           meta={PrizeFieldMeta.PreviousRankNumberNumeric} 
           value={value.PreviousRankNumberNumeric}
           itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay key={key} meta={PrizeFieldMeta.PreviousRankNumberNumeric} value={itemValue} />
+            <NumericDisplay
+              key={key}
+              label="Previous Rank Number"
+              value={itemValue}
+              meta={PrizeFieldMeta.PreviousRankNumberNumeric}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Prize ubl-Amount ubl-PreviousCancellationReasonValueAmount"
           meta={PrizeFieldMeta.PreviousCancellationReasonValueAmount} 
           value={value.PreviousCancellationReasonValueAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={PrizeFieldMeta.PreviousCancellationReasonValueAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Previous Cancellation Reason Value"
+              value={itemValue}
+              meta={PrizeFieldMeta.PreviousCancellationReasonValueAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Prize ubl-Text ubl-PreviousCancellationReasonDescription"
           meta={PrizeFieldMeta.PreviousCancellationReasonDescription} 
           value={value.PreviousCancellationReasonDescription}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={PrizeFieldMeta.PreviousCancellationReasonDescription} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Previous Cancellation Reason Description"
+              value={itemValue}
+              meta={PrizeFieldMeta.PreviousCancellationReasonDescription}
+            />
           }
         />
         </div>

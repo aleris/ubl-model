@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { LotIdentification } from  '../../model/cac/LotIdentification'
 import { LotIdentificationFieldMeta } from  '../../meta/cac/LotIdentificationMeta'
@@ -12,45 +13,70 @@ import { ItemProperty } from '../../model/cac/ItemProperty'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: LotIdentification
   meta: FieldMeta<T>
 }
 
-export default function LotIdentificationDisplay<T>({ value, meta }: Params<T>) {
+export default function LotIdentificationDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-LotIdentification ubl-LotIdentificationType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-LotIdentification ubl-UBLExtensions"
           meta={LotIdentificationFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={LotIdentificationFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={LotIdentificationFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-LotIdentification ubl-Identifier ubl-LotNumberID"
           meta={LotIdentificationFieldMeta.LotNumberID} 
           value={value.LotNumberID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={LotIdentificationFieldMeta.LotNumberID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Lot Number"
+              value={itemValue}
+              meta={LotIdentificationFieldMeta.LotNumberID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-LotIdentification ubl-Date ubl-ExpiryDate"
           meta={LotIdentificationFieldMeta.ExpiryDate} 
           value={value.ExpiryDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={LotIdentificationFieldMeta.ExpiryDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Expiry Date"
+              value={itemValue}
+              meta={LotIdentificationFieldMeta.ExpiryDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-LotIdentification ubl-ItemProperty ubl-AdditionalItemProperty"
           meta={LotIdentificationFieldMeta.AdditionalItemProperty} 
           value={value.AdditionalItemProperty}
           itemDisplay={ (itemValue: ItemProperty, key: string | number) =>
-            <ItemPropertyDisplay key={key} meta={LotIdentificationFieldMeta.AdditionalItemProperty} value={itemValue} />
+            <ItemPropertyDisplay
+              key={key}
+              label="Additional Item Property"
+              value={itemValue}
+              meta={LotIdentificationFieldMeta.AdditionalItemProperty}
+            />
           }
         />
         </div>

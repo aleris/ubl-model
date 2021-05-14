@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { SelfBilledInvoice } from  '../../model/doc/SelfBilledInvoice'
 import { SelfBilledInvoiceFieldMeta } from  '../../meta/doc/SelfBilledInvoiceMeta'
@@ -58,445 +59,770 @@ import { Time } from '../../model/cbc/Time'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: SelfBilledInvoice
   meta: FieldMeta<T>
 }
 
-export default function SelfBilledInvoiceDisplay<T>({ value, meta }: Params<T>) {
+export default function SelfBilledInvoiceDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-doc ubl-SelfBilledInvoice ubl-SelfBilledInvoiceType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-SelfBilledInvoice ubl-UBLExtensions"
           meta={SelfBilledInvoiceFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={SelfBilledInvoiceFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-SelfBilledInvoice ubl-Identifier ubl-UBLVersionID"
           meta={SelfBilledInvoiceFieldMeta.UBLVersionID} 
           value={value.UBLVersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={SelfBilledInvoiceFieldMeta.UBLVersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UBL Version Identifier"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.UBLVersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-SelfBilledInvoice ubl-Identifier ubl-CustomizationID"
           meta={SelfBilledInvoiceFieldMeta.CustomizationID} 
           value={value.CustomizationID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={SelfBilledInvoiceFieldMeta.CustomizationID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Customization Identifier"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.CustomizationID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-SelfBilledInvoice ubl-Identifier ubl-ProfileID"
           meta={SelfBilledInvoiceFieldMeta.ProfileID} 
           value={value.ProfileID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={SelfBilledInvoiceFieldMeta.ProfileID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Identifier"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.ProfileID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-SelfBilledInvoice ubl-Identifier ubl-ProfileExecutionID"
           meta={SelfBilledInvoiceFieldMeta.ProfileExecutionID} 
           value={value.ProfileExecutionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={SelfBilledInvoiceFieldMeta.ProfileExecutionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Execution Identifier"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.ProfileExecutionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-SelfBilledInvoice ubl-Identifier ubl-ID"
           meta={SelfBilledInvoiceFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={SelfBilledInvoiceFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-SelfBilledInvoice ubl-Indicator ubl-CopyIndicator"
           meta={SelfBilledInvoiceFieldMeta.CopyIndicator} 
           value={value.CopyIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={SelfBilledInvoiceFieldMeta.CopyIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Copy Indicator"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.CopyIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-SelfBilledInvoice ubl-Identifier ubl-UUID"
           meta={SelfBilledInvoiceFieldMeta.UUID} 
           value={value.UUID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={SelfBilledInvoiceFieldMeta.UUID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UUID"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.UUID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-SelfBilledInvoice ubl-Date ubl-IssueDate"
           meta={SelfBilledInvoiceFieldMeta.IssueDate} 
           value={value.IssueDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={SelfBilledInvoiceFieldMeta.IssueDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Issue Date"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.IssueDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-SelfBilledInvoice ubl-Time ubl-IssueTime"
           meta={SelfBilledInvoiceFieldMeta.IssueTime} 
           value={value.IssueTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={SelfBilledInvoiceFieldMeta.IssueTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Issue Time"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.IssueTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-SelfBilledInvoice ubl-Date ubl-DueDate"
           meta={SelfBilledInvoiceFieldMeta.DueDate} 
           value={value.DueDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={SelfBilledInvoiceFieldMeta.DueDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Due Date"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.DueDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-SelfBilledInvoice ubl-Date ubl-TaxPointDate"
           meta={SelfBilledInvoiceFieldMeta.TaxPointDate} 
           value={value.TaxPointDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={SelfBilledInvoiceFieldMeta.TaxPointDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Tax Point Date"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.TaxPointDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-SelfBilledInvoice ubl-Code ubl-InvoiceTypeCode"
           meta={SelfBilledInvoiceFieldMeta.InvoiceTypeCode} 
           value={value.InvoiceTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={SelfBilledInvoiceFieldMeta.InvoiceTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Invoice Type Code"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.InvoiceTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-SelfBilledInvoice ubl-Text ubl-Note"
           meta={SelfBilledInvoiceFieldMeta.Note} 
           value={value.Note}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={SelfBilledInvoiceFieldMeta.Note} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Note"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.Note}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-SelfBilledInvoice ubl-Code ubl-DocumentCurrencyCode"
           meta={SelfBilledInvoiceFieldMeta.DocumentCurrencyCode} 
           value={value.DocumentCurrencyCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={SelfBilledInvoiceFieldMeta.DocumentCurrencyCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Document Currency Code"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.DocumentCurrencyCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-SelfBilledInvoice ubl-Code ubl-TaxCurrencyCode"
           meta={SelfBilledInvoiceFieldMeta.TaxCurrencyCode} 
           value={value.TaxCurrencyCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={SelfBilledInvoiceFieldMeta.TaxCurrencyCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Tax Currency Code"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.TaxCurrencyCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-SelfBilledInvoice ubl-Code ubl-PricingCurrencyCode"
           meta={SelfBilledInvoiceFieldMeta.PricingCurrencyCode} 
           value={value.PricingCurrencyCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={SelfBilledInvoiceFieldMeta.PricingCurrencyCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Pricing Currency Code"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.PricingCurrencyCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-SelfBilledInvoice ubl-Code ubl-PaymentCurrencyCode"
           meta={SelfBilledInvoiceFieldMeta.PaymentCurrencyCode} 
           value={value.PaymentCurrencyCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={SelfBilledInvoiceFieldMeta.PaymentCurrencyCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Payment Currency Code"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.PaymentCurrencyCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-SelfBilledInvoice ubl-Code ubl-PaymentAlternativeCurrencyCode"
           meta={SelfBilledInvoiceFieldMeta.PaymentAlternativeCurrencyCode} 
           value={value.PaymentAlternativeCurrencyCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={SelfBilledInvoiceFieldMeta.PaymentAlternativeCurrencyCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Payment Alternative Currency Code"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.PaymentAlternativeCurrencyCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-SelfBilledInvoice ubl-Code ubl-AccountingCostCode"
           meta={SelfBilledInvoiceFieldMeta.AccountingCostCode} 
           value={value.AccountingCostCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={SelfBilledInvoiceFieldMeta.AccountingCostCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Accounting Cost Code"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.AccountingCostCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-SelfBilledInvoice ubl-Text ubl-AccountingCost"
           meta={SelfBilledInvoiceFieldMeta.AccountingCost} 
           value={value.AccountingCost}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={SelfBilledInvoiceFieldMeta.AccountingCost} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Accounting Cost"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.AccountingCost}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-SelfBilledInvoice ubl-Numeric ubl-LineCountNumeric"
           meta={SelfBilledInvoiceFieldMeta.LineCountNumeric} 
           value={value.LineCountNumeric}
           itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay key={key} meta={SelfBilledInvoiceFieldMeta.LineCountNumeric} value={itemValue} />
+            <NumericDisplay
+              key={key}
+              label="Line Count"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.LineCountNumeric}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-SelfBilledInvoice ubl-Text ubl-BuyerReference"
           meta={SelfBilledInvoiceFieldMeta.BuyerReference} 
           value={value.BuyerReference}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={SelfBilledInvoiceFieldMeta.BuyerReference} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Buyer Reference"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.BuyerReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-SelfBilledInvoice ubl-Period ubl-InvoicePeriod"
           meta={SelfBilledInvoiceFieldMeta.InvoicePeriod} 
           value={value.InvoicePeriod}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={SelfBilledInvoiceFieldMeta.InvoicePeriod} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Invoice Period"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.InvoicePeriod}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-SelfBilledInvoice ubl-OrderReference"
           meta={SelfBilledInvoiceFieldMeta.OrderReference} 
           value={value.OrderReference}
           itemDisplay={ (itemValue: OrderReference, key: string | number) =>
-            <OrderReferenceDisplay key={key} meta={SelfBilledInvoiceFieldMeta.OrderReference} value={itemValue} />
+            <OrderReferenceDisplay
+              key={key}
+              label="Order Reference"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.OrderReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-SelfBilledInvoice ubl-BillingReference"
           meta={SelfBilledInvoiceFieldMeta.BillingReference} 
           value={value.BillingReference}
           itemDisplay={ (itemValue: BillingReference, key: string | number) =>
-            <BillingReferenceDisplay key={key} meta={SelfBilledInvoiceFieldMeta.BillingReference} value={itemValue} />
+            <BillingReferenceDisplay
+              key={key}
+              label="Billing Reference"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.BillingReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-SelfBilledInvoice ubl-DocumentReference ubl-ContractDocumentReference"
           meta={SelfBilledInvoiceFieldMeta.ContractDocumentReference} 
           value={value.ContractDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={SelfBilledInvoiceFieldMeta.ContractDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Contract Document Reference"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.ContractDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-SelfBilledInvoice ubl-DocumentReference ubl-DespatchDocumentReference"
           meta={SelfBilledInvoiceFieldMeta.DespatchDocumentReference} 
           value={value.DespatchDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={SelfBilledInvoiceFieldMeta.DespatchDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Despatch Document Reference"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.DespatchDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-SelfBilledInvoice ubl-DocumentReference ubl-ReceiptDocumentReference"
           meta={SelfBilledInvoiceFieldMeta.ReceiptDocumentReference} 
           value={value.ReceiptDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={SelfBilledInvoiceFieldMeta.ReceiptDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Receipt Document Reference"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.ReceiptDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-SelfBilledInvoice ubl-DocumentReference ubl-StatementDocumentReference"
           meta={SelfBilledInvoiceFieldMeta.StatementDocumentReference} 
           value={value.StatementDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={SelfBilledInvoiceFieldMeta.StatementDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Statement Document Reference"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.StatementDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-SelfBilledInvoice ubl-DocumentReference ubl-OriginatorDocumentReference"
           meta={SelfBilledInvoiceFieldMeta.OriginatorDocumentReference} 
           value={value.OriginatorDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={SelfBilledInvoiceFieldMeta.OriginatorDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Originator Document Reference"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.OriginatorDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-SelfBilledInvoice ubl-DocumentReference ubl-AdditionalDocumentReference"
           meta={SelfBilledInvoiceFieldMeta.AdditionalDocumentReference} 
           value={value.AdditionalDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={SelfBilledInvoiceFieldMeta.AdditionalDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Additional Document Reference"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.AdditionalDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-SelfBilledInvoice ubl-ProjectReference"
           meta={SelfBilledInvoiceFieldMeta.ProjectReference} 
           value={value.ProjectReference}
           itemDisplay={ (itemValue: ProjectReference, key: string | number) =>
-            <ProjectReferenceDisplay key={key} meta={SelfBilledInvoiceFieldMeta.ProjectReference} value={itemValue} />
+            <ProjectReferenceDisplay
+              key={key}
+              label="Project Reference"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.ProjectReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-SelfBilledInvoice ubl-Signature"
           meta={SelfBilledInvoiceFieldMeta.Signature} 
           value={value.Signature}
           itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay key={key} meta={SelfBilledInvoiceFieldMeta.Signature} value={itemValue} />
+            <SignatureDisplay
+              key={key}
+              label="Signature"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.Signature}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-SelfBilledInvoice ubl-CustomerParty ubl-AccountingCustomerParty"
           meta={SelfBilledInvoiceFieldMeta.AccountingCustomerParty} 
           value={value.AccountingCustomerParty}
           itemDisplay={ (itemValue: CustomerParty, key: string | number) =>
-            <CustomerPartyDisplay key={key} meta={SelfBilledInvoiceFieldMeta.AccountingCustomerParty} value={itemValue} />
+            <CustomerPartyDisplay
+              key={key}
+              label="Accounting Customer Party"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.AccountingCustomerParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-SelfBilledInvoice ubl-SupplierParty ubl-AccountingSupplierParty"
           meta={SelfBilledInvoiceFieldMeta.AccountingSupplierParty} 
           value={value.AccountingSupplierParty}
           itemDisplay={ (itemValue: SupplierParty, key: string | number) =>
-            <SupplierPartyDisplay key={key} meta={SelfBilledInvoiceFieldMeta.AccountingSupplierParty} value={itemValue} />
+            <SupplierPartyDisplay
+              key={key}
+              label="Accounting Supplier Party"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.AccountingSupplierParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-SelfBilledInvoice ubl-CustomerParty ubl-BuyerCustomerParty"
           meta={SelfBilledInvoiceFieldMeta.BuyerCustomerParty} 
           value={value.BuyerCustomerParty}
           itemDisplay={ (itemValue: CustomerParty, key: string | number) =>
-            <CustomerPartyDisplay key={key} meta={SelfBilledInvoiceFieldMeta.BuyerCustomerParty} value={itemValue} />
+            <CustomerPartyDisplay
+              key={key}
+              label="Buyer Customer Party"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.BuyerCustomerParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-SelfBilledInvoice ubl-SupplierParty ubl-SellerSupplierParty"
           meta={SelfBilledInvoiceFieldMeta.SellerSupplierParty} 
           value={value.SellerSupplierParty}
           itemDisplay={ (itemValue: SupplierParty, key: string | number) =>
-            <SupplierPartyDisplay key={key} meta={SelfBilledInvoiceFieldMeta.SellerSupplierParty} value={itemValue} />
+            <SupplierPartyDisplay
+              key={key}
+              label="Seller Supplier Party"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.SellerSupplierParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-SelfBilledInvoice ubl-Party ubl-PayeeParty"
           meta={SelfBilledInvoiceFieldMeta.PayeeParty} 
           value={value.PayeeParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={SelfBilledInvoiceFieldMeta.PayeeParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Payee Party"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.PayeeParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-SelfBilledInvoice ubl-Party ubl-TaxRepresentativeParty"
           meta={SelfBilledInvoiceFieldMeta.TaxRepresentativeParty} 
           value={value.TaxRepresentativeParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={SelfBilledInvoiceFieldMeta.TaxRepresentativeParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Tax Representative Party"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.TaxRepresentativeParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-SelfBilledInvoice ubl-Delivery"
           meta={SelfBilledInvoiceFieldMeta.Delivery} 
           value={value.Delivery}
           itemDisplay={ (itemValue: Delivery, key: string | number) =>
-            <DeliveryDisplay key={key} meta={SelfBilledInvoiceFieldMeta.Delivery} value={itemValue} />
+            <DeliveryDisplay
+              key={key}
+              label="Delivery"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.Delivery}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-SelfBilledInvoice ubl-DeliveryTerms"
           meta={SelfBilledInvoiceFieldMeta.DeliveryTerms} 
           value={value.DeliveryTerms}
           itemDisplay={ (itemValue: DeliveryTerms, key: string | number) =>
-            <DeliveryTermsDisplay key={key} meta={SelfBilledInvoiceFieldMeta.DeliveryTerms} value={itemValue} />
+            <DeliveryTermsDisplay
+              key={key}
+              label="Delivery Terms"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.DeliveryTerms}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-SelfBilledInvoice ubl-PaymentMeans"
           meta={SelfBilledInvoiceFieldMeta.PaymentMeans} 
           value={value.PaymentMeans}
           itemDisplay={ (itemValue: PaymentMeans, key: string | number) =>
-            <PaymentMeansDisplay key={key} meta={SelfBilledInvoiceFieldMeta.PaymentMeans} value={itemValue} />
+            <PaymentMeansDisplay
+              key={key}
+              label="Payment Means"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.PaymentMeans}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-SelfBilledInvoice ubl-PaymentTerms"
           meta={SelfBilledInvoiceFieldMeta.PaymentTerms} 
           value={value.PaymentTerms}
           itemDisplay={ (itemValue: PaymentTerms, key: string | number) =>
-            <PaymentTermsDisplay key={key} meta={SelfBilledInvoiceFieldMeta.PaymentTerms} value={itemValue} />
+            <PaymentTermsDisplay
+              key={key}
+              label="Payment Terms"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.PaymentTerms}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-SelfBilledInvoice ubl-Payment ubl-PrepaidPayment"
           meta={SelfBilledInvoiceFieldMeta.PrepaidPayment} 
           value={value.PrepaidPayment}
           itemDisplay={ (itemValue: Payment, key: string | number) =>
-            <PaymentDisplay key={key} meta={SelfBilledInvoiceFieldMeta.PrepaidPayment} value={itemValue} />
+            <PaymentDisplay
+              key={key}
+              label="Prepaid Payment"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.PrepaidPayment}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-SelfBilledInvoice ubl-AllowanceCharge"
           meta={SelfBilledInvoiceFieldMeta.AllowanceCharge} 
           value={value.AllowanceCharge}
           itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-            <AllowanceChargeDisplay key={key} meta={SelfBilledInvoiceFieldMeta.AllowanceCharge} value={itemValue} />
+            <AllowanceChargeDisplay
+              key={key}
+              label="Allowance Charge"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.AllowanceCharge}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-SelfBilledInvoice ubl-ExchangeRate ubl-TaxExchangeRate"
           meta={SelfBilledInvoiceFieldMeta.TaxExchangeRate} 
           value={value.TaxExchangeRate}
           itemDisplay={ (itemValue: ExchangeRate, key: string | number) =>
-            <ExchangeRateDisplay key={key} meta={SelfBilledInvoiceFieldMeta.TaxExchangeRate} value={itemValue} />
+            <ExchangeRateDisplay
+              key={key}
+              label="Tax Exchange Rate"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.TaxExchangeRate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-SelfBilledInvoice ubl-ExchangeRate ubl-PricingExchangeRate"
           meta={SelfBilledInvoiceFieldMeta.PricingExchangeRate} 
           value={value.PricingExchangeRate}
           itemDisplay={ (itemValue: ExchangeRate, key: string | number) =>
-            <ExchangeRateDisplay key={key} meta={SelfBilledInvoiceFieldMeta.PricingExchangeRate} value={itemValue} />
+            <ExchangeRateDisplay
+              key={key}
+              label="Pricing Exchange Rate"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.PricingExchangeRate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-SelfBilledInvoice ubl-ExchangeRate ubl-PaymentExchangeRate"
           meta={SelfBilledInvoiceFieldMeta.PaymentExchangeRate} 
           value={value.PaymentExchangeRate}
           itemDisplay={ (itemValue: ExchangeRate, key: string | number) =>
-            <ExchangeRateDisplay key={key} meta={SelfBilledInvoiceFieldMeta.PaymentExchangeRate} value={itemValue} />
+            <ExchangeRateDisplay
+              key={key}
+              label="Payment Exchange Rate"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.PaymentExchangeRate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-SelfBilledInvoice ubl-ExchangeRate ubl-PaymentAlternativeExchangeRate"
           meta={SelfBilledInvoiceFieldMeta.PaymentAlternativeExchangeRate} 
           value={value.PaymentAlternativeExchangeRate}
           itemDisplay={ (itemValue: ExchangeRate, key: string | number) =>
-            <ExchangeRateDisplay key={key} meta={SelfBilledInvoiceFieldMeta.PaymentAlternativeExchangeRate} value={itemValue} />
+            <ExchangeRateDisplay
+              key={key}
+              label="Payment Alternative Exchange Rate"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.PaymentAlternativeExchangeRate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-SelfBilledInvoice ubl-TaxTotal"
           meta={SelfBilledInvoiceFieldMeta.TaxTotal} 
           value={value.TaxTotal}
           itemDisplay={ (itemValue: TaxTotal, key: string | number) =>
-            <TaxTotalDisplay key={key} meta={SelfBilledInvoiceFieldMeta.TaxTotal} value={itemValue} />
+            <TaxTotalDisplay
+              key={key}
+              label="Tax Total"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.TaxTotal}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-SelfBilledInvoice ubl-TaxTotal ubl-WithholdingTaxTotal"
           meta={SelfBilledInvoiceFieldMeta.WithholdingTaxTotal} 
           value={value.WithholdingTaxTotal}
           itemDisplay={ (itemValue: TaxTotal, key: string | number) =>
-            <TaxTotalDisplay key={key} meta={SelfBilledInvoiceFieldMeta.WithholdingTaxTotal} value={itemValue} />
+            <TaxTotalDisplay
+              key={key}
+              label="Withholding Tax Total"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.WithholdingTaxTotal}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-SelfBilledInvoice ubl-MonetaryTotal ubl-LegalMonetaryTotal"
           meta={SelfBilledInvoiceFieldMeta.LegalMonetaryTotal} 
           value={value.LegalMonetaryTotal}
           itemDisplay={ (itemValue: MonetaryTotal, key: string | number) =>
-            <MonetaryTotalDisplay key={key} meta={SelfBilledInvoiceFieldMeta.LegalMonetaryTotal} value={itemValue} />
+            <MonetaryTotalDisplay
+              key={key}
+              label="Legal Monetary Total"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.LegalMonetaryTotal}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-SelfBilledInvoice ubl-InvoiceLine"
           meta={SelfBilledInvoiceFieldMeta.InvoiceLine} 
           value={value.InvoiceLine}
           itemDisplay={ (itemValue: InvoiceLine, key: string | number) =>
-            <InvoiceLineDisplay key={key} meta={SelfBilledInvoiceFieldMeta.InvoiceLine} value={itemValue} />
+            <InvoiceLineDisplay
+              key={key}
+              label="Invoice Line"
+              value={itemValue}
+              meta={SelfBilledInvoiceFieldMeta.InvoiceLine}
+            />
           }
         />
         </div>

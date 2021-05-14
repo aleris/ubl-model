@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { DigitalCollaboration } from  '../../model/cac/DigitalCollaboration'
 import { DigitalCollaborationFieldMeta } from  '../../meta/cac/DigitalCollaborationMeta'
@@ -10,45 +11,70 @@ import { Identifier } from '../../model/cbc/Identifier'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: DigitalCollaboration
   meta: FieldMeta<T>
 }
 
-export default function DigitalCollaborationDisplay<T>({ value, meta }: Params<T>) {
+export default function DigitalCollaborationDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-DigitalCollaboration ubl-DigitalCollaborationType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-DigitalCollaboration ubl-UBLExtensions"
           meta={DigitalCollaborationFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={DigitalCollaborationFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={DigitalCollaborationFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DigitalCollaboration ubl-Identifier ubl-ID"
           meta={DigitalCollaborationFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={DigitalCollaborationFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={DigitalCollaborationFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-DigitalCollaboration ubl-DigitalService ubl-SendingDigitalService"
           meta={DigitalCollaborationFieldMeta.SendingDigitalService} 
           value={value.SendingDigitalService}
           itemDisplay={ (itemValue: DigitalService, key: string | number) =>
-            <DigitalServiceDisplay key={key} meta={DigitalCollaborationFieldMeta.SendingDigitalService} value={itemValue} />
+            <DigitalServiceDisplay
+              key={key}
+              label="Sending Digital Service"
+              value={itemValue}
+              meta={DigitalCollaborationFieldMeta.SendingDigitalService}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-DigitalCollaboration ubl-DigitalService ubl-ReceivingDigitalService"
           meta={DigitalCollaborationFieldMeta.ReceivingDigitalService} 
           value={value.ReceivingDigitalService}
           itemDisplay={ (itemValue: DigitalService, key: string | number) =>
-            <DigitalServiceDisplay key={key} meta={DigitalCollaborationFieldMeta.ReceivingDigitalService} value={itemValue} />
+            <DigitalServiceDisplay
+              key={key}
+              label="Receiving Digital Service"
+              value={itemValue}
+              meta={DigitalCollaborationFieldMeta.ReceivingDigitalService}
+            />
           }
         />
         </div>

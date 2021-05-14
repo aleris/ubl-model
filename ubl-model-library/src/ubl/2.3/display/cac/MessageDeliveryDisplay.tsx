@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { MessageDelivery } from  '../../model/cac/MessageDelivery'
 import { MessageDeliveryFieldMeta } from  '../../meta/cac/MessageDeliveryMeta'
@@ -10,45 +11,70 @@ import { Identifier } from '../../model/cbc/Identifier'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: MessageDelivery
   meta: FieldMeta<T>
 }
 
-export default function MessageDeliveryDisplay<T>({ value, meta }: Params<T>) {
+export default function MessageDeliveryDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-MessageDelivery ubl-MessageDeliveryType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-MessageDelivery ubl-UBLExtensions"
           meta={MessageDeliveryFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={MessageDeliveryFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={MessageDeliveryFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-MessageDelivery ubl-Identifier ubl-ProtocolID"
           meta={MessageDeliveryFieldMeta.ProtocolID} 
           value={value.ProtocolID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={MessageDeliveryFieldMeta.ProtocolID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Protocol Identifier"
+              value={itemValue}
+              meta={MessageDeliveryFieldMeta.ProtocolID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-MessageDelivery ubl-Code ubl-EnvelopeTypeCode"
           meta={MessageDeliveryFieldMeta.EnvelopeTypeCode} 
           value={value.EnvelopeTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={MessageDeliveryFieldMeta.EnvelopeTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Envelope Type Code"
+              value={itemValue}
+              meta={MessageDeliveryFieldMeta.EnvelopeTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-MessageDelivery ubl-Identifier ubl-EndpointURI"
           meta={MessageDeliveryFieldMeta.EndpointURI} 
           value={value.EndpointURI}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={MessageDeliveryFieldMeta.EndpointURI} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Endpoint URI"
+              value={itemValue}
+              meta={MessageDeliveryFieldMeta.EndpointURI}
+            />
           }
         />
         </div>

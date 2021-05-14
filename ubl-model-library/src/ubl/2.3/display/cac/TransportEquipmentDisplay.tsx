@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TransportEquipment } from  '../../model/cac/TransportEquipment'
 import { TransportEquipmentFieldMeta } from  '../../meta/cac/TransportEquipmentMeta'
@@ -56,517 +57,896 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 import VerifiedGrossMassDisplay from './VerifiedGrossMassDisplay'
 import { VerifiedGrossMass } from '../../model/cac/VerifiedGrossMass'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: TransportEquipment
   meta: FieldMeta<T>
 }
 
-export default function TransportEquipmentDisplay<T>({ value, meta }: Params<T>) {
+export default function TransportEquipmentDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-TransportEquipment ubl-TransportEquipmentType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-TransportEquipment ubl-UBLExtensions"
           meta={TransportEquipmentFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={TransportEquipmentFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportEquipment ubl-Identifier ubl-ID"
           meta={TransportEquipmentFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={TransportEquipmentFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-TransportEquipment ubl-Identifier ubl-ReferencedConsignmentID"
           meta={TransportEquipmentFieldMeta.ReferencedConsignmentID} 
           value={value.ReferencedConsignmentID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={TransportEquipmentFieldMeta.ReferencedConsignmentID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Referenced Consignment Identifier"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.ReferencedConsignmentID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportEquipment ubl-Code ubl-TransportEquipmentTypeCode"
           meta={TransportEquipmentFieldMeta.TransportEquipmentTypeCode} 
           value={value.TransportEquipmentTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={TransportEquipmentFieldMeta.TransportEquipmentTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Transport Equipment Type Code"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.TransportEquipmentTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportEquipment ubl-Code ubl-ProviderTypeCode"
           meta={TransportEquipmentFieldMeta.ProviderTypeCode} 
           value={value.ProviderTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={TransportEquipmentFieldMeta.ProviderTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Provider Type Code"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.ProviderTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportEquipment ubl-Code ubl-OwnerTypeCode"
           meta={TransportEquipmentFieldMeta.OwnerTypeCode} 
           value={value.OwnerTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={TransportEquipmentFieldMeta.OwnerTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Owner Type Code"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.OwnerTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportEquipment ubl-Code ubl-SizeTypeCode"
           meta={TransportEquipmentFieldMeta.SizeTypeCode} 
           value={value.SizeTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={TransportEquipmentFieldMeta.SizeTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Size Type Code"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.SizeTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportEquipment ubl-Code ubl-DispositionCode"
           meta={TransportEquipmentFieldMeta.DispositionCode} 
           value={value.DispositionCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={TransportEquipmentFieldMeta.DispositionCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Disposition Code"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.DispositionCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportEquipment ubl-Code ubl-FullnessIndicationCode"
           meta={TransportEquipmentFieldMeta.FullnessIndicationCode} 
           value={value.FullnessIndicationCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={TransportEquipmentFieldMeta.FullnessIndicationCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Fullness Indication Code"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.FullnessIndicationCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportEquipment ubl-Indicator ubl-RefrigerationOnIndicator"
           meta={TransportEquipmentFieldMeta.RefrigerationOnIndicator} 
           value={value.RefrigerationOnIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={TransportEquipmentFieldMeta.RefrigerationOnIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Refrigeration On Indicator"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.RefrigerationOnIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-TransportEquipment ubl-Text ubl-Information"
           meta={TransportEquipmentFieldMeta.Information} 
           value={value.Information}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={TransportEquipmentFieldMeta.Information} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Information"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.Information}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportEquipment ubl-Indicator ubl-ReturnabilityIndicator"
           meta={TransportEquipmentFieldMeta.ReturnabilityIndicator} 
           value={value.ReturnabilityIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={TransportEquipmentFieldMeta.ReturnabilityIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Returnability Indicator"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.ReturnabilityIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportEquipment ubl-Indicator ubl-LegalStatusIndicator"
           meta={TransportEquipmentFieldMeta.LegalStatusIndicator} 
           value={value.LegalStatusIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={TransportEquipmentFieldMeta.LegalStatusIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Legal Status Indicator"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.LegalStatusIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportEquipment ubl-Numeric ubl-AirFlowPercent"
           meta={TransportEquipmentFieldMeta.AirFlowPercent} 
           value={value.AirFlowPercent}
           itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay key={key} meta={TransportEquipmentFieldMeta.AirFlowPercent} value={itemValue} />
+            <NumericDisplay
+              key={key}
+              label="Air Flow Percent"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.AirFlowPercent}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportEquipment ubl-Numeric ubl-HumidityPercent"
           meta={TransportEquipmentFieldMeta.HumidityPercent} 
           value={value.HumidityPercent}
           itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay key={key} meta={TransportEquipmentFieldMeta.HumidityPercent} value={itemValue} />
+            <NumericDisplay
+              key={key}
+              label="Humidity Percent"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.HumidityPercent}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportEquipment ubl-Indicator ubl-AnimalFoodApprovedIndicator"
           meta={TransportEquipmentFieldMeta.AnimalFoodApprovedIndicator} 
           value={value.AnimalFoodApprovedIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={TransportEquipmentFieldMeta.AnimalFoodApprovedIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Animal Food Approved Indicator"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.AnimalFoodApprovedIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportEquipment ubl-Indicator ubl-HumanFoodApprovedIndicator"
           meta={TransportEquipmentFieldMeta.HumanFoodApprovedIndicator} 
           value={value.HumanFoodApprovedIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={TransportEquipmentFieldMeta.HumanFoodApprovedIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Human Food Approved Indicator"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.HumanFoodApprovedIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportEquipment ubl-Indicator ubl-DangerousGoodsApprovedIndicator"
           meta={TransportEquipmentFieldMeta.DangerousGoodsApprovedIndicator} 
           value={value.DangerousGoodsApprovedIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={TransportEquipmentFieldMeta.DangerousGoodsApprovedIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Dangerous Goods Approved Indicator"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.DangerousGoodsApprovedIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportEquipment ubl-Indicator ubl-RefrigeratedIndicator"
           meta={TransportEquipmentFieldMeta.RefrigeratedIndicator} 
           value={value.RefrigeratedIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={TransportEquipmentFieldMeta.RefrigeratedIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Refrigerated Indicator"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.RefrigeratedIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportEquipment ubl-Text ubl-Characteristics"
           meta={TransportEquipmentFieldMeta.Characteristics} 
           value={value.Characteristics}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={TransportEquipmentFieldMeta.Characteristics} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Characteristics"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.Characteristics}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-TransportEquipment ubl-Text ubl-DamageRemarks"
           meta={TransportEquipmentFieldMeta.DamageRemarks} 
           value={value.DamageRemarks}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={TransportEquipmentFieldMeta.DamageRemarks} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Damage Remarks"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.DamageRemarks}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-TransportEquipment ubl-Text ubl-Description"
           meta={TransportEquipmentFieldMeta.Description} 
           value={value.Description}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={TransportEquipmentFieldMeta.Description} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Description"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.Description}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-TransportEquipment ubl-Text ubl-SpecialTransportRequirements"
           meta={TransportEquipmentFieldMeta.SpecialTransportRequirements} 
           value={value.SpecialTransportRequirements}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={TransportEquipmentFieldMeta.SpecialTransportRequirements} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Special Transport Requirements"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.SpecialTransportRequirements}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportEquipment ubl-Measure ubl-GrossWeightMeasure"
           meta={TransportEquipmentFieldMeta.GrossWeightMeasure} 
           value={value.GrossWeightMeasure}
           itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay key={key} meta={TransportEquipmentFieldMeta.GrossWeightMeasure} value={itemValue} />
+            <MeasureDisplay
+              key={key}
+              label="Gross Weight"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.GrossWeightMeasure}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportEquipment ubl-Measure ubl-GrossVolumeMeasure"
           meta={TransportEquipmentFieldMeta.GrossVolumeMeasure} 
           value={value.GrossVolumeMeasure}
           itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay key={key} meta={TransportEquipmentFieldMeta.GrossVolumeMeasure} value={itemValue} />
+            <MeasureDisplay
+              key={key}
+              label="Gross Volume"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.GrossVolumeMeasure}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportEquipment ubl-Measure ubl-TareWeightMeasure"
           meta={TransportEquipmentFieldMeta.TareWeightMeasure} 
           value={value.TareWeightMeasure}
           itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay key={key} meta={TransportEquipmentFieldMeta.TareWeightMeasure} value={itemValue} />
+            <MeasureDisplay
+              key={key}
+              label="Tare Weight"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.TareWeightMeasure}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportEquipment ubl-Code ubl-TrackingDeviceCode"
           meta={TransportEquipmentFieldMeta.TrackingDeviceCode} 
           value={value.TrackingDeviceCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={TransportEquipmentFieldMeta.TrackingDeviceCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Tracking Device Code"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.TrackingDeviceCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportEquipment ubl-Indicator ubl-PowerIndicator"
           meta={TransportEquipmentFieldMeta.PowerIndicator} 
           value={value.PowerIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={TransportEquipmentFieldMeta.PowerIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Power"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.PowerIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TransportEquipment ubl-Identifier ubl-TraceID"
           meta={TransportEquipmentFieldMeta.TraceID} 
           value={value.TraceID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={TransportEquipmentFieldMeta.TraceID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Trace Identifier"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.TraceID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportEquipment ubl-Dimension ubl-MeasurementDimension"
           meta={TransportEquipmentFieldMeta.MeasurementDimension} 
           value={value.MeasurementDimension}
           itemDisplay={ (itemValue: Dimension, key: string | number) =>
-            <DimensionDisplay key={key} meta={TransportEquipmentFieldMeta.MeasurementDimension} value={itemValue} />
+            <DimensionDisplay
+              key={key}
+              label="Measurement Dimension"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.MeasurementDimension}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportEquipment ubl-TransportEquipmentSeal"
           meta={TransportEquipmentFieldMeta.TransportEquipmentSeal} 
           value={value.TransportEquipmentSeal}
           itemDisplay={ (itemValue: TransportEquipmentSeal, key: string | number) =>
-            <TransportEquipmentSealDisplay key={key} meta={TransportEquipmentFieldMeta.TransportEquipmentSeal} value={itemValue} />
+            <TransportEquipmentSealDisplay
+              key={key}
+              label="Transport Equipment Seal"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.TransportEquipmentSeal}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TransportEquipment ubl-Temperature ubl-MinimumTemperature"
           meta={TransportEquipmentFieldMeta.MinimumTemperature} 
           value={value.MinimumTemperature}
           itemDisplay={ (itemValue: Temperature, key: string | number) =>
-            <TemperatureDisplay key={key} meta={TransportEquipmentFieldMeta.MinimumTemperature} value={itemValue} />
+            <TemperatureDisplay
+              key={key}
+              label="Minimum Temperature"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.MinimumTemperature}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TransportEquipment ubl-Temperature ubl-MaximumTemperature"
           meta={TransportEquipmentFieldMeta.MaximumTemperature} 
           value={value.MaximumTemperature}
           itemDisplay={ (itemValue: Temperature, key: string | number) =>
-            <TemperatureDisplay key={key} meta={TransportEquipmentFieldMeta.MaximumTemperature} value={itemValue} />
+            <TemperatureDisplay
+              key={key}
+              label="Maximum Temperature"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.MaximumTemperature}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TransportEquipment ubl-Party ubl-ProviderParty"
           meta={TransportEquipmentFieldMeta.ProviderParty} 
           value={value.ProviderParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={TransportEquipmentFieldMeta.ProviderParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Provider Party"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.ProviderParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TransportEquipment ubl-Party ubl-LoadingProofParty"
           meta={TransportEquipmentFieldMeta.LoadingProofParty} 
           value={value.LoadingProofParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={TransportEquipmentFieldMeta.LoadingProofParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Loading Proof Party"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.LoadingProofParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TransportEquipment ubl-SupplierParty"
           meta={TransportEquipmentFieldMeta.SupplierParty} 
           value={value.SupplierParty}
           itemDisplay={ (itemValue: SupplierParty, key: string | number) =>
-            <SupplierPartyDisplay key={key} meta={TransportEquipmentFieldMeta.SupplierParty} value={itemValue} />
+            <SupplierPartyDisplay
+              key={key}
+              label="Supplier Party"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.SupplierParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TransportEquipment ubl-Party ubl-OwnerParty"
           meta={TransportEquipmentFieldMeta.OwnerParty} 
           value={value.OwnerParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={TransportEquipmentFieldMeta.OwnerParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Owner Party"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.OwnerParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TransportEquipment ubl-Party ubl-OperatingParty"
           meta={TransportEquipmentFieldMeta.OperatingParty} 
           value={value.OperatingParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={TransportEquipmentFieldMeta.OperatingParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Operating Party"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.OperatingParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TransportEquipment ubl-Location ubl-LoadingLocation"
           meta={TransportEquipmentFieldMeta.LoadingLocation} 
           value={value.LoadingLocation}
           itemDisplay={ (itemValue: Location, key: string | number) =>
-            <LocationDisplay key={key} meta={TransportEquipmentFieldMeta.LoadingLocation} value={itemValue} />
+            <LocationDisplay
+              key={key}
+              label="Loading Location"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.LoadingLocation}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TransportEquipment ubl-Location ubl-UnloadingLocation"
           meta={TransportEquipmentFieldMeta.UnloadingLocation} 
           value={value.UnloadingLocation}
           itemDisplay={ (itemValue: Location, key: string | number) =>
-            <LocationDisplay key={key} meta={TransportEquipmentFieldMeta.UnloadingLocation} value={itemValue} />
+            <LocationDisplay
+              key={key}
+              label="Unloading Location"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.UnloadingLocation}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TransportEquipment ubl-Location ubl-StorageLocation"
           meta={TransportEquipmentFieldMeta.StorageLocation} 
           value={value.StorageLocation}
           itemDisplay={ (itemValue: Location, key: string | number) =>
-            <LocationDisplay key={key} meta={TransportEquipmentFieldMeta.StorageLocation} value={itemValue} />
+            <LocationDisplay
+              key={key}
+              label="Storage Location"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.StorageLocation}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportEquipment ubl-TransportEvent ubl-PositioningTransportEvent"
           meta={TransportEquipmentFieldMeta.PositioningTransportEvent} 
           value={value.PositioningTransportEvent}
           itemDisplay={ (itemValue: TransportEvent, key: string | number) =>
-            <TransportEventDisplay key={key} meta={TransportEquipmentFieldMeta.PositioningTransportEvent} value={itemValue} />
+            <TransportEventDisplay
+              key={key}
+              label="Positioning Transport Event"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.PositioningTransportEvent}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportEquipment ubl-TransportEvent ubl-QuarantineTransportEvent"
           meta={TransportEquipmentFieldMeta.QuarantineTransportEvent} 
           value={value.QuarantineTransportEvent}
           itemDisplay={ (itemValue: TransportEvent, key: string | number) =>
-            <TransportEventDisplay key={key} meta={TransportEquipmentFieldMeta.QuarantineTransportEvent} value={itemValue} />
+            <TransportEventDisplay
+              key={key}
+              label="Quarantine Transport Event"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.QuarantineTransportEvent}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportEquipment ubl-TransportEvent ubl-DeliveryTransportEvent"
           meta={TransportEquipmentFieldMeta.DeliveryTransportEvent} 
           value={value.DeliveryTransportEvent}
           itemDisplay={ (itemValue: TransportEvent, key: string | number) =>
-            <TransportEventDisplay key={key} meta={TransportEquipmentFieldMeta.DeliveryTransportEvent} value={itemValue} />
+            <TransportEventDisplay
+              key={key}
+              label="Delivery Transport Event"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.DeliveryTransportEvent}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportEquipment ubl-TransportEvent ubl-PickupTransportEvent"
           meta={TransportEquipmentFieldMeta.PickupTransportEvent} 
           value={value.PickupTransportEvent}
           itemDisplay={ (itemValue: TransportEvent, key: string | number) =>
-            <TransportEventDisplay key={key} meta={TransportEquipmentFieldMeta.PickupTransportEvent} value={itemValue} />
+            <TransportEventDisplay
+              key={key}
+              label="Pickup Transport Event"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.PickupTransportEvent}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportEquipment ubl-TransportEvent ubl-HandlingTransportEvent"
           meta={TransportEquipmentFieldMeta.HandlingTransportEvent} 
           value={value.HandlingTransportEvent}
           itemDisplay={ (itemValue: TransportEvent, key: string | number) =>
-            <TransportEventDisplay key={key} meta={TransportEquipmentFieldMeta.HandlingTransportEvent} value={itemValue} />
+            <TransportEventDisplay
+              key={key}
+              label="Handling Transport Event"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.HandlingTransportEvent}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportEquipment ubl-TransportEvent ubl-LoadingTransportEvent"
           meta={TransportEquipmentFieldMeta.LoadingTransportEvent} 
           value={value.LoadingTransportEvent}
           itemDisplay={ (itemValue: TransportEvent, key: string | number) =>
-            <TransportEventDisplay key={key} meta={TransportEquipmentFieldMeta.LoadingTransportEvent} value={itemValue} />
+            <TransportEventDisplay
+              key={key}
+              label="Loading Transport Event"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.LoadingTransportEvent}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportEquipment ubl-TransportEvent"
           meta={TransportEquipmentFieldMeta.TransportEvent} 
           value={value.TransportEvent}
           itemDisplay={ (itemValue: TransportEvent, key: string | number) =>
-            <TransportEventDisplay key={key} meta={TransportEquipmentFieldMeta.TransportEvent} value={itemValue} />
+            <TransportEventDisplay
+              key={key}
+              label="Transport Event"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.TransportEvent}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TransportEquipment ubl-TransportMeans ubl-ApplicableTransportMeans"
           meta={TransportEquipmentFieldMeta.ApplicableTransportMeans} 
           value={value.ApplicableTransportMeans}
           itemDisplay={ (itemValue: TransportMeans, key: string | number) =>
-            <TransportMeansDisplay key={key} meta={TransportEquipmentFieldMeta.ApplicableTransportMeans} value={itemValue} />
+            <TransportMeansDisplay
+              key={key}
+              label="Applicable Transport Means"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.ApplicableTransportMeans}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportEquipment ubl-TradingTerms ubl-HaulageTradingTerms"
           meta={TransportEquipmentFieldMeta.HaulageTradingTerms} 
           value={value.HaulageTradingTerms}
           itemDisplay={ (itemValue: TradingTerms, key: string | number) =>
-            <TradingTermsDisplay key={key} meta={TransportEquipmentFieldMeta.HaulageTradingTerms} value={itemValue} />
+            <TradingTermsDisplay
+              key={key}
+              label="Haulage Trading Terms"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.HaulageTradingTerms}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportEquipment ubl-HazardousGoodsTransit"
           meta={TransportEquipmentFieldMeta.HazardousGoodsTransit} 
           value={value.HazardousGoodsTransit}
           itemDisplay={ (itemValue: HazardousGoodsTransit, key: string | number) =>
-            <HazardousGoodsTransitDisplay key={key} meta={TransportEquipmentFieldMeta.HazardousGoodsTransit} value={itemValue} />
+            <HazardousGoodsTransitDisplay
+              key={key}
+              label="Hazardous Goods Transit"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.HazardousGoodsTransit}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportEquipment ubl-TransportHandlingUnit ubl-PackagedTransportHandlingUnit"
           meta={TransportEquipmentFieldMeta.PackagedTransportHandlingUnit} 
           value={value.PackagedTransportHandlingUnit}
           itemDisplay={ (itemValue: TransportHandlingUnit, key: string | number) =>
-            <TransportHandlingUnitDisplay key={key} meta={TransportEquipmentFieldMeta.PackagedTransportHandlingUnit} value={itemValue} />
+            <TransportHandlingUnitDisplay
+              key={key}
+              label="Packaged Transport Handling Unit"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.PackagedTransportHandlingUnit}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportEquipment ubl-AllowanceCharge ubl-ServiceAllowanceCharge"
           meta={TransportEquipmentFieldMeta.ServiceAllowanceCharge} 
           value={value.ServiceAllowanceCharge}
           itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-            <AllowanceChargeDisplay key={key} meta={TransportEquipmentFieldMeta.ServiceAllowanceCharge} value={itemValue} />
+            <AllowanceChargeDisplay
+              key={key}
+              label="Service Allowance Charge"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.ServiceAllowanceCharge}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportEquipment ubl-AllowanceCharge ubl-FreightAllowanceCharge"
           meta={TransportEquipmentFieldMeta.FreightAllowanceCharge} 
           value={value.FreightAllowanceCharge}
           itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-            <AllowanceChargeDisplay key={key} meta={TransportEquipmentFieldMeta.FreightAllowanceCharge} value={itemValue} />
+            <AllowanceChargeDisplay
+              key={key}
+              label="Freight Allowance Charge"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.FreightAllowanceCharge}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportEquipment ubl-AttachedTransportEquipment"
           meta={TransportEquipmentFieldMeta.AttachedTransportEquipment} 
           value={value.AttachedTransportEquipment}
           itemDisplay={ (itemValue: TransportEquipment, key: string | number) =>
-            <TransportEquipmentDisplay key={key} meta={TransportEquipmentFieldMeta.AttachedTransportEquipment} value={itemValue} />
+            <TransportEquipmentDisplay
+              key={key}
+              label="Attached Transport Equipment"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.AttachedTransportEquipment}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TransportEquipment ubl-Delivery"
           meta={TransportEquipmentFieldMeta.Delivery} 
           value={value.Delivery}
           itemDisplay={ (itemValue: Delivery, key: string | number) =>
-            <DeliveryDisplay key={key} meta={TransportEquipmentFieldMeta.Delivery} value={itemValue} />
+            <DeliveryDisplay
+              key={key}
+              label="Delivery"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.Delivery}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TransportEquipment ubl-Pickup"
           meta={TransportEquipmentFieldMeta.Pickup} 
           value={value.Pickup}
           itemDisplay={ (itemValue: Pickup, key: string | number) =>
-            <PickupDisplay key={key} meta={TransportEquipmentFieldMeta.Pickup} value={itemValue} />
+            <PickupDisplay
+              key={key}
+              label="Pickup"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.Pickup}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TransportEquipment ubl-Despatch"
           meta={TransportEquipmentFieldMeta.Despatch} 
           value={value.Despatch}
           itemDisplay={ (itemValue: Despatch, key: string | number) =>
-            <DespatchDisplay key={key} meta={TransportEquipmentFieldMeta.Despatch} value={itemValue} />
+            <DespatchDisplay
+              key={key}
+              label="Despatch"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.Despatch}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportEquipment ubl-DocumentReference ubl-ShipmentDocumentReference"
           meta={TransportEquipmentFieldMeta.ShipmentDocumentReference} 
           value={value.ShipmentDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={TransportEquipmentFieldMeta.ShipmentDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Shipment Document Reference"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.ShipmentDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportEquipment ubl-ContainedInTransportEquipment"
           meta={TransportEquipmentFieldMeta.ContainedInTransportEquipment} 
           value={value.ContainedInTransportEquipment}
           itemDisplay={ (itemValue: TransportEquipment, key: string | number) =>
-            <TransportEquipmentDisplay key={key} meta={TransportEquipmentFieldMeta.ContainedInTransportEquipment} value={itemValue} />
+            <TransportEquipmentDisplay
+              key={key}
+              label="Contained In Transport Equipment"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.ContainedInTransportEquipment}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportEquipment ubl-Package"
           meta={TransportEquipmentFieldMeta.Package} 
           value={value.Package}
           itemDisplay={ (itemValue: Package, key: string | number) =>
-            <PackageDisplay key={key} meta={TransportEquipmentFieldMeta.Package} value={itemValue} />
+            <PackageDisplay
+              key={key}
+              label="Package"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.Package}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportEquipment ubl-GoodsItem"
           meta={TransportEquipmentFieldMeta.GoodsItem} 
           value={value.GoodsItem}
           itemDisplay={ (itemValue: GoodsItem, key: string | number) =>
-            <GoodsItemDisplay key={key} meta={TransportEquipmentFieldMeta.GoodsItem} value={itemValue} />
+            <GoodsItemDisplay
+              key={key}
+              label="Goods Item"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.GoodsItem}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TransportEquipment ubl-VerifiedGrossMass"
           meta={TransportEquipmentFieldMeta.VerifiedGrossMass} 
           value={value.VerifiedGrossMass}
           itemDisplay={ (itemValue: VerifiedGrossMass, key: string | number) =>
-            <VerifiedGrossMassDisplay key={key} meta={TransportEquipmentFieldMeta.VerifiedGrossMass} value={itemValue} />
+            <VerifiedGrossMassDisplay
+              key={key}
+              label="Verified Gross Mass"
+              value={itemValue}
+              meta={TransportEquipmentFieldMeta.VerifiedGrossMass}
+            />
           }
         />
         </div>

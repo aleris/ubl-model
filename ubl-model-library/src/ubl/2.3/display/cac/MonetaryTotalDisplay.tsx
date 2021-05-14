@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { MonetaryTotal } from  '../../model/cac/MonetaryTotal'
 import { MonetaryTotalFieldMeta } from  '../../meta/cac/MonetaryTotalMeta'
@@ -8,101 +9,168 @@ import { Amount } from '../../model/cbc/Amount'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: MonetaryTotal
   meta: FieldMeta<T>
 }
 
-export default function MonetaryTotalDisplay<T>({ value, meta }: Params<T>) {
+export default function MonetaryTotalDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-MonetaryTotal ubl-MonetaryTotalType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-MonetaryTotal ubl-UBLExtensions"
           meta={MonetaryTotalFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={MonetaryTotalFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={MonetaryTotalFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-MonetaryTotal ubl-Amount ubl-LineExtensionAmount"
           meta={MonetaryTotalFieldMeta.LineExtensionAmount} 
           value={value.LineExtensionAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={MonetaryTotalFieldMeta.LineExtensionAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Line Extension Amount"
+              value={itemValue}
+              meta={MonetaryTotalFieldMeta.LineExtensionAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-MonetaryTotal ubl-Amount ubl-TaxExclusiveAmount"
           meta={MonetaryTotalFieldMeta.TaxExclusiveAmount} 
           value={value.TaxExclusiveAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={MonetaryTotalFieldMeta.TaxExclusiveAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Tax Exclusive Amount"
+              value={itemValue}
+              meta={MonetaryTotalFieldMeta.TaxExclusiveAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-MonetaryTotal ubl-Amount ubl-TaxInclusiveAmount"
           meta={MonetaryTotalFieldMeta.TaxInclusiveAmount} 
           value={value.TaxInclusiveAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={MonetaryTotalFieldMeta.TaxInclusiveAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Tax Inclusive Amount"
+              value={itemValue}
+              meta={MonetaryTotalFieldMeta.TaxInclusiveAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-MonetaryTotal ubl-Amount ubl-AllowanceTotalAmount"
           meta={MonetaryTotalFieldMeta.AllowanceTotalAmount} 
           value={value.AllowanceTotalAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={MonetaryTotalFieldMeta.AllowanceTotalAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Allowance Total Amount"
+              value={itemValue}
+              meta={MonetaryTotalFieldMeta.AllowanceTotalAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-MonetaryTotal ubl-Amount ubl-ChargeTotalAmount"
           meta={MonetaryTotalFieldMeta.ChargeTotalAmount} 
           value={value.ChargeTotalAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={MonetaryTotalFieldMeta.ChargeTotalAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Charge Total Amount"
+              value={itemValue}
+              meta={MonetaryTotalFieldMeta.ChargeTotalAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-MonetaryTotal ubl-Amount ubl-WithholdingTaxTotalAmount"
           meta={MonetaryTotalFieldMeta.WithholdingTaxTotalAmount} 
           value={value.WithholdingTaxTotalAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={MonetaryTotalFieldMeta.WithholdingTaxTotalAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Withholding Tax Total Amount"
+              value={itemValue}
+              meta={MonetaryTotalFieldMeta.WithholdingTaxTotalAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-MonetaryTotal ubl-Amount ubl-PrepaidAmount"
           meta={MonetaryTotalFieldMeta.PrepaidAmount} 
           value={value.PrepaidAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={MonetaryTotalFieldMeta.PrepaidAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Prepaid Amount"
+              value={itemValue}
+              meta={MonetaryTotalFieldMeta.PrepaidAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-MonetaryTotal ubl-Amount ubl-PayableRoundingAmount"
           meta={MonetaryTotalFieldMeta.PayableRoundingAmount} 
           value={value.PayableRoundingAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={MonetaryTotalFieldMeta.PayableRoundingAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Payable Rounding Amount"
+              value={itemValue}
+              meta={MonetaryTotalFieldMeta.PayableRoundingAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-MonetaryTotal ubl-Amount ubl-PayableAmount"
           meta={MonetaryTotalFieldMeta.PayableAmount} 
           value={value.PayableAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={MonetaryTotalFieldMeta.PayableAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Payable Amount"
+              value={itemValue}
+              meta={MonetaryTotalFieldMeta.PayableAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-MonetaryTotal ubl-Amount ubl-PayableAlternativeAmount"
           meta={MonetaryTotalFieldMeta.PayableAlternativeAmount} 
           value={value.PayableAlternativeAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={MonetaryTotalFieldMeta.PayableAlternativeAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Payable Alternative Amount"
+              value={itemValue}
+              meta={MonetaryTotalFieldMeta.PayableAlternativeAmount}
+            />
           }
         />
         </div>

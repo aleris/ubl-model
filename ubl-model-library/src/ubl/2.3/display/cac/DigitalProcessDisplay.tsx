@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { DigitalProcess } from  '../../model/cac/DigitalProcess'
 import { DigitalProcessFieldMeta } from  '../../meta/cac/DigitalProcessMeta'
@@ -14,61 +15,98 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: DigitalProcess
   meta: FieldMeta<T>
 }
 
-export default function DigitalProcessDisplay<T>({ value, meta }: Params<T>) {
+export default function DigitalProcessDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-DigitalProcess ubl-DigitalProcessType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-DigitalProcess ubl-UBLExtensions"
           meta={DigitalProcessFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={DigitalProcessFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={DigitalProcessFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DigitalProcess ubl-Identifier ubl-ID"
           meta={DigitalProcessFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={DigitalProcessFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={DigitalProcessFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-DigitalProcess ubl-Text ubl-Description"
           meta={DigitalProcessFieldMeta.Description} 
           value={value.Description}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={DigitalProcessFieldMeta.Description} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Description"
+              value={itemValue}
+              meta={DigitalProcessFieldMeta.Description}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DigitalProcess ubl-Identifier ubl-ProfileID"
           meta={DigitalProcessFieldMeta.ProfileID} 
           value={value.ProfileID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={DigitalProcessFieldMeta.ProfileID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Identifier"
+              value={itemValue}
+              meta={DigitalProcessFieldMeta.ProfileID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-DigitalProcess ubl-DigitalCollaboration"
           meta={DigitalProcessFieldMeta.DigitalCollaboration} 
           value={value.DigitalCollaboration}
           itemDisplay={ (itemValue: DigitalCollaboration, key: string | number) =>
-            <DigitalCollaborationDisplay key={key} meta={DigitalProcessFieldMeta.DigitalCollaboration} value={itemValue} />
+            <DigitalCollaborationDisplay
+              key={key}
+              label="Digital Collaboration"
+              value={itemValue}
+              meta={DigitalProcessFieldMeta.DigitalCollaboration}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-DigitalProcess ubl-DocumentReference ubl-CertificationDocumentReference"
           meta={DigitalProcessFieldMeta.CertificationDocumentReference} 
           value={value.CertificationDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={DigitalProcessFieldMeta.CertificationDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Certification Document Reference"
+              value={itemValue}
+              meta={DigitalProcessFieldMeta.CertificationDocumentReference}
+            />
           }
         />
         </div>

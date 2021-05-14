@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { CatalogueDeletion } from  '../../model/doc/CatalogueDeletion'
 import { CatalogueDeletionFieldMeta } from  '../../meta/doc/CatalogueDeletionMeta'
@@ -28,197 +29,336 @@ import { Time } from '../../model/cbc/Time'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: CatalogueDeletion
   meta: FieldMeta<T>
 }
 
-export default function CatalogueDeletionDisplay<T>({ value, meta }: Params<T>) {
+export default function CatalogueDeletionDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-doc ubl-CatalogueDeletion ubl-CatalogueDeletionType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-CatalogueDeletion ubl-UBLExtensions"
           meta={CatalogueDeletionFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={CatalogueDeletionFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={CatalogueDeletionFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CatalogueDeletion ubl-Identifier ubl-UBLVersionID"
           meta={CatalogueDeletionFieldMeta.UBLVersionID} 
           value={value.UBLVersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CatalogueDeletionFieldMeta.UBLVersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UBL Version Identifier"
+              value={itemValue}
+              meta={CatalogueDeletionFieldMeta.UBLVersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CatalogueDeletion ubl-Identifier ubl-CustomizationID"
           meta={CatalogueDeletionFieldMeta.CustomizationID} 
           value={value.CustomizationID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CatalogueDeletionFieldMeta.CustomizationID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Customization Identifier"
+              value={itemValue}
+              meta={CatalogueDeletionFieldMeta.CustomizationID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CatalogueDeletion ubl-Identifier ubl-ProfileID"
           meta={CatalogueDeletionFieldMeta.ProfileID} 
           value={value.ProfileID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CatalogueDeletionFieldMeta.ProfileID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Identifier"
+              value={itemValue}
+              meta={CatalogueDeletionFieldMeta.ProfileID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CatalogueDeletion ubl-Identifier ubl-ProfileExecutionID"
           meta={CatalogueDeletionFieldMeta.ProfileExecutionID} 
           value={value.ProfileExecutionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CatalogueDeletionFieldMeta.ProfileExecutionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Execution Identifier"
+              value={itemValue}
+              meta={CatalogueDeletionFieldMeta.ProfileExecutionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CatalogueDeletion ubl-Identifier ubl-ID"
           meta={CatalogueDeletionFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CatalogueDeletionFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={CatalogueDeletionFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CatalogueDeletion ubl-Identifier ubl-UUID"
           meta={CatalogueDeletionFieldMeta.UUID} 
           value={value.UUID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CatalogueDeletionFieldMeta.UUID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UUID"
+              value={itemValue}
+              meta={CatalogueDeletionFieldMeta.UUID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CatalogueDeletion ubl-Text ubl-Name"
           meta={CatalogueDeletionFieldMeta.Name} 
           value={value.Name}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={CatalogueDeletionFieldMeta.Name} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Name"
+              value={itemValue}
+              meta={CatalogueDeletionFieldMeta.Name}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CatalogueDeletion ubl-Date ubl-IssueDate"
           meta={CatalogueDeletionFieldMeta.IssueDate} 
           value={value.IssueDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={CatalogueDeletionFieldMeta.IssueDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Issue Date"
+              value={itemValue}
+              meta={CatalogueDeletionFieldMeta.IssueDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CatalogueDeletion ubl-Time ubl-IssueTime"
           meta={CatalogueDeletionFieldMeta.IssueTime} 
           value={value.IssueTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={CatalogueDeletionFieldMeta.IssueTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Issue Time"
+              value={itemValue}
+              meta={CatalogueDeletionFieldMeta.IssueTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CatalogueDeletion ubl-Date ubl-EffectiveDate"
           meta={CatalogueDeletionFieldMeta.EffectiveDate} 
           value={value.EffectiveDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={CatalogueDeletionFieldMeta.EffectiveDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Effective Date"
+              value={itemValue}
+              meta={CatalogueDeletionFieldMeta.EffectiveDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CatalogueDeletion ubl-Time ubl-EffectiveTime"
           meta={CatalogueDeletionFieldMeta.EffectiveTime} 
           value={value.EffectiveTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={CatalogueDeletionFieldMeta.EffectiveTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Effective Time"
+              value={itemValue}
+              meta={CatalogueDeletionFieldMeta.EffectiveTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-CatalogueDeletion ubl-Text ubl-Note"
           meta={CatalogueDeletionFieldMeta.Note} 
           value={value.Note}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={CatalogueDeletionFieldMeta.Note} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Note"
+              value={itemValue}
+              meta={CatalogueDeletionFieldMeta.Note}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CatalogueDeletion ubl-Identifier ubl-VersionID"
           meta={CatalogueDeletionFieldMeta.VersionID} 
           value={value.VersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CatalogueDeletionFieldMeta.VersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Version"
+              value={itemValue}
+              meta={CatalogueDeletionFieldMeta.VersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-CatalogueDeletion ubl-Text ubl-Description"
           meta={CatalogueDeletionFieldMeta.Description} 
           value={value.Description}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={CatalogueDeletionFieldMeta.Description} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Description"
+              value={itemValue}
+              meta={CatalogueDeletionFieldMeta.Description}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-CatalogueDeletion ubl-Period ubl-ValidityPeriod"
           meta={CatalogueDeletionFieldMeta.ValidityPeriod} 
           value={value.ValidityPeriod}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={CatalogueDeletionFieldMeta.ValidityPeriod} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Validity Period"
+              value={itemValue}
+              meta={CatalogueDeletionFieldMeta.ValidityPeriod}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-CatalogueDeletion ubl-CatalogueReference ubl-DeletedCatalogueReference"
           meta={CatalogueDeletionFieldMeta.DeletedCatalogueReference} 
           value={value.DeletedCatalogueReference}
           itemDisplay={ (itemValue: CatalogueReference, key: string | number) =>
-            <CatalogueReferenceDisplay key={key} meta={CatalogueDeletionFieldMeta.DeletedCatalogueReference} value={itemValue} />
+            <CatalogueReferenceDisplay
+              key={key}
+              label="Deleted Catalogue Reference"
+              value={itemValue}
+              meta={CatalogueDeletionFieldMeta.DeletedCatalogueReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-CatalogueDeletion ubl-Contract ubl-ReferencedContract"
           meta={CatalogueDeletionFieldMeta.ReferencedContract} 
           value={value.ReferencedContract}
           itemDisplay={ (itemValue: Contract, key: string | number) =>
-            <ContractDisplay key={key} meta={CatalogueDeletionFieldMeta.ReferencedContract} value={itemValue} />
+            <ContractDisplay
+              key={key}
+              label="Referenced Contract"
+              value={itemValue}
+              meta={CatalogueDeletionFieldMeta.ReferencedContract}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-CatalogueDeletion ubl-Signature"
           meta={CatalogueDeletionFieldMeta.Signature} 
           value={value.Signature}
           itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay key={key} meta={CatalogueDeletionFieldMeta.Signature} value={itemValue} />
+            <SignatureDisplay
+              key={key}
+              label="Signature"
+              value={itemValue}
+              meta={CatalogueDeletionFieldMeta.Signature}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-CatalogueDeletion ubl-Party ubl-ReceiverParty"
           meta={CatalogueDeletionFieldMeta.ReceiverParty} 
           value={value.ReceiverParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={CatalogueDeletionFieldMeta.ReceiverParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Receiver Party"
+              value={itemValue}
+              meta={CatalogueDeletionFieldMeta.ReceiverParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-CatalogueDeletion ubl-Party ubl-ProviderParty"
           meta={CatalogueDeletionFieldMeta.ProviderParty} 
           value={value.ProviderParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={CatalogueDeletionFieldMeta.ProviderParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Provider Party"
+              value={itemValue}
+              meta={CatalogueDeletionFieldMeta.ProviderParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-CatalogueDeletion ubl-SupplierParty ubl-SellerSupplierParty"
           meta={CatalogueDeletionFieldMeta.SellerSupplierParty} 
           value={value.SellerSupplierParty}
           itemDisplay={ (itemValue: SupplierParty, key: string | number) =>
-            <SupplierPartyDisplay key={key} meta={CatalogueDeletionFieldMeta.SellerSupplierParty} value={itemValue} />
+            <SupplierPartyDisplay
+              key={key}
+              label="Seller Supplier Party"
+              value={itemValue}
+              meta={CatalogueDeletionFieldMeta.SellerSupplierParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-CatalogueDeletion ubl-CustomerParty ubl-ContractorCustomerParty"
           meta={CatalogueDeletionFieldMeta.ContractorCustomerParty} 
           value={value.ContractorCustomerParty}
           itemDisplay={ (itemValue: CustomerParty, key: string | number) =>
-            <CustomerPartyDisplay key={key} meta={CatalogueDeletionFieldMeta.ContractorCustomerParty} value={itemValue} />
+            <CustomerPartyDisplay
+              key={key}
+              label="Contractor Customer Party"
+              value={itemValue}
+              meta={CatalogueDeletionFieldMeta.ContractorCustomerParty}
+            />
           }
         />
         </div>

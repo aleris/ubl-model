@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { DigitalAgreement } from  '../../model/doc/DigitalAgreement'
 import { DigitalAgreementFieldMeta } from  '../../meta/doc/DigitalAgreementMeta'
@@ -28,173 +29,294 @@ import { Time } from '../../model/cbc/Time'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: DigitalAgreement
   meta: FieldMeta<T>
 }
 
-export default function DigitalAgreementDisplay<T>({ value, meta }: Params<T>) {
+export default function DigitalAgreementDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-doc ubl-DigitalAgreement ubl-DigitalAgreementType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-DigitalAgreement ubl-UBLExtensions"
           meta={DigitalAgreementFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={DigitalAgreementFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={DigitalAgreementFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DigitalAgreement ubl-Identifier ubl-UBLVersionID"
           meta={DigitalAgreementFieldMeta.UBLVersionID} 
           value={value.UBLVersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={DigitalAgreementFieldMeta.UBLVersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UBL Version Identifier"
+              value={itemValue}
+              meta={DigitalAgreementFieldMeta.UBLVersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DigitalAgreement ubl-Identifier ubl-CustomizationID"
           meta={DigitalAgreementFieldMeta.CustomizationID} 
           value={value.CustomizationID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={DigitalAgreementFieldMeta.CustomizationID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Customization Identifier"
+              value={itemValue}
+              meta={DigitalAgreementFieldMeta.CustomizationID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DigitalAgreement ubl-Identifier ubl-ProfileID"
           meta={DigitalAgreementFieldMeta.ProfileID} 
           value={value.ProfileID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={DigitalAgreementFieldMeta.ProfileID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Identifier"
+              value={itemValue}
+              meta={DigitalAgreementFieldMeta.ProfileID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DigitalAgreement ubl-Identifier ubl-ProfileExecutionID"
           meta={DigitalAgreementFieldMeta.ProfileExecutionID} 
           value={value.ProfileExecutionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={DigitalAgreementFieldMeta.ProfileExecutionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Execution Identifier"
+              value={itemValue}
+              meta={DigitalAgreementFieldMeta.ProfileExecutionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DigitalAgreement ubl-Identifier ubl-ID"
           meta={DigitalAgreementFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={DigitalAgreementFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={DigitalAgreementFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DigitalAgreement ubl-Identifier ubl-UUID"
           meta={DigitalAgreementFieldMeta.UUID} 
           value={value.UUID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={DigitalAgreementFieldMeta.UUID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UUID"
+              value={itemValue}
+              meta={DigitalAgreementFieldMeta.UUID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DigitalAgreement ubl-Date ubl-IssueDate"
           meta={DigitalAgreementFieldMeta.IssueDate} 
           value={value.IssueDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={DigitalAgreementFieldMeta.IssueDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Issue Date"
+              value={itemValue}
+              meta={DigitalAgreementFieldMeta.IssueDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DigitalAgreement ubl-Time ubl-IssueTime"
           meta={DigitalAgreementFieldMeta.IssueTime} 
           value={value.IssueTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={DigitalAgreementFieldMeta.IssueTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Issue Time"
+              value={itemValue}
+              meta={DigitalAgreementFieldMeta.IssueTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DigitalAgreement ubl-Code ubl-AgreementTypeCode"
           meta={DigitalAgreementFieldMeta.AgreementTypeCode} 
           value={value.AgreementTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={DigitalAgreementFieldMeta.AgreementTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Agreement Type Code"
+              value={itemValue}
+              meta={DigitalAgreementFieldMeta.AgreementTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DigitalAgreement ubl-Identifier ubl-VersionID"
           meta={DigitalAgreementFieldMeta.VersionID} 
           value={value.VersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={DigitalAgreementFieldMeta.VersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Version Identifier"
+              value={itemValue}
+              meta={DigitalAgreementFieldMeta.VersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DigitalAgreement ubl-Identifier ubl-PreviousVersionID"
           meta={DigitalAgreementFieldMeta.PreviousVersionID} 
           value={value.PreviousVersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={DigitalAgreementFieldMeta.PreviousVersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Previous Version Identifier"
+              value={itemValue}
+              meta={DigitalAgreementFieldMeta.PreviousVersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DigitalAgreement ubl-Code ubl-RequiredResponseMessageLevelCode"
           meta={DigitalAgreementFieldMeta.RequiredResponseMessageLevelCode} 
           value={value.RequiredResponseMessageLevelCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={DigitalAgreementFieldMeta.RequiredResponseMessageLevelCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Required Response Message Level Code"
+              value={itemValue}
+              meta={DigitalAgreementFieldMeta.RequiredResponseMessageLevelCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-DigitalAgreement ubl-Signature"
           meta={DigitalAgreementFieldMeta.Signature} 
           value={value.Signature}
           itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay key={key} meta={DigitalAgreementFieldMeta.Signature} value={itemValue} />
+            <SignatureDisplay
+              key={key}
+              label="Signature"
+              value={itemValue}
+              meta={DigitalAgreementFieldMeta.Signature}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-DigitalAgreement ubl-Party ubl-GovernorParty"
           meta={DigitalAgreementFieldMeta.GovernorParty} 
           value={value.GovernorParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={DigitalAgreementFieldMeta.GovernorParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Governor Party"
+              value={itemValue}
+              meta={DigitalAgreementFieldMeta.GovernorParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-DigitalAgreement ubl-ParticipantParty"
           meta={DigitalAgreementFieldMeta.ParticipantParty} 
           value={value.ParticipantParty}
           itemDisplay={ (itemValue: ParticipantParty, key: string | number) =>
-            <ParticipantPartyDisplay key={key} meta={DigitalAgreementFieldMeta.ParticipantParty} value={itemValue} />
+            <ParticipantPartyDisplay
+              key={key}
+              label="Participant Party"
+              value={itemValue}
+              meta={DigitalAgreementFieldMeta.ParticipantParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-DigitalAgreement ubl-Country ubl-AgreementCountry"
           meta={DigitalAgreementFieldMeta.AgreementCountry} 
           value={value.AgreementCountry}
           itemDisplay={ (itemValue: Country, key: string | number) =>
-            <CountryDisplay key={key} meta={DigitalAgreementFieldMeta.AgreementCountry} value={itemValue} />
+            <CountryDisplay
+              key={key}
+              label="Agreement Country"
+              value={itemValue}
+              meta={DigitalAgreementFieldMeta.AgreementCountry}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-DigitalAgreement ubl-DocumentReference ubl-RequiredCertificationDocumentReference"
           meta={DigitalAgreementFieldMeta.RequiredCertificationDocumentReference} 
           value={value.RequiredCertificationDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={DigitalAgreementFieldMeta.RequiredCertificationDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Required Certification Document Reference"
+              value={itemValue}
+              meta={DigitalAgreementFieldMeta.RequiredCertificationDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-DigitalAgreement ubl-DigitalAgreementTerms"
           meta={DigitalAgreementFieldMeta.DigitalAgreementTerms} 
           value={value.DigitalAgreementTerms}
           itemDisplay={ (itemValue: DigitalAgreementTerms, key: string | number) =>
-            <DigitalAgreementTermsDisplay key={key} meta={DigitalAgreementFieldMeta.DigitalAgreementTerms} value={itemValue} />
+            <DigitalAgreementTermsDisplay
+              key={key}
+              label="Digital Agreement Terms"
+              value={itemValue}
+              meta={DigitalAgreementFieldMeta.DigitalAgreementTerms}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-DigitalAgreement ubl-DigitalProcess"
           meta={DigitalAgreementFieldMeta.DigitalProcess} 
           value={value.DigitalProcess}
           itemDisplay={ (itemValue: DigitalProcess, key: string | number) =>
-            <DigitalProcessDisplay key={key} meta={DigitalAgreementFieldMeta.DigitalProcess} value={itemValue} />
+            <DigitalProcessDisplay
+              key={key}
+              label="Digital Process"
+              value={itemValue}
+              meta={DigitalAgreementFieldMeta.DigitalProcess}
+            />
           }
         />
         </div>

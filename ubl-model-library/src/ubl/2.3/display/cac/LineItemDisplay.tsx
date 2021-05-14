@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { LineItem } from  '../../model/cac/LineItem'
 import { LineItemFieldMeta } from  '../../meta/cac/LineItemMeta'
@@ -42,285 +43,490 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: LineItem
   meta: FieldMeta<T>
 }
 
-export default function LineItemDisplay<T>({ value, meta }: Params<T>) {
+export default function LineItemDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-LineItem ubl-LineItemType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-LineItem ubl-UBLExtensions"
           meta={LineItemFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={LineItemFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={LineItemFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-LineItem ubl-Identifier ubl-ID"
           meta={LineItemFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={LineItemFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={LineItemFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-LineItem ubl-Identifier ubl-SalesOrderID"
           meta={LineItemFieldMeta.SalesOrderID} 
           value={value.SalesOrderID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={LineItemFieldMeta.SalesOrderID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Sales Order Identifier"
+              value={itemValue}
+              meta={LineItemFieldMeta.SalesOrderID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-LineItem ubl-Identifier ubl-UUID"
           meta={LineItemFieldMeta.UUID} 
           value={value.UUID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={LineItemFieldMeta.UUID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UUID"
+              value={itemValue}
+              meta={LineItemFieldMeta.UUID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-LineItem ubl-Text ubl-Note"
           meta={LineItemFieldMeta.Note} 
           value={value.Note}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={LineItemFieldMeta.Note} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Note"
+              value={itemValue}
+              meta={LineItemFieldMeta.Note}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-LineItem ubl-Code ubl-LineStatusCode"
           meta={LineItemFieldMeta.LineStatusCode} 
           value={value.LineStatusCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={LineItemFieldMeta.LineStatusCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Line Status Code"
+              value={itemValue}
+              meta={LineItemFieldMeta.LineStatusCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-LineItem ubl-Quantity"
           meta={LineItemFieldMeta.Quantity} 
           value={value.Quantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={LineItemFieldMeta.Quantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Quantity"
+              value={itemValue}
+              meta={LineItemFieldMeta.Quantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-LineItem ubl-Amount ubl-LineExtensionAmount"
           meta={LineItemFieldMeta.LineExtensionAmount} 
           value={value.LineExtensionAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={LineItemFieldMeta.LineExtensionAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Line Extension Amount"
+              value={itemValue}
+              meta={LineItemFieldMeta.LineExtensionAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-LineItem ubl-Amount ubl-TaxInclusiveLineExtensionAmount"
           meta={LineItemFieldMeta.TaxInclusiveLineExtensionAmount} 
           value={value.TaxInclusiveLineExtensionAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={LineItemFieldMeta.TaxInclusiveLineExtensionAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Tax Inclusive Line Extension Amount"
+              value={itemValue}
+              meta={LineItemFieldMeta.TaxInclusiveLineExtensionAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-LineItem ubl-Amount ubl-TotalTaxAmount"
           meta={LineItemFieldMeta.TotalTaxAmount} 
           value={value.TotalTaxAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={LineItemFieldMeta.TotalTaxAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Total Tax Amount"
+              value={itemValue}
+              meta={LineItemFieldMeta.TotalTaxAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-LineItem ubl-Quantity ubl-MinimumQuantity"
           meta={LineItemFieldMeta.MinimumQuantity} 
           value={value.MinimumQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={LineItemFieldMeta.MinimumQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Minimum Quantity"
+              value={itemValue}
+              meta={LineItemFieldMeta.MinimumQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-LineItem ubl-Quantity ubl-MaximumQuantity"
           meta={LineItemFieldMeta.MaximumQuantity} 
           value={value.MaximumQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={LineItemFieldMeta.MaximumQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Maximum Quantity"
+              value={itemValue}
+              meta={LineItemFieldMeta.MaximumQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-LineItem ubl-Quantity ubl-MinimumBackorderQuantity"
           meta={LineItemFieldMeta.MinimumBackorderQuantity} 
           value={value.MinimumBackorderQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={LineItemFieldMeta.MinimumBackorderQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Minimum Backorder"
+              value={itemValue}
+              meta={LineItemFieldMeta.MinimumBackorderQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-LineItem ubl-Quantity ubl-MaximumBackorderQuantity"
           meta={LineItemFieldMeta.MaximumBackorderQuantity} 
           value={value.MaximumBackorderQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={LineItemFieldMeta.MaximumBackorderQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Maximum Backorder"
+              value={itemValue}
+              meta={LineItemFieldMeta.MaximumBackorderQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-LineItem ubl-Code ubl-InspectionMethodCode"
           meta={LineItemFieldMeta.InspectionMethodCode} 
           value={value.InspectionMethodCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={LineItemFieldMeta.InspectionMethodCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Inspection Method Code"
+              value={itemValue}
+              meta={LineItemFieldMeta.InspectionMethodCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-LineItem ubl-Indicator ubl-PartialDeliveryIndicator"
           meta={LineItemFieldMeta.PartialDeliveryIndicator} 
           value={value.PartialDeliveryIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={LineItemFieldMeta.PartialDeliveryIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Partial Delivery Indicator"
+              value={itemValue}
+              meta={LineItemFieldMeta.PartialDeliveryIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-LineItem ubl-Indicator ubl-BackOrderAllowedIndicator"
           meta={LineItemFieldMeta.BackOrderAllowedIndicator} 
           value={value.BackOrderAllowedIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={LineItemFieldMeta.BackOrderAllowedIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Back Order Allowed Indicator"
+              value={itemValue}
+              meta={LineItemFieldMeta.BackOrderAllowedIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-LineItem ubl-Code ubl-AccountingCostCode"
           meta={LineItemFieldMeta.AccountingCostCode} 
           value={value.AccountingCostCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={LineItemFieldMeta.AccountingCostCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Accounting Cost Code"
+              value={itemValue}
+              meta={LineItemFieldMeta.AccountingCostCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-LineItem ubl-Text ubl-AccountingCost"
           meta={LineItemFieldMeta.AccountingCost} 
           value={value.AccountingCost}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={LineItemFieldMeta.AccountingCost} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Accounting Cost"
+              value={itemValue}
+              meta={LineItemFieldMeta.AccountingCost}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-LineItem ubl-Text ubl-WarrantyInformation"
           meta={LineItemFieldMeta.WarrantyInformation} 
           value={value.WarrantyInformation}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={LineItemFieldMeta.WarrantyInformation} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Warranty Information"
+              value={itemValue}
+              meta={LineItemFieldMeta.WarrantyInformation}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-LineItem ubl-Delivery"
           meta={LineItemFieldMeta.Delivery} 
           value={value.Delivery}
           itemDisplay={ (itemValue: Delivery, key: string | number) =>
-            <DeliveryDisplay key={key} meta={LineItemFieldMeta.Delivery} value={itemValue} />
+            <DeliveryDisplay
+              key={key}
+              label="Delivery"
+              value={itemValue}
+              meta={LineItemFieldMeta.Delivery}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-LineItem ubl-DeliveryTerms"
           meta={LineItemFieldMeta.DeliveryTerms} 
           value={value.DeliveryTerms}
           itemDisplay={ (itemValue: DeliveryTerms, key: string | number) =>
-            <DeliveryTermsDisplay key={key} meta={LineItemFieldMeta.DeliveryTerms} value={itemValue} />
+            <DeliveryTermsDisplay
+              key={key}
+              label="Delivery Terms"
+              value={itemValue}
+              meta={LineItemFieldMeta.DeliveryTerms}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-LineItem ubl-Party ubl-OriginatorParty"
           meta={LineItemFieldMeta.OriginatorParty} 
           value={value.OriginatorParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={LineItemFieldMeta.OriginatorParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Originator Party"
+              value={itemValue}
+              meta={LineItemFieldMeta.OriginatorParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-LineItem ubl-OrderedShipment"
           meta={LineItemFieldMeta.OrderedShipment} 
           value={value.OrderedShipment}
           itemDisplay={ (itemValue: OrderedShipment, key: string | number) =>
-            <OrderedShipmentDisplay key={key} meta={LineItemFieldMeta.OrderedShipment} value={itemValue} />
+            <OrderedShipmentDisplay
+              key={key}
+              label="Ordered Shipment"
+              value={itemValue}
+              meta={LineItemFieldMeta.OrderedShipment}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-LineItem ubl-PricingReference"
           meta={LineItemFieldMeta.PricingReference} 
           value={value.PricingReference}
           itemDisplay={ (itemValue: PricingReference, key: string | number) =>
-            <PricingReferenceDisplay key={key} meta={LineItemFieldMeta.PricingReference} value={itemValue} />
+            <PricingReferenceDisplay
+              key={key}
+              label="Pricing Reference"
+              value={itemValue}
+              meta={LineItemFieldMeta.PricingReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-LineItem ubl-AllowanceCharge"
           meta={LineItemFieldMeta.AllowanceCharge} 
           value={value.AllowanceCharge}
           itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-            <AllowanceChargeDisplay key={key} meta={LineItemFieldMeta.AllowanceCharge} value={itemValue} />
+            <AllowanceChargeDisplay
+              key={key}
+              label="Allowance Charge"
+              value={itemValue}
+              meta={LineItemFieldMeta.AllowanceCharge}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-LineItem ubl-Price"
           meta={LineItemFieldMeta.Price} 
           value={value.Price}
           itemDisplay={ (itemValue: Price, key: string | number) =>
-            <PriceDisplay key={key} meta={LineItemFieldMeta.Price} value={itemValue} />
+            <PriceDisplay
+              key={key}
+              label="Price"
+              value={itemValue}
+              meta={LineItemFieldMeta.Price}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-LineItem ubl-Item"
           meta={LineItemFieldMeta.Item} 
           value={value.Item}
           itemDisplay={ (itemValue: Item, key: string | number) =>
-            <ItemDisplay key={key} meta={LineItemFieldMeta.Item} value={itemValue} />
+            <ItemDisplay
+              key={key}
+              label="Item"
+              value={itemValue}
+              meta={LineItemFieldMeta.Item}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-LineItem ubl-SubLineItem"
           meta={LineItemFieldMeta.SubLineItem} 
           value={value.SubLineItem}
           itemDisplay={ (itemValue: LineItem, key: string | number) =>
-            <LineItemDisplay key={key} meta={LineItemFieldMeta.SubLineItem} value={itemValue} />
+            <LineItemDisplay
+              key={key}
+              label="Sub Line Item"
+              value={itemValue}
+              meta={LineItemFieldMeta.SubLineItem}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-LineItem ubl-Period ubl-WarrantyValidityPeriod"
           meta={LineItemFieldMeta.WarrantyValidityPeriod} 
           value={value.WarrantyValidityPeriod}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={LineItemFieldMeta.WarrantyValidityPeriod} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Warranty Validity Period"
+              value={itemValue}
+              meta={LineItemFieldMeta.WarrantyValidityPeriod}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-LineItem ubl-Party ubl-WarrantyParty"
           meta={LineItemFieldMeta.WarrantyParty} 
           value={value.WarrantyParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={LineItemFieldMeta.WarrantyParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Warranty Party"
+              value={itemValue}
+              meta={LineItemFieldMeta.WarrantyParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-LineItem ubl-TaxTotal"
           meta={LineItemFieldMeta.TaxTotal} 
           value={value.TaxTotal}
           itemDisplay={ (itemValue: TaxTotal, key: string | number) =>
-            <TaxTotalDisplay key={key} meta={LineItemFieldMeta.TaxTotal} value={itemValue} />
+            <TaxTotalDisplay
+              key={key}
+              label="Tax Total"
+              value={itemValue}
+              meta={LineItemFieldMeta.TaxTotal}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-LineItem ubl-PriceExtension ubl-ItemPriceExtension"
           meta={LineItemFieldMeta.ItemPriceExtension} 
           value={value.ItemPriceExtension}
           itemDisplay={ (itemValue: PriceExtension, key: string | number) =>
-            <PriceExtensionDisplay key={key} meta={LineItemFieldMeta.ItemPriceExtension} value={itemValue} />
+            <PriceExtensionDisplay
+              key={key}
+              label="Item Price Extension"
+              value={itemValue}
+              meta={LineItemFieldMeta.ItemPriceExtension}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-LineItem ubl-LineReference"
           meta={LineItemFieldMeta.LineReference} 
           value={value.LineReference}
           itemDisplay={ (itemValue: LineReference, key: string | number) =>
-            <LineReferenceDisplay key={key} meta={LineItemFieldMeta.LineReference} value={itemValue} />
+            <LineReferenceDisplay
+              key={key}
+              label="Line Reference"
+              value={itemValue}
+              meta={LineItemFieldMeta.LineReference}
+            />
           }
         />
         </div>

@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { CallForTenders } from  '../../model/doc/CallForTenders'
 import { CallForTendersFieldMeta } from  '../../meta/doc/CallForTendersMeta'
@@ -34,237 +35,406 @@ import { Time } from '../../model/cbc/Time'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: CallForTenders
   meta: FieldMeta<T>
 }
 
-export default function CallForTendersDisplay<T>({ value, meta }: Params<T>) {
+export default function CallForTendersDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-doc ubl-CallForTenders ubl-CallForTendersType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-CallForTenders ubl-UBLExtensions"
           meta={CallForTendersFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={CallForTendersFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={CallForTendersFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CallForTenders ubl-Identifier ubl-UBLVersionID"
           meta={CallForTendersFieldMeta.UBLVersionID} 
           value={value.UBLVersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CallForTendersFieldMeta.UBLVersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UBL Version Identifier"
+              value={itemValue}
+              meta={CallForTendersFieldMeta.UBLVersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CallForTenders ubl-Identifier ubl-CustomizationID"
           meta={CallForTendersFieldMeta.CustomizationID} 
           value={value.CustomizationID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CallForTendersFieldMeta.CustomizationID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Customization Identifier"
+              value={itemValue}
+              meta={CallForTendersFieldMeta.CustomizationID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CallForTenders ubl-Identifier ubl-ProfileID"
           meta={CallForTendersFieldMeta.ProfileID} 
           value={value.ProfileID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CallForTendersFieldMeta.ProfileID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Identifier"
+              value={itemValue}
+              meta={CallForTendersFieldMeta.ProfileID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CallForTenders ubl-Identifier ubl-ProfileExecutionID"
           meta={CallForTendersFieldMeta.ProfileExecutionID} 
           value={value.ProfileExecutionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CallForTendersFieldMeta.ProfileExecutionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Execution Identifier"
+              value={itemValue}
+              meta={CallForTendersFieldMeta.ProfileExecutionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CallForTenders ubl-Identifier ubl-ID"
           meta={CallForTendersFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CallForTendersFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={CallForTendersFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CallForTenders ubl-Indicator ubl-CopyIndicator"
           meta={CallForTendersFieldMeta.CopyIndicator} 
           value={value.CopyIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={CallForTendersFieldMeta.CopyIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Copy Indicator"
+              value={itemValue}
+              meta={CallForTendersFieldMeta.CopyIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CallForTenders ubl-Identifier ubl-UUID"
           meta={CallForTendersFieldMeta.UUID} 
           value={value.UUID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CallForTendersFieldMeta.UUID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UUID"
+              value={itemValue}
+              meta={CallForTendersFieldMeta.UUID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CallForTenders ubl-Identifier ubl-ContractFolderID"
           meta={CallForTendersFieldMeta.ContractFolderID} 
           value={value.ContractFolderID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CallForTendersFieldMeta.ContractFolderID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Contract Folder Identifier"
+              value={itemValue}
+              meta={CallForTendersFieldMeta.ContractFolderID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CallForTenders ubl-Date ubl-ApprovalDate"
           meta={CallForTendersFieldMeta.ApprovalDate} 
           value={value.ApprovalDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={CallForTendersFieldMeta.ApprovalDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Approval Date"
+              value={itemValue}
+              meta={CallForTendersFieldMeta.ApprovalDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CallForTenders ubl-Date ubl-IssueDate"
           meta={CallForTendersFieldMeta.IssueDate} 
           value={value.IssueDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={CallForTendersFieldMeta.IssueDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Issue Date"
+              value={itemValue}
+              meta={CallForTendersFieldMeta.IssueDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CallForTenders ubl-Time ubl-IssueTime"
           meta={CallForTendersFieldMeta.IssueTime} 
           value={value.IssueTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={CallForTendersFieldMeta.IssueTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Issue Time"
+              value={itemValue}
+              meta={CallForTendersFieldMeta.IssueTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-CallForTenders ubl-Text ubl-Note"
           meta={CallForTendersFieldMeta.Note} 
           value={value.Note}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={CallForTendersFieldMeta.Note} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Note"
+              value={itemValue}
+              meta={CallForTendersFieldMeta.Note}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CallForTenders ubl-Identifier ubl-VersionID"
           meta={CallForTendersFieldMeta.VersionID} 
           value={value.VersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CallForTendersFieldMeta.VersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Version"
+              value={itemValue}
+              meta={CallForTendersFieldMeta.VersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CallForTenders ubl-Identifier ubl-PreviousVersionID"
           meta={CallForTendersFieldMeta.PreviousVersionID} 
           value={value.PreviousVersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CallForTendersFieldMeta.PreviousVersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Previous Version"
+              value={itemValue}
+              meta={CallForTendersFieldMeta.PreviousVersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-CallForTenders ubl-DocumentReference ubl-LegalDocumentReference"
           meta={CallForTendersFieldMeta.LegalDocumentReference} 
           value={value.LegalDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={CallForTendersFieldMeta.LegalDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Legal Document Reference"
+              value={itemValue}
+              meta={CallForTendersFieldMeta.LegalDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-CallForTenders ubl-DocumentReference ubl-TechnicalDocumentReference"
           meta={CallForTendersFieldMeta.TechnicalDocumentReference} 
           value={value.TechnicalDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={CallForTendersFieldMeta.TechnicalDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Technical Document Reference"
+              value={itemValue}
+              meta={CallForTendersFieldMeta.TechnicalDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-CallForTenders ubl-DocumentReference ubl-RequiredDocumentReference"
           meta={CallForTendersFieldMeta.RequiredDocumentReference} 
           value={value.RequiredDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={CallForTendersFieldMeta.RequiredDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Required Document Reference"
+              value={itemValue}
+              meta={CallForTendersFieldMeta.RequiredDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-CallForTenders ubl-DocumentReference ubl-ProvidedDocumentReference"
           meta={CallForTendersFieldMeta.ProvidedDocumentReference} 
           value={value.ProvidedDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={CallForTendersFieldMeta.ProvidedDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Provided Document Reference"
+              value={itemValue}
+              meta={CallForTendersFieldMeta.ProvidedDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-CallForTenders ubl-DocumentReference ubl-AdditionalDocumentReference"
           meta={CallForTendersFieldMeta.AdditionalDocumentReference} 
           value={value.AdditionalDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={CallForTendersFieldMeta.AdditionalDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Additional Document Reference"
+              value={itemValue}
+              meta={CallForTendersFieldMeta.AdditionalDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-CallForTenders ubl-Signature"
           meta={CallForTendersFieldMeta.Signature} 
           value={value.Signature}
           itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay key={key} meta={CallForTendersFieldMeta.Signature} value={itemValue} />
+            <SignatureDisplay
+              key={key}
+              label="Signature"
+              value={itemValue}
+              meta={CallForTendersFieldMeta.Signature}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-CallForTenders ubl-ContractingParty"
           meta={CallForTendersFieldMeta.ContractingParty} 
           value={value.ContractingParty}
           itemDisplay={ (itemValue: ContractingParty, key: string | number) =>
-            <ContractingPartyDisplay key={key} meta={CallForTendersFieldMeta.ContractingParty} value={itemValue} />
+            <ContractingPartyDisplay
+              key={key}
+              label="Contracting Party"
+              value={itemValue}
+              meta={CallForTendersFieldMeta.ContractingParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-CallForTenders ubl-CustomerParty ubl-OriginatorCustomerParty"
           meta={CallForTendersFieldMeta.OriginatorCustomerParty} 
           value={value.OriginatorCustomerParty}
           itemDisplay={ (itemValue: CustomerParty, key: string | number) =>
-            <CustomerPartyDisplay key={key} meta={CallForTendersFieldMeta.OriginatorCustomerParty} value={itemValue} />
+            <CustomerPartyDisplay
+              key={key}
+              label="Originator Customer Party"
+              value={itemValue}
+              meta={CallForTendersFieldMeta.OriginatorCustomerParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-CallForTenders ubl-Party ubl-ReceiverParty"
           meta={CallForTendersFieldMeta.ReceiverParty} 
           value={value.ReceiverParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={CallForTendersFieldMeta.ReceiverParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Receiver Party"
+              value={itemValue}
+              meta={CallForTendersFieldMeta.ReceiverParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-CallForTenders ubl-TenderingTerms"
           meta={CallForTendersFieldMeta.TenderingTerms} 
           value={value.TenderingTerms}
           itemDisplay={ (itemValue: TenderingTerms, key: string | number) =>
-            <TenderingTermsDisplay key={key} meta={CallForTendersFieldMeta.TenderingTerms} value={itemValue} />
+            <TenderingTermsDisplay
+              key={key}
+              label="Tendering Terms"
+              value={itemValue}
+              meta={CallForTendersFieldMeta.TenderingTerms}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-CallForTenders ubl-TenderingProcess"
           meta={CallForTendersFieldMeta.TenderingProcess} 
           value={value.TenderingProcess}
           itemDisplay={ (itemValue: TenderingProcess, key: string | number) =>
-            <TenderingProcessDisplay key={key} meta={CallForTendersFieldMeta.TenderingProcess} value={itemValue} />
+            <TenderingProcessDisplay
+              key={key}
+              label="Tendering Process"
+              value={itemValue}
+              meta={CallForTendersFieldMeta.TenderingProcess}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-CallForTenders ubl-ProcurementProject"
           meta={CallForTendersFieldMeta.ProcurementProject} 
           value={value.ProcurementProject}
           itemDisplay={ (itemValue: ProcurementProject, key: string | number) =>
-            <ProcurementProjectDisplay key={key} meta={CallForTendersFieldMeta.ProcurementProject} value={itemValue} />
+            <ProcurementProjectDisplay
+              key={key}
+              label="Procurement Project"
+              value={itemValue}
+              meta={CallForTendersFieldMeta.ProcurementProject}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-CallForTenders ubl-ProcurementProjectLot"
           meta={CallForTendersFieldMeta.ProcurementProjectLot} 
           value={value.ProcurementProjectLot}
           itemDisplay={ (itemValue: ProcurementProjectLot, key: string | number) =>
-            <ProcurementProjectLotDisplay key={key} meta={CallForTendersFieldMeta.ProcurementProjectLot} value={itemValue} />
+            <ProcurementProjectLotDisplay
+              key={key}
+              label="Procurement Project Lot"
+              value={itemValue}
+              meta={CallForTendersFieldMeta.ProcurementProjectLot}
+            />
           }
         />
         </div>

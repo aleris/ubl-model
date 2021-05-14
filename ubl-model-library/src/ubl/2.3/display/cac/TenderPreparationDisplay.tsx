@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TenderPreparation } from  '../../model/cac/TenderPreparation'
 import { TenderPreparationFieldMeta } from  '../../meta/cac/TenderPreparationMeta'
@@ -18,77 +19,126 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: TenderPreparation
   meta: FieldMeta<T>
 }
 
-export default function TenderPreparationDisplay<T>({ value, meta }: Params<T>) {
+export default function TenderPreparationDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-TenderPreparation ubl-TenderPreparationType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-TenderPreparation ubl-UBLExtensions"
           meta={TenderPreparationFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={TenderPreparationFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={TenderPreparationFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TenderPreparation ubl-Identifier ubl-TenderEnvelopeID"
           meta={TenderPreparationFieldMeta.TenderEnvelopeID} 
           value={value.TenderEnvelopeID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={TenderPreparationFieldMeta.TenderEnvelopeID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Tender Envelope Identifier"
+              value={itemValue}
+              meta={TenderPreparationFieldMeta.TenderEnvelopeID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TenderPreparation ubl-Code ubl-TenderEnvelopeTypeCode"
           meta={TenderPreparationFieldMeta.TenderEnvelopeTypeCode} 
           value={value.TenderEnvelopeTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={TenderPreparationFieldMeta.TenderEnvelopeTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Tender Envelope Type Code"
+              value={itemValue}
+              meta={TenderPreparationFieldMeta.TenderEnvelopeTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-TenderPreparation ubl-Text ubl-Description"
           meta={TenderPreparationFieldMeta.Description} 
           value={value.Description}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={TenderPreparationFieldMeta.Description} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Description"
+              value={itemValue}
+              meta={TenderPreparationFieldMeta.Description}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TenderPreparation ubl-Identifier ubl-OpenTenderID"
           meta={TenderPreparationFieldMeta.OpenTenderID} 
           value={value.OpenTenderID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={TenderPreparationFieldMeta.OpenTenderID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Open Tender Identifier"
+              value={itemValue}
+              meta={TenderPreparationFieldMeta.OpenTenderID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TenderPreparation ubl-ProcurementProjectLot"
           meta={TenderPreparationFieldMeta.ProcurementProjectLot} 
           value={value.ProcurementProjectLot}
           itemDisplay={ (itemValue: ProcurementProjectLot, key: string | number) =>
-            <ProcurementProjectLotDisplay key={key} meta={TenderPreparationFieldMeta.ProcurementProjectLot} value={itemValue} />
+            <ProcurementProjectLotDisplay
+              key={key}
+              label="Procurement Project Lot"
+              value={itemValue}
+              meta={TenderPreparationFieldMeta.ProcurementProjectLot}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TenderPreparation ubl-TenderRequirement ubl-DocumentTenderRequirement"
           meta={TenderPreparationFieldMeta.DocumentTenderRequirement} 
           value={value.DocumentTenderRequirement}
           itemDisplay={ (itemValue: TenderRequirement, key: string | number) =>
-            <TenderRequirementDisplay key={key} meta={TenderPreparationFieldMeta.DocumentTenderRequirement} value={itemValue} />
+            <TenderRequirementDisplay
+              key={key}
+              label="Document Tender Requirement"
+              value={itemValue}
+              meta={TenderPreparationFieldMeta.DocumentTenderRequirement}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TenderPreparation ubl-EncryptionData ubl-TenderEncryptionData"
           meta={TenderPreparationFieldMeta.TenderEncryptionData} 
           value={value.TenderEncryptionData}
           itemDisplay={ (itemValue: EncryptionData, key: string | number) =>
-            <EncryptionDataDisplay key={key} meta={TenderPreparationFieldMeta.TenderEncryptionData} value={itemValue} />
+            <EncryptionDataDisplay
+              key={key}
+              label="Tender Encryption Data"
+              value={itemValue}
+              meta={TenderPreparationFieldMeta.TenderEncryptionData}
+            />
           }
         />
         </div>

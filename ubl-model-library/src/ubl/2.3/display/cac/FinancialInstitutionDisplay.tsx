@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { FinancialInstitution } from  '../../model/cac/FinancialInstitution'
 import { FinancialInstitutionFieldMeta } from  '../../meta/cac/FinancialInstitutionMeta'
@@ -12,45 +13,70 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: FinancialInstitution
   meta: FieldMeta<T>
 }
 
-export default function FinancialInstitutionDisplay<T>({ value, meta }: Params<T>) {
+export default function FinancialInstitutionDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-FinancialInstitution ubl-FinancialInstitutionType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-FinancialInstitution ubl-UBLExtensions"
           meta={FinancialInstitutionFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={FinancialInstitutionFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={FinancialInstitutionFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-FinancialInstitution ubl-Identifier ubl-ID"
           meta={FinancialInstitutionFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={FinancialInstitutionFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={FinancialInstitutionFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-FinancialInstitution ubl-Text ubl-Name"
           meta={FinancialInstitutionFieldMeta.Name} 
           value={value.Name}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={FinancialInstitutionFieldMeta.Name} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Name"
+              value={itemValue}
+              meta={FinancialInstitutionFieldMeta.Name}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-FinancialInstitution ubl-Address"
           meta={FinancialInstitutionFieldMeta.Address} 
           value={value.Address}
           itemDisplay={ (itemValue: Address, key: string | number) =>
-            <AddressDisplay key={key} meta={FinancialInstitutionFieldMeta.Address} value={itemValue} />
+            <AddressDisplay
+              key={key}
+              label="Address"
+              value={itemValue}
+              meta={FinancialInstitutionFieldMeta.Address}
+            />
           }
         />
         </div>

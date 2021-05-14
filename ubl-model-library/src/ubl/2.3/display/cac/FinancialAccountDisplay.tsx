@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { FinancialAccount } from  '../../model/cac/FinancialAccount'
 import { FinancialAccountFieldMeta } from  '../../meta/cac/FinancialAccountMeta'
@@ -16,93 +17,154 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: FinancialAccount
   meta: FieldMeta<T>
 }
 
-export default function FinancialAccountDisplay<T>({ value, meta }: Params<T>) {
+export default function FinancialAccountDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-FinancialAccount ubl-FinancialAccountType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-FinancialAccount ubl-UBLExtensions"
           meta={FinancialAccountFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={FinancialAccountFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={FinancialAccountFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-FinancialAccount ubl-Identifier ubl-ID"
           meta={FinancialAccountFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={FinancialAccountFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={FinancialAccountFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-FinancialAccount ubl-Text ubl-Name"
           meta={FinancialAccountFieldMeta.Name} 
           value={value.Name}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={FinancialAccountFieldMeta.Name} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Name"
+              value={itemValue}
+              meta={FinancialAccountFieldMeta.Name}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-FinancialAccount ubl-Text ubl-AliasName"
           meta={FinancialAccountFieldMeta.AliasName} 
           value={value.AliasName}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={FinancialAccountFieldMeta.AliasName} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Alias Name"
+              value={itemValue}
+              meta={FinancialAccountFieldMeta.AliasName}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-FinancialAccount ubl-Code ubl-AccountTypeCode"
           meta={FinancialAccountFieldMeta.AccountTypeCode} 
           value={value.AccountTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={FinancialAccountFieldMeta.AccountTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Account Type Code"
+              value={itemValue}
+              meta={FinancialAccountFieldMeta.AccountTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-FinancialAccount ubl-Code ubl-AccountFormatCode"
           meta={FinancialAccountFieldMeta.AccountFormatCode} 
           value={value.AccountFormatCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={FinancialAccountFieldMeta.AccountFormatCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Account Format Code"
+              value={itemValue}
+              meta={FinancialAccountFieldMeta.AccountFormatCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-FinancialAccount ubl-Code ubl-CurrencyCode"
           meta={FinancialAccountFieldMeta.CurrencyCode} 
           value={value.CurrencyCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={FinancialAccountFieldMeta.CurrencyCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Currency Code"
+              value={itemValue}
+              meta={FinancialAccountFieldMeta.CurrencyCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-FinancialAccount ubl-Text ubl-PaymentNote"
           meta={FinancialAccountFieldMeta.PaymentNote} 
           value={value.PaymentNote}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={FinancialAccountFieldMeta.PaymentNote} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Payment Note"
+              value={itemValue}
+              meta={FinancialAccountFieldMeta.PaymentNote}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-FinancialAccount ubl-Branch ubl-FinancialInstitutionBranch"
           meta={FinancialAccountFieldMeta.FinancialInstitutionBranch} 
           value={value.FinancialInstitutionBranch}
           itemDisplay={ (itemValue: Branch, key: string | number) =>
-            <BranchDisplay key={key} meta={FinancialAccountFieldMeta.FinancialInstitutionBranch} value={itemValue} />
+            <BranchDisplay
+              key={key}
+              label="Financial Institution Branch"
+              value={itemValue}
+              meta={FinancialAccountFieldMeta.FinancialInstitutionBranch}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-FinancialAccount ubl-Country"
           meta={FinancialAccountFieldMeta.Country} 
           value={value.Country}
           itemDisplay={ (itemValue: Country, key: string | number) =>
-            <CountryDisplay key={key} meta={FinancialAccountFieldMeta.Country} value={itemValue} />
+            <CountryDisplay
+              key={key}
+              label="Country"
+              value={itemValue}
+              meta={FinancialAccountFieldMeta.Country}
+            />
           }
         />
         </div>

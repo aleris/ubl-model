@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ContractingSystem } from  '../../model/cac/ContractingSystem'
 import { ContractingSystemFieldMeta } from  '../../meta/cac/ContractingSystemMeta'
@@ -12,45 +13,70 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: ContractingSystem
   meta: FieldMeta<T>
 }
 
-export default function ContractingSystemDisplay<T>({ value, meta }: Params<T>) {
+export default function ContractingSystemDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-ContractingSystem ubl-ContractingSystemType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-ContractingSystem ubl-UBLExtensions"
           meta={ContractingSystemFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={ContractingSystemFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={ContractingSystemFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ContractingSystem ubl-Identifier ubl-ID"
           meta={ContractingSystemFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ContractingSystemFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={ContractingSystemFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ContractingSystem ubl-Code ubl-ContractingSystemTypeCode"
           meta={ContractingSystemFieldMeta.ContractingSystemTypeCode} 
           value={value.ContractingSystemTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={ContractingSystemFieldMeta.ContractingSystemTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Contracting System Type"
+              value={itemValue}
+              meta={ContractingSystemFieldMeta.ContractingSystemTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-ContractingSystem ubl-Text ubl-Description"
           meta={ContractingSystemFieldMeta.Description} 
           value={value.Description}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ContractingSystemFieldMeta.Description} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Description"
+              value={itemValue}
+              meta={ContractingSystemFieldMeta.Description}
+            />
           }
         />
         </div>

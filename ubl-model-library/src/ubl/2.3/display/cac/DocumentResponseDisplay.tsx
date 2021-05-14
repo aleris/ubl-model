@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { DocumentResponse } from  '../../model/cac/DocumentResponse'
 import { DocumentResponseFieldMeta } from  '../../meta/cac/DocumentResponseMeta'
@@ -14,61 +15,98 @@ import { Response } from '../../model/cac/Response'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: DocumentResponse
   meta: FieldMeta<T>
 }
 
-export default function DocumentResponseDisplay<T>({ value, meta }: Params<T>) {
+export default function DocumentResponseDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-DocumentResponse ubl-DocumentResponseType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-DocumentResponse ubl-UBLExtensions"
           meta={DocumentResponseFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={DocumentResponseFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={DocumentResponseFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-DocumentResponse ubl-Response"
           meta={DocumentResponseFieldMeta.Response} 
           value={value.Response}
           itemDisplay={ (itemValue: Response, key: string | number) =>
-            <ResponseDisplay key={key} meta={DocumentResponseFieldMeta.Response} value={itemValue} />
+            <ResponseDisplay
+              key={key}
+              label="Response"
+              value={itemValue}
+              meta={DocumentResponseFieldMeta.Response}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-DocumentResponse ubl-DocumentReference"
           meta={DocumentResponseFieldMeta.DocumentReference} 
           value={value.DocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={DocumentResponseFieldMeta.DocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Document Reference"
+              value={itemValue}
+              meta={DocumentResponseFieldMeta.DocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-DocumentResponse ubl-Party ubl-IssuerParty"
           meta={DocumentResponseFieldMeta.IssuerParty} 
           value={value.IssuerParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={DocumentResponseFieldMeta.IssuerParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Issuer Party"
+              value={itemValue}
+              meta={DocumentResponseFieldMeta.IssuerParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-DocumentResponse ubl-Party ubl-RecipientParty"
           meta={DocumentResponseFieldMeta.RecipientParty} 
           value={value.RecipientParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={DocumentResponseFieldMeta.RecipientParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Recipient Party"
+              value={itemValue}
+              meta={DocumentResponseFieldMeta.RecipientParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-DocumentResponse ubl-LineResponse"
           meta={DocumentResponseFieldMeta.LineResponse} 
           value={value.LineResponse}
           itemDisplay={ (itemValue: LineResponse, key: string | number) =>
-            <LineResponseDisplay key={key} meta={DocumentResponseFieldMeta.LineResponse} value={itemValue} />
+            <LineResponseDisplay
+              key={key}
+              label="Line Response"
+              value={itemValue}
+              meta={DocumentResponseFieldMeta.LineResponse}
+            />
           }
         />
         </div>

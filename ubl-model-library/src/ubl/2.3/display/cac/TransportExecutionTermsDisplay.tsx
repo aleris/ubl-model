@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TransportExecutionTerms } from  '../../model/cac/TransportExecutionTerms'
 import { TransportExecutionTermsFieldMeta } from  '../../meta/cac/TransportExecutionTermsMeta'
@@ -16,109 +17,182 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: TransportExecutionTerms
   meta: FieldMeta<T>
 }
 
-export default function TransportExecutionTermsDisplay<T>({ value, meta }: Params<T>) {
+export default function TransportExecutionTermsDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-TransportExecutionTerms ubl-TransportExecutionTermsType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-TransportExecutionTerms ubl-UBLExtensions"
           meta={TransportExecutionTermsFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={TransportExecutionTermsFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={TransportExecutionTermsFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-TransportExecutionTerms ubl-Text ubl-TransportUserSpecialTerms"
           meta={TransportExecutionTermsFieldMeta.TransportUserSpecialTerms} 
           value={value.TransportUserSpecialTerms}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={TransportExecutionTermsFieldMeta.TransportUserSpecialTerms} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Transport User Special Terms"
+              value={itemValue}
+              meta={TransportExecutionTermsFieldMeta.TransportUserSpecialTerms}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-TransportExecutionTerms ubl-Text ubl-TransportServiceProviderSpecialTerms"
           meta={TransportExecutionTermsFieldMeta.TransportServiceProviderSpecialTerms} 
           value={value.TransportServiceProviderSpecialTerms}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={TransportExecutionTermsFieldMeta.TransportServiceProviderSpecialTerms} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Transport Service Provider Special Terms"
+              value={itemValue}
+              meta={TransportExecutionTermsFieldMeta.TransportServiceProviderSpecialTerms}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-TransportExecutionTerms ubl-Text ubl-ChangeConditions"
           meta={TransportExecutionTermsFieldMeta.ChangeConditions} 
           value={value.ChangeConditions}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={TransportExecutionTermsFieldMeta.ChangeConditions} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Change Conditions"
+              value={itemValue}
+              meta={TransportExecutionTermsFieldMeta.ChangeConditions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportExecutionTerms ubl-PaymentTerms"
           meta={TransportExecutionTermsFieldMeta.PaymentTerms} 
           value={value.PaymentTerms}
           itemDisplay={ (itemValue: PaymentTerms, key: string | number) =>
-            <PaymentTermsDisplay key={key} meta={TransportExecutionTermsFieldMeta.PaymentTerms} value={itemValue} />
+            <PaymentTermsDisplay
+              key={key}
+              label="Payment Terms"
+              value={itemValue}
+              meta={TransportExecutionTermsFieldMeta.PaymentTerms}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportExecutionTerms ubl-DeliveryTerms"
           meta={TransportExecutionTermsFieldMeta.DeliveryTerms} 
           value={value.DeliveryTerms}
           itemDisplay={ (itemValue: DeliveryTerms, key: string | number) =>
-            <DeliveryTermsDisplay key={key} meta={TransportExecutionTermsFieldMeta.DeliveryTerms} value={itemValue} />
+            <DeliveryTermsDisplay
+              key={key}
+              label="Delivery Terms"
+              value={itemValue}
+              meta={TransportExecutionTermsFieldMeta.DeliveryTerms}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TransportExecutionTerms ubl-PaymentTerms ubl-BonusPaymentTerms"
           meta={TransportExecutionTermsFieldMeta.BonusPaymentTerms} 
           value={value.BonusPaymentTerms}
           itemDisplay={ (itemValue: PaymentTerms, key: string | number) =>
-            <PaymentTermsDisplay key={key} meta={TransportExecutionTermsFieldMeta.BonusPaymentTerms} value={itemValue} />
+            <PaymentTermsDisplay
+              key={key}
+              label="Bonus Payment Terms"
+              value={itemValue}
+              meta={TransportExecutionTermsFieldMeta.BonusPaymentTerms}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TransportExecutionTerms ubl-PaymentTerms ubl-CommissionPaymentTerms"
           meta={TransportExecutionTermsFieldMeta.CommissionPaymentTerms} 
           value={value.CommissionPaymentTerms}
           itemDisplay={ (itemValue: PaymentTerms, key: string | number) =>
-            <PaymentTermsDisplay key={key} meta={TransportExecutionTermsFieldMeta.CommissionPaymentTerms} value={itemValue} />
+            <PaymentTermsDisplay
+              key={key}
+              label="Commission Payment Terms"
+              value={itemValue}
+              meta={TransportExecutionTermsFieldMeta.CommissionPaymentTerms}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TransportExecutionTerms ubl-PaymentTerms ubl-PenaltyPaymentTerms"
           meta={TransportExecutionTermsFieldMeta.PenaltyPaymentTerms} 
           value={value.PenaltyPaymentTerms}
           itemDisplay={ (itemValue: PaymentTerms, key: string | number) =>
-            <PaymentTermsDisplay key={key} meta={TransportExecutionTermsFieldMeta.PenaltyPaymentTerms} value={itemValue} />
+            <PaymentTermsDisplay
+              key={key}
+              label="Penalty Payment Terms"
+              value={itemValue}
+              meta={TransportExecutionTermsFieldMeta.PenaltyPaymentTerms}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportExecutionTerms ubl-EnvironmentalEmission"
           meta={TransportExecutionTermsFieldMeta.EnvironmentalEmission} 
           value={value.EnvironmentalEmission}
           itemDisplay={ (itemValue: EnvironmentalEmission, key: string | number) =>
-            <EnvironmentalEmissionDisplay key={key} meta={TransportExecutionTermsFieldMeta.EnvironmentalEmission} value={itemValue} />
+            <EnvironmentalEmissionDisplay
+              key={key}
+              label="Environmental Emission"
+              value={itemValue}
+              meta={TransportExecutionTermsFieldMeta.EnvironmentalEmission}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TransportExecutionTerms ubl-NotificationRequirement"
           meta={TransportExecutionTermsFieldMeta.NotificationRequirement} 
           value={value.NotificationRequirement}
           itemDisplay={ (itemValue: NotificationRequirement, key: string | number) =>
-            <NotificationRequirementDisplay key={key} meta={TransportExecutionTermsFieldMeta.NotificationRequirement} value={itemValue} />
+            <NotificationRequirementDisplay
+              key={key}
+              label="Notification Requirement"
+              value={itemValue}
+              meta={TransportExecutionTermsFieldMeta.NotificationRequirement}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TransportExecutionTerms ubl-PaymentTerms ubl-ServiceChargePaymentTerms"
           meta={TransportExecutionTermsFieldMeta.ServiceChargePaymentTerms} 
           value={value.ServiceChargePaymentTerms}
           itemDisplay={ (itemValue: PaymentTerms, key: string | number) =>
-            <PaymentTermsDisplay key={key} meta={TransportExecutionTermsFieldMeta.ServiceChargePaymentTerms} value={itemValue} />
+            <PaymentTermsDisplay
+              key={key}
+              label="Service Charge Payment Terms"
+              value={itemValue}
+              meta={TransportExecutionTermsFieldMeta.ServiceChargePaymentTerms}
+            />
           }
         />
         </div>

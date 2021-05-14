@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { AttachedDocument } from  '../../model/doc/AttachedDocument'
 import { AttachedDocumentFieldMeta } from  '../../meta/doc/AttachedDocumentMeta'
@@ -24,173 +25,294 @@ import { Time } from '../../model/cbc/Time'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: AttachedDocument
   meta: FieldMeta<T>
 }
 
-export default function AttachedDocumentDisplay<T>({ value, meta }: Params<T>) {
+export default function AttachedDocumentDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-doc ubl-AttachedDocument ubl-AttachedDocumentType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-AttachedDocument ubl-UBLExtensions"
           meta={AttachedDocumentFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={AttachedDocumentFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={AttachedDocumentFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-AttachedDocument ubl-Identifier ubl-UBLVersionID"
           meta={AttachedDocumentFieldMeta.UBLVersionID} 
           value={value.UBLVersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={AttachedDocumentFieldMeta.UBLVersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UBL Version Identifier"
+              value={itemValue}
+              meta={AttachedDocumentFieldMeta.UBLVersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-AttachedDocument ubl-Identifier ubl-CustomizationID"
           meta={AttachedDocumentFieldMeta.CustomizationID} 
           value={value.CustomizationID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={AttachedDocumentFieldMeta.CustomizationID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Customization Identifier"
+              value={itemValue}
+              meta={AttachedDocumentFieldMeta.CustomizationID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-AttachedDocument ubl-Identifier ubl-ProfileID"
           meta={AttachedDocumentFieldMeta.ProfileID} 
           value={value.ProfileID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={AttachedDocumentFieldMeta.ProfileID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Identifier"
+              value={itemValue}
+              meta={AttachedDocumentFieldMeta.ProfileID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-AttachedDocument ubl-Identifier ubl-ProfileExecutionID"
           meta={AttachedDocumentFieldMeta.ProfileExecutionID} 
           value={value.ProfileExecutionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={AttachedDocumentFieldMeta.ProfileExecutionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Execution Identifier"
+              value={itemValue}
+              meta={AttachedDocumentFieldMeta.ProfileExecutionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-AttachedDocument ubl-Identifier ubl-ID"
           meta={AttachedDocumentFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={AttachedDocumentFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={AttachedDocumentFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-AttachedDocument ubl-Identifier ubl-UUID"
           meta={AttachedDocumentFieldMeta.UUID} 
           value={value.UUID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={AttachedDocumentFieldMeta.UUID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UUID"
+              value={itemValue}
+              meta={AttachedDocumentFieldMeta.UUID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-AttachedDocument ubl-Date ubl-IssueDate"
           meta={AttachedDocumentFieldMeta.IssueDate} 
           value={value.IssueDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={AttachedDocumentFieldMeta.IssueDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Issue Date"
+              value={itemValue}
+              meta={AttachedDocumentFieldMeta.IssueDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-AttachedDocument ubl-Time ubl-IssueTime"
           meta={AttachedDocumentFieldMeta.IssueTime} 
           value={value.IssueTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={AttachedDocumentFieldMeta.IssueTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Issue Time"
+              value={itemValue}
+              meta={AttachedDocumentFieldMeta.IssueTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-AttachedDocument ubl-Text ubl-Note"
           meta={AttachedDocumentFieldMeta.Note} 
           value={value.Note}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={AttachedDocumentFieldMeta.Note} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Note"
+              value={itemValue}
+              meta={AttachedDocumentFieldMeta.Note}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-AttachedDocument ubl-Code ubl-DocumentTypeCode"
           meta={AttachedDocumentFieldMeta.DocumentTypeCode} 
           value={value.DocumentTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={AttachedDocumentFieldMeta.DocumentTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Document Type Code"
+              value={itemValue}
+              meta={AttachedDocumentFieldMeta.DocumentTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-AttachedDocument ubl-Text ubl-DocumentType"
           meta={AttachedDocumentFieldMeta.DocumentType} 
           value={value.DocumentType}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={AttachedDocumentFieldMeta.DocumentType} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Document Type"
+              value={itemValue}
+              meta={AttachedDocumentFieldMeta.DocumentType}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-AttachedDocument ubl-Identifier ubl-ParentDocumentID"
           meta={AttachedDocumentFieldMeta.ParentDocumentID} 
           value={value.ParentDocumentID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={AttachedDocumentFieldMeta.ParentDocumentID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Parent Document Identifier"
+              value={itemValue}
+              meta={AttachedDocumentFieldMeta.ParentDocumentID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-AttachedDocument ubl-Code ubl-ParentDocumentTypeCode"
           meta={AttachedDocumentFieldMeta.ParentDocumentTypeCode} 
           value={value.ParentDocumentTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={AttachedDocumentFieldMeta.ParentDocumentTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Parent Document Type Code"
+              value={itemValue}
+              meta={AttachedDocumentFieldMeta.ParentDocumentTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-AttachedDocument ubl-Identifier ubl-ParentDocumentVersionID"
           meta={AttachedDocumentFieldMeta.ParentDocumentVersionID} 
           value={value.ParentDocumentVersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={AttachedDocumentFieldMeta.ParentDocumentVersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Parent Document Version"
+              value={itemValue}
+              meta={AttachedDocumentFieldMeta.ParentDocumentVersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-AttachedDocument ubl-Signature"
           meta={AttachedDocumentFieldMeta.Signature} 
           value={value.Signature}
           itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay key={key} meta={AttachedDocumentFieldMeta.Signature} value={itemValue} />
+            <SignatureDisplay
+              key={key}
+              label="Signature"
+              value={itemValue}
+              meta={AttachedDocumentFieldMeta.Signature}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-AttachedDocument ubl-Party ubl-SenderParty"
           meta={AttachedDocumentFieldMeta.SenderParty} 
           value={value.SenderParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={AttachedDocumentFieldMeta.SenderParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Sender Party"
+              value={itemValue}
+              meta={AttachedDocumentFieldMeta.SenderParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-AttachedDocument ubl-Party ubl-ReceiverParty"
           meta={AttachedDocumentFieldMeta.ReceiverParty} 
           value={value.ReceiverParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={AttachedDocumentFieldMeta.ReceiverParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Receiver Party"
+              value={itemValue}
+              meta={AttachedDocumentFieldMeta.ReceiverParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-AttachedDocument ubl-Attachment"
           meta={AttachedDocumentFieldMeta.Attachment} 
           value={value.Attachment}
           itemDisplay={ (itemValue: Attachment, key: string | number) =>
-            <AttachmentDisplay key={key} meta={AttachedDocumentFieldMeta.Attachment} value={itemValue} />
+            <AttachmentDisplay
+              key={key}
+              label="Attachment"
+              value={itemValue}
+              meta={AttachedDocumentFieldMeta.Attachment}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-AttachedDocument ubl-LineReference ubl-ParentDocumentLineReference"
           meta={AttachedDocumentFieldMeta.ParentDocumentLineReference} 
           value={value.ParentDocumentLineReference}
           itemDisplay={ (itemValue: LineReference, key: string | number) =>
-            <LineReferenceDisplay key={key} meta={AttachedDocumentFieldMeta.ParentDocumentLineReference} value={itemValue} />
+            <LineReferenceDisplay
+              key={key}
+              label="Parent Document Line Reference"
+              value={itemValue}
+              meta={AttachedDocumentFieldMeta.ParentDocumentLineReference}
+            />
           }
         />
         </div>

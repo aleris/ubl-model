@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ResultOfVerification } from  '../../model/cac/ResultOfVerification'
 import { ResultOfVerificationFieldMeta } from  '../../meta/cac/ResultOfVerificationMeta'
@@ -18,85 +19,140 @@ import { Time } from '../../model/cbc/Time'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: ResultOfVerification
   meta: FieldMeta<T>
 }
 
-export default function ResultOfVerificationDisplay<T>({ value, meta }: Params<T>) {
+export default function ResultOfVerificationDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-ResultOfVerification ubl-ResultOfVerificationType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-ResultOfVerification ubl-UBLExtensions"
           meta={ResultOfVerificationFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={ResultOfVerificationFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={ResultOfVerificationFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ResultOfVerification ubl-Identifier ubl-ValidatorID"
           meta={ResultOfVerificationFieldMeta.ValidatorID} 
           value={value.ValidatorID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ResultOfVerificationFieldMeta.ValidatorID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Validator"
+              value={itemValue}
+              meta={ResultOfVerificationFieldMeta.ValidatorID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ResultOfVerification ubl-Code ubl-ValidationResultCode"
           meta={ResultOfVerificationFieldMeta.ValidationResultCode} 
           value={value.ValidationResultCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={ResultOfVerificationFieldMeta.ValidationResultCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Validation Result Code"
+              value={itemValue}
+              meta={ResultOfVerificationFieldMeta.ValidationResultCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ResultOfVerification ubl-Date ubl-ValidationDate"
           meta={ResultOfVerificationFieldMeta.ValidationDate} 
           value={value.ValidationDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={ResultOfVerificationFieldMeta.ValidationDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Validation Date"
+              value={itemValue}
+              meta={ResultOfVerificationFieldMeta.ValidationDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ResultOfVerification ubl-Time ubl-ValidationTime"
           meta={ResultOfVerificationFieldMeta.ValidationTime} 
           value={value.ValidationTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={ResultOfVerificationFieldMeta.ValidationTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Validation Time"
+              value={itemValue}
+              meta={ResultOfVerificationFieldMeta.ValidationTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ResultOfVerification ubl-Text ubl-ValidateProcess"
           meta={ResultOfVerificationFieldMeta.ValidateProcess} 
           value={value.ValidateProcess}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ResultOfVerificationFieldMeta.ValidateProcess} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Validate Process"
+              value={itemValue}
+              meta={ResultOfVerificationFieldMeta.ValidateProcess}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ResultOfVerification ubl-Text ubl-ValidateTool"
           meta={ResultOfVerificationFieldMeta.ValidateTool} 
           value={value.ValidateTool}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ResultOfVerificationFieldMeta.ValidateTool} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Validate Tool"
+              value={itemValue}
+              meta={ResultOfVerificationFieldMeta.ValidateTool}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ResultOfVerification ubl-Text ubl-ValidateToolVersion"
           meta={ResultOfVerificationFieldMeta.ValidateToolVersion} 
           value={value.ValidateToolVersion}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ResultOfVerificationFieldMeta.ValidateToolVersion} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Validate Tool Version"
+              value={itemValue}
+              meta={ResultOfVerificationFieldMeta.ValidateToolVersion}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-ResultOfVerification ubl-Party ubl-SignatoryParty"
           meta={ResultOfVerificationFieldMeta.SignatoryParty} 
           value={value.SignatoryParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={ResultOfVerificationFieldMeta.SignatoryParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Signatory Party"
+              value={itemValue}
+              meta={ResultOfVerificationFieldMeta.SignatoryParty}
+            />
           }
         />
         </div>

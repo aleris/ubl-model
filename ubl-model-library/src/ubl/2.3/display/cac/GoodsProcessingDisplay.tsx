@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { GoodsProcessing } from  '../../model/cac/GoodsProcessing'
 import { GoodsProcessingFieldMeta } from  '../../meta/cac/GoodsProcessingMeta'
@@ -18,85 +19,140 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: GoodsProcessing
   meta: FieldMeta<T>
 }
 
-export default function GoodsProcessingDisplay<T>({ value, meta }: Params<T>) {
+export default function GoodsProcessingDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-GoodsProcessing ubl-GoodsProcessingType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-GoodsProcessing ubl-UBLExtensions"
           meta={GoodsProcessingFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={GoodsProcessingFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={GoodsProcessingFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-GoodsProcessing ubl-Identifier ubl-ID"
           meta={GoodsProcessingFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={GoodsProcessingFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={GoodsProcessingFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-GoodsProcessing ubl-Code ubl-TypeCode"
           meta={GoodsProcessingFieldMeta.TypeCode} 
           value={value.TypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={GoodsProcessingFieldMeta.TypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Type"
+              value={itemValue}
+              meta={GoodsProcessingFieldMeta.TypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-GoodsProcessing ubl-Text ubl-Description"
           meta={GoodsProcessingFieldMeta.Description} 
           value={value.Description}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={GoodsProcessingFieldMeta.Description} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Description"
+              value={itemValue}
+              meta={GoodsProcessingFieldMeta.Description}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-GoodsProcessing ubl-Text ubl-Note"
           meta={GoodsProcessingFieldMeta.Note} 
           value={value.Note}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={GoodsProcessingFieldMeta.Note} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Note"
+              value={itemValue}
+              meta={GoodsProcessingFieldMeta.Note}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-GoodsProcessing ubl-Period"
           meta={GoodsProcessingFieldMeta.Period} 
           value={value.Period}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={GoodsProcessingFieldMeta.Period} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Period"
+              value={itemValue}
+              meta={GoodsProcessingFieldMeta.Period}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-GoodsProcessing ubl-Party ubl-ProcessingParty"
           meta={GoodsProcessingFieldMeta.ProcessingParty} 
           value={value.ProcessingParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={GoodsProcessingFieldMeta.ProcessingParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Processing Party"
+              value={itemValue}
+              meta={GoodsProcessingFieldMeta.ProcessingParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-GoodsProcessing ubl-CriterionItem"
           meta={GoodsProcessingFieldMeta.CriterionItem} 
           value={value.CriterionItem}
           itemDisplay={ (itemValue: CriterionItem, key: string | number) =>
-            <CriterionItemDisplay key={key} meta={GoodsProcessingFieldMeta.CriterionItem} value={itemValue} />
+            <CriterionItemDisplay
+              key={key}
+              label="Criterion Item"
+              value={itemValue}
+              meta={GoodsProcessingFieldMeta.CriterionItem}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-GoodsProcessing ubl-SubGoodsProcessing"
           meta={GoodsProcessingFieldMeta.SubGoodsProcessing} 
           value={value.SubGoodsProcessing}
           itemDisplay={ (itemValue: GoodsProcessing, key: string | number) =>
-            <GoodsProcessingDisplay key={key} meta={GoodsProcessingFieldMeta.SubGoodsProcessing} value={itemValue} />
+            <GoodsProcessingDisplay
+              key={key}
+              label="Sub Goods Processing"
+              value={itemValue}
+              meta={GoodsProcessingFieldMeta.SubGoodsProcessing}
+            />
           }
         />
         </div>

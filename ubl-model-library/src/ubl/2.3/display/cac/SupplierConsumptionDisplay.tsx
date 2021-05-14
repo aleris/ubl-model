@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { SupplierConsumption } from  '../../model/cac/SupplierConsumption'
 import { SupplierConsumptionFieldMeta } from  '../../meta/cac/SupplierConsumptionMeta'
@@ -16,69 +17,112 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: SupplierConsumption
   meta: FieldMeta<T>
 }
 
-export default function SupplierConsumptionDisplay<T>({ value, meta }: Params<T>) {
+export default function SupplierConsumptionDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-SupplierConsumption ubl-SupplierConsumptionType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-SupplierConsumption ubl-UBLExtensions"
           meta={SupplierConsumptionFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={SupplierConsumptionFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={SupplierConsumptionFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-SupplierConsumption ubl-Text ubl-Description"
           meta={SupplierConsumptionFieldMeta.Description} 
           value={value.Description}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={SupplierConsumptionFieldMeta.Description} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Description"
+              value={itemValue}
+              meta={SupplierConsumptionFieldMeta.Description}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-SupplierConsumption ubl-Party ubl-UtilitySupplierParty"
           meta={SupplierConsumptionFieldMeta.UtilitySupplierParty} 
           value={value.UtilitySupplierParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={SupplierConsumptionFieldMeta.UtilitySupplierParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Utility Supplier Party"
+              value={itemValue}
+              meta={SupplierConsumptionFieldMeta.UtilitySupplierParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-SupplierConsumption ubl-Party ubl-UtilityCustomerParty"
           meta={SupplierConsumptionFieldMeta.UtilityCustomerParty} 
           value={value.UtilityCustomerParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={SupplierConsumptionFieldMeta.UtilityCustomerParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Utility Customer Party"
+              value={itemValue}
+              meta={SupplierConsumptionFieldMeta.UtilityCustomerParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-SupplierConsumption ubl-Consumption"
           meta={SupplierConsumptionFieldMeta.Consumption} 
           value={value.Consumption}
           itemDisplay={ (itemValue: Consumption, key: string | number) =>
-            <ConsumptionDisplay key={key} meta={SupplierConsumptionFieldMeta.Consumption} value={itemValue} />
+            <ConsumptionDisplay
+              key={key}
+              label="Consumption"
+              value={itemValue}
+              meta={SupplierConsumptionFieldMeta.Consumption}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-SupplierConsumption ubl-Contract"
           meta={SupplierConsumptionFieldMeta.Contract} 
           value={value.Contract}
           itemDisplay={ (itemValue: Contract, key: string | number) =>
-            <ContractDisplay key={key} meta={SupplierConsumptionFieldMeta.Contract} value={itemValue} />
+            <ContractDisplay
+              key={key}
+              label="Contract"
+              value={itemValue}
+              meta={SupplierConsumptionFieldMeta.Contract}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-SupplierConsumption ubl-ConsumptionLine"
           meta={SupplierConsumptionFieldMeta.ConsumptionLine} 
           value={value.ConsumptionLine}
           itemDisplay={ (itemValue: ConsumptionLine, key: string | number) =>
-            <ConsumptionLineDisplay key={key} meta={SupplierConsumptionFieldMeta.ConsumptionLine} value={itemValue} />
+            <ConsumptionLineDisplay
+              key={key}
+              label="Consumption Line"
+              value={itemValue}
+              meta={SupplierConsumptionFieldMeta.ConsumptionLine}
+            />
           }
         />
         </div>

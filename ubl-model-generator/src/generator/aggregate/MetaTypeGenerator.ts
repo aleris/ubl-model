@@ -12,7 +12,7 @@ export class MetaTypeGenerator implements TypeCodeGenerator<AggregateType> {
     return [{
       dirPath: 'meta',
       fileName: 'FieldMeta.ts',
-      content: fs.readFileSync(path.resolve('src/generator/globals/2.2/meta/FieldMeta.tst')).toString()
+      content: fs.readFileSync(path.resolve('src/generator/globals/2.3/meta/FieldMeta.tst')).toString()
     }];
   }
 

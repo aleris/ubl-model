@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { CatalogueRequestLine } from  '../../model/cac/CatalogueRequestLine'
 import { CatalogueRequestLineFieldMeta } from  '../../meta/cac/CatalogueRequestLineMeta'
@@ -16,69 +17,112 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: CatalogueRequestLine
   meta: FieldMeta<T>
 }
 
-export default function CatalogueRequestLineDisplay<T>({ value, meta }: Params<T>) {
+export default function CatalogueRequestLineDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-CatalogueRequestLine ubl-CatalogueRequestLineType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-CatalogueRequestLine ubl-UBLExtensions"
           meta={CatalogueRequestLineFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={CatalogueRequestLineFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={CatalogueRequestLineFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CatalogueRequestLine ubl-Identifier ubl-ID"
           meta={CatalogueRequestLineFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CatalogueRequestLineFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={CatalogueRequestLineFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CatalogueRequestLine ubl-Text ubl-ContractSubdivision"
           meta={CatalogueRequestLineFieldMeta.ContractSubdivision} 
           value={value.ContractSubdivision}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={CatalogueRequestLineFieldMeta.ContractSubdivision} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Contract Subdivision"
+              value={itemValue}
+              meta={CatalogueRequestLineFieldMeta.ContractSubdivision}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-CatalogueRequestLine ubl-Text ubl-Note"
           meta={CatalogueRequestLineFieldMeta.Note} 
           value={value.Note}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={CatalogueRequestLineFieldMeta.Note} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Note"
+              value={itemValue}
+              meta={CatalogueRequestLineFieldMeta.Note}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-CatalogueRequestLine ubl-Period ubl-LineValidityPeriod"
           meta={CatalogueRequestLineFieldMeta.LineValidityPeriod} 
           value={value.LineValidityPeriod}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={CatalogueRequestLineFieldMeta.LineValidityPeriod} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Line Validity Period"
+              value={itemValue}
+              meta={CatalogueRequestLineFieldMeta.LineValidityPeriod}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-CatalogueRequestLine ubl-ItemLocationQuantity ubl-RequiredItemLocationQuantity"
           meta={CatalogueRequestLineFieldMeta.RequiredItemLocationQuantity} 
           value={value.RequiredItemLocationQuantity}
           itemDisplay={ (itemValue: ItemLocationQuantity, key: string | number) =>
-            <ItemLocationQuantityDisplay key={key} meta={CatalogueRequestLineFieldMeta.RequiredItemLocationQuantity} value={itemValue} />
+            <ItemLocationQuantityDisplay
+              key={key}
+              label="Required Item Location Quantity"
+              value={itemValue}
+              meta={CatalogueRequestLineFieldMeta.RequiredItemLocationQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-CatalogueRequestLine ubl-Item"
           meta={CatalogueRequestLineFieldMeta.Item} 
           value={value.Item}
           itemDisplay={ (itemValue: Item, key: string | number) =>
-            <ItemDisplay key={key} meta={CatalogueRequestLineFieldMeta.Item} value={itemValue} />
+            <ItemDisplay
+              key={key}
+              label="Item"
+              value={itemValue}
+              meta={CatalogueRequestLineFieldMeta.Item}
+            />
           }
         />
         </div>

@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Consignment } from  '../../model/cac/Consignment'
 import { ConsignmentFieldMeta } from  '../../meta/cac/ConsignmentMeta'
@@ -48,837 +49,1456 @@ import { TransportHandlingUnit } from '../../model/cac/TransportHandlingUnit'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: Consignment
   meta: FieldMeta<T>
 }
 
-export default function ConsignmentDisplay<T>({ value, meta }: Params<T>) {
+export default function ConsignmentDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-Consignment ubl-ConsignmentType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-Consignment ubl-UBLExtensions"
           meta={ConsignmentFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={ConsignmentFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Identifier ubl-ID"
           meta={ConsignmentFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ConsignmentFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Identifier ubl-CarrierAssignedID"
           meta={ConsignmentFieldMeta.CarrierAssignedID} 
           value={value.CarrierAssignedID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ConsignmentFieldMeta.CarrierAssignedID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Carrier Assigned Identifier"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.CarrierAssignedID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Identifier ubl-ConsigneeAssignedID"
           meta={ConsignmentFieldMeta.ConsigneeAssignedID} 
           value={value.ConsigneeAssignedID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ConsignmentFieldMeta.ConsigneeAssignedID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Consignee Assigned Identifier"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.ConsigneeAssignedID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Identifier ubl-ConsignorAssignedID"
           meta={ConsignmentFieldMeta.ConsignorAssignedID} 
           value={value.ConsignorAssignedID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ConsignmentFieldMeta.ConsignorAssignedID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Consignor Assigned Identifier"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.ConsignorAssignedID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Identifier ubl-FreightForwarderAssignedID"
           meta={ConsignmentFieldMeta.FreightForwarderAssignedID} 
           value={value.FreightForwarderAssignedID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ConsignmentFieldMeta.FreightForwarderAssignedID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Freight Forwarder Assigned Identifier"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.FreightForwarderAssignedID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Identifier ubl-BrokerAssignedID"
           meta={ConsignmentFieldMeta.BrokerAssignedID} 
           value={value.BrokerAssignedID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ConsignmentFieldMeta.BrokerAssignedID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Broker Assigned Identifier"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.BrokerAssignedID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Identifier ubl-ContractedCarrierAssignedID"
           meta={ConsignmentFieldMeta.ContractedCarrierAssignedID} 
           value={value.ContractedCarrierAssignedID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ConsignmentFieldMeta.ContractedCarrierAssignedID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Contracted Carrier Assigned Identifier"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.ContractedCarrierAssignedID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Identifier ubl-PerformingCarrierAssignedID"
           meta={ConsignmentFieldMeta.PerformingCarrierAssignedID} 
           value={value.PerformingCarrierAssignedID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ConsignmentFieldMeta.PerformingCarrierAssignedID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Performing Carrier Assigned Identifier"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.PerformingCarrierAssignedID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Consignment ubl-Text ubl-SummaryDescription"
           meta={ConsignmentFieldMeta.SummaryDescription} 
           value={value.SummaryDescription}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ConsignmentFieldMeta.SummaryDescription} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Summary Description"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.SummaryDescription}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Amount ubl-TotalInvoiceAmount"
           meta={ConsignmentFieldMeta.TotalInvoiceAmount} 
           value={value.TotalInvoiceAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={ConsignmentFieldMeta.TotalInvoiceAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Total Invoice Amount"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.TotalInvoiceAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Amount ubl-DeclaredCustomsValueAmount"
           meta={ConsignmentFieldMeta.DeclaredCustomsValueAmount} 
           value={value.DeclaredCustomsValueAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={ConsignmentFieldMeta.DeclaredCustomsValueAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Declared Customs Value"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.DeclaredCustomsValueAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Consignment ubl-Text ubl-TariffDescription"
           meta={ConsignmentFieldMeta.TariffDescription} 
           value={value.TariffDescription}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ConsignmentFieldMeta.TariffDescription} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Tariff Description"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.TariffDescription}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Code ubl-TariffCode"
           meta={ConsignmentFieldMeta.TariffCode} 
           value={value.TariffCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={ConsignmentFieldMeta.TariffCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Tariff Code"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.TariffCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Amount ubl-InsurancePremiumAmount"
           meta={ConsignmentFieldMeta.InsurancePremiumAmount} 
           value={value.InsurancePremiumAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={ConsignmentFieldMeta.InsurancePremiumAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Insurance Premium Amount"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.InsurancePremiumAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Measure ubl-GrossWeightMeasure"
           meta={ConsignmentFieldMeta.GrossWeightMeasure} 
           value={value.GrossWeightMeasure}
           itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay key={key} meta={ConsignmentFieldMeta.GrossWeightMeasure} value={itemValue} />
+            <MeasureDisplay
+              key={key}
+              label="Gross Weight"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.GrossWeightMeasure}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Measure ubl-NetWeightMeasure"
           meta={ConsignmentFieldMeta.NetWeightMeasure} 
           value={value.NetWeightMeasure}
           itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay key={key} meta={ConsignmentFieldMeta.NetWeightMeasure} value={itemValue} />
+            <MeasureDisplay
+              key={key}
+              label="Net Weight"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.NetWeightMeasure}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Measure ubl-NetNetWeightMeasure"
           meta={ConsignmentFieldMeta.NetNetWeightMeasure} 
           value={value.NetNetWeightMeasure}
           itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay key={key} meta={ConsignmentFieldMeta.NetNetWeightMeasure} value={itemValue} />
+            <MeasureDisplay
+              key={key}
+              label="Net Net Weight"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.NetNetWeightMeasure}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Measure ubl-ChargeableWeightMeasure"
           meta={ConsignmentFieldMeta.ChargeableWeightMeasure} 
           value={value.ChargeableWeightMeasure}
           itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay key={key} meta={ConsignmentFieldMeta.ChargeableWeightMeasure} value={itemValue} />
+            <MeasureDisplay
+              key={key}
+              label="Chargeable Weight"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.ChargeableWeightMeasure}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Measure ubl-GrossVolumeMeasure"
           meta={ConsignmentFieldMeta.GrossVolumeMeasure} 
           value={value.GrossVolumeMeasure}
           itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay key={key} meta={ConsignmentFieldMeta.GrossVolumeMeasure} value={itemValue} />
+            <MeasureDisplay
+              key={key}
+              label="Gross Volume"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.GrossVolumeMeasure}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Measure ubl-NetVolumeMeasure"
           meta={ConsignmentFieldMeta.NetVolumeMeasure} 
           value={value.NetVolumeMeasure}
           itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay key={key} meta={ConsignmentFieldMeta.NetVolumeMeasure} value={itemValue} />
+            <MeasureDisplay
+              key={key}
+              label="Net Volume"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.NetVolumeMeasure}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Measure ubl-LoadingLengthMeasure"
           meta={ConsignmentFieldMeta.LoadingLengthMeasure} 
           value={value.LoadingLengthMeasure}
           itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay key={key} meta={ConsignmentFieldMeta.LoadingLengthMeasure} value={itemValue} />
+            <MeasureDisplay
+              key={key}
+              label="Loading Length"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.LoadingLengthMeasure}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Consignment ubl-Text ubl-Remarks"
           meta={ConsignmentFieldMeta.Remarks} 
           value={value.Remarks}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ConsignmentFieldMeta.Remarks} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Remarks"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.Remarks}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Indicator ubl-HazardousRiskIndicator"
           meta={ConsignmentFieldMeta.HazardousRiskIndicator} 
           value={value.HazardousRiskIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={ConsignmentFieldMeta.HazardousRiskIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Hazardous Risk Indicator"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.HazardousRiskIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Indicator ubl-AnimalFoodIndicator"
           meta={ConsignmentFieldMeta.AnimalFoodIndicator} 
           value={value.AnimalFoodIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={ConsignmentFieldMeta.AnimalFoodIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Animal Food Indicator"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.AnimalFoodIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Indicator ubl-HumanFoodIndicator"
           meta={ConsignmentFieldMeta.HumanFoodIndicator} 
           value={value.HumanFoodIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={ConsignmentFieldMeta.HumanFoodIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Human Food Indicator"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.HumanFoodIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Indicator ubl-LivestockIndicator"
           meta={ConsignmentFieldMeta.LivestockIndicator} 
           value={value.LivestockIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={ConsignmentFieldMeta.LivestockIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Livestock Indicator"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.LivestockIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Indicator ubl-BulkCargoIndicator"
           meta={ConsignmentFieldMeta.BulkCargoIndicator} 
           value={value.BulkCargoIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={ConsignmentFieldMeta.BulkCargoIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Bulk Cargo Indicator"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.BulkCargoIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Indicator ubl-ContainerizedIndicator"
           meta={ConsignmentFieldMeta.ContainerizedIndicator} 
           value={value.ContainerizedIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={ConsignmentFieldMeta.ContainerizedIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Containerized Indicator"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.ContainerizedIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Indicator ubl-GeneralCargoIndicator"
           meta={ConsignmentFieldMeta.GeneralCargoIndicator} 
           value={value.GeneralCargoIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={ConsignmentFieldMeta.GeneralCargoIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="General Cargo Indicator"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.GeneralCargoIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Indicator ubl-SpecialSecurityIndicator"
           meta={ConsignmentFieldMeta.SpecialSecurityIndicator} 
           value={value.SpecialSecurityIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={ConsignmentFieldMeta.SpecialSecurityIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Special Security Indicator"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.SpecialSecurityIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Indicator ubl-ThirdPartyPayerIndicator"
           meta={ConsignmentFieldMeta.ThirdPartyPayerIndicator} 
           value={value.ThirdPartyPayerIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={ConsignmentFieldMeta.ThirdPartyPayerIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Third Party Payer Indicator"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.ThirdPartyPayerIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Consignment ubl-Text ubl-CarrierServiceInstructions"
           meta={ConsignmentFieldMeta.CarrierServiceInstructions} 
           value={value.CarrierServiceInstructions}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ConsignmentFieldMeta.CarrierServiceInstructions} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Carrier Service Instructions"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.CarrierServiceInstructions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Consignment ubl-Text ubl-CustomsClearanceServiceInstructions"
           meta={ConsignmentFieldMeta.CustomsClearanceServiceInstructions} 
           value={value.CustomsClearanceServiceInstructions}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ConsignmentFieldMeta.CustomsClearanceServiceInstructions} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Customs Clearance Service Instructions"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.CustomsClearanceServiceInstructions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Consignment ubl-Text ubl-ForwarderServiceInstructions"
           meta={ConsignmentFieldMeta.ForwarderServiceInstructions} 
           value={value.ForwarderServiceInstructions}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ConsignmentFieldMeta.ForwarderServiceInstructions} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Forwarder Service Instructions"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.ForwarderServiceInstructions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Consignment ubl-Text ubl-SpecialServiceInstructions"
           meta={ConsignmentFieldMeta.SpecialServiceInstructions} 
           value={value.SpecialServiceInstructions}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ConsignmentFieldMeta.SpecialServiceInstructions} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Special Service Instructions"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.SpecialServiceInstructions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Identifier ubl-SequenceID"
           meta={ConsignmentFieldMeta.SequenceID} 
           value={value.SequenceID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ConsignmentFieldMeta.SequenceID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Sequence Identifier"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.SequenceID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Code ubl-ShippingPriorityLevelCode"
           meta={ConsignmentFieldMeta.ShippingPriorityLevelCode} 
           value={value.ShippingPriorityLevelCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={ConsignmentFieldMeta.ShippingPriorityLevelCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Shipping Priority Level Code"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.ShippingPriorityLevelCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Code ubl-HandlingCode"
           meta={ConsignmentFieldMeta.HandlingCode} 
           value={value.HandlingCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={ConsignmentFieldMeta.HandlingCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Handling Code"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.HandlingCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Consignment ubl-Text ubl-HandlingInstructions"
           meta={ConsignmentFieldMeta.HandlingInstructions} 
           value={value.HandlingInstructions}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ConsignmentFieldMeta.HandlingInstructions} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Handling Instructions"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.HandlingInstructions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Consignment ubl-Text ubl-Information"
           meta={ConsignmentFieldMeta.Information} 
           value={value.Information}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ConsignmentFieldMeta.Information} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Information"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.Information}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Quantity ubl-TotalGoodsItemQuantity"
           meta={ConsignmentFieldMeta.TotalGoodsItemQuantity} 
           value={value.TotalGoodsItemQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={ConsignmentFieldMeta.TotalGoodsItemQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Total Goods Item Quantity"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.TotalGoodsItemQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Quantity ubl-TotalTransportHandlingUnitQuantity"
           meta={ConsignmentFieldMeta.TotalTransportHandlingUnitQuantity} 
           value={value.TotalTransportHandlingUnitQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={ConsignmentFieldMeta.TotalTransportHandlingUnitQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Total Transport Handling Unit Quantity"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.TotalTransportHandlingUnitQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Amount ubl-InsuranceValueAmount"
           meta={ConsignmentFieldMeta.InsuranceValueAmount} 
           value={value.InsuranceValueAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={ConsignmentFieldMeta.InsuranceValueAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Insurance Value"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.InsuranceValueAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Amount ubl-DeclaredForCarriageValueAmount"
           meta={ConsignmentFieldMeta.DeclaredForCarriageValueAmount} 
           value={value.DeclaredForCarriageValueAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={ConsignmentFieldMeta.DeclaredForCarriageValueAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Declared For Carriage Value"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.DeclaredForCarriageValueAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Amount ubl-DeclaredStatisticsValueAmount"
           meta={ConsignmentFieldMeta.DeclaredStatisticsValueAmount} 
           value={value.DeclaredStatisticsValueAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={ConsignmentFieldMeta.DeclaredStatisticsValueAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Declared Statistics Value"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.DeclaredStatisticsValueAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Amount ubl-FreeOnBoardValueAmount"
           meta={ConsignmentFieldMeta.FreeOnBoardValueAmount} 
           value={value.FreeOnBoardValueAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={ConsignmentFieldMeta.FreeOnBoardValueAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Free On Board Value"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.FreeOnBoardValueAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Consignment ubl-Text ubl-SpecialInstructions"
           meta={ConsignmentFieldMeta.SpecialInstructions} 
           value={value.SpecialInstructions}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ConsignmentFieldMeta.SpecialInstructions} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Special Instructions"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.SpecialInstructions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Indicator ubl-SplitConsignmentIndicator"
           meta={ConsignmentFieldMeta.SplitConsignmentIndicator} 
           value={value.SplitConsignmentIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={ConsignmentFieldMeta.SplitConsignmentIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Split Consignment Indicator"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.SplitConsignmentIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Consignment ubl-Text ubl-DeliveryInstructions"
           meta={ConsignmentFieldMeta.DeliveryInstructions} 
           value={value.DeliveryInstructions}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ConsignmentFieldMeta.DeliveryInstructions} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Delivery Instructions"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.DeliveryInstructions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Quantity ubl-ConsignmentQuantity"
           meta={ConsignmentFieldMeta.ConsignmentQuantity} 
           value={value.ConsignmentQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={ConsignmentFieldMeta.ConsignmentQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Consignment Quantity"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.ConsignmentQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Indicator ubl-ConsolidatableIndicator"
           meta={ConsignmentFieldMeta.ConsolidatableIndicator} 
           value={value.ConsolidatableIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={ConsignmentFieldMeta.ConsolidatableIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Consolidatable Indicator"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.ConsolidatableIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Consignment ubl-Text ubl-HaulageInstructions"
           meta={ConsignmentFieldMeta.HaulageInstructions} 
           value={value.HaulageInstructions}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ConsignmentFieldMeta.HaulageInstructions} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Haulage Instructions"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.HaulageInstructions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Identifier ubl-LoadingSequenceID"
           meta={ConsignmentFieldMeta.LoadingSequenceID} 
           value={value.LoadingSequenceID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ConsignmentFieldMeta.LoadingSequenceID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Loading Sequence Identifier"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.LoadingSequenceID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Quantity ubl-ChildConsignmentQuantity"
           meta={ConsignmentFieldMeta.ChildConsignmentQuantity} 
           value={value.ChildConsignmentQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={ConsignmentFieldMeta.ChildConsignmentQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Child Consignment Quantity"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.ChildConsignmentQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consignment ubl-Quantity ubl-TotalPackagesQuantity"
           meta={ConsignmentFieldMeta.TotalPackagesQuantity} 
           value={value.TotalPackagesQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={ConsignmentFieldMeta.TotalPackagesQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Total Packages Quantity"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.TotalPackagesQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Consignment ubl-Shipment ubl-ConsolidatedShipment"
           meta={ConsignmentFieldMeta.ConsolidatedShipment} 
           value={value.ConsolidatedShipment}
           itemDisplay={ (itemValue: Shipment, key: string | number) =>
-            <ShipmentDisplay key={key} meta={ConsignmentFieldMeta.ConsolidatedShipment} value={itemValue} />
+            <ShipmentDisplay
+              key={key}
+              label="Consolidated Shipment"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.ConsolidatedShipment}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Consignment ubl-CustomsDeclaration"
           meta={ConsignmentFieldMeta.CustomsDeclaration} 
           value={value.CustomsDeclaration}
           itemDisplay={ (itemValue: CustomsDeclaration, key: string | number) =>
-            <CustomsDeclarationDisplay key={key} meta={ConsignmentFieldMeta.CustomsDeclaration} value={itemValue} />
+            <CustomsDeclarationDisplay
+              key={key}
+              label="Customs Declaration"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.CustomsDeclaration}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consignment ubl-TransportEvent ubl-RequestedPickupTransportEvent"
           meta={ConsignmentFieldMeta.RequestedPickupTransportEvent} 
           value={value.RequestedPickupTransportEvent}
           itemDisplay={ (itemValue: TransportEvent, key: string | number) =>
-            <TransportEventDisplay key={key} meta={ConsignmentFieldMeta.RequestedPickupTransportEvent} value={itemValue} />
+            <TransportEventDisplay
+              key={key}
+              label="Requested Pickup Transport Event"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.RequestedPickupTransportEvent}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consignment ubl-TransportEvent ubl-RequestedDeliveryTransportEvent"
           meta={ConsignmentFieldMeta.RequestedDeliveryTransportEvent} 
           value={value.RequestedDeliveryTransportEvent}
           itemDisplay={ (itemValue: TransportEvent, key: string | number) =>
-            <TransportEventDisplay key={key} meta={ConsignmentFieldMeta.RequestedDeliveryTransportEvent} value={itemValue} />
+            <TransportEventDisplay
+              key={key}
+              label="Requested Delivery Transport Event"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.RequestedDeliveryTransportEvent}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consignment ubl-TransportEvent ubl-PlannedPickupTransportEvent"
           meta={ConsignmentFieldMeta.PlannedPickupTransportEvent} 
           value={value.PlannedPickupTransportEvent}
           itemDisplay={ (itemValue: TransportEvent, key: string | number) =>
-            <TransportEventDisplay key={key} meta={ConsignmentFieldMeta.PlannedPickupTransportEvent} value={itemValue} />
+            <TransportEventDisplay
+              key={key}
+              label="Planned Pickup Transport Event"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.PlannedPickupTransportEvent}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consignment ubl-TransportEvent ubl-PlannedDeliveryTransportEvent"
           meta={ConsignmentFieldMeta.PlannedDeliveryTransportEvent} 
           value={value.PlannedDeliveryTransportEvent}
           itemDisplay={ (itemValue: TransportEvent, key: string | number) =>
-            <TransportEventDisplay key={key} meta={ConsignmentFieldMeta.PlannedDeliveryTransportEvent} value={itemValue} />
+            <TransportEventDisplay
+              key={key}
+              label="Planned Delivery Transport Event"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.PlannedDeliveryTransportEvent}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consignment ubl-TransportEvent ubl-ActualPickupTransportEvent"
           meta={ConsignmentFieldMeta.ActualPickupTransportEvent} 
           value={value.ActualPickupTransportEvent}
           itemDisplay={ (itemValue: TransportEvent, key: string | number) =>
-            <TransportEventDisplay key={key} meta={ConsignmentFieldMeta.ActualPickupTransportEvent} value={itemValue} />
+            <TransportEventDisplay
+              key={key}
+              label="Actual Pickup Transport Event"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.ActualPickupTransportEvent}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consignment ubl-TransportEvent ubl-ActualDeliveryTransportEvent"
           meta={ConsignmentFieldMeta.ActualDeliveryTransportEvent} 
           value={value.ActualDeliveryTransportEvent}
           itemDisplay={ (itemValue: TransportEvent, key: string | number) =>
-            <TransportEventDisplay key={key} meta={ConsignmentFieldMeta.ActualDeliveryTransportEvent} value={itemValue} />
+            <TransportEventDisplay
+              key={key}
+              label="Actual Delivery Transport Event"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.ActualDeliveryTransportEvent}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Consignment ubl-Status"
           meta={ConsignmentFieldMeta.Status} 
           value={value.Status}
           itemDisplay={ (itemValue: Status, key: string | number) =>
-            <StatusDisplay key={key} meta={ConsignmentFieldMeta.Status} value={itemValue} />
+            <StatusDisplay
+              key={key}
+              label="Status"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.Status}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Consignment ubl-ChildConsignment"
           meta={ConsignmentFieldMeta.ChildConsignment} 
           value={value.ChildConsignment}
           itemDisplay={ (itemValue: Consignment, key: string | number) =>
-            <ConsignmentDisplay key={key} meta={ConsignmentFieldMeta.ChildConsignment} value={itemValue} />
+            <ConsignmentDisplay
+              key={key}
+              label="Child Consignment"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.ChildConsignment}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consignment ubl-Party ubl-ConsigneeParty"
           meta={ConsignmentFieldMeta.ConsigneeParty} 
           value={value.ConsigneeParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={ConsignmentFieldMeta.ConsigneeParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Consignee Party"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.ConsigneeParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consignment ubl-Party ubl-ExporterParty"
           meta={ConsignmentFieldMeta.ExporterParty} 
           value={value.ExporterParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={ConsignmentFieldMeta.ExporterParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Exporter Party"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.ExporterParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consignment ubl-Party ubl-ConsignorParty"
           meta={ConsignmentFieldMeta.ConsignorParty} 
           value={value.ConsignorParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={ConsignmentFieldMeta.ConsignorParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Consignor Party"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.ConsignorParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consignment ubl-Party ubl-ImporterParty"
           meta={ConsignmentFieldMeta.ImporterParty} 
           value={value.ImporterParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={ConsignmentFieldMeta.ImporterParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Importer Party"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.ImporterParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consignment ubl-Party ubl-CarrierParty"
           meta={ConsignmentFieldMeta.CarrierParty} 
           value={value.CarrierParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={ConsignmentFieldMeta.CarrierParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Carrier Party"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.CarrierParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consignment ubl-Party ubl-FreightForwarderParty"
           meta={ConsignmentFieldMeta.FreightForwarderParty} 
           value={value.FreightForwarderParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={ConsignmentFieldMeta.FreightForwarderParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Freight Forwarder Party"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.FreightForwarderParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consignment ubl-Party ubl-NotifyParty"
           meta={ConsignmentFieldMeta.NotifyParty} 
           value={value.NotifyParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={ConsignmentFieldMeta.NotifyParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Notify Party"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.NotifyParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consignment ubl-Party ubl-OriginalDespatchParty"
           meta={ConsignmentFieldMeta.OriginalDespatchParty} 
           value={value.OriginalDespatchParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={ConsignmentFieldMeta.OriginalDespatchParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Original Despatch Party"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.OriginalDespatchParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consignment ubl-Party ubl-FinalDeliveryParty"
           meta={ConsignmentFieldMeta.FinalDeliveryParty} 
           value={value.FinalDeliveryParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={ConsignmentFieldMeta.FinalDeliveryParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Final Delivery Party"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.FinalDeliveryParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consignment ubl-Party ubl-PerformingCarrierParty"
           meta={ConsignmentFieldMeta.PerformingCarrierParty} 
           value={value.PerformingCarrierParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={ConsignmentFieldMeta.PerformingCarrierParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Performing Carrier Party"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.PerformingCarrierParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consignment ubl-Party ubl-SubstituteCarrierParty"
           meta={ConsignmentFieldMeta.SubstituteCarrierParty} 
           value={value.SubstituteCarrierParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={ConsignmentFieldMeta.SubstituteCarrierParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Substitute Carrier Party"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.SubstituteCarrierParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consignment ubl-Party ubl-LogisticsOperatorParty"
           meta={ConsignmentFieldMeta.LogisticsOperatorParty} 
           value={value.LogisticsOperatorParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={ConsignmentFieldMeta.LogisticsOperatorParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Logistics Operator Party"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.LogisticsOperatorParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consignment ubl-Party ubl-TransportAdvisorParty"
           meta={ConsignmentFieldMeta.TransportAdvisorParty} 
           value={value.TransportAdvisorParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={ConsignmentFieldMeta.TransportAdvisorParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Transport Advisor Party"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.TransportAdvisorParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consignment ubl-Party ubl-HazardousItemNotificationParty"
           meta={ConsignmentFieldMeta.HazardousItemNotificationParty} 
           value={value.HazardousItemNotificationParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={ConsignmentFieldMeta.HazardousItemNotificationParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Hazardous Item Notification Party"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.HazardousItemNotificationParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consignment ubl-Party ubl-InsuranceParty"
           meta={ConsignmentFieldMeta.InsuranceParty} 
           value={value.InsuranceParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={ConsignmentFieldMeta.InsuranceParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Insurance Party"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.InsuranceParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consignment ubl-Party ubl-MortgageHolderParty"
           meta={ConsignmentFieldMeta.MortgageHolderParty} 
           value={value.MortgageHolderParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={ConsignmentFieldMeta.MortgageHolderParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Mortgage Holder Party"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.MortgageHolderParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consignment ubl-Party ubl-BillOfLadingHolderParty"
           meta={ConsignmentFieldMeta.BillOfLadingHolderParty} 
           value={value.BillOfLadingHolderParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={ConsignmentFieldMeta.BillOfLadingHolderParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Bill Of Lading Holder Party"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.BillOfLadingHolderParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consignment ubl-Country ubl-OriginalDepartureCountry"
           meta={ConsignmentFieldMeta.OriginalDepartureCountry} 
           value={value.OriginalDepartureCountry}
           itemDisplay={ (itemValue: Country, key: string | number) =>
-            <CountryDisplay key={key} meta={ConsignmentFieldMeta.OriginalDepartureCountry} value={itemValue} />
+            <CountryDisplay
+              key={key}
+              label="Original Departure Country"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.OriginalDepartureCountry}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consignment ubl-Country ubl-FinalDestinationCountry"
           meta={ConsignmentFieldMeta.FinalDestinationCountry} 
           value={value.FinalDestinationCountry}
           itemDisplay={ (itemValue: Country, key: string | number) =>
-            <CountryDisplay key={key} meta={ConsignmentFieldMeta.FinalDestinationCountry} value={itemValue} />
+            <CountryDisplay
+              key={key}
+              label="Final Destination Country"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.FinalDestinationCountry}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Consignment ubl-Country ubl-TransitCountry"
           meta={ConsignmentFieldMeta.TransitCountry} 
           value={value.TransitCountry}
           itemDisplay={ (itemValue: Country, key: string | number) =>
-            <CountryDisplay key={key} meta={ConsignmentFieldMeta.TransitCountry} value={itemValue} />
+            <CountryDisplay
+              key={key}
+              label="Transit Country"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.TransitCountry}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consignment ubl-Contract ubl-TransportContract"
           meta={ConsignmentFieldMeta.TransportContract} 
           value={value.TransportContract}
           itemDisplay={ (itemValue: Contract, key: string | number) =>
-            <ContractDisplay key={key} meta={ConsignmentFieldMeta.TransportContract} value={itemValue} />
+            <ContractDisplay
+              key={key}
+              label="Transport Contract"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.TransportContract}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Consignment ubl-TransportEvent"
           meta={ConsignmentFieldMeta.TransportEvent} 
           value={value.TransportEvent}
           itemDisplay={ (itemValue: TransportEvent, key: string | number) =>
-            <TransportEventDisplay key={key} meta={ConsignmentFieldMeta.TransportEvent} value={itemValue} />
+            <TransportEventDisplay
+              key={key}
+              label="Transport Event"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.TransportEvent}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consignment ubl-TransportationService ubl-OriginalDespatchTransportationService"
           meta={ConsignmentFieldMeta.OriginalDespatchTransportationService} 
           value={value.OriginalDespatchTransportationService}
           itemDisplay={ (itemValue: TransportationService, key: string | number) =>
-            <TransportationServiceDisplay key={key} meta={ConsignmentFieldMeta.OriginalDespatchTransportationService} value={itemValue} />
+            <TransportationServiceDisplay
+              key={key}
+              label="Original Despatch Transportation Service"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.OriginalDespatchTransportationService}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consignment ubl-TransportationService ubl-FinalDeliveryTransportationService"
           meta={ConsignmentFieldMeta.FinalDeliveryTransportationService} 
           value={value.FinalDeliveryTransportationService}
           itemDisplay={ (itemValue: TransportationService, key: string | number) =>
-            <TransportationServiceDisplay key={key} meta={ConsignmentFieldMeta.FinalDeliveryTransportationService} value={itemValue} />
+            <TransportationServiceDisplay
+              key={key}
+              label="Final Delivery Transportation Service"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.FinalDeliveryTransportationService}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consignment ubl-DeliveryTerms"
           meta={ConsignmentFieldMeta.DeliveryTerms} 
           value={value.DeliveryTerms}
           itemDisplay={ (itemValue: DeliveryTerms, key: string | number) =>
-            <DeliveryTermsDisplay key={key} meta={ConsignmentFieldMeta.DeliveryTerms} value={itemValue} />
+            <DeliveryTermsDisplay
+              key={key}
+              label="Delivery Terms"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.DeliveryTerms}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consignment ubl-PaymentTerms"
           meta={ConsignmentFieldMeta.PaymentTerms} 
           value={value.PaymentTerms}
           itemDisplay={ (itemValue: PaymentTerms, key: string | number) =>
-            <PaymentTermsDisplay key={key} meta={ConsignmentFieldMeta.PaymentTerms} value={itemValue} />
+            <PaymentTermsDisplay
+              key={key}
+              label="Payment Terms"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.PaymentTerms}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consignment ubl-PaymentTerms ubl-CollectPaymentTerms"
           meta={ConsignmentFieldMeta.CollectPaymentTerms} 
           value={value.CollectPaymentTerms}
           itemDisplay={ (itemValue: PaymentTerms, key: string | number) =>
-            <PaymentTermsDisplay key={key} meta={ConsignmentFieldMeta.CollectPaymentTerms} value={itemValue} />
+            <PaymentTermsDisplay
+              key={key}
+              label="Collect Payment Terms"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.CollectPaymentTerms}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consignment ubl-PaymentTerms ubl-DisbursementPaymentTerms"
           meta={ConsignmentFieldMeta.DisbursementPaymentTerms} 
           value={value.DisbursementPaymentTerms}
           itemDisplay={ (itemValue: PaymentTerms, key: string | number) =>
-            <PaymentTermsDisplay key={key} meta={ConsignmentFieldMeta.DisbursementPaymentTerms} value={itemValue} />
+            <PaymentTermsDisplay
+              key={key}
+              label="Disbursement Payment Terms"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.DisbursementPaymentTerms}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consignment ubl-PaymentTerms ubl-PrepaidPaymentTerms"
           meta={ConsignmentFieldMeta.PrepaidPaymentTerms} 
           value={value.PrepaidPaymentTerms}
           itemDisplay={ (itemValue: PaymentTerms, key: string | number) =>
-            <PaymentTermsDisplay key={key} meta={ConsignmentFieldMeta.PrepaidPaymentTerms} value={itemValue} />
+            <PaymentTermsDisplay
+              key={key}
+              label="Prepaid Payment Terms"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.PrepaidPaymentTerms}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Consignment ubl-AllowanceCharge ubl-FreightAllowanceCharge"
           meta={ConsignmentFieldMeta.FreightAllowanceCharge} 
           value={value.FreightAllowanceCharge}
           itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-            <AllowanceChargeDisplay key={key} meta={ConsignmentFieldMeta.FreightAllowanceCharge} value={itemValue} />
+            <AllowanceChargeDisplay
+              key={key}
+              label="Freight Allowance Charge"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.FreightAllowanceCharge}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Consignment ubl-AllowanceCharge ubl-ExtraAllowanceCharge"
           meta={ConsignmentFieldMeta.ExtraAllowanceCharge} 
           value={value.ExtraAllowanceCharge}
           itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-            <AllowanceChargeDisplay key={key} meta={ConsignmentFieldMeta.ExtraAllowanceCharge} value={itemValue} />
+            <AllowanceChargeDisplay
+              key={key}
+              label="Extra Allowance Charge"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.ExtraAllowanceCharge}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Consignment ubl-ShipmentStage ubl-MainCarriageShipmentStage"
           meta={ConsignmentFieldMeta.MainCarriageShipmentStage} 
           value={value.MainCarriageShipmentStage}
           itemDisplay={ (itemValue: ShipmentStage, key: string | number) =>
-            <ShipmentStageDisplay key={key} meta={ConsignmentFieldMeta.MainCarriageShipmentStage} value={itemValue} />
+            <ShipmentStageDisplay
+              key={key}
+              label="Main Carriage Shipment Stage"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.MainCarriageShipmentStage}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Consignment ubl-ShipmentStage ubl-PreCarriageShipmentStage"
           meta={ConsignmentFieldMeta.PreCarriageShipmentStage} 
           value={value.PreCarriageShipmentStage}
           itemDisplay={ (itemValue: ShipmentStage, key: string | number) =>
-            <ShipmentStageDisplay key={key} meta={ConsignmentFieldMeta.PreCarriageShipmentStage} value={itemValue} />
+            <ShipmentStageDisplay
+              key={key}
+              label="Pre Carriage Shipment Stage"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.PreCarriageShipmentStage}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Consignment ubl-ShipmentStage ubl-OnCarriageShipmentStage"
           meta={ConsignmentFieldMeta.OnCarriageShipmentStage} 
           value={value.OnCarriageShipmentStage}
           itemDisplay={ (itemValue: ShipmentStage, key: string | number) =>
-            <ShipmentStageDisplay key={key} meta={ConsignmentFieldMeta.OnCarriageShipmentStage} value={itemValue} />
+            <ShipmentStageDisplay
+              key={key}
+              label="On Carriage Shipment Stage"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.OnCarriageShipmentStage}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Consignment ubl-TransportHandlingUnit"
           meta={ConsignmentFieldMeta.TransportHandlingUnit} 
           value={value.TransportHandlingUnit}
           itemDisplay={ (itemValue: TransportHandlingUnit, key: string | number) =>
-            <TransportHandlingUnitDisplay key={key} meta={ConsignmentFieldMeta.TransportHandlingUnit} value={itemValue} />
+            <TransportHandlingUnitDisplay
+              key={key}
+              label="Transport Handling Unit"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.TransportHandlingUnit}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consignment ubl-Location ubl-FirstArrivalPortLocation"
           meta={ConsignmentFieldMeta.FirstArrivalPortLocation} 
           value={value.FirstArrivalPortLocation}
           itemDisplay={ (itemValue: Location, key: string | number) =>
-            <LocationDisplay key={key} meta={ConsignmentFieldMeta.FirstArrivalPortLocation} value={itemValue} />
+            <LocationDisplay
+              key={key}
+              label="First Arrival Port Location"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.FirstArrivalPortLocation}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consignment ubl-Location ubl-LastExitPortLocation"
           meta={ConsignmentFieldMeta.LastExitPortLocation} 
           value={value.LastExitPortLocation}
           itemDisplay={ (itemValue: Location, key: string | number) =>
-            <LocationDisplay key={key} meta={ConsignmentFieldMeta.LastExitPortLocation} value={itemValue} />
+            <LocationDisplay
+              key={key}
+              label="Last Exit Port Location"
+              value={itemValue}
+              meta={ConsignmentFieldMeta.LastExitPortLocation}
+            />
           }
         />
         </div>

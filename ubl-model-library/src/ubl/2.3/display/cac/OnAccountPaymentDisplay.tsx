@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { OnAccountPayment } from  '../../model/cac/OnAccountPayment'
 import { OnAccountPaymentFieldMeta } from  '../../meta/cac/OnAccountPaymentMeta'
@@ -12,45 +13,70 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: OnAccountPayment
   meta: FieldMeta<T>
 }
 
-export default function OnAccountPaymentDisplay<T>({ value, meta }: Params<T>) {
+export default function OnAccountPaymentDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-OnAccountPayment ubl-OnAccountPaymentType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-OnAccountPayment ubl-UBLExtensions"
           meta={OnAccountPaymentFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={OnAccountPaymentFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={OnAccountPaymentFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-OnAccountPayment ubl-Quantity ubl-EstimatedConsumedQuantity"
           meta={OnAccountPaymentFieldMeta.EstimatedConsumedQuantity} 
           value={value.EstimatedConsumedQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={OnAccountPaymentFieldMeta.EstimatedConsumedQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Estimated Consumed Quantity"
+              value={itemValue}
+              meta={OnAccountPaymentFieldMeta.EstimatedConsumedQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-OnAccountPayment ubl-Text ubl-Note"
           meta={OnAccountPaymentFieldMeta.Note} 
           value={value.Note}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={OnAccountPaymentFieldMeta.Note} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Note"
+              value={itemValue}
+              meta={OnAccountPaymentFieldMeta.Note}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-OnAccountPayment ubl-PaymentTerms"
           meta={OnAccountPaymentFieldMeta.PaymentTerms} 
           value={value.PaymentTerms}
           itemDisplay={ (itemValue: PaymentTerms, key: string | number) =>
-            <PaymentTermsDisplay key={key} meta={OnAccountPaymentFieldMeta.PaymentTerms} value={itemValue} />
+            <PaymentTermsDisplay
+              key={key}
+              label="Payment Terms"
+              value={itemValue}
+              meta={OnAccountPaymentFieldMeta.PaymentTerms}
+            />
           }
         />
         </div>

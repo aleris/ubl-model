@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { PromotionalEventLineItem } from  '../../model/cac/PromotionalEventLineItem'
 import { PromotionalEventLineItemFieldMeta } from  '../../meta/cac/PromotionalEventLineItemMeta'
@@ -10,37 +11,56 @@ import { EventLineItem } from '../../model/cac/EventLineItem'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: PromotionalEventLineItem
   meta: FieldMeta<T>
 }
 
-export default function PromotionalEventLineItemDisplay<T>({ value, meta }: Params<T>) {
+export default function PromotionalEventLineItemDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-PromotionalEventLineItem ubl-PromotionalEventLineItemType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-PromotionalEventLineItem ubl-UBLExtensions"
           meta={PromotionalEventLineItemFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={PromotionalEventLineItemFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={PromotionalEventLineItemFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-PromotionalEventLineItem ubl-Amount"
           meta={PromotionalEventLineItemFieldMeta.Amount} 
           value={value.Amount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={PromotionalEventLineItemFieldMeta.Amount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Amount"
+              value={itemValue}
+              meta={PromotionalEventLineItemFieldMeta.Amount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-PromotionalEventLineItem ubl-EventLineItem"
           meta={PromotionalEventLineItemFieldMeta.EventLineItem} 
           value={value.EventLineItem}
           itemDisplay={ (itemValue: EventLineItem, key: string | number) =>
-            <EventLineItemDisplay key={key} meta={PromotionalEventLineItemFieldMeta.EventLineItem} value={itemValue} />
+            <EventLineItemDisplay
+              key={key}
+              label="Event Line Item"
+              value={itemValue}
+              meta={PromotionalEventLineItemFieldMeta.EventLineItem}
+            />
           }
         />
         </div>

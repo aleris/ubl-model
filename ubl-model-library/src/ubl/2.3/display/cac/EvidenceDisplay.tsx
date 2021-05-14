@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Evidence } from  '../../model/cac/Evidence'
 import { EvidenceFieldMeta } from  '../../meta/cac/EvidenceMeta'
@@ -18,93 +19,154 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: Evidence
   meta: FieldMeta<T>
 }
 
-export default function EvidenceDisplay<T>({ value, meta }: Params<T>) {
+export default function EvidenceDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-Evidence ubl-EvidenceType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-Evidence ubl-UBLExtensions"
           meta={EvidenceFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={EvidenceFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={EvidenceFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Evidence ubl-Identifier ubl-ID"
           meta={EvidenceFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={EvidenceFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={EvidenceFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Evidence ubl-Code ubl-EvidenceTypeCode"
           meta={EvidenceFieldMeta.EvidenceTypeCode} 
           value={value.EvidenceTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={EvidenceFieldMeta.EvidenceTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Evidence Type Code"
+              value={itemValue}
+              meta={EvidenceFieldMeta.EvidenceTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Evidence ubl-Text ubl-Name"
           meta={EvidenceFieldMeta.Name} 
           value={value.Name}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={EvidenceFieldMeta.Name} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Name"
+              value={itemValue}
+              meta={EvidenceFieldMeta.Name}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Evidence ubl-Text ubl-Description"
           meta={EvidenceFieldMeta.Description} 
           value={value.Description}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={EvidenceFieldMeta.Description} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Description"
+              value={itemValue}
+              meta={EvidenceFieldMeta.Description}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Evidence ubl-Text ubl-CandidateStatement"
           meta={EvidenceFieldMeta.CandidateStatement} 
           value={value.CandidateStatement}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={EvidenceFieldMeta.CandidateStatement} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Candidate Statement"
+              value={itemValue}
+              meta={EvidenceFieldMeta.CandidateStatement}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Evidence ubl-Code ubl-ConfidentialityLevelCode"
           meta={EvidenceFieldMeta.ConfidentialityLevelCode} 
           value={value.ConfidentialityLevelCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={EvidenceFieldMeta.ConfidentialityLevelCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Confidentiality Level Code"
+              value={itemValue}
+              meta={EvidenceFieldMeta.ConfidentialityLevelCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Evidence ubl-Party ubl-EvidenceIssuingParty"
           meta={EvidenceFieldMeta.EvidenceIssuingParty} 
           value={value.EvidenceIssuingParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={EvidenceFieldMeta.EvidenceIssuingParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Evidence Issuing Party"
+              value={itemValue}
+              meta={EvidenceFieldMeta.EvidenceIssuingParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Evidence ubl-DocumentReference"
           meta={EvidenceFieldMeta.DocumentReference} 
           value={value.DocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={EvidenceFieldMeta.DocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Document Reference"
+              value={itemValue}
+              meta={EvidenceFieldMeta.DocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Evidence ubl-Language"
           meta={EvidenceFieldMeta.Language} 
           value={value.Language}
           itemDisplay={ (itemValue: Language, key: string | number) =>
-            <LanguageDisplay key={key} meta={EvidenceFieldMeta.Language} value={itemValue} />
+            <LanguageDisplay
+              key={key}
+              label="Language"
+              value={itemValue}
+              meta={EvidenceFieldMeta.Language}
+            />
           }
         />
         </div>

@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Pickup } from  '../../model/cac/Pickup'
 import { PickupFieldMeta } from  '../../meta/cac/PickupMeta'
@@ -16,93 +17,154 @@ import { Time } from '../../model/cbc/Time'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: Pickup
   meta: FieldMeta<T>
 }
 
-export default function PickupDisplay<T>({ value, meta }: Params<T>) {
+export default function PickupDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-Pickup ubl-PickupType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-Pickup ubl-UBLExtensions"
           meta={PickupFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={PickupFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={PickupFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Pickup ubl-Identifier ubl-ID"
           meta={PickupFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={PickupFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={PickupFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Pickup ubl-Date ubl-ActualPickupDate"
           meta={PickupFieldMeta.ActualPickupDate} 
           value={value.ActualPickupDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={PickupFieldMeta.ActualPickupDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Actual Pickup Date"
+              value={itemValue}
+              meta={PickupFieldMeta.ActualPickupDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Pickup ubl-Time ubl-ActualPickupTime"
           meta={PickupFieldMeta.ActualPickupTime} 
           value={value.ActualPickupTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={PickupFieldMeta.ActualPickupTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Actual Pickup Time"
+              value={itemValue}
+              meta={PickupFieldMeta.ActualPickupTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Pickup ubl-Date ubl-EarliestPickupDate"
           meta={PickupFieldMeta.EarliestPickupDate} 
           value={value.EarliestPickupDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={PickupFieldMeta.EarliestPickupDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Earliest Pickup Date"
+              value={itemValue}
+              meta={PickupFieldMeta.EarliestPickupDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Pickup ubl-Time ubl-EarliestPickupTime"
           meta={PickupFieldMeta.EarliestPickupTime} 
           value={value.EarliestPickupTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={PickupFieldMeta.EarliestPickupTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Earliest Pickup Time"
+              value={itemValue}
+              meta={PickupFieldMeta.EarliestPickupTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Pickup ubl-Date ubl-LatestPickupDate"
           meta={PickupFieldMeta.LatestPickupDate} 
           value={value.LatestPickupDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={PickupFieldMeta.LatestPickupDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Latest Pickup Date"
+              value={itemValue}
+              meta={PickupFieldMeta.LatestPickupDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Pickup ubl-Time ubl-LatestPickupTime"
           meta={PickupFieldMeta.LatestPickupTime} 
           value={value.LatestPickupTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={PickupFieldMeta.LatestPickupTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Latest Pickup Time"
+              value={itemValue}
+              meta={PickupFieldMeta.LatestPickupTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Pickup ubl-Location ubl-PickupLocation"
           meta={PickupFieldMeta.PickupLocation} 
           value={value.PickupLocation}
           itemDisplay={ (itemValue: Location, key: string | number) =>
-            <LocationDisplay key={key} meta={PickupFieldMeta.PickupLocation} value={itemValue} />
+            <LocationDisplay
+              key={key}
+              label="Pickup Location"
+              value={itemValue}
+              meta={PickupFieldMeta.PickupLocation}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Pickup ubl-Party ubl-PickupParty"
           meta={PickupFieldMeta.PickupParty} 
           value={value.PickupParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={PickupFieldMeta.PickupParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Pickup Party"
+              value={itemValue}
+              meta={PickupFieldMeta.PickupParty}
+            />
           }
         />
         </div>

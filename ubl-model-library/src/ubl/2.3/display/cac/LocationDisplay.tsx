@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Location } from  '../../model/cac/Location'
 import { LocationFieldMeta } from  '../../meta/cac/LocationMeta'
@@ -18,117 +19,196 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: Location
   meta: FieldMeta<T>
 }
 
-export default function LocationDisplay<T>({ value, meta }: Params<T>) {
+export default function LocationDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-Location ubl-LocationType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-Location ubl-UBLExtensions"
           meta={LocationFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={LocationFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={LocationFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Location ubl-Identifier ubl-ID"
           meta={LocationFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={LocationFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={LocationFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Location ubl-Text ubl-Description"
           meta={LocationFieldMeta.Description} 
           value={value.Description}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={LocationFieldMeta.Description} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Description"
+              value={itemValue}
+              meta={LocationFieldMeta.Description}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Location ubl-Text ubl-Conditions"
           meta={LocationFieldMeta.Conditions} 
           value={value.Conditions}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={LocationFieldMeta.Conditions} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Conditions"
+              value={itemValue}
+              meta={LocationFieldMeta.Conditions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Location ubl-Text ubl-CountrySubentity"
           meta={LocationFieldMeta.CountrySubentity} 
           value={value.CountrySubentity}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={LocationFieldMeta.CountrySubentity} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Country Subentity"
+              value={itemValue}
+              meta={LocationFieldMeta.CountrySubentity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Location ubl-Code ubl-CountrySubentityCode"
           meta={LocationFieldMeta.CountrySubentityCode} 
           value={value.CountrySubentityCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={LocationFieldMeta.CountrySubentityCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Country Subentity Code"
+              value={itemValue}
+              meta={LocationFieldMeta.CountrySubentityCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Location ubl-Code ubl-LocationTypeCode"
           meta={LocationFieldMeta.LocationTypeCode} 
           value={value.LocationTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={LocationFieldMeta.LocationTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Location Type Code"
+              value={itemValue}
+              meta={LocationFieldMeta.LocationTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Location ubl-Identifier ubl-InformationURI"
           meta={LocationFieldMeta.InformationURI} 
           value={value.InformationURI}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={LocationFieldMeta.InformationURI} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Information URI"
+              value={itemValue}
+              meta={LocationFieldMeta.InformationURI}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Location ubl-Text ubl-Name"
           meta={LocationFieldMeta.Name} 
           value={value.Name}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={LocationFieldMeta.Name} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Name"
+              value={itemValue}
+              meta={LocationFieldMeta.Name}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Location ubl-Period ubl-ValidityPeriod"
           meta={LocationFieldMeta.ValidityPeriod} 
           value={value.ValidityPeriod}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={LocationFieldMeta.ValidityPeriod} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Validity Period"
+              value={itemValue}
+              meta={LocationFieldMeta.ValidityPeriod}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Location ubl-Address"
           meta={LocationFieldMeta.Address} 
           value={value.Address}
           itemDisplay={ (itemValue: Address, key: string | number) =>
-            <AddressDisplay key={key} meta={LocationFieldMeta.Address} value={itemValue} />
+            <AddressDisplay
+              key={key}
+              label="Address"
+              value={itemValue}
+              meta={LocationFieldMeta.Address}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Location ubl-SubsidiaryLocation"
           meta={LocationFieldMeta.SubsidiaryLocation} 
           value={value.SubsidiaryLocation}
           itemDisplay={ (itemValue: Location, key: string | number) =>
-            <LocationDisplay key={key} meta={LocationFieldMeta.SubsidiaryLocation} value={itemValue} />
+            <LocationDisplay
+              key={key}
+              label="Subsidiary Location"
+              value={itemValue}
+              meta={LocationFieldMeta.SubsidiaryLocation}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Location ubl-LocationCoordinate"
           meta={LocationFieldMeta.LocationCoordinate} 
           value={value.LocationCoordinate}
           itemDisplay={ (itemValue: LocationCoordinate, key: string | number) =>
-            <LocationCoordinateDisplay key={key} meta={LocationFieldMeta.LocationCoordinate} value={itemValue} />
+            <LocationCoordinateDisplay
+              key={key}
+              label="Location Coordinate"
+              value={itemValue}
+              meta={LocationFieldMeta.LocationCoordinate}
+            />
           }
         />
         </div>

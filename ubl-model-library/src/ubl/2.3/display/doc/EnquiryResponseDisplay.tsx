@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { EnquiryResponse } from  '../../model/doc/EnquiryResponse'
 import { EnquiryResponseFieldMeta } from  '../../meta/doc/EnquiryResponseMeta'
@@ -24,149 +25,252 @@ import { Time } from '../../model/cbc/Time'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: EnquiryResponse
   meta: FieldMeta<T>
 }
 
-export default function EnquiryResponseDisplay<T>({ value, meta }: Params<T>) {
+export default function EnquiryResponseDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-doc ubl-EnquiryResponse ubl-EnquiryResponseType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-EnquiryResponse ubl-UBLExtensions"
           meta={EnquiryResponseFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={EnquiryResponseFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={EnquiryResponseFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-EnquiryResponse ubl-Identifier ubl-UBLVersionID"
           meta={EnquiryResponseFieldMeta.UBLVersionID} 
           value={value.UBLVersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={EnquiryResponseFieldMeta.UBLVersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UBL Version Identifier"
+              value={itemValue}
+              meta={EnquiryResponseFieldMeta.UBLVersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-EnquiryResponse ubl-Identifier ubl-CustomizationID"
           meta={EnquiryResponseFieldMeta.CustomizationID} 
           value={value.CustomizationID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={EnquiryResponseFieldMeta.CustomizationID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Customization Identifier"
+              value={itemValue}
+              meta={EnquiryResponseFieldMeta.CustomizationID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-EnquiryResponse ubl-Identifier ubl-ProfileID"
           meta={EnquiryResponseFieldMeta.ProfileID} 
           value={value.ProfileID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={EnquiryResponseFieldMeta.ProfileID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Identifier"
+              value={itemValue}
+              meta={EnquiryResponseFieldMeta.ProfileID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-EnquiryResponse ubl-Identifier ubl-ProfileExecutionID"
           meta={EnquiryResponseFieldMeta.ProfileExecutionID} 
           value={value.ProfileExecutionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={EnquiryResponseFieldMeta.ProfileExecutionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Execution Identifier"
+              value={itemValue}
+              meta={EnquiryResponseFieldMeta.ProfileExecutionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-EnquiryResponse ubl-Identifier ubl-ID"
           meta={EnquiryResponseFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={EnquiryResponseFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={EnquiryResponseFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-EnquiryResponse ubl-Indicator ubl-CopyIndicator"
           meta={EnquiryResponseFieldMeta.CopyIndicator} 
           value={value.CopyIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={EnquiryResponseFieldMeta.CopyIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Copy Indicator"
+              value={itemValue}
+              meta={EnquiryResponseFieldMeta.CopyIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-EnquiryResponse ubl-Identifier ubl-UUID"
           meta={EnquiryResponseFieldMeta.UUID} 
           value={value.UUID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={EnquiryResponseFieldMeta.UUID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UUID"
+              value={itemValue}
+              meta={EnquiryResponseFieldMeta.UUID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-EnquiryResponse ubl-Date ubl-IssueDate"
           meta={EnquiryResponseFieldMeta.IssueDate} 
           value={value.IssueDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={EnquiryResponseFieldMeta.IssueDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Issue Date"
+              value={itemValue}
+              meta={EnquiryResponseFieldMeta.IssueDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-EnquiryResponse ubl-Time ubl-IssueTime"
           meta={EnquiryResponseFieldMeta.IssueTime} 
           value={value.IssueTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={EnquiryResponseFieldMeta.IssueTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Issue Time"
+              value={itemValue}
+              meta={EnquiryResponseFieldMeta.IssueTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-EnquiryResponse ubl-Text ubl-Description"
           meta={EnquiryResponseFieldMeta.Description} 
           value={value.Description}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={EnquiryResponseFieldMeta.Description} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Description"
+              value={itemValue}
+              meta={EnquiryResponseFieldMeta.Description}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-EnquiryResponse ubl-Signature"
           meta={EnquiryResponseFieldMeta.Signature} 
           value={value.Signature}
           itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay key={key} meta={EnquiryResponseFieldMeta.Signature} value={itemValue} />
+            <SignatureDisplay
+              key={key}
+              label="Signature"
+              value={itemValue}
+              meta={EnquiryResponseFieldMeta.Signature}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-EnquiryResponse ubl-Party ubl-RequestorParty"
           meta={EnquiryResponseFieldMeta.RequestorParty} 
           value={value.RequestorParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={EnquiryResponseFieldMeta.RequestorParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Requestor Party"
+              value={itemValue}
+              meta={EnquiryResponseFieldMeta.RequestorParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-EnquiryResponse ubl-Party ubl-ResponderParty"
           meta={EnquiryResponseFieldMeta.ResponderParty} 
           value={value.ResponderParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={EnquiryResponseFieldMeta.ResponderParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Responder Party"
+              value={itemValue}
+              meta={EnquiryResponseFieldMeta.ResponderParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-EnquiryResponse ubl-DocumentReference ubl-ParentDocumentReference"
           meta={EnquiryResponseFieldMeta.ParentDocumentReference} 
           value={value.ParentDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={EnquiryResponseFieldMeta.ParentDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Parent Document Reference"
+              value={itemValue}
+              meta={EnquiryResponseFieldMeta.ParentDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-EnquiryResponse ubl-DocumentReference ubl-AdditionalDocumentReference"
           meta={EnquiryResponseFieldMeta.AdditionalDocumentReference} 
           value={value.AdditionalDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={EnquiryResponseFieldMeta.AdditionalDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Additional Document Reference"
+              value={itemValue}
+              meta={EnquiryResponseFieldMeta.AdditionalDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-EnquiryResponse ubl-Attachment"
           meta={EnquiryResponseFieldMeta.Attachment} 
           value={value.Attachment}
           itemDisplay={ (itemValue: Attachment, key: string | number) =>
-            <AttachmentDisplay key={key} meta={EnquiryResponseFieldMeta.Attachment} value={itemValue} />
+            <AttachmentDisplay
+              key={key}
+              label="Attachment"
+              value={itemValue}
+              meta={EnquiryResponseFieldMeta.Attachment}
+            />
           }
         />
         </div>

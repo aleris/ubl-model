@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ConsumptionCorrection } from  '../../model/cac/ConsumptionCorrection'
 import { ConsumptionCorrectionFieldMeta } from  '../../meta/cac/ConsumptionCorrectionMeta'
@@ -14,117 +15,196 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: ConsumptionCorrection
   meta: FieldMeta<T>
 }
 
-export default function ConsumptionCorrectionDisplay<T>({ value, meta }: Params<T>) {
+export default function ConsumptionCorrectionDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-ConsumptionCorrection ubl-ConsumptionCorrectionType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-ConsumptionCorrection ubl-UBLExtensions"
           meta={ConsumptionCorrectionFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={ConsumptionCorrectionFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={ConsumptionCorrectionFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ConsumptionCorrection ubl-Text ubl-CorrectionType"
           meta={ConsumptionCorrectionFieldMeta.CorrectionType} 
           value={value.CorrectionType}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ConsumptionCorrectionFieldMeta.CorrectionType} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Correction Type"
+              value={itemValue}
+              meta={ConsumptionCorrectionFieldMeta.CorrectionType}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ConsumptionCorrection ubl-Code ubl-CorrectionTypeCode"
           meta={ConsumptionCorrectionFieldMeta.CorrectionTypeCode} 
           value={value.CorrectionTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={ConsumptionCorrectionFieldMeta.CorrectionTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Correction Type Code"
+              value={itemValue}
+              meta={ConsumptionCorrectionFieldMeta.CorrectionTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ConsumptionCorrection ubl-Text ubl-MeterNumber"
           meta={ConsumptionCorrectionFieldMeta.MeterNumber} 
           value={value.MeterNumber}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ConsumptionCorrectionFieldMeta.MeterNumber} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Meter Number"
+              value={itemValue}
+              meta={ConsumptionCorrectionFieldMeta.MeterNumber}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ConsumptionCorrection ubl-Quantity ubl-GasPressureQuantity"
           meta={ConsumptionCorrectionFieldMeta.GasPressureQuantity} 
           value={value.GasPressureQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={ConsumptionCorrectionFieldMeta.GasPressureQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Gas Pressure"
+              value={itemValue}
+              meta={ConsumptionCorrectionFieldMeta.GasPressureQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ConsumptionCorrection ubl-Quantity ubl-ActualTemperatureReductionQuantity"
           meta={ConsumptionCorrectionFieldMeta.ActualTemperatureReductionQuantity} 
           value={value.ActualTemperatureReductionQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={ConsumptionCorrectionFieldMeta.ActualTemperatureReductionQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Actual Temperature Reduction"
+              value={itemValue}
+              meta={ConsumptionCorrectionFieldMeta.ActualTemperatureReductionQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ConsumptionCorrection ubl-Quantity ubl-NormalTemperatureReductionQuantity"
           meta={ConsumptionCorrectionFieldMeta.NormalTemperatureReductionQuantity} 
           value={value.NormalTemperatureReductionQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={ConsumptionCorrectionFieldMeta.NormalTemperatureReductionQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Normal Temperature Reduction"
+              value={itemValue}
+              meta={ConsumptionCorrectionFieldMeta.NormalTemperatureReductionQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ConsumptionCorrection ubl-Quantity ubl-DifferenceTemperatureReductionQuantity"
           meta={ConsumptionCorrectionFieldMeta.DifferenceTemperatureReductionQuantity} 
           value={value.DifferenceTemperatureReductionQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={ConsumptionCorrectionFieldMeta.DifferenceTemperatureReductionQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Difference Temperature Reduction"
+              value={itemValue}
+              meta={ConsumptionCorrectionFieldMeta.DifferenceTemperatureReductionQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-ConsumptionCorrection ubl-Text ubl-Description"
           meta={ConsumptionCorrectionFieldMeta.Description} 
           value={value.Description}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ConsumptionCorrectionFieldMeta.Description} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Description"
+              value={itemValue}
+              meta={ConsumptionCorrectionFieldMeta.Description}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ConsumptionCorrection ubl-Amount ubl-CorrectionUnitAmount"
           meta={ConsumptionCorrectionFieldMeta.CorrectionUnitAmount} 
           value={value.CorrectionUnitAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={ConsumptionCorrectionFieldMeta.CorrectionUnitAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Correction Unit Amount"
+              value={itemValue}
+              meta={ConsumptionCorrectionFieldMeta.CorrectionUnitAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ConsumptionCorrection ubl-Quantity ubl-ConsumptionEnergyQuantity"
           meta={ConsumptionCorrectionFieldMeta.ConsumptionEnergyQuantity} 
           value={value.ConsumptionEnergyQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={ConsumptionCorrectionFieldMeta.ConsumptionEnergyQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Consumption Energy"
+              value={itemValue}
+              meta={ConsumptionCorrectionFieldMeta.ConsumptionEnergyQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ConsumptionCorrection ubl-Quantity ubl-ConsumptionWaterQuantity"
           meta={ConsumptionCorrectionFieldMeta.ConsumptionWaterQuantity} 
           value={value.ConsumptionWaterQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={ConsumptionCorrectionFieldMeta.ConsumptionWaterQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Consumption Water"
+              value={itemValue}
+              meta={ConsumptionCorrectionFieldMeta.ConsumptionWaterQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ConsumptionCorrection ubl-Amount ubl-CorrectionAmount"
           meta={ConsumptionCorrectionFieldMeta.CorrectionAmount} 
           value={value.CorrectionAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={ConsumptionCorrectionFieldMeta.CorrectionAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Correction Amount"
+              value={itemValue}
+              meta={ConsumptionCorrectionFieldMeta.CorrectionAmount}
+            />
           }
         />
         </div>

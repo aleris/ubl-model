@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { EventLineItem } from  '../../model/cac/EventLineItem'
 import { EventLineItemFieldMeta } from  '../../meta/cac/EventLineItemMeta'
@@ -14,53 +15,84 @@ import { RetailPlannedImpact } from '../../model/cac/RetailPlannedImpact'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: EventLineItem
   meta: FieldMeta<T>
 }
 
-export default function EventLineItemDisplay<T>({ value, meta }: Params<T>) {
+export default function EventLineItemDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-EventLineItem ubl-EventLineItemType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-EventLineItem ubl-UBLExtensions"
           meta={EventLineItemFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={EventLineItemFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={EventLineItemFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-EventLineItem ubl-Numeric ubl-LineNumberNumeric"
           meta={EventLineItemFieldMeta.LineNumberNumeric} 
           value={value.LineNumberNumeric}
           itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay key={key} meta={EventLineItemFieldMeta.LineNumberNumeric} value={itemValue} />
+            <NumericDisplay
+              key={key}
+              label="Line Number"
+              value={itemValue}
+              meta={EventLineItemFieldMeta.LineNumberNumeric}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-EventLineItem ubl-Location ubl-ParticipatingLocationsLocation"
           meta={EventLineItemFieldMeta.ParticipatingLocationsLocation} 
           value={value.ParticipatingLocationsLocation}
           itemDisplay={ (itemValue: Location, key: string | number) =>
-            <LocationDisplay key={key} meta={EventLineItemFieldMeta.ParticipatingLocationsLocation} value={itemValue} />
+            <LocationDisplay
+              key={key}
+              label="Participating Locations Location"
+              value={itemValue}
+              meta={EventLineItemFieldMeta.ParticipatingLocationsLocation}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-EventLineItem ubl-RetailPlannedImpact"
           meta={EventLineItemFieldMeta.RetailPlannedImpact} 
           value={value.RetailPlannedImpact}
           itemDisplay={ (itemValue: RetailPlannedImpact, key: string | number) =>
-            <RetailPlannedImpactDisplay key={key} meta={EventLineItemFieldMeta.RetailPlannedImpact} value={itemValue} />
+            <RetailPlannedImpactDisplay
+              key={key}
+              label="Retail Planned Impact"
+              value={itemValue}
+              meta={EventLineItemFieldMeta.RetailPlannedImpact}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-EventLineItem ubl-Item ubl-SupplyItem"
           meta={EventLineItemFieldMeta.SupplyItem} 
           value={value.SupplyItem}
           itemDisplay={ (itemValue: Item, key: string | number) =>
-            <ItemDisplay key={key} meta={EventLineItemFieldMeta.SupplyItem} value={itemValue} />
+            <ItemDisplay
+              key={key}
+              label="Supply Item"
+              value={itemValue}
+              meta={EventLineItemFieldMeta.SupplyItem}
+            />
           }
         />
         </div>

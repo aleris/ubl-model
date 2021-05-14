@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TaxTotal } from  '../../model/cac/TaxTotal'
 import { TaxTotalFieldMeta } from  '../../meta/cac/TaxTotalMeta'
@@ -14,69 +15,112 @@ import { TaxSubtotal } from '../../model/cac/TaxSubtotal'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: TaxTotal
   meta: FieldMeta<T>
 }
 
-export default function TaxTotalDisplay<T>({ value, meta }: Params<T>) {
+export default function TaxTotalDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-TaxTotal ubl-TaxTotalType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-TaxTotal ubl-UBLExtensions"
           meta={TaxTotalFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={TaxTotalFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={TaxTotalFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TaxTotal ubl-Amount ubl-TaxAmount"
           meta={TaxTotalFieldMeta.TaxAmount} 
           value={value.TaxAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={TaxTotalFieldMeta.TaxAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Tax Amount"
+              value={itemValue}
+              meta={TaxTotalFieldMeta.TaxAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TaxTotal ubl-Numeric ubl-CalculationSequenceNumeric"
           meta={TaxTotalFieldMeta.CalculationSequenceNumeric} 
           value={value.CalculationSequenceNumeric}
           itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay key={key} meta={TaxTotalFieldMeta.CalculationSequenceNumeric} value={itemValue} />
+            <NumericDisplay
+              key={key}
+              label="Calculation Sequence"
+              value={itemValue}
+              meta={TaxTotalFieldMeta.CalculationSequenceNumeric}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TaxTotal ubl-Amount ubl-RoundingAmount"
           meta={TaxTotalFieldMeta.RoundingAmount} 
           value={value.RoundingAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={TaxTotalFieldMeta.RoundingAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Rounding Amount"
+              value={itemValue}
+              meta={TaxTotalFieldMeta.RoundingAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TaxTotal ubl-Indicator ubl-TaxEvidenceIndicator"
           meta={TaxTotalFieldMeta.TaxEvidenceIndicator} 
           value={value.TaxEvidenceIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={TaxTotalFieldMeta.TaxEvidenceIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Tax Evidence Indicator"
+              value={itemValue}
+              meta={TaxTotalFieldMeta.TaxEvidenceIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TaxTotal ubl-Indicator ubl-TaxIncludedIndicator"
           meta={TaxTotalFieldMeta.TaxIncludedIndicator} 
           value={value.TaxIncludedIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={TaxTotalFieldMeta.TaxIncludedIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Tax Included Indicator"
+              value={itemValue}
+              meta={TaxTotalFieldMeta.TaxIncludedIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TaxTotal ubl-TaxSubtotal"
           meta={TaxTotalFieldMeta.TaxSubtotal} 
           value={value.TaxSubtotal}
           itemDisplay={ (itemValue: TaxSubtotal, key: string | number) =>
-            <TaxSubtotalDisplay key={key} meta={TaxTotalFieldMeta.TaxSubtotal} value={itemValue} />
+            <TaxSubtotalDisplay
+              key={key}
+              label="Tax Subtotal"
+              value={itemValue}
+              meta={TaxTotalFieldMeta.TaxSubtotal}
+            />
           }
         />
         </div>

@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { RequestForTenderLine } from  '../../model/cac/RequestForTenderLine'
 import { RequestForTenderLineFieldMeta } from  '../../meta/cac/RequestForTenderLineMeta'
@@ -24,149 +25,252 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: RequestForTenderLine
   meta: FieldMeta<T>
 }
 
-export default function RequestForTenderLineDisplay<T>({ value, meta }: Params<T>) {
+export default function RequestForTenderLineDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-RequestForTenderLine ubl-RequestForTenderLineType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-RequestForTenderLine ubl-UBLExtensions"
           meta={RequestForTenderLineFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={RequestForTenderLineFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={RequestForTenderLineFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-RequestForTenderLine ubl-Identifier ubl-ID"
           meta={RequestForTenderLineFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={RequestForTenderLineFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={RequestForTenderLineFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-RequestForTenderLine ubl-Identifier ubl-UUID"
           meta={RequestForTenderLineFieldMeta.UUID} 
           value={value.UUID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={RequestForTenderLineFieldMeta.UUID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UUID"
+              value={itemValue}
+              meta={RequestForTenderLineFieldMeta.UUID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-RequestForTenderLine ubl-Text ubl-Note"
           meta={RequestForTenderLineFieldMeta.Note} 
           value={value.Note}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={RequestForTenderLineFieldMeta.Note} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Note"
+              value={itemValue}
+              meta={RequestForTenderLineFieldMeta.Note}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-RequestForTenderLine ubl-Quantity"
           meta={RequestForTenderLineFieldMeta.Quantity} 
           value={value.Quantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={RequestForTenderLineFieldMeta.Quantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Quantity"
+              value={itemValue}
+              meta={RequestForTenderLineFieldMeta.Quantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-RequestForTenderLine ubl-Quantity ubl-MinimumQuantity"
           meta={RequestForTenderLineFieldMeta.MinimumQuantity} 
           value={value.MinimumQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={RequestForTenderLineFieldMeta.MinimumQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Minimum Quantity"
+              value={itemValue}
+              meta={RequestForTenderLineFieldMeta.MinimumQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-RequestForTenderLine ubl-Quantity ubl-MaximumQuantity"
           meta={RequestForTenderLineFieldMeta.MaximumQuantity} 
           value={value.MaximumQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={RequestForTenderLineFieldMeta.MaximumQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Maximum Quantity"
+              value={itemValue}
+              meta={RequestForTenderLineFieldMeta.MaximumQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-RequestForTenderLine ubl-Indicator ubl-TaxIncludedIndicator"
           meta={RequestForTenderLineFieldMeta.TaxIncludedIndicator} 
           value={value.TaxIncludedIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={RequestForTenderLineFieldMeta.TaxIncludedIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Tax Included Indicator"
+              value={itemValue}
+              meta={RequestForTenderLineFieldMeta.TaxIncludedIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-RequestForTenderLine ubl-Amount ubl-MinimumAmount"
           meta={RequestForTenderLineFieldMeta.MinimumAmount} 
           value={value.MinimumAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={RequestForTenderLineFieldMeta.MinimumAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Minimum Amount"
+              value={itemValue}
+              meta={RequestForTenderLineFieldMeta.MinimumAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-RequestForTenderLine ubl-Amount ubl-MaximumAmount"
           meta={RequestForTenderLineFieldMeta.MaximumAmount} 
           value={value.MaximumAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={RequestForTenderLineFieldMeta.MaximumAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Maximum Amount"
+              value={itemValue}
+              meta={RequestForTenderLineFieldMeta.MaximumAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-RequestForTenderLine ubl-Amount ubl-EstimatedAmount"
           meta={RequestForTenderLineFieldMeta.EstimatedAmount} 
           value={value.EstimatedAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={RequestForTenderLineFieldMeta.EstimatedAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Estimated Amount"
+              value={itemValue}
+              meta={RequestForTenderLineFieldMeta.EstimatedAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-RequestForTenderLine ubl-DocumentReference"
           meta={RequestForTenderLineFieldMeta.DocumentReference} 
           value={value.DocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={RequestForTenderLineFieldMeta.DocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Document Reference"
+              value={itemValue}
+              meta={RequestForTenderLineFieldMeta.DocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-RequestForTenderLine ubl-Period ubl-DeliveryPeriod"
           meta={RequestForTenderLineFieldMeta.DeliveryPeriod} 
           value={value.DeliveryPeriod}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={RequestForTenderLineFieldMeta.DeliveryPeriod} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Delivery Period"
+              value={itemValue}
+              meta={RequestForTenderLineFieldMeta.DeliveryPeriod}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-RequestForTenderLine ubl-ItemLocationQuantity ubl-RequiredItemLocationQuantity"
           meta={RequestForTenderLineFieldMeta.RequiredItemLocationQuantity} 
           value={value.RequiredItemLocationQuantity}
           itemDisplay={ (itemValue: ItemLocationQuantity, key: string | number) =>
-            <ItemLocationQuantityDisplay key={key} meta={RequestForTenderLineFieldMeta.RequiredItemLocationQuantity} value={itemValue} />
+            <ItemLocationQuantityDisplay
+              key={key}
+              label="Required Item Location Quantity"
+              value={itemValue}
+              meta={RequestForTenderLineFieldMeta.RequiredItemLocationQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-RequestForTenderLine ubl-Period ubl-WarrantyValidityPeriod"
           meta={RequestForTenderLineFieldMeta.WarrantyValidityPeriod} 
           value={value.WarrantyValidityPeriod}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={RequestForTenderLineFieldMeta.WarrantyValidityPeriod} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Warranty Validity Period"
+              value={itemValue}
+              meta={RequestForTenderLineFieldMeta.WarrantyValidityPeriod}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-RequestForTenderLine ubl-Item"
           meta={RequestForTenderLineFieldMeta.Item} 
           value={value.Item}
           itemDisplay={ (itemValue: Item, key: string | number) =>
-            <ItemDisplay key={key} meta={RequestForTenderLineFieldMeta.Item} value={itemValue} />
+            <ItemDisplay
+              key={key}
+              label="Item"
+              value={itemValue}
+              meta={RequestForTenderLineFieldMeta.Item}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-RequestForTenderLine ubl-SubRequestForTenderLine"
           meta={RequestForTenderLineFieldMeta.SubRequestForTenderLine} 
           value={value.SubRequestForTenderLine}
           itemDisplay={ (itemValue: RequestForTenderLine, key: string | number) =>
-            <RequestForTenderLineDisplay key={key} meta={RequestForTenderLineFieldMeta.SubRequestForTenderLine} value={itemValue} />
+            <RequestForTenderLineDisplay
+              key={key}
+              label="Sub Request For Tender Line"
+              value={itemValue}
+              meta={RequestForTenderLineFieldMeta.SubRequestForTenderLine}
+            />
           }
         />
         </div>

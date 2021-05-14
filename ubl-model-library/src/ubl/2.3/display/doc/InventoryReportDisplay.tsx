@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { InventoryReport } from  '../../model/doc/InventoryReport'
 import { InventoryReportFieldMeta } from  '../../meta/doc/InventoryReportMeta'
@@ -32,165 +33,280 @@ import { Time } from '../../model/cbc/Time'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: InventoryReport
   meta: FieldMeta<T>
 }
 
-export default function InventoryReportDisplay<T>({ value, meta }: Params<T>) {
+export default function InventoryReportDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-doc ubl-InventoryReport ubl-InventoryReportType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-InventoryReport ubl-UBLExtensions"
           meta={InventoryReportFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={InventoryReportFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={InventoryReportFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-InventoryReport ubl-Identifier ubl-UBLVersionID"
           meta={InventoryReportFieldMeta.UBLVersionID} 
           value={value.UBLVersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={InventoryReportFieldMeta.UBLVersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UBL Version Identifier"
+              value={itemValue}
+              meta={InventoryReportFieldMeta.UBLVersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-InventoryReport ubl-Identifier ubl-CustomizationID"
           meta={InventoryReportFieldMeta.CustomizationID} 
           value={value.CustomizationID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={InventoryReportFieldMeta.CustomizationID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Customization Identifier"
+              value={itemValue}
+              meta={InventoryReportFieldMeta.CustomizationID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-InventoryReport ubl-Identifier ubl-ProfileID"
           meta={InventoryReportFieldMeta.ProfileID} 
           value={value.ProfileID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={InventoryReportFieldMeta.ProfileID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Identifier"
+              value={itemValue}
+              meta={InventoryReportFieldMeta.ProfileID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-InventoryReport ubl-Identifier ubl-ProfileExecutionID"
           meta={InventoryReportFieldMeta.ProfileExecutionID} 
           value={value.ProfileExecutionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={InventoryReportFieldMeta.ProfileExecutionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Execution Identifier"
+              value={itemValue}
+              meta={InventoryReportFieldMeta.ProfileExecutionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-InventoryReport ubl-Identifier ubl-ID"
           meta={InventoryReportFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={InventoryReportFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={InventoryReportFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-InventoryReport ubl-Indicator ubl-CopyIndicator"
           meta={InventoryReportFieldMeta.CopyIndicator} 
           value={value.CopyIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={InventoryReportFieldMeta.CopyIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Copy Indicator"
+              value={itemValue}
+              meta={InventoryReportFieldMeta.CopyIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-InventoryReport ubl-Identifier ubl-UUID"
           meta={InventoryReportFieldMeta.UUID} 
           value={value.UUID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={InventoryReportFieldMeta.UUID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UUID"
+              value={itemValue}
+              meta={InventoryReportFieldMeta.UUID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-InventoryReport ubl-Date ubl-IssueDate"
           meta={InventoryReportFieldMeta.IssueDate} 
           value={value.IssueDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={InventoryReportFieldMeta.IssueDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Issue Date"
+              value={itemValue}
+              meta={InventoryReportFieldMeta.IssueDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-InventoryReport ubl-Time ubl-IssueTime"
           meta={InventoryReportFieldMeta.IssueTime} 
           value={value.IssueTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={InventoryReportFieldMeta.IssueTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Issue Time"
+              value={itemValue}
+              meta={InventoryReportFieldMeta.IssueTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-InventoryReport ubl-Text ubl-Note"
           meta={InventoryReportFieldMeta.Note} 
           value={value.Note}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={InventoryReportFieldMeta.Note} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Note"
+              value={itemValue}
+              meta={InventoryReportFieldMeta.Note}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-InventoryReport ubl-Code ubl-DocumentCurrencyCode"
           meta={InventoryReportFieldMeta.DocumentCurrencyCode} 
           value={value.DocumentCurrencyCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={InventoryReportFieldMeta.DocumentCurrencyCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Document Currency Code"
+              value={itemValue}
+              meta={InventoryReportFieldMeta.DocumentCurrencyCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-InventoryReport ubl-Period ubl-InventoryPeriod"
           meta={InventoryReportFieldMeta.InventoryPeriod} 
           value={value.InventoryPeriod}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={InventoryReportFieldMeta.InventoryPeriod} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Inventory Period"
+              value={itemValue}
+              meta={InventoryReportFieldMeta.InventoryPeriod}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-InventoryReport ubl-DocumentReference"
           meta={InventoryReportFieldMeta.DocumentReference} 
           value={value.DocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={InventoryReportFieldMeta.DocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Document Reference"
+              value={itemValue}
+              meta={InventoryReportFieldMeta.DocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-InventoryReport ubl-Signature"
           meta={InventoryReportFieldMeta.Signature} 
           value={value.Signature}
           itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay key={key} meta={InventoryReportFieldMeta.Signature} value={itemValue} />
+            <SignatureDisplay
+              key={key}
+              label="Signature"
+              value={itemValue}
+              meta={InventoryReportFieldMeta.Signature}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-InventoryReport ubl-CustomerParty ubl-RetailerCustomerParty"
           meta={InventoryReportFieldMeta.RetailerCustomerParty} 
           value={value.RetailerCustomerParty}
           itemDisplay={ (itemValue: CustomerParty, key: string | number) =>
-            <CustomerPartyDisplay key={key} meta={InventoryReportFieldMeta.RetailerCustomerParty} value={itemValue} />
+            <CustomerPartyDisplay
+              key={key}
+              label="Retailer Customer Party"
+              value={itemValue}
+              meta={InventoryReportFieldMeta.RetailerCustomerParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-InventoryReport ubl-Party ubl-InventoryReportingParty"
           meta={InventoryReportFieldMeta.InventoryReportingParty} 
           value={value.InventoryReportingParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={InventoryReportFieldMeta.InventoryReportingParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Inventory Reporting Party"
+              value={itemValue}
+              meta={InventoryReportFieldMeta.InventoryReportingParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-InventoryReport ubl-SupplierParty ubl-SellerSupplierParty"
           meta={InventoryReportFieldMeta.SellerSupplierParty} 
           value={value.SellerSupplierParty}
           itemDisplay={ (itemValue: SupplierParty, key: string | number) =>
-            <SupplierPartyDisplay key={key} meta={InventoryReportFieldMeta.SellerSupplierParty} value={itemValue} />
+            <SupplierPartyDisplay
+              key={key}
+              label="Seller Supplier Party"
+              value={itemValue}
+              meta={InventoryReportFieldMeta.SellerSupplierParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-InventoryReport ubl-InventoryReportLine"
           meta={InventoryReportFieldMeta.InventoryReportLine} 
           value={value.InventoryReportLine}
           itemDisplay={ (itemValue: InventoryReportLine, key: string | number) =>
-            <InventoryReportLineDisplay key={key} meta={InventoryReportFieldMeta.InventoryReportLine} value={itemValue} />
+            <InventoryReportLineDisplay
+              key={key}
+              label="Inventory Report Line"
+              value={itemValue}
+              meta={InventoryReportFieldMeta.InventoryReportLine}
+            />
           }
         />
         </div>

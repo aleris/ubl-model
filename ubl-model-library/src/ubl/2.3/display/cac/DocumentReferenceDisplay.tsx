@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { DocumentReference } from  '../../model/cac/DocumentReference'
 import { DocumentReferenceFieldMeta } from  '../../meta/cac/DocumentReferenceMeta'
@@ -26,165 +27,280 @@ import { Time } from '../../model/cbc/Time'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: DocumentReference
   meta: FieldMeta<T>
 }
 
-export default function DocumentReferenceDisplay<T>({ value, meta }: Params<T>) {
+export default function DocumentReferenceDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-DocumentReference ubl-DocumentReferenceType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-DocumentReference ubl-UBLExtensions"
           meta={DocumentReferenceFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={DocumentReferenceFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={DocumentReferenceFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DocumentReference ubl-Identifier ubl-ID"
           meta={DocumentReferenceFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={DocumentReferenceFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={DocumentReferenceFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DocumentReference ubl-Indicator ubl-CopyIndicator"
           meta={DocumentReferenceFieldMeta.CopyIndicator} 
           value={value.CopyIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={DocumentReferenceFieldMeta.CopyIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Copy Indicator"
+              value={itemValue}
+              meta={DocumentReferenceFieldMeta.CopyIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DocumentReference ubl-Identifier ubl-UUID"
           meta={DocumentReferenceFieldMeta.UUID} 
           value={value.UUID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={DocumentReferenceFieldMeta.UUID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UUID"
+              value={itemValue}
+              meta={DocumentReferenceFieldMeta.UUID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DocumentReference ubl-Date ubl-IssueDate"
           meta={DocumentReferenceFieldMeta.IssueDate} 
           value={value.IssueDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={DocumentReferenceFieldMeta.IssueDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Issue Date"
+              value={itemValue}
+              meta={DocumentReferenceFieldMeta.IssueDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DocumentReference ubl-Time ubl-IssueTime"
           meta={DocumentReferenceFieldMeta.IssueTime} 
           value={value.IssueTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={DocumentReferenceFieldMeta.IssueTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Issue Time"
+              value={itemValue}
+              meta={DocumentReferenceFieldMeta.IssueTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DocumentReference ubl-Code ubl-DocumentTypeCode"
           meta={DocumentReferenceFieldMeta.DocumentTypeCode} 
           value={value.DocumentTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={DocumentReferenceFieldMeta.DocumentTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Document Type Code"
+              value={itemValue}
+              meta={DocumentReferenceFieldMeta.DocumentTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DocumentReference ubl-Text ubl-DocumentType"
           meta={DocumentReferenceFieldMeta.DocumentType} 
           value={value.DocumentType}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={DocumentReferenceFieldMeta.DocumentType} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Document Type"
+              value={itemValue}
+              meta={DocumentReferenceFieldMeta.DocumentType}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-DocumentReference ubl-Text ubl-XPath"
           meta={DocumentReferenceFieldMeta.XPath} 
           value={value.XPath}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={DocumentReferenceFieldMeta.XPath} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="XPath"
+              value={itemValue}
+              meta={DocumentReferenceFieldMeta.XPath}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DocumentReference ubl-Text ubl-ReferencedDocumentInternalAddress"
           meta={DocumentReferenceFieldMeta.ReferencedDocumentInternalAddress} 
           value={value.ReferencedDocumentInternalAddress}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={DocumentReferenceFieldMeta.ReferencedDocumentInternalAddress} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Referenced Document Internal Address"
+              value={itemValue}
+              meta={DocumentReferenceFieldMeta.ReferencedDocumentInternalAddress}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DocumentReference ubl-Identifier ubl-LanguageID"
           meta={DocumentReferenceFieldMeta.LanguageID} 
           value={value.LanguageID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={DocumentReferenceFieldMeta.LanguageID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Language"
+              value={itemValue}
+              meta={DocumentReferenceFieldMeta.LanguageID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DocumentReference ubl-Code ubl-LocaleCode"
           meta={DocumentReferenceFieldMeta.LocaleCode} 
           value={value.LocaleCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={DocumentReferenceFieldMeta.LocaleCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Locale Code"
+              value={itemValue}
+              meta={DocumentReferenceFieldMeta.LocaleCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DocumentReference ubl-Identifier ubl-VersionID"
           meta={DocumentReferenceFieldMeta.VersionID} 
           value={value.VersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={DocumentReferenceFieldMeta.VersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Version"
+              value={itemValue}
+              meta={DocumentReferenceFieldMeta.VersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DocumentReference ubl-Code ubl-DocumentStatusCode"
           meta={DocumentReferenceFieldMeta.DocumentStatusCode} 
           value={value.DocumentStatusCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={DocumentReferenceFieldMeta.DocumentStatusCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Document Status Code"
+              value={itemValue}
+              meta={DocumentReferenceFieldMeta.DocumentStatusCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-DocumentReference ubl-Text ubl-DocumentDescription"
           meta={DocumentReferenceFieldMeta.DocumentDescription} 
           value={value.DocumentDescription}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={DocumentReferenceFieldMeta.DocumentDescription} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Document Description"
+              value={itemValue}
+              meta={DocumentReferenceFieldMeta.DocumentDescription}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-DocumentReference ubl-Attachment"
           meta={DocumentReferenceFieldMeta.Attachment} 
           value={value.Attachment}
           itemDisplay={ (itemValue: Attachment, key: string | number) =>
-            <AttachmentDisplay key={key} meta={DocumentReferenceFieldMeta.Attachment} value={itemValue} />
+            <AttachmentDisplay
+              key={key}
+              label="Attachment"
+              value={itemValue}
+              meta={DocumentReferenceFieldMeta.Attachment}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-DocumentReference ubl-Period ubl-ValidityPeriod"
           meta={DocumentReferenceFieldMeta.ValidityPeriod} 
           value={value.ValidityPeriod}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={DocumentReferenceFieldMeta.ValidityPeriod} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Validity Period"
+              value={itemValue}
+              meta={DocumentReferenceFieldMeta.ValidityPeriod}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-DocumentReference ubl-Party ubl-IssuerParty"
           meta={DocumentReferenceFieldMeta.IssuerParty} 
           value={value.IssuerParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={DocumentReferenceFieldMeta.IssuerParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Issuer Party"
+              value={itemValue}
+              meta={DocumentReferenceFieldMeta.IssuerParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-DocumentReference ubl-ResultOfVerification"
           meta={DocumentReferenceFieldMeta.ResultOfVerification} 
           value={value.ResultOfVerification}
           itemDisplay={ (itemValue: ResultOfVerification, key: string | number) =>
-            <ResultOfVerificationDisplay key={key} meta={DocumentReferenceFieldMeta.ResultOfVerification} value={itemValue} />
+            <ResultOfVerificationDisplay
+              key={key}
+              label="Result Of Verification"
+              value={itemValue}
+              meta={DocumentReferenceFieldMeta.ResultOfVerification}
+            />
           }
         />
         </div>

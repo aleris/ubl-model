@@ -1,26 +1,34 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { UBLExtensions } from  '../../model/ext/UBLExtensions'
 import { UBLExtensionsFieldMeta } from  '../../meta/ext/UBLExtensionsMeta'
 import UBLExtensionDisplay from './UBLExtensionDisplay'
 import { UBLExtension } from '../../model/ext/UBLExtension'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: UBLExtensions
   meta: FieldMeta<T>
 }
 
-export default function UBLExtensionsDisplay<T>({ value, meta }: Params<T>) {
+export default function UBLExtensionsDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-ext ubl-UBLExtensions ubl-UBLExtensionsType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeListDisplay
+          className="ubl-ext ubl-UBLExtensions ubl-UBLExtension"
           meta={UBLExtensionsFieldMeta.UBLExtension} 
           value={value.UBLExtension}
           itemDisplay={ (itemValue: UBLExtension, key: string | number) =>
-            <UBLExtensionDisplay key={key} meta={UBLExtensionsFieldMeta.UBLExtension} value={itemValue} />
+            <UBLExtensionDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={UBLExtensionsFieldMeta.UBLExtension}
+            />
           }
         />
         </div>

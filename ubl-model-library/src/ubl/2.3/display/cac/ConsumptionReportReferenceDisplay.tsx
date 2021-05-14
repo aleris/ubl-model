@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ConsumptionReportReference } from  '../../model/cac/ConsumptionReportReference'
 import { ConsumptionReportReferenceFieldMeta } from  '../../meta/cac/ConsumptionReportReferenceMeta'
@@ -16,61 +17,98 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: ConsumptionReportReference
   meta: FieldMeta<T>
 }
 
-export default function ConsumptionReportReferenceDisplay<T>({ value, meta }: Params<T>) {
+export default function ConsumptionReportReferenceDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-ConsumptionReportReference ubl-ConsumptionReportReferenceType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-ConsumptionReportReference ubl-UBLExtensions"
           meta={ConsumptionReportReferenceFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={ConsumptionReportReferenceFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={ConsumptionReportReferenceFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ConsumptionReportReference ubl-Identifier ubl-ConsumptionReportID"
           meta={ConsumptionReportReferenceFieldMeta.ConsumptionReportID} 
           value={value.ConsumptionReportID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ConsumptionReportReferenceFieldMeta.ConsumptionReportID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Consumption Report Identifier"
+              value={itemValue}
+              meta={ConsumptionReportReferenceFieldMeta.ConsumptionReportID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ConsumptionReportReference ubl-Text ubl-ConsumptionType"
           meta={ConsumptionReportReferenceFieldMeta.ConsumptionType} 
           value={value.ConsumptionType}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ConsumptionReportReferenceFieldMeta.ConsumptionType} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Consumption Type"
+              value={itemValue}
+              meta={ConsumptionReportReferenceFieldMeta.ConsumptionType}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ConsumptionReportReference ubl-Code ubl-ConsumptionTypeCode"
           meta={ConsumptionReportReferenceFieldMeta.ConsumptionTypeCode} 
           value={value.ConsumptionTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={ConsumptionReportReferenceFieldMeta.ConsumptionTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Consumption Type Code"
+              value={itemValue}
+              meta={ConsumptionReportReferenceFieldMeta.ConsumptionTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ConsumptionReportReference ubl-Quantity ubl-TotalConsumedQuantity"
           meta={ConsumptionReportReferenceFieldMeta.TotalConsumedQuantity} 
           value={value.TotalConsumedQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={ConsumptionReportReferenceFieldMeta.TotalConsumedQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Total Consumed Quantity"
+              value={itemValue}
+              meta={ConsumptionReportReferenceFieldMeta.TotalConsumedQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-ConsumptionReportReference ubl-Period"
           meta={ConsumptionReportReferenceFieldMeta.Period} 
           value={value.Period}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={ConsumptionReportReferenceFieldMeta.Period} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Period"
+              value={itemValue}
+              meta={ConsumptionReportReferenceFieldMeta.Period}
+            />
           }
         />
         </div>

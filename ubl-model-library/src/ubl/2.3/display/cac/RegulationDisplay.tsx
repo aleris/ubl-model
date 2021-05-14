@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Regulation } from  '../../model/cac/Regulation'
 import { RegulationFieldMeta } from  '../../meta/cac/RegulationMeta'
@@ -10,45 +11,70 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: Regulation
   meta: FieldMeta<T>
 }
 
-export default function RegulationDisplay<T>({ value, meta }: Params<T>) {
+export default function RegulationDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-Regulation ubl-RegulationType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-Regulation ubl-UBLExtensions"
           meta={RegulationFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={RegulationFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={RegulationFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Regulation ubl-Text ubl-Name"
           meta={RegulationFieldMeta.Name} 
           value={value.Name}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={RegulationFieldMeta.Name} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Name"
+              value={itemValue}
+              meta={RegulationFieldMeta.Name}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Regulation ubl-Text ubl-LegalReference"
           meta={RegulationFieldMeta.LegalReference} 
           value={value.LegalReference}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={RegulationFieldMeta.LegalReference} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Legal Reference"
+              value={itemValue}
+              meta={RegulationFieldMeta.LegalReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Regulation ubl-Identifier ubl-OntologyURI"
           meta={RegulationFieldMeta.OntologyURI} 
           value={value.OntologyURI}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={RegulationFieldMeta.OntologyURI} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Ontology URI"
+              value={itemValue}
+              meta={RegulationFieldMeta.OntologyURI}
+            />
           }
         />
         </div>

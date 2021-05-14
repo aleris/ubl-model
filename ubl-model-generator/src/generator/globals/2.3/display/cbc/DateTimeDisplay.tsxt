@@ -3,12 +3,13 @@ import { FieldMeta } from '../../meta/FieldMeta'
 import { DateTime } from '../../model/cbc/DateTime'
 import FieldDisplay from '../FieldDisplay'
 
-type Params = {
+type Props = {
+  label: string
   meta: FieldMeta<any>
   value: DateTime
 }
 
-export default function DateTimeDisplay({ meta, value }: Params) {
+export default function DateTimeDisplay({ label, meta, value }: Props) {
   const stringValue = value._
-  return <FieldDisplay label={meta.label} value={stringValue} />
+  return <FieldDisplay label={label} value={stringValue} />
 }

@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { CertificateOfOrigin } from  '../../model/doc/CertificateOfOrigin'
 import { CertificateOfOriginFieldMeta } from  '../../meta/doc/CertificateOfOriginMeta'
@@ -24,173 +25,294 @@ import { Time } from '../../model/cbc/Time'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: CertificateOfOrigin
   meta: FieldMeta<T>
 }
 
-export default function CertificateOfOriginDisplay<T>({ value, meta }: Params<T>) {
+export default function CertificateOfOriginDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-doc ubl-CertificateOfOrigin ubl-CertificateOfOriginType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-CertificateOfOrigin ubl-UBLExtensions"
           meta={CertificateOfOriginFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={CertificateOfOriginFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={CertificateOfOriginFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CertificateOfOrigin ubl-Identifier ubl-UBLVersionID"
           meta={CertificateOfOriginFieldMeta.UBLVersionID} 
           value={value.UBLVersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CertificateOfOriginFieldMeta.UBLVersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UBL Version Identifier"
+              value={itemValue}
+              meta={CertificateOfOriginFieldMeta.UBLVersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CertificateOfOrigin ubl-Identifier ubl-CustomizationID"
           meta={CertificateOfOriginFieldMeta.CustomizationID} 
           value={value.CustomizationID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CertificateOfOriginFieldMeta.CustomizationID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Customization Identifier"
+              value={itemValue}
+              meta={CertificateOfOriginFieldMeta.CustomizationID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CertificateOfOrigin ubl-Identifier ubl-ProfileID"
           meta={CertificateOfOriginFieldMeta.ProfileID} 
           value={value.ProfileID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CertificateOfOriginFieldMeta.ProfileID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Identifier"
+              value={itemValue}
+              meta={CertificateOfOriginFieldMeta.ProfileID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CertificateOfOrigin ubl-Identifier ubl-ProfileExecutionID"
           meta={CertificateOfOriginFieldMeta.ProfileExecutionID} 
           value={value.ProfileExecutionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CertificateOfOriginFieldMeta.ProfileExecutionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Execution Identifier"
+              value={itemValue}
+              meta={CertificateOfOriginFieldMeta.ProfileExecutionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CertificateOfOrigin ubl-Identifier ubl-ID"
           meta={CertificateOfOriginFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CertificateOfOriginFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={CertificateOfOriginFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CertificateOfOrigin ubl-Identifier ubl-UUID"
           meta={CertificateOfOriginFieldMeta.UUID} 
           value={value.UUID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CertificateOfOriginFieldMeta.UUID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UUID"
+              value={itemValue}
+              meta={CertificateOfOriginFieldMeta.UUID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CertificateOfOrigin ubl-Date ubl-IssueDate"
           meta={CertificateOfOriginFieldMeta.IssueDate} 
           value={value.IssueDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={CertificateOfOriginFieldMeta.IssueDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Issue Date"
+              value={itemValue}
+              meta={CertificateOfOriginFieldMeta.IssueDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CertificateOfOrigin ubl-Time ubl-IssueTime"
           meta={CertificateOfOriginFieldMeta.IssueTime} 
           value={value.IssueTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={CertificateOfOriginFieldMeta.IssueTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Issue Time"
+              value={itemValue}
+              meta={CertificateOfOriginFieldMeta.IssueTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-CertificateOfOrigin ubl-Text ubl-Description"
           meta={CertificateOfOriginFieldMeta.Description} 
           value={value.Description}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={CertificateOfOriginFieldMeta.Description} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Description"
+              value={itemValue}
+              meta={CertificateOfOriginFieldMeta.Description}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-CertificateOfOrigin ubl-Text ubl-Note"
           meta={CertificateOfOriginFieldMeta.Note} 
           value={value.Note}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={CertificateOfOriginFieldMeta.Note} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Note"
+              value={itemValue}
+              meta={CertificateOfOriginFieldMeta.Note}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-CertificateOfOrigin ubl-Identifier ubl-VersionID"
           meta={CertificateOfOriginFieldMeta.VersionID} 
           value={value.VersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={CertificateOfOriginFieldMeta.VersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Version"
+              value={itemValue}
+              meta={CertificateOfOriginFieldMeta.VersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-CertificateOfOrigin ubl-Signature"
           meta={CertificateOfOriginFieldMeta.Signature} 
           value={value.Signature}
           itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay key={key} meta={CertificateOfOriginFieldMeta.Signature} value={itemValue} />
+            <SignatureDisplay
+              key={key}
+              label="Signature"
+              value={itemValue}
+              meta={CertificateOfOriginFieldMeta.Signature}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-CertificateOfOrigin ubl-Party ubl-ExporterParty"
           meta={CertificateOfOriginFieldMeta.ExporterParty} 
           value={value.ExporterParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={CertificateOfOriginFieldMeta.ExporterParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Exporter Party"
+              value={itemValue}
+              meta={CertificateOfOriginFieldMeta.ExporterParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-CertificateOfOrigin ubl-Party ubl-ImporterParty"
           meta={CertificateOfOriginFieldMeta.ImporterParty} 
           value={value.ImporterParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={CertificateOfOriginFieldMeta.ImporterParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Importer Party"
+              value={itemValue}
+              meta={CertificateOfOriginFieldMeta.ImporterParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-CertificateOfOrigin ubl-EndorserParty"
           meta={CertificateOfOriginFieldMeta.EndorserParty} 
           value={value.EndorserParty}
           itemDisplay={ (itemValue: EndorserParty, key: string | number) =>
-            <EndorserPartyDisplay key={key} meta={CertificateOfOriginFieldMeta.EndorserParty} value={itemValue} />
+            <EndorserPartyDisplay
+              key={key}
+              label="Endorser Party"
+              value={itemValue}
+              meta={CertificateOfOriginFieldMeta.EndorserParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-CertificateOfOrigin ubl-CertificateOfOriginApplication"
           meta={CertificateOfOriginFieldMeta.CertificateOfOriginApplication} 
           value={value.CertificateOfOriginApplication}
           itemDisplay={ (itemValue: CertificateOfOriginApplication, key: string | number) =>
-            <CertificateOfOriginApplicationDisplay key={key} meta={CertificateOfOriginFieldMeta.CertificateOfOriginApplication} value={itemValue} />
+            <CertificateOfOriginApplicationDisplay
+              key={key}
+              label="Certificate Of Origin Application"
+              value={itemValue}
+              meta={CertificateOfOriginFieldMeta.CertificateOfOriginApplication}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-CertificateOfOrigin ubl-Endorsement ubl-IssuerEndorsement"
           meta={CertificateOfOriginFieldMeta.IssuerEndorsement} 
           value={value.IssuerEndorsement}
           itemDisplay={ (itemValue: Endorsement, key: string | number) =>
-            <EndorsementDisplay key={key} meta={CertificateOfOriginFieldMeta.IssuerEndorsement} value={itemValue} />
+            <EndorsementDisplay
+              key={key}
+              label="Issuer Endorsement"
+              value={itemValue}
+              meta={CertificateOfOriginFieldMeta.IssuerEndorsement}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-CertificateOfOrigin ubl-Endorsement ubl-EmbassyEndorsement"
           meta={CertificateOfOriginFieldMeta.EmbassyEndorsement} 
           value={value.EmbassyEndorsement}
           itemDisplay={ (itemValue: Endorsement, key: string | number) =>
-            <EndorsementDisplay key={key} meta={CertificateOfOriginFieldMeta.EmbassyEndorsement} value={itemValue} />
+            <EndorsementDisplay
+              key={key}
+              label="Embassy Endorsement"
+              value={itemValue}
+              meta={CertificateOfOriginFieldMeta.EmbassyEndorsement}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-CertificateOfOrigin ubl-Endorsement ubl-InsuranceEndorsement"
           meta={CertificateOfOriginFieldMeta.InsuranceEndorsement} 
           value={value.InsuranceEndorsement}
           itemDisplay={ (itemValue: Endorsement, key: string | number) =>
-            <EndorsementDisplay key={key} meta={CertificateOfOriginFieldMeta.InsuranceEndorsement} value={itemValue} />
+            <EndorsementDisplay
+              key={key}
+              label="Insurance Endorsement"
+              value={itemValue}
+              meta={CertificateOfOriginFieldMeta.InsuranceEndorsement}
+            />
           }
         />
         </div>

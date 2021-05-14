@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ServiceProviderParty } from  '../../model/cac/ServiceProviderParty'
 import { ServiceProviderPartyFieldMeta } from  '../../meta/cac/ServiceProviderPartyMeta'
@@ -16,61 +17,98 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: ServiceProviderParty
   meta: FieldMeta<T>
 }
 
-export default function ServiceProviderPartyDisplay<T>({ value, meta }: Params<T>) {
+export default function ServiceProviderPartyDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-ServiceProviderParty ubl-ServiceProviderPartyType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-ServiceProviderParty ubl-UBLExtensions"
           meta={ServiceProviderPartyFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={ServiceProviderPartyFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={ServiceProviderPartyFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ServiceProviderParty ubl-Identifier ubl-ID"
           meta={ServiceProviderPartyFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ServiceProviderPartyFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={ServiceProviderPartyFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ServiceProviderParty ubl-Code ubl-ServiceTypeCode"
           meta={ServiceProviderPartyFieldMeta.ServiceTypeCode} 
           value={value.ServiceTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={ServiceProviderPartyFieldMeta.ServiceTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Service Type Code"
+              value={itemValue}
+              meta={ServiceProviderPartyFieldMeta.ServiceTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-ServiceProviderParty ubl-Text ubl-ServiceType"
           meta={ServiceProviderPartyFieldMeta.ServiceType} 
           value={value.ServiceType}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ServiceProviderPartyFieldMeta.ServiceType} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Service Type"
+              value={itemValue}
+              meta={ServiceProviderPartyFieldMeta.ServiceType}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-ServiceProviderParty ubl-Party"
           meta={ServiceProviderPartyFieldMeta.Party} 
           value={value.Party}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={ServiceProviderPartyFieldMeta.Party} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Party"
+              value={itemValue}
+              meta={ServiceProviderPartyFieldMeta.Party}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-ServiceProviderParty ubl-Contact ubl-SellerContact"
           meta={ServiceProviderPartyFieldMeta.SellerContact} 
           value={value.SellerContact}
           itemDisplay={ (itemValue: Contact, key: string | number) =>
-            <ContactDisplay key={key} meta={ServiceProviderPartyFieldMeta.SellerContact} value={itemValue} />
+            <ContactDisplay
+              key={key}
+              label="Seller Contact"
+              value={itemValue}
+              meta={ServiceProviderPartyFieldMeta.SellerContact}
+            />
           }
         />
         </div>

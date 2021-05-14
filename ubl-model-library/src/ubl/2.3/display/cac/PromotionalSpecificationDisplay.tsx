@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { PromotionalSpecification } from  '../../model/cac/PromotionalSpecification'
 import { PromotionalSpecificationFieldMeta } from  '../../meta/cac/PromotionalSpecificationMeta'
@@ -12,45 +13,70 @@ import { PromotionalEventLineItem } from '../../model/cac/PromotionalEventLineIt
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: PromotionalSpecification
   meta: FieldMeta<T>
 }
 
-export default function PromotionalSpecificationDisplay<T>({ value, meta }: Params<T>) {
+export default function PromotionalSpecificationDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-PromotionalSpecification ubl-PromotionalSpecificationType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-PromotionalSpecification ubl-UBLExtensions"
           meta={PromotionalSpecificationFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={PromotionalSpecificationFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={PromotionalSpecificationFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-PromotionalSpecification ubl-Identifier ubl-SpecificationID"
           meta={PromotionalSpecificationFieldMeta.SpecificationID} 
           value={value.SpecificationID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={PromotionalSpecificationFieldMeta.SpecificationID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Specification Identifier"
+              value={itemValue}
+              meta={PromotionalSpecificationFieldMeta.SpecificationID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-PromotionalSpecification ubl-PromotionalEventLineItem"
           meta={PromotionalSpecificationFieldMeta.PromotionalEventLineItem} 
           value={value.PromotionalEventLineItem}
           itemDisplay={ (itemValue: PromotionalEventLineItem, key: string | number) =>
-            <PromotionalEventLineItemDisplay key={key} meta={PromotionalSpecificationFieldMeta.PromotionalEventLineItem} value={itemValue} />
+            <PromotionalEventLineItemDisplay
+              key={key}
+              label="Promotional Event Line Item"
+              value={itemValue}
+              meta={PromotionalSpecificationFieldMeta.PromotionalEventLineItem}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-PromotionalSpecification ubl-EventTactic"
           meta={PromotionalSpecificationFieldMeta.EventTactic} 
           value={value.EventTactic}
           itemDisplay={ (itemValue: EventTactic, key: string | number) =>
-            <EventTacticDisplay key={key} meta={PromotionalSpecificationFieldMeta.EventTactic} value={itemValue} />
+            <EventTacticDisplay
+              key={key}
+              label="Event Tactic"
+              value={itemValue}
+              meta={PromotionalSpecificationFieldMeta.EventTactic}
+            />
           }
         />
         </div>

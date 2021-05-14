@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { DocumentMetadata } from  '../../model/cac/DocumentMetadata'
 import { DocumentMetadataFieldMeta } from  '../../meta/cac/DocumentMetadataMeta'
@@ -10,61 +11,98 @@ import { Identifier } from '../../model/cbc/Identifier'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: DocumentMetadata
   meta: FieldMeta<T>
 }
 
-export default function DocumentMetadataDisplay<T>({ value, meta }: Params<T>) {
+export default function DocumentMetadataDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-DocumentMetadata ubl-DocumentMetadataType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-DocumentMetadata ubl-UBLExtensions"
           meta={DocumentMetadataFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={DocumentMetadataFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={DocumentMetadataFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DocumentMetadata ubl-Identifier ubl-ID"
           meta={DocumentMetadataFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={DocumentMetadataFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={DocumentMetadataFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DocumentMetadata ubl-Identifier ubl-FormatID"
           meta={DocumentMetadataFieldMeta.FormatID} 
           value={value.FormatID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={DocumentMetadataFieldMeta.FormatID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Format Identifier"
+              value={itemValue}
+              meta={DocumentMetadataFieldMeta.FormatID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DocumentMetadata ubl-Identifier ubl-VersionID"
           meta={DocumentMetadataFieldMeta.VersionID} 
           value={value.VersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={DocumentMetadataFieldMeta.VersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Version Identifier"
+              value={itemValue}
+              meta={DocumentMetadataFieldMeta.VersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DocumentMetadata ubl-Identifier ubl-SchemaURI"
           meta={DocumentMetadataFieldMeta.SchemaURI} 
           value={value.SchemaURI}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={DocumentMetadataFieldMeta.SchemaURI} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Schema URI"
+              value={itemValue}
+              meta={DocumentMetadataFieldMeta.SchemaURI}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DocumentMetadata ubl-Code ubl-DocumentTypeCode"
           meta={DocumentMetadataFieldMeta.DocumentTypeCode} 
           value={value.DocumentTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={DocumentMetadataFieldMeta.DocumentTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Document Type Code"
+              value={itemValue}
+              meta={DocumentMetadataFieldMeta.DocumentTypeCode}
+            />
           }
         />
         </div>

@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Response } from  '../../model/cac/Response'
 import { ResponseFieldMeta } from  '../../meta/cac/ResponseMeta'
@@ -18,69 +19,112 @@ import { Time } from '../../model/cbc/Time'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: Response
   meta: FieldMeta<T>
 }
 
-export default function ResponseDisplay<T>({ value, meta }: Params<T>) {
+export default function ResponseDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-Response ubl-ResponseType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-Response ubl-UBLExtensions"
           meta={ResponseFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={ResponseFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={ResponseFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Response ubl-Identifier ubl-ReferenceID"
           meta={ResponseFieldMeta.ReferenceID} 
           value={value.ReferenceID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ResponseFieldMeta.ReferenceID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Reference"
+              value={itemValue}
+              meta={ResponseFieldMeta.ReferenceID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Response ubl-Code ubl-ResponseCode"
           meta={ResponseFieldMeta.ResponseCode} 
           value={value.ResponseCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={ResponseFieldMeta.ResponseCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Response Code"
+              value={itemValue}
+              meta={ResponseFieldMeta.ResponseCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Response ubl-Text ubl-Description"
           meta={ResponseFieldMeta.Description} 
           value={value.Description}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={ResponseFieldMeta.Description} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Description"
+              value={itemValue}
+              meta={ResponseFieldMeta.Description}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Response ubl-Date ubl-EffectiveDate"
           meta={ResponseFieldMeta.EffectiveDate} 
           value={value.EffectiveDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={ResponseFieldMeta.EffectiveDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Effective Date"
+              value={itemValue}
+              meta={ResponseFieldMeta.EffectiveDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Response ubl-Time ubl-EffectiveTime"
           meta={ResponseFieldMeta.EffectiveTime} 
           value={value.EffectiveTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={ResponseFieldMeta.EffectiveTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Effective Time"
+              value={itemValue}
+              meta={ResponseFieldMeta.EffectiveTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Response ubl-Status"
           meta={ResponseFieldMeta.Status} 
           value={value.Status}
           itemDisplay={ (itemValue: Status, key: string | number) =>
-            <StatusDisplay key={key} meta={ResponseFieldMeta.Status} value={itemValue} />
+            <StatusDisplay
+              key={key}
+              label="Status"
+              value={itemValue}
+              meta={ResponseFieldMeta.Status}
+            />
           }
         />
         </div>

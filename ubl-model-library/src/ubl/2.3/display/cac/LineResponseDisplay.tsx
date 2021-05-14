@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { LineResponse } from  '../../model/cac/LineResponse'
 import { LineResponseFieldMeta } from  '../../meta/cac/LineResponseMeta'
@@ -10,37 +11,56 @@ import { Response } from '../../model/cac/Response'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: LineResponse
   meta: FieldMeta<T>
 }
 
-export default function LineResponseDisplay<T>({ value, meta }: Params<T>) {
+export default function LineResponseDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-LineResponse ubl-LineResponseType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-LineResponse ubl-UBLExtensions"
           meta={LineResponseFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={LineResponseFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={LineResponseFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-LineResponse ubl-LineReference"
           meta={LineResponseFieldMeta.LineReference} 
           value={value.LineReference}
           itemDisplay={ (itemValue: LineReference, key: string | number) =>
-            <LineReferenceDisplay key={key} meta={LineResponseFieldMeta.LineReference} value={itemValue} />
+            <LineReferenceDisplay
+              key={key}
+              label="Line Reference"
+              value={itemValue}
+              meta={LineResponseFieldMeta.LineReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-LineResponse ubl-Response"
           meta={LineResponseFieldMeta.Response} 
           value={value.Response}
           itemDisplay={ (itemValue: Response, key: string | number) =>
-            <ResponseDisplay key={key} meta={LineResponseFieldMeta.Response} value={itemValue} />
+            <ResponseDisplay
+              key={key}
+              label="Response"
+              value={itemValue}
+              meta={LineResponseFieldMeta.Response}
+            />
           }
         />
         </div>

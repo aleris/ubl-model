@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TenderedProject } from  '../../model/cac/TenderedProject'
 import { TenderedProjectFieldMeta } from  '../../meta/cac/TenderedProjectMeta'
@@ -28,117 +29,196 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: TenderedProject
   meta: FieldMeta<T>
 }
 
-export default function TenderedProjectDisplay<T>({ value, meta }: Params<T>) {
+export default function TenderedProjectDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-TenderedProject ubl-TenderedProjectType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-TenderedProject ubl-UBLExtensions"
           meta={TenderedProjectFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={TenderedProjectFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={TenderedProjectFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TenderedProject ubl-Identifier ubl-VariantID"
           meta={TenderedProjectFieldMeta.VariantID} 
           value={value.VariantID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={TenderedProjectFieldMeta.VariantID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Variant"
+              value={itemValue}
+              meta={TenderedProjectFieldMeta.VariantID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TenderedProject ubl-Amount ubl-FeeAmount"
           meta={TenderedProjectFieldMeta.FeeAmount} 
           value={value.FeeAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={TenderedProjectFieldMeta.FeeAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Fee"
+              value={itemValue}
+              meta={TenderedProjectFieldMeta.FeeAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-TenderedProject ubl-Text ubl-FeeDescription"
           meta={TenderedProjectFieldMeta.FeeDescription} 
           value={value.FeeDescription}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={TenderedProjectFieldMeta.FeeDescription} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Fee Description"
+              value={itemValue}
+              meta={TenderedProjectFieldMeta.FeeDescription}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TenderedProject ubl-Identifier ubl-TenderEnvelopeID"
           meta={TenderedProjectFieldMeta.TenderEnvelopeID} 
           value={value.TenderEnvelopeID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={TenderedProjectFieldMeta.TenderEnvelopeID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Tender Envelope Identifier"
+              value={itemValue}
+              meta={TenderedProjectFieldMeta.TenderEnvelopeID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TenderedProject ubl-Code ubl-TenderEnvelopeTypeCode"
           meta={TenderedProjectFieldMeta.TenderEnvelopeTypeCode} 
           value={value.TenderEnvelopeTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={TenderedProjectFieldMeta.TenderEnvelopeTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Tender Envelope Type Code"
+              value={itemValue}
+              meta={TenderedProjectFieldMeta.TenderEnvelopeTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TenderedProject ubl-ProcurementProjectLot"
           meta={TenderedProjectFieldMeta.ProcurementProjectLot} 
           value={value.ProcurementProjectLot}
           itemDisplay={ (itemValue: ProcurementProjectLot, key: string | number) =>
-            <ProcurementProjectLotDisplay key={key} meta={TenderedProjectFieldMeta.ProcurementProjectLot} value={itemValue} />
+            <ProcurementProjectLotDisplay
+              key={key}
+              label="Procurement Project Lot"
+              value={itemValue}
+              meta={TenderedProjectFieldMeta.ProcurementProjectLot}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TenderedProject ubl-DocumentReference ubl-EvidenceDocumentReference"
           meta={TenderedProjectFieldMeta.EvidenceDocumentReference} 
           value={value.EvidenceDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={TenderedProjectFieldMeta.EvidenceDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Evidence Document Reference"
+              value={itemValue}
+              meta={TenderedProjectFieldMeta.EvidenceDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TenderedProject ubl-TaxTotal"
           meta={TenderedProjectFieldMeta.TaxTotal} 
           value={value.TaxTotal}
           itemDisplay={ (itemValue: TaxTotal, key: string | number) =>
-            <TaxTotalDisplay key={key} meta={TenderedProjectFieldMeta.TaxTotal} value={itemValue} />
+            <TaxTotalDisplay
+              key={key}
+              label="Tax Total"
+              value={itemValue}
+              meta={TenderedProjectFieldMeta.TaxTotal}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TenderedProject ubl-MonetaryTotal ubl-LegalMonetaryTotal"
           meta={TenderedProjectFieldMeta.LegalMonetaryTotal} 
           value={value.LegalMonetaryTotal}
           itemDisplay={ (itemValue: MonetaryTotal, key: string | number) =>
-            <MonetaryTotalDisplay key={key} meta={TenderedProjectFieldMeta.LegalMonetaryTotal} value={itemValue} />
+            <MonetaryTotalDisplay
+              key={key}
+              label="Legal Monetary Total"
+              value={itemValue}
+              meta={TenderedProjectFieldMeta.LegalMonetaryTotal}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TenderedProject ubl-TenderLine"
           meta={TenderedProjectFieldMeta.TenderLine} 
           value={value.TenderLine}
           itemDisplay={ (itemValue: TenderLine, key: string | number) =>
-            <TenderLineDisplay key={key} meta={TenderedProjectFieldMeta.TenderLine} value={itemValue} />
+            <TenderLineDisplay
+              key={key}
+              label="Tender Line"
+              value={itemValue}
+              meta={TenderedProjectFieldMeta.TenderLine}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TenderedProject ubl-AwardingCriterionResponse"
           meta={TenderedProjectFieldMeta.AwardingCriterionResponse} 
           value={value.AwardingCriterionResponse}
           itemDisplay={ (itemValue: AwardingCriterionResponse, key: string | number) =>
-            <AwardingCriterionResponseDisplay key={key} meta={TenderedProjectFieldMeta.AwardingCriterionResponse} value={itemValue} />
+            <AwardingCriterionResponseDisplay
+              key={key}
+              label="Awarding Criterion Response"
+              value={itemValue}
+              meta={TenderedProjectFieldMeta.AwardingCriterionResponse}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TenderedProject ubl-Fee ubl-AdditionalFee"
           meta={TenderedProjectFieldMeta.AdditionalFee} 
           value={value.AdditionalFee}
           itemDisplay={ (itemValue: Fee, key: string | number) =>
-            <FeeDisplay key={key} meta={TenderedProjectFieldMeta.AdditionalFee} value={itemValue} />
+            <FeeDisplay
+              key={key}
+              label="Additional Fee"
+              value={itemValue}
+              meta={TenderedProjectFieldMeta.AdditionalFee}
+            />
           }
         />
         </div>

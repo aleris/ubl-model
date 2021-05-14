@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TaxCategory } from  '../../model/cac/TaxCategory'
 import { TaxCategoryFieldMeta } from  '../../meta/cac/TaxCategoryMeta'
@@ -20,101 +21,168 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: TaxCategory
   meta: FieldMeta<T>
 }
 
-export default function TaxCategoryDisplay<T>({ value, meta }: Params<T>) {
+export default function TaxCategoryDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-TaxCategory ubl-TaxCategoryType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-TaxCategory ubl-UBLExtensions"
           meta={TaxCategoryFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={TaxCategoryFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={TaxCategoryFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TaxCategory ubl-Identifier ubl-ID"
           meta={TaxCategoryFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={TaxCategoryFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={TaxCategoryFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TaxCategory ubl-Text ubl-Name"
           meta={TaxCategoryFieldMeta.Name} 
           value={value.Name}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={TaxCategoryFieldMeta.Name} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Name"
+              value={itemValue}
+              meta={TaxCategoryFieldMeta.Name}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TaxCategory ubl-Numeric ubl-Percent"
           meta={TaxCategoryFieldMeta.Percent} 
           value={value.Percent}
           itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay key={key} meta={TaxCategoryFieldMeta.Percent} value={itemValue} />
+            <NumericDisplay
+              key={key}
+              label="Percent"
+              value={itemValue}
+              meta={TaxCategoryFieldMeta.Percent}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TaxCategory ubl-Measure ubl-BaseUnitMeasure"
           meta={TaxCategoryFieldMeta.BaseUnitMeasure} 
           value={value.BaseUnitMeasure}
           itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay key={key} meta={TaxCategoryFieldMeta.BaseUnitMeasure} value={itemValue} />
+            <MeasureDisplay
+              key={key}
+              label="Base Unit Measure"
+              value={itemValue}
+              meta={TaxCategoryFieldMeta.BaseUnitMeasure}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TaxCategory ubl-Amount ubl-PerUnitAmount"
           meta={TaxCategoryFieldMeta.PerUnitAmount} 
           value={value.PerUnitAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={TaxCategoryFieldMeta.PerUnitAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Per Unit Amount"
+              value={itemValue}
+              meta={TaxCategoryFieldMeta.PerUnitAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TaxCategory ubl-Code ubl-TaxExemptionReasonCode"
           meta={TaxCategoryFieldMeta.TaxExemptionReasonCode} 
           value={value.TaxExemptionReasonCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={TaxCategoryFieldMeta.TaxExemptionReasonCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Tax Exemption Reason Code"
+              value={itemValue}
+              meta={TaxCategoryFieldMeta.TaxExemptionReasonCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-TaxCategory ubl-Text ubl-TaxExemptionReason"
           meta={TaxCategoryFieldMeta.TaxExemptionReason} 
           value={value.TaxExemptionReason}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={TaxCategoryFieldMeta.TaxExemptionReason} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Tax Exemption Reason"
+              value={itemValue}
+              meta={TaxCategoryFieldMeta.TaxExemptionReason}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TaxCategory ubl-Text ubl-TierRange"
           meta={TaxCategoryFieldMeta.TierRange} 
           value={value.TierRange}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={TaxCategoryFieldMeta.TierRange} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Tier Range"
+              value={itemValue}
+              meta={TaxCategoryFieldMeta.TierRange}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TaxCategory ubl-Numeric ubl-TierRatePercent"
           meta={TaxCategoryFieldMeta.TierRatePercent} 
           value={value.TierRatePercent}
           itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay key={key} meta={TaxCategoryFieldMeta.TierRatePercent} value={itemValue} />
+            <NumericDisplay
+              key={key}
+              label="Tier Rate"
+              value={itemValue}
+              meta={TaxCategoryFieldMeta.TierRatePercent}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-TaxCategory ubl-TaxScheme"
           meta={TaxCategoryFieldMeta.TaxScheme} 
           value={value.TaxScheme}
           itemDisplay={ (itemValue: TaxScheme, key: string | number) =>
-            <TaxSchemeDisplay key={key} meta={TaxCategoryFieldMeta.TaxScheme} value={itemValue} />
+            <TaxSchemeDisplay
+              key={key}
+              label="Tax Scheme"
+              value={itemValue}
+              meta={TaxCategoryFieldMeta.TaxScheme}
+            />
           }
         />
         </div>

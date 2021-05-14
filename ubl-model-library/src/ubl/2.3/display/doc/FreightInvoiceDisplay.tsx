@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { FreightInvoice } from  '../../model/doc/FreightInvoice'
 import { FreightInvoiceFieldMeta } from  '../../meta/doc/FreightInvoiceMeta'
@@ -56,405 +57,700 @@ import { Time } from '../../model/cbc/Time'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: FreightInvoice
   meta: FieldMeta<T>
 }
 
-export default function FreightInvoiceDisplay<T>({ value, meta }: Params<T>) {
+export default function FreightInvoiceDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-doc ubl-FreightInvoice ubl-FreightInvoiceType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-FreightInvoice ubl-UBLExtensions"
           meta={FreightInvoiceFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={FreightInvoiceFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-FreightInvoice ubl-Identifier ubl-UBLVersionID"
           meta={FreightInvoiceFieldMeta.UBLVersionID} 
           value={value.UBLVersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={FreightInvoiceFieldMeta.UBLVersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UBL Version Identifier"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.UBLVersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-FreightInvoice ubl-Identifier ubl-CustomizationID"
           meta={FreightInvoiceFieldMeta.CustomizationID} 
           value={value.CustomizationID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={FreightInvoiceFieldMeta.CustomizationID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Customization Identifier"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.CustomizationID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-FreightInvoice ubl-Identifier ubl-ProfileID"
           meta={FreightInvoiceFieldMeta.ProfileID} 
           value={value.ProfileID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={FreightInvoiceFieldMeta.ProfileID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Identifier"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.ProfileID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-FreightInvoice ubl-Identifier ubl-ProfileExecutionID"
           meta={FreightInvoiceFieldMeta.ProfileExecutionID} 
           value={value.ProfileExecutionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={FreightInvoiceFieldMeta.ProfileExecutionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Profile Execution Identifier"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.ProfileExecutionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-FreightInvoice ubl-Identifier ubl-ID"
           meta={FreightInvoiceFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={FreightInvoiceFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-FreightInvoice ubl-Indicator ubl-CopyIndicator"
           meta={FreightInvoiceFieldMeta.CopyIndicator} 
           value={value.CopyIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={FreightInvoiceFieldMeta.CopyIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Copy Indicator"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.CopyIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-FreightInvoice ubl-Identifier ubl-UUID"
           meta={FreightInvoiceFieldMeta.UUID} 
           value={value.UUID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={FreightInvoiceFieldMeta.UUID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UUID"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.UUID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-FreightInvoice ubl-Date ubl-IssueDate"
           meta={FreightInvoiceFieldMeta.IssueDate} 
           value={value.IssueDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={FreightInvoiceFieldMeta.IssueDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Issue Date"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.IssueDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-FreightInvoice ubl-Time ubl-IssueTime"
           meta={FreightInvoiceFieldMeta.IssueTime} 
           value={value.IssueTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={FreightInvoiceFieldMeta.IssueTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Issue Time"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.IssueTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-FreightInvoice ubl-Date ubl-DueDate"
           meta={FreightInvoiceFieldMeta.DueDate} 
           value={value.DueDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={FreightInvoiceFieldMeta.DueDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Due Date"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.DueDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-FreightInvoice ubl-Code ubl-InvoiceTypeCode"
           meta={FreightInvoiceFieldMeta.InvoiceTypeCode} 
           value={value.InvoiceTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={FreightInvoiceFieldMeta.InvoiceTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Invoice Type Code"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.InvoiceTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-FreightInvoice ubl-Text ubl-Note"
           meta={FreightInvoiceFieldMeta.Note} 
           value={value.Note}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={FreightInvoiceFieldMeta.Note} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Note"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.Note}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-FreightInvoice ubl-Date ubl-TaxPointDate"
           meta={FreightInvoiceFieldMeta.TaxPointDate} 
           value={value.TaxPointDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={FreightInvoiceFieldMeta.TaxPointDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Tax Point Date"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.TaxPointDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-FreightInvoice ubl-Code ubl-DocumentCurrencyCode"
           meta={FreightInvoiceFieldMeta.DocumentCurrencyCode} 
           value={value.DocumentCurrencyCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={FreightInvoiceFieldMeta.DocumentCurrencyCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Document Currency Code"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.DocumentCurrencyCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-FreightInvoice ubl-Code ubl-TaxCurrencyCode"
           meta={FreightInvoiceFieldMeta.TaxCurrencyCode} 
           value={value.TaxCurrencyCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={FreightInvoiceFieldMeta.TaxCurrencyCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Tax Currency Code"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.TaxCurrencyCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-FreightInvoice ubl-Code ubl-PricingCurrencyCode"
           meta={FreightInvoiceFieldMeta.PricingCurrencyCode} 
           value={value.PricingCurrencyCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={FreightInvoiceFieldMeta.PricingCurrencyCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Pricing Currency Code"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.PricingCurrencyCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-FreightInvoice ubl-Code ubl-PaymentCurrencyCode"
           meta={FreightInvoiceFieldMeta.PaymentCurrencyCode} 
           value={value.PaymentCurrencyCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={FreightInvoiceFieldMeta.PaymentCurrencyCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Payment Currency Code"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.PaymentCurrencyCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-FreightInvoice ubl-Code ubl-PaymentAlternativeCurrencyCode"
           meta={FreightInvoiceFieldMeta.PaymentAlternativeCurrencyCode} 
           value={value.PaymentAlternativeCurrencyCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={FreightInvoiceFieldMeta.PaymentAlternativeCurrencyCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Payment Alternative Currency Code"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.PaymentAlternativeCurrencyCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-FreightInvoice ubl-Code ubl-AccountingCostCode"
           meta={FreightInvoiceFieldMeta.AccountingCostCode} 
           value={value.AccountingCostCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={FreightInvoiceFieldMeta.AccountingCostCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Accounting Cost Code"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.AccountingCostCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-FreightInvoice ubl-Text ubl-AccountingCost"
           meta={FreightInvoiceFieldMeta.AccountingCost} 
           value={value.AccountingCost}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={FreightInvoiceFieldMeta.AccountingCost} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Accounting Cost"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.AccountingCost}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-FreightInvoice ubl-Numeric ubl-LineCountNumeric"
           meta={FreightInvoiceFieldMeta.LineCountNumeric} 
           value={value.LineCountNumeric}
           itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay key={key} meta={FreightInvoiceFieldMeta.LineCountNumeric} value={itemValue} />
+            <NumericDisplay
+              key={key}
+              label="Line Count"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.LineCountNumeric}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-FreightInvoice ubl-Period ubl-InvoicePeriod"
           meta={FreightInvoiceFieldMeta.InvoicePeriod} 
           value={value.InvoicePeriod}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={FreightInvoiceFieldMeta.InvoicePeriod} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Invoice Period"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.InvoicePeriod}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-FreightInvoice ubl-Shipment"
           meta={FreightInvoiceFieldMeta.Shipment} 
           value={value.Shipment}
           itemDisplay={ (itemValue: Shipment, key: string | number) =>
-            <ShipmentDisplay key={key} meta={FreightInvoiceFieldMeta.Shipment} value={itemValue} />
+            <ShipmentDisplay
+              key={key}
+              label="Shipment"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.Shipment}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-FreightInvoice ubl-OrderReference"
           meta={FreightInvoiceFieldMeta.OrderReference} 
           value={value.OrderReference}
           itemDisplay={ (itemValue: OrderReference, key: string | number) =>
-            <OrderReferenceDisplay key={key} meta={FreightInvoiceFieldMeta.OrderReference} value={itemValue} />
+            <OrderReferenceDisplay
+              key={key}
+              label="Order Reference"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.OrderReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-FreightInvoice ubl-BillingReference"
           meta={FreightInvoiceFieldMeta.BillingReference} 
           value={value.BillingReference}
           itemDisplay={ (itemValue: BillingReference, key: string | number) =>
-            <BillingReferenceDisplay key={key} meta={FreightInvoiceFieldMeta.BillingReference} value={itemValue} />
+            <BillingReferenceDisplay
+              key={key}
+              label="Billing Reference"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.BillingReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-FreightInvoice ubl-DocumentReference ubl-DespatchDocumentReference"
           meta={FreightInvoiceFieldMeta.DespatchDocumentReference} 
           value={value.DespatchDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={FreightInvoiceFieldMeta.DespatchDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Despatch Document Reference"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.DespatchDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-FreightInvoice ubl-DocumentReference ubl-ReceiptDocumentReference"
           meta={FreightInvoiceFieldMeta.ReceiptDocumentReference} 
           value={value.ReceiptDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={FreightInvoiceFieldMeta.ReceiptDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Receipt Document Reference"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.ReceiptDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-FreightInvoice ubl-DocumentReference ubl-OriginatorDocumentReference"
           meta={FreightInvoiceFieldMeta.OriginatorDocumentReference} 
           value={value.OriginatorDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={FreightInvoiceFieldMeta.OriginatorDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Originator Document Reference"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.OriginatorDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-FreightInvoice ubl-DocumentReference ubl-ContractDocumentReference"
           meta={FreightInvoiceFieldMeta.ContractDocumentReference} 
           value={value.ContractDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={FreightInvoiceFieldMeta.ContractDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Contract Document Reference"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.ContractDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-FreightInvoice ubl-DocumentReference ubl-AdditionalDocumentReference"
           meta={FreightInvoiceFieldMeta.AdditionalDocumentReference} 
           value={value.AdditionalDocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={FreightInvoiceFieldMeta.AdditionalDocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Additional Document Reference"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.AdditionalDocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-FreightInvoice ubl-ProjectReference"
           meta={FreightInvoiceFieldMeta.ProjectReference} 
           value={value.ProjectReference}
           itemDisplay={ (itemValue: ProjectReference, key: string | number) =>
-            <ProjectReferenceDisplay key={key} meta={FreightInvoiceFieldMeta.ProjectReference} value={itemValue} />
+            <ProjectReferenceDisplay
+              key={key}
+              label="Project Reference"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.ProjectReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-FreightInvoice ubl-Signature"
           meta={FreightInvoiceFieldMeta.Signature} 
           value={value.Signature}
           itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay key={key} meta={FreightInvoiceFieldMeta.Signature} value={itemValue} />
+            <SignatureDisplay
+              key={key}
+              label="Signature"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.Signature}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-FreightInvoice ubl-SupplierParty ubl-AccountingSupplierParty"
           meta={FreightInvoiceFieldMeta.AccountingSupplierParty} 
           value={value.AccountingSupplierParty}
           itemDisplay={ (itemValue: SupplierParty, key: string | number) =>
-            <SupplierPartyDisplay key={key} meta={FreightInvoiceFieldMeta.AccountingSupplierParty} value={itemValue} />
+            <SupplierPartyDisplay
+              key={key}
+              label="Accounting Supplier Party"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.AccountingSupplierParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-FreightInvoice ubl-CustomerParty ubl-AccountingCustomerParty"
           meta={FreightInvoiceFieldMeta.AccountingCustomerParty} 
           value={value.AccountingCustomerParty}
           itemDisplay={ (itemValue: CustomerParty, key: string | number) =>
-            <CustomerPartyDisplay key={key} meta={FreightInvoiceFieldMeta.AccountingCustomerParty} value={itemValue} />
+            <CustomerPartyDisplay
+              key={key}
+              label="Accounting Customer Party"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.AccountingCustomerParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-FreightInvoice ubl-Party ubl-PayeeParty"
           meta={FreightInvoiceFieldMeta.PayeeParty} 
           value={value.PayeeParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={FreightInvoiceFieldMeta.PayeeParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Payee Party"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.PayeeParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-FreightInvoice ubl-Party ubl-TaxRepresentativeParty"
           meta={FreightInvoiceFieldMeta.TaxRepresentativeParty} 
           value={value.TaxRepresentativeParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={FreightInvoiceFieldMeta.TaxRepresentativeParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Tax Representative Party"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.TaxRepresentativeParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-FreightInvoice ubl-PaymentMeans"
           meta={FreightInvoiceFieldMeta.PaymentMeans} 
           value={value.PaymentMeans}
           itemDisplay={ (itemValue: PaymentMeans, key: string | number) =>
-            <PaymentMeansDisplay key={key} meta={FreightInvoiceFieldMeta.PaymentMeans} value={itemValue} />
+            <PaymentMeansDisplay
+              key={key}
+              label="Payment Means"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.PaymentMeans}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-FreightInvoice ubl-PaymentTerms"
           meta={FreightInvoiceFieldMeta.PaymentTerms} 
           value={value.PaymentTerms}
           itemDisplay={ (itemValue: PaymentTerms, key: string | number) =>
-            <PaymentTermsDisplay key={key} meta={FreightInvoiceFieldMeta.PaymentTerms} value={itemValue} />
+            <PaymentTermsDisplay
+              key={key}
+              label="Payment Terms"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.PaymentTerms}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-FreightInvoice ubl-Payment ubl-PrepaidPayment"
           meta={FreightInvoiceFieldMeta.PrepaidPayment} 
           value={value.PrepaidPayment}
           itemDisplay={ (itemValue: Payment, key: string | number) =>
-            <PaymentDisplay key={key} meta={FreightInvoiceFieldMeta.PrepaidPayment} value={itemValue} />
+            <PaymentDisplay
+              key={key}
+              label="Prepaid Payment"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.PrepaidPayment}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-FreightInvoice ubl-AllowanceCharge"
           meta={FreightInvoiceFieldMeta.AllowanceCharge} 
           value={value.AllowanceCharge}
           itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-            <AllowanceChargeDisplay key={key} meta={FreightInvoiceFieldMeta.AllowanceCharge} value={itemValue} />
+            <AllowanceChargeDisplay
+              key={key}
+              label="Allowance Charge"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.AllowanceCharge}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-FreightInvoice ubl-ExchangeRate ubl-TaxExchangeRate"
           meta={FreightInvoiceFieldMeta.TaxExchangeRate} 
           value={value.TaxExchangeRate}
           itemDisplay={ (itemValue: ExchangeRate, key: string | number) =>
-            <ExchangeRateDisplay key={key} meta={FreightInvoiceFieldMeta.TaxExchangeRate} value={itemValue} />
+            <ExchangeRateDisplay
+              key={key}
+              label="Tax Exchange Rate"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.TaxExchangeRate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-FreightInvoice ubl-ExchangeRate ubl-PricingExchangeRate"
           meta={FreightInvoiceFieldMeta.PricingExchangeRate} 
           value={value.PricingExchangeRate}
           itemDisplay={ (itemValue: ExchangeRate, key: string | number) =>
-            <ExchangeRateDisplay key={key} meta={FreightInvoiceFieldMeta.PricingExchangeRate} value={itemValue} />
+            <ExchangeRateDisplay
+              key={key}
+              label="Pricing Exchange Rate"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.PricingExchangeRate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-FreightInvoice ubl-ExchangeRate ubl-PaymentExchangeRate"
           meta={FreightInvoiceFieldMeta.PaymentExchangeRate} 
           value={value.PaymentExchangeRate}
           itemDisplay={ (itemValue: ExchangeRate, key: string | number) =>
-            <ExchangeRateDisplay key={key} meta={FreightInvoiceFieldMeta.PaymentExchangeRate} value={itemValue} />
+            <ExchangeRateDisplay
+              key={key}
+              label="Payment Exchange Rate"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.PaymentExchangeRate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-FreightInvoice ubl-ExchangeRate ubl-PaymentAlternativeExchangeRate"
           meta={FreightInvoiceFieldMeta.PaymentAlternativeExchangeRate} 
           value={value.PaymentAlternativeExchangeRate}
           itemDisplay={ (itemValue: ExchangeRate, key: string | number) =>
-            <ExchangeRateDisplay key={key} meta={FreightInvoiceFieldMeta.PaymentAlternativeExchangeRate} value={itemValue} />
+            <ExchangeRateDisplay
+              key={key}
+              label="Payment Alternative Exchange Rate"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.PaymentAlternativeExchangeRate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-FreightInvoice ubl-TaxTotal"
           meta={FreightInvoiceFieldMeta.TaxTotal} 
           value={value.TaxTotal}
           itemDisplay={ (itemValue: TaxTotal, key: string | number) =>
-            <TaxTotalDisplay key={key} meta={FreightInvoiceFieldMeta.TaxTotal} value={itemValue} />
+            <TaxTotalDisplay
+              key={key}
+              label="Tax Total"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.TaxTotal}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-FreightInvoice ubl-TaxTotal ubl-WithholdingTaxTotal"
           meta={FreightInvoiceFieldMeta.WithholdingTaxTotal} 
           value={value.WithholdingTaxTotal}
           itemDisplay={ (itemValue: TaxTotal, key: string | number) =>
-            <TaxTotalDisplay key={key} meta={FreightInvoiceFieldMeta.WithholdingTaxTotal} value={itemValue} />
+            <TaxTotalDisplay
+              key={key}
+              label="Withholding Tax Total"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.WithholdingTaxTotal}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-FreightInvoice ubl-MonetaryTotal ubl-LegalMonetaryTotal"
           meta={FreightInvoiceFieldMeta.LegalMonetaryTotal} 
           value={value.LegalMonetaryTotal}
           itemDisplay={ (itemValue: MonetaryTotal, key: string | number) =>
-            <MonetaryTotalDisplay key={key} meta={FreightInvoiceFieldMeta.LegalMonetaryTotal} value={itemValue} />
+            <MonetaryTotalDisplay
+              key={key}
+              label="Legal Monetary Total"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.LegalMonetaryTotal}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-FreightInvoice ubl-InvoiceLine"
           meta={FreightInvoiceFieldMeta.InvoiceLine} 
           value={value.InvoiceLine}
           itemDisplay={ (itemValue: InvoiceLine, key: string | number) =>
-            <InvoiceLineDisplay key={key} meta={FreightInvoiceFieldMeta.InvoiceLine} value={itemValue} />
+            <InvoiceLineDisplay
+              key={key}
+              label="Invoice Line"
+              value={itemValue}
+              meta={FreightInvoiceFieldMeta.InvoiceLine}
+            />
           }
         />
         </div>

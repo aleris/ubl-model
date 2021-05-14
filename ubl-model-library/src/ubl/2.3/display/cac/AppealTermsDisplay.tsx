@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { AppealTerms } from  '../../model/cac/AppealTerms'
 import { AppealTermsFieldMeta } from  '../../meta/cac/AppealTermsMeta'
@@ -12,61 +13,98 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: AppealTerms
   meta: FieldMeta<T>
 }
 
-export default function AppealTermsDisplay<T>({ value, meta }: Params<T>) {
+export default function AppealTermsDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-AppealTerms ubl-AppealTermsType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-AppealTerms ubl-UBLExtensions"
           meta={AppealTermsFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={AppealTermsFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={AppealTermsFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-AppealTerms ubl-Text ubl-Description"
           meta={AppealTermsFieldMeta.Description} 
           value={value.Description}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={AppealTermsFieldMeta.Description} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Description"
+              value={itemValue}
+              meta={AppealTermsFieldMeta.Description}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-AppealTerms ubl-Period ubl-PresentationPeriod"
           meta={AppealTermsFieldMeta.PresentationPeriod} 
           value={value.PresentationPeriod}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={AppealTermsFieldMeta.PresentationPeriod} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Presentation Period"
+              value={itemValue}
+              meta={AppealTermsFieldMeta.PresentationPeriod}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-AppealTerms ubl-Party ubl-AppealInformationParty"
           meta={AppealTermsFieldMeta.AppealInformationParty} 
           value={value.AppealInformationParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={AppealTermsFieldMeta.AppealInformationParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Appeal Information Party"
+              value={itemValue}
+              meta={AppealTermsFieldMeta.AppealInformationParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-AppealTerms ubl-Party ubl-AppealReceiverParty"
           meta={AppealTermsFieldMeta.AppealReceiverParty} 
           value={value.AppealReceiverParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={AppealTermsFieldMeta.AppealReceiverParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Appeal Receiver Party"
+              value={itemValue}
+              meta={AppealTermsFieldMeta.AppealReceiverParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-AppealTerms ubl-Party ubl-MediationParty"
           meta={AppealTermsFieldMeta.MediationParty} 
           value={value.MediationParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={AppealTermsFieldMeta.MediationParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Mediation Party"
+              value={itemValue}
+              meta={AppealTermsFieldMeta.MediationParty}
+            />
           }
         />
         </div>

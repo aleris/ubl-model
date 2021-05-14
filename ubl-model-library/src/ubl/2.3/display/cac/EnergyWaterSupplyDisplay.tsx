@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { EnergyWaterSupply } from  '../../model/cac/EnergyWaterSupply'
 import { EnergyWaterSupplyFieldMeta } from  '../../meta/cac/EnergyWaterSupplyMeta'
@@ -14,53 +15,84 @@ import { EnergyTaxReport } from '../../model/cac/EnergyTaxReport'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: EnergyWaterSupply
   meta: FieldMeta<T>
 }
 
-export default function EnergyWaterSupplyDisplay<T>({ value, meta }: Params<T>) {
+export default function EnergyWaterSupplyDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-EnergyWaterSupply ubl-EnergyWaterSupplyType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-EnergyWaterSupply ubl-UBLExtensions"
           meta={EnergyWaterSupplyFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={EnergyWaterSupplyFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={EnergyWaterSupplyFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-EnergyWaterSupply ubl-ConsumptionReport"
           meta={EnergyWaterSupplyFieldMeta.ConsumptionReport} 
           value={value.ConsumptionReport}
           itemDisplay={ (itemValue: ConsumptionReport, key: string | number) =>
-            <ConsumptionReportDisplay key={key} meta={EnergyWaterSupplyFieldMeta.ConsumptionReport} value={itemValue} />
+            <ConsumptionReportDisplay
+              key={key}
+              label="Consumption Report"
+              value={itemValue}
+              meta={EnergyWaterSupplyFieldMeta.ConsumptionReport}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-EnergyWaterSupply ubl-EnergyTaxReport"
           meta={EnergyWaterSupplyFieldMeta.EnergyTaxReport} 
           value={value.EnergyTaxReport}
           itemDisplay={ (itemValue: EnergyTaxReport, key: string | number) =>
-            <EnergyTaxReportDisplay key={key} meta={EnergyWaterSupplyFieldMeta.EnergyTaxReport} value={itemValue} />
+            <EnergyTaxReportDisplay
+              key={key}
+              label="Energy Tax Report"
+              value={itemValue}
+              meta={EnergyWaterSupplyFieldMeta.EnergyTaxReport}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-EnergyWaterSupply ubl-ConsumptionAverage"
           meta={EnergyWaterSupplyFieldMeta.ConsumptionAverage} 
           value={value.ConsumptionAverage}
           itemDisplay={ (itemValue: ConsumptionAverage, key: string | number) =>
-            <ConsumptionAverageDisplay key={key} meta={EnergyWaterSupplyFieldMeta.ConsumptionAverage} value={itemValue} />
+            <ConsumptionAverageDisplay
+              key={key}
+              label="Consumption Average"
+              value={itemValue}
+              meta={EnergyWaterSupplyFieldMeta.ConsumptionAverage}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-EnergyWaterSupply ubl-ConsumptionCorrection ubl-EnergyWaterConsumptionCorrection"
           meta={EnergyWaterSupplyFieldMeta.EnergyWaterConsumptionCorrection} 
           value={value.EnergyWaterConsumptionCorrection}
           itemDisplay={ (itemValue: ConsumptionCorrection, key: string | number) =>
-            <ConsumptionCorrectionDisplay key={key} meta={EnergyWaterSupplyFieldMeta.EnergyWaterConsumptionCorrection} value={itemValue} />
+            <ConsumptionCorrectionDisplay
+              key={key}
+              label="Energy Water Consumption Correction"
+              value={itemValue}
+              meta={EnergyWaterSupplyFieldMeta.EnergyWaterConsumptionCorrection}
+            />
           }
         />
         </div>

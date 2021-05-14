@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { EconomicOperatorShortList } from  '../../model/cac/EconomicOperatorShortList'
 import { EconomicOperatorShortListFieldMeta } from  '../../meta/cac/EconomicOperatorShortListMeta'
@@ -12,61 +13,98 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: EconomicOperatorShortList
   meta: FieldMeta<T>
 }
 
-export default function EconomicOperatorShortListDisplay<T>({ value, meta }: Params<T>) {
+export default function EconomicOperatorShortListDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-EconomicOperatorShortList ubl-EconomicOperatorShortListType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-EconomicOperatorShortList ubl-UBLExtensions"
           meta={EconomicOperatorShortListFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={EconomicOperatorShortListFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={EconomicOperatorShortListFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-EconomicOperatorShortList ubl-Text ubl-LimitationDescription"
           meta={EconomicOperatorShortListFieldMeta.LimitationDescription} 
           value={value.LimitationDescription}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={EconomicOperatorShortListFieldMeta.LimitationDescription} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Limitation Description"
+              value={itemValue}
+              meta={EconomicOperatorShortListFieldMeta.LimitationDescription}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-EconomicOperatorShortList ubl-Quantity ubl-ExpectedQuantity"
           meta={EconomicOperatorShortListFieldMeta.ExpectedQuantity} 
           value={value.ExpectedQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={EconomicOperatorShortListFieldMeta.ExpectedQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Expected Quantity"
+              value={itemValue}
+              meta={EconomicOperatorShortListFieldMeta.ExpectedQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-EconomicOperatorShortList ubl-Quantity ubl-MaximumQuantity"
           meta={EconomicOperatorShortListFieldMeta.MaximumQuantity} 
           value={value.MaximumQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={EconomicOperatorShortListFieldMeta.MaximumQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Maximum Quantity"
+              value={itemValue}
+              meta={EconomicOperatorShortListFieldMeta.MaximumQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-EconomicOperatorShortList ubl-Quantity ubl-MinimumQuantity"
           meta={EconomicOperatorShortListFieldMeta.MinimumQuantity} 
           value={value.MinimumQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={EconomicOperatorShortListFieldMeta.MinimumQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Minimum Quantity"
+              value={itemValue}
+              meta={EconomicOperatorShortListFieldMeta.MinimumQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-EconomicOperatorShortList ubl-Party ubl-PreSelectedParty"
           meta={EconomicOperatorShortListFieldMeta.PreSelectedParty} 
           value={value.PreSelectedParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={EconomicOperatorShortListFieldMeta.PreSelectedParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Pre Selected Party"
+              value={itemValue}
+              meta={EconomicOperatorShortListFieldMeta.PreSelectedParty}
+            />
           }
         />
         </div>

@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { UBLExtension } from  '../../model/ext/UBLExtension'
 import { UBLExtensionFieldMeta } from  '../../meta/ext/UBLExtensionMeta'
@@ -12,93 +13,154 @@ import { Identifier } from '../../model/cbc/Identifier'
 import TextDisplay from '../cbc/TextDisplay'
 import { Text } from '../../model/cbc/Text'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: UBLExtension
   meta: FieldMeta<T>
 }
 
-export default function UBLExtensionDisplay<T>({ value, meta }: Params<T>) {
+export default function UBLExtensionDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-ext ubl-UBLExtension ubl-UBLExtensionType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-UBLExtension ubl-Identifier ubl-ID"
           meta={UBLExtensionFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={UBLExtensionFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={UBLExtensionFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-UBLExtension ubl-Text ubl-Name"
           meta={UBLExtensionFieldMeta.Name} 
           value={value.Name}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={UBLExtensionFieldMeta.Name} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={UBLExtensionFieldMeta.Name}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-UBLExtension ubl-Identifier ubl-ExtensionAgencyID"
           meta={UBLExtensionFieldMeta.ExtensionAgencyID} 
           value={value.ExtensionAgencyID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={UBLExtensionFieldMeta.ExtensionAgencyID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={UBLExtensionFieldMeta.ExtensionAgencyID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-UBLExtension ubl-Text ubl-ExtensionAgencyName"
           meta={UBLExtensionFieldMeta.ExtensionAgencyName} 
           value={value.ExtensionAgencyName}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={UBLExtensionFieldMeta.ExtensionAgencyName} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={UBLExtensionFieldMeta.ExtensionAgencyName}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-UBLExtension ubl-Identifier ubl-ExtensionVersionID"
           meta={UBLExtensionFieldMeta.ExtensionVersionID} 
           value={value.ExtensionVersionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={UBLExtensionFieldMeta.ExtensionVersionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={UBLExtensionFieldMeta.ExtensionVersionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-UBLExtension ubl-Identifier ubl-ExtensionAgencyURI"
           meta={UBLExtensionFieldMeta.ExtensionAgencyURI} 
           value={value.ExtensionAgencyURI}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={UBLExtensionFieldMeta.ExtensionAgencyURI} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={UBLExtensionFieldMeta.ExtensionAgencyURI}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-UBLExtension ubl-Identifier ubl-ExtensionURI"
           meta={UBLExtensionFieldMeta.ExtensionURI} 
           value={value.ExtensionURI}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={UBLExtensionFieldMeta.ExtensionURI} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={UBLExtensionFieldMeta.ExtensionURI}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-UBLExtension ubl-Code ubl-ExtensionReasonCode"
           meta={UBLExtensionFieldMeta.ExtensionReasonCode} 
           value={value.ExtensionReasonCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={UBLExtensionFieldMeta.ExtensionReasonCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={UBLExtensionFieldMeta.ExtensionReasonCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-UBLExtension ubl-Text ubl-ExtensionReason"
           meta={UBLExtensionFieldMeta.ExtensionReason} 
           value={value.ExtensionReason}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={UBLExtensionFieldMeta.ExtensionReason} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={UBLExtensionFieldMeta.ExtensionReason}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-UBLExtension ubl-ExtensionContent"
           meta={UBLExtensionFieldMeta.ExtensionContent} 
           value={value.ExtensionContent}
           itemDisplay={ (itemValue: ExtensionContent, key: string | number) =>
-            <ExtensionContentDisplay key={key} meta={UBLExtensionFieldMeta.ExtensionContent} value={itemValue} />
+            <ExtensionContentDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={UBLExtensionFieldMeta.ExtensionContent}
+            />
           }
         />
         </div>

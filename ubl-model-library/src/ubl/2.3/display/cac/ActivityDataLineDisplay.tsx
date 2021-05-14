@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ActivityDataLine } from  '../../model/cac/ActivityDataLine'
 import { ActivityDataLineFieldMeta } from  '../../meta/cac/ActivityDataLineMeta'
@@ -20,85 +21,140 @@ import { SupplierParty } from '../../model/cac/SupplierParty'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: ActivityDataLine
   meta: FieldMeta<T>
 }
 
-export default function ActivityDataLineDisplay<T>({ value, meta }: Params<T>) {
+export default function ActivityDataLineDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-ActivityDataLine ubl-ActivityDataLineType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-ActivityDataLine ubl-UBLExtensions"
           meta={ActivityDataLineFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={ActivityDataLineFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={ActivityDataLineFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ActivityDataLine ubl-Identifier ubl-ID"
           meta={ActivityDataLineFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={ActivityDataLineFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={ActivityDataLineFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-ActivityDataLine ubl-Code ubl-SupplyChainActivityTypeCode"
           meta={ActivityDataLineFieldMeta.SupplyChainActivityTypeCode} 
           value={value.SupplyChainActivityTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={ActivityDataLineFieldMeta.SupplyChainActivityTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Supply Chain Activity Type Code"
+              value={itemValue}
+              meta={ActivityDataLineFieldMeta.SupplyChainActivityTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-ActivityDataLine ubl-CustomerParty ubl-BuyerCustomerParty"
           meta={ActivityDataLineFieldMeta.BuyerCustomerParty} 
           value={value.BuyerCustomerParty}
           itemDisplay={ (itemValue: CustomerParty, key: string | number) =>
-            <CustomerPartyDisplay key={key} meta={ActivityDataLineFieldMeta.BuyerCustomerParty} value={itemValue} />
+            <CustomerPartyDisplay
+              key={key}
+              label="Buyer Customer Party"
+              value={itemValue}
+              meta={ActivityDataLineFieldMeta.BuyerCustomerParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-ActivityDataLine ubl-SupplierParty ubl-SellerSupplierParty"
           meta={ActivityDataLineFieldMeta.SellerSupplierParty} 
           value={value.SellerSupplierParty}
           itemDisplay={ (itemValue: SupplierParty, key: string | number) =>
-            <SupplierPartyDisplay key={key} meta={ActivityDataLineFieldMeta.SellerSupplierParty} value={itemValue} />
+            <SupplierPartyDisplay
+              key={key}
+              label="Seller Supplier Party"
+              value={itemValue}
+              meta={ActivityDataLineFieldMeta.SellerSupplierParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-ActivityDataLine ubl-Period ubl-ActivityPeriod"
           meta={ActivityDataLineFieldMeta.ActivityPeriod} 
           value={value.ActivityPeriod}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={ActivityDataLineFieldMeta.ActivityPeriod} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Activity Period"
+              value={itemValue}
+              meta={ActivityDataLineFieldMeta.ActivityPeriod}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-ActivityDataLine ubl-Location ubl-ActivityOriginLocation"
           meta={ActivityDataLineFieldMeta.ActivityOriginLocation} 
           value={value.ActivityOriginLocation}
           itemDisplay={ (itemValue: Location, key: string | number) =>
-            <LocationDisplay key={key} meta={ActivityDataLineFieldMeta.ActivityOriginLocation} value={itemValue} />
+            <LocationDisplay
+              key={key}
+              label="Activity Origin Location"
+              value={itemValue}
+              meta={ActivityDataLineFieldMeta.ActivityOriginLocation}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-ActivityDataLine ubl-Location ubl-ActivityFinalLocation"
           meta={ActivityDataLineFieldMeta.ActivityFinalLocation} 
           value={value.ActivityFinalLocation}
           itemDisplay={ (itemValue: Location, key: string | number) =>
-            <LocationDisplay key={key} meta={ActivityDataLineFieldMeta.ActivityFinalLocation} value={itemValue} />
+            <LocationDisplay
+              key={key}
+              label="Activity Final Location"
+              value={itemValue}
+              meta={ActivityDataLineFieldMeta.ActivityFinalLocation}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-ActivityDataLine ubl-SalesItem"
           meta={ActivityDataLineFieldMeta.SalesItem} 
           value={value.SalesItem}
           itemDisplay={ (itemValue: SalesItem, key: string | number) =>
-            <SalesItemDisplay key={key} meta={ActivityDataLineFieldMeta.SalesItem} value={itemValue} />
+            <SalesItemDisplay
+              key={key}
+              label="Sales Item"
+              value={itemValue}
+              meta={ActivityDataLineFieldMeta.SalesItem}
+            />
           }
         />
         </div>

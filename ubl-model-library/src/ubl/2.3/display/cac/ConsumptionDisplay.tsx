@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Consumption } from  '../../model/cac/Consumption'
 import { ConsumptionFieldMeta } from  '../../meta/cac/ConsumptionMeta'
@@ -20,77 +21,126 @@ import { TelecommunicationsSupply } from '../../model/cac/TelecommunicationsSupp
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: Consumption
   meta: FieldMeta<T>
 }
 
-export default function ConsumptionDisplay<T>({ value, meta }: Params<T>) {
+export default function ConsumptionDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-Consumption ubl-ConsumptionType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-Consumption ubl-UBLExtensions"
           meta={ConsumptionFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={ConsumptionFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={ConsumptionFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Consumption ubl-Code ubl-UtilityStatementTypeCode"
           meta={ConsumptionFieldMeta.UtilityStatementTypeCode} 
           value={value.UtilityStatementTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={ConsumptionFieldMeta.UtilityStatementTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Utility Statement Type Code"
+              value={itemValue}
+              meta={ConsumptionFieldMeta.UtilityStatementTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consumption ubl-Period ubl-MainPeriod"
           meta={ConsumptionFieldMeta.MainPeriod} 
           value={value.MainPeriod}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={ConsumptionFieldMeta.MainPeriod} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Main Period"
+              value={itemValue}
+              meta={ConsumptionFieldMeta.MainPeriod}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Consumption ubl-AllowanceCharge"
           meta={ConsumptionFieldMeta.AllowanceCharge} 
           value={value.AllowanceCharge}
           itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-            <AllowanceChargeDisplay key={key} meta={ConsumptionFieldMeta.AllowanceCharge} value={itemValue} />
+            <AllowanceChargeDisplay
+              key={key}
+              label="Allowance Charge"
+              value={itemValue}
+              meta={ConsumptionFieldMeta.AllowanceCharge}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Consumption ubl-TaxTotal"
           meta={ConsumptionFieldMeta.TaxTotal} 
           value={value.TaxTotal}
           itemDisplay={ (itemValue: TaxTotal, key: string | number) =>
-            <TaxTotalDisplay key={key} meta={ConsumptionFieldMeta.TaxTotal} value={itemValue} />
+            <TaxTotalDisplay
+              key={key}
+              label="Tax Total"
+              value={itemValue}
+              meta={ConsumptionFieldMeta.TaxTotal}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consumption ubl-EnergyWaterSupply"
           meta={ConsumptionFieldMeta.EnergyWaterSupply} 
           value={value.EnergyWaterSupply}
           itemDisplay={ (itemValue: EnergyWaterSupply, key: string | number) =>
-            <EnergyWaterSupplyDisplay key={key} meta={ConsumptionFieldMeta.EnergyWaterSupply} value={itemValue} />
+            <EnergyWaterSupplyDisplay
+              key={key}
+              label="Energy Water Supply"
+              value={itemValue}
+              meta={ConsumptionFieldMeta.EnergyWaterSupply}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consumption ubl-TelecommunicationsSupply"
           meta={ConsumptionFieldMeta.TelecommunicationsSupply} 
           value={value.TelecommunicationsSupply}
           itemDisplay={ (itemValue: TelecommunicationsSupply, key: string | number) =>
-            <TelecommunicationsSupplyDisplay key={key} meta={ConsumptionFieldMeta.TelecommunicationsSupply} value={itemValue} />
+            <TelecommunicationsSupplyDisplay
+              key={key}
+              label="Telecommunications Supply"
+              value={itemValue}
+              meta={ConsumptionFieldMeta.TelecommunicationsSupply}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Consumption ubl-MonetaryTotal ubl-LegalMonetaryTotal"
           meta={ConsumptionFieldMeta.LegalMonetaryTotal} 
           value={value.LegalMonetaryTotal}
           itemDisplay={ (itemValue: MonetaryTotal, key: string | number) =>
-            <MonetaryTotalDisplay key={key} meta={ConsumptionFieldMeta.LegalMonetaryTotal} value={itemValue} />
+            <MonetaryTotalDisplay
+              key={key}
+              label="Legal Monetary Total"
+              value={itemValue}
+              meta={ConsumptionFieldMeta.LegalMonetaryTotal}
+            />
           }
         />
         </div>

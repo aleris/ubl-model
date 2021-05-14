@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Party } from  '../../model/cac/Party'
 import { PartyFieldMeta } from  '../../meta/cac/PartyMeta'
@@ -42,197 +43,336 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 import WebSiteDisplay from './WebSiteDisplay'
 import { WebSite } from '../../model/cac/WebSite'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: Party
   meta: FieldMeta<T>
 }
 
-export default function PartyDisplay<T>({ value, meta }: Params<T>) {
+export default function PartyDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-Party ubl-PartyType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-Party ubl-UBLExtensions"
           meta={PartyFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={PartyFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={PartyFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Party ubl-Indicator ubl-MarkCareIndicator"
           meta={PartyFieldMeta.MarkCareIndicator} 
           value={value.MarkCareIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={PartyFieldMeta.MarkCareIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Mark Care Indicator"
+              value={itemValue}
+              meta={PartyFieldMeta.MarkCareIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Party ubl-Indicator ubl-MarkAttentionIndicator"
           meta={PartyFieldMeta.MarkAttentionIndicator} 
           value={value.MarkAttentionIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={PartyFieldMeta.MarkAttentionIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Mark Attention Indicator"
+              value={itemValue}
+              meta={PartyFieldMeta.MarkAttentionIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Party ubl-Identifier ubl-WebsiteURI"
           meta={PartyFieldMeta.WebsiteURI} 
           value={value.WebsiteURI}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={PartyFieldMeta.WebsiteURI} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Website URI"
+              value={itemValue}
+              meta={PartyFieldMeta.WebsiteURI}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Party ubl-Identifier ubl-LogoReferenceID"
           meta={PartyFieldMeta.LogoReferenceID} 
           value={value.LogoReferenceID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={PartyFieldMeta.LogoReferenceID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Logo Reference"
+              value={itemValue}
+              meta={PartyFieldMeta.LogoReferenceID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Party ubl-Identifier ubl-EndpointID"
           meta={PartyFieldMeta.EndpointID} 
           value={value.EndpointID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={PartyFieldMeta.EndpointID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Endpoint Identifier"
+              value={itemValue}
+              meta={PartyFieldMeta.EndpointID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Party ubl-Code ubl-IndustryClassificationCode"
           meta={PartyFieldMeta.IndustryClassificationCode} 
           value={value.IndustryClassificationCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={PartyFieldMeta.IndustryClassificationCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Industry Classification Code"
+              value={itemValue}
+              meta={PartyFieldMeta.IndustryClassificationCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Party ubl-PartyIdentification"
           meta={PartyFieldMeta.PartyIdentification} 
           value={value.PartyIdentification}
           itemDisplay={ (itemValue: PartyIdentification, key: string | number) =>
-            <PartyIdentificationDisplay key={key} meta={PartyFieldMeta.PartyIdentification} value={itemValue} />
+            <PartyIdentificationDisplay
+              key={key}
+              label="Party Identification"
+              value={itemValue}
+              meta={PartyFieldMeta.PartyIdentification}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Party ubl-PartyName"
           meta={PartyFieldMeta.PartyName} 
           value={value.PartyName}
           itemDisplay={ (itemValue: PartyName, key: string | number) =>
-            <PartyNameDisplay key={key} meta={PartyFieldMeta.PartyName} value={itemValue} />
+            <PartyNameDisplay
+              key={key}
+              label="Party Name"
+              value={itemValue}
+              meta={PartyFieldMeta.PartyName}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Party ubl-Language"
           meta={PartyFieldMeta.Language} 
           value={value.Language}
           itemDisplay={ (itemValue: Language, key: string | number) =>
-            <LanguageDisplay key={key} meta={PartyFieldMeta.Language} value={itemValue} />
+            <LanguageDisplay
+              key={key}
+              label="Language"
+              value={itemValue}
+              meta={PartyFieldMeta.Language}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Party ubl-Address ubl-PostalAddress"
           meta={PartyFieldMeta.PostalAddress} 
           value={value.PostalAddress}
           itemDisplay={ (itemValue: Address, key: string | number) =>
-            <AddressDisplay key={key} meta={PartyFieldMeta.PostalAddress} value={itemValue} />
+            <AddressDisplay
+              key={key}
+              label="Postal Address"
+              value={itemValue}
+              meta={PartyFieldMeta.PostalAddress}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Party ubl-Location ubl-PhysicalLocation"
           meta={PartyFieldMeta.PhysicalLocation} 
           value={value.PhysicalLocation}
           itemDisplay={ (itemValue: Location, key: string | number) =>
-            <LocationDisplay key={key} meta={PartyFieldMeta.PhysicalLocation} value={itemValue} />
+            <LocationDisplay
+              key={key}
+              label="Physical Location"
+              value={itemValue}
+              meta={PartyFieldMeta.PhysicalLocation}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Party ubl-PartyTaxScheme"
           meta={PartyFieldMeta.PartyTaxScheme} 
           value={value.PartyTaxScheme}
           itemDisplay={ (itemValue: PartyTaxScheme, key: string | number) =>
-            <PartyTaxSchemeDisplay key={key} meta={PartyFieldMeta.PartyTaxScheme} value={itemValue} />
+            <PartyTaxSchemeDisplay
+              key={key}
+              label="Party Tax Scheme"
+              value={itemValue}
+              meta={PartyFieldMeta.PartyTaxScheme}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Party ubl-PartyLegalEntity"
           meta={PartyFieldMeta.PartyLegalEntity} 
           value={value.PartyLegalEntity}
           itemDisplay={ (itemValue: PartyLegalEntity, key: string | number) =>
-            <PartyLegalEntityDisplay key={key} meta={PartyFieldMeta.PartyLegalEntity} value={itemValue} />
+            <PartyLegalEntityDisplay
+              key={key}
+              label="Party Legal Entity"
+              value={itemValue}
+              meta={PartyFieldMeta.PartyLegalEntity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Party ubl-Contact"
           meta={PartyFieldMeta.Contact} 
           value={value.Contact}
           itemDisplay={ (itemValue: Contact, key: string | number) =>
-            <ContactDisplay key={key} meta={PartyFieldMeta.Contact} value={itemValue} />
+            <ContactDisplay
+              key={key}
+              label="Contact"
+              value={itemValue}
+              meta={PartyFieldMeta.Contact}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Party ubl-Person"
           meta={PartyFieldMeta.Person} 
           value={value.Person}
           itemDisplay={ (itemValue: Person, key: string | number) =>
-            <PersonDisplay key={key} meta={PartyFieldMeta.Person} value={itemValue} />
+            <PersonDisplay
+              key={key}
+              label="Person"
+              value={itemValue}
+              meta={PartyFieldMeta.Person}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Party ubl-AgentParty"
           meta={PartyFieldMeta.AgentParty} 
           value={value.AgentParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={PartyFieldMeta.AgentParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Agent Party"
+              value={itemValue}
+              meta={PartyFieldMeta.AgentParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Party ubl-ServiceProviderParty"
           meta={PartyFieldMeta.ServiceProviderParty} 
           value={value.ServiceProviderParty}
           itemDisplay={ (itemValue: ServiceProviderParty, key: string | number) =>
-            <ServiceProviderPartyDisplay key={key} meta={PartyFieldMeta.ServiceProviderParty} value={itemValue} />
+            <ServiceProviderPartyDisplay
+              key={key}
+              label="Service Provider Party"
+              value={itemValue}
+              meta={PartyFieldMeta.ServiceProviderParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Party ubl-PowerOfAttorney"
           meta={PartyFieldMeta.PowerOfAttorney} 
           value={value.PowerOfAttorney}
           itemDisplay={ (itemValue: PowerOfAttorney, key: string | number) =>
-            <PowerOfAttorneyDisplay key={key} meta={PartyFieldMeta.PowerOfAttorney} value={itemValue} />
+            <PowerOfAttorneyDisplay
+              key={key}
+              label="Power Of Attorney"
+              value={itemValue}
+              meta={PartyFieldMeta.PowerOfAttorney}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Party ubl-Authorization ubl-PartyAuthorization"
           meta={PartyFieldMeta.PartyAuthorization} 
           value={value.PartyAuthorization}
           itemDisplay={ (itemValue: Authorization, key: string | number) =>
-            <AuthorizationDisplay key={key} meta={PartyFieldMeta.PartyAuthorization} value={itemValue} />
+            <AuthorizationDisplay
+              key={key}
+              label="Party Authorization"
+              value={itemValue}
+              meta={PartyFieldMeta.PartyAuthorization}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Party ubl-FinancialAccount"
           meta={PartyFieldMeta.FinancialAccount} 
           value={value.FinancialAccount}
           itemDisplay={ (itemValue: FinancialAccount, key: string | number) =>
-            <FinancialAccountDisplay key={key} meta={PartyFieldMeta.FinancialAccount} value={itemValue} />
+            <FinancialAccountDisplay
+              key={key}
+              label="Financial Account"
+              value={itemValue}
+              meta={PartyFieldMeta.FinancialAccount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Party ubl-WebSite ubl-AdditionalWebSite"
           meta={PartyFieldMeta.AdditionalWebSite} 
           value={value.AdditionalWebSite}
           itemDisplay={ (itemValue: WebSite, key: string | number) =>
-            <WebSiteDisplay key={key} meta={PartyFieldMeta.AdditionalWebSite} value={itemValue} />
+            <WebSiteDisplay
+              key={key}
+              label="Additional Web Site"
+              value={itemValue}
+              meta={PartyFieldMeta.AdditionalWebSite}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Party ubl-SocialMediaProfile"
           meta={PartyFieldMeta.SocialMediaProfile} 
           value={value.SocialMediaProfile}
           itemDisplay={ (itemValue: SocialMediaProfile, key: string | number) =>
-            <SocialMediaProfileDisplay key={key} meta={PartyFieldMeta.SocialMediaProfile} value={itemValue} />
+            <SocialMediaProfileDisplay
+              key={key}
+              label="Social Media Profile"
+              value={itemValue}
+              meta={PartyFieldMeta.SocialMediaProfile}
+            />
           }
         />
         </div>

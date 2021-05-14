@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { AwardingCriterion } from  '../../model/cac/AwardingCriterion'
 import { AwardingCriterionFieldMeta } from  '../../meta/cac/AwardingCriterionMeta'
@@ -18,133 +19,224 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: AwardingCriterion
   meta: FieldMeta<T>
 }
 
-export default function AwardingCriterionDisplay<T>({ value, meta }: Params<T>) {
+export default function AwardingCriterionDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-AwardingCriterion ubl-AwardingCriterionType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-AwardingCriterion ubl-UBLExtensions"
           meta={AwardingCriterionFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={AwardingCriterionFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={AwardingCriterionFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-AwardingCriterion ubl-Identifier ubl-ID"
           meta={AwardingCriterionFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={AwardingCriterionFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={AwardingCriterionFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-AwardingCriterion ubl-Code ubl-AwardingCriterionTypeCode"
           meta={AwardingCriterionFieldMeta.AwardingCriterionTypeCode} 
           value={value.AwardingCriterionTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={AwardingCriterionFieldMeta.AwardingCriterionTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Awarding Criterion Type Code"
+              value={itemValue}
+              meta={AwardingCriterionFieldMeta.AwardingCriterionTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-AwardingCriterion ubl-Text ubl-Name"
           meta={AwardingCriterionFieldMeta.Name} 
           value={value.Name}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={AwardingCriterionFieldMeta.Name} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Name"
+              value={itemValue}
+              meta={AwardingCriterionFieldMeta.Name}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-AwardingCriterion ubl-Text ubl-Description"
           meta={AwardingCriterionFieldMeta.Description} 
           value={value.Description}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={AwardingCriterionFieldMeta.Description} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Description"
+              value={itemValue}
+              meta={AwardingCriterionFieldMeta.Description}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-AwardingCriterion ubl-Numeric ubl-WeightNumeric"
           meta={AwardingCriterionFieldMeta.WeightNumeric} 
           value={value.WeightNumeric}
           itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay key={key} meta={AwardingCriterionFieldMeta.WeightNumeric} value={itemValue} />
+            <NumericDisplay
+              key={key}
+              label="Weight Numeric"
+              value={itemValue}
+              meta={AwardingCriterionFieldMeta.WeightNumeric}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-AwardingCriterion ubl-Text ubl-Weight"
           meta={AwardingCriterionFieldMeta.Weight} 
           value={value.Weight}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={AwardingCriterionFieldMeta.Weight} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Weight"
+              value={itemValue}
+              meta={AwardingCriterionFieldMeta.Weight}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-AwardingCriterion ubl-Text ubl-CalculationExpression"
           meta={AwardingCriterionFieldMeta.CalculationExpression} 
           value={value.CalculationExpression}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={AwardingCriterionFieldMeta.CalculationExpression} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Calculation Expression"
+              value={itemValue}
+              meta={AwardingCriterionFieldMeta.CalculationExpression}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-AwardingCriterion ubl-Code ubl-CalculationExpressionCode"
           meta={AwardingCriterionFieldMeta.CalculationExpressionCode} 
           value={value.CalculationExpressionCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={AwardingCriterionFieldMeta.CalculationExpressionCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Calculation Expression Code"
+              value={itemValue}
+              meta={AwardingCriterionFieldMeta.CalculationExpressionCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-AwardingCriterion ubl-Quantity ubl-MinimumQuantity"
           meta={AwardingCriterionFieldMeta.MinimumQuantity} 
           value={value.MinimumQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={AwardingCriterionFieldMeta.MinimumQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Minimum Quantity"
+              value={itemValue}
+              meta={AwardingCriterionFieldMeta.MinimumQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-AwardingCriterion ubl-Quantity ubl-MaximumQuantity"
           meta={AwardingCriterionFieldMeta.MaximumQuantity} 
           value={value.MaximumQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={AwardingCriterionFieldMeta.MaximumQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Maximum Quantity"
+              value={itemValue}
+              meta={AwardingCriterionFieldMeta.MaximumQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-AwardingCriterion ubl-Amount ubl-MinimumAmount"
           meta={AwardingCriterionFieldMeta.MinimumAmount} 
           value={value.MinimumAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={AwardingCriterionFieldMeta.MinimumAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Minimum Amount"
+              value={itemValue}
+              meta={AwardingCriterionFieldMeta.MinimumAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-AwardingCriterion ubl-Amount ubl-MaximumAmount"
           meta={AwardingCriterionFieldMeta.MaximumAmount} 
           value={value.MaximumAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={AwardingCriterionFieldMeta.MaximumAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Maximum Amount"
+              value={itemValue}
+              meta={AwardingCriterionFieldMeta.MaximumAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-AwardingCriterion ubl-Text ubl-MinimumImprovementBid"
           meta={AwardingCriterionFieldMeta.MinimumImprovementBid} 
           value={value.MinimumImprovementBid}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={AwardingCriterionFieldMeta.MinimumImprovementBid} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Minimum Improvement Bid"
+              value={itemValue}
+              meta={AwardingCriterionFieldMeta.MinimumImprovementBid}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-AwardingCriterion ubl-SubordinateAwardingCriterion"
           meta={AwardingCriterionFieldMeta.SubordinateAwardingCriterion} 
           value={value.SubordinateAwardingCriterion}
           itemDisplay={ (itemValue: AwardingCriterion, key: string | number) =>
-            <AwardingCriterionDisplay key={key} meta={AwardingCriterionFieldMeta.SubordinateAwardingCriterion} value={itemValue} />
+            <AwardingCriterionDisplay
+              key={key}
+              label="Subordinate Awarding Criterion"
+              value={itemValue}
+              meta={AwardingCriterionFieldMeta.SubordinateAwardingCriterion}
+            />
           }
         />
         </div>

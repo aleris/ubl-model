@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { InventoryReportLine } from  '../../model/cac/InventoryReportLine'
 import { InventoryReportLineFieldMeta } from  '../../meta/cac/InventoryReportLineMeta'
@@ -22,85 +23,140 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: InventoryReportLine
   meta: FieldMeta<T>
 }
 
-export default function InventoryReportLineDisplay<T>({ value, meta }: Params<T>) {
+export default function InventoryReportLineDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-InventoryReportLine ubl-InventoryReportLineType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-InventoryReportLine ubl-UBLExtensions"
           meta={InventoryReportLineFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={InventoryReportLineFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={InventoryReportLineFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-InventoryReportLine ubl-Identifier ubl-ID"
           meta={InventoryReportLineFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={InventoryReportLineFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={InventoryReportLineFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-InventoryReportLine ubl-Text ubl-Note"
           meta={InventoryReportLineFieldMeta.Note} 
           value={value.Note}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={InventoryReportLineFieldMeta.Note} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Note"
+              value={itemValue}
+              meta={InventoryReportLineFieldMeta.Note}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-InventoryReportLine ubl-Quantity"
           meta={InventoryReportLineFieldMeta.Quantity} 
           value={value.Quantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={InventoryReportLineFieldMeta.Quantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Quantity"
+              value={itemValue}
+              meta={InventoryReportLineFieldMeta.Quantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-InventoryReportLine ubl-Amount ubl-InventoryValueAmount"
           meta={InventoryReportLineFieldMeta.InventoryValueAmount} 
           value={value.InventoryValueAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={InventoryReportLineFieldMeta.InventoryValueAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Inventory Value"
+              value={itemValue}
+              meta={InventoryReportLineFieldMeta.InventoryValueAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-InventoryReportLine ubl-Date ubl-AvailabilityDate"
           meta={InventoryReportLineFieldMeta.AvailabilityDate} 
           value={value.AvailabilityDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={InventoryReportLineFieldMeta.AvailabilityDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Availability Date"
+              value={itemValue}
+              meta={InventoryReportLineFieldMeta.AvailabilityDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-InventoryReportLine ubl-Code ubl-AvailabilityStatusCode"
           meta={InventoryReportLineFieldMeta.AvailabilityStatusCode} 
           value={value.AvailabilityStatusCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={InventoryReportLineFieldMeta.AvailabilityStatusCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Availability Status Code"
+              value={itemValue}
+              meta={InventoryReportLineFieldMeta.AvailabilityStatusCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-InventoryReportLine ubl-Item"
           meta={InventoryReportLineFieldMeta.Item} 
           value={value.Item}
           itemDisplay={ (itemValue: Item, key: string | number) =>
-            <ItemDisplay key={key} meta={InventoryReportLineFieldMeta.Item} value={itemValue} />
+            <ItemDisplay
+              key={key}
+              label="Item"
+              value={itemValue}
+              meta={InventoryReportLineFieldMeta.Item}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-InventoryReportLine ubl-Location ubl-InventoryLocation"
           meta={InventoryReportLineFieldMeta.InventoryLocation} 
           value={value.InventoryLocation}
           itemDisplay={ (itemValue: Location, key: string | number) =>
-            <LocationDisplay key={key} meta={InventoryReportLineFieldMeta.InventoryLocation} value={itemValue} />
+            <LocationDisplay
+              key={key}
+              label="Inventory Location"
+              value={itemValue}
+              meta={InventoryReportLineFieldMeta.InventoryLocation}
+            />
           }
         />
         </div>

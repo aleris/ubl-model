@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { RetailPlannedImpact } from  '../../model/cac/RetailPlannedImpact'
 import { RetailPlannedImpactFieldMeta } from  '../../meta/cac/RetailPlannedImpactMeta'
@@ -12,53 +13,84 @@ import { Period } from '../../model/cac/Period'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: RetailPlannedImpact
   meta: FieldMeta<T>
 }
 
-export default function RetailPlannedImpactDisplay<T>({ value, meta }: Params<T>) {
+export default function RetailPlannedImpactDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-RetailPlannedImpact ubl-RetailPlannedImpactType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-RetailPlannedImpact ubl-UBLExtensions"
           meta={RetailPlannedImpactFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={RetailPlannedImpactFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={RetailPlannedImpactFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-RetailPlannedImpact ubl-Amount"
           meta={RetailPlannedImpactFieldMeta.Amount} 
           value={value.Amount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={RetailPlannedImpactFieldMeta.Amount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Amount"
+              value={itemValue}
+              meta={RetailPlannedImpactFieldMeta.Amount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-RetailPlannedImpact ubl-Code ubl-ForecastPurposeCode"
           meta={RetailPlannedImpactFieldMeta.ForecastPurposeCode} 
           value={value.ForecastPurposeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={RetailPlannedImpactFieldMeta.ForecastPurposeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Forecast Purpose Code"
+              value={itemValue}
+              meta={RetailPlannedImpactFieldMeta.ForecastPurposeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-RetailPlannedImpact ubl-Code ubl-ForecastTypeCode"
           meta={RetailPlannedImpactFieldMeta.ForecastTypeCode} 
           value={value.ForecastTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={RetailPlannedImpactFieldMeta.ForecastTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Forecast Type Code"
+              value={itemValue}
+              meta={RetailPlannedImpactFieldMeta.ForecastTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-RetailPlannedImpact ubl-Period"
           meta={RetailPlannedImpactFieldMeta.Period} 
           value={value.Period}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={RetailPlannedImpactFieldMeta.Period} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Period"
+              value={itemValue}
+              meta={RetailPlannedImpactFieldMeta.Period}
+            />
           }
         />
         </div>

@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TendererRequirement } from  '../../model/cac/TendererRequirement'
 import { TendererRequirementFieldMeta } from  '../../meta/cac/TendererRequirementMeta'
@@ -12,61 +13,98 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: TendererRequirement
   meta: FieldMeta<T>
 }
 
-export default function TendererRequirementDisplay<T>({ value, meta }: Params<T>) {
+export default function TendererRequirementDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-TendererRequirement ubl-TendererRequirementType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-TendererRequirement ubl-UBLExtensions"
           meta={TendererRequirementFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={TendererRequirementFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={TendererRequirementFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-TendererRequirement ubl-Text ubl-Name"
           meta={TendererRequirementFieldMeta.Name} 
           value={value.Name}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={TendererRequirementFieldMeta.Name} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Name"
+              value={itemValue}
+              meta={TendererRequirementFieldMeta.Name}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TendererRequirement ubl-Code ubl-TendererRequirementTypeCode"
           meta={TendererRequirementFieldMeta.TendererRequirementTypeCode} 
           value={value.TendererRequirementTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={TendererRequirementFieldMeta.TendererRequirementTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Tenderer Requirement Type Code"
+              value={itemValue}
+              meta={TendererRequirementFieldMeta.TendererRequirementTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-TendererRequirement ubl-Text ubl-Description"
           meta={TendererRequirementFieldMeta.Description} 
           value={value.Description}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={TendererRequirementFieldMeta.Description} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Description"
+              value={itemValue}
+              meta={TendererRequirementFieldMeta.Description}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TendererRequirement ubl-Text ubl-LegalReference"
           meta={TendererRequirementFieldMeta.LegalReference} 
           value={value.LegalReference}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={TendererRequirementFieldMeta.LegalReference} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Legal Reference"
+              value={itemValue}
+              meta={TendererRequirementFieldMeta.LegalReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TendererRequirement ubl-Evidence ubl-SuggestedEvidence"
           meta={TendererRequirementFieldMeta.SuggestedEvidence} 
           value={value.SuggestedEvidence}
           itemDisplay={ (itemValue: Evidence, key: string | number) =>
-            <EvidenceDisplay key={key} meta={TendererRequirementFieldMeta.SuggestedEvidence} value={itemValue} />
+            <EvidenceDisplay
+              key={key}
+              label="Suggested Evidence"
+              value={itemValue}
+              meta={TendererRequirementFieldMeta.SuggestedEvidence}
+            />
           }
         />
         </div>

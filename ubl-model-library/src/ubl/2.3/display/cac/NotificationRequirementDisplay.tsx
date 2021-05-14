@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { NotificationRequirement } from  '../../model/cac/NotificationRequirement'
 import { NotificationRequirementFieldMeta } from  '../../meta/cac/NotificationRequirementMeta'
@@ -16,69 +17,112 @@ import { Period } from '../../model/cac/Period'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: NotificationRequirement
   meta: FieldMeta<T>
 }
 
-export default function NotificationRequirementDisplay<T>({ value, meta }: Params<T>) {
+export default function NotificationRequirementDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-NotificationRequirement ubl-NotificationRequirementType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-NotificationRequirement ubl-UBLExtensions"
           meta={NotificationRequirementFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={NotificationRequirementFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={NotificationRequirementFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-NotificationRequirement ubl-Code ubl-NotificationTypeCode"
           meta={NotificationRequirementFieldMeta.NotificationTypeCode} 
           value={value.NotificationTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={NotificationRequirementFieldMeta.NotificationTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Notification Type Code"
+              value={itemValue}
+              meta={NotificationRequirementFieldMeta.NotificationTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-NotificationRequirement ubl-Measure ubl-PostEventNotificationDurationMeasure"
           meta={NotificationRequirementFieldMeta.PostEventNotificationDurationMeasure} 
           value={value.PostEventNotificationDurationMeasure}
           itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay key={key} meta={NotificationRequirementFieldMeta.PostEventNotificationDurationMeasure} value={itemValue} />
+            <MeasureDisplay
+              key={key}
+              label="Post Event Notification Duration"
+              value={itemValue}
+              meta={NotificationRequirementFieldMeta.PostEventNotificationDurationMeasure}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-NotificationRequirement ubl-Measure ubl-PreEventNotificationDurationMeasure"
           meta={NotificationRequirementFieldMeta.PreEventNotificationDurationMeasure} 
           value={value.PreEventNotificationDurationMeasure}
           itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay key={key} meta={NotificationRequirementFieldMeta.PreEventNotificationDurationMeasure} value={itemValue} />
+            <MeasureDisplay
+              key={key}
+              label="Pre Event Notification Duration"
+              value={itemValue}
+              meta={NotificationRequirementFieldMeta.PreEventNotificationDurationMeasure}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-NotificationRequirement ubl-Party ubl-NotifyParty"
           meta={NotificationRequirementFieldMeta.NotifyParty} 
           value={value.NotifyParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={NotificationRequirementFieldMeta.NotifyParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Notify Party"
+              value={itemValue}
+              meta={NotificationRequirementFieldMeta.NotifyParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-NotificationRequirement ubl-Period ubl-NotificationPeriod"
           meta={NotificationRequirementFieldMeta.NotificationPeriod} 
           value={value.NotificationPeriod}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={NotificationRequirementFieldMeta.NotificationPeriod} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Notification Period"
+              value={itemValue}
+              meta={NotificationRequirementFieldMeta.NotificationPeriod}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-NotificationRequirement ubl-Location ubl-NotificationLocation"
           meta={NotificationRequirementFieldMeta.NotificationLocation} 
           value={value.NotificationLocation}
           itemDisplay={ (itemValue: Location, key: string | number) =>
-            <LocationDisplay key={key} meta={NotificationRequirementFieldMeta.NotificationLocation} value={itemValue} />
+            <LocationDisplay
+              key={key}
+              label="Notification Location"
+              value={itemValue}
+              meta={NotificationRequirementFieldMeta.NotificationLocation}
+            />
           }
         />
         </div>

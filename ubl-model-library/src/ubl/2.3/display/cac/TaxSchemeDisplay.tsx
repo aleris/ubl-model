@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TaxScheme } from  '../../model/cac/TaxScheme'
 import { TaxSchemeFieldMeta } from  '../../meta/cac/TaxSchemeMeta'
@@ -14,61 +15,98 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: TaxScheme
   meta: FieldMeta<T>
 }
 
-export default function TaxSchemeDisplay<T>({ value, meta }: Params<T>) {
+export default function TaxSchemeDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-TaxScheme ubl-TaxSchemeType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-TaxScheme ubl-UBLExtensions"
           meta={TaxSchemeFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={TaxSchemeFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={TaxSchemeFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TaxScheme ubl-Identifier ubl-ID"
           meta={TaxSchemeFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={TaxSchemeFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={TaxSchemeFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TaxScheme ubl-Text ubl-Name"
           meta={TaxSchemeFieldMeta.Name} 
           value={value.Name}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={TaxSchemeFieldMeta.Name} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Name"
+              value={itemValue}
+              meta={TaxSchemeFieldMeta.Name}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TaxScheme ubl-Code ubl-TaxTypeCode"
           meta={TaxSchemeFieldMeta.TaxTypeCode} 
           value={value.TaxTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={TaxSchemeFieldMeta.TaxTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Tax Type Code"
+              value={itemValue}
+              meta={TaxSchemeFieldMeta.TaxTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-TaxScheme ubl-Code ubl-CurrencyCode"
           meta={TaxSchemeFieldMeta.CurrencyCode} 
           value={value.CurrencyCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={TaxSchemeFieldMeta.CurrencyCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Currency Code"
+              value={itemValue}
+              meta={TaxSchemeFieldMeta.CurrencyCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-TaxScheme ubl-Address ubl-JurisdictionRegionAddress"
           meta={TaxSchemeFieldMeta.JurisdictionRegionAddress} 
           value={value.JurisdictionRegionAddress}
           itemDisplay={ (itemValue: Address, key: string | number) =>
-            <AddressDisplay key={key} meta={TaxSchemeFieldMeta.JurisdictionRegionAddress} value={itemValue} />
+            <AddressDisplay
+              key={key}
+              label="Jurisdiction Region Address"
+              value={itemValue}
+              meta={TaxSchemeFieldMeta.JurisdictionRegionAddress}
+            />
           }
         />
         </div>

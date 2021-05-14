@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { QuotationLine } from  '../../model/cac/QuotationLine'
 import { QuotationLineFieldMeta } from  '../../meta/cac/QuotationLineMeta'
@@ -20,117 +21,196 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: QuotationLine
   meta: FieldMeta<T>
 }
 
-export default function QuotationLineDisplay<T>({ value, meta }: Params<T>) {
+export default function QuotationLineDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-QuotationLine ubl-QuotationLineType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-QuotationLine ubl-UBLExtensions"
           meta={QuotationLineFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={QuotationLineFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={QuotationLineFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-QuotationLine ubl-Identifier ubl-ID"
           meta={QuotationLineFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={QuotationLineFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={QuotationLineFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-QuotationLine ubl-Text ubl-Note"
           meta={QuotationLineFieldMeta.Note} 
           value={value.Note}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={QuotationLineFieldMeta.Note} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Note"
+              value={itemValue}
+              meta={QuotationLineFieldMeta.Note}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-QuotationLine ubl-Quantity"
           meta={QuotationLineFieldMeta.Quantity} 
           value={value.Quantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={QuotationLineFieldMeta.Quantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Quantity"
+              value={itemValue}
+              meta={QuotationLineFieldMeta.Quantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-QuotationLine ubl-Amount ubl-LineExtensionAmount"
           meta={QuotationLineFieldMeta.LineExtensionAmount} 
           value={value.LineExtensionAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={QuotationLineFieldMeta.LineExtensionAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Line Extension Amount"
+              value={itemValue}
+              meta={QuotationLineFieldMeta.LineExtensionAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-QuotationLine ubl-Amount ubl-TaxInclusiveLineExtensionAmount"
           meta={QuotationLineFieldMeta.TaxInclusiveLineExtensionAmount} 
           value={value.TaxInclusiveLineExtensionAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={QuotationLineFieldMeta.TaxInclusiveLineExtensionAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Tax Inclusive Line Extension Amount"
+              value={itemValue}
+              meta={QuotationLineFieldMeta.TaxInclusiveLineExtensionAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-QuotationLine ubl-Amount ubl-TotalTaxAmount"
           meta={QuotationLineFieldMeta.TotalTaxAmount} 
           value={value.TotalTaxAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={QuotationLineFieldMeta.TotalTaxAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Total Tax Amount"
+              value={itemValue}
+              meta={QuotationLineFieldMeta.TotalTaxAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-QuotationLine ubl-Identifier ubl-RequestForQuotationLineID"
           meta={QuotationLineFieldMeta.RequestForQuotationLineID} 
           value={value.RequestForQuotationLineID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={QuotationLineFieldMeta.RequestForQuotationLineID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Request For Quotation Line Identifier"
+              value={itemValue}
+              meta={QuotationLineFieldMeta.RequestForQuotationLineID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-QuotationLine ubl-DocumentReference"
           meta={QuotationLineFieldMeta.DocumentReference} 
           value={value.DocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={QuotationLineFieldMeta.DocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Document Reference"
+              value={itemValue}
+              meta={QuotationLineFieldMeta.DocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-QuotationLine ubl-LineItem"
           meta={QuotationLineFieldMeta.LineItem} 
           value={value.LineItem}
           itemDisplay={ (itemValue: LineItem, key: string | number) =>
-            <LineItemDisplay key={key} meta={QuotationLineFieldMeta.LineItem} value={itemValue} />
+            <LineItemDisplay
+              key={key}
+              label="Line Item"
+              value={itemValue}
+              meta={QuotationLineFieldMeta.LineItem}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-QuotationLine ubl-LineItem ubl-SellerProposedSubstituteLineItem"
           meta={QuotationLineFieldMeta.SellerProposedSubstituteLineItem} 
           value={value.SellerProposedSubstituteLineItem}
           itemDisplay={ (itemValue: LineItem, key: string | number) =>
-            <LineItemDisplay key={key} meta={QuotationLineFieldMeta.SellerProposedSubstituteLineItem} value={itemValue} />
+            <LineItemDisplay
+              key={key}
+              label="Seller Proposed Substitute Line Item"
+              value={itemValue}
+              meta={QuotationLineFieldMeta.SellerProposedSubstituteLineItem}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-QuotationLine ubl-LineItem ubl-AlternativeLineItem"
           meta={QuotationLineFieldMeta.AlternativeLineItem} 
           value={value.AlternativeLineItem}
           itemDisplay={ (itemValue: LineItem, key: string | number) =>
-            <LineItemDisplay key={key} meta={QuotationLineFieldMeta.AlternativeLineItem} value={itemValue} />
+            <LineItemDisplay
+              key={key}
+              label="Alternative Line Item"
+              value={itemValue}
+              meta={QuotationLineFieldMeta.AlternativeLineItem}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-QuotationLine ubl-LineReference ubl-RequestLineReference"
           meta={QuotationLineFieldMeta.RequestLineReference} 
           value={value.RequestLineReference}
           itemDisplay={ (itemValue: LineReference, key: string | number) =>
-            <LineReferenceDisplay key={key} meta={QuotationLineFieldMeta.RequestLineReference} value={itemValue} />
+            <LineReferenceDisplay
+              key={key}
+              label="Request Line Reference"
+              value={itemValue}
+              meta={QuotationLineFieldMeta.RequestLineReference}
+            />
           }
         />
         </div>

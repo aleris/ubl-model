@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { PaymentMeans } from  '../../model/cac/PaymentMeans'
 import { PaymentMeansFieldMeta } from  '../../meta/cac/PaymentMeansMeta'
@@ -24,125 +25,210 @@ import { TradeFinancing } from '../../model/cac/TradeFinancing'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: PaymentMeans
   meta: FieldMeta<T>
 }
 
-export default function PaymentMeansDisplay<T>({ value, meta }: Params<T>) {
+export default function PaymentMeansDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-PaymentMeans ubl-PaymentMeansType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-PaymentMeans ubl-UBLExtensions"
           meta={PaymentMeansFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={PaymentMeansFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={PaymentMeansFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-PaymentMeans ubl-Identifier ubl-ID"
           meta={PaymentMeansFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={PaymentMeansFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={PaymentMeansFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-PaymentMeans ubl-Code ubl-PaymentMeansCode"
           meta={PaymentMeansFieldMeta.PaymentMeansCode} 
           value={value.PaymentMeansCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={PaymentMeansFieldMeta.PaymentMeansCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Payment Means Code"
+              value={itemValue}
+              meta={PaymentMeansFieldMeta.PaymentMeansCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-PaymentMeans ubl-Date ubl-PaymentDueDate"
           meta={PaymentMeansFieldMeta.PaymentDueDate} 
           value={value.PaymentDueDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={PaymentMeansFieldMeta.PaymentDueDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Payment Due Date"
+              value={itemValue}
+              meta={PaymentMeansFieldMeta.PaymentDueDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-PaymentMeans ubl-Code ubl-PaymentChannelCode"
           meta={PaymentMeansFieldMeta.PaymentChannelCode} 
           value={value.PaymentChannelCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={PaymentMeansFieldMeta.PaymentChannelCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Payment Channel Code"
+              value={itemValue}
+              meta={PaymentMeansFieldMeta.PaymentChannelCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-PaymentMeans ubl-Identifier ubl-InstructionID"
           meta={PaymentMeansFieldMeta.InstructionID} 
           value={value.InstructionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={PaymentMeansFieldMeta.InstructionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Instruction Identifier"
+              value={itemValue}
+              meta={PaymentMeansFieldMeta.InstructionID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-PaymentMeans ubl-Text ubl-InstructionNote"
           meta={PaymentMeansFieldMeta.InstructionNote} 
           value={value.InstructionNote}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={PaymentMeansFieldMeta.InstructionNote} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Instruction Note"
+              value={itemValue}
+              meta={PaymentMeansFieldMeta.InstructionNote}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-PaymentMeans ubl-Identifier ubl-PaymentID"
           meta={PaymentMeansFieldMeta.PaymentID} 
           value={value.PaymentID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={PaymentMeansFieldMeta.PaymentID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Payment Identifier"
+              value={itemValue}
+              meta={PaymentMeansFieldMeta.PaymentID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-PaymentMeans ubl-CardAccount"
           meta={PaymentMeansFieldMeta.CardAccount} 
           value={value.CardAccount}
           itemDisplay={ (itemValue: CardAccount, key: string | number) =>
-            <CardAccountDisplay key={key} meta={PaymentMeansFieldMeta.CardAccount} value={itemValue} />
+            <CardAccountDisplay
+              key={key}
+              label="Card Account"
+              value={itemValue}
+              meta={PaymentMeansFieldMeta.CardAccount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-PaymentMeans ubl-FinancialAccount ubl-PayerFinancialAccount"
           meta={PaymentMeansFieldMeta.PayerFinancialAccount} 
           value={value.PayerFinancialAccount}
           itemDisplay={ (itemValue: FinancialAccount, key: string | number) =>
-            <FinancialAccountDisplay key={key} meta={PaymentMeansFieldMeta.PayerFinancialAccount} value={itemValue} />
+            <FinancialAccountDisplay
+              key={key}
+              label="Payer Financial Account"
+              value={itemValue}
+              meta={PaymentMeansFieldMeta.PayerFinancialAccount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-PaymentMeans ubl-FinancialAccount ubl-PayeeFinancialAccount"
           meta={PaymentMeansFieldMeta.PayeeFinancialAccount} 
           value={value.PayeeFinancialAccount}
           itemDisplay={ (itemValue: FinancialAccount, key: string | number) =>
-            <FinancialAccountDisplay key={key} meta={PaymentMeansFieldMeta.PayeeFinancialAccount} value={itemValue} />
+            <FinancialAccountDisplay
+              key={key}
+              label="Payee Financial Account"
+              value={itemValue}
+              meta={PaymentMeansFieldMeta.PayeeFinancialAccount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-PaymentMeans ubl-CreditAccount"
           meta={PaymentMeansFieldMeta.CreditAccount} 
           value={value.CreditAccount}
           itemDisplay={ (itemValue: CreditAccount, key: string | number) =>
-            <CreditAccountDisplay key={key} meta={PaymentMeansFieldMeta.CreditAccount} value={itemValue} />
+            <CreditAccountDisplay
+              key={key}
+              label="Credit Account"
+              value={itemValue}
+              meta={PaymentMeansFieldMeta.CreditAccount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-PaymentMeans ubl-PaymentMandate"
           meta={PaymentMeansFieldMeta.PaymentMandate} 
           value={value.PaymentMandate}
           itemDisplay={ (itemValue: PaymentMandate, key: string | number) =>
-            <PaymentMandateDisplay key={key} meta={PaymentMeansFieldMeta.PaymentMandate} value={itemValue} />
+            <PaymentMandateDisplay
+              key={key}
+              label="Payment Mandate"
+              value={itemValue}
+              meta={PaymentMeansFieldMeta.PaymentMandate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-PaymentMeans ubl-TradeFinancing"
           meta={PaymentMeansFieldMeta.TradeFinancing} 
           value={value.TradeFinancing}
           itemDisplay={ (itemValue: TradeFinancing, key: string | number) =>
-            <TradeFinancingDisplay key={key} meta={PaymentMeansFieldMeta.TradeFinancing} value={itemValue} />
+            <TradeFinancingDisplay
+              key={key}
+              label="Trade Financing"
+              value={itemValue}
+              meta={PaymentMeansFieldMeta.TradeFinancing}
+            />
           }
         />
         </div>

@@ -1,11 +1,11 @@
 import React from 'react'
 
-type Params = {
+type Props = {
   label: string
   value: string
 }
 
-export default function FieldDisplay({ label, value }: Params) {
+export default function FieldDisplay({ label, value }: Props) {
   return (
     <div className="field">
       <div className="label">{label}</div>

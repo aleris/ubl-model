@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { DigitalAgreementTerms } from  '../../model/cac/DigitalAgreementTerms'
 import { DigitalAgreementTermsFieldMeta } from  '../../meta/cac/DigitalAgreementTermsMeta'
@@ -12,53 +13,84 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: DigitalAgreementTerms
   meta: FieldMeta<T>
 }
 
-export default function DigitalAgreementTermsDisplay<T>({ value, meta }: Params<T>) {
+export default function DigitalAgreementTermsDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-DigitalAgreementTerms ubl-DigitalAgreementTermsType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-DigitalAgreementTerms ubl-UBLExtensions"
           meta={DigitalAgreementTermsFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={DigitalAgreementTermsFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={DigitalAgreementTermsFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-DigitalAgreementTerms ubl-Text ubl-Description"
           meta={DigitalAgreementTermsFieldMeta.Description} 
           value={value.Description}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={DigitalAgreementTermsFieldMeta.Description} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Description"
+              value={itemValue}
+              meta={DigitalAgreementTermsFieldMeta.Description}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-DigitalAgreementTerms ubl-Period ubl-ValidityPeriod"
           meta={DigitalAgreementTermsFieldMeta.ValidityPeriod} 
           value={value.ValidityPeriod}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={DigitalAgreementTermsFieldMeta.ValidityPeriod} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Validity Period"
+              value={itemValue}
+              meta={DigitalAgreementTermsFieldMeta.ValidityPeriod}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-DigitalAgreementTerms ubl-Period ubl-AdoptionPeriod"
           meta={DigitalAgreementTermsFieldMeta.AdoptionPeriod} 
           value={value.AdoptionPeriod}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={DigitalAgreementTermsFieldMeta.AdoptionPeriod} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Adoption Period"
+              value={itemValue}
+              meta={DigitalAgreementTermsFieldMeta.AdoptionPeriod}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-DigitalAgreementTerms ubl-ServiceLevelAgreement"
           meta={DigitalAgreementTermsFieldMeta.ServiceLevelAgreement} 
           value={value.ServiceLevelAgreement}
           itemDisplay={ (itemValue: ServiceLevelAgreement, key: string | number) =>
-            <ServiceLevelAgreementDisplay key={key} meta={DigitalAgreementTermsFieldMeta.ServiceLevelAgreement} value={itemValue} />
+            <ServiceLevelAgreementDisplay
+              key={key}
+              label="Service Level Agreement"
+              value={itemValue}
+              meta={DigitalAgreementTermsFieldMeta.ServiceLevelAgreement}
+            />
           }
         />
         </div>

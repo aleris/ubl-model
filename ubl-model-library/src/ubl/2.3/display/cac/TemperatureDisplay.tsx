@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Temperature } from  '../../model/cac/Temperature'
 import { TemperatureFieldMeta } from  '../../meta/cac/TemperatureMeta'
@@ -12,45 +13,70 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: Temperature
   meta: FieldMeta<T>
 }
 
-export default function TemperatureDisplay<T>({ value, meta }: Params<T>) {
+export default function TemperatureDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-Temperature ubl-TemperatureType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-Temperature ubl-UBLExtensions"
           meta={TemperatureFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={TemperatureFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={TemperatureFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Temperature ubl-Identifier ubl-AttributeID"
           meta={TemperatureFieldMeta.AttributeID} 
           value={value.AttributeID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={TemperatureFieldMeta.AttributeID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Attribute Identifier"
+              value={itemValue}
+              meta={TemperatureFieldMeta.AttributeID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Temperature ubl-Measure"
           meta={TemperatureFieldMeta.Measure} 
           value={value.Measure}
           itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay key={key} meta={TemperatureFieldMeta.Measure} value={itemValue} />
+            <MeasureDisplay
+              key={key}
+              label="Measure"
+              value={itemValue}
+              meta={TemperatureFieldMeta.Measure}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Temperature ubl-Text ubl-Description"
           meta={TemperatureFieldMeta.Description} 
           value={value.Description}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={TemperatureFieldMeta.Description} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Description"
+              value={itemValue}
+              meta={TemperatureFieldMeta.Description}
+            />
           }
         />
         </div>

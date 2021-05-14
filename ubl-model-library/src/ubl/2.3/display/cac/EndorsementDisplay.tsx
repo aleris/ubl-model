@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Endorsement } from  '../../model/cac/Endorsement'
 import { EndorsementFieldMeta } from  '../../meta/cac/EndorsementMeta'
@@ -14,61 +15,98 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: Endorsement
   meta: FieldMeta<T>
 }
 
-export default function EndorsementDisplay<T>({ value, meta }: Params<T>) {
+export default function EndorsementDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-Endorsement ubl-EndorsementType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-Endorsement ubl-UBLExtensions"
           meta={EndorsementFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={EndorsementFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={EndorsementFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Endorsement ubl-Identifier ubl-DocumentID"
           meta={EndorsementFieldMeta.DocumentID} 
           value={value.DocumentID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={EndorsementFieldMeta.DocumentID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Document"
+              value={itemValue}
+              meta={EndorsementFieldMeta.DocumentID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Endorsement ubl-Text ubl-ApprovalStatus"
           meta={EndorsementFieldMeta.ApprovalStatus} 
           value={value.ApprovalStatus}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={EndorsementFieldMeta.ApprovalStatus} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Approval Status"
+              value={itemValue}
+              meta={EndorsementFieldMeta.ApprovalStatus}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Endorsement ubl-Text ubl-Remarks"
           meta={EndorsementFieldMeta.Remarks} 
           value={value.Remarks}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={EndorsementFieldMeta.Remarks} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Remarks"
+              value={itemValue}
+              meta={EndorsementFieldMeta.Remarks}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-Endorsement ubl-EndorserParty"
           meta={EndorsementFieldMeta.EndorserParty} 
           value={value.EndorserParty}
           itemDisplay={ (itemValue: EndorserParty, key: string | number) =>
-            <EndorserPartyDisplay key={key} meta={EndorsementFieldMeta.EndorserParty} value={itemValue} />
+            <EndorserPartyDisplay
+              key={key}
+              label="Endorser Party"
+              value={itemValue}
+              meta={EndorsementFieldMeta.EndorserParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Endorsement ubl-Signature"
           meta={EndorsementFieldMeta.Signature} 
           value={value.Signature}
           itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay key={key} meta={EndorsementFieldMeta.Signature} value={itemValue} />
+            <SignatureDisplay
+              key={key}
+              label="Signature"
+              value={itemValue}
+              meta={EndorsementFieldMeta.Signature}
+            />
           }
         />
         </div>

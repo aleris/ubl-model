@@ -62,3 +62,7 @@ Note that there are also JSON schemas (not used as they have fewer details):
 - https://docs.oasis-open.org/ubl/UBL-2.1-JSON/v1.0/cnd02/json/
 - https://docs.oasis-open.org/ubl/UBL-2.2-JSON/v1.0/cnd01/json/
 - https://docs.oasis-open.org/ubl/UBL-2.3-JSON/v1.0/cnd01/json/ 
+
+
+
+https://github.com/phax/ph-ubl/tree/master/ph-ubl23-codelists/src/main/resources/codelists/default

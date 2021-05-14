@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { EventTactic } from  '../../model/cac/EventTactic'
 import { EventTacticFieldMeta } from  '../../meta/cac/EventTacticMeta'
@@ -14,53 +15,84 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: EventTactic
   meta: FieldMeta<T>
 }
 
-export default function EventTacticDisplay<T>({ value, meta }: Params<T>) {
+export default function EventTacticDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-EventTactic ubl-EventTacticType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-EventTactic ubl-UBLExtensions"
           meta={EventTacticFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={EventTacticFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={EventTacticFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-EventTactic ubl-Text ubl-Comment"
           meta={EventTacticFieldMeta.Comment} 
           value={value.Comment}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={EventTacticFieldMeta.Comment} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Comment"
+              value={itemValue}
+              meta={EventTacticFieldMeta.Comment}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-EventTactic ubl-Quantity"
           meta={EventTacticFieldMeta.Quantity} 
           value={value.Quantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={EventTacticFieldMeta.Quantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Quantity"
+              value={itemValue}
+              meta={EventTacticFieldMeta.Quantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-EventTactic ubl-EventTacticEnumeration"
           meta={EventTacticFieldMeta.EventTacticEnumeration} 
           value={value.EventTacticEnumeration}
           itemDisplay={ (itemValue: EventTacticEnumeration, key: string | number) =>
-            <EventTacticEnumerationDisplay key={key} meta={EventTacticFieldMeta.EventTacticEnumeration} value={itemValue} />
+            <EventTacticEnumerationDisplay
+              key={key}
+              label="Event Tactic Enumeration"
+              value={itemValue}
+              meta={EventTacticFieldMeta.EventTacticEnumeration}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-EventTactic ubl-Period"
           meta={EventTacticFieldMeta.Period} 
           value={value.Period}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={EventTacticFieldMeta.Period} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Period"
+              value={itemValue}
+              meta={EventTacticFieldMeta.Period}
+            />
           }
         />
         </div>

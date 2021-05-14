@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { EventTacticEnumeration } from  '../../model/cac/EventTacticEnumeration'
 import { EventTacticEnumerationFieldMeta } from  '../../meta/cac/EventTacticEnumerationMeta'
@@ -8,53 +9,84 @@ import { Code } from '../../model/cbc/Code'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: EventTacticEnumeration
   meta: FieldMeta<T>
 }
 
-export default function EventTacticEnumerationDisplay<T>({ value, meta }: Params<T>) {
+export default function EventTacticEnumerationDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-EventTacticEnumeration ubl-EventTacticEnumerationType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-EventTacticEnumeration ubl-UBLExtensions"
           meta={EventTacticEnumerationFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={EventTacticEnumerationFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={EventTacticEnumerationFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-EventTacticEnumeration ubl-Code ubl-ConsumerIncentiveTacticTypeCode"
           meta={EventTacticEnumerationFieldMeta.ConsumerIncentiveTacticTypeCode} 
           value={value.ConsumerIncentiveTacticTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={EventTacticEnumerationFieldMeta.ConsumerIncentiveTacticTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Consumer Incentive Tactic Type Code"
+              value={itemValue}
+              meta={EventTacticEnumerationFieldMeta.ConsumerIncentiveTacticTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-EventTacticEnumeration ubl-Code ubl-DisplayTacticTypeCode"
           meta={EventTacticEnumerationFieldMeta.DisplayTacticTypeCode} 
           value={value.DisplayTacticTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={EventTacticEnumerationFieldMeta.DisplayTacticTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Display Tactic Type Code"
+              value={itemValue}
+              meta={EventTacticEnumerationFieldMeta.DisplayTacticTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-EventTacticEnumeration ubl-Code ubl-FeatureTacticTypeCode"
           meta={EventTacticEnumerationFieldMeta.FeatureTacticTypeCode} 
           value={value.FeatureTacticTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={EventTacticEnumerationFieldMeta.FeatureTacticTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Feature Tactic Type Code"
+              value={itemValue}
+              meta={EventTacticEnumerationFieldMeta.FeatureTacticTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-EventTacticEnumeration ubl-Code ubl-TradeItemPackingLabelingTypeCode"
           meta={EventTacticEnumerationFieldMeta.TradeItemPackingLabelingTypeCode} 
           value={value.TradeItemPackingLabelingTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={EventTacticEnumerationFieldMeta.TradeItemPackingLabelingTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Trade Item Packing Labeling Type Code"
+              value={itemValue}
+              meta={EventTacticEnumerationFieldMeta.TradeItemPackingLabelingTypeCode}
+            />
           }
         />
         </div>

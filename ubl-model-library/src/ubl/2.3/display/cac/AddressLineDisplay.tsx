@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { AddressLine } from  '../../model/cac/AddressLine'
 import { AddressLineFieldMeta } from  '../../meta/cac/AddressLineMeta'
@@ -8,29 +9,42 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: AddressLine
   meta: FieldMeta<T>
 }
 
-export default function AddressLineDisplay<T>({ value, meta }: Params<T>) {
+export default function AddressLineDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-AddressLine ubl-AddressLineType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-AddressLine ubl-UBLExtensions"
           meta={AddressLineFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={AddressLineFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={AddressLineFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-AddressLine ubl-Text ubl-Line"
           meta={AddressLineFieldMeta.Line} 
           value={value.Line}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={AddressLineFieldMeta.Line} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Line"
+              value={itemValue}
+              meta={AddressLineFieldMeta.Line}
+            />
           }
         />
         </div>

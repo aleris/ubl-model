@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Payment } from  '../../model/cac/Payment'
 import { PaymentFieldMeta } from  '../../meta/cac/PaymentMeta'
@@ -14,69 +15,112 @@ import { Time } from '../../model/cbc/Time'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: Payment
   meta: FieldMeta<T>
 }
 
-export default function PaymentDisplay<T>({ value, meta }: Params<T>) {
+export default function PaymentDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-Payment ubl-PaymentType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-Payment ubl-UBLExtensions"
           meta={PaymentFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={PaymentFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={PaymentFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Payment ubl-Identifier ubl-ID"
           meta={PaymentFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={PaymentFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={PaymentFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Payment ubl-Amount ubl-PaidAmount"
           meta={PaymentFieldMeta.PaidAmount} 
           value={value.PaidAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={PaymentFieldMeta.PaidAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Paid Amount"
+              value={itemValue}
+              meta={PaymentFieldMeta.PaidAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Payment ubl-Date ubl-ReceivedDate"
           meta={PaymentFieldMeta.ReceivedDate} 
           value={value.ReceivedDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={PaymentFieldMeta.ReceivedDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Received Date"
+              value={itemValue}
+              meta={PaymentFieldMeta.ReceivedDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Payment ubl-Date ubl-PaidDate"
           meta={PaymentFieldMeta.PaidDate} 
           value={value.PaidDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={PaymentFieldMeta.PaidDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Paid Date"
+              value={itemValue}
+              meta={PaymentFieldMeta.PaidDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Payment ubl-Time ubl-PaidTime"
           meta={PaymentFieldMeta.PaidTime} 
           value={value.PaidTime}
           itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay key={key} meta={PaymentFieldMeta.PaidTime} value={itemValue} />
+            <TimeDisplay
+              key={key}
+              label="Paid Time"
+              value={itemValue}
+              meta={PaymentFieldMeta.PaidTime}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Payment ubl-Identifier ubl-InstructionID"
           meta={PaymentFieldMeta.InstructionID} 
           value={value.InstructionID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={PaymentFieldMeta.InstructionID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Instruction Identifier"
+              value={itemValue}
+              meta={PaymentFieldMeta.InstructionID}
+            />
           }
         />
         </div>

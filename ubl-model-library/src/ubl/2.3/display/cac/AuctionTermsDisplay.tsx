@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { AuctionTerms } from  '../../model/cac/AuctionTerms'
 import { AuctionTermsFieldMeta } from  '../../meta/cac/AuctionTermsMeta'
@@ -12,77 +13,126 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: AuctionTerms
   meta: FieldMeta<T>
 }
 
-export default function AuctionTermsDisplay<T>({ value, meta }: Params<T>) {
+export default function AuctionTermsDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-AuctionTerms ubl-AuctionTermsType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-AuctionTerms ubl-UBLExtensions"
           meta={AuctionTermsFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={AuctionTermsFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={AuctionTermsFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-AuctionTerms ubl-Indicator ubl-AuctionConstraintIndicator"
           meta={AuctionTermsFieldMeta.AuctionConstraintIndicator} 
           value={value.AuctionConstraintIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={AuctionTermsFieldMeta.AuctionConstraintIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Auction Constraint"
+              value={itemValue}
+              meta={AuctionTermsFieldMeta.AuctionConstraintIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-AuctionTerms ubl-Text ubl-JustificationDescription"
           meta={AuctionTermsFieldMeta.JustificationDescription} 
           value={value.JustificationDescription}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={AuctionTermsFieldMeta.JustificationDescription} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Justification Description"
+              value={itemValue}
+              meta={AuctionTermsFieldMeta.JustificationDescription}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-AuctionTerms ubl-Text ubl-Description"
           meta={AuctionTermsFieldMeta.Description} 
           value={value.Description}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={AuctionTermsFieldMeta.Description} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Description"
+              value={itemValue}
+              meta={AuctionTermsFieldMeta.Description}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-AuctionTerms ubl-Text ubl-ProcessDescription"
           meta={AuctionTermsFieldMeta.ProcessDescription} 
           value={value.ProcessDescription}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={AuctionTermsFieldMeta.ProcessDescription} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Process Description"
+              value={itemValue}
+              meta={AuctionTermsFieldMeta.ProcessDescription}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-AuctionTerms ubl-Text ubl-ConditionsDescription"
           meta={AuctionTermsFieldMeta.ConditionsDescription} 
           value={value.ConditionsDescription}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={AuctionTermsFieldMeta.ConditionsDescription} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Conditions Description"
+              value={itemValue}
+              meta={AuctionTermsFieldMeta.ConditionsDescription}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-AuctionTerms ubl-Text ubl-ElectronicDeviceDescription"
           meta={AuctionTermsFieldMeta.ElectronicDeviceDescription} 
           value={value.ElectronicDeviceDescription}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={AuctionTermsFieldMeta.ElectronicDeviceDescription} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Electronic Device Description"
+              value={itemValue}
+              meta={AuctionTermsFieldMeta.ElectronicDeviceDescription}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-AuctionTerms ubl-Identifier ubl-AuctionURI"
           meta={AuctionTermsFieldMeta.AuctionURI} 
           value={value.AuctionURI}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={AuctionTermsFieldMeta.AuctionURI} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Auction URI"
+              value={itemValue}
+              meta={AuctionTermsFieldMeta.AuctionURI}
+            />
           }
         />
         </div>

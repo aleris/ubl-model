@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { InvoiceLine } from  '../../model/cac/InvoiceLine'
 import { InvoiceLineFieldMeta } from  '../../meta/cac/InvoiceLineMeta'
@@ -50,253 +51,434 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: InvoiceLine
   meta: FieldMeta<T>
 }
 
-export default function InvoiceLineDisplay<T>({ value, meta }: Params<T>) {
+export default function InvoiceLineDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-InvoiceLine ubl-InvoiceLineType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-InvoiceLine ubl-UBLExtensions"
           meta={InvoiceLineFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={InvoiceLineFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={InvoiceLineFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-InvoiceLine ubl-Identifier ubl-ID"
           meta={InvoiceLineFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={InvoiceLineFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={InvoiceLineFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-InvoiceLine ubl-Identifier ubl-UUID"
           meta={InvoiceLineFieldMeta.UUID} 
           value={value.UUID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={InvoiceLineFieldMeta.UUID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UUID"
+              value={itemValue}
+              meta={InvoiceLineFieldMeta.UUID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-InvoiceLine ubl-Text ubl-Note"
           meta={InvoiceLineFieldMeta.Note} 
           value={value.Note}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={InvoiceLineFieldMeta.Note} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Note"
+              value={itemValue}
+              meta={InvoiceLineFieldMeta.Note}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-InvoiceLine ubl-Quantity ubl-InvoicedQuantity"
           meta={InvoiceLineFieldMeta.InvoicedQuantity} 
           value={value.InvoicedQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={InvoiceLineFieldMeta.InvoicedQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Invoiced Quantity"
+              value={itemValue}
+              meta={InvoiceLineFieldMeta.InvoicedQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-InvoiceLine ubl-Amount ubl-LineExtensionAmount"
           meta={InvoiceLineFieldMeta.LineExtensionAmount} 
           value={value.LineExtensionAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={InvoiceLineFieldMeta.LineExtensionAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Line Extension Amount"
+              value={itemValue}
+              meta={InvoiceLineFieldMeta.LineExtensionAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-InvoiceLine ubl-Amount ubl-TaxInclusiveLineExtensionAmount"
           meta={InvoiceLineFieldMeta.TaxInclusiveLineExtensionAmount} 
           value={value.TaxInclusiveLineExtensionAmount}
           itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay key={key} meta={InvoiceLineFieldMeta.TaxInclusiveLineExtensionAmount} value={itemValue} />
+            <AmountDisplay
+              key={key}
+              label="Tax Inclusive Line Extension Amount"
+              value={itemValue}
+              meta={InvoiceLineFieldMeta.TaxInclusiveLineExtensionAmount}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-InvoiceLine ubl-Date ubl-TaxPointDate"
           meta={InvoiceLineFieldMeta.TaxPointDate} 
           value={value.TaxPointDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={InvoiceLineFieldMeta.TaxPointDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Tax Point Date"
+              value={itemValue}
+              meta={InvoiceLineFieldMeta.TaxPointDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-InvoiceLine ubl-Code ubl-AccountingCostCode"
           meta={InvoiceLineFieldMeta.AccountingCostCode} 
           value={value.AccountingCostCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={InvoiceLineFieldMeta.AccountingCostCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Accounting Cost Code"
+              value={itemValue}
+              meta={InvoiceLineFieldMeta.AccountingCostCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-InvoiceLine ubl-Text ubl-AccountingCost"
           meta={InvoiceLineFieldMeta.AccountingCost} 
           value={value.AccountingCost}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={InvoiceLineFieldMeta.AccountingCost} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Accounting Cost"
+              value={itemValue}
+              meta={InvoiceLineFieldMeta.AccountingCost}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-InvoiceLine ubl-Code ubl-PaymentPurposeCode"
           meta={InvoiceLineFieldMeta.PaymentPurposeCode} 
           value={value.PaymentPurposeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={InvoiceLineFieldMeta.PaymentPurposeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Payment Purpose Code"
+              value={itemValue}
+              meta={InvoiceLineFieldMeta.PaymentPurposeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-InvoiceLine ubl-Indicator ubl-FreeOfChargeIndicator"
           meta={InvoiceLineFieldMeta.FreeOfChargeIndicator} 
           value={value.FreeOfChargeIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={InvoiceLineFieldMeta.FreeOfChargeIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Free Of Charge Indicator"
+              value={itemValue}
+              meta={InvoiceLineFieldMeta.FreeOfChargeIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-InvoiceLine ubl-Period ubl-InvoicePeriod"
           meta={InvoiceLineFieldMeta.InvoicePeriod} 
           value={value.InvoicePeriod}
           itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay key={key} meta={InvoiceLineFieldMeta.InvoicePeriod} value={itemValue} />
+            <PeriodDisplay
+              key={key}
+              label="Invoice Period"
+              value={itemValue}
+              meta={InvoiceLineFieldMeta.InvoicePeriod}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-InvoiceLine ubl-OrderLineReference"
           meta={InvoiceLineFieldMeta.OrderLineReference} 
           value={value.OrderLineReference}
           itemDisplay={ (itemValue: OrderLineReference, key: string | number) =>
-            <OrderLineReferenceDisplay key={key} meta={InvoiceLineFieldMeta.OrderLineReference} value={itemValue} />
+            <OrderLineReferenceDisplay
+              key={key}
+              label="Order Line Reference"
+              value={itemValue}
+              meta={InvoiceLineFieldMeta.OrderLineReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-InvoiceLine ubl-LineReference ubl-DespatchLineReference"
           meta={InvoiceLineFieldMeta.DespatchLineReference} 
           value={value.DespatchLineReference}
           itemDisplay={ (itemValue: LineReference, key: string | number) =>
-            <LineReferenceDisplay key={key} meta={InvoiceLineFieldMeta.DespatchLineReference} value={itemValue} />
+            <LineReferenceDisplay
+              key={key}
+              label="Despatch Line Reference"
+              value={itemValue}
+              meta={InvoiceLineFieldMeta.DespatchLineReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-InvoiceLine ubl-LineReference ubl-ReceiptLineReference"
           meta={InvoiceLineFieldMeta.ReceiptLineReference} 
           value={value.ReceiptLineReference}
           itemDisplay={ (itemValue: LineReference, key: string | number) =>
-            <LineReferenceDisplay key={key} meta={InvoiceLineFieldMeta.ReceiptLineReference} value={itemValue} />
+            <LineReferenceDisplay
+              key={key}
+              label="Receipt Line Reference"
+              value={itemValue}
+              meta={InvoiceLineFieldMeta.ReceiptLineReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-InvoiceLine ubl-BillingReference"
           meta={InvoiceLineFieldMeta.BillingReference} 
           value={value.BillingReference}
           itemDisplay={ (itemValue: BillingReference, key: string | number) =>
-            <BillingReferenceDisplay key={key} meta={InvoiceLineFieldMeta.BillingReference} value={itemValue} />
+            <BillingReferenceDisplay
+              key={key}
+              label="Billing Reference"
+              value={itemValue}
+              meta={InvoiceLineFieldMeta.BillingReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-InvoiceLine ubl-DocumentReference"
           meta={InvoiceLineFieldMeta.DocumentReference} 
           value={value.DocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={InvoiceLineFieldMeta.DocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Document Reference"
+              value={itemValue}
+              meta={InvoiceLineFieldMeta.DocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-InvoiceLine ubl-PricingReference"
           meta={InvoiceLineFieldMeta.PricingReference} 
           value={value.PricingReference}
           itemDisplay={ (itemValue: PricingReference, key: string | number) =>
-            <PricingReferenceDisplay key={key} meta={InvoiceLineFieldMeta.PricingReference} value={itemValue} />
+            <PricingReferenceDisplay
+              key={key}
+              label="Pricing Reference"
+              value={itemValue}
+              meta={InvoiceLineFieldMeta.PricingReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-InvoiceLine ubl-Party ubl-OriginatorParty"
           meta={InvoiceLineFieldMeta.OriginatorParty} 
           value={value.OriginatorParty}
           itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay key={key} meta={InvoiceLineFieldMeta.OriginatorParty} value={itemValue} />
+            <PartyDisplay
+              key={key}
+              label="Originator Party"
+              value={itemValue}
+              meta={InvoiceLineFieldMeta.OriginatorParty}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-InvoiceLine ubl-Delivery"
           meta={InvoiceLineFieldMeta.Delivery} 
           value={value.Delivery}
           itemDisplay={ (itemValue: Delivery, key: string | number) =>
-            <DeliveryDisplay key={key} meta={InvoiceLineFieldMeta.Delivery} value={itemValue} />
+            <DeliveryDisplay
+              key={key}
+              label="Delivery"
+              value={itemValue}
+              meta={InvoiceLineFieldMeta.Delivery}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-InvoiceLine ubl-PaymentTerms"
           meta={InvoiceLineFieldMeta.PaymentTerms} 
           value={value.PaymentTerms}
           itemDisplay={ (itemValue: PaymentTerms, key: string | number) =>
-            <PaymentTermsDisplay key={key} meta={InvoiceLineFieldMeta.PaymentTerms} value={itemValue} />
+            <PaymentTermsDisplay
+              key={key}
+              label="Payment Terms"
+              value={itemValue}
+              meta={InvoiceLineFieldMeta.PaymentTerms}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-InvoiceLine ubl-AllowanceCharge"
           meta={InvoiceLineFieldMeta.AllowanceCharge} 
           value={value.AllowanceCharge}
           itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-            <AllowanceChargeDisplay key={key} meta={InvoiceLineFieldMeta.AllowanceCharge} value={itemValue} />
+            <AllowanceChargeDisplay
+              key={key}
+              label="Allowance Charge"
+              value={itemValue}
+              meta={InvoiceLineFieldMeta.AllowanceCharge}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-InvoiceLine ubl-TaxTotal"
           meta={InvoiceLineFieldMeta.TaxTotal} 
           value={value.TaxTotal}
           itemDisplay={ (itemValue: TaxTotal, key: string | number) =>
-            <TaxTotalDisplay key={key} meta={InvoiceLineFieldMeta.TaxTotal} value={itemValue} />
+            <TaxTotalDisplay
+              key={key}
+              label="Tax Total"
+              value={itemValue}
+              meta={InvoiceLineFieldMeta.TaxTotal}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-InvoiceLine ubl-TaxTotal ubl-WithholdingTaxTotal"
           meta={InvoiceLineFieldMeta.WithholdingTaxTotal} 
           value={value.WithholdingTaxTotal}
           itemDisplay={ (itemValue: TaxTotal, key: string | number) =>
-            <TaxTotalDisplay key={key} meta={InvoiceLineFieldMeta.WithholdingTaxTotal} value={itemValue} />
+            <TaxTotalDisplay
+              key={key}
+              label="Withholding Tax Total"
+              value={itemValue}
+              meta={InvoiceLineFieldMeta.WithholdingTaxTotal}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-InvoiceLine ubl-Item"
           meta={InvoiceLineFieldMeta.Item} 
           value={value.Item}
           itemDisplay={ (itemValue: Item, key: string | number) =>
-            <ItemDisplay key={key} meta={InvoiceLineFieldMeta.Item} value={itemValue} />
+            <ItemDisplay
+              key={key}
+              label="Item"
+              value={itemValue}
+              meta={InvoiceLineFieldMeta.Item}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-InvoiceLine ubl-Price"
           meta={InvoiceLineFieldMeta.Price} 
           value={value.Price}
           itemDisplay={ (itemValue: Price, key: string | number) =>
-            <PriceDisplay key={key} meta={InvoiceLineFieldMeta.Price} value={itemValue} />
+            <PriceDisplay
+              key={key}
+              label="Price"
+              value={itemValue}
+              meta={InvoiceLineFieldMeta.Price}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-InvoiceLine ubl-DeliveryTerms"
           meta={InvoiceLineFieldMeta.DeliveryTerms} 
           value={value.DeliveryTerms}
           itemDisplay={ (itemValue: DeliveryTerms, key: string | number) =>
-            <DeliveryTermsDisplay key={key} meta={InvoiceLineFieldMeta.DeliveryTerms} value={itemValue} />
+            <DeliveryTermsDisplay
+              key={key}
+              label="Delivery Terms"
+              value={itemValue}
+              meta={InvoiceLineFieldMeta.DeliveryTerms}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-InvoiceLine ubl-SubInvoiceLine"
           meta={InvoiceLineFieldMeta.SubInvoiceLine} 
           value={value.SubInvoiceLine}
           itemDisplay={ (itemValue: InvoiceLine, key: string | number) =>
-            <InvoiceLineDisplay key={key} meta={InvoiceLineFieldMeta.SubInvoiceLine} value={itemValue} />
+            <InvoiceLineDisplay
+              key={key}
+              label="Sub Invoice Line"
+              value={itemValue}
+              meta={InvoiceLineFieldMeta.SubInvoiceLine}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-InvoiceLine ubl-PriceExtension ubl-ItemPriceExtension"
           meta={InvoiceLineFieldMeta.ItemPriceExtension} 
           value={value.ItemPriceExtension}
           itemDisplay={ (itemValue: PriceExtension, key: string | number) =>
-            <PriceExtensionDisplay key={key} meta={InvoiceLineFieldMeta.ItemPriceExtension} value={itemValue} />
+            <PriceExtensionDisplay
+              key={key}
+              label="Item Price Extension"
+              value={itemValue}
+              meta={InvoiceLineFieldMeta.ItemPriceExtension}
+            />
           }
         />
         </div>

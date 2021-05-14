@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { DespatchLine } from  '../../model/cac/DespatchLine'
 import { DespatchLineFieldMeta } from  '../../meta/cac/DespatchLineMeta'
@@ -22,133 +23,224 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: DespatchLine
   meta: FieldMeta<T>
 }
 
-export default function DespatchLineDisplay<T>({ value, meta }: Params<T>) {
+export default function DespatchLineDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-DespatchLine ubl-DespatchLineType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-DespatchLine ubl-UBLExtensions"
           meta={DespatchLineFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={DespatchLineFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={DespatchLineFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DespatchLine ubl-Identifier ubl-ID"
           meta={DespatchLineFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={DespatchLineFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={DespatchLineFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DespatchLine ubl-Identifier ubl-UUID"
           meta={DespatchLineFieldMeta.UUID} 
           value={value.UUID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={DespatchLineFieldMeta.UUID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="UUID"
+              value={itemValue}
+              meta={DespatchLineFieldMeta.UUID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-DespatchLine ubl-Text ubl-Note"
           meta={DespatchLineFieldMeta.Note} 
           value={value.Note}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={DespatchLineFieldMeta.Note} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Note"
+              value={itemValue}
+              meta={DespatchLineFieldMeta.Note}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DespatchLine ubl-Code ubl-LineStatusCode"
           meta={DespatchLineFieldMeta.LineStatusCode} 
           value={value.LineStatusCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={DespatchLineFieldMeta.LineStatusCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Line Status Code"
+              value={itemValue}
+              meta={DespatchLineFieldMeta.LineStatusCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DespatchLine ubl-Quantity ubl-DeliveredQuantity"
           meta={DespatchLineFieldMeta.DeliveredQuantity} 
           value={value.DeliveredQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={DespatchLineFieldMeta.DeliveredQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Delivered Quantity"
+              value={itemValue}
+              meta={DespatchLineFieldMeta.DeliveredQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DespatchLine ubl-Quantity ubl-BackorderQuantity"
           meta={DespatchLineFieldMeta.BackorderQuantity} 
           value={value.BackorderQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={DespatchLineFieldMeta.BackorderQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Backorder Quantity"
+              value={itemValue}
+              meta={DespatchLineFieldMeta.BackorderQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-DespatchLine ubl-Text ubl-BackorderReason"
           meta={DespatchLineFieldMeta.BackorderReason} 
           value={value.BackorderReason}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={DespatchLineFieldMeta.BackorderReason} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Backorder Reason"
+              value={itemValue}
+              meta={DespatchLineFieldMeta.BackorderReason}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DespatchLine ubl-Quantity ubl-OutstandingQuantity"
           meta={DespatchLineFieldMeta.OutstandingQuantity} 
           value={value.OutstandingQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={DespatchLineFieldMeta.OutstandingQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Outstanding Quantity"
+              value={itemValue}
+              meta={DespatchLineFieldMeta.OutstandingQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-DespatchLine ubl-Text ubl-OutstandingReason"
           meta={DespatchLineFieldMeta.OutstandingReason} 
           value={value.OutstandingReason}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={DespatchLineFieldMeta.OutstandingReason} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Outstanding Reason"
+              value={itemValue}
+              meta={DespatchLineFieldMeta.OutstandingReason}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DespatchLine ubl-Quantity ubl-OversupplyQuantity"
           meta={DespatchLineFieldMeta.OversupplyQuantity} 
           value={value.OversupplyQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={DespatchLineFieldMeta.OversupplyQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Oversupply Quantity"
+              value={itemValue}
+              meta={DespatchLineFieldMeta.OversupplyQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-DespatchLine ubl-OrderLineReference"
           meta={DespatchLineFieldMeta.OrderLineReference} 
           value={value.OrderLineReference}
           itemDisplay={ (itemValue: OrderLineReference, key: string | number) =>
-            <OrderLineReferenceDisplay key={key} meta={DespatchLineFieldMeta.OrderLineReference} value={itemValue} />
+            <OrderLineReferenceDisplay
+              key={key}
+              label="Order Line Reference"
+              value={itemValue}
+              meta={DespatchLineFieldMeta.OrderLineReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-DespatchLine ubl-DocumentReference"
           meta={DespatchLineFieldMeta.DocumentReference} 
           value={value.DocumentReference}
           itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay key={key} meta={DespatchLineFieldMeta.DocumentReference} value={itemValue} />
+            <DocumentReferenceDisplay
+              key={key}
+              label="Document Reference"
+              value={itemValue}
+              meta={DespatchLineFieldMeta.DocumentReference}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-DespatchLine ubl-Item"
           meta={DespatchLineFieldMeta.Item} 
           value={value.Item}
           itemDisplay={ (itemValue: Item, key: string | number) =>
-            <ItemDisplay key={key} meta={DespatchLineFieldMeta.Item} value={itemValue} />
+            <ItemDisplay
+              key={key}
+              label="Item"
+              value={itemValue}
+              meta={DespatchLineFieldMeta.Item}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-DespatchLine ubl-Shipment"
           meta={DespatchLineFieldMeta.Shipment} 
           value={value.Shipment}
           itemDisplay={ (itemValue: Shipment, key: string | number) =>
-            <ShipmentDisplay key={key} meta={DespatchLineFieldMeta.Shipment} value={itemValue} />
+            <ShipmentDisplay
+              key={key}
+              label="Shipment"
+              value={itemValue}
+              meta={DespatchLineFieldMeta.Shipment}
+            />
           }
         />
         </div>

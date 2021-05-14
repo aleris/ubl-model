@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { DeliveryChannel } from  '../../model/cac/DeliveryChannel'
 import { DeliveryChannelFieldMeta } from  '../../meta/cac/DeliveryChannelMeta'
@@ -14,61 +15,98 @@ import { MessageDelivery } from '../../model/cac/MessageDelivery'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: DeliveryChannel
   meta: FieldMeta<T>
 }
 
-export default function DeliveryChannelDisplay<T>({ value, meta }: Params<T>) {
+export default function DeliveryChannelDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-DeliveryChannel ubl-DeliveryChannelType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-DeliveryChannel ubl-UBLExtensions"
           meta={DeliveryChannelFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={DeliveryChannelFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={DeliveryChannelFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DeliveryChannel ubl-Identifier ubl-NetworkID"
           meta={DeliveryChannelFieldMeta.NetworkID} 
           value={value.NetworkID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={DeliveryChannelFieldMeta.NetworkID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Network Identifier"
+              value={itemValue}
+              meta={DeliveryChannelFieldMeta.NetworkID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DeliveryChannel ubl-Identifier ubl-ParticipantID"
           meta={DeliveryChannelFieldMeta.ParticipantID} 
           value={value.ParticipantID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={DeliveryChannelFieldMeta.ParticipantID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Participant Identifier"
+              value={itemValue}
+              meta={DeliveryChannelFieldMeta.ParticipantID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-DeliveryChannel ubl-Indicator ubl-TestIndicator"
           meta={DeliveryChannelFieldMeta.TestIndicator} 
           value={value.TestIndicator}
           itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay key={key} meta={DeliveryChannelFieldMeta.TestIndicator} value={itemValue} />
+            <IndicatorDisplay
+              key={key}
+              label="Test Indicator"
+              value={itemValue}
+              meta={DeliveryChannelFieldMeta.TestIndicator}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-DeliveryChannel ubl-Certificate ubl-DigitalCertificate"
           meta={DeliveryChannelFieldMeta.DigitalCertificate} 
           value={value.DigitalCertificate}
           itemDisplay={ (itemValue: Certificate, key: string | number) =>
-            <CertificateDisplay key={key} meta={DeliveryChannelFieldMeta.DigitalCertificate} value={itemValue} />
+            <CertificateDisplay
+              key={key}
+              label="Digital Certificate"
+              value={itemValue}
+              meta={DeliveryChannelFieldMeta.DigitalCertificate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-DeliveryChannel ubl-MessageDelivery ubl-DigitalMessageDelivery"
           meta={DeliveryChannelFieldMeta.DigitalMessageDelivery} 
           value={value.DigitalMessageDelivery}
           itemDisplay={ (itemValue: MessageDelivery, key: string | number) =>
-            <MessageDeliveryDisplay key={key} meta={DeliveryChannelFieldMeta.DigitalMessageDelivery} value={itemValue} />
+            <MessageDeliveryDisplay
+              key={key}
+              label="Digital Message Delivery"
+              value={itemValue}
+              meta={DeliveryChannelFieldMeta.DigitalMessageDelivery}
+            />
           }
         />
         </div>

@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Stowage } from  '../../model/cac/Stowage'
 import { StowageFieldMeta } from  '../../meta/cac/StowageMeta'
@@ -12,45 +13,70 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: Stowage
   meta: FieldMeta<T>
 }
 
-export default function StowageDisplay<T>({ value, meta }: Params<T>) {
+export default function StowageDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-Stowage ubl-StowageType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-Stowage ubl-UBLExtensions"
           meta={StowageFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={StowageFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={StowageFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-Stowage ubl-Identifier ubl-LocationID"
           meta={StowageFieldMeta.LocationID} 
           value={value.LocationID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={StowageFieldMeta.LocationID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Location Identifier"
+              value={itemValue}
+              meta={StowageFieldMeta.LocationID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-Stowage ubl-Text ubl-Location"
           meta={StowageFieldMeta.Location} 
           value={value.Location}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={StowageFieldMeta.Location} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Location"
+              value={itemValue}
+              meta={StowageFieldMeta.Location}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-Stowage ubl-Dimension ubl-MeasurementDimension"
           meta={StowageFieldMeta.MeasurementDimension} 
           value={value.MeasurementDimension}
           itemDisplay={ (itemValue: Dimension, key: string | number) =>
-            <DimensionDisplay key={key} meta={StowageFieldMeta.MeasurementDimension} value={itemValue} />
+            <DimensionDisplay
+              key={key}
+              label="Measurement Dimension"
+              value={itemValue}
+              meta={StowageFieldMeta.MeasurementDimension}
+            />
           }
         />
         </div>

@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { MeterReading } from  '../../model/cac/MeterReading'
 import { MeterReadingFieldMeta } from  '../../meta/cac/MeterReadingMeta'
@@ -16,125 +17,210 @@ import { Text } from '../../model/cbc/Text'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: MeterReading
   meta: FieldMeta<T>
 }
 
-export default function MeterReadingDisplay<T>({ value, meta }: Params<T>) {
+export default function MeterReadingDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-MeterReading ubl-MeterReadingType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-MeterReading ubl-UBLExtensions"
           meta={MeterReadingFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={MeterReadingFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={MeterReadingFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-MeterReading ubl-Identifier ubl-ID"
           meta={MeterReadingFieldMeta.ID} 
           value={value.ID}
           itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay key={key} meta={MeterReadingFieldMeta.ID} value={itemValue} />
+            <IdentifierDisplay
+              key={key}
+              label="Identifier"
+              value={itemValue}
+              meta={MeterReadingFieldMeta.ID}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-MeterReading ubl-Text ubl-MeterReadingType"
           meta={MeterReadingFieldMeta.MeterReadingType} 
           value={value.MeterReadingType}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={MeterReadingFieldMeta.MeterReadingType} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Meter Reading Type"
+              value={itemValue}
+              meta={MeterReadingFieldMeta.MeterReadingType}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-MeterReading ubl-Code ubl-MeterReadingTypeCode"
           meta={MeterReadingFieldMeta.MeterReadingTypeCode} 
           value={value.MeterReadingTypeCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={MeterReadingFieldMeta.MeterReadingTypeCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Meter Reading Type Code"
+              value={itemValue}
+              meta={MeterReadingFieldMeta.MeterReadingTypeCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-MeterReading ubl-Date ubl-PreviousMeterReadingDate"
           meta={MeterReadingFieldMeta.PreviousMeterReadingDate} 
           value={value.PreviousMeterReadingDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={MeterReadingFieldMeta.PreviousMeterReadingDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Previous Meter Reading Date"
+              value={itemValue}
+              meta={MeterReadingFieldMeta.PreviousMeterReadingDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-MeterReading ubl-Quantity ubl-PreviousMeterQuantity"
           meta={MeterReadingFieldMeta.PreviousMeterQuantity} 
           value={value.PreviousMeterQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={MeterReadingFieldMeta.PreviousMeterQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Previous Meter Quantity"
+              value={itemValue}
+              meta={MeterReadingFieldMeta.PreviousMeterQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-MeterReading ubl-Date ubl-LatestMeterReadingDate"
           meta={MeterReadingFieldMeta.LatestMeterReadingDate} 
           value={value.LatestMeterReadingDate}
           itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay key={key} meta={MeterReadingFieldMeta.LatestMeterReadingDate} value={itemValue} />
+            <DateDisplay
+              key={key}
+              label="Latest Meter Reading Date"
+              value={itemValue}
+              meta={MeterReadingFieldMeta.LatestMeterReadingDate}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-MeterReading ubl-Quantity ubl-LatestMeterQuantity"
           meta={MeterReadingFieldMeta.LatestMeterQuantity} 
           value={value.LatestMeterQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={MeterReadingFieldMeta.LatestMeterQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Latest Meter Quantity"
+              value={itemValue}
+              meta={MeterReadingFieldMeta.LatestMeterQuantity}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-MeterReading ubl-Text ubl-PreviousMeterReadingMethod"
           meta={MeterReadingFieldMeta.PreviousMeterReadingMethod} 
           value={value.PreviousMeterReadingMethod}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={MeterReadingFieldMeta.PreviousMeterReadingMethod} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Previous Meter Reading Method"
+              value={itemValue}
+              meta={MeterReadingFieldMeta.PreviousMeterReadingMethod}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-MeterReading ubl-Code ubl-PreviousMeterReadingMethodCode"
           meta={MeterReadingFieldMeta.PreviousMeterReadingMethodCode} 
           value={value.PreviousMeterReadingMethodCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={MeterReadingFieldMeta.PreviousMeterReadingMethodCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Previous Meter Reading Method Code"
+              value={itemValue}
+              meta={MeterReadingFieldMeta.PreviousMeterReadingMethodCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-MeterReading ubl-Text ubl-LatestMeterReadingMethod"
           meta={MeterReadingFieldMeta.LatestMeterReadingMethod} 
           value={value.LatestMeterReadingMethod}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={MeterReadingFieldMeta.LatestMeterReadingMethod} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Latest Meter Reading Method"
+              value={itemValue}
+              meta={MeterReadingFieldMeta.LatestMeterReadingMethod}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-MeterReading ubl-Code ubl-LatestMeterReadingMethodCode"
           meta={MeterReadingFieldMeta.LatestMeterReadingMethodCode} 
           value={value.LatestMeterReadingMethodCode}
           itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay key={key} meta={MeterReadingFieldMeta.LatestMeterReadingMethodCode} value={itemValue} />
+            <CodeDisplay
+              key={key}
+              label="Latest Meter Reading Method Code"
+              value={itemValue}
+              meta={MeterReadingFieldMeta.LatestMeterReadingMethodCode}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cbc ubl-MeterReading ubl-Text ubl-MeterReadingComments"
           meta={MeterReadingFieldMeta.MeterReadingComments} 
           value={value.MeterReadingComments}
           itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay key={key} meta={MeterReadingFieldMeta.MeterReadingComments} value={itemValue} />
+            <TextDisplay
+              key={key}
+              label="Meter Reading Comments"
+              value={itemValue}
+              meta={MeterReadingFieldMeta.MeterReadingComments}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cbc ubl-MeterReading ubl-Quantity ubl-DeliveredQuantity"
           meta={MeterReadingFieldMeta.DeliveredQuantity} 
           value={value.DeliveredQuantity}
           itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay key={key} meta={MeterReadingFieldMeta.DeliveredQuantity} value={itemValue} />
+            <QuantityDisplay
+              key={key}
+              label="Delivered Quantity"
+              value={itemValue}
+              meta={MeterReadingFieldMeta.DeliveredQuantity}
+            />
           }
         />
         </div>

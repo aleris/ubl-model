@@ -1,5 +1,6 @@
 import React from 'react'
-import AttributeDisplay, { getMetaClassName } from '../AttributeDisplay'
+import AttributeListDisplay from '../AttributeListDisplay'
+import AttributeSingleDisplay from '../AttributeSingleDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { OrderedShipment } from  '../../model/cac/OrderedShipment'
 import { OrderedShipmentFieldMeta } from  '../../meta/cac/OrderedShipmentMeta'
@@ -10,37 +11,56 @@ import { Shipment } from '../../model/cac/Shipment'
 import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
 import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
-type Params<T> = {
+type Props<T> = {
+  label: string
   value: OrderedShipment
   meta: FieldMeta<T>
 }
 
-export default function OrderedShipmentDisplay<T>({ value, meta }: Params<T>) {
+export default function OrderedShipmentDisplay<T>({ label, value, meta }: Props<T>) {
   return (
-    <div className={getMetaClassName(meta)}>
-        <div className="title">{meta.label}</div>
-        <div className="attributes">
-        <AttributeDisplay
+    <div className="ubl-cac ubl-OrderedShipment ubl-OrderedShipmentType">
+        <div className="title">{label}</div>
+        <div className="child-attributes">
+        <AttributeSingleDisplay
+          className="ubl-ext ubl-OrderedShipment ubl-UBLExtensions"
           meta={OrderedShipmentFieldMeta.UBLExtensions} 
           value={value.UBLExtensions}
           itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay key={key} meta={OrderedShipmentFieldMeta.UBLExtensions} value={itemValue} />
+            <UBLExtensionsDisplay
+              key={key}
+              label="undefined"
+              value={itemValue}
+              meta={OrderedShipmentFieldMeta.UBLExtensions}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeSingleDisplay
+          className="ubl-cac ubl-OrderedShipment ubl-Shipment"
           meta={OrderedShipmentFieldMeta.Shipment} 
           value={value.Shipment}
           itemDisplay={ (itemValue: Shipment, key: string | number) =>
-            <ShipmentDisplay key={key} meta={OrderedShipmentFieldMeta.Shipment} value={itemValue} />
+            <ShipmentDisplay
+              key={key}
+              label="Shipment"
+              value={itemValue}
+              meta={OrderedShipmentFieldMeta.Shipment}
+            />
           }
         />
 
-        <AttributeDisplay
+        <AttributeListDisplay
+          className="ubl-cac ubl-OrderedShipment ubl-Package"
           meta={OrderedShipmentFieldMeta.Package} 
           value={value.Package}
           itemDisplay={ (itemValue: Package, key: string | number) =>
-            <PackageDisplay key={key} meta={OrderedShipmentFieldMeta.Package} value={itemValue} />
+            <PackageDisplay
+              key={key}
+              label="Package"
+              value={itemValue}
+              meta={OrderedShipmentFieldMeta.Package}
+            />
           }
         />
         </div>
