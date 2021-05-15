@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { CustomsDeclaration } from  '../../model/cac/CustomsDeclaration'
 import { CustomsDeclarationFieldMeta } from  '../../meta/cac/CustomsDeclarationMeta'
@@ -23,196 +22,105 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: CustomsDeclaration
+  value: CustomsDeclaration | undefined
   meta: FieldMeta<T>
 }
 
 export default function CustomsDeclarationDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-CustomsDeclaration ubl-CustomsDeclarationType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-CustomsDeclaration ubl-UBLExtensions"
-          meta={CustomsDeclarationFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={CustomsDeclarationFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-CustomsDeclaration">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={CustomsDeclarationFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CustomsDeclaration ubl-Identifier ubl-ID"
-          meta={CustomsDeclarationFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={CustomsDeclarationFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={CustomsDeclarationFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-CustomsDeclaration ubl-Period ubl-ValidityPeriod"
-          meta={CustomsDeclarationFieldMeta.ValidityPeriod} 
-          value={value.ValidityPeriod}
-          itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay
-              key={key}
-              label="Validity Period"
-              value={itemValue}
-              meta={CustomsDeclarationFieldMeta.ValidityPeriod}
-            />
-          }
-        />
+          <PeriodDisplay
+            label="Validity Period"
+            value={value.ValidityPeriod?.[0]}
+            meta={CustomsDeclarationFieldMeta.ValidityPeriod}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-CustomsDeclaration ubl-Address ubl-ApplicableTerritoryAddress"
-          meta={CustomsDeclarationFieldMeta.ApplicableTerritoryAddress} 
-          value={value.ApplicableTerritoryAddress}
-          itemDisplay={ (itemValue: Address, key: string | number) =>
-            <AddressDisplay
-              key={key}
-              label="Applicable Territory Address"
-              value={itemValue}
-              meta={CustomsDeclarationFieldMeta.ApplicableTerritoryAddress}
-            />
-          }
-        />
+          <AddressDisplay
+            label="Applicable Territory Address"
+            value={value.ApplicableTerritoryAddress?.[0]}
+            meta={CustomsDeclarationFieldMeta.ApplicableTerritoryAddress}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-CustomsDeclaration ubl-Shipment"
-          meta={CustomsDeclarationFieldMeta.Shipment} 
-          value={value.Shipment}
-          itemDisplay={ (itemValue: Shipment, key: string | number) =>
-            <ShipmentDisplay
-              key={key}
-              label="Shipment"
-              value={itemValue}
-              meta={CustomsDeclarationFieldMeta.Shipment}
-            />
-          }
-        />
+          <ShipmentDisplay
+            label="Shipment"
+            value={value.Shipment?.[0]}
+            meta={CustomsDeclarationFieldMeta.Shipment}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-CustomsDeclaration ubl-Location ubl-CustomsExitOfficeLocation"
-          meta={CustomsDeclarationFieldMeta.CustomsExitOfficeLocation} 
-          value={value.CustomsExitOfficeLocation}
-          itemDisplay={ (itemValue: Location, key: string | number) =>
-            <LocationDisplay
-              key={key}
-              label="Customs Exit Office Location"
-              value={itemValue}
-              meta={CustomsDeclarationFieldMeta.CustomsExitOfficeLocation}
-            />
-          }
-        />
+          <LocationDisplay
+            label="Customs Exit Office Location"
+            value={value.CustomsExitOfficeLocation?.[0]}
+            meta={CustomsDeclarationFieldMeta.CustomsExitOfficeLocation}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-CustomsDeclaration ubl-Party ubl-IssuerParty"
-          meta={CustomsDeclarationFieldMeta.IssuerParty} 
-          value={value.IssuerParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Issuer Party"
-              value={itemValue}
-              meta={CustomsDeclarationFieldMeta.IssuerParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Issuer Party"
+            value={value.IssuerParty?.[0]}
+            meta={CustomsDeclarationFieldMeta.IssuerParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-CustomsDeclaration ubl-Party ubl-ConsignorParty"
-          meta={CustomsDeclarationFieldMeta.ConsignorParty} 
-          value={value.ConsignorParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Consignor Party"
-              value={itemValue}
-              meta={CustomsDeclarationFieldMeta.ConsignorParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Consignor Party"
+            value={value.ConsignorParty?.[0]}
+            meta={CustomsDeclarationFieldMeta.ConsignorParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-CustomsDeclaration ubl-Party ubl-ConsigneeParty"
-          meta={CustomsDeclarationFieldMeta.ConsigneeParty} 
-          value={value.ConsigneeParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Consignee Party"
-              value={itemValue}
-              meta={CustomsDeclarationFieldMeta.ConsigneeParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Consignee Party"
+            value={value.ConsigneeParty?.[0]}
+            meta={CustomsDeclarationFieldMeta.ConsigneeParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-CustomsDeclaration ubl-Party ubl-FreightForwarderParty"
-          meta={CustomsDeclarationFieldMeta.FreightForwarderParty} 
-          value={value.FreightForwarderParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Freight Forwarder Party"
-              value={itemValue}
-              meta={CustomsDeclarationFieldMeta.FreightForwarderParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Freight Forwarder Party"
+            value={value.FreightForwarderParty?.[0]}
+            meta={CustomsDeclarationFieldMeta.FreightForwarderParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-CustomsDeclaration ubl-Party ubl-CustomsParty"
-          meta={CustomsDeclarationFieldMeta.CustomsParty} 
-          value={value.CustomsParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Customs Party"
-              value={itemValue}
-              meta={CustomsDeclarationFieldMeta.CustomsParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Customs Party"
+            value={value.CustomsParty?.[0]}
+            meta={CustomsDeclarationFieldMeta.CustomsParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-CustomsDeclaration ubl-PreviousCustomsDeclaration"
-          meta={CustomsDeclarationFieldMeta.PreviousCustomsDeclaration} 
-          value={value.PreviousCustomsDeclaration}
-          itemDisplay={ (itemValue: CustomsDeclaration, key: string | number) =>
-            <CustomsDeclarationDisplay
-              key={key}
-              label="Previous Customs Declaration"
-              value={itemValue}
-              meta={CustomsDeclarationFieldMeta.PreviousCustomsDeclaration}
-            />
-          }
-        />
+          <CustomsDeclarationDisplay
+            label="Previous Customs Declaration"
+            value={value.PreviousCustomsDeclaration?.[0]}
+            meta={CustomsDeclarationFieldMeta.PreviousCustomsDeclaration}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-CustomsDeclaration ubl-DocumentReference ubl-AdditionalDocumentReference"
-          meta={CustomsDeclarationFieldMeta.AdditionalDocumentReference} 
-          value={value.AdditionalDocumentReference}
-          itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay
-              key={key}
-              label="Additional Document Reference"
-              value={itemValue}
-              meta={CustomsDeclarationFieldMeta.AdditionalDocumentReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-DocumentReference ubl-AdditionalDocumentReference"
+            label="Additional Document Reference"
+            items={value.AdditionalDocumentReference}
+            meta={CustomsDeclarationFieldMeta.AdditionalDocumentReference} 
+            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
+              <DocumentReferenceDisplay
+                key={key}
+                label="Additional Document Reference"
+                value={itemValue}
+                meta={CustomsDeclarationFieldMeta.AdditionalDocumentReference}
+              />
+            }
+          />
         </div>
     </div>
   )

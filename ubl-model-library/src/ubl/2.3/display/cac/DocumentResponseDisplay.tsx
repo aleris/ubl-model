@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { DocumentResponse } from  '../../model/cac/DocumentResponse'
 import { DocumentResponseFieldMeta } from  '../../meta/cac/DocumentResponseMeta'
@@ -17,98 +16,72 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: DocumentResponse
+  value: DocumentResponse | undefined
   meta: FieldMeta<T>
 }
 
 export default function DocumentResponseDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-DocumentResponse ubl-DocumentResponseType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-DocumentResponse ubl-UBLExtensions"
-          meta={DocumentResponseFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={DocumentResponseFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-DocumentResponse">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={DocumentResponseFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-DocumentResponse ubl-Response"
-          meta={DocumentResponseFieldMeta.Response} 
-          value={value.Response}
-          itemDisplay={ (itemValue: Response, key: string | number) =>
-            <ResponseDisplay
-              key={key}
-              label="Response"
-              value={itemValue}
-              meta={DocumentResponseFieldMeta.Response}
-            />
-          }
-        />
+          <ResponseDisplay
+            label="Response"
+            value={value.Response?.[0]}
+            meta={DocumentResponseFieldMeta.Response}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-DocumentResponse ubl-DocumentReference"
-          meta={DocumentResponseFieldMeta.DocumentReference} 
-          value={value.DocumentReference}
-          itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay
-              key={key}
-              label="Document Reference"
-              value={itemValue}
-              meta={DocumentResponseFieldMeta.DocumentReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-DocumentReference"
+            label="Document Reference"
+            items={value.DocumentReference}
+            meta={DocumentResponseFieldMeta.DocumentReference} 
+            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
+              <DocumentReferenceDisplay
+                key={key}
+                label="Document Reference"
+                value={itemValue}
+                meta={DocumentResponseFieldMeta.DocumentReference}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-DocumentResponse ubl-Party ubl-IssuerParty"
-          meta={DocumentResponseFieldMeta.IssuerParty} 
-          value={value.IssuerParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Issuer Party"
-              value={itemValue}
-              meta={DocumentResponseFieldMeta.IssuerParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Issuer Party"
+            value={value.IssuerParty?.[0]}
+            meta={DocumentResponseFieldMeta.IssuerParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-DocumentResponse ubl-Party ubl-RecipientParty"
-          meta={DocumentResponseFieldMeta.RecipientParty} 
-          value={value.RecipientParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Recipient Party"
-              value={itemValue}
-              meta={DocumentResponseFieldMeta.RecipientParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Recipient Party"
+            value={value.RecipientParty?.[0]}
+            meta={DocumentResponseFieldMeta.RecipientParty}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-DocumentResponse ubl-LineResponse"
-          meta={DocumentResponseFieldMeta.LineResponse} 
-          value={value.LineResponse}
-          itemDisplay={ (itemValue: LineResponse, key: string | number) =>
-            <LineResponseDisplay
-              key={key}
-              label="Line Response"
-              value={itemValue}
-              meta={DocumentResponseFieldMeta.LineResponse}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-LineResponse"
+            label="Line Response"
+            items={value.LineResponse}
+            meta={DocumentResponseFieldMeta.LineResponse} 
+            itemDisplay={ (itemValue: LineResponse, key: string | number) =>
+              <LineResponseDisplay
+                key={key}
+                label="Line Response"
+                value={itemValue}
+                meta={DocumentResponseFieldMeta.LineResponse}
+              />
+            }
+          />
         </div>
     </div>
   )

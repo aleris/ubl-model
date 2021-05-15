@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { WebSite } from  '../../model/cac/WebSite'
 import { WebSiteFieldMeta } from  '../../meta/cac/WebSiteMeta'
@@ -17,112 +16,78 @@ import { WebSiteAccess } from '../../model/cac/WebSiteAccess'
 
 type Props<T> = {
   label: string
-  value: WebSite
+  value: WebSite | undefined
   meta: FieldMeta<T>
 }
 
 export default function WebSiteDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-WebSite ubl-WebSiteType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-WebSite ubl-UBLExtensions"
-          meta={WebSiteFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={WebSiteFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-WebSite">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={WebSiteFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-WebSite ubl-Identifier ubl-ID"
-          meta={WebSiteFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={WebSiteFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={WebSiteFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-WebSite ubl-Text ubl-Name"
-          meta={WebSiteFieldMeta.Name} 
-          value={value.Name}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Name"
-              value={itemValue}
-              meta={WebSiteFieldMeta.Name}
-            />
-          }
-        />
+          <TextDisplay
+            label="Name"
+            value={value.Name?.[0]}
+            meta={WebSiteFieldMeta.Name}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-WebSite ubl-Text ubl-Description"
-          meta={WebSiteFieldMeta.Description} 
-          value={value.Description}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Description"
-              value={itemValue}
-              meta={WebSiteFieldMeta.Description}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Description"
+            label="Description"
+            items={value.Description}
+            meta={WebSiteFieldMeta.Description} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Description"
+                value={itemValue}
+                meta={WebSiteFieldMeta.Description}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-WebSite ubl-Code ubl-WebSiteTypeCode"
-          meta={WebSiteFieldMeta.WebSiteTypeCode} 
-          value={value.WebSiteTypeCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Web Site Type Code"
-              value={itemValue}
-              meta={WebSiteFieldMeta.WebSiteTypeCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Web Site Type Code"
+            value={value.WebSiteTypeCode?.[0]}
+            meta={WebSiteFieldMeta.WebSiteTypeCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-WebSite ubl-Identifier ubl-URI"
-          meta={WebSiteFieldMeta.URI} 
-          value={value.URI}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="URI"
-              value={itemValue}
-              meta={WebSiteFieldMeta.URI}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="URI"
+            value={value.URI?.[0]}
+            meta={WebSiteFieldMeta.URI}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-WebSite ubl-WebSiteAccess"
-          meta={WebSiteFieldMeta.WebSiteAccess} 
-          value={value.WebSiteAccess}
-          itemDisplay={ (itemValue: WebSiteAccess, key: string | number) =>
-            <WebSiteAccessDisplay
-              key={key}
-              label="Web Site Access"
-              value={itemValue}
-              meta={WebSiteFieldMeta.WebSiteAccess}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-WebSiteAccess"
+            label="Web Site Access"
+            items={value.WebSiteAccess}
+            meta={WebSiteFieldMeta.WebSiteAccess} 
+            itemDisplay={ (itemValue: WebSiteAccess, key: string | number) =>
+              <WebSiteAccessDisplay
+                key={key}
+                label="Web Site Access"
+                value={itemValue}
+                meta={WebSiteFieldMeta.WebSiteAccess}
+              />
+            }
+          />
         </div>
     </div>
   )

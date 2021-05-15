@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TransportEvent } from  '../../model/cac/TransportEvent'
 import { TransportEventFieldMeta } from  '../../meta/cac/TransportEventMeta'
@@ -33,196 +32,132 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: TransportEvent
+  value: TransportEvent | undefined
   meta: FieldMeta<T>
 }
 
 export default function TransportEventDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-TransportEvent ubl-TransportEventType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-TransportEvent ubl-UBLExtensions"
-          meta={TransportEventFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={TransportEventFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-TransportEvent">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={TransportEventFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TransportEvent ubl-Identifier ubl-IdentificationID"
-          meta={TransportEventFieldMeta.IdentificationID} 
-          value={value.IdentificationID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identification"
-              value={itemValue}
-              meta={TransportEventFieldMeta.IdentificationID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identification"
+            value={value.IdentificationID?.[0]}
+            meta={TransportEventFieldMeta.IdentificationID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TransportEvent ubl-Date ubl-OccurrenceDate"
-          meta={TransportEventFieldMeta.OccurrenceDate} 
-          value={value.OccurrenceDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Occurrence Date"
-              value={itemValue}
-              meta={TransportEventFieldMeta.OccurrenceDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Occurrence Date"
+            value={value.OccurrenceDate?.[0]}
+            meta={TransportEventFieldMeta.OccurrenceDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TransportEvent ubl-Time ubl-OccurrenceTime"
-          meta={TransportEventFieldMeta.OccurrenceTime} 
-          value={value.OccurrenceTime}
-          itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay
-              key={key}
-              label="Occurrence Time"
-              value={itemValue}
-              meta={TransportEventFieldMeta.OccurrenceTime}
-            />
-          }
-        />
+          <TimeDisplay
+            label="Occurrence Time"
+            value={value.OccurrenceTime?.[0]}
+            meta={TransportEventFieldMeta.OccurrenceTime}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TransportEvent ubl-Code ubl-TransportEventTypeCode"
-          meta={TransportEventFieldMeta.TransportEventTypeCode} 
-          value={value.TransportEventTypeCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Transport Event Type Code"
-              value={itemValue}
-              meta={TransportEventFieldMeta.TransportEventTypeCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Transport Event Type Code"
+            value={value.TransportEventTypeCode?.[0]}
+            meta={TransportEventFieldMeta.TransportEventTypeCode}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-TransportEvent ubl-Text ubl-Description"
-          meta={TransportEventFieldMeta.Description} 
-          value={value.Description}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Description"
-              value={itemValue}
-              meta={TransportEventFieldMeta.Description}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Description"
+            label="Description"
+            items={value.Description}
+            meta={TransportEventFieldMeta.Description} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Description"
+                value={itemValue}
+                meta={TransportEventFieldMeta.Description}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TransportEvent ubl-Indicator ubl-CompletionIndicator"
-          meta={TransportEventFieldMeta.CompletionIndicator} 
-          value={value.CompletionIndicator}
-          itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay
-              key={key}
-              label="Completion Indicator"
-              value={itemValue}
-              meta={TransportEventFieldMeta.CompletionIndicator}
-            />
-          }
-        />
+          <IndicatorDisplay
+            label="Completion Indicator"
+            value={value.CompletionIndicator?.[0]}
+            meta={TransportEventFieldMeta.CompletionIndicator}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TransportEvent ubl-Shipment ubl-ReportedShipment"
-          meta={TransportEventFieldMeta.ReportedShipment} 
-          value={value.ReportedShipment}
-          itemDisplay={ (itemValue: Shipment, key: string | number) =>
-            <ShipmentDisplay
-              key={key}
-              label="Reported Shipment"
-              value={itemValue}
-              meta={TransportEventFieldMeta.ReportedShipment}
-            />
-          }
-        />
+          <ShipmentDisplay
+            label="Reported Shipment"
+            value={value.ReportedShipment?.[0]}
+            meta={TransportEventFieldMeta.ReportedShipment}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-TransportEvent ubl-Status ubl-CurrentStatus"
-          meta={TransportEventFieldMeta.CurrentStatus} 
-          value={value.CurrentStatus}
-          itemDisplay={ (itemValue: Status, key: string | number) =>
-            <StatusDisplay
-              key={key}
-              label="Current Status"
-              value={itemValue}
-              meta={TransportEventFieldMeta.CurrentStatus}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Status ubl-CurrentStatus"
+            label="Current Status"
+            items={value.CurrentStatus}
+            meta={TransportEventFieldMeta.CurrentStatus} 
+            itemDisplay={ (itemValue: Status, key: string | number) =>
+              <StatusDisplay
+                key={key}
+                label="Current Status"
+                value={itemValue}
+                meta={TransportEventFieldMeta.CurrentStatus}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-TransportEvent ubl-Contact"
-          meta={TransportEventFieldMeta.Contact} 
-          value={value.Contact}
-          itemDisplay={ (itemValue: Contact, key: string | number) =>
-            <ContactDisplay
-              key={key}
-              label="Contact"
-              value={itemValue}
-              meta={TransportEventFieldMeta.Contact}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Contact"
+            label="Contact"
+            items={value.Contact}
+            meta={TransportEventFieldMeta.Contact} 
+            itemDisplay={ (itemValue: Contact, key: string | number) =>
+              <ContactDisplay
+                key={key}
+                label="Contact"
+                value={itemValue}
+                meta={TransportEventFieldMeta.Contact}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TransportEvent ubl-Location"
-          meta={TransportEventFieldMeta.Location} 
-          value={value.Location}
-          itemDisplay={ (itemValue: Location, key: string | number) =>
-            <LocationDisplay
-              key={key}
-              label="Location"
-              value={itemValue}
-              meta={TransportEventFieldMeta.Location}
-            />
-          }
-        />
+          <LocationDisplay
+            label="Location"
+            value={value.Location?.[0]}
+            meta={TransportEventFieldMeta.Location}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TransportEvent ubl-Signature"
-          meta={TransportEventFieldMeta.Signature} 
-          value={value.Signature}
-          itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay
-              key={key}
-              label="Signature"
-              value={itemValue}
-              meta={TransportEventFieldMeta.Signature}
-            />
-          }
-        />
+          <SignatureDisplay
+            label="Signature"
+            value={value.Signature?.[0]}
+            meta={TransportEventFieldMeta.Signature}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-TransportEvent ubl-Period"
-          meta={TransportEventFieldMeta.Period} 
-          value={value.Period}
-          itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay
-              key={key}
-              label="Period"
-              value={itemValue}
-              meta={TransportEventFieldMeta.Period}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Period"
+            label="Period"
+            items={value.Period}
+            meta={TransportEventFieldMeta.Period} 
+            itemDisplay={ (itemValue: Period, key: string | number) =>
+              <PeriodDisplay
+                key={key}
+                label="Period"
+                value={itemValue}
+                meta={TransportEventFieldMeta.Period}
+              />
+            }
+          />
         </div>
     </div>
   )

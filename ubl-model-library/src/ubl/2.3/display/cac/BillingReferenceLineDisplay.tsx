@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { BillingReferenceLine } from  '../../model/cac/BillingReferenceLine'
 import { BillingReferenceLineFieldMeta } from  '../../meta/cac/BillingReferenceLineMeta'
@@ -15,70 +14,51 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: BillingReferenceLine
+  value: BillingReferenceLine | undefined
   meta: FieldMeta<T>
 }
 
 export default function BillingReferenceLineDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-BillingReferenceLine ubl-BillingReferenceLineType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-BillingReferenceLine ubl-UBLExtensions"
-          meta={BillingReferenceLineFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={BillingReferenceLineFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-BillingReferenceLine">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={BillingReferenceLineFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-BillingReferenceLine ubl-Identifier ubl-ID"
-          meta={BillingReferenceLineFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={BillingReferenceLineFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={BillingReferenceLineFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-BillingReferenceLine ubl-Amount"
-          meta={BillingReferenceLineFieldMeta.Amount} 
-          value={value.Amount}
-          itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay
-              key={key}
-              label="Amount"
-              value={itemValue}
-              meta={BillingReferenceLineFieldMeta.Amount}
-            />
-          }
-        />
+          <AmountDisplay
+            label="Amount"
+            value={value.Amount?.[0]}
+            meta={BillingReferenceLineFieldMeta.Amount}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-BillingReferenceLine ubl-AllowanceCharge"
-          meta={BillingReferenceLineFieldMeta.AllowanceCharge} 
-          value={value.AllowanceCharge}
-          itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-            <AllowanceChargeDisplay
-              key={key}
-              label="Allowance Charge"
-              value={itemValue}
-              meta={BillingReferenceLineFieldMeta.AllowanceCharge}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-AllowanceCharge"
+            label="Allowance Charge"
+            items={value.AllowanceCharge}
+            meta={BillingReferenceLineFieldMeta.AllowanceCharge} 
+            itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
+              <AllowanceChargeDisplay
+                key={key}
+                label="Allowance Charge"
+                value={itemValue}
+                meta={BillingReferenceLineFieldMeta.AllowanceCharge}
+              />
+            }
+          />
         </div>
     </div>
   )

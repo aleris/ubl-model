@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { DigitalCollaboration } from  '../../model/cac/DigitalCollaboration'
 import { DigitalCollaborationFieldMeta } from  '../../meta/cac/DigitalCollaborationMeta'
@@ -13,70 +12,42 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: DigitalCollaboration
+  value: DigitalCollaboration | undefined
   meta: FieldMeta<T>
 }
 
 export default function DigitalCollaborationDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-DigitalCollaboration ubl-DigitalCollaborationType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-DigitalCollaboration ubl-UBLExtensions"
-          meta={DigitalCollaborationFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={DigitalCollaborationFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-DigitalCollaboration">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={DigitalCollaborationFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-DigitalCollaboration ubl-Identifier ubl-ID"
-          meta={DigitalCollaborationFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={DigitalCollaborationFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={DigitalCollaborationFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-DigitalCollaboration ubl-DigitalService ubl-SendingDigitalService"
-          meta={DigitalCollaborationFieldMeta.SendingDigitalService} 
-          value={value.SendingDigitalService}
-          itemDisplay={ (itemValue: DigitalService, key: string | number) =>
-            <DigitalServiceDisplay
-              key={key}
-              label="Sending Digital Service"
-              value={itemValue}
-              meta={DigitalCollaborationFieldMeta.SendingDigitalService}
-            />
-          }
-        />
+          <DigitalServiceDisplay
+            label="Sending Digital Service"
+            value={value.SendingDigitalService?.[0]}
+            meta={DigitalCollaborationFieldMeta.SendingDigitalService}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-DigitalCollaboration ubl-DigitalService ubl-ReceivingDigitalService"
-          meta={DigitalCollaborationFieldMeta.ReceivingDigitalService} 
-          value={value.ReceivingDigitalService}
-          itemDisplay={ (itemValue: DigitalService, key: string | number) =>
-            <DigitalServiceDisplay
-              key={key}
-              label="Receiving Digital Service"
-              value={itemValue}
-              meta={DigitalCollaborationFieldMeta.ReceivingDigitalService}
-            />
-          }
-        />
+          <DigitalServiceDisplay
+            label="Receiving Digital Service"
+            value={value.ReceivingDigitalService?.[0]}
+            meta={DigitalCollaborationFieldMeta.ReceivingDigitalService}
+          />
         </div>
     </div>
   )

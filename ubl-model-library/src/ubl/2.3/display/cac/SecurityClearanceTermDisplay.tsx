@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { SecurityClearanceTerm } from  '../../model/cac/SecurityClearanceTerm'
 import { SecurityClearanceTermFieldMeta } from  '../../meta/cac/SecurityClearanceTermMeta'
@@ -13,56 +12,45 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: SecurityClearanceTerm
+  value: SecurityClearanceTerm | undefined
   meta: FieldMeta<T>
 }
 
 export default function SecurityClearanceTermDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-SecurityClearanceTerm ubl-SecurityClearanceTermType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-SecurityClearanceTerm ubl-UBLExtensions"
-          meta={SecurityClearanceTermFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={SecurityClearanceTermFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-SecurityClearanceTerm">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={SecurityClearanceTermFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-SecurityClearanceTerm ubl-Code"
-          meta={SecurityClearanceTermFieldMeta.Code} 
-          value={value.Code}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Code"
-              value={itemValue}
-              meta={SecurityClearanceTermFieldMeta.Code}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Code"
+            value={value.Code?.[0]}
+            meta={SecurityClearanceTermFieldMeta.Code}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-SecurityClearanceTerm ubl-Text ubl-Description"
-          meta={SecurityClearanceTermFieldMeta.Description} 
-          value={value.Description}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Description"
-              value={itemValue}
-              meta={SecurityClearanceTermFieldMeta.Description}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Description"
+            label="Description"
+            items={value.Description}
+            meta={SecurityClearanceTermFieldMeta.Description} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Description"
+                value={itemValue}
+                meta={SecurityClearanceTermFieldMeta.Description}
+              />
+            }
+          />
         </div>
     </div>
   )

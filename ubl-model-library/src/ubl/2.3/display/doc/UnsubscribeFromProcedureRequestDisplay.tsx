@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { UnsubscribeFromProcedureRequest } from  '../../model/doc/UnsubscribeFromProcedureRequest'
 import { UnsubscribeFromProcedureRequestFieldMeta } from  '../../meta/doc/UnsubscribeFromProcedureRequestMeta'
@@ -29,252 +28,147 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: UnsubscribeFromProcedureRequest
+  value: UnsubscribeFromProcedureRequest | undefined
   meta: FieldMeta<T>
 }
 
 export default function UnsubscribeFromProcedureRequestDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-doc ubl-UnsubscribeFromProcedureRequest ubl-UnsubscribeFromProcedureRequestType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-UnsubscribeFromProcedureRequest ubl-UBLExtensions"
-          meta={UnsubscribeFromProcedureRequestFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={UnsubscribeFromProcedureRequestFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-doc ubl-UnsubscribeFromProcedureRequest">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={UnsubscribeFromProcedureRequestFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-UnsubscribeFromProcedureRequest ubl-Identifier ubl-UBLVersionID"
-          meta={UnsubscribeFromProcedureRequestFieldMeta.UBLVersionID} 
-          value={value.UBLVersionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="UBL Version Identifier"
-              value={itemValue}
-              meta={UnsubscribeFromProcedureRequestFieldMeta.UBLVersionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="UBL Version Identifier"
+            value={value.UBLVersionID?.[0]}
+            meta={UnsubscribeFromProcedureRequestFieldMeta.UBLVersionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-UnsubscribeFromProcedureRequest ubl-Identifier ubl-CustomizationID"
-          meta={UnsubscribeFromProcedureRequestFieldMeta.CustomizationID} 
-          value={value.CustomizationID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Customization Identifier"
-              value={itemValue}
-              meta={UnsubscribeFromProcedureRequestFieldMeta.CustomizationID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Customization Identifier"
+            value={value.CustomizationID?.[0]}
+            meta={UnsubscribeFromProcedureRequestFieldMeta.CustomizationID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-UnsubscribeFromProcedureRequest ubl-Identifier ubl-ProfileID"
-          meta={UnsubscribeFromProcedureRequestFieldMeta.ProfileID} 
-          value={value.ProfileID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Profile Identifier"
-              value={itemValue}
-              meta={UnsubscribeFromProcedureRequestFieldMeta.ProfileID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Profile Identifier"
+            value={value.ProfileID?.[0]}
+            meta={UnsubscribeFromProcedureRequestFieldMeta.ProfileID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-UnsubscribeFromProcedureRequest ubl-Identifier ubl-ProfileExecutionID"
-          meta={UnsubscribeFromProcedureRequestFieldMeta.ProfileExecutionID} 
-          value={value.ProfileExecutionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Profile Execution Identifier"
-              value={itemValue}
-              meta={UnsubscribeFromProcedureRequestFieldMeta.ProfileExecutionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Profile Execution Identifier"
+            value={value.ProfileExecutionID?.[0]}
+            meta={UnsubscribeFromProcedureRequestFieldMeta.ProfileExecutionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-UnsubscribeFromProcedureRequest ubl-Identifier ubl-ID"
-          meta={UnsubscribeFromProcedureRequestFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={UnsubscribeFromProcedureRequestFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={UnsubscribeFromProcedureRequestFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-UnsubscribeFromProcedureRequest ubl-Indicator ubl-CopyIndicator"
-          meta={UnsubscribeFromProcedureRequestFieldMeta.CopyIndicator} 
-          value={value.CopyIndicator}
-          itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay
-              key={key}
-              label="Copy Indicator"
-              value={itemValue}
-              meta={UnsubscribeFromProcedureRequestFieldMeta.CopyIndicator}
-            />
-          }
-        />
+          <IndicatorDisplay
+            label="Copy Indicator"
+            value={value.CopyIndicator?.[0]}
+            meta={UnsubscribeFromProcedureRequestFieldMeta.CopyIndicator}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-UnsubscribeFromProcedureRequest ubl-Identifier ubl-UUID"
-          meta={UnsubscribeFromProcedureRequestFieldMeta.UUID} 
-          value={value.UUID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="UUID"
-              value={itemValue}
-              meta={UnsubscribeFromProcedureRequestFieldMeta.UUID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="UUID"
+            value={value.UUID?.[0]}
+            meta={UnsubscribeFromProcedureRequestFieldMeta.UUID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-UnsubscribeFromProcedureRequest ubl-Identifier ubl-ContractFolderID"
-          meta={UnsubscribeFromProcedureRequestFieldMeta.ContractFolderID} 
-          value={value.ContractFolderID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Contract Folder Identifier"
-              value={itemValue}
-              meta={UnsubscribeFromProcedureRequestFieldMeta.ContractFolderID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Contract Folder Identifier"
+            value={value.ContractFolderID?.[0]}
+            meta={UnsubscribeFromProcedureRequestFieldMeta.ContractFolderID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-UnsubscribeFromProcedureRequest ubl-Date ubl-IssueDate"
-          meta={UnsubscribeFromProcedureRequestFieldMeta.IssueDate} 
-          value={value.IssueDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Issue Date"
-              value={itemValue}
-              meta={UnsubscribeFromProcedureRequestFieldMeta.IssueDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Issue Date"
+            value={value.IssueDate?.[0]}
+            meta={UnsubscribeFromProcedureRequestFieldMeta.IssueDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-UnsubscribeFromProcedureRequest ubl-Time ubl-IssueTime"
-          meta={UnsubscribeFromProcedureRequestFieldMeta.IssueTime} 
-          value={value.IssueTime}
-          itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay
-              key={key}
-              label="Issue Time"
-              value={itemValue}
-              meta={UnsubscribeFromProcedureRequestFieldMeta.IssueTime}
-            />
-          }
-        />
+          <TimeDisplay
+            label="Issue Time"
+            value={value.IssueTime?.[0]}
+            meta={UnsubscribeFromProcedureRequestFieldMeta.IssueTime}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-UnsubscribeFromProcedureRequest ubl-Text ubl-Note"
-          meta={UnsubscribeFromProcedureRequestFieldMeta.Note} 
-          value={value.Note}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Note"
-              value={itemValue}
-              meta={UnsubscribeFromProcedureRequestFieldMeta.Note}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Text ubl-Note"
+            label="Note"
+            items={value.Note}
+            meta={UnsubscribeFromProcedureRequestFieldMeta.Note} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Note"
+                value={itemValue}
+                meta={UnsubscribeFromProcedureRequestFieldMeta.Note}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-UnsubscribeFromProcedureRequest ubl-Signature"
-          meta={UnsubscribeFromProcedureRequestFieldMeta.Signature} 
-          value={value.Signature}
-          itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay
-              key={key}
-              label="Signature"
-              value={itemValue}
-              meta={UnsubscribeFromProcedureRequestFieldMeta.Signature}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Signature"
+            label="Signature"
+            items={value.Signature}
+            meta={UnsubscribeFromProcedureRequestFieldMeta.Signature} 
+            itemDisplay={ (itemValue: Signature, key: string | number) =>
+              <SignatureDisplay
+                key={key}
+                label="Signature"
+                value={itemValue}
+                meta={UnsubscribeFromProcedureRequestFieldMeta.Signature}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-UnsubscribeFromProcedureRequest ubl-EconomicOperatorParty"
-          meta={UnsubscribeFromProcedureRequestFieldMeta.EconomicOperatorParty} 
-          value={value.EconomicOperatorParty}
-          itemDisplay={ (itemValue: EconomicOperatorParty, key: string | number) =>
-            <EconomicOperatorPartyDisplay
-              key={key}
-              label="Economic Operator Party"
-              value={itemValue}
-              meta={UnsubscribeFromProcedureRequestFieldMeta.EconomicOperatorParty}
-            />
-          }
-        />
+          <EconomicOperatorPartyDisplay
+            label="Economic Operator Party"
+            value={value.EconomicOperatorParty?.[0]}
+            meta={UnsubscribeFromProcedureRequestFieldMeta.EconomicOperatorParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-UnsubscribeFromProcedureRequest ubl-ContractingParty"
-          meta={UnsubscribeFromProcedureRequestFieldMeta.ContractingParty} 
-          value={value.ContractingParty}
-          itemDisplay={ (itemValue: ContractingParty, key: string | number) =>
-            <ContractingPartyDisplay
-              key={key}
-              label="Contracting Party"
-              value={itemValue}
-              meta={UnsubscribeFromProcedureRequestFieldMeta.ContractingParty}
-            />
-          }
-        />
+          <ContractingPartyDisplay
+            label="Contracting Party"
+            value={value.ContractingParty?.[0]}
+            meta={UnsubscribeFromProcedureRequestFieldMeta.ContractingParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-UnsubscribeFromProcedureRequest ubl-ProcurementProject"
-          meta={UnsubscribeFromProcedureRequestFieldMeta.ProcurementProject} 
-          value={value.ProcurementProject}
-          itemDisplay={ (itemValue: ProcurementProject, key: string | number) =>
-            <ProcurementProjectDisplay
-              key={key}
-              label="Procurement Project"
-              value={itemValue}
-              meta={UnsubscribeFromProcedureRequestFieldMeta.ProcurementProject}
-            />
-          }
-        />
+          <ProcurementProjectDisplay
+            label="Procurement Project"
+            value={value.ProcurementProject?.[0]}
+            meta={UnsubscribeFromProcedureRequestFieldMeta.ProcurementProject}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-UnsubscribeFromProcedureRequest ubl-ProcurementProjectLotReference"
-          meta={UnsubscribeFromProcedureRequestFieldMeta.ProcurementProjectLotReference} 
-          value={value.ProcurementProjectLotReference}
-          itemDisplay={ (itemValue: ProcurementProjectLotReference, key: string | number) =>
-            <ProcurementProjectLotReferenceDisplay
-              key={key}
-              label="Procurement Project Lot Reference"
-              value={itemValue}
-              meta={UnsubscribeFromProcedureRequestFieldMeta.ProcurementProjectLotReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-ProcurementProjectLotReference"
+            label="Procurement Project Lot Reference"
+            items={value.ProcurementProjectLotReference}
+            meta={UnsubscribeFromProcedureRequestFieldMeta.ProcurementProjectLotReference} 
+            itemDisplay={ (itemValue: ProcurementProjectLotReference, key: string | number) =>
+              <ProcurementProjectLotReferenceDisplay
+                key={key}
+                label="Procurement Project Lot Reference"
+                value={itemValue}
+                meta={UnsubscribeFromProcedureRequestFieldMeta.ProcurementProjectLotReference}
+              />
+            }
+          />
         </div>
     </div>
   )

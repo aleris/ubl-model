@@ -7,9 +7,9 @@ type Props = {
 
 export default function FieldDisplay({ label, value }: Props) {
   return (
-    <div className="field">
-      <div className="label">{label}</div>
-      <div className="value">{value}</div>
+    <div className="ren-field">
+      <div className="ren-field-label">{label}</div>
+      <div className="ren-field-value">{value}</div>
     </div>
   )
 }

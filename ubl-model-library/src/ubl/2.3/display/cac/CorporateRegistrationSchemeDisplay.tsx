@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { CorporateRegistrationScheme } from  '../../model/cac/CorporateRegistrationScheme'
 import { CorporateRegistrationSchemeFieldMeta } from  '../../meta/cac/CorporateRegistrationSchemeMeta'
@@ -17,84 +16,57 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: CorporateRegistrationScheme
+  value: CorporateRegistrationScheme | undefined
   meta: FieldMeta<T>
 }
 
 export default function CorporateRegistrationSchemeDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-CorporateRegistrationScheme ubl-CorporateRegistrationSchemeType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-CorporateRegistrationScheme ubl-UBLExtensions"
-          meta={CorporateRegistrationSchemeFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={CorporateRegistrationSchemeFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-CorporateRegistrationScheme">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={CorporateRegistrationSchemeFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CorporateRegistrationScheme ubl-Identifier ubl-ID"
-          meta={CorporateRegistrationSchemeFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={CorporateRegistrationSchemeFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={CorporateRegistrationSchemeFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CorporateRegistrationScheme ubl-Text ubl-Name"
-          meta={CorporateRegistrationSchemeFieldMeta.Name} 
-          value={value.Name}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Name"
-              value={itemValue}
-              meta={CorporateRegistrationSchemeFieldMeta.Name}
-            />
-          }
-        />
+          <TextDisplay
+            label="Name"
+            value={value.Name?.[0]}
+            meta={CorporateRegistrationSchemeFieldMeta.Name}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CorporateRegistrationScheme ubl-Code ubl-CorporateRegistrationTypeCode"
-          meta={CorporateRegistrationSchemeFieldMeta.CorporateRegistrationTypeCode} 
-          value={value.CorporateRegistrationTypeCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Corporate Registration Type Code"
-              value={itemValue}
-              meta={CorporateRegistrationSchemeFieldMeta.CorporateRegistrationTypeCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Corporate Registration Type Code"
+            value={value.CorporateRegistrationTypeCode?.[0]}
+            meta={CorporateRegistrationSchemeFieldMeta.CorporateRegistrationTypeCode}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-CorporateRegistrationScheme ubl-Address ubl-JurisdictionRegionAddress"
-          meta={CorporateRegistrationSchemeFieldMeta.JurisdictionRegionAddress} 
-          value={value.JurisdictionRegionAddress}
-          itemDisplay={ (itemValue: Address, key: string | number) =>
-            <AddressDisplay
-              key={key}
-              label="Jurisdiction Region Address"
-              value={itemValue}
-              meta={CorporateRegistrationSchemeFieldMeta.JurisdictionRegionAddress}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Address ubl-JurisdictionRegionAddress"
+            label="Jurisdiction Region Address"
+            items={value.JurisdictionRegionAddress}
+            meta={CorporateRegistrationSchemeFieldMeta.JurisdictionRegionAddress} 
+            itemDisplay={ (itemValue: Address, key: string | number) =>
+              <AddressDisplay
+                key={key}
+                label="Jurisdiction Region Address"
+                value={itemValue}
+                meta={CorporateRegistrationSchemeFieldMeta.JurisdictionRegionAddress}
+              />
+            }
+          />
         </div>
     </div>
   )

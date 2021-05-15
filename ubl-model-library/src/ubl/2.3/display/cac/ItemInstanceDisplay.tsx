@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ItemInstance } from  '../../model/cac/ItemInstance'
 import { ItemInstanceFieldMeta } from  '../../meta/cac/ItemInstanceMeta'
@@ -19,140 +18,81 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: ItemInstance
+  value: ItemInstance | undefined
   meta: FieldMeta<T>
 }
 
 export default function ItemInstanceDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-ItemInstance ubl-ItemInstanceType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-ItemInstance ubl-UBLExtensions"
-          meta={ItemInstanceFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={ItemInstanceFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-ItemInstance">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={ItemInstanceFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ItemInstance ubl-Identifier ubl-ProductTraceID"
-          meta={ItemInstanceFieldMeta.ProductTraceID} 
-          value={value.ProductTraceID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Product Trace Identifier"
-              value={itemValue}
-              meta={ItemInstanceFieldMeta.ProductTraceID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Product Trace Identifier"
+            value={value.ProductTraceID?.[0]}
+            meta={ItemInstanceFieldMeta.ProductTraceID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ItemInstance ubl-Date ubl-ManufactureDate"
-          meta={ItemInstanceFieldMeta.ManufactureDate} 
-          value={value.ManufactureDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Manufacture Date"
-              value={itemValue}
-              meta={ItemInstanceFieldMeta.ManufactureDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Manufacture Date"
+            value={value.ManufactureDate?.[0]}
+            meta={ItemInstanceFieldMeta.ManufactureDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ItemInstance ubl-Time ubl-ManufactureTime"
-          meta={ItemInstanceFieldMeta.ManufactureTime} 
-          value={value.ManufactureTime}
-          itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay
-              key={key}
-              label="Manufacture Time"
-              value={itemValue}
-              meta={ItemInstanceFieldMeta.ManufactureTime}
-            />
-          }
-        />
+          <TimeDisplay
+            label="Manufacture Time"
+            value={value.ManufactureTime?.[0]}
+            meta={ItemInstanceFieldMeta.ManufactureTime}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ItemInstance ubl-Date ubl-BestBeforeDate"
-          meta={ItemInstanceFieldMeta.BestBeforeDate} 
-          value={value.BestBeforeDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Best Before Date"
-              value={itemValue}
-              meta={ItemInstanceFieldMeta.BestBeforeDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Best Before Date"
+            value={value.BestBeforeDate?.[0]}
+            meta={ItemInstanceFieldMeta.BestBeforeDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ItemInstance ubl-Identifier ubl-RegistrationID"
-          meta={ItemInstanceFieldMeta.RegistrationID} 
-          value={value.RegistrationID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Registration Identifier"
-              value={itemValue}
-              meta={ItemInstanceFieldMeta.RegistrationID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Registration Identifier"
+            value={value.RegistrationID?.[0]}
+            meta={ItemInstanceFieldMeta.RegistrationID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ItemInstance ubl-Identifier ubl-SerialID"
-          meta={ItemInstanceFieldMeta.SerialID} 
-          value={value.SerialID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Serial Identifier"
-              value={itemValue}
-              meta={ItemInstanceFieldMeta.SerialID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Serial Identifier"
+            value={value.SerialID?.[0]}
+            meta={ItemInstanceFieldMeta.SerialID}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-ItemInstance ubl-ItemProperty ubl-AdditionalItemProperty"
-          meta={ItemInstanceFieldMeta.AdditionalItemProperty} 
-          value={value.AdditionalItemProperty}
-          itemDisplay={ (itemValue: ItemProperty, key: string | number) =>
-            <ItemPropertyDisplay
-              key={key}
-              label="Additional Item Property"
-              value={itemValue}
-              meta={ItemInstanceFieldMeta.AdditionalItemProperty}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-ItemProperty ubl-AdditionalItemProperty"
+            label="Additional Item Property"
+            items={value.AdditionalItemProperty}
+            meta={ItemInstanceFieldMeta.AdditionalItemProperty} 
+            itemDisplay={ (itemValue: ItemProperty, key: string | number) =>
+              <ItemPropertyDisplay
+                key={key}
+                label="Additional Item Property"
+                value={itemValue}
+                meta={ItemInstanceFieldMeta.AdditionalItemProperty}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-ItemInstance ubl-LotIdentification"
-          meta={ItemInstanceFieldMeta.LotIdentification} 
-          value={value.LotIdentification}
-          itemDisplay={ (itemValue: LotIdentification, key: string | number) =>
-            <LotIdentificationDisplay
-              key={key}
-              label="Lot Identification"
-              value={itemValue}
-              meta={ItemInstanceFieldMeta.LotIdentification}
-            />
-          }
-        />
+          <LotIdentificationDisplay
+            label="Lot Identification"
+            value={value.LotIdentification?.[0]}
+            meta={ItemInstanceFieldMeta.LotIdentification}
+          />
         </div>
     </div>
   )

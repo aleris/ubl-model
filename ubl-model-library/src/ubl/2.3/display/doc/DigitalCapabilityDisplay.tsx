@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { DigitalCapability } from  '../../model/doc/DigitalCapability'
 import { DigitalCapabilityFieldMeta } from  '../../meta/doc/DigitalCapabilityMeta'
@@ -21,238 +20,132 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: DigitalCapability
+  value: DigitalCapability | undefined
   meta: FieldMeta<T>
 }
 
 export default function DigitalCapabilityDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-doc ubl-DigitalCapability ubl-DigitalCapabilityType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-DigitalCapability ubl-UBLExtensions"
-          meta={DigitalCapabilityFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={DigitalCapabilityFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-doc ubl-DigitalCapability">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={DigitalCapabilityFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-DigitalCapability ubl-Identifier ubl-UBLVersionID"
-          meta={DigitalCapabilityFieldMeta.UBLVersionID} 
-          value={value.UBLVersionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="UBL Version Identifier"
-              value={itemValue}
-              meta={DigitalCapabilityFieldMeta.UBLVersionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="UBL Version Identifier"
+            value={value.UBLVersionID?.[0]}
+            meta={DigitalCapabilityFieldMeta.UBLVersionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-DigitalCapability ubl-Identifier ubl-CustomizationID"
-          meta={DigitalCapabilityFieldMeta.CustomizationID} 
-          value={value.CustomizationID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Customization Identifier"
-              value={itemValue}
-              meta={DigitalCapabilityFieldMeta.CustomizationID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Customization Identifier"
+            value={value.CustomizationID?.[0]}
+            meta={DigitalCapabilityFieldMeta.CustomizationID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-DigitalCapability ubl-Identifier ubl-ProfileID"
-          meta={DigitalCapabilityFieldMeta.ProfileID} 
-          value={value.ProfileID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Profile Identifier"
-              value={itemValue}
-              meta={DigitalCapabilityFieldMeta.ProfileID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Profile Identifier"
+            value={value.ProfileID?.[0]}
+            meta={DigitalCapabilityFieldMeta.ProfileID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-DigitalCapability ubl-Identifier ubl-ProfileExecutionID"
-          meta={DigitalCapabilityFieldMeta.ProfileExecutionID} 
-          value={value.ProfileExecutionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Profile Execution Identifier"
-              value={itemValue}
-              meta={DigitalCapabilityFieldMeta.ProfileExecutionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Profile Execution Identifier"
+            value={value.ProfileExecutionID?.[0]}
+            meta={DigitalCapabilityFieldMeta.ProfileExecutionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-DigitalCapability ubl-Identifier ubl-ID"
-          meta={DigitalCapabilityFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={DigitalCapabilityFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={DigitalCapabilityFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-DigitalCapability ubl-Identifier ubl-UUID"
-          meta={DigitalCapabilityFieldMeta.UUID} 
-          value={value.UUID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="UUID"
-              value={itemValue}
-              meta={DigitalCapabilityFieldMeta.UUID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="UUID"
+            value={value.UUID?.[0]}
+            meta={DigitalCapabilityFieldMeta.UUID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-DigitalCapability ubl-Date ubl-IssueDate"
-          meta={DigitalCapabilityFieldMeta.IssueDate} 
-          value={value.IssueDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Issue Date"
-              value={itemValue}
-              meta={DigitalCapabilityFieldMeta.IssueDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Issue Date"
+            value={value.IssueDate?.[0]}
+            meta={DigitalCapabilityFieldMeta.IssueDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-DigitalCapability ubl-Time ubl-IssueTime"
-          meta={DigitalCapabilityFieldMeta.IssueTime} 
-          value={value.IssueTime}
-          itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay
-              key={key}
-              label="Issue Time"
-              value={itemValue}
-              meta={DigitalCapabilityFieldMeta.IssueTime}
-            />
-          }
-        />
+          <TimeDisplay
+            label="Issue Time"
+            value={value.IssueTime?.[0]}
+            meta={DigitalCapabilityFieldMeta.IssueTime}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-DigitalCapability ubl-Identifier ubl-VersionID"
-          meta={DigitalCapabilityFieldMeta.VersionID} 
-          value={value.VersionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Version Identifier"
-              value={itemValue}
-              meta={DigitalCapabilityFieldMeta.VersionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Version Identifier"
+            value={value.VersionID?.[0]}
+            meta={DigitalCapabilityFieldMeta.VersionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-DigitalCapability ubl-Identifier ubl-PreviousVersionID"
-          meta={DigitalCapabilityFieldMeta.PreviousVersionID} 
-          value={value.PreviousVersionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Previous Version Identifier"
-              value={itemValue}
-              meta={DigitalCapabilityFieldMeta.PreviousVersionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Previous Version Identifier"
+            value={value.PreviousVersionID?.[0]}
+            meta={DigitalCapabilityFieldMeta.PreviousVersionID}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-DigitalCapability ubl-Signature"
-          meta={DigitalCapabilityFieldMeta.Signature} 
-          value={value.Signature}
-          itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay
-              key={key}
-              label="Signature"
-              value={itemValue}
-              meta={DigitalCapabilityFieldMeta.Signature}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Signature"
+            label="Signature"
+            items={value.Signature}
+            meta={DigitalCapabilityFieldMeta.Signature} 
+            itemDisplay={ (itemValue: Signature, key: string | number) =>
+              <SignatureDisplay
+                key={key}
+                label="Signature"
+                value={itemValue}
+                meta={DigitalCapabilityFieldMeta.Signature}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-DigitalCapability ubl-Party ubl-SenderParty"
-          meta={DigitalCapabilityFieldMeta.SenderParty} 
-          value={value.SenderParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Sender Party"
-              value={itemValue}
-              meta={DigitalCapabilityFieldMeta.SenderParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Sender Party"
+            value={value.SenderParty?.[0]}
+            meta={DigitalCapabilityFieldMeta.SenderParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-DigitalCapability ubl-Party ubl-ReceiverParty"
-          meta={DigitalCapabilityFieldMeta.ReceiverParty} 
-          value={value.ReceiverParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Receiver Party"
-              value={itemValue}
-              meta={DigitalCapabilityFieldMeta.ReceiverParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Receiver Party"
+            value={value.ReceiverParty?.[0]}
+            meta={DigitalCapabilityFieldMeta.ReceiverParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-DigitalCapability ubl-Party ubl-BusinessParty"
-          meta={DigitalCapabilityFieldMeta.BusinessParty} 
-          value={value.BusinessParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Business Party"
-              value={itemValue}
-              meta={DigitalCapabilityFieldMeta.BusinessParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Business Party"
+            value={value.BusinessParty?.[0]}
+            meta={DigitalCapabilityFieldMeta.BusinessParty}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-DigitalCapability ubl-DigitalProcess"
-          meta={DigitalCapabilityFieldMeta.DigitalProcess} 
-          value={value.DigitalProcess}
-          itemDisplay={ (itemValue: DigitalProcess, key: string | number) =>
-            <DigitalProcessDisplay
-              key={key}
-              label="Digital Process"
-              value={itemValue}
-              meta={DigitalCapabilityFieldMeta.DigitalProcess}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-DigitalProcess"
+            label="Digital Process"
+            items={value.DigitalProcess}
+            meta={DigitalCapabilityFieldMeta.DigitalProcess} 
+            itemDisplay={ (itemValue: DigitalProcess, key: string | number) =>
+              <DigitalProcessDisplay
+                key={key}
+                label="Digital Process"
+                value={itemValue}
+                meta={DigitalCapabilityFieldMeta.DigitalProcess}
+              />
+            }
+          />
         </div>
     </div>
   )

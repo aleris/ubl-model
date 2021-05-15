@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { StockAvailabilityReportLine } from  '../../model/cac/StockAvailabilityReportLine'
 import { StockAvailabilityReportLineFieldMeta } from  '../../meta/cac/StockAvailabilityReportLineMeta'
@@ -23,126 +22,75 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: StockAvailabilityReportLine
+  value: StockAvailabilityReportLine | undefined
   meta: FieldMeta<T>
 }
 
 export default function StockAvailabilityReportLineDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-StockAvailabilityReportLine ubl-StockAvailabilityReportLineType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-StockAvailabilityReportLine ubl-UBLExtensions"
-          meta={StockAvailabilityReportLineFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={StockAvailabilityReportLineFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-StockAvailabilityReportLine">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={StockAvailabilityReportLineFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-StockAvailabilityReportLine ubl-Identifier ubl-ID"
-          meta={StockAvailabilityReportLineFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={StockAvailabilityReportLineFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={StockAvailabilityReportLineFieldMeta.ID}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-StockAvailabilityReportLine ubl-Text ubl-Note"
-          meta={StockAvailabilityReportLineFieldMeta.Note} 
-          value={value.Note}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Note"
-              value={itemValue}
-              meta={StockAvailabilityReportLineFieldMeta.Note}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Note"
+            label="Note"
+            items={value.Note}
+            meta={StockAvailabilityReportLineFieldMeta.Note} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Note"
+                value={itemValue}
+                meta={StockAvailabilityReportLineFieldMeta.Note}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-StockAvailabilityReportLine ubl-Quantity"
-          meta={StockAvailabilityReportLineFieldMeta.Quantity} 
-          value={value.Quantity}
-          itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay
-              key={key}
-              label="Quantity"
-              value={itemValue}
-              meta={StockAvailabilityReportLineFieldMeta.Quantity}
-            />
-          }
-        />
+          <QuantityDisplay
+            label="Quantity"
+            value={value.Quantity?.[0]}
+            meta={StockAvailabilityReportLineFieldMeta.Quantity}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-StockAvailabilityReportLine ubl-Amount ubl-ValueAmount"
-          meta={StockAvailabilityReportLineFieldMeta.ValueAmount} 
-          value={value.ValueAmount}
-          itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay
-              key={key}
-              label="Value"
-              value={itemValue}
-              meta={StockAvailabilityReportLineFieldMeta.ValueAmount}
-            />
-          }
-        />
+          <AmountDisplay
+            label="Value"
+            value={value.ValueAmount?.[0]}
+            meta={StockAvailabilityReportLineFieldMeta.ValueAmount}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-StockAvailabilityReportLine ubl-Date ubl-AvailabilityDate"
-          meta={StockAvailabilityReportLineFieldMeta.AvailabilityDate} 
-          value={value.AvailabilityDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Availability Date"
-              value={itemValue}
-              meta={StockAvailabilityReportLineFieldMeta.AvailabilityDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Availability Date"
+            value={value.AvailabilityDate?.[0]}
+            meta={StockAvailabilityReportLineFieldMeta.AvailabilityDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-StockAvailabilityReportLine ubl-Code ubl-AvailabilityStatusCode"
-          meta={StockAvailabilityReportLineFieldMeta.AvailabilityStatusCode} 
-          value={value.AvailabilityStatusCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Availability Status Code"
-              value={itemValue}
-              meta={StockAvailabilityReportLineFieldMeta.AvailabilityStatusCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Availability Status Code"
+            value={value.AvailabilityStatusCode?.[0]}
+            meta={StockAvailabilityReportLineFieldMeta.AvailabilityStatusCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-StockAvailabilityReportLine ubl-Item"
-          meta={StockAvailabilityReportLineFieldMeta.Item} 
-          value={value.Item}
-          itemDisplay={ (itemValue: Item, key: string | number) =>
-            <ItemDisplay
-              key={key}
-              label="Item"
-              value={itemValue}
-              meta={StockAvailabilityReportLineFieldMeta.Item}
-            />
-          }
-        />
+          <ItemDisplay
+            label="Item"
+            value={value.Item?.[0]}
+            meta={StockAvailabilityReportLineFieldMeta.Item}
+          />
         </div>
     </div>
   )

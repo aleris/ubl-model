@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { RelatedItem } from  '../../model/cac/RelatedItem'
 import { RelatedItemFieldMeta } from  '../../meta/cac/RelatedItemMeta'
@@ -15,70 +14,51 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: RelatedItem
+  value: RelatedItem | undefined
   meta: FieldMeta<T>
 }
 
 export default function RelatedItemDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-RelatedItem ubl-RelatedItemType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-RelatedItem ubl-UBLExtensions"
-          meta={RelatedItemFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={RelatedItemFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-RelatedItem">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={RelatedItemFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-RelatedItem ubl-Identifier ubl-ID"
-          meta={RelatedItemFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={RelatedItemFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={RelatedItemFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-RelatedItem ubl-Quantity"
-          meta={RelatedItemFieldMeta.Quantity} 
-          value={value.Quantity}
-          itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay
-              key={key}
-              label="Quantity"
-              value={itemValue}
-              meta={RelatedItemFieldMeta.Quantity}
-            />
-          }
-        />
+          <QuantityDisplay
+            label="Quantity"
+            value={value.Quantity?.[0]}
+            meta={RelatedItemFieldMeta.Quantity}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-RelatedItem ubl-Text ubl-Description"
-          meta={RelatedItemFieldMeta.Description} 
-          value={value.Description}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Description"
-              value={itemValue}
-              meta={RelatedItemFieldMeta.Description}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Description"
+            label="Description"
+            items={value.Description}
+            meta={RelatedItemFieldMeta.Description} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Description"
+                value={itemValue}
+                meta={RelatedItemFieldMeta.Description}
+              />
+            }
+          />
         </div>
     </div>
   )

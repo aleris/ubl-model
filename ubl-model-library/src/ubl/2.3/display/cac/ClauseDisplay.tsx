@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Clause } from  '../../model/cac/Clause'
 import { ClauseFieldMeta } from  '../../meta/cac/ClauseMeta'
@@ -13,56 +12,45 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: Clause
+  value: Clause | undefined
   meta: FieldMeta<T>
 }
 
 export default function ClauseDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-Clause ubl-ClauseType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-Clause ubl-UBLExtensions"
-          meta={ClauseFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={ClauseFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-Clause">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={ClauseFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-Clause ubl-Identifier ubl-ID"
-          meta={ClauseFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={ClauseFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={ClauseFieldMeta.ID}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-Clause ubl-Text ubl-Content"
-          meta={ClauseFieldMeta.Content} 
-          value={value.Content}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Content"
-              value={itemValue}
-              meta={ClauseFieldMeta.Content}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Content"
+            label="Content"
+            items={value.Content}
+            meta={ClauseFieldMeta.Content} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Content"
+                value={itemValue}
+                meta={ClauseFieldMeta.Content}
+              />
+            }
+          />
         </div>
     </div>
   )

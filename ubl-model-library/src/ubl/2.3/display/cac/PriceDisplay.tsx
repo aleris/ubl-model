@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Price } from  '../../model/cac/Price'
 import { PriceFieldMeta } from  '../../meta/cac/PriceMeta'
@@ -27,182 +26,126 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: Price
+  value: Price | undefined
   meta: FieldMeta<T>
 }
 
 export default function PriceDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-Price ubl-PriceType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-Price ubl-UBLExtensions"
-          meta={PriceFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={PriceFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-Price">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={PriceFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-Price ubl-Amount ubl-PriceAmount"
-          meta={PriceFieldMeta.PriceAmount} 
-          value={value.PriceAmount}
-          itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay
-              key={key}
-              label="Price Amount"
-              value={itemValue}
-              meta={PriceFieldMeta.PriceAmount}
-            />
-          }
-        />
+          <AmountDisplay
+            label="Price Amount"
+            value={value.PriceAmount?.[0]}
+            meta={PriceFieldMeta.PriceAmount}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-Price ubl-Quantity ubl-BaseQuantity"
-          meta={PriceFieldMeta.BaseQuantity} 
-          value={value.BaseQuantity}
-          itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay
-              key={key}
-              label="Base Quantity"
-              value={itemValue}
-              meta={PriceFieldMeta.BaseQuantity}
-            />
-          }
-        />
+          <QuantityDisplay
+            label="Base Quantity"
+            value={value.BaseQuantity?.[0]}
+            meta={PriceFieldMeta.BaseQuantity}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-Price ubl-Text ubl-PriceChangeReason"
-          meta={PriceFieldMeta.PriceChangeReason} 
-          value={value.PriceChangeReason}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Price Change Reason"
-              value={itemValue}
-              meta={PriceFieldMeta.PriceChangeReason}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-PriceChangeReason"
+            label="Price Change Reason"
+            items={value.PriceChangeReason}
+            meta={PriceFieldMeta.PriceChangeReason} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Price Change Reason"
+                value={itemValue}
+                meta={PriceFieldMeta.PriceChangeReason}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-Price ubl-Code ubl-PriceTypeCode"
-          meta={PriceFieldMeta.PriceTypeCode} 
-          value={value.PriceTypeCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Price Type Code"
-              value={itemValue}
-              meta={PriceFieldMeta.PriceTypeCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Price Type Code"
+            value={value.PriceTypeCode?.[0]}
+            meta={PriceFieldMeta.PriceTypeCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-Price ubl-Text ubl-PriceType"
-          meta={PriceFieldMeta.PriceType} 
-          value={value.PriceType}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Price Type"
-              value={itemValue}
-              meta={PriceFieldMeta.PriceType}
-            />
-          }
-        />
+          <TextDisplay
+            label="Price Type"
+            value={value.PriceType?.[0]}
+            meta={PriceFieldMeta.PriceType}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-Price ubl-Numeric ubl-OrderableUnitFactorRate"
-          meta={PriceFieldMeta.OrderableUnitFactorRate} 
-          value={value.OrderableUnitFactorRate}
-          itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay
-              key={key}
-              label="Orderable Unit Factor"
-              value={itemValue}
-              meta={PriceFieldMeta.OrderableUnitFactorRate}
-            />
-          }
-        />
+          <NumericDisplay
+            label="Orderable Unit Factor"
+            value={value.OrderableUnitFactorRate?.[0]}
+            meta={PriceFieldMeta.OrderableUnitFactorRate}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-Price ubl-Period ubl-ValidityPeriod"
-          meta={PriceFieldMeta.ValidityPeriod} 
-          value={value.ValidityPeriod}
-          itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay
-              key={key}
-              label="Validity Period"
-              value={itemValue}
-              meta={PriceFieldMeta.ValidityPeriod}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Period ubl-ValidityPeriod"
+            label="Validity Period"
+            items={value.ValidityPeriod}
+            meta={PriceFieldMeta.ValidityPeriod} 
+            itemDisplay={ (itemValue: Period, key: string | number) =>
+              <PeriodDisplay
+                key={key}
+                label="Validity Period"
+                value={itemValue}
+                meta={PriceFieldMeta.ValidityPeriod}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-Price ubl-PriceList"
-          meta={PriceFieldMeta.PriceList} 
-          value={value.PriceList}
-          itemDisplay={ (itemValue: PriceList, key: string | number) =>
-            <PriceListDisplay
-              key={key}
-              label="Price List"
-              value={itemValue}
-              meta={PriceFieldMeta.PriceList}
-            />
-          }
-        />
+          <PriceListDisplay
+            label="Price List"
+            value={value.PriceList?.[0]}
+            meta={PriceFieldMeta.PriceList}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-Price ubl-AllowanceCharge"
-          meta={PriceFieldMeta.AllowanceCharge} 
-          value={value.AllowanceCharge}
-          itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-            <AllowanceChargeDisplay
-              key={key}
-              label="Allowance Charge"
-              value={itemValue}
-              meta={PriceFieldMeta.AllowanceCharge}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-AllowanceCharge"
+            label="Allowance Charge"
+            items={value.AllowanceCharge}
+            meta={PriceFieldMeta.AllowanceCharge} 
+            itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
+              <AllowanceChargeDisplay
+                key={key}
+                label="Allowance Charge"
+                value={itemValue}
+                meta={PriceFieldMeta.AllowanceCharge}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-Price ubl-ExchangeRate ubl-PricingExchangeRate"
-          meta={PriceFieldMeta.PricingExchangeRate} 
-          value={value.PricingExchangeRate}
-          itemDisplay={ (itemValue: ExchangeRate, key: string | number) =>
-            <ExchangeRateDisplay
-              key={key}
-              label="Pricing Exchange Rate"
-              value={itemValue}
-              meta={PriceFieldMeta.PricingExchangeRate}
-            />
-          }
-        />
+          <ExchangeRateDisplay
+            label="Pricing Exchange Rate"
+            value={value.PricingExchangeRate?.[0]}
+            meta={PriceFieldMeta.PricingExchangeRate}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-Price ubl-AlternativeCurrencyPrice"
-          meta={PriceFieldMeta.AlternativeCurrencyPrice} 
-          value={value.AlternativeCurrencyPrice}
-          itemDisplay={ (itemValue: Price, key: string | number) =>
-            <PriceDisplay
-              key={key}
-              label="Alternative Currency Price"
-              value={itemValue}
-              meta={PriceFieldMeta.AlternativeCurrencyPrice}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Price ubl-AlternativeCurrencyPrice"
+            label="Alternative Currency Price"
+            items={value.AlternativeCurrencyPrice}
+            meta={PriceFieldMeta.AlternativeCurrencyPrice} 
+            itemDisplay={ (itemValue: Price, key: string | number) =>
+              <PriceDisplay
+                key={key}
+                label="Alternative Currency Price"
+                value={itemValue}
+                meta={PriceFieldMeta.AlternativeCurrencyPrice}
+              />
+            }
+          />
         </div>
     </div>
   )

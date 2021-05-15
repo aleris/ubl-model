@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TenderWithdrawal } from  '../../model/doc/TenderWithdrawal'
 import { TenderWithdrawalFieldMeta } from  '../../meta/doc/TenderWithdrawalMeta'
@@ -27,280 +26,186 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: TenderWithdrawal
+  value: TenderWithdrawal | undefined
   meta: FieldMeta<T>
 }
 
 export default function TenderWithdrawalDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-doc ubl-TenderWithdrawal ubl-TenderWithdrawalType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-TenderWithdrawal ubl-UBLExtensions"
-          meta={TenderWithdrawalFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={TenderWithdrawalFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-doc ubl-TenderWithdrawal">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={TenderWithdrawalFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderWithdrawal ubl-Identifier ubl-UBLVersionID"
-          meta={TenderWithdrawalFieldMeta.UBLVersionID} 
-          value={value.UBLVersionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="UBL Version Identifier"
-              value={itemValue}
-              meta={TenderWithdrawalFieldMeta.UBLVersionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="UBL Version Identifier"
+            value={value.UBLVersionID?.[0]}
+            meta={TenderWithdrawalFieldMeta.UBLVersionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderWithdrawal ubl-Identifier ubl-CustomizationID"
-          meta={TenderWithdrawalFieldMeta.CustomizationID} 
-          value={value.CustomizationID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Customization Identifier"
-              value={itemValue}
-              meta={TenderWithdrawalFieldMeta.CustomizationID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Customization Identifier"
+            value={value.CustomizationID?.[0]}
+            meta={TenderWithdrawalFieldMeta.CustomizationID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderWithdrawal ubl-Identifier ubl-ProfileID"
-          meta={TenderWithdrawalFieldMeta.ProfileID} 
-          value={value.ProfileID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Profile Identifier"
-              value={itemValue}
-              meta={TenderWithdrawalFieldMeta.ProfileID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Profile Identifier"
+            value={value.ProfileID?.[0]}
+            meta={TenderWithdrawalFieldMeta.ProfileID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderWithdrawal ubl-Identifier ubl-ProfileExecutionID"
-          meta={TenderWithdrawalFieldMeta.ProfileExecutionID} 
-          value={value.ProfileExecutionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Profile Execution Identifier"
-              value={itemValue}
-              meta={TenderWithdrawalFieldMeta.ProfileExecutionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Profile Execution Identifier"
+            value={value.ProfileExecutionID?.[0]}
+            meta={TenderWithdrawalFieldMeta.ProfileExecutionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderWithdrawal ubl-Identifier ubl-ID"
-          meta={TenderWithdrawalFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={TenderWithdrawalFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={TenderWithdrawalFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderWithdrawal ubl-Indicator ubl-CopyIndicator"
-          meta={TenderWithdrawalFieldMeta.CopyIndicator} 
-          value={value.CopyIndicator}
-          itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay
-              key={key}
-              label="Copy Indicator"
-              value={itemValue}
-              meta={TenderWithdrawalFieldMeta.CopyIndicator}
-            />
-          }
-        />
+          <IndicatorDisplay
+            label="Copy Indicator"
+            value={value.CopyIndicator?.[0]}
+            meta={TenderWithdrawalFieldMeta.CopyIndicator}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderWithdrawal ubl-Identifier ubl-UUID"
-          meta={TenderWithdrawalFieldMeta.UUID} 
-          value={value.UUID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="UUID"
-              value={itemValue}
-              meta={TenderWithdrawalFieldMeta.UUID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="UUID"
+            value={value.UUID?.[0]}
+            meta={TenderWithdrawalFieldMeta.UUID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderWithdrawal ubl-Identifier ubl-ContractFolderID"
-          meta={TenderWithdrawalFieldMeta.ContractFolderID} 
-          value={value.ContractFolderID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Contract Folder Identifier"
-              value={itemValue}
-              meta={TenderWithdrawalFieldMeta.ContractFolderID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Contract Folder Identifier"
+            value={value.ContractFolderID?.[0]}
+            meta={TenderWithdrawalFieldMeta.ContractFolderID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderWithdrawal ubl-Date ubl-IssueDate"
-          meta={TenderWithdrawalFieldMeta.IssueDate} 
-          value={value.IssueDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Issue Date"
-              value={itemValue}
-              meta={TenderWithdrawalFieldMeta.IssueDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Issue Date"
+            value={value.IssueDate?.[0]}
+            meta={TenderWithdrawalFieldMeta.IssueDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderWithdrawal ubl-Time ubl-IssueTime"
-          meta={TenderWithdrawalFieldMeta.IssueTime} 
-          value={value.IssueTime}
-          itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay
-              key={key}
-              label="Issue Time"
-              value={itemValue}
-              meta={TenderWithdrawalFieldMeta.IssueTime}
-            />
-          }
-        />
+          <TimeDisplay
+            label="Issue Time"
+            value={value.IssueTime?.[0]}
+            meta={TenderWithdrawalFieldMeta.IssueTime}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-TenderWithdrawal ubl-Text ubl-ContractName"
-          meta={TenderWithdrawalFieldMeta.ContractName} 
-          value={value.ContractName}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Contract Name"
-              value={itemValue}
-              meta={TenderWithdrawalFieldMeta.ContractName}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Text ubl-ContractName"
+            label="Contract Name"
+            items={value.ContractName}
+            meta={TenderWithdrawalFieldMeta.ContractName} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Contract Name"
+                value={itemValue}
+                meta={TenderWithdrawalFieldMeta.ContractName}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-TenderWithdrawal ubl-Text ubl-Note"
-          meta={TenderWithdrawalFieldMeta.Note} 
-          value={value.Note}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Note"
-              value={itemValue}
-              meta={TenderWithdrawalFieldMeta.Note}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Text ubl-Note"
+            label="Note"
+            items={value.Note}
+            meta={TenderWithdrawalFieldMeta.Note} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Note"
+                value={itemValue}
+                meta={TenderWithdrawalFieldMeta.Note}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderWithdrawal ubl-Indicator ubl-WithdrawOfferIndicator"
-          meta={TenderWithdrawalFieldMeta.WithdrawOfferIndicator} 
-          value={value.WithdrawOfferIndicator}
-          itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay
-              key={key}
-              label="Withdraw Offer"
-              value={itemValue}
-              meta={TenderWithdrawalFieldMeta.WithdrawOfferIndicator}
-            />
-          }
-        />
+          <IndicatorDisplay
+            label="Withdraw Offer"
+            value={value.WithdrawOfferIndicator?.[0]}
+            meta={TenderWithdrawalFieldMeta.WithdrawOfferIndicator}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-TenderWithdrawal ubl-DocumentReference ubl-TenderDocumentReference"
-          meta={TenderWithdrawalFieldMeta.TenderDocumentReference} 
-          value={value.TenderDocumentReference}
-          itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay
-              key={key}
-              label="Tender Document Reference"
-              value={itemValue}
-              meta={TenderWithdrawalFieldMeta.TenderDocumentReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-DocumentReference ubl-TenderDocumentReference"
+            label="Tender Document Reference"
+            items={value.TenderDocumentReference}
+            meta={TenderWithdrawalFieldMeta.TenderDocumentReference} 
+            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
+              <DocumentReferenceDisplay
+                key={key}
+                label="Tender Document Reference"
+                value={itemValue}
+                meta={TenderWithdrawalFieldMeta.TenderDocumentReference}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-TenderWithdrawal ubl-DocumentReference ubl-TenderNotificationDocumentReference"
-          meta={TenderWithdrawalFieldMeta.TenderNotificationDocumentReference} 
-          value={value.TenderNotificationDocumentReference}
-          itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay
-              key={key}
-              label="Tender Notification Document Reference"
-              value={itemValue}
-              meta={TenderWithdrawalFieldMeta.TenderNotificationDocumentReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-DocumentReference ubl-TenderNotificationDocumentReference"
+            label="Tender Notification Document Reference"
+            items={value.TenderNotificationDocumentReference}
+            meta={TenderWithdrawalFieldMeta.TenderNotificationDocumentReference} 
+            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
+              <DocumentReferenceDisplay
+                key={key}
+                label="Tender Notification Document Reference"
+                value={itemValue}
+                meta={TenderWithdrawalFieldMeta.TenderNotificationDocumentReference}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-TenderWithdrawal ubl-Signature"
-          meta={TenderWithdrawalFieldMeta.Signature} 
-          value={value.Signature}
-          itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay
-              key={key}
-              label="Signature"
-              value={itemValue}
-              meta={TenderWithdrawalFieldMeta.Signature}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Signature"
+            label="Signature"
+            items={value.Signature}
+            meta={TenderWithdrawalFieldMeta.Signature} 
+            itemDisplay={ (itemValue: Signature, key: string | number) =>
+              <SignatureDisplay
+                key={key}
+                label="Signature"
+                value={itemValue}
+                meta={TenderWithdrawalFieldMeta.Signature}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-TenderWithdrawal ubl-ContractingParty"
-          meta={TenderWithdrawalFieldMeta.ContractingParty} 
-          value={value.ContractingParty}
-          itemDisplay={ (itemValue: ContractingParty, key: string | number) =>
-            <ContractingPartyDisplay
-              key={key}
-              label="Contracting Party"
-              value={itemValue}
-              meta={TenderWithdrawalFieldMeta.ContractingParty}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-ContractingParty"
+            label="Contracting Party"
+            items={value.ContractingParty}
+            meta={TenderWithdrawalFieldMeta.ContractingParty} 
+            itemDisplay={ (itemValue: ContractingParty, key: string | number) =>
+              <ContractingPartyDisplay
+                key={key}
+                label="Contracting Party"
+                value={itemValue}
+                meta={TenderWithdrawalFieldMeta.ContractingParty}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TenderWithdrawal ubl-Party ubl-TendererParty"
-          meta={TenderWithdrawalFieldMeta.TendererParty} 
-          value={value.TendererParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Tenderer Party"
-              value={itemValue}
-              meta={TenderWithdrawalFieldMeta.TendererParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Tenderer Party"
+            value={value.TendererParty?.[0]}
+            meta={TenderWithdrawalFieldMeta.TendererParty}
+          />
         </div>
     </div>
   )

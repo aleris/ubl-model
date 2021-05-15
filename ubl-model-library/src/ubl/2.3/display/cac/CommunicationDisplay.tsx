@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Communication } from  '../../model/cac/Communication'
 import { CommunicationFieldMeta } from  '../../meta/cac/CommunicationMeta'
@@ -13,70 +12,42 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: Communication
+  value: Communication | undefined
   meta: FieldMeta<T>
 }
 
 export default function CommunicationDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-Communication ubl-CommunicationType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-Communication ubl-UBLExtensions"
-          meta={CommunicationFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={CommunicationFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-Communication">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={CommunicationFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-Communication ubl-Code ubl-ChannelCode"
-          meta={CommunicationFieldMeta.ChannelCode} 
-          value={value.ChannelCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Channel Code"
-              value={itemValue}
-              meta={CommunicationFieldMeta.ChannelCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Channel Code"
+            value={value.ChannelCode?.[0]}
+            meta={CommunicationFieldMeta.ChannelCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-Communication ubl-Text ubl-Channel"
-          meta={CommunicationFieldMeta.Channel} 
-          value={value.Channel}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Channel"
-              value={itemValue}
-              meta={CommunicationFieldMeta.Channel}
-            />
-          }
-        />
+          <TextDisplay
+            label="Channel"
+            value={value.Channel?.[0]}
+            meta={CommunicationFieldMeta.Channel}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-Communication ubl-Text ubl-Value"
-          meta={CommunicationFieldMeta.Value} 
-          value={value.Value}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Value"
-              value={itemValue}
-              meta={CommunicationFieldMeta.Value}
-            />
-          }
-        />
+          <TextDisplay
+            label="Value"
+            value={value.Value?.[0]}
+            meta={CommunicationFieldMeta.Value}
+          />
         </div>
     </div>
   )

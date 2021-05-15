@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TenderLine } from  '../../model/cac/TenderLine'
 import { TenderLineFieldMeta } from  '../../meta/cac/TenderLineMeta'
@@ -35,336 +34,210 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: TenderLine
+  value: TenderLine | undefined
   meta: FieldMeta<T>
 }
 
 export default function TenderLineDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-TenderLine ubl-TenderLineType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-TenderLine ubl-UBLExtensions"
-          meta={TenderLineFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={TenderLineFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-TenderLine">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={TenderLineFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderLine ubl-Identifier ubl-ID"
-          meta={TenderLineFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={TenderLineFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={TenderLineFieldMeta.ID}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-TenderLine ubl-Text ubl-Note"
-          meta={TenderLineFieldMeta.Note} 
-          value={value.Note}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Note"
-              value={itemValue}
-              meta={TenderLineFieldMeta.Note}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Note"
+            label="Note"
+            items={value.Note}
+            meta={TenderLineFieldMeta.Note} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Note"
+                value={itemValue}
+                meta={TenderLineFieldMeta.Note}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderLine ubl-Quantity"
-          meta={TenderLineFieldMeta.Quantity} 
-          value={value.Quantity}
-          itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay
-              key={key}
-              label="Quantity"
-              value={itemValue}
-              meta={TenderLineFieldMeta.Quantity}
-            />
-          }
-        />
+          <QuantityDisplay
+            label="Quantity"
+            value={value.Quantity?.[0]}
+            meta={TenderLineFieldMeta.Quantity}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderLine ubl-Amount ubl-LineExtensionAmount"
-          meta={TenderLineFieldMeta.LineExtensionAmount} 
-          value={value.LineExtensionAmount}
-          itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay
-              key={key}
-              label="Line Extension Amount"
-              value={itemValue}
-              meta={TenderLineFieldMeta.LineExtensionAmount}
-            />
-          }
-        />
+          <AmountDisplay
+            label="Line Extension Amount"
+            value={value.LineExtensionAmount?.[0]}
+            meta={TenderLineFieldMeta.LineExtensionAmount}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderLine ubl-Amount ubl-TaxInclusiveLineExtensionAmount"
-          meta={TenderLineFieldMeta.TaxInclusiveLineExtensionAmount} 
-          value={value.TaxInclusiveLineExtensionAmount}
-          itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay
-              key={key}
-              label="Tax Inclusive Line Extension Amount"
-              value={itemValue}
-              meta={TenderLineFieldMeta.TaxInclusiveLineExtensionAmount}
-            />
-          }
-        />
+          <AmountDisplay
+            label="Tax Inclusive Line Extension Amount"
+            value={value.TaxInclusiveLineExtensionAmount?.[0]}
+            meta={TenderLineFieldMeta.TaxInclusiveLineExtensionAmount}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderLine ubl-Amount ubl-TotalTaxAmount"
-          meta={TenderLineFieldMeta.TotalTaxAmount} 
-          value={value.TotalTaxAmount}
-          itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay
-              key={key}
-              label="Total Tax Amount"
-              value={itemValue}
-              meta={TenderLineFieldMeta.TotalTaxAmount}
-            />
-          }
-        />
+          <AmountDisplay
+            label="Total Tax Amount"
+            value={value.TotalTaxAmount?.[0]}
+            meta={TenderLineFieldMeta.TotalTaxAmount}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderLine ubl-Text ubl-OrderableUnit"
-          meta={TenderLineFieldMeta.OrderableUnit} 
-          value={value.OrderableUnit}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Orderable Unit"
-              value={itemValue}
-              meta={TenderLineFieldMeta.OrderableUnit}
-            />
-          }
-        />
+          <TextDisplay
+            label="Orderable Unit"
+            value={value.OrderableUnit?.[0]}
+            meta={TenderLineFieldMeta.OrderableUnit}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderLine ubl-Quantity ubl-ContentUnitQuantity"
-          meta={TenderLineFieldMeta.ContentUnitQuantity} 
-          value={value.ContentUnitQuantity}
-          itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay
-              key={key}
-              label="Content Unit"
-              value={itemValue}
-              meta={TenderLineFieldMeta.ContentUnitQuantity}
-            />
-          }
-        />
+          <QuantityDisplay
+            label="Content Unit"
+            value={value.ContentUnitQuantity?.[0]}
+            meta={TenderLineFieldMeta.ContentUnitQuantity}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderLine ubl-Numeric ubl-OrderQuantityIncrementNumeric"
-          meta={TenderLineFieldMeta.OrderQuantityIncrementNumeric} 
-          value={value.OrderQuantityIncrementNumeric}
-          itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay
-              key={key}
-              label="Order Quantity Increment"
-              value={itemValue}
-              meta={TenderLineFieldMeta.OrderQuantityIncrementNumeric}
-            />
-          }
-        />
+          <NumericDisplay
+            label="Order Quantity Increment"
+            value={value.OrderQuantityIncrementNumeric?.[0]}
+            meta={TenderLineFieldMeta.OrderQuantityIncrementNumeric}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderLine ubl-Quantity ubl-MinimumOrderQuantity"
-          meta={TenderLineFieldMeta.MinimumOrderQuantity} 
-          value={value.MinimumOrderQuantity}
-          itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay
-              key={key}
-              label="Minimum Order Quantity"
-              value={itemValue}
-              meta={TenderLineFieldMeta.MinimumOrderQuantity}
-            />
-          }
-        />
+          <QuantityDisplay
+            label="Minimum Order Quantity"
+            value={value.MinimumOrderQuantity?.[0]}
+            meta={TenderLineFieldMeta.MinimumOrderQuantity}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderLine ubl-Quantity ubl-MaximumOrderQuantity"
-          meta={TenderLineFieldMeta.MaximumOrderQuantity} 
-          value={value.MaximumOrderQuantity}
-          itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay
-              key={key}
-              label="Maximum Order Quantity"
-              value={itemValue}
-              meta={TenderLineFieldMeta.MaximumOrderQuantity}
-            />
-          }
-        />
+          <QuantityDisplay
+            label="Maximum Order Quantity"
+            value={value.MaximumOrderQuantity?.[0]}
+            meta={TenderLineFieldMeta.MaximumOrderQuantity}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-TenderLine ubl-Text ubl-WarrantyInformation"
-          meta={TenderLineFieldMeta.WarrantyInformation} 
-          value={value.WarrantyInformation}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Warranty Information"
-              value={itemValue}
-              meta={TenderLineFieldMeta.WarrantyInformation}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-WarrantyInformation"
+            label="Warranty Information"
+            items={value.WarrantyInformation}
+            meta={TenderLineFieldMeta.WarrantyInformation} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Warranty Information"
+                value={itemValue}
+                meta={TenderLineFieldMeta.WarrantyInformation}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderLine ubl-Code ubl-PackLevelCode"
-          meta={TenderLineFieldMeta.PackLevelCode} 
-          value={value.PackLevelCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Pack Level Code"
-              value={itemValue}
-              meta={TenderLineFieldMeta.PackLevelCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Pack Level Code"
+            value={value.PackLevelCode?.[0]}
+            meta={TenderLineFieldMeta.PackLevelCode}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-TenderLine ubl-DocumentReference"
-          meta={TenderLineFieldMeta.DocumentReference} 
-          value={value.DocumentReference}
-          itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay
-              key={key}
-              label="Document Reference"
-              value={itemValue}
-              meta={TenderLineFieldMeta.DocumentReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-DocumentReference"
+            label="Document Reference"
+            items={value.DocumentReference}
+            meta={TenderLineFieldMeta.DocumentReference} 
+            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
+              <DocumentReferenceDisplay
+                key={key}
+                label="Document Reference"
+                value={itemValue}
+                meta={TenderLineFieldMeta.DocumentReference}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TenderLine ubl-Item"
-          meta={TenderLineFieldMeta.Item} 
-          value={value.Item}
-          itemDisplay={ (itemValue: Item, key: string | number) =>
-            <ItemDisplay
-              key={key}
-              label="Item"
-              value={itemValue}
-              meta={TenderLineFieldMeta.Item}
-            />
-          }
-        />
+          <ItemDisplay
+            label="Item"
+            value={value.Item?.[0]}
+            meta={TenderLineFieldMeta.Item}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-TenderLine ubl-ItemLocationQuantity ubl-OfferedItemLocationQuantity"
-          meta={TenderLineFieldMeta.OfferedItemLocationQuantity} 
-          value={value.OfferedItemLocationQuantity}
-          itemDisplay={ (itemValue: ItemLocationQuantity, key: string | number) =>
-            <ItemLocationQuantityDisplay
-              key={key}
-              label="Offered Item Location Quantity"
-              value={itemValue}
-              meta={TenderLineFieldMeta.OfferedItemLocationQuantity}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-ItemLocationQuantity ubl-OfferedItemLocationQuantity"
+            label="Offered Item Location Quantity"
+            items={value.OfferedItemLocationQuantity}
+            meta={TenderLineFieldMeta.OfferedItemLocationQuantity} 
+            itemDisplay={ (itemValue: ItemLocationQuantity, key: string | number) =>
+              <ItemLocationQuantityDisplay
+                key={key}
+                label="Offered Item Location Quantity"
+                value={itemValue}
+                meta={TenderLineFieldMeta.OfferedItemLocationQuantity}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-TenderLine ubl-RelatedItem ubl-ReplacementRelatedItem"
-          meta={TenderLineFieldMeta.ReplacementRelatedItem} 
-          value={value.ReplacementRelatedItem}
-          itemDisplay={ (itemValue: RelatedItem, key: string | number) =>
-            <RelatedItemDisplay
-              key={key}
-              label="Replacement Related Item"
-              value={itemValue}
-              meta={TenderLineFieldMeta.ReplacementRelatedItem}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-RelatedItem ubl-ReplacementRelatedItem"
+            label="Replacement Related Item"
+            items={value.ReplacementRelatedItem}
+            meta={TenderLineFieldMeta.ReplacementRelatedItem} 
+            itemDisplay={ (itemValue: RelatedItem, key: string | number) =>
+              <RelatedItemDisplay
+                key={key}
+                label="Replacement Related Item"
+                value={itemValue}
+                meta={TenderLineFieldMeta.ReplacementRelatedItem}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TenderLine ubl-Party ubl-WarrantyParty"
-          meta={TenderLineFieldMeta.WarrantyParty} 
-          value={value.WarrantyParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Warranty Party"
-              value={itemValue}
-              meta={TenderLineFieldMeta.WarrantyParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Warranty Party"
+            value={value.WarrantyParty?.[0]}
+            meta={TenderLineFieldMeta.WarrantyParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TenderLine ubl-Period ubl-WarrantyValidityPeriod"
-          meta={TenderLineFieldMeta.WarrantyValidityPeriod} 
-          value={value.WarrantyValidityPeriod}
-          itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay
-              key={key}
-              label="Warranty Validity Period"
-              value={itemValue}
-              meta={TenderLineFieldMeta.WarrantyValidityPeriod}
-            />
-          }
-        />
+          <PeriodDisplay
+            label="Warranty Validity Period"
+            value={value.WarrantyValidityPeriod?.[0]}
+            meta={TenderLineFieldMeta.WarrantyValidityPeriod}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-TenderLine ubl-SubTenderLine"
-          meta={TenderLineFieldMeta.SubTenderLine} 
-          value={value.SubTenderLine}
-          itemDisplay={ (itemValue: TenderLine, key: string | number) =>
-            <TenderLineDisplay
-              key={key}
-              label="Sub Tender Line"
-              value={itemValue}
-              meta={TenderLineFieldMeta.SubTenderLine}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-TenderLine ubl-SubTenderLine"
+            label="Sub Tender Line"
+            items={value.SubTenderLine}
+            meta={TenderLineFieldMeta.SubTenderLine} 
+            itemDisplay={ (itemValue: TenderLine, key: string | number) =>
+              <TenderLineDisplay
+                key={key}
+                label="Sub Tender Line"
+                value={itemValue}
+                meta={TenderLineFieldMeta.SubTenderLine}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TenderLine ubl-LineReference ubl-CallForTendersLineReference"
-          meta={TenderLineFieldMeta.CallForTendersLineReference} 
-          value={value.CallForTendersLineReference}
-          itemDisplay={ (itemValue: LineReference, key: string | number) =>
-            <LineReferenceDisplay
-              key={key}
-              label="Call For Tenders Line Reference"
-              value={itemValue}
-              meta={TenderLineFieldMeta.CallForTendersLineReference}
-            />
-          }
-        />
+          <LineReferenceDisplay
+            label="Call For Tenders Line Reference"
+            value={value.CallForTendersLineReference?.[0]}
+            meta={TenderLineFieldMeta.CallForTendersLineReference}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TenderLine ubl-DocumentReference ubl-CallForTendersDocumentReference"
-          meta={TenderLineFieldMeta.CallForTendersDocumentReference} 
-          value={value.CallForTendersDocumentReference}
-          itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay
-              key={key}
-              label="Call For Tenders Document Reference"
-              value={itemValue}
-              meta={TenderLineFieldMeta.CallForTendersDocumentReference}
-            />
-          }
-        />
+          <DocumentReferenceDisplay
+            label="Call For Tenders Document Reference"
+            value={value.CallForTendersDocumentReference?.[0]}
+            meta={TenderLineFieldMeta.CallForTendersDocumentReference}
+          />
         </div>
     </div>
   )

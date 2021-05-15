@@ -5,11 +5,14 @@ import FieldDisplay from '../FieldDisplay'
 
 type Props = {
   label: string
+  value: Code | undefined
   meta: FieldMeta<any>
-  value: Code
 }
 
-export default function CodeDisplay({ label, meta, value }: Props) {
+export default function CodeDisplay({ label, value, meta }: Props) {
+  if (value === undefined) {
+    return null
+  }
   const stringValue = value._
-  return <FieldDisplay label={label} value={stringValue} />
+  return <div className="ubl-cbc ubl-Code"><FieldDisplay label={label} value={stringValue} /></div>
 }

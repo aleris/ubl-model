@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { PaymentMandate } from  '../../model/cac/PaymentMandate'
 import { PaymentMandateFieldMeta } from  '../../meta/cac/PaymentMandateMeta'
@@ -25,168 +24,93 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: PaymentMandate
+  value: PaymentMandate | undefined
   meta: FieldMeta<T>
 }
 
 export default function PaymentMandateDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-PaymentMandate ubl-PaymentMandateType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-PaymentMandate ubl-UBLExtensions"
-          meta={PaymentMandateFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={PaymentMandateFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-PaymentMandate">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={PaymentMandateFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PaymentMandate ubl-Identifier ubl-ID"
-          meta={PaymentMandateFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={PaymentMandateFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={PaymentMandateFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PaymentMandate ubl-Code ubl-MandateTypeCode"
-          meta={PaymentMandateFieldMeta.MandateTypeCode} 
-          value={value.MandateTypeCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Mandate Type Code"
-              value={itemValue}
-              meta={PaymentMandateFieldMeta.MandateTypeCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Mandate Type Code"
+            value={value.MandateTypeCode?.[0]}
+            meta={PaymentMandateFieldMeta.MandateTypeCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PaymentMandate ubl-Numeric ubl-MaximumPaymentInstructionsNumeric"
-          meta={PaymentMandateFieldMeta.MaximumPaymentInstructionsNumeric} 
-          value={value.MaximumPaymentInstructionsNumeric}
-          itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay
-              key={key}
-              label="Maximum Payment Instructions"
-              value={itemValue}
-              meta={PaymentMandateFieldMeta.MaximumPaymentInstructionsNumeric}
-            />
-          }
-        />
+          <NumericDisplay
+            label="Maximum Payment Instructions"
+            value={value.MaximumPaymentInstructionsNumeric?.[0]}
+            meta={PaymentMandateFieldMeta.MaximumPaymentInstructionsNumeric}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PaymentMandate ubl-Amount ubl-MaximumPaidAmount"
-          meta={PaymentMandateFieldMeta.MaximumPaidAmount} 
-          value={value.MaximumPaidAmount}
-          itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay
-              key={key}
-              label="Maximum Paid Amount"
-              value={itemValue}
-              meta={PaymentMandateFieldMeta.MaximumPaidAmount}
-            />
-          }
-        />
+          <AmountDisplay
+            label="Maximum Paid Amount"
+            value={value.MaximumPaidAmount?.[0]}
+            meta={PaymentMandateFieldMeta.MaximumPaidAmount}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PaymentMandate ubl-Identifier ubl-SignatureID"
-          meta={PaymentMandateFieldMeta.SignatureID} 
-          value={value.SignatureID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Signature Identifier"
-              value={itemValue}
-              meta={PaymentMandateFieldMeta.SignatureID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Signature Identifier"
+            value={value.SignatureID?.[0]}
+            meta={PaymentMandateFieldMeta.SignatureID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-PaymentMandate ubl-Party ubl-PayerParty"
-          meta={PaymentMandateFieldMeta.PayerParty} 
-          value={value.PayerParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Payer Party"
-              value={itemValue}
-              meta={PaymentMandateFieldMeta.PayerParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Payer Party"
+            value={value.PayerParty?.[0]}
+            meta={PaymentMandateFieldMeta.PayerParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-PaymentMandate ubl-FinancialAccount ubl-PayerFinancialAccount"
-          meta={PaymentMandateFieldMeta.PayerFinancialAccount} 
-          value={value.PayerFinancialAccount}
-          itemDisplay={ (itemValue: FinancialAccount, key: string | number) =>
-            <FinancialAccountDisplay
-              key={key}
-              label="Payer Financial Account"
-              value={itemValue}
-              meta={PaymentMandateFieldMeta.PayerFinancialAccount}
-            />
-          }
-        />
+          <FinancialAccountDisplay
+            label="Payer Financial Account"
+            value={value.PayerFinancialAccount?.[0]}
+            meta={PaymentMandateFieldMeta.PayerFinancialAccount}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-PaymentMandate ubl-Period ubl-ValidityPeriod"
-          meta={PaymentMandateFieldMeta.ValidityPeriod} 
-          value={value.ValidityPeriod}
-          itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay
-              key={key}
-              label="Validity Period"
-              value={itemValue}
-              meta={PaymentMandateFieldMeta.ValidityPeriod}
-            />
-          }
-        />
+          <PeriodDisplay
+            label="Validity Period"
+            value={value.ValidityPeriod?.[0]}
+            meta={PaymentMandateFieldMeta.ValidityPeriod}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-PaymentMandate ubl-Period ubl-PaymentReversalPeriod"
-          meta={PaymentMandateFieldMeta.PaymentReversalPeriod} 
-          value={value.PaymentReversalPeriod}
-          itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay
-              key={key}
-              label="Payment Reversal Period"
-              value={itemValue}
-              meta={PaymentMandateFieldMeta.PaymentReversalPeriod}
-            />
-          }
-        />
+          <PeriodDisplay
+            label="Payment Reversal Period"
+            value={value.PaymentReversalPeriod?.[0]}
+            meta={PaymentMandateFieldMeta.PaymentReversalPeriod}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-PaymentMandate ubl-Clause"
-          meta={PaymentMandateFieldMeta.Clause} 
-          value={value.Clause}
-          itemDisplay={ (itemValue: Clause, key: string | number) =>
-            <ClauseDisplay
-              key={key}
-              label="Clause"
-              value={itemValue}
-              meta={PaymentMandateFieldMeta.Clause}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Clause"
+            label="Clause"
+            items={value.Clause}
+            meta={PaymentMandateFieldMeta.Clause} 
+            itemDisplay={ (itemValue: Clause, key: string | number) =>
+              <ClauseDisplay
+                key={key}
+                label="Clause"
+                value={itemValue}
+                meta={PaymentMandateFieldMeta.Clause}
+              />
+            }
+          />
         </div>
     </div>
   )

@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { UtilityItem } from  '../../model/cac/UtilityItem'
 import { UtilityItemFieldMeta } from  '../../meta/cac/UtilityItemMeta'
@@ -23,238 +22,123 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: UtilityItem
+  value: UtilityItem | undefined
   meta: FieldMeta<T>
 }
 
 export default function UtilityItemDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-UtilityItem ubl-UtilityItemType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-UtilityItem ubl-UBLExtensions"
-          meta={UtilityItemFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={UtilityItemFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-UtilityItem">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={UtilityItemFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-UtilityItem ubl-Identifier ubl-ID"
-          meta={UtilityItemFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={UtilityItemFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={UtilityItemFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-UtilityItem ubl-Identifier ubl-SubscriberID"
-          meta={UtilityItemFieldMeta.SubscriberID} 
-          value={value.SubscriberID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Subscriber Identifier"
-              value={itemValue}
-              meta={UtilityItemFieldMeta.SubscriberID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Subscriber Identifier"
+            value={value.SubscriberID?.[0]}
+            meta={UtilityItemFieldMeta.SubscriberID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-UtilityItem ubl-Text ubl-SubscriberType"
-          meta={UtilityItemFieldMeta.SubscriberType} 
-          value={value.SubscriberType}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Subscriber Type"
-              value={itemValue}
-              meta={UtilityItemFieldMeta.SubscriberType}
-            />
-          }
-        />
+          <TextDisplay
+            label="Subscriber Type"
+            value={value.SubscriberType?.[0]}
+            meta={UtilityItemFieldMeta.SubscriberType}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-UtilityItem ubl-Code ubl-SubscriberTypeCode"
-          meta={UtilityItemFieldMeta.SubscriberTypeCode} 
-          value={value.SubscriberTypeCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Subscriber Type Code"
-              value={itemValue}
-              meta={UtilityItemFieldMeta.SubscriberTypeCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Subscriber Type Code"
+            value={value.SubscriberTypeCode?.[0]}
+            meta={UtilityItemFieldMeta.SubscriberTypeCode}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-UtilityItem ubl-Text ubl-Description"
-          meta={UtilityItemFieldMeta.Description} 
-          value={value.Description}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Description"
-              value={itemValue}
-              meta={UtilityItemFieldMeta.Description}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Description"
+            label="Description"
+            items={value.Description}
+            meta={UtilityItemFieldMeta.Description} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Description"
+                value={itemValue}
+                meta={UtilityItemFieldMeta.Description}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-UtilityItem ubl-Quantity ubl-PackQuantity"
-          meta={UtilityItemFieldMeta.PackQuantity} 
-          value={value.PackQuantity}
-          itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay
-              key={key}
-              label="Pack Quantity"
-              value={itemValue}
-              meta={UtilityItemFieldMeta.PackQuantity}
-            />
-          }
-        />
+          <QuantityDisplay
+            label="Pack Quantity"
+            value={value.PackQuantity?.[0]}
+            meta={UtilityItemFieldMeta.PackQuantity}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-UtilityItem ubl-Numeric ubl-PackSizeNumeric"
-          meta={UtilityItemFieldMeta.PackSizeNumeric} 
-          value={value.PackSizeNumeric}
-          itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay
-              key={key}
-              label="Pack Size"
-              value={itemValue}
-              meta={UtilityItemFieldMeta.PackSizeNumeric}
-            />
-          }
-        />
+          <NumericDisplay
+            label="Pack Size"
+            value={value.PackSizeNumeric?.[0]}
+            meta={UtilityItemFieldMeta.PackSizeNumeric}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-UtilityItem ubl-Text ubl-ConsumptionType"
-          meta={UtilityItemFieldMeta.ConsumptionType} 
-          value={value.ConsumptionType}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Consumption Type"
-              value={itemValue}
-              meta={UtilityItemFieldMeta.ConsumptionType}
-            />
-          }
-        />
+          <TextDisplay
+            label="Consumption Type"
+            value={value.ConsumptionType?.[0]}
+            meta={UtilityItemFieldMeta.ConsumptionType}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-UtilityItem ubl-Code ubl-ConsumptionTypeCode"
-          meta={UtilityItemFieldMeta.ConsumptionTypeCode} 
-          value={value.ConsumptionTypeCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Consumption Type Code"
-              value={itemValue}
-              meta={UtilityItemFieldMeta.ConsumptionTypeCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Consumption Type Code"
+            value={value.ConsumptionTypeCode?.[0]}
+            meta={UtilityItemFieldMeta.ConsumptionTypeCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-UtilityItem ubl-Text ubl-CurrentChargeType"
-          meta={UtilityItemFieldMeta.CurrentChargeType} 
-          value={value.CurrentChargeType}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Current Charge Type"
-              value={itemValue}
-              meta={UtilityItemFieldMeta.CurrentChargeType}
-            />
-          }
-        />
+          <TextDisplay
+            label="Current Charge Type"
+            value={value.CurrentChargeType?.[0]}
+            meta={UtilityItemFieldMeta.CurrentChargeType}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-UtilityItem ubl-Code ubl-CurrentChargeTypeCode"
-          meta={UtilityItemFieldMeta.CurrentChargeTypeCode} 
-          value={value.CurrentChargeTypeCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Current Charge Type Code"
-              value={itemValue}
-              meta={UtilityItemFieldMeta.CurrentChargeTypeCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Current Charge Type Code"
+            value={value.CurrentChargeTypeCode?.[0]}
+            meta={UtilityItemFieldMeta.CurrentChargeTypeCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-UtilityItem ubl-Text ubl-OneTimeChargeType"
-          meta={UtilityItemFieldMeta.OneTimeChargeType} 
-          value={value.OneTimeChargeType}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="One Time Charge Type"
-              value={itemValue}
-              meta={UtilityItemFieldMeta.OneTimeChargeType}
-            />
-          }
-        />
+          <TextDisplay
+            label="One Time Charge Type"
+            value={value.OneTimeChargeType?.[0]}
+            meta={UtilityItemFieldMeta.OneTimeChargeType}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-UtilityItem ubl-Code ubl-OneTimeChargeTypeCode"
-          meta={UtilityItemFieldMeta.OneTimeChargeTypeCode} 
-          value={value.OneTimeChargeTypeCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="One Time Charge Type Code"
-              value={itemValue}
-              meta={UtilityItemFieldMeta.OneTimeChargeTypeCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="One Time Charge Type Code"
+            value={value.OneTimeChargeTypeCode?.[0]}
+            meta={UtilityItemFieldMeta.OneTimeChargeTypeCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-UtilityItem ubl-TaxCategory"
-          meta={UtilityItemFieldMeta.TaxCategory} 
-          value={value.TaxCategory}
-          itemDisplay={ (itemValue: TaxCategory, key: string | number) =>
-            <TaxCategoryDisplay
-              key={key}
-              label="Tax Category"
-              value={itemValue}
-              meta={UtilityItemFieldMeta.TaxCategory}
-            />
-          }
-        />
+          <TaxCategoryDisplay
+            label="Tax Category"
+            value={value.TaxCategory?.[0]}
+            meta={UtilityItemFieldMeta.TaxCategory}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-UtilityItem ubl-Contract"
-          meta={UtilityItemFieldMeta.Contract} 
-          value={value.Contract}
-          itemDisplay={ (itemValue: Contract, key: string | number) =>
-            <ContractDisplay
-              key={key}
-              label="Contract"
-              value={itemValue}
-              meta={UtilityItemFieldMeta.Contract}
-            />
-          }
-        />
+          <ContractDisplay
+            label="Contract"
+            value={value.Contract?.[0]}
+            meta={UtilityItemFieldMeta.Contract}
+          />
         </div>
     </div>
   )

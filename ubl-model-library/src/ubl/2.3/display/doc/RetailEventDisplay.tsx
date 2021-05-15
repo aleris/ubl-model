@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { RetailEvent } from  '../../model/doc/RetailEvent'
 import { RetailEventFieldMeta } from  '../../meta/doc/RetailEventMeta'
@@ -39,378 +38,219 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: RetailEvent
+  value: RetailEvent | undefined
   meta: FieldMeta<T>
 }
 
 export default function RetailEventDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-doc ubl-RetailEvent ubl-RetailEventType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-RetailEvent ubl-UBLExtensions"
-          meta={RetailEventFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={RetailEventFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-doc ubl-RetailEvent">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={RetailEventFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-RetailEvent ubl-Identifier ubl-UBLVersionID"
-          meta={RetailEventFieldMeta.UBLVersionID} 
-          value={value.UBLVersionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="UBL Version Identifier"
-              value={itemValue}
-              meta={RetailEventFieldMeta.UBLVersionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="UBL Version Identifier"
+            value={value.UBLVersionID?.[0]}
+            meta={RetailEventFieldMeta.UBLVersionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-RetailEvent ubl-Identifier ubl-CustomizationID"
-          meta={RetailEventFieldMeta.CustomizationID} 
-          value={value.CustomizationID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Customization Identifier"
-              value={itemValue}
-              meta={RetailEventFieldMeta.CustomizationID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Customization Identifier"
+            value={value.CustomizationID?.[0]}
+            meta={RetailEventFieldMeta.CustomizationID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-RetailEvent ubl-Identifier ubl-ProfileID"
-          meta={RetailEventFieldMeta.ProfileID} 
-          value={value.ProfileID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Profile Identifier"
-              value={itemValue}
-              meta={RetailEventFieldMeta.ProfileID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Profile Identifier"
+            value={value.ProfileID?.[0]}
+            meta={RetailEventFieldMeta.ProfileID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-RetailEvent ubl-Identifier ubl-ProfileExecutionID"
-          meta={RetailEventFieldMeta.ProfileExecutionID} 
-          value={value.ProfileExecutionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Profile Execution Identifier"
-              value={itemValue}
-              meta={RetailEventFieldMeta.ProfileExecutionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Profile Execution Identifier"
+            value={value.ProfileExecutionID?.[0]}
+            meta={RetailEventFieldMeta.ProfileExecutionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-RetailEvent ubl-Identifier ubl-ID"
-          meta={RetailEventFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={RetailEventFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={RetailEventFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-RetailEvent ubl-Indicator ubl-CopyIndicator"
-          meta={RetailEventFieldMeta.CopyIndicator} 
-          value={value.CopyIndicator}
-          itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay
-              key={key}
-              label="Copy Indicator"
-              value={itemValue}
-              meta={RetailEventFieldMeta.CopyIndicator}
-            />
-          }
-        />
+          <IndicatorDisplay
+            label="Copy Indicator"
+            value={value.CopyIndicator?.[0]}
+            meta={RetailEventFieldMeta.CopyIndicator}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-RetailEvent ubl-Identifier ubl-UUID"
-          meta={RetailEventFieldMeta.UUID} 
-          value={value.UUID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="UUID"
-              value={itemValue}
-              meta={RetailEventFieldMeta.UUID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="UUID"
+            value={value.UUID?.[0]}
+            meta={RetailEventFieldMeta.UUID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-RetailEvent ubl-Date ubl-IssueDate"
-          meta={RetailEventFieldMeta.IssueDate} 
-          value={value.IssueDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Issue Date"
-              value={itemValue}
-              meta={RetailEventFieldMeta.IssueDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Issue Date"
+            value={value.IssueDate?.[0]}
+            meta={RetailEventFieldMeta.IssueDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-RetailEvent ubl-Time ubl-IssueTime"
-          meta={RetailEventFieldMeta.IssueTime} 
-          value={value.IssueTime}
-          itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay
-              key={key}
-              label="Issue Time"
-              value={itemValue}
-              meta={RetailEventFieldMeta.IssueTime}
-            />
-          }
-        />
+          <TimeDisplay
+            label="Issue Time"
+            value={value.IssueTime?.[0]}
+            meta={RetailEventFieldMeta.IssueTime}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-RetailEvent ubl-Text ubl-Note"
-          meta={RetailEventFieldMeta.Note} 
-          value={value.Note}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Note"
-              value={itemValue}
-              meta={RetailEventFieldMeta.Note}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Text ubl-Note"
+            label="Note"
+            items={value.Note}
+            meta={RetailEventFieldMeta.Note} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Note"
+                value={itemValue}
+                meta={RetailEventFieldMeta.Note}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-RetailEvent ubl-Text ubl-RetailEventName"
-          meta={RetailEventFieldMeta.RetailEventName} 
-          value={value.RetailEventName}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Retail Event Name"
-              value={itemValue}
-              meta={RetailEventFieldMeta.RetailEventName}
-            />
-          }
-        />
+          <TextDisplay
+            label="Retail Event Name"
+            value={value.RetailEventName?.[0]}
+            meta={RetailEventFieldMeta.RetailEventName}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-RetailEvent ubl-Code ubl-RetailEventStatusCode"
-          meta={RetailEventFieldMeta.RetailEventStatusCode} 
-          value={value.RetailEventStatusCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Retail Event Status Code"
-              value={itemValue}
-              meta={RetailEventFieldMeta.RetailEventStatusCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Retail Event Status Code"
+            value={value.RetailEventStatusCode?.[0]}
+            meta={RetailEventFieldMeta.RetailEventStatusCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-RetailEvent ubl-Identifier ubl-SellerEventID"
-          meta={RetailEventFieldMeta.SellerEventID} 
-          value={value.SellerEventID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Seller Event Identifier"
-              value={itemValue}
-              meta={RetailEventFieldMeta.SellerEventID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Seller Event Identifier"
+            value={value.SellerEventID?.[0]}
+            meta={RetailEventFieldMeta.SellerEventID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-RetailEvent ubl-Identifier ubl-BuyerEventID"
-          meta={RetailEventFieldMeta.BuyerEventID} 
-          value={value.BuyerEventID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Buyer Event Identifier"
-              value={itemValue}
-              meta={RetailEventFieldMeta.BuyerEventID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Buyer Event Identifier"
+            value={value.BuyerEventID?.[0]}
+            meta={RetailEventFieldMeta.BuyerEventID}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-RetailEvent ubl-Text ubl-Description"
-          meta={RetailEventFieldMeta.Description} 
-          value={value.Description}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Description"
-              value={itemValue}
-              meta={RetailEventFieldMeta.Description}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Text ubl-Description"
+            label="Description"
+            items={value.Description}
+            meta={RetailEventFieldMeta.Description} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Description"
+                value={itemValue}
+                meta={RetailEventFieldMeta.Description}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-RetailEvent ubl-Period"
-          meta={RetailEventFieldMeta.Period} 
-          value={value.Period}
-          itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay
-              key={key}
-              label="Period"
-              value={itemValue}
-              meta={RetailEventFieldMeta.Period}
-            />
-          }
-        />
+          <PeriodDisplay
+            label="Period"
+            value={value.Period?.[0]}
+            meta={RetailEventFieldMeta.Period}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-RetailEvent ubl-DocumentReference ubl-OriginalDocumentReference"
-          meta={RetailEventFieldMeta.OriginalDocumentReference} 
-          value={value.OriginalDocumentReference}
-          itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay
-              key={key}
-              label="Original Document Reference"
-              value={itemValue}
-              meta={RetailEventFieldMeta.OriginalDocumentReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-DocumentReference ubl-OriginalDocumentReference"
+            label="Original Document Reference"
+            items={value.OriginalDocumentReference}
+            meta={RetailEventFieldMeta.OriginalDocumentReference} 
+            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
+              <DocumentReferenceDisplay
+                key={key}
+                label="Original Document Reference"
+                value={itemValue}
+                meta={RetailEventFieldMeta.OriginalDocumentReference}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-RetailEvent ubl-Signature"
-          meta={RetailEventFieldMeta.Signature} 
-          value={value.Signature}
-          itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay
-              key={key}
-              label="Signature"
-              value={itemValue}
-              meta={RetailEventFieldMeta.Signature}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Signature"
+            label="Signature"
+            items={value.Signature}
+            meta={RetailEventFieldMeta.Signature} 
+            itemDisplay={ (itemValue: Signature, key: string | number) =>
+              <SignatureDisplay
+                key={key}
+                label="Signature"
+                value={itemValue}
+                meta={RetailEventFieldMeta.Signature}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-RetailEvent ubl-Party ubl-SenderParty"
-          meta={RetailEventFieldMeta.SenderParty} 
-          value={value.SenderParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Sender Party"
-              value={itemValue}
-              meta={RetailEventFieldMeta.SenderParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Sender Party"
+            value={value.SenderParty?.[0]}
+            meta={RetailEventFieldMeta.SenderParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-RetailEvent ubl-Party ubl-ReceiverParty"
-          meta={RetailEventFieldMeta.ReceiverParty} 
-          value={value.ReceiverParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Receiver Party"
-              value={itemValue}
-              meta={RetailEventFieldMeta.ReceiverParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Receiver Party"
+            value={value.ReceiverParty?.[0]}
+            meta={RetailEventFieldMeta.ReceiverParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-RetailEvent ubl-CustomerParty ubl-BuyerCustomerParty"
-          meta={RetailEventFieldMeta.BuyerCustomerParty} 
-          value={value.BuyerCustomerParty}
-          itemDisplay={ (itemValue: CustomerParty, key: string | number) =>
-            <CustomerPartyDisplay
-              key={key}
-              label="Buyer Customer Party"
-              value={itemValue}
-              meta={RetailEventFieldMeta.BuyerCustomerParty}
-            />
-          }
-        />
+          <CustomerPartyDisplay
+            label="Buyer Customer Party"
+            value={value.BuyerCustomerParty?.[0]}
+            meta={RetailEventFieldMeta.BuyerCustomerParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-RetailEvent ubl-SupplierParty ubl-SellerSupplierParty"
-          meta={RetailEventFieldMeta.SellerSupplierParty} 
-          value={value.SellerSupplierParty}
-          itemDisplay={ (itemValue: SupplierParty, key: string | number) =>
-            <SupplierPartyDisplay
-              key={key}
-              label="Seller Supplier Party"
-              value={itemValue}
-              meta={RetailEventFieldMeta.SellerSupplierParty}
-            />
-          }
-        />
+          <SupplierPartyDisplay
+            label="Seller Supplier Party"
+            value={value.SellerSupplierParty?.[0]}
+            meta={RetailEventFieldMeta.SellerSupplierParty}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-RetailEvent ubl-EventComment"
-          meta={RetailEventFieldMeta.EventComment} 
-          value={value.EventComment}
-          itemDisplay={ (itemValue: EventComment, key: string | number) =>
-            <EventCommentDisplay
-              key={key}
-              label="Event Comment"
-              value={itemValue}
-              meta={RetailEventFieldMeta.EventComment}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-EventComment"
+            label="Event Comment"
+            items={value.EventComment}
+            meta={RetailEventFieldMeta.EventComment} 
+            itemDisplay={ (itemValue: EventComment, key: string | number) =>
+              <EventCommentDisplay
+                key={key}
+                label="Event Comment"
+                value={itemValue}
+                meta={RetailEventFieldMeta.EventComment}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-RetailEvent ubl-PromotionalEvent"
-          meta={RetailEventFieldMeta.PromotionalEvent} 
-          value={value.PromotionalEvent}
-          itemDisplay={ (itemValue: PromotionalEvent, key: string | number) =>
-            <PromotionalEventDisplay
-              key={key}
-              label="Promotional Event"
-              value={itemValue}
-              meta={RetailEventFieldMeta.PromotionalEvent}
-            />
-          }
-        />
+          <PromotionalEventDisplay
+            label="Promotional Event"
+            value={value.PromotionalEvent?.[0]}
+            meta={RetailEventFieldMeta.PromotionalEvent}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-RetailEvent ubl-MiscellaneousEvent"
-          meta={RetailEventFieldMeta.MiscellaneousEvent} 
-          value={value.MiscellaneousEvent}
-          itemDisplay={ (itemValue: MiscellaneousEvent, key: string | number) =>
-            <MiscellaneousEventDisplay
-              key={key}
-              label="Miscellaneous Event"
-              value={itemValue}
-              meta={RetailEventFieldMeta.MiscellaneousEvent}
-            />
-          }
-        />
+          <MiscellaneousEventDisplay
+            label="Miscellaneous Event"
+            value={value.MiscellaneousEvent?.[0]}
+            meta={RetailEventFieldMeta.MiscellaneousEvent}
+          />
         </div>
     </div>
   )

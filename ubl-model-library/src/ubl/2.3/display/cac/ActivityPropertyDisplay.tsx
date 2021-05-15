@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ActivityProperty } from  '../../model/cac/ActivityProperty'
 import { ActivityPropertyFieldMeta } from  '../../meta/cac/ActivityPropertyMeta'
@@ -11,56 +10,36 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: ActivityProperty
+  value: ActivityProperty | undefined
   meta: FieldMeta<T>
 }
 
 export default function ActivityPropertyDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-ActivityProperty ubl-ActivityPropertyType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-ActivityProperty ubl-UBLExtensions"
-          meta={ActivityPropertyFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={ActivityPropertyFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-ActivityProperty">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={ActivityPropertyFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ActivityProperty ubl-Text ubl-Name"
-          meta={ActivityPropertyFieldMeta.Name} 
-          value={value.Name}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Name"
-              value={itemValue}
-              meta={ActivityPropertyFieldMeta.Name}
-            />
-          }
-        />
+          <TextDisplay
+            label="Name"
+            value={value.Name?.[0]}
+            meta={ActivityPropertyFieldMeta.Name}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ActivityProperty ubl-Text ubl-Value"
-          meta={ActivityPropertyFieldMeta.Value} 
-          value={value.Value}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Value"
-              value={itemValue}
-              meta={ActivityPropertyFieldMeta.Value}
-            />
-          }
-        />
+          <TextDisplay
+            label="Value"
+            value={value.Value?.[0]}
+            meta={ActivityPropertyFieldMeta.Value}
+          />
         </div>
     </div>
   )

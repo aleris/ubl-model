@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ItemInformationRequestLine } from  '../../model/cac/ItemInformationRequestLine'
 import { ItemInformationRequestLineFieldMeta } from  '../../meta/cac/ItemInformationRequestLineMeta'
@@ -15,112 +14,78 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: ItemInformationRequestLine
+  value: ItemInformationRequestLine | undefined
   meta: FieldMeta<T>
 }
 
 export default function ItemInformationRequestLineDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-ItemInformationRequestLine ubl-ItemInformationRequestLineType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-ItemInformationRequestLine ubl-UBLExtensions"
-          meta={ItemInformationRequestLineFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={ItemInformationRequestLineFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-ItemInformationRequestLine">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={ItemInformationRequestLineFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ItemInformationRequestLine ubl-Code ubl-TimeFrequencyCode"
-          meta={ItemInformationRequestLineFieldMeta.TimeFrequencyCode} 
-          value={value.TimeFrequencyCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Time Frequency Code"
-              value={itemValue}
-              meta={ItemInformationRequestLineFieldMeta.TimeFrequencyCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Time Frequency Code"
+            value={value.TimeFrequencyCode?.[0]}
+            meta={ItemInformationRequestLineFieldMeta.TimeFrequencyCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ItemInformationRequestLine ubl-Code ubl-SupplyChainActivityTypeCode"
-          meta={ItemInformationRequestLineFieldMeta.SupplyChainActivityTypeCode} 
-          value={value.SupplyChainActivityTypeCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Supply Chain Activity Type Code"
-              value={itemValue}
-              meta={ItemInformationRequestLineFieldMeta.SupplyChainActivityTypeCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Supply Chain Activity Type Code"
+            value={value.SupplyChainActivityTypeCode?.[0]}
+            meta={ItemInformationRequestLineFieldMeta.SupplyChainActivityTypeCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ItemInformationRequestLine ubl-Code ubl-ForecastTypeCode"
-          meta={ItemInformationRequestLineFieldMeta.ForecastTypeCode} 
-          value={value.ForecastTypeCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Forecast Type Code"
-              value={itemValue}
-              meta={ItemInformationRequestLineFieldMeta.ForecastTypeCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Forecast Type Code"
+            value={value.ForecastTypeCode?.[0]}
+            meta={ItemInformationRequestLineFieldMeta.ForecastTypeCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ItemInformationRequestLine ubl-Code ubl-PerformanceMetricTypeCode"
-          meta={ItemInformationRequestLineFieldMeta.PerformanceMetricTypeCode} 
-          value={value.PerformanceMetricTypeCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Performance Metric Type Code"
-              value={itemValue}
-              meta={ItemInformationRequestLineFieldMeta.PerformanceMetricTypeCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Performance Metric Type Code"
+            value={value.PerformanceMetricTypeCode?.[0]}
+            meta={ItemInformationRequestLineFieldMeta.PerformanceMetricTypeCode}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-ItemInformationRequestLine ubl-Period"
-          meta={ItemInformationRequestLineFieldMeta.Period} 
-          value={value.Period}
-          itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay
-              key={key}
-              label="Period"
-              value={itemValue}
-              meta={ItemInformationRequestLineFieldMeta.Period}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Period"
+            label="Period"
+            items={value.Period}
+            meta={ItemInformationRequestLineFieldMeta.Period} 
+            itemDisplay={ (itemValue: Period, key: string | number) =>
+              <PeriodDisplay
+                key={key}
+                label="Period"
+                value={itemValue}
+                meta={ItemInformationRequestLineFieldMeta.Period}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-ItemInformationRequestLine ubl-SalesItem"
-          meta={ItemInformationRequestLineFieldMeta.SalesItem} 
-          value={value.SalesItem}
-          itemDisplay={ (itemValue: SalesItem, key: string | number) =>
-            <SalesItemDisplay
-              key={key}
-              label="Sales Item"
-              value={itemValue}
-              meta={ItemInformationRequestLineFieldMeta.SalesItem}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-SalesItem"
+            label="Sales Item"
+            items={value.SalesItem}
+            meta={ItemInformationRequestLineFieldMeta.SalesItem} 
+            itemDisplay={ (itemValue: SalesItem, key: string | number) =>
+              <SalesItemDisplay
+                key={key}
+                label="Sales Item"
+                value={itemValue}
+                meta={ItemInformationRequestLineFieldMeta.SalesItem}
+              />
+            }
+          />
         </div>
     </div>
   )

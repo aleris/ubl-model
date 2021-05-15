@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { AirTransport } from  '../../model/cac/AirTransport'
 import { AirTransportFieldMeta } from  '../../meta/cac/AirTransportMeta'
@@ -11,42 +10,30 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: AirTransport
+  value: AirTransport | undefined
   meta: FieldMeta<T>
 }
 
 export default function AirTransportDisplay<T>({ label, value, meta }: Props<T>) {
-  return (
-    <div className="ubl-cac ubl-AirTransport ubl-AirTransportType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-AirTransport ubl-UBLExtensions"
-          meta={AirTransportFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={AirTransportFieldMeta.UBLExtensions}
-            />
-          }
-        />
+  if (value === undefined) {
+      return null
+  }
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-AirTransport ubl-Identifier ubl-AircraftID"
-          meta={AirTransportFieldMeta.AircraftID} 
-          value={value.AircraftID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Aircraft Identifier"
-              value={itemValue}
-              meta={AirTransportFieldMeta.AircraftID}
-            />
-          }
-        />
+  return (
+    <div className="ubl-cac ubl-AirTransport">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={AirTransportFieldMeta.UBLExtensions}
+          />
+
+          <IdentifierDisplay
+            label="Aircraft Identifier"
+            value={value.AircraftID?.[0]}
+            meta={AirTransportFieldMeta.AircraftID}
+          />
         </div>
     </div>
   )

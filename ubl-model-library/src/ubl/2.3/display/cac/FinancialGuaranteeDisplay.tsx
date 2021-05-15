@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { FinancialGuarantee } from  '../../model/cac/FinancialGuarantee'
 import { FinancialGuaranteeFieldMeta } from  '../../meta/cac/FinancialGuaranteeMeta'
@@ -19,98 +18,63 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: FinancialGuarantee
+  value: FinancialGuarantee | undefined
   meta: FieldMeta<T>
 }
 
 export default function FinancialGuaranteeDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-FinancialGuarantee ubl-FinancialGuaranteeType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-FinancialGuarantee ubl-UBLExtensions"
-          meta={FinancialGuaranteeFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={FinancialGuaranteeFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-FinancialGuarantee">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={FinancialGuaranteeFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-FinancialGuarantee ubl-Code ubl-GuaranteeTypeCode"
-          meta={FinancialGuaranteeFieldMeta.GuaranteeTypeCode} 
-          value={value.GuaranteeTypeCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Guarantee Type Code"
-              value={itemValue}
-              meta={FinancialGuaranteeFieldMeta.GuaranteeTypeCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Guarantee Type Code"
+            value={value.GuaranteeTypeCode?.[0]}
+            meta={FinancialGuaranteeFieldMeta.GuaranteeTypeCode}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-FinancialGuarantee ubl-Text ubl-Description"
-          meta={FinancialGuaranteeFieldMeta.Description} 
-          value={value.Description}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Description"
-              value={itemValue}
-              meta={FinancialGuaranteeFieldMeta.Description}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Description"
+            label="Description"
+            items={value.Description}
+            meta={FinancialGuaranteeFieldMeta.Description} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Description"
+                value={itemValue}
+                meta={FinancialGuaranteeFieldMeta.Description}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-FinancialGuarantee ubl-Amount ubl-LiabilityAmount"
-          meta={FinancialGuaranteeFieldMeta.LiabilityAmount} 
-          value={value.LiabilityAmount}
-          itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay
-              key={key}
-              label="Liability"
-              value={itemValue}
-              meta={FinancialGuaranteeFieldMeta.LiabilityAmount}
-            />
-          }
-        />
+          <AmountDisplay
+            label="Liability"
+            value={value.LiabilityAmount?.[0]}
+            meta={FinancialGuaranteeFieldMeta.LiabilityAmount}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-FinancialGuarantee ubl-Numeric ubl-AmountRate"
-          meta={FinancialGuaranteeFieldMeta.AmountRate} 
-          value={value.AmountRate}
-          itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay
-              key={key}
-              label="Amount"
-              value={itemValue}
-              meta={FinancialGuaranteeFieldMeta.AmountRate}
-            />
-          }
-        />
+          <NumericDisplay
+            label="Amount"
+            value={value.AmountRate?.[0]}
+            meta={FinancialGuaranteeFieldMeta.AmountRate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-FinancialGuarantee ubl-Period ubl-ConstitutionPeriod"
-          meta={FinancialGuaranteeFieldMeta.ConstitutionPeriod} 
-          value={value.ConstitutionPeriod}
-          itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay
-              key={key}
-              label="Constitution Period"
-              value={itemValue}
-              meta={FinancialGuaranteeFieldMeta.ConstitutionPeriod}
-            />
-          }
-        />
+          <PeriodDisplay
+            label="Constitution Period"
+            value={value.ConstitutionPeriod?.[0]}
+            meta={FinancialGuaranteeFieldMeta.ConstitutionPeriod}
+          />
         </div>
     </div>
   )

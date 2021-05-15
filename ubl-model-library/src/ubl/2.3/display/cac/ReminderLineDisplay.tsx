@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ReminderLine } from  '../../model/cac/ReminderLine'
 import { ReminderLineFieldMeta } from  '../../meta/cac/ReminderLineMeta'
@@ -27,224 +26,135 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: ReminderLine
+  value: ReminderLine | undefined
   meta: FieldMeta<T>
 }
 
 export default function ReminderLineDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-ReminderLine ubl-ReminderLineType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-ReminderLine ubl-UBLExtensions"
-          meta={ReminderLineFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={ReminderLineFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-ReminderLine">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={ReminderLineFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ReminderLine ubl-Identifier ubl-ID"
-          meta={ReminderLineFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={ReminderLineFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={ReminderLineFieldMeta.ID}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-ReminderLine ubl-Text ubl-Note"
-          meta={ReminderLineFieldMeta.Note} 
-          value={value.Note}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Note"
-              value={itemValue}
-              meta={ReminderLineFieldMeta.Note}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Note"
+            label="Note"
+            items={value.Note}
+            meta={ReminderLineFieldMeta.Note} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Note"
+                value={itemValue}
+                meta={ReminderLineFieldMeta.Note}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ReminderLine ubl-Identifier ubl-UUID"
-          meta={ReminderLineFieldMeta.UUID} 
-          value={value.UUID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="UUID"
-              value={itemValue}
-              meta={ReminderLineFieldMeta.UUID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="UUID"
+            value={value.UUID?.[0]}
+            meta={ReminderLineFieldMeta.UUID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ReminderLine ubl-Indicator ubl-BalanceBroughtForwardIndicator"
-          meta={ReminderLineFieldMeta.BalanceBroughtForwardIndicator} 
-          value={value.BalanceBroughtForwardIndicator}
-          itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay
-              key={key}
-              label="Balance Brought Forward Indicator"
-              value={itemValue}
-              meta={ReminderLineFieldMeta.BalanceBroughtForwardIndicator}
-            />
-          }
-        />
+          <IndicatorDisplay
+            label="Balance Brought Forward Indicator"
+            value={value.BalanceBroughtForwardIndicator?.[0]}
+            meta={ReminderLineFieldMeta.BalanceBroughtForwardIndicator}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ReminderLine ubl-Amount ubl-DebitLineAmount"
-          meta={ReminderLineFieldMeta.DebitLineAmount} 
-          value={value.DebitLineAmount}
-          itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay
-              key={key}
-              label="Debit Line Amount"
-              value={itemValue}
-              meta={ReminderLineFieldMeta.DebitLineAmount}
-            />
-          }
-        />
+          <AmountDisplay
+            label="Debit Line Amount"
+            value={value.DebitLineAmount?.[0]}
+            meta={ReminderLineFieldMeta.DebitLineAmount}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ReminderLine ubl-Amount ubl-CreditLineAmount"
-          meta={ReminderLineFieldMeta.CreditLineAmount} 
-          value={value.CreditLineAmount}
-          itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay
-              key={key}
-              label="Credit Line Amount"
-              value={itemValue}
-              meta={ReminderLineFieldMeta.CreditLineAmount}
-            />
-          }
-        />
+          <AmountDisplay
+            label="Credit Line Amount"
+            value={value.CreditLineAmount?.[0]}
+            meta={ReminderLineFieldMeta.CreditLineAmount}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ReminderLine ubl-Code ubl-AccountingCostCode"
-          meta={ReminderLineFieldMeta.AccountingCostCode} 
-          value={value.AccountingCostCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Accounting Cost Code"
-              value={itemValue}
-              meta={ReminderLineFieldMeta.AccountingCostCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Accounting Cost Code"
+            value={value.AccountingCostCode?.[0]}
+            meta={ReminderLineFieldMeta.AccountingCostCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ReminderLine ubl-Text ubl-AccountingCost"
-          meta={ReminderLineFieldMeta.AccountingCost} 
-          value={value.AccountingCost}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Accounting Cost"
-              value={itemValue}
-              meta={ReminderLineFieldMeta.AccountingCost}
-            />
-          }
-        />
+          <TextDisplay
+            label="Accounting Cost"
+            value={value.AccountingCost?.[0]}
+            meta={ReminderLineFieldMeta.AccountingCost}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ReminderLine ubl-Numeric ubl-PenaltySurchargePercent"
-          meta={ReminderLineFieldMeta.PenaltySurchargePercent} 
-          value={value.PenaltySurchargePercent}
-          itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay
-              key={key}
-              label="Penalty Surcharge Percent"
-              value={itemValue}
-              meta={ReminderLineFieldMeta.PenaltySurchargePercent}
-            />
-          }
-        />
+          <NumericDisplay
+            label="Penalty Surcharge Percent"
+            value={value.PenaltySurchargePercent?.[0]}
+            meta={ReminderLineFieldMeta.PenaltySurchargePercent}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ReminderLine ubl-Amount"
-          meta={ReminderLineFieldMeta.Amount} 
-          value={value.Amount}
-          itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay
-              key={key}
-              label="Amount"
-              value={itemValue}
-              meta={ReminderLineFieldMeta.Amount}
-            />
-          }
-        />
+          <AmountDisplay
+            label="Amount"
+            value={value.Amount?.[0]}
+            meta={ReminderLineFieldMeta.Amount}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ReminderLine ubl-Code ubl-PaymentPurposeCode"
-          meta={ReminderLineFieldMeta.PaymentPurposeCode} 
-          value={value.PaymentPurposeCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Payment Purpose Code"
-              value={itemValue}
-              meta={ReminderLineFieldMeta.PaymentPurposeCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Payment Purpose Code"
+            value={value.PaymentPurposeCode?.[0]}
+            meta={ReminderLineFieldMeta.PaymentPurposeCode}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-ReminderLine ubl-Period ubl-ReminderPeriod"
-          meta={ReminderLineFieldMeta.ReminderPeriod} 
-          value={value.ReminderPeriod}
-          itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay
-              key={key}
-              label="Reminder Period"
-              value={itemValue}
-              meta={ReminderLineFieldMeta.ReminderPeriod}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Period ubl-ReminderPeriod"
+            label="Reminder Period"
+            items={value.ReminderPeriod}
+            meta={ReminderLineFieldMeta.ReminderPeriod} 
+            itemDisplay={ (itemValue: Period, key: string | number) =>
+              <PeriodDisplay
+                key={key}
+                label="Reminder Period"
+                value={itemValue}
+                meta={ReminderLineFieldMeta.ReminderPeriod}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-ReminderLine ubl-BillingReference"
-          meta={ReminderLineFieldMeta.BillingReference} 
-          value={value.BillingReference}
-          itemDisplay={ (itemValue: BillingReference, key: string | number) =>
-            <BillingReferenceDisplay
-              key={key}
-              label="Billing Reference"
-              value={itemValue}
-              meta={ReminderLineFieldMeta.BillingReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-BillingReference"
+            label="Billing Reference"
+            items={value.BillingReference}
+            meta={ReminderLineFieldMeta.BillingReference} 
+            itemDisplay={ (itemValue: BillingReference, key: string | number) =>
+              <BillingReferenceDisplay
+                key={key}
+                label="Billing Reference"
+                value={itemValue}
+                meta={ReminderLineFieldMeta.BillingReference}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-ReminderLine ubl-ExchangeRate"
-          meta={ReminderLineFieldMeta.ExchangeRate} 
-          value={value.ExchangeRate}
-          itemDisplay={ (itemValue: ExchangeRate, key: string | number) =>
-            <ExchangeRateDisplay
-              key={key}
-              label="Exchange Rate"
-              value={itemValue}
-              meta={ReminderLineFieldMeta.ExchangeRate}
-            />
-          }
-        />
+          <ExchangeRateDisplay
+            label="Exchange Rate"
+            value={value.ExchangeRate?.[0]}
+            meta={ReminderLineFieldMeta.ExchangeRate}
+          />
         </div>
     </div>
   )

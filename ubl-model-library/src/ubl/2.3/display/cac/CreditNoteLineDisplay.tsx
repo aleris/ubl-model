@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { CreditNoteLine } from  '../../model/cac/CreditNoteLine'
 import { CreditNoteLineFieldMeta } from  '../../meta/cac/CreditNoteLineMeta'
@@ -55,434 +54,324 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: CreditNoteLine
+  value: CreditNoteLine | undefined
   meta: FieldMeta<T>
 }
 
 export default function CreditNoteLineDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-CreditNoteLine ubl-CreditNoteLineType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-CreditNoteLine ubl-UBLExtensions"
-          meta={CreditNoteLineFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={CreditNoteLineFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-CreditNoteLine">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={CreditNoteLineFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CreditNoteLine ubl-Identifier ubl-ID"
-          meta={CreditNoteLineFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={CreditNoteLineFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={CreditNoteLineFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CreditNoteLine ubl-Identifier ubl-UUID"
-          meta={CreditNoteLineFieldMeta.UUID} 
-          value={value.UUID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="UUID"
-              value={itemValue}
-              meta={CreditNoteLineFieldMeta.UUID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="UUID"
+            value={value.UUID?.[0]}
+            meta={CreditNoteLineFieldMeta.UUID}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-CreditNoteLine ubl-Text ubl-Note"
-          meta={CreditNoteLineFieldMeta.Note} 
-          value={value.Note}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Note"
-              value={itemValue}
-              meta={CreditNoteLineFieldMeta.Note}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Note"
+            label="Note"
+            items={value.Note}
+            meta={CreditNoteLineFieldMeta.Note} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Note"
+                value={itemValue}
+                meta={CreditNoteLineFieldMeta.Note}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CreditNoteLine ubl-Quantity ubl-CreditedQuantity"
-          meta={CreditNoteLineFieldMeta.CreditedQuantity} 
-          value={value.CreditedQuantity}
-          itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay
-              key={key}
-              label="Credited Quantity"
-              value={itemValue}
-              meta={CreditNoteLineFieldMeta.CreditedQuantity}
-            />
-          }
-        />
+          <QuantityDisplay
+            label="Credited Quantity"
+            value={value.CreditedQuantity?.[0]}
+            meta={CreditNoteLineFieldMeta.CreditedQuantity}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CreditNoteLine ubl-Amount ubl-LineExtensionAmount"
-          meta={CreditNoteLineFieldMeta.LineExtensionAmount} 
-          value={value.LineExtensionAmount}
-          itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay
-              key={key}
-              label="Line Extension Amount"
-              value={itemValue}
-              meta={CreditNoteLineFieldMeta.LineExtensionAmount}
-            />
-          }
-        />
+          <AmountDisplay
+            label="Line Extension Amount"
+            value={value.LineExtensionAmount?.[0]}
+            meta={CreditNoteLineFieldMeta.LineExtensionAmount}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CreditNoteLine ubl-Amount ubl-TaxInclusiveLineExtensionAmount"
-          meta={CreditNoteLineFieldMeta.TaxInclusiveLineExtensionAmount} 
-          value={value.TaxInclusiveLineExtensionAmount}
-          itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay
-              key={key}
-              label="Tax Inclusive Line Extension Amount"
-              value={itemValue}
-              meta={CreditNoteLineFieldMeta.TaxInclusiveLineExtensionAmount}
-            />
-          }
-        />
+          <AmountDisplay
+            label="Tax Inclusive Line Extension Amount"
+            value={value.TaxInclusiveLineExtensionAmount?.[0]}
+            meta={CreditNoteLineFieldMeta.TaxInclusiveLineExtensionAmount}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CreditNoteLine ubl-Date ubl-TaxPointDate"
-          meta={CreditNoteLineFieldMeta.TaxPointDate} 
-          value={value.TaxPointDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Tax Point Date"
-              value={itemValue}
-              meta={CreditNoteLineFieldMeta.TaxPointDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Tax Point Date"
+            value={value.TaxPointDate?.[0]}
+            meta={CreditNoteLineFieldMeta.TaxPointDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CreditNoteLine ubl-Code ubl-AccountingCostCode"
-          meta={CreditNoteLineFieldMeta.AccountingCostCode} 
-          value={value.AccountingCostCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Accounting Cost Code"
-              value={itemValue}
-              meta={CreditNoteLineFieldMeta.AccountingCostCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Accounting Cost Code"
+            value={value.AccountingCostCode?.[0]}
+            meta={CreditNoteLineFieldMeta.AccountingCostCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CreditNoteLine ubl-Text ubl-AccountingCost"
-          meta={CreditNoteLineFieldMeta.AccountingCost} 
-          value={value.AccountingCost}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Accounting Cost"
-              value={itemValue}
-              meta={CreditNoteLineFieldMeta.AccountingCost}
-            />
-          }
-        />
+          <TextDisplay
+            label="Accounting Cost"
+            value={value.AccountingCost?.[0]}
+            meta={CreditNoteLineFieldMeta.AccountingCost}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CreditNoteLine ubl-Code ubl-PaymentPurposeCode"
-          meta={CreditNoteLineFieldMeta.PaymentPurposeCode} 
-          value={value.PaymentPurposeCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Payment Purpose Code"
-              value={itemValue}
-              meta={CreditNoteLineFieldMeta.PaymentPurposeCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Payment Purpose Code"
+            value={value.PaymentPurposeCode?.[0]}
+            meta={CreditNoteLineFieldMeta.PaymentPurposeCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CreditNoteLine ubl-Indicator ubl-FreeOfChargeIndicator"
-          meta={CreditNoteLineFieldMeta.FreeOfChargeIndicator} 
-          value={value.FreeOfChargeIndicator}
-          itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay
-              key={key}
-              label="Free Of Charge Indicator"
-              value={itemValue}
-              meta={CreditNoteLineFieldMeta.FreeOfChargeIndicator}
-            />
-          }
-        />
+          <IndicatorDisplay
+            label="Free Of Charge Indicator"
+            value={value.FreeOfChargeIndicator?.[0]}
+            meta={CreditNoteLineFieldMeta.FreeOfChargeIndicator}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-CreditNoteLine ubl-Period ubl-InvoicePeriod"
-          meta={CreditNoteLineFieldMeta.InvoicePeriod} 
-          value={value.InvoicePeriod}
-          itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay
-              key={key}
-              label="Invoice Period"
-              value={itemValue}
-              meta={CreditNoteLineFieldMeta.InvoicePeriod}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Period ubl-InvoicePeriod"
+            label="Invoice Period"
+            items={value.InvoicePeriod}
+            meta={CreditNoteLineFieldMeta.InvoicePeriod} 
+            itemDisplay={ (itemValue: Period, key: string | number) =>
+              <PeriodDisplay
+                key={key}
+                label="Invoice Period"
+                value={itemValue}
+                meta={CreditNoteLineFieldMeta.InvoicePeriod}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-CreditNoteLine ubl-OrderLineReference"
-          meta={CreditNoteLineFieldMeta.OrderLineReference} 
-          value={value.OrderLineReference}
-          itemDisplay={ (itemValue: OrderLineReference, key: string | number) =>
-            <OrderLineReferenceDisplay
-              key={key}
-              label="Order Line Reference"
-              value={itemValue}
-              meta={CreditNoteLineFieldMeta.OrderLineReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-OrderLineReference"
+            label="Order Line Reference"
+            items={value.OrderLineReference}
+            meta={CreditNoteLineFieldMeta.OrderLineReference} 
+            itemDisplay={ (itemValue: OrderLineReference, key: string | number) =>
+              <OrderLineReferenceDisplay
+                key={key}
+                label="Order Line Reference"
+                value={itemValue}
+                meta={CreditNoteLineFieldMeta.OrderLineReference}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-CreditNoteLine ubl-Response ubl-DiscrepancyResponse"
-          meta={CreditNoteLineFieldMeta.DiscrepancyResponse} 
-          value={value.DiscrepancyResponse}
-          itemDisplay={ (itemValue: Response, key: string | number) =>
-            <ResponseDisplay
-              key={key}
-              label="Discrepancy Response"
-              value={itemValue}
-              meta={CreditNoteLineFieldMeta.DiscrepancyResponse}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Response ubl-DiscrepancyResponse"
+            label="Discrepancy Response"
+            items={value.DiscrepancyResponse}
+            meta={CreditNoteLineFieldMeta.DiscrepancyResponse} 
+            itemDisplay={ (itemValue: Response, key: string | number) =>
+              <ResponseDisplay
+                key={key}
+                label="Discrepancy Response"
+                value={itemValue}
+                meta={CreditNoteLineFieldMeta.DiscrepancyResponse}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-CreditNoteLine ubl-LineReference ubl-DespatchLineReference"
-          meta={CreditNoteLineFieldMeta.DespatchLineReference} 
-          value={value.DespatchLineReference}
-          itemDisplay={ (itemValue: LineReference, key: string | number) =>
-            <LineReferenceDisplay
-              key={key}
-              label="Despatch Line Reference"
-              value={itemValue}
-              meta={CreditNoteLineFieldMeta.DespatchLineReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-LineReference ubl-DespatchLineReference"
+            label="Despatch Line Reference"
+            items={value.DespatchLineReference}
+            meta={CreditNoteLineFieldMeta.DespatchLineReference} 
+            itemDisplay={ (itemValue: LineReference, key: string | number) =>
+              <LineReferenceDisplay
+                key={key}
+                label="Despatch Line Reference"
+                value={itemValue}
+                meta={CreditNoteLineFieldMeta.DespatchLineReference}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-CreditNoteLine ubl-LineReference ubl-ReceiptLineReference"
-          meta={CreditNoteLineFieldMeta.ReceiptLineReference} 
-          value={value.ReceiptLineReference}
-          itemDisplay={ (itemValue: LineReference, key: string | number) =>
-            <LineReferenceDisplay
-              key={key}
-              label="Receipt Line Reference"
-              value={itemValue}
-              meta={CreditNoteLineFieldMeta.ReceiptLineReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-LineReference ubl-ReceiptLineReference"
+            label="Receipt Line Reference"
+            items={value.ReceiptLineReference}
+            meta={CreditNoteLineFieldMeta.ReceiptLineReference} 
+            itemDisplay={ (itemValue: LineReference, key: string | number) =>
+              <LineReferenceDisplay
+                key={key}
+                label="Receipt Line Reference"
+                value={itemValue}
+                meta={CreditNoteLineFieldMeta.ReceiptLineReference}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-CreditNoteLine ubl-BillingReference"
-          meta={CreditNoteLineFieldMeta.BillingReference} 
-          value={value.BillingReference}
-          itemDisplay={ (itemValue: BillingReference, key: string | number) =>
-            <BillingReferenceDisplay
-              key={key}
-              label="Billing Reference"
-              value={itemValue}
-              meta={CreditNoteLineFieldMeta.BillingReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-BillingReference"
+            label="Billing Reference"
+            items={value.BillingReference}
+            meta={CreditNoteLineFieldMeta.BillingReference} 
+            itemDisplay={ (itemValue: BillingReference, key: string | number) =>
+              <BillingReferenceDisplay
+                key={key}
+                label="Billing Reference"
+                value={itemValue}
+                meta={CreditNoteLineFieldMeta.BillingReference}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-CreditNoteLine ubl-DocumentReference"
-          meta={CreditNoteLineFieldMeta.DocumentReference} 
-          value={value.DocumentReference}
-          itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay
-              key={key}
-              label="Document Reference"
-              value={itemValue}
-              meta={CreditNoteLineFieldMeta.DocumentReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-DocumentReference"
+            label="Document Reference"
+            items={value.DocumentReference}
+            meta={CreditNoteLineFieldMeta.DocumentReference} 
+            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
+              <DocumentReferenceDisplay
+                key={key}
+                label="Document Reference"
+                value={itemValue}
+                meta={CreditNoteLineFieldMeta.DocumentReference}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-CreditNoteLine ubl-PricingReference"
-          meta={CreditNoteLineFieldMeta.PricingReference} 
-          value={value.PricingReference}
-          itemDisplay={ (itemValue: PricingReference, key: string | number) =>
-            <PricingReferenceDisplay
-              key={key}
-              label="Pricing Reference"
-              value={itemValue}
-              meta={CreditNoteLineFieldMeta.PricingReference}
-            />
-          }
-        />
+          <PricingReferenceDisplay
+            label="Pricing Reference"
+            value={value.PricingReference?.[0]}
+            meta={CreditNoteLineFieldMeta.PricingReference}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-CreditNoteLine ubl-Party ubl-OriginatorParty"
-          meta={CreditNoteLineFieldMeta.OriginatorParty} 
-          value={value.OriginatorParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Originator Party"
-              value={itemValue}
-              meta={CreditNoteLineFieldMeta.OriginatorParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Originator Party"
+            value={value.OriginatorParty?.[0]}
+            meta={CreditNoteLineFieldMeta.OriginatorParty}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-CreditNoteLine ubl-Delivery"
-          meta={CreditNoteLineFieldMeta.Delivery} 
-          value={value.Delivery}
-          itemDisplay={ (itemValue: Delivery, key: string | number) =>
-            <DeliveryDisplay
-              key={key}
-              label="Delivery"
-              value={itemValue}
-              meta={CreditNoteLineFieldMeta.Delivery}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Delivery"
+            label="Delivery"
+            items={value.Delivery}
+            meta={CreditNoteLineFieldMeta.Delivery} 
+            itemDisplay={ (itemValue: Delivery, key: string | number) =>
+              <DeliveryDisplay
+                key={key}
+                label="Delivery"
+                value={itemValue}
+                meta={CreditNoteLineFieldMeta.Delivery}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-CreditNoteLine ubl-PaymentTerms"
-          meta={CreditNoteLineFieldMeta.PaymentTerms} 
-          value={value.PaymentTerms}
-          itemDisplay={ (itemValue: PaymentTerms, key: string | number) =>
-            <PaymentTermsDisplay
-              key={key}
-              label="Payment Terms"
-              value={itemValue}
-              meta={CreditNoteLineFieldMeta.PaymentTerms}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-PaymentTerms"
+            label="Payment Terms"
+            items={value.PaymentTerms}
+            meta={CreditNoteLineFieldMeta.PaymentTerms} 
+            itemDisplay={ (itemValue: PaymentTerms, key: string | number) =>
+              <PaymentTermsDisplay
+                key={key}
+                label="Payment Terms"
+                value={itemValue}
+                meta={CreditNoteLineFieldMeta.PaymentTerms}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-CreditNoteLine ubl-TaxTotal"
-          meta={CreditNoteLineFieldMeta.TaxTotal} 
-          value={value.TaxTotal}
-          itemDisplay={ (itemValue: TaxTotal, key: string | number) =>
-            <TaxTotalDisplay
-              key={key}
-              label="Tax Total"
-              value={itemValue}
-              meta={CreditNoteLineFieldMeta.TaxTotal}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-TaxTotal"
+            label="Tax Total"
+            items={value.TaxTotal}
+            meta={CreditNoteLineFieldMeta.TaxTotal} 
+            itemDisplay={ (itemValue: TaxTotal, key: string | number) =>
+              <TaxTotalDisplay
+                key={key}
+                label="Tax Total"
+                value={itemValue}
+                meta={CreditNoteLineFieldMeta.TaxTotal}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-CreditNoteLine ubl-AllowanceCharge"
-          meta={CreditNoteLineFieldMeta.AllowanceCharge} 
-          value={value.AllowanceCharge}
-          itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-            <AllowanceChargeDisplay
-              key={key}
-              label="Allowance Charge"
-              value={itemValue}
-              meta={CreditNoteLineFieldMeta.AllowanceCharge}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-AllowanceCharge"
+            label="Allowance Charge"
+            items={value.AllowanceCharge}
+            meta={CreditNoteLineFieldMeta.AllowanceCharge} 
+            itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
+              <AllowanceChargeDisplay
+                key={key}
+                label="Allowance Charge"
+                value={itemValue}
+                meta={CreditNoteLineFieldMeta.AllowanceCharge}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-CreditNoteLine ubl-Item"
-          meta={CreditNoteLineFieldMeta.Item} 
-          value={value.Item}
-          itemDisplay={ (itemValue: Item, key: string | number) =>
-            <ItemDisplay
-              key={key}
-              label="Item"
-              value={itemValue}
-              meta={CreditNoteLineFieldMeta.Item}
-            />
-          }
-        />
+          <ItemDisplay
+            label="Item"
+            value={value.Item?.[0]}
+            meta={CreditNoteLineFieldMeta.Item}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-CreditNoteLine ubl-Price"
-          meta={CreditNoteLineFieldMeta.Price} 
-          value={value.Price}
-          itemDisplay={ (itemValue: Price, key: string | number) =>
-            <PriceDisplay
-              key={key}
-              label="Price"
-              value={itemValue}
-              meta={CreditNoteLineFieldMeta.Price}
-            />
-          }
-        />
+          <PriceDisplay
+            label="Price"
+            value={value.Price?.[0]}
+            meta={CreditNoteLineFieldMeta.Price}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-CreditNoteLine ubl-DeliveryTerms"
-          meta={CreditNoteLineFieldMeta.DeliveryTerms} 
-          value={value.DeliveryTerms}
-          itemDisplay={ (itemValue: DeliveryTerms, key: string | number) =>
-            <DeliveryTermsDisplay
-              key={key}
-              label="Delivery Terms"
-              value={itemValue}
-              meta={CreditNoteLineFieldMeta.DeliveryTerms}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-DeliveryTerms"
+            label="Delivery Terms"
+            items={value.DeliveryTerms}
+            meta={CreditNoteLineFieldMeta.DeliveryTerms} 
+            itemDisplay={ (itemValue: DeliveryTerms, key: string | number) =>
+              <DeliveryTermsDisplay
+                key={key}
+                label="Delivery Terms"
+                value={itemValue}
+                meta={CreditNoteLineFieldMeta.DeliveryTerms}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-CreditNoteLine ubl-SubCreditNoteLine"
-          meta={CreditNoteLineFieldMeta.SubCreditNoteLine} 
-          value={value.SubCreditNoteLine}
-          itemDisplay={ (itemValue: CreditNoteLine, key: string | number) =>
-            <CreditNoteLineDisplay
-              key={key}
-              label="Sub Credit Note Line"
-              value={itemValue}
-              meta={CreditNoteLineFieldMeta.SubCreditNoteLine}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-CreditNoteLine ubl-SubCreditNoteLine"
+            label="Sub Credit Note Line"
+            items={value.SubCreditNoteLine}
+            meta={CreditNoteLineFieldMeta.SubCreditNoteLine} 
+            itemDisplay={ (itemValue: CreditNoteLine, key: string | number) =>
+              <CreditNoteLineDisplay
+                key={key}
+                label="Sub Credit Note Line"
+                value={itemValue}
+                meta={CreditNoteLineFieldMeta.SubCreditNoteLine}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-CreditNoteLine ubl-PriceExtension ubl-ItemPriceExtension"
-          meta={CreditNoteLineFieldMeta.ItemPriceExtension} 
-          value={value.ItemPriceExtension}
-          itemDisplay={ (itemValue: PriceExtension, key: string | number) =>
-            <PriceExtensionDisplay
-              key={key}
-              label="Item Price Extension"
-              value={itemValue}
-              meta={CreditNoteLineFieldMeta.ItemPriceExtension}
-            />
-          }
-        />
+          <PriceExtensionDisplay
+            label="Item Price Extension"
+            value={value.ItemPriceExtension?.[0]}
+            meta={CreditNoteLineFieldMeta.ItemPriceExtension}
+          />
         </div>
     </div>
   )

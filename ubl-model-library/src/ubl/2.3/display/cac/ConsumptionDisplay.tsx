@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Consumption } from  '../../model/cac/Consumption'
 import { ConsumptionFieldMeta } from  '../../meta/cac/ConsumptionMeta'
@@ -23,126 +22,84 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: Consumption
+  value: Consumption | undefined
   meta: FieldMeta<T>
 }
 
 export default function ConsumptionDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-Consumption ubl-ConsumptionType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-Consumption ubl-UBLExtensions"
-          meta={ConsumptionFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={ConsumptionFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-Consumption">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={ConsumptionFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-Consumption ubl-Code ubl-UtilityStatementTypeCode"
-          meta={ConsumptionFieldMeta.UtilityStatementTypeCode} 
-          value={value.UtilityStatementTypeCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Utility Statement Type Code"
-              value={itemValue}
-              meta={ConsumptionFieldMeta.UtilityStatementTypeCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Utility Statement Type Code"
+            value={value.UtilityStatementTypeCode?.[0]}
+            meta={ConsumptionFieldMeta.UtilityStatementTypeCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-Consumption ubl-Period ubl-MainPeriod"
-          meta={ConsumptionFieldMeta.MainPeriod} 
-          value={value.MainPeriod}
-          itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay
-              key={key}
-              label="Main Period"
-              value={itemValue}
-              meta={ConsumptionFieldMeta.MainPeriod}
-            />
-          }
-        />
+          <PeriodDisplay
+            label="Main Period"
+            value={value.MainPeriod?.[0]}
+            meta={ConsumptionFieldMeta.MainPeriod}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-Consumption ubl-AllowanceCharge"
-          meta={ConsumptionFieldMeta.AllowanceCharge} 
-          value={value.AllowanceCharge}
-          itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-            <AllowanceChargeDisplay
-              key={key}
-              label="Allowance Charge"
-              value={itemValue}
-              meta={ConsumptionFieldMeta.AllowanceCharge}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-AllowanceCharge"
+            label="Allowance Charge"
+            items={value.AllowanceCharge}
+            meta={ConsumptionFieldMeta.AllowanceCharge} 
+            itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
+              <AllowanceChargeDisplay
+                key={key}
+                label="Allowance Charge"
+                value={itemValue}
+                meta={ConsumptionFieldMeta.AllowanceCharge}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-Consumption ubl-TaxTotal"
-          meta={ConsumptionFieldMeta.TaxTotal} 
-          value={value.TaxTotal}
-          itemDisplay={ (itemValue: TaxTotal, key: string | number) =>
-            <TaxTotalDisplay
-              key={key}
-              label="Tax Total"
-              value={itemValue}
-              meta={ConsumptionFieldMeta.TaxTotal}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-TaxTotal"
+            label="Tax Total"
+            items={value.TaxTotal}
+            meta={ConsumptionFieldMeta.TaxTotal} 
+            itemDisplay={ (itemValue: TaxTotal, key: string | number) =>
+              <TaxTotalDisplay
+                key={key}
+                label="Tax Total"
+                value={itemValue}
+                meta={ConsumptionFieldMeta.TaxTotal}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-Consumption ubl-EnergyWaterSupply"
-          meta={ConsumptionFieldMeta.EnergyWaterSupply} 
-          value={value.EnergyWaterSupply}
-          itemDisplay={ (itemValue: EnergyWaterSupply, key: string | number) =>
-            <EnergyWaterSupplyDisplay
-              key={key}
-              label="Energy Water Supply"
-              value={itemValue}
-              meta={ConsumptionFieldMeta.EnergyWaterSupply}
-            />
-          }
-        />
+          <EnergyWaterSupplyDisplay
+            label="Energy Water Supply"
+            value={value.EnergyWaterSupply?.[0]}
+            meta={ConsumptionFieldMeta.EnergyWaterSupply}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-Consumption ubl-TelecommunicationsSupply"
-          meta={ConsumptionFieldMeta.TelecommunicationsSupply} 
-          value={value.TelecommunicationsSupply}
-          itemDisplay={ (itemValue: TelecommunicationsSupply, key: string | number) =>
-            <TelecommunicationsSupplyDisplay
-              key={key}
-              label="Telecommunications Supply"
-              value={itemValue}
-              meta={ConsumptionFieldMeta.TelecommunicationsSupply}
-            />
-          }
-        />
+          <TelecommunicationsSupplyDisplay
+            label="Telecommunications Supply"
+            value={value.TelecommunicationsSupply?.[0]}
+            meta={ConsumptionFieldMeta.TelecommunicationsSupply}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-Consumption ubl-MonetaryTotal ubl-LegalMonetaryTotal"
-          meta={ConsumptionFieldMeta.LegalMonetaryTotal} 
-          value={value.LegalMonetaryTotal}
-          itemDisplay={ (itemValue: MonetaryTotal, key: string | number) =>
-            <MonetaryTotalDisplay
-              key={key}
-              label="Legal Monetary Total"
-              value={itemValue}
-              meta={ConsumptionFieldMeta.LegalMonetaryTotal}
-            />
-          }
-        />
+          <MonetaryTotalDisplay
+            label="Legal Monetary Total"
+            value={value.LegalMonetaryTotal?.[0]}
+            meta={ConsumptionFieldMeta.LegalMonetaryTotal}
+          />
         </div>
     </div>
   )

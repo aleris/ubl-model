@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { EvidenceSupplied } from  '../../model/cac/EvidenceSupplied'
 import { EvidenceSuppliedFieldMeta } from  '../../meta/cac/EvidenceSuppliedMeta'
@@ -11,42 +10,30 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: EvidenceSupplied
+  value: EvidenceSupplied | undefined
   meta: FieldMeta<T>
 }
 
 export default function EvidenceSuppliedDisplay<T>({ label, value, meta }: Props<T>) {
-  return (
-    <div className="ubl-cac ubl-EvidenceSupplied ubl-EvidenceSuppliedType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-EvidenceSupplied ubl-UBLExtensions"
-          meta={EvidenceSuppliedFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={EvidenceSuppliedFieldMeta.UBLExtensions}
-            />
-          }
-        />
+  if (value === undefined) {
+      return null
+  }
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-EvidenceSupplied ubl-Identifier ubl-ID"
-          meta={EvidenceSuppliedFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={EvidenceSuppliedFieldMeta.ID}
-            />
-          }
-        />
+  return (
+    <div className="ubl-cac ubl-EvidenceSupplied">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={EvidenceSuppliedFieldMeta.UBLExtensions}
+          />
+
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={EvidenceSuppliedFieldMeta.ID}
+          />
         </div>
     </div>
   )

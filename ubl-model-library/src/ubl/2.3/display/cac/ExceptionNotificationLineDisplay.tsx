@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ExceptionNotificationLine } from  '../../model/cac/ExceptionNotificationLine'
 import { ExceptionNotificationLineFieldMeta } from  '../../meta/cac/ExceptionNotificationLineMeta'
@@ -27,238 +26,141 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: ExceptionNotificationLine
+  value: ExceptionNotificationLine | undefined
   meta: FieldMeta<T>
 }
 
 export default function ExceptionNotificationLineDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-ExceptionNotificationLine ubl-ExceptionNotificationLineType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-ExceptionNotificationLine ubl-UBLExtensions"
-          meta={ExceptionNotificationLineFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={ExceptionNotificationLineFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-ExceptionNotificationLine">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={ExceptionNotificationLineFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ExceptionNotificationLine ubl-Identifier ubl-ID"
-          meta={ExceptionNotificationLineFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={ExceptionNotificationLineFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={ExceptionNotificationLineFieldMeta.ID}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-ExceptionNotificationLine ubl-Text ubl-Note"
-          meta={ExceptionNotificationLineFieldMeta.Note} 
-          value={value.Note}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Note"
-              value={itemValue}
-              meta={ExceptionNotificationLineFieldMeta.Note}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Note"
+            label="Note"
+            items={value.Note}
+            meta={ExceptionNotificationLineFieldMeta.Note} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Note"
+                value={itemValue}
+                meta={ExceptionNotificationLineFieldMeta.Note}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-ExceptionNotificationLine ubl-Text ubl-Description"
-          meta={ExceptionNotificationLineFieldMeta.Description} 
-          value={value.Description}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Description"
-              value={itemValue}
-              meta={ExceptionNotificationLineFieldMeta.Description}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Description"
+            label="Description"
+            items={value.Description}
+            meta={ExceptionNotificationLineFieldMeta.Description} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Description"
+                value={itemValue}
+                meta={ExceptionNotificationLineFieldMeta.Description}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ExceptionNotificationLine ubl-Code ubl-ExceptionStatusCode"
-          meta={ExceptionNotificationLineFieldMeta.ExceptionStatusCode} 
-          value={value.ExceptionStatusCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Exception Status Code"
-              value={itemValue}
-              meta={ExceptionNotificationLineFieldMeta.ExceptionStatusCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Exception Status Code"
+            value={value.ExceptionStatusCode?.[0]}
+            meta={ExceptionNotificationLineFieldMeta.ExceptionStatusCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ExceptionNotificationLine ubl-Code ubl-CollaborationPriorityCode"
-          meta={ExceptionNotificationLineFieldMeta.CollaborationPriorityCode} 
-          value={value.CollaborationPriorityCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Collaboration Priority Code"
-              value={itemValue}
-              meta={ExceptionNotificationLineFieldMeta.CollaborationPriorityCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Collaboration Priority Code"
+            value={value.CollaborationPriorityCode?.[0]}
+            meta={ExceptionNotificationLineFieldMeta.CollaborationPriorityCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ExceptionNotificationLine ubl-Code ubl-ResolutionCode"
-          meta={ExceptionNotificationLineFieldMeta.ResolutionCode} 
-          value={value.ResolutionCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Resolution Code"
-              value={itemValue}
-              meta={ExceptionNotificationLineFieldMeta.ResolutionCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Resolution Code"
+            value={value.ResolutionCode?.[0]}
+            meta={ExceptionNotificationLineFieldMeta.ResolutionCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ExceptionNotificationLine ubl-Measure ubl-ComparedValueMeasure"
-          meta={ExceptionNotificationLineFieldMeta.ComparedValueMeasure} 
-          value={value.ComparedValueMeasure}
-          itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay
-              key={key}
-              label="Compared Value"
-              value={itemValue}
-              meta={ExceptionNotificationLineFieldMeta.ComparedValueMeasure}
-            />
-          }
-        />
+          <MeasureDisplay
+            label="Compared Value"
+            value={value.ComparedValueMeasure?.[0]}
+            meta={ExceptionNotificationLineFieldMeta.ComparedValueMeasure}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ExceptionNotificationLine ubl-Measure ubl-SourceValueMeasure"
-          meta={ExceptionNotificationLineFieldMeta.SourceValueMeasure} 
-          value={value.SourceValueMeasure}
-          itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay
-              key={key}
-              label="Source Value"
-              value={itemValue}
-              meta={ExceptionNotificationLineFieldMeta.SourceValueMeasure}
-            />
-          }
-        />
+          <MeasureDisplay
+            label="Source Value"
+            value={value.SourceValueMeasure?.[0]}
+            meta={ExceptionNotificationLineFieldMeta.SourceValueMeasure}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ExceptionNotificationLine ubl-Quantity ubl-VarianceQuantity"
-          meta={ExceptionNotificationLineFieldMeta.VarianceQuantity} 
-          value={value.VarianceQuantity}
-          itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay
-              key={key}
-              label="Variance"
-              value={itemValue}
-              meta={ExceptionNotificationLineFieldMeta.VarianceQuantity}
-            />
-          }
-        />
+          <QuantityDisplay
+            label="Variance"
+            value={value.VarianceQuantity?.[0]}
+            meta={ExceptionNotificationLineFieldMeta.VarianceQuantity}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ExceptionNotificationLine ubl-Code ubl-SupplyChainActivityTypeCode"
-          meta={ExceptionNotificationLineFieldMeta.SupplyChainActivityTypeCode} 
-          value={value.SupplyChainActivityTypeCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Supply Chain Activity Type Code"
-              value={itemValue}
-              meta={ExceptionNotificationLineFieldMeta.SupplyChainActivityTypeCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Supply Chain Activity Type Code"
+            value={value.SupplyChainActivityTypeCode?.[0]}
+            meta={ExceptionNotificationLineFieldMeta.SupplyChainActivityTypeCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ExceptionNotificationLine ubl-Code ubl-PerformanceMetricTypeCode"
-          meta={ExceptionNotificationLineFieldMeta.PerformanceMetricTypeCode} 
-          value={value.PerformanceMetricTypeCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Performance Metric Type Code"
-              value={itemValue}
-              meta={ExceptionNotificationLineFieldMeta.PerformanceMetricTypeCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Performance Metric Type Code"
+            value={value.PerformanceMetricTypeCode?.[0]}
+            meta={ExceptionNotificationLineFieldMeta.PerformanceMetricTypeCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-ExceptionNotificationLine ubl-Period ubl-ExceptionObservationPeriod"
-          meta={ExceptionNotificationLineFieldMeta.ExceptionObservationPeriod} 
-          value={value.ExceptionObservationPeriod}
-          itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay
-              key={key}
-              label="Exception Observation Period"
-              value={itemValue}
-              meta={ExceptionNotificationLineFieldMeta.ExceptionObservationPeriod}
-            />
-          }
-        />
+          <PeriodDisplay
+            label="Exception Observation Period"
+            value={value.ExceptionObservationPeriod?.[0]}
+            meta={ExceptionNotificationLineFieldMeta.ExceptionObservationPeriod}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-ExceptionNotificationLine ubl-DocumentReference"
-          meta={ExceptionNotificationLineFieldMeta.DocumentReference} 
-          value={value.DocumentReference}
-          itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay
-              key={key}
-              label="Document Reference"
-              value={itemValue}
-              meta={ExceptionNotificationLineFieldMeta.DocumentReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-DocumentReference"
+            label="Document Reference"
+            items={value.DocumentReference}
+            meta={ExceptionNotificationLineFieldMeta.DocumentReference} 
+            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
+              <DocumentReferenceDisplay
+                key={key}
+                label="Document Reference"
+                value={itemValue}
+                meta={ExceptionNotificationLineFieldMeta.DocumentReference}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-ExceptionNotificationLine ubl-ForecastException"
-          meta={ExceptionNotificationLineFieldMeta.ForecastException} 
-          value={value.ForecastException}
-          itemDisplay={ (itemValue: ForecastException, key: string | number) =>
-            <ForecastExceptionDisplay
-              key={key}
-              label="Forecast Exception"
-              value={itemValue}
-              meta={ExceptionNotificationLineFieldMeta.ForecastException}
-            />
-          }
-        />
+          <ForecastExceptionDisplay
+            label="Forecast Exception"
+            value={value.ForecastException?.[0]}
+            meta={ExceptionNotificationLineFieldMeta.ForecastException}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-ExceptionNotificationLine ubl-Item ubl-SupplyItem"
-          meta={ExceptionNotificationLineFieldMeta.SupplyItem} 
-          value={value.SupplyItem}
-          itemDisplay={ (itemValue: Item, key: string | number) =>
-            <ItemDisplay
-              key={key}
-              label="Supply Item"
-              value={itemValue}
-              meta={ExceptionNotificationLineFieldMeta.SupplyItem}
-            />
-          }
-        />
+          <ItemDisplay
+            label="Supply Item"
+            value={value.SupplyItem?.[0]}
+            meta={ExceptionNotificationLineFieldMeta.SupplyItem}
+          />
         </div>
     </div>
   )

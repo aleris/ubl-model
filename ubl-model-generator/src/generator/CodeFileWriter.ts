@@ -5,8 +5,8 @@ export class CodeFileWriter {
   public readonly genDirPath: string
   public counter = 0
 
-  constructor(public readonly rootDirPath: string, public readonly version: string) {
-    this.genDirPath = `${this.rootDirPath}/${this.version}`
+  constructor(public readonly rootDirPath: string, public readonly version: string, public readonly addVersionToPath = true) {
+    this.genDirPath = addVersionToPath ? `${this.rootDirPath}/${this.version}` : this.rootDirPath
     fs.mkdirSync(this.genDirPath, { recursive: true })
   }
 

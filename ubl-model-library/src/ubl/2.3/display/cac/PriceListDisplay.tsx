@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { PriceList } from  '../../model/cac/PriceList'
 import { PriceListFieldMeta } from  '../../meta/cac/PriceListMeta'
@@ -15,84 +14,57 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: PriceList
+  value: PriceList | undefined
   meta: FieldMeta<T>
 }
 
 export default function PriceListDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-PriceList ubl-PriceListType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-PriceList ubl-UBLExtensions"
-          meta={PriceListFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={PriceListFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-PriceList">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={PriceListFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PriceList ubl-Identifier ubl-ID"
-          meta={PriceListFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={PriceListFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={PriceListFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PriceList ubl-Code ubl-StatusCode"
-          meta={PriceListFieldMeta.StatusCode} 
-          value={value.StatusCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Status Code"
-              value={itemValue}
-              meta={PriceListFieldMeta.StatusCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Status Code"
+            value={value.StatusCode?.[0]}
+            meta={PriceListFieldMeta.StatusCode}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-PriceList ubl-Period ubl-ValidityPeriod"
-          meta={PriceListFieldMeta.ValidityPeriod} 
-          value={value.ValidityPeriod}
-          itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay
-              key={key}
-              label="Validity Period"
-              value={itemValue}
-              meta={PriceListFieldMeta.ValidityPeriod}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Period ubl-ValidityPeriod"
+            label="Validity Period"
+            items={value.ValidityPeriod}
+            meta={PriceListFieldMeta.ValidityPeriod} 
+            itemDisplay={ (itemValue: Period, key: string | number) =>
+              <PeriodDisplay
+                key={key}
+                label="Validity Period"
+                value={itemValue}
+                meta={PriceListFieldMeta.ValidityPeriod}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-PriceList ubl-PreviousPriceList"
-          meta={PriceListFieldMeta.PreviousPriceList} 
-          value={value.PreviousPriceList}
-          itemDisplay={ (itemValue: PriceList, key: string | number) =>
-            <PriceListDisplay
-              key={key}
-              label="Previous Price List"
-              value={itemValue}
-              meta={PriceListFieldMeta.PreviousPriceList}
-            />
-          }
-        />
+          <PriceListDisplay
+            label="Previous Price List"
+            value={value.PreviousPriceList?.[0]}
+            meta={PriceListFieldMeta.PreviousPriceList}
+          />
         </div>
     </div>
   )

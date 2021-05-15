@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ForwardingInstructions } from  '../../model/doc/ForwardingInstructions'
 import { ForwardingInstructionsFieldMeta } from  '../../meta/doc/ForwardingInstructionsMeta'
@@ -35,392 +34,243 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: ForwardingInstructions
+  value: ForwardingInstructions | undefined
   meta: FieldMeta<T>
 }
 
 export default function ForwardingInstructionsDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-doc ubl-ForwardingInstructions ubl-ForwardingInstructionsType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-ForwardingInstructions ubl-UBLExtensions"
-          meta={ForwardingInstructionsFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={ForwardingInstructionsFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-doc ubl-ForwardingInstructions">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={ForwardingInstructionsFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ForwardingInstructions ubl-Identifier ubl-UBLVersionID"
-          meta={ForwardingInstructionsFieldMeta.UBLVersionID} 
-          value={value.UBLVersionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="UBL Version Identifier"
-              value={itemValue}
-              meta={ForwardingInstructionsFieldMeta.UBLVersionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="UBL Version Identifier"
+            value={value.UBLVersionID?.[0]}
+            meta={ForwardingInstructionsFieldMeta.UBLVersionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ForwardingInstructions ubl-Identifier ubl-CustomizationID"
-          meta={ForwardingInstructionsFieldMeta.CustomizationID} 
-          value={value.CustomizationID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Customization Identifier"
-              value={itemValue}
-              meta={ForwardingInstructionsFieldMeta.CustomizationID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Customization Identifier"
+            value={value.CustomizationID?.[0]}
+            meta={ForwardingInstructionsFieldMeta.CustomizationID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ForwardingInstructions ubl-Identifier ubl-ProfileID"
-          meta={ForwardingInstructionsFieldMeta.ProfileID} 
-          value={value.ProfileID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Profile Identifier"
-              value={itemValue}
-              meta={ForwardingInstructionsFieldMeta.ProfileID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Profile Identifier"
+            value={value.ProfileID?.[0]}
+            meta={ForwardingInstructionsFieldMeta.ProfileID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ForwardingInstructions ubl-Identifier ubl-ProfileExecutionID"
-          meta={ForwardingInstructionsFieldMeta.ProfileExecutionID} 
-          value={value.ProfileExecutionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Profile Execution Identifier"
-              value={itemValue}
-              meta={ForwardingInstructionsFieldMeta.ProfileExecutionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Profile Execution Identifier"
+            value={value.ProfileExecutionID?.[0]}
+            meta={ForwardingInstructionsFieldMeta.ProfileExecutionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ForwardingInstructions ubl-Identifier ubl-ID"
-          meta={ForwardingInstructionsFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={ForwardingInstructionsFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={ForwardingInstructionsFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ForwardingInstructions ubl-Identifier ubl-CarrierAssignedID"
-          meta={ForwardingInstructionsFieldMeta.CarrierAssignedID} 
-          value={value.CarrierAssignedID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Carrier Assigned Identifier"
-              value={itemValue}
-              meta={ForwardingInstructionsFieldMeta.CarrierAssignedID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Carrier Assigned Identifier"
+            value={value.CarrierAssignedID?.[0]}
+            meta={ForwardingInstructionsFieldMeta.CarrierAssignedID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ForwardingInstructions ubl-Identifier ubl-UUID"
-          meta={ForwardingInstructionsFieldMeta.UUID} 
-          value={value.UUID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="UUID"
-              value={itemValue}
-              meta={ForwardingInstructionsFieldMeta.UUID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="UUID"
+            value={value.UUID?.[0]}
+            meta={ForwardingInstructionsFieldMeta.UUID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ForwardingInstructions ubl-Date ubl-IssueDate"
-          meta={ForwardingInstructionsFieldMeta.IssueDate} 
-          value={value.IssueDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Issue Date"
-              value={itemValue}
-              meta={ForwardingInstructionsFieldMeta.IssueDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Issue Date"
+            value={value.IssueDate?.[0]}
+            meta={ForwardingInstructionsFieldMeta.IssueDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ForwardingInstructions ubl-Time ubl-IssueTime"
-          meta={ForwardingInstructionsFieldMeta.IssueTime} 
-          value={value.IssueTime}
-          itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay
-              key={key}
-              label="Issue Time"
-              value={itemValue}
-              meta={ForwardingInstructionsFieldMeta.IssueTime}
-            />
-          }
-        />
+          <TimeDisplay
+            label="Issue Time"
+            value={value.IssueTime?.[0]}
+            meta={ForwardingInstructionsFieldMeta.IssueTime}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ForwardingInstructions ubl-Text ubl-Name"
-          meta={ForwardingInstructionsFieldMeta.Name} 
-          value={value.Name}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Name"
-              value={itemValue}
-              meta={ForwardingInstructionsFieldMeta.Name}
-            />
-          }
-        />
+          <TextDisplay
+            label="Name"
+            value={value.Name?.[0]}
+            meta={ForwardingInstructionsFieldMeta.Name}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-ForwardingInstructions ubl-Text ubl-Description"
-          meta={ForwardingInstructionsFieldMeta.Description} 
-          value={value.Description}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Description"
-              value={itemValue}
-              meta={ForwardingInstructionsFieldMeta.Description}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Text ubl-Description"
+            label="Description"
+            items={value.Description}
+            meta={ForwardingInstructionsFieldMeta.Description} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Description"
+                value={itemValue}
+                meta={ForwardingInstructionsFieldMeta.Description}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-ForwardingInstructions ubl-Text ubl-Note"
-          meta={ForwardingInstructionsFieldMeta.Note} 
-          value={value.Note}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Note"
-              value={itemValue}
-              meta={ForwardingInstructionsFieldMeta.Note}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Text ubl-Note"
+            label="Note"
+            items={value.Note}
+            meta={ForwardingInstructionsFieldMeta.Note} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Note"
+                value={itemValue}
+                meta={ForwardingInstructionsFieldMeta.Note}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ForwardingInstructions ubl-Code ubl-DocumentStatusCode"
-          meta={ForwardingInstructionsFieldMeta.DocumentStatusCode} 
-          value={value.DocumentStatusCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Document Status Code"
-              value={itemValue}
-              meta={ForwardingInstructionsFieldMeta.DocumentStatusCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Document Status Code"
+            value={value.DocumentStatusCode?.[0]}
+            meta={ForwardingInstructionsFieldMeta.DocumentStatusCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ForwardingInstructions ubl-Identifier ubl-ShippingOrderID"
-          meta={ForwardingInstructionsFieldMeta.ShippingOrderID} 
-          value={value.ShippingOrderID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Shipping Order Identifier"
-              value={itemValue}
-              meta={ForwardingInstructionsFieldMeta.ShippingOrderID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Shipping Order Identifier"
+            value={value.ShippingOrderID?.[0]}
+            meta={ForwardingInstructionsFieldMeta.ShippingOrderID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ForwardingInstructions ubl-Indicator ubl-ToOrderIndicator"
-          meta={ForwardingInstructionsFieldMeta.ToOrderIndicator} 
-          value={value.ToOrderIndicator}
-          itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay
-              key={key}
-              label="To Order Indicator"
-              value={itemValue}
-              meta={ForwardingInstructionsFieldMeta.ToOrderIndicator}
-            />
-          }
-        />
+          <IndicatorDisplay
+            label="To Order Indicator"
+            value={value.ToOrderIndicator?.[0]}
+            meta={ForwardingInstructionsFieldMeta.ToOrderIndicator}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ForwardingInstructions ubl-Indicator ubl-AdValoremIndicator"
-          meta={ForwardingInstructionsFieldMeta.AdValoremIndicator} 
-          value={value.AdValoremIndicator}
-          itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay
-              key={key}
-              label="Ad Valorem Indicator"
-              value={itemValue}
-              meta={ForwardingInstructionsFieldMeta.AdValoremIndicator}
-            />
-          }
-        />
+          <IndicatorDisplay
+            label="Ad Valorem Indicator"
+            value={value.AdValoremIndicator?.[0]}
+            meta={ForwardingInstructionsFieldMeta.AdValoremIndicator}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ForwardingInstructions ubl-Amount ubl-DeclaredCarriageValueAmount"
-          meta={ForwardingInstructionsFieldMeta.DeclaredCarriageValueAmount} 
-          value={value.DeclaredCarriageValueAmount}
-          itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay
-              key={key}
-              label="Declared Carriage Value"
-              value={itemValue}
-              meta={ForwardingInstructionsFieldMeta.DeclaredCarriageValueAmount}
-            />
-          }
-        />
+          <AmountDisplay
+            label="Declared Carriage Value"
+            value={value.DeclaredCarriageValueAmount?.[0]}
+            meta={ForwardingInstructionsFieldMeta.DeclaredCarriageValueAmount}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-ForwardingInstructions ubl-Text ubl-OtherInstruction"
-          meta={ForwardingInstructionsFieldMeta.OtherInstruction} 
-          value={value.OtherInstruction}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Other Instruction"
-              value={itemValue}
-              meta={ForwardingInstructionsFieldMeta.OtherInstruction}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Text ubl-OtherInstruction"
+            label="Other Instruction"
+            items={value.OtherInstruction}
+            meta={ForwardingInstructionsFieldMeta.OtherInstruction} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Other Instruction"
+                value={itemValue}
+                meta={ForwardingInstructionsFieldMeta.OtherInstruction}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-ForwardingInstructions ubl-Party ubl-ConsignorParty"
-          meta={ForwardingInstructionsFieldMeta.ConsignorParty} 
-          value={value.ConsignorParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Consignor Party"
-              value={itemValue}
-              meta={ForwardingInstructionsFieldMeta.ConsignorParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Consignor Party"
+            value={value.ConsignorParty?.[0]}
+            meta={ForwardingInstructionsFieldMeta.ConsignorParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-ForwardingInstructions ubl-Party ubl-CarrierParty"
-          meta={ForwardingInstructionsFieldMeta.CarrierParty} 
-          value={value.CarrierParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Carrier Party"
-              value={itemValue}
-              meta={ForwardingInstructionsFieldMeta.CarrierParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Carrier Party"
+            value={value.CarrierParty?.[0]}
+            meta={ForwardingInstructionsFieldMeta.CarrierParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-ForwardingInstructions ubl-Party ubl-FreightForwarderParty"
-          meta={ForwardingInstructionsFieldMeta.FreightForwarderParty} 
-          value={value.FreightForwarderParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Freight Forwarder Party"
-              value={itemValue}
-              meta={ForwardingInstructionsFieldMeta.FreightForwarderParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Freight Forwarder Party"
+            value={value.FreightForwarderParty?.[0]}
+            meta={ForwardingInstructionsFieldMeta.FreightForwarderParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-ForwardingInstructions ubl-Shipment"
-          meta={ForwardingInstructionsFieldMeta.Shipment} 
-          value={value.Shipment}
-          itemDisplay={ (itemValue: Shipment, key: string | number) =>
-            <ShipmentDisplay
-              key={key}
-              label="Shipment"
-              value={itemValue}
-              meta={ForwardingInstructionsFieldMeta.Shipment}
-            />
-          }
-        />
+          <ShipmentDisplay
+            label="Shipment"
+            value={value.Shipment?.[0]}
+            meta={ForwardingInstructionsFieldMeta.Shipment}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-ForwardingInstructions ubl-DocumentReference"
-          meta={ForwardingInstructionsFieldMeta.DocumentReference} 
-          value={value.DocumentReference}
-          itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay
-              key={key}
-              label="Document Reference"
-              value={itemValue}
-              meta={ForwardingInstructionsFieldMeta.DocumentReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-DocumentReference"
+            label="Document Reference"
+            items={value.DocumentReference}
+            meta={ForwardingInstructionsFieldMeta.DocumentReference} 
+            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
+              <DocumentReferenceDisplay
+                key={key}
+                label="Document Reference"
+                value={itemValue}
+                meta={ForwardingInstructionsFieldMeta.DocumentReference}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-ForwardingInstructions ubl-ExchangeRate"
-          meta={ForwardingInstructionsFieldMeta.ExchangeRate} 
-          value={value.ExchangeRate}
-          itemDisplay={ (itemValue: ExchangeRate, key: string | number) =>
-            <ExchangeRateDisplay
-              key={key}
-              label="Exchange Rate"
-              value={itemValue}
-              meta={ForwardingInstructionsFieldMeta.ExchangeRate}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-ExchangeRate"
+            label="Exchange Rate"
+            items={value.ExchangeRate}
+            meta={ForwardingInstructionsFieldMeta.ExchangeRate} 
+            itemDisplay={ (itemValue: ExchangeRate, key: string | number) =>
+              <ExchangeRateDisplay
+                key={key}
+                label="Exchange Rate"
+                value={itemValue}
+                meta={ForwardingInstructionsFieldMeta.ExchangeRate}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-ForwardingInstructions ubl-DocumentDistribution"
-          meta={ForwardingInstructionsFieldMeta.DocumentDistribution} 
-          value={value.DocumentDistribution}
-          itemDisplay={ (itemValue: DocumentDistribution, key: string | number) =>
-            <DocumentDistributionDisplay
-              key={key}
-              label="Document Distribution"
-              value={itemValue}
-              meta={ForwardingInstructionsFieldMeta.DocumentDistribution}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-DocumentDistribution"
+            label="Document Distribution"
+            items={value.DocumentDistribution}
+            meta={ForwardingInstructionsFieldMeta.DocumentDistribution} 
+            itemDisplay={ (itemValue: DocumentDistribution, key: string | number) =>
+              <DocumentDistributionDisplay
+                key={key}
+                label="Document Distribution"
+                value={itemValue}
+                meta={ForwardingInstructionsFieldMeta.DocumentDistribution}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-ForwardingInstructions ubl-Signature"
-          meta={ForwardingInstructionsFieldMeta.Signature} 
-          value={value.Signature}
-          itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay
-              key={key}
-              label="Signature"
-              value={itemValue}
-              meta={ForwardingInstructionsFieldMeta.Signature}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Signature"
+            label="Signature"
+            items={value.Signature}
+            meta={ForwardingInstructionsFieldMeta.Signature} 
+            itemDisplay={ (itemValue: Signature, key: string | number) =>
+              <SignatureDisplay
+                key={key}
+                label="Signature"
+                value={itemValue}
+                meta={ForwardingInstructionsFieldMeta.Signature}
+              />
+            }
+          />
         </div>
     </div>
   )

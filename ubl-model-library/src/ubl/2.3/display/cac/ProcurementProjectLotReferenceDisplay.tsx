@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ProcurementProjectLotReference } from  '../../model/cac/ProcurementProjectLotReference'
 import { ProcurementProjectLotReferenceFieldMeta } from  '../../meta/cac/ProcurementProjectLotReferenceMeta'
@@ -11,42 +10,30 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: ProcurementProjectLotReference
+  value: ProcurementProjectLotReference | undefined
   meta: FieldMeta<T>
 }
 
 export default function ProcurementProjectLotReferenceDisplay<T>({ label, value, meta }: Props<T>) {
-  return (
-    <div className="ubl-cac ubl-ProcurementProjectLotReference ubl-ProcurementProjectLotReferenceType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-ProcurementProjectLotReference ubl-UBLExtensions"
-          meta={ProcurementProjectLotReferenceFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={ProcurementProjectLotReferenceFieldMeta.UBLExtensions}
-            />
-          }
-        />
+  if (value === undefined) {
+      return null
+  }
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ProcurementProjectLotReference ubl-Identifier ubl-ID"
-          meta={ProcurementProjectLotReferenceFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={ProcurementProjectLotReferenceFieldMeta.ID}
-            />
-          }
-        />
+  return (
+    <div className="ubl-cac ubl-ProcurementProjectLotReference">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={ProcurementProjectLotReferenceFieldMeta.UBLExtensions}
+          />
+
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={ProcurementProjectLotReferenceFieldMeta.ID}
+          />
         </div>
     </div>
   )

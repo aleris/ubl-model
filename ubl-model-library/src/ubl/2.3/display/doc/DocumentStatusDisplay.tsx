@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { DocumentStatus } from  '../../model/doc/DocumentStatus'
 import { DocumentStatusFieldMeta } from  '../../meta/doc/DocumentStatusMeta'
@@ -25,238 +24,141 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: DocumentStatus
+  value: DocumentStatus | undefined
   meta: FieldMeta<T>
 }
 
 export default function DocumentStatusDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-doc ubl-DocumentStatus ubl-DocumentStatusType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-DocumentStatus ubl-UBLExtensions"
-          meta={DocumentStatusFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={DocumentStatusFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-doc ubl-DocumentStatus">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={DocumentStatusFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-DocumentStatus ubl-Identifier ubl-UBLVersionID"
-          meta={DocumentStatusFieldMeta.UBLVersionID} 
-          value={value.UBLVersionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="UBL Version Identifier"
-              value={itemValue}
-              meta={DocumentStatusFieldMeta.UBLVersionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="UBL Version Identifier"
+            value={value.UBLVersionID?.[0]}
+            meta={DocumentStatusFieldMeta.UBLVersionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-DocumentStatus ubl-Identifier ubl-CustomizationID"
-          meta={DocumentStatusFieldMeta.CustomizationID} 
-          value={value.CustomizationID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Customization Identifier"
-              value={itemValue}
-              meta={DocumentStatusFieldMeta.CustomizationID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Customization Identifier"
+            value={value.CustomizationID?.[0]}
+            meta={DocumentStatusFieldMeta.CustomizationID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-DocumentStatus ubl-Identifier ubl-ProfileID"
-          meta={DocumentStatusFieldMeta.ProfileID} 
-          value={value.ProfileID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Profile Identifier"
-              value={itemValue}
-              meta={DocumentStatusFieldMeta.ProfileID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Profile Identifier"
+            value={value.ProfileID?.[0]}
+            meta={DocumentStatusFieldMeta.ProfileID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-DocumentStatus ubl-Identifier ubl-ProfileExecutionID"
-          meta={DocumentStatusFieldMeta.ProfileExecutionID} 
-          value={value.ProfileExecutionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Profile Execution Identifier"
-              value={itemValue}
-              meta={DocumentStatusFieldMeta.ProfileExecutionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Profile Execution Identifier"
+            value={value.ProfileExecutionID?.[0]}
+            meta={DocumentStatusFieldMeta.ProfileExecutionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-DocumentStatus ubl-Identifier ubl-ID"
-          meta={DocumentStatusFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={DocumentStatusFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={DocumentStatusFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-DocumentStatus ubl-Indicator ubl-CopyIndicator"
-          meta={DocumentStatusFieldMeta.CopyIndicator} 
-          value={value.CopyIndicator}
-          itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay
-              key={key}
-              label="Copy Indicator"
-              value={itemValue}
-              meta={DocumentStatusFieldMeta.CopyIndicator}
-            />
-          }
-        />
+          <IndicatorDisplay
+            label="Copy Indicator"
+            value={value.CopyIndicator?.[0]}
+            meta={DocumentStatusFieldMeta.CopyIndicator}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-DocumentStatus ubl-Identifier ubl-UUID"
-          meta={DocumentStatusFieldMeta.UUID} 
-          value={value.UUID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="UUID"
-              value={itemValue}
-              meta={DocumentStatusFieldMeta.UUID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="UUID"
+            value={value.UUID?.[0]}
+            meta={DocumentStatusFieldMeta.UUID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-DocumentStatus ubl-Date ubl-IssueDate"
-          meta={DocumentStatusFieldMeta.IssueDate} 
-          value={value.IssueDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Issue Date"
-              value={itemValue}
-              meta={DocumentStatusFieldMeta.IssueDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Issue Date"
+            value={value.IssueDate?.[0]}
+            meta={DocumentStatusFieldMeta.IssueDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-DocumentStatus ubl-Time ubl-IssueTime"
-          meta={DocumentStatusFieldMeta.IssueTime} 
-          value={value.IssueTime}
-          itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay
-              key={key}
-              label="Issue Time"
-              value={itemValue}
-              meta={DocumentStatusFieldMeta.IssueTime}
-            />
-          }
-        />
+          <TimeDisplay
+            label="Issue Time"
+            value={value.IssueTime?.[0]}
+            meta={DocumentStatusFieldMeta.IssueTime}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-DocumentStatus ubl-Text ubl-Note"
-          meta={DocumentStatusFieldMeta.Note} 
-          value={value.Note}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Note"
-              value={itemValue}
-              meta={DocumentStatusFieldMeta.Note}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Text ubl-Note"
+            label="Note"
+            items={value.Note}
+            meta={DocumentStatusFieldMeta.Note} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Note"
+                value={itemValue}
+                meta={DocumentStatusFieldMeta.Note}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-DocumentStatus ubl-Signature"
-          meta={DocumentStatusFieldMeta.Signature} 
-          value={value.Signature}
-          itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay
-              key={key}
-              label="Signature"
-              value={itemValue}
-              meta={DocumentStatusFieldMeta.Signature}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Signature"
+            label="Signature"
+            items={value.Signature}
+            meta={DocumentStatusFieldMeta.Signature} 
+            itemDisplay={ (itemValue: Signature, key: string | number) =>
+              <SignatureDisplay
+                key={key}
+                label="Signature"
+                value={itemValue}
+                meta={DocumentStatusFieldMeta.Signature}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-DocumentStatus ubl-Party ubl-SenderParty"
-          meta={DocumentStatusFieldMeta.SenderParty} 
-          value={value.SenderParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Sender Party"
-              value={itemValue}
-              meta={DocumentStatusFieldMeta.SenderParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Sender Party"
+            value={value.SenderParty?.[0]}
+            meta={DocumentStatusFieldMeta.SenderParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-DocumentStatus ubl-Party ubl-ReceiverParty"
-          meta={DocumentStatusFieldMeta.ReceiverParty} 
-          value={value.ReceiverParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Receiver Party"
-              value={itemValue}
-              meta={DocumentStatusFieldMeta.ReceiverParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Receiver Party"
+            value={value.ReceiverParty?.[0]}
+            meta={DocumentStatusFieldMeta.ReceiverParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-DocumentStatus ubl-DocumentResponse"
-          meta={DocumentStatusFieldMeta.DocumentResponse} 
-          value={value.DocumentResponse}
-          itemDisplay={ (itemValue: DocumentResponse, key: string | number) =>
-            <DocumentResponseDisplay
-              key={key}
-              label="Document Response"
-              value={itemValue}
-              meta={DocumentStatusFieldMeta.DocumentResponse}
-            />
-          }
-        />
+          <DocumentResponseDisplay
+            label="Document Response"
+            value={value.DocumentResponse?.[0]}
+            meta={DocumentStatusFieldMeta.DocumentResponse}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-DocumentStatus ubl-DocumentResponse ubl-AdditionalDocumentResponse"
-          meta={DocumentStatusFieldMeta.AdditionalDocumentResponse} 
-          value={value.AdditionalDocumentResponse}
-          itemDisplay={ (itemValue: DocumentResponse, key: string | number) =>
-            <DocumentResponseDisplay
-              key={key}
-              label="Additional Document Response"
-              value={itemValue}
-              meta={DocumentStatusFieldMeta.AdditionalDocumentResponse}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-DocumentResponse ubl-AdditionalDocumentResponse"
+            label="Additional Document Response"
+            items={value.AdditionalDocumentResponse}
+            meta={DocumentStatusFieldMeta.AdditionalDocumentResponse} 
+            itemDisplay={ (itemValue: DocumentResponse, key: string | number) =>
+              <DocumentResponseDisplay
+                key={key}
+                label="Additional Document Response"
+                value={itemValue}
+                meta={DocumentStatusFieldMeta.AdditionalDocumentResponse}
+              />
+            }
+          />
         </div>
     </div>
   )

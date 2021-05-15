@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TenderStatusRequest } from  '../../model/doc/TenderStatusRequest'
 import { TenderStatusRequestFieldMeta } from  '../../meta/doc/TenderStatusRequestMeta'
@@ -29,266 +28,171 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: TenderStatusRequest
+  value: TenderStatusRequest | undefined
   meta: FieldMeta<T>
 }
 
 export default function TenderStatusRequestDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-doc ubl-TenderStatusRequest ubl-TenderStatusRequestType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-TenderStatusRequest ubl-UBLExtensions"
-          meta={TenderStatusRequestFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={TenderStatusRequestFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-doc ubl-TenderStatusRequest">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={TenderStatusRequestFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderStatusRequest ubl-Identifier ubl-UBLVersionID"
-          meta={TenderStatusRequestFieldMeta.UBLVersionID} 
-          value={value.UBLVersionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="UBL Version Identifier"
-              value={itemValue}
-              meta={TenderStatusRequestFieldMeta.UBLVersionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="UBL Version Identifier"
+            value={value.UBLVersionID?.[0]}
+            meta={TenderStatusRequestFieldMeta.UBLVersionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderStatusRequest ubl-Identifier ubl-CustomizationID"
-          meta={TenderStatusRequestFieldMeta.CustomizationID} 
-          value={value.CustomizationID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Customization Identifier"
-              value={itemValue}
-              meta={TenderStatusRequestFieldMeta.CustomizationID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Customization Identifier"
+            value={value.CustomizationID?.[0]}
+            meta={TenderStatusRequestFieldMeta.CustomizationID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderStatusRequest ubl-Identifier ubl-ProfileID"
-          meta={TenderStatusRequestFieldMeta.ProfileID} 
-          value={value.ProfileID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Profile Identifier"
-              value={itemValue}
-              meta={TenderStatusRequestFieldMeta.ProfileID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Profile Identifier"
+            value={value.ProfileID?.[0]}
+            meta={TenderStatusRequestFieldMeta.ProfileID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderStatusRequest ubl-Identifier ubl-ProfileExecutionID"
-          meta={TenderStatusRequestFieldMeta.ProfileExecutionID} 
-          value={value.ProfileExecutionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Profile Execution Identifier"
-              value={itemValue}
-              meta={TenderStatusRequestFieldMeta.ProfileExecutionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Profile Execution Identifier"
+            value={value.ProfileExecutionID?.[0]}
+            meta={TenderStatusRequestFieldMeta.ProfileExecutionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderStatusRequest ubl-Identifier ubl-ID"
-          meta={TenderStatusRequestFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={TenderStatusRequestFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={TenderStatusRequestFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderStatusRequest ubl-Indicator ubl-CopyIndicator"
-          meta={TenderStatusRequestFieldMeta.CopyIndicator} 
-          value={value.CopyIndicator}
-          itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay
-              key={key}
-              label="Copy Indicator"
-              value={itemValue}
-              meta={TenderStatusRequestFieldMeta.CopyIndicator}
-            />
-          }
-        />
+          <IndicatorDisplay
+            label="Copy Indicator"
+            value={value.CopyIndicator?.[0]}
+            meta={TenderStatusRequestFieldMeta.CopyIndicator}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderStatusRequest ubl-Identifier ubl-UUID"
-          meta={TenderStatusRequestFieldMeta.UUID} 
-          value={value.UUID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="UUID"
-              value={itemValue}
-              meta={TenderStatusRequestFieldMeta.UUID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="UUID"
+            value={value.UUID?.[0]}
+            meta={TenderStatusRequestFieldMeta.UUID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderStatusRequest ubl-Identifier ubl-ContractFolderID"
-          meta={TenderStatusRequestFieldMeta.ContractFolderID} 
-          value={value.ContractFolderID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Contract Folder Identifier"
-              value={itemValue}
-              meta={TenderStatusRequestFieldMeta.ContractFolderID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Contract Folder Identifier"
+            value={value.ContractFolderID?.[0]}
+            meta={TenderStatusRequestFieldMeta.ContractFolderID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderStatusRequest ubl-Date ubl-IssueDate"
-          meta={TenderStatusRequestFieldMeta.IssueDate} 
-          value={value.IssueDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Issue Date"
-              value={itemValue}
-              meta={TenderStatusRequestFieldMeta.IssueDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Issue Date"
+            value={value.IssueDate?.[0]}
+            meta={TenderStatusRequestFieldMeta.IssueDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderStatusRequest ubl-Time ubl-IssueTime"
-          meta={TenderStatusRequestFieldMeta.IssueTime} 
-          value={value.IssueTime}
-          itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay
-              key={key}
-              label="Issue Time"
-              value={itemValue}
-              meta={TenderStatusRequestFieldMeta.IssueTime}
-            />
-          }
-        />
+          <TimeDisplay
+            label="Issue Time"
+            value={value.IssueTime?.[0]}
+            meta={TenderStatusRequestFieldMeta.IssueTime}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-TenderStatusRequest ubl-Text ubl-ContractName"
-          meta={TenderStatusRequestFieldMeta.ContractName} 
-          value={value.ContractName}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Contract Name"
-              value={itemValue}
-              meta={TenderStatusRequestFieldMeta.ContractName}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Text ubl-ContractName"
+            label="Contract Name"
+            items={value.ContractName}
+            meta={TenderStatusRequestFieldMeta.ContractName} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Contract Name"
+                value={itemValue}
+                meta={TenderStatusRequestFieldMeta.ContractName}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-TenderStatusRequest ubl-Text ubl-Note"
-          meta={TenderStatusRequestFieldMeta.Note} 
-          value={value.Note}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Note"
-              value={itemValue}
-              meta={TenderStatusRequestFieldMeta.Note}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Text ubl-Note"
+            label="Note"
+            items={value.Note}
+            meta={TenderStatusRequestFieldMeta.Note} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Note"
+                value={itemValue}
+                meta={TenderStatusRequestFieldMeta.Note}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-TenderStatusRequest ubl-Signature"
-          meta={TenderStatusRequestFieldMeta.Signature} 
-          value={value.Signature}
-          itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay
-              key={key}
-              label="Signature"
-              value={itemValue}
-              meta={TenderStatusRequestFieldMeta.Signature}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Signature"
+            label="Signature"
+            items={value.Signature}
+            meta={TenderStatusRequestFieldMeta.Signature} 
+            itemDisplay={ (itemValue: Signature, key: string | number) =>
+              <SignatureDisplay
+                key={key}
+                label="Signature"
+                value={itemValue}
+                meta={TenderStatusRequestFieldMeta.Signature}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-TenderStatusRequest ubl-ContractingParty"
-          meta={TenderStatusRequestFieldMeta.ContractingParty} 
-          value={value.ContractingParty}
-          itemDisplay={ (itemValue: ContractingParty, key: string | number) =>
-            <ContractingPartyDisplay
-              key={key}
-              label="Contracting Party"
-              value={itemValue}
-              meta={TenderStatusRequestFieldMeta.ContractingParty}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-ContractingParty"
+            label="Contracting Party"
+            items={value.ContractingParty}
+            meta={TenderStatusRequestFieldMeta.ContractingParty} 
+            itemDisplay={ (itemValue: ContractingParty, key: string | number) =>
+              <ContractingPartyDisplay
+                key={key}
+                label="Contracting Party"
+                value={itemValue}
+                meta={TenderStatusRequestFieldMeta.ContractingParty}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TenderStatusRequest ubl-EconomicOperatorParty"
-          meta={TenderStatusRequestFieldMeta.EconomicOperatorParty} 
-          value={value.EconomicOperatorParty}
-          itemDisplay={ (itemValue: EconomicOperatorParty, key: string | number) =>
-            <EconomicOperatorPartyDisplay
-              key={key}
-              label="Economic Operator Party"
-              value={itemValue}
-              meta={TenderStatusRequestFieldMeta.EconomicOperatorParty}
-            />
-          }
-        />
+          <EconomicOperatorPartyDisplay
+            label="Economic Operator Party"
+            value={value.EconomicOperatorParty?.[0]}
+            meta={TenderStatusRequestFieldMeta.EconomicOperatorParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TenderStatusRequest ubl-ProcurementProject"
-          meta={TenderStatusRequestFieldMeta.ProcurementProject} 
-          value={value.ProcurementProject}
-          itemDisplay={ (itemValue: ProcurementProject, key: string | number) =>
-            <ProcurementProjectDisplay
-              key={key}
-              label="Procurement Project"
-              value={itemValue}
-              meta={TenderStatusRequestFieldMeta.ProcurementProject}
-            />
-          }
-        />
+          <ProcurementProjectDisplay
+            label="Procurement Project"
+            value={value.ProcurementProject?.[0]}
+            meta={TenderStatusRequestFieldMeta.ProcurementProject}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-TenderStatusRequest ubl-ProcurementProjectLot"
-          meta={TenderStatusRequestFieldMeta.ProcurementProjectLot} 
-          value={value.ProcurementProjectLot}
-          itemDisplay={ (itemValue: ProcurementProjectLot, key: string | number) =>
-            <ProcurementProjectLotDisplay
-              key={key}
-              label="Procurement Project Lot"
-              value={itemValue}
-              meta={TenderStatusRequestFieldMeta.ProcurementProjectLot}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-ProcurementProjectLot"
+            label="Procurement Project Lot"
+            items={value.ProcurementProjectLot}
+            meta={TenderStatusRequestFieldMeta.ProcurementProjectLot} 
+            itemDisplay={ (itemValue: ProcurementProjectLot, key: string | number) =>
+              <ProcurementProjectLotDisplay
+                key={key}
+                label="Procurement Project Lot"
+                value={itemValue}
+                meta={TenderStatusRequestFieldMeta.ProcurementProjectLot}
+              />
+            }
+          />
         </div>
     </div>
   )

@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { GuaranteeCertificate } from  '../../model/doc/GuaranteeCertificate'
 import { GuaranteeCertificateFieldMeta } from  '../../meta/doc/GuaranteeCertificateMeta'
@@ -35,350 +34,216 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: GuaranteeCertificate
+  value: GuaranteeCertificate | undefined
   meta: FieldMeta<T>
 }
 
 export default function GuaranteeCertificateDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-doc ubl-GuaranteeCertificate ubl-GuaranteeCertificateType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-GuaranteeCertificate ubl-UBLExtensions"
-          meta={GuaranteeCertificateFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={GuaranteeCertificateFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-doc ubl-GuaranteeCertificate">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={GuaranteeCertificateFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-GuaranteeCertificate ubl-Identifier ubl-UBLVersionID"
-          meta={GuaranteeCertificateFieldMeta.UBLVersionID} 
-          value={value.UBLVersionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="UBL Version Identifier"
-              value={itemValue}
-              meta={GuaranteeCertificateFieldMeta.UBLVersionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="UBL Version Identifier"
+            value={value.UBLVersionID?.[0]}
+            meta={GuaranteeCertificateFieldMeta.UBLVersionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-GuaranteeCertificate ubl-Identifier ubl-CustomizationID"
-          meta={GuaranteeCertificateFieldMeta.CustomizationID} 
-          value={value.CustomizationID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Customization Identifier"
-              value={itemValue}
-              meta={GuaranteeCertificateFieldMeta.CustomizationID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Customization Identifier"
+            value={value.CustomizationID?.[0]}
+            meta={GuaranteeCertificateFieldMeta.CustomizationID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-GuaranteeCertificate ubl-Identifier ubl-ProfileID"
-          meta={GuaranteeCertificateFieldMeta.ProfileID} 
-          value={value.ProfileID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Profile Identifier"
-              value={itemValue}
-              meta={GuaranteeCertificateFieldMeta.ProfileID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Profile Identifier"
+            value={value.ProfileID?.[0]}
+            meta={GuaranteeCertificateFieldMeta.ProfileID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-GuaranteeCertificate ubl-Identifier ubl-ProfileExecutionID"
-          meta={GuaranteeCertificateFieldMeta.ProfileExecutionID} 
-          value={value.ProfileExecutionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Profile Execution Identifier"
-              value={itemValue}
-              meta={GuaranteeCertificateFieldMeta.ProfileExecutionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Profile Execution Identifier"
+            value={value.ProfileExecutionID?.[0]}
+            meta={GuaranteeCertificateFieldMeta.ProfileExecutionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-GuaranteeCertificate ubl-Identifier ubl-ID"
-          meta={GuaranteeCertificateFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={GuaranteeCertificateFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={GuaranteeCertificateFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-GuaranteeCertificate ubl-Indicator ubl-CopyIndicator"
-          meta={GuaranteeCertificateFieldMeta.CopyIndicator} 
-          value={value.CopyIndicator}
-          itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay
-              key={key}
-              label="Copy Indicator"
-              value={itemValue}
-              meta={GuaranteeCertificateFieldMeta.CopyIndicator}
-            />
-          }
-        />
+          <IndicatorDisplay
+            label="Copy Indicator"
+            value={value.CopyIndicator?.[0]}
+            meta={GuaranteeCertificateFieldMeta.CopyIndicator}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-GuaranteeCertificate ubl-Identifier ubl-UUID"
-          meta={GuaranteeCertificateFieldMeta.UUID} 
-          value={value.UUID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="UUID"
-              value={itemValue}
-              meta={GuaranteeCertificateFieldMeta.UUID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="UUID"
+            value={value.UUID?.[0]}
+            meta={GuaranteeCertificateFieldMeta.UUID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-GuaranteeCertificate ubl-Identifier ubl-ContractFolderID"
-          meta={GuaranteeCertificateFieldMeta.ContractFolderID} 
-          value={value.ContractFolderID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Contract Folder Identifier"
-              value={itemValue}
-              meta={GuaranteeCertificateFieldMeta.ContractFolderID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Contract Folder Identifier"
+            value={value.ContractFolderID?.[0]}
+            meta={GuaranteeCertificateFieldMeta.ContractFolderID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-GuaranteeCertificate ubl-Date ubl-IssueDate"
-          meta={GuaranteeCertificateFieldMeta.IssueDate} 
-          value={value.IssueDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Issue Date"
-              value={itemValue}
-              meta={GuaranteeCertificateFieldMeta.IssueDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Issue Date"
+            value={value.IssueDate?.[0]}
+            meta={GuaranteeCertificateFieldMeta.IssueDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-GuaranteeCertificate ubl-Time ubl-IssueTime"
-          meta={GuaranteeCertificateFieldMeta.IssueTime} 
-          value={value.IssueTime}
-          itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay
-              key={key}
-              label="Issue Time"
-              value={itemValue}
-              meta={GuaranteeCertificateFieldMeta.IssueTime}
-            />
-          }
-        />
+          <TimeDisplay
+            label="Issue Time"
+            value={value.IssueTime?.[0]}
+            meta={GuaranteeCertificateFieldMeta.IssueTime}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-GuaranteeCertificate ubl-Code ubl-GuaranteeTypeCode"
-          meta={GuaranteeCertificateFieldMeta.GuaranteeTypeCode} 
-          value={value.GuaranteeTypeCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Guarantee Type Code"
-              value={itemValue}
-              meta={GuaranteeCertificateFieldMeta.GuaranteeTypeCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Guarantee Type Code"
+            value={value.GuaranteeTypeCode?.[0]}
+            meta={GuaranteeCertificateFieldMeta.GuaranteeTypeCode}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-GuaranteeCertificate ubl-Text ubl-Purpose"
-          meta={GuaranteeCertificateFieldMeta.Purpose} 
-          value={value.Purpose}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Purpose"
-              value={itemValue}
-              meta={GuaranteeCertificateFieldMeta.Purpose}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Text ubl-Purpose"
+            label="Purpose"
+            items={value.Purpose}
+            meta={GuaranteeCertificateFieldMeta.Purpose} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Purpose"
+                value={itemValue}
+                meta={GuaranteeCertificateFieldMeta.Purpose}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-GuaranteeCertificate ubl-Amount ubl-LiabilityAmount"
-          meta={GuaranteeCertificateFieldMeta.LiabilityAmount} 
-          value={value.LiabilityAmount}
-          itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay
-              key={key}
-              label="Liability"
-              value={itemValue}
-              meta={GuaranteeCertificateFieldMeta.LiabilityAmount}
-            />
-          }
-        />
+          <AmountDisplay
+            label="Liability"
+            value={value.LiabilityAmount?.[0]}
+            meta={GuaranteeCertificateFieldMeta.LiabilityAmount}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-GuaranteeCertificate ubl-Code ubl-ConstitutionCode"
-          meta={GuaranteeCertificateFieldMeta.ConstitutionCode} 
-          value={value.ConstitutionCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Constitution Code"
-              value={itemValue}
-              meta={GuaranteeCertificateFieldMeta.ConstitutionCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Constitution Code"
+            value={value.ConstitutionCode?.[0]}
+            meta={GuaranteeCertificateFieldMeta.ConstitutionCode}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-GuaranteeCertificate ubl-Text ubl-Note"
-          meta={GuaranteeCertificateFieldMeta.Note} 
-          value={value.Note}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Note"
-              value={itemValue}
-              meta={GuaranteeCertificateFieldMeta.Note}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Text ubl-Note"
+            label="Note"
+            items={value.Note}
+            meta={GuaranteeCertificateFieldMeta.Note} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Note"
+                value={itemValue}
+                meta={GuaranteeCertificateFieldMeta.Note}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-GuaranteeCertificate ubl-Period ubl-ApplicablePeriod"
-          meta={GuaranteeCertificateFieldMeta.ApplicablePeriod} 
-          value={value.ApplicablePeriod}
-          itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay
-              key={key}
-              label="Applicable Period"
-              value={itemValue}
-              meta={GuaranteeCertificateFieldMeta.ApplicablePeriod}
-            />
-          }
-        />
+          <PeriodDisplay
+            label="Applicable Period"
+            value={value.ApplicablePeriod?.[0]}
+            meta={GuaranteeCertificateFieldMeta.ApplicablePeriod}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-GuaranteeCertificate ubl-Regulation ubl-ApplicableRegulation"
-          meta={GuaranteeCertificateFieldMeta.ApplicableRegulation} 
-          value={value.ApplicableRegulation}
-          itemDisplay={ (itemValue: Regulation, key: string | number) =>
-            <RegulationDisplay
-              key={key}
-              label="Applicable Regulation"
-              value={itemValue}
-              meta={GuaranteeCertificateFieldMeta.ApplicableRegulation}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Regulation ubl-ApplicableRegulation"
+            label="Applicable Regulation"
+            items={value.ApplicableRegulation}
+            meta={GuaranteeCertificateFieldMeta.ApplicableRegulation} 
+            itemDisplay={ (itemValue: Regulation, key: string | number) =>
+              <RegulationDisplay
+                key={key}
+                label="Applicable Regulation"
+                value={itemValue}
+                meta={GuaranteeCertificateFieldMeta.ApplicableRegulation}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-GuaranteeCertificate ubl-DocumentReference ubl-GuaranteeDocumentReference"
-          meta={GuaranteeCertificateFieldMeta.GuaranteeDocumentReference} 
-          value={value.GuaranteeDocumentReference}
-          itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay
-              key={key}
-              label="Guarantee Document Reference"
-              value={itemValue}
-              meta={GuaranteeCertificateFieldMeta.GuaranteeDocumentReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-DocumentReference ubl-GuaranteeDocumentReference"
+            label="Guarantee Document Reference"
+            items={value.GuaranteeDocumentReference}
+            meta={GuaranteeCertificateFieldMeta.GuaranteeDocumentReference} 
+            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
+              <DocumentReferenceDisplay
+                key={key}
+                label="Guarantee Document Reference"
+                value={itemValue}
+                meta={GuaranteeCertificateFieldMeta.GuaranteeDocumentReference}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-GuaranteeCertificate ubl-ImmobilizedSecurity"
-          meta={GuaranteeCertificateFieldMeta.ImmobilizedSecurity} 
-          value={value.ImmobilizedSecurity}
-          itemDisplay={ (itemValue: ImmobilizedSecurity, key: string | number) =>
-            <ImmobilizedSecurityDisplay
-              key={key}
-              label="Immobilized Security"
-              value={itemValue}
-              meta={GuaranteeCertificateFieldMeta.ImmobilizedSecurity}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-ImmobilizedSecurity"
+            label="Immobilized Security"
+            items={value.ImmobilizedSecurity}
+            meta={GuaranteeCertificateFieldMeta.ImmobilizedSecurity} 
+            itemDisplay={ (itemValue: ImmobilizedSecurity, key: string | number) =>
+              <ImmobilizedSecurityDisplay
+                key={key}
+                label="Immobilized Security"
+                value={itemValue}
+                meta={GuaranteeCertificateFieldMeta.ImmobilizedSecurity}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-GuaranteeCertificate ubl-Signature"
-          meta={GuaranteeCertificateFieldMeta.Signature} 
-          value={value.Signature}
-          itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay
-              key={key}
-              label="Signature"
-              value={itemValue}
-              meta={GuaranteeCertificateFieldMeta.Signature}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Signature"
+            label="Signature"
+            items={value.Signature}
+            meta={GuaranteeCertificateFieldMeta.Signature} 
+            itemDisplay={ (itemValue: Signature, key: string | number) =>
+              <SignatureDisplay
+                key={key}
+                label="Signature"
+                value={itemValue}
+                meta={GuaranteeCertificateFieldMeta.Signature}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-GuaranteeCertificate ubl-Party ubl-GuarantorParty"
-          meta={GuaranteeCertificateFieldMeta.GuarantorParty} 
-          value={value.GuarantorParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Guarantor Party"
-              value={itemValue}
-              meta={GuaranteeCertificateFieldMeta.GuarantorParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Guarantor Party"
+            value={value.GuarantorParty?.[0]}
+            meta={GuaranteeCertificateFieldMeta.GuarantorParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-GuaranteeCertificate ubl-Party ubl-InterestedParty"
-          meta={GuaranteeCertificateFieldMeta.InterestedParty} 
-          value={value.InterestedParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Interested Party"
-              value={itemValue}
-              meta={GuaranteeCertificateFieldMeta.InterestedParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Interested Party"
+            value={value.InterestedParty?.[0]}
+            meta={GuaranteeCertificateFieldMeta.InterestedParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-GuaranteeCertificate ubl-Party ubl-BeneficiaryParty"
-          meta={GuaranteeCertificateFieldMeta.BeneficiaryParty} 
-          value={value.BeneficiaryParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Beneficiary Party"
-              value={itemValue}
-              meta={GuaranteeCertificateFieldMeta.BeneficiaryParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Beneficiary Party"
+            value={value.BeneficiaryParty?.[0]}
+            meta={GuaranteeCertificateFieldMeta.BeneficiaryParty}
+          />
         </div>
     </div>
   )

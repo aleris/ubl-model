@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { FinancialInstitution } from  '../../model/cac/FinancialInstitution'
 import { FinancialInstitutionFieldMeta } from  '../../meta/cac/FinancialInstitutionMeta'
@@ -15,70 +14,42 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: FinancialInstitution
+  value: FinancialInstitution | undefined
   meta: FieldMeta<T>
 }
 
 export default function FinancialInstitutionDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-FinancialInstitution ubl-FinancialInstitutionType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-FinancialInstitution ubl-UBLExtensions"
-          meta={FinancialInstitutionFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={FinancialInstitutionFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-FinancialInstitution">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={FinancialInstitutionFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-FinancialInstitution ubl-Identifier ubl-ID"
-          meta={FinancialInstitutionFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={FinancialInstitutionFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={FinancialInstitutionFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-FinancialInstitution ubl-Text ubl-Name"
-          meta={FinancialInstitutionFieldMeta.Name} 
-          value={value.Name}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Name"
-              value={itemValue}
-              meta={FinancialInstitutionFieldMeta.Name}
-            />
-          }
-        />
+          <TextDisplay
+            label="Name"
+            value={value.Name?.[0]}
+            meta={FinancialInstitutionFieldMeta.Name}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-FinancialInstitution ubl-Address"
-          meta={FinancialInstitutionFieldMeta.Address} 
-          value={value.Address}
-          itemDisplay={ (itemValue: Address, key: string | number) =>
-            <AddressDisplay
-              key={key}
-              label="Address"
-              value={itemValue}
-              meta={FinancialInstitutionFieldMeta.Address}
-            />
-          }
-        />
+          <AddressDisplay
+            label="Address"
+            value={value.Address?.[0]}
+            meta={FinancialInstitutionFieldMeta.Address}
+          />
         </div>
     </div>
   )

@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { PowerOfAttorney } from  '../../model/cac/PowerOfAttorney'
 import { PowerOfAttorneyFieldMeta } from  '../../meta/cac/PowerOfAttorneyMeta'
@@ -21,140 +20,99 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: PowerOfAttorney
+  value: PowerOfAttorney | undefined
   meta: FieldMeta<T>
 }
 
 export default function PowerOfAttorneyDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-PowerOfAttorney ubl-PowerOfAttorneyType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-PowerOfAttorney ubl-UBLExtensions"
-          meta={PowerOfAttorneyFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={PowerOfAttorneyFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-PowerOfAttorney">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={PowerOfAttorneyFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PowerOfAttorney ubl-Identifier ubl-ID"
-          meta={PowerOfAttorneyFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={PowerOfAttorneyFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={PowerOfAttorneyFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PowerOfAttorney ubl-Date ubl-IssueDate"
-          meta={PowerOfAttorneyFieldMeta.IssueDate} 
-          value={value.IssueDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Issue Date"
-              value={itemValue}
-              meta={PowerOfAttorneyFieldMeta.IssueDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Issue Date"
+            value={value.IssueDate?.[0]}
+            meta={PowerOfAttorneyFieldMeta.IssueDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PowerOfAttorney ubl-Time ubl-IssueTime"
-          meta={PowerOfAttorneyFieldMeta.IssueTime} 
-          value={value.IssueTime}
-          itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay
-              key={key}
-              label="Issue Time"
-              value={itemValue}
-              meta={PowerOfAttorneyFieldMeta.IssueTime}
-            />
-          }
-        />
+          <TimeDisplay
+            label="Issue Time"
+            value={value.IssueTime?.[0]}
+            meta={PowerOfAttorneyFieldMeta.IssueTime}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-PowerOfAttorney ubl-Text ubl-Description"
-          meta={PowerOfAttorneyFieldMeta.Description} 
-          value={value.Description}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Description"
-              value={itemValue}
-              meta={PowerOfAttorneyFieldMeta.Description}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Description"
+            label="Description"
+            items={value.Description}
+            meta={PowerOfAttorneyFieldMeta.Description} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Description"
+                value={itemValue}
+                meta={PowerOfAttorneyFieldMeta.Description}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-PowerOfAttorney ubl-Party ubl-NotaryParty"
-          meta={PowerOfAttorneyFieldMeta.NotaryParty} 
-          value={value.NotaryParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Notary Party"
-              value={itemValue}
-              meta={PowerOfAttorneyFieldMeta.NotaryParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Notary Party"
+            value={value.NotaryParty?.[0]}
+            meta={PowerOfAttorneyFieldMeta.NotaryParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-PowerOfAttorney ubl-Party ubl-AgentParty"
-          meta={PowerOfAttorneyFieldMeta.AgentParty} 
-          value={value.AgentParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Agent Party"
-              value={itemValue}
-              meta={PowerOfAttorneyFieldMeta.AgentParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Agent Party"
+            value={value.AgentParty?.[0]}
+            meta={PowerOfAttorneyFieldMeta.AgentParty}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-PowerOfAttorney ubl-Party ubl-WitnessParty"
-          meta={PowerOfAttorneyFieldMeta.WitnessParty} 
-          value={value.WitnessParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Witness Party"
-              value={itemValue}
-              meta={PowerOfAttorneyFieldMeta.WitnessParty}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Party ubl-WitnessParty"
+            label="Witness Party"
+            items={value.WitnessParty}
+            meta={PowerOfAttorneyFieldMeta.WitnessParty} 
+            itemDisplay={ (itemValue: Party, key: string | number) =>
+              <PartyDisplay
+                key={key}
+                label="Witness Party"
+                value={itemValue}
+                meta={PowerOfAttorneyFieldMeta.WitnessParty}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-PowerOfAttorney ubl-DocumentReference ubl-MandateDocumentReference"
-          meta={PowerOfAttorneyFieldMeta.MandateDocumentReference} 
-          value={value.MandateDocumentReference}
-          itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay
-              key={key}
-              label="Mandate Document Reference"
-              value={itemValue}
-              meta={PowerOfAttorneyFieldMeta.MandateDocumentReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-DocumentReference ubl-MandateDocumentReference"
+            label="Mandate Document Reference"
+            items={value.MandateDocumentReference}
+            meta={PowerOfAttorneyFieldMeta.MandateDocumentReference} 
+            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
+              <DocumentReferenceDisplay
+                key={key}
+                label="Mandate Document Reference"
+                value={itemValue}
+                meta={PowerOfAttorneyFieldMeta.MandateDocumentReference}
+              />
+            }
+          />
         </div>
     </div>
   )

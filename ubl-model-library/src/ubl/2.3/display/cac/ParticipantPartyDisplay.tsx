@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ParticipantParty } from  '../../model/cac/ParticipantParty'
 import { ParticipantPartyFieldMeta } from  '../../meta/cac/ParticipantPartyMeta'
@@ -15,154 +14,78 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: ParticipantParty
+  value: ParticipantParty | undefined
   meta: FieldMeta<T>
 }
 
 export default function ParticipantPartyDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-ParticipantParty ubl-ParticipantPartyType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-ParticipantParty ubl-UBLExtensions"
-          meta={ParticipantPartyFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={ParticipantPartyFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-ParticipantParty">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={ParticipantPartyFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ParticipantParty ubl-Indicator ubl-InitiatingPartyIndicator"
-          meta={ParticipantPartyFieldMeta.InitiatingPartyIndicator} 
-          value={value.InitiatingPartyIndicator}
-          itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay
-              key={key}
-              label="Initiating Party Indicator"
-              value={itemValue}
-              meta={ParticipantPartyFieldMeta.InitiatingPartyIndicator}
-            />
-          }
-        />
+          <IndicatorDisplay
+            label="Initiating Party Indicator"
+            value={value.InitiatingPartyIndicator?.[0]}
+            meta={ParticipantPartyFieldMeta.InitiatingPartyIndicator}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ParticipantParty ubl-Indicator ubl-PrivatePartyIndicator"
-          meta={ParticipantPartyFieldMeta.PrivatePartyIndicator} 
-          value={value.PrivatePartyIndicator}
-          itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay
-              key={key}
-              label="Private Party Indicator"
-              value={itemValue}
-              meta={ParticipantPartyFieldMeta.PrivatePartyIndicator}
-            />
-          }
-        />
+          <IndicatorDisplay
+            label="Private Party Indicator"
+            value={value.PrivatePartyIndicator?.[0]}
+            meta={ParticipantPartyFieldMeta.PrivatePartyIndicator}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ParticipantParty ubl-Indicator ubl-PublicPartyIndicator"
-          meta={ParticipantPartyFieldMeta.PublicPartyIndicator} 
-          value={value.PublicPartyIndicator}
-          itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay
-              key={key}
-              label="Public Party Indicator"
-              value={itemValue}
-              meta={ParticipantPartyFieldMeta.PublicPartyIndicator}
-            />
-          }
-        />
+          <IndicatorDisplay
+            label="Public Party Indicator"
+            value={value.PublicPartyIndicator?.[0]}
+            meta={ParticipantPartyFieldMeta.PublicPartyIndicator}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ParticipantParty ubl-Indicator ubl-ServiceProviderPartyIndicator"
-          meta={ParticipantPartyFieldMeta.ServiceProviderPartyIndicator} 
-          value={value.ServiceProviderPartyIndicator}
-          itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay
-              key={key}
-              label="Service Provider Party Indicator"
-              value={itemValue}
-              meta={ParticipantPartyFieldMeta.ServiceProviderPartyIndicator}
-            />
-          }
-        />
+          <IndicatorDisplay
+            label="Service Provider Party Indicator"
+            value={value.ServiceProviderPartyIndicator?.[0]}
+            meta={ParticipantPartyFieldMeta.ServiceProviderPartyIndicator}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-ParticipantParty ubl-Party"
-          meta={ParticipantPartyFieldMeta.Party} 
-          value={value.Party}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Party"
-              value={itemValue}
-              meta={ParticipantPartyFieldMeta.Party}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Party"
+            value={value.Party?.[0]}
+            meta={ParticipantPartyFieldMeta.Party}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-ParticipantParty ubl-Contact ubl-LegalContact"
-          meta={ParticipantPartyFieldMeta.LegalContact} 
-          value={value.LegalContact}
-          itemDisplay={ (itemValue: Contact, key: string | number) =>
-            <ContactDisplay
-              key={key}
-              label="Legal Contact"
-              value={itemValue}
-              meta={ParticipantPartyFieldMeta.LegalContact}
-            />
-          }
-        />
+          <ContactDisplay
+            label="Legal Contact"
+            value={value.LegalContact?.[0]}
+            meta={ParticipantPartyFieldMeta.LegalContact}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-ParticipantParty ubl-Contact ubl-TechnicalContact"
-          meta={ParticipantPartyFieldMeta.TechnicalContact} 
-          value={value.TechnicalContact}
-          itemDisplay={ (itemValue: Contact, key: string | number) =>
-            <ContactDisplay
-              key={key}
-              label="Technical Contact"
-              value={itemValue}
-              meta={ParticipantPartyFieldMeta.TechnicalContact}
-            />
-          }
-        />
+          <ContactDisplay
+            label="Technical Contact"
+            value={value.TechnicalContact?.[0]}
+            meta={ParticipantPartyFieldMeta.TechnicalContact}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-ParticipantParty ubl-Contact ubl-SupportContact"
-          meta={ParticipantPartyFieldMeta.SupportContact} 
-          value={value.SupportContact}
-          itemDisplay={ (itemValue: Contact, key: string | number) =>
-            <ContactDisplay
-              key={key}
-              label="Support Contact"
-              value={itemValue}
-              meta={ParticipantPartyFieldMeta.SupportContact}
-            />
-          }
-        />
+          <ContactDisplay
+            label="Support Contact"
+            value={value.SupportContact?.[0]}
+            meta={ParticipantPartyFieldMeta.SupportContact}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-ParticipantParty ubl-Contact ubl-CommercialContact"
-          meta={ParticipantPartyFieldMeta.CommercialContact} 
-          value={value.CommercialContact}
-          itemDisplay={ (itemValue: Contact, key: string | number) =>
-            <ContactDisplay
-              key={key}
-              label="Commercial Contact"
-              value={itemValue}
-              meta={ParticipantPartyFieldMeta.CommercialContact}
-            />
-          }
-        />
+          <ContactDisplay
+            label="Commercial Contact"
+            value={value.CommercialContact?.[0]}
+            meta={ParticipantPartyFieldMeta.CommercialContact}
+          />
         </div>
     </div>
   )

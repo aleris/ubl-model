@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { AddressLine } from  '../../model/cac/AddressLine'
 import { AddressLineFieldMeta } from  '../../meta/cac/AddressLineMeta'
@@ -11,42 +10,30 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: AddressLine
+  value: AddressLine | undefined
   meta: FieldMeta<T>
 }
 
 export default function AddressLineDisplay<T>({ label, value, meta }: Props<T>) {
-  return (
-    <div className="ubl-cac ubl-AddressLine ubl-AddressLineType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-AddressLine ubl-UBLExtensions"
-          meta={AddressLineFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={AddressLineFieldMeta.UBLExtensions}
-            />
-          }
-        />
+  if (value === undefined) {
+      return null
+  }
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-AddressLine ubl-Text ubl-Line"
-          meta={AddressLineFieldMeta.Line} 
-          value={value.Line}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Line"
-              value={itemValue}
-              meta={AddressLineFieldMeta.Line}
-            />
-          }
-        />
+  return (
+    <div className="ubl-cac ubl-AddressLine">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={AddressLineFieldMeta.UBLExtensions}
+          />
+
+          <TextDisplay
+            label="Line"
+            value={value.Line?.[0]}
+            meta={AddressLineFieldMeta.Line}
+          />
         </div>
     </div>
   )

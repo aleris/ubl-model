@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { FulfilmentCancellation } from  '../../model/doc/FulfilmentCancellation'
 import { FulfilmentCancellationFieldMeta } from  '../../meta/doc/FulfilmentCancellationMeta'
@@ -31,336 +30,228 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: FulfilmentCancellation
+  value: FulfilmentCancellation | undefined
   meta: FieldMeta<T>
 }
 
 export default function FulfilmentCancellationDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-doc ubl-FulfilmentCancellation ubl-FulfilmentCancellationType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-FulfilmentCancellation ubl-UBLExtensions"
-          meta={FulfilmentCancellationFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={FulfilmentCancellationFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-doc ubl-FulfilmentCancellation">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={FulfilmentCancellationFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-FulfilmentCancellation ubl-Identifier ubl-UBLVersionID"
-          meta={FulfilmentCancellationFieldMeta.UBLVersionID} 
-          value={value.UBLVersionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="UBL Version Identifier"
-              value={itemValue}
-              meta={FulfilmentCancellationFieldMeta.UBLVersionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="UBL Version Identifier"
+            value={value.UBLVersionID?.[0]}
+            meta={FulfilmentCancellationFieldMeta.UBLVersionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-FulfilmentCancellation ubl-Identifier ubl-CustomizationID"
-          meta={FulfilmentCancellationFieldMeta.CustomizationID} 
-          value={value.CustomizationID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Customization Identifier"
-              value={itemValue}
-              meta={FulfilmentCancellationFieldMeta.CustomizationID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Customization Identifier"
+            value={value.CustomizationID?.[0]}
+            meta={FulfilmentCancellationFieldMeta.CustomizationID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-FulfilmentCancellation ubl-Identifier ubl-ProfileID"
-          meta={FulfilmentCancellationFieldMeta.ProfileID} 
-          value={value.ProfileID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Profile Identifier"
-              value={itemValue}
-              meta={FulfilmentCancellationFieldMeta.ProfileID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Profile Identifier"
+            value={value.ProfileID?.[0]}
+            meta={FulfilmentCancellationFieldMeta.ProfileID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-FulfilmentCancellation ubl-Identifier ubl-ProfileExecutionID"
-          meta={FulfilmentCancellationFieldMeta.ProfileExecutionID} 
-          value={value.ProfileExecutionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Profile Execution Identifier"
-              value={itemValue}
-              meta={FulfilmentCancellationFieldMeta.ProfileExecutionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Profile Execution Identifier"
+            value={value.ProfileExecutionID?.[0]}
+            meta={FulfilmentCancellationFieldMeta.ProfileExecutionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-FulfilmentCancellation ubl-Identifier ubl-ID"
-          meta={FulfilmentCancellationFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={FulfilmentCancellationFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={FulfilmentCancellationFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-FulfilmentCancellation ubl-Indicator ubl-CopyIndicator"
-          meta={FulfilmentCancellationFieldMeta.CopyIndicator} 
-          value={value.CopyIndicator}
-          itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay
-              key={key}
-              label="Copy Indicator"
-              value={itemValue}
-              meta={FulfilmentCancellationFieldMeta.CopyIndicator}
-            />
-          }
-        />
+          <IndicatorDisplay
+            label="Copy Indicator"
+            value={value.CopyIndicator?.[0]}
+            meta={FulfilmentCancellationFieldMeta.CopyIndicator}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-FulfilmentCancellation ubl-Identifier ubl-UUID"
-          meta={FulfilmentCancellationFieldMeta.UUID} 
-          value={value.UUID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="UUID"
-              value={itemValue}
-              meta={FulfilmentCancellationFieldMeta.UUID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="UUID"
+            value={value.UUID?.[0]}
+            meta={FulfilmentCancellationFieldMeta.UUID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-FulfilmentCancellation ubl-Date ubl-IssueDate"
-          meta={FulfilmentCancellationFieldMeta.IssueDate} 
-          value={value.IssueDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Issue Date"
-              value={itemValue}
-              meta={FulfilmentCancellationFieldMeta.IssueDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Issue Date"
+            value={value.IssueDate?.[0]}
+            meta={FulfilmentCancellationFieldMeta.IssueDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-FulfilmentCancellation ubl-Time ubl-IssueTime"
-          meta={FulfilmentCancellationFieldMeta.IssueTime} 
-          value={value.IssueTime}
-          itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay
-              key={key}
-              label="Issue Time"
-              value={itemValue}
-              meta={FulfilmentCancellationFieldMeta.IssueTime}
-            />
-          }
-        />
+          <TimeDisplay
+            label="Issue Time"
+            value={value.IssueTime?.[0]}
+            meta={FulfilmentCancellationFieldMeta.IssueTime}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-FulfilmentCancellation ubl-Text ubl-Note"
-          meta={FulfilmentCancellationFieldMeta.Note} 
-          value={value.Note}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Note"
-              value={itemValue}
-              meta={FulfilmentCancellationFieldMeta.Note}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Text ubl-Note"
+            label="Note"
+            items={value.Note}
+            meta={FulfilmentCancellationFieldMeta.Note} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Note"
+                value={itemValue}
+                meta={FulfilmentCancellationFieldMeta.Note}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-FulfilmentCancellation ubl-Text ubl-CancellationNote"
-          meta={FulfilmentCancellationFieldMeta.CancellationNote} 
-          value={value.CancellationNote}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Cancellation Note"
-              value={itemValue}
-              meta={FulfilmentCancellationFieldMeta.CancellationNote}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Text ubl-CancellationNote"
+            label="Cancellation Note"
+            items={value.CancellationNote}
+            meta={FulfilmentCancellationFieldMeta.CancellationNote} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Cancellation Note"
+                value={itemValue}
+                meta={FulfilmentCancellationFieldMeta.CancellationNote}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-FulfilmentCancellation ubl-DocumentReference ubl-DespatchDocumentReference"
-          meta={FulfilmentCancellationFieldMeta.DespatchDocumentReference} 
-          value={value.DespatchDocumentReference}
-          itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay
-              key={key}
-              label="Despatch Document Reference"
-              value={itemValue}
-              meta={FulfilmentCancellationFieldMeta.DespatchDocumentReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-DocumentReference ubl-DespatchDocumentReference"
+            label="Despatch Document Reference"
+            items={value.DespatchDocumentReference}
+            meta={FulfilmentCancellationFieldMeta.DespatchDocumentReference} 
+            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
+              <DocumentReferenceDisplay
+                key={key}
+                label="Despatch Document Reference"
+                value={itemValue}
+                meta={FulfilmentCancellationFieldMeta.DespatchDocumentReference}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-FulfilmentCancellation ubl-DocumentReference ubl-ReceiptDocumentReference"
-          meta={FulfilmentCancellationFieldMeta.ReceiptDocumentReference} 
-          value={value.ReceiptDocumentReference}
-          itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay
-              key={key}
-              label="Receipt Document Reference"
-              value={itemValue}
-              meta={FulfilmentCancellationFieldMeta.ReceiptDocumentReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-DocumentReference ubl-ReceiptDocumentReference"
+            label="Receipt Document Reference"
+            items={value.ReceiptDocumentReference}
+            meta={FulfilmentCancellationFieldMeta.ReceiptDocumentReference} 
+            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
+              <DocumentReferenceDisplay
+                key={key}
+                label="Receipt Document Reference"
+                value={itemValue}
+                meta={FulfilmentCancellationFieldMeta.ReceiptDocumentReference}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-FulfilmentCancellation ubl-OrderReference"
-          meta={FulfilmentCancellationFieldMeta.OrderReference} 
-          value={value.OrderReference}
-          itemDisplay={ (itemValue: OrderReference, key: string | number) =>
-            <OrderReferenceDisplay
-              key={key}
-              label="Order Reference"
-              value={itemValue}
-              meta={FulfilmentCancellationFieldMeta.OrderReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-OrderReference"
+            label="Order Reference"
+            items={value.OrderReference}
+            meta={FulfilmentCancellationFieldMeta.OrderReference} 
+            itemDisplay={ (itemValue: OrderReference, key: string | number) =>
+              <OrderReferenceDisplay
+                key={key}
+                label="Order Reference"
+                value={itemValue}
+                meta={FulfilmentCancellationFieldMeta.OrderReference}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-FulfilmentCancellation ubl-DocumentReference ubl-AdditionalDocumentReference"
-          meta={FulfilmentCancellationFieldMeta.AdditionalDocumentReference} 
-          value={value.AdditionalDocumentReference}
-          itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay
-              key={key}
-              label="Additional Document Reference"
-              value={itemValue}
-              meta={FulfilmentCancellationFieldMeta.AdditionalDocumentReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-DocumentReference ubl-AdditionalDocumentReference"
+            label="Additional Document Reference"
+            items={value.AdditionalDocumentReference}
+            meta={FulfilmentCancellationFieldMeta.AdditionalDocumentReference} 
+            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
+              <DocumentReferenceDisplay
+                key={key}
+                label="Additional Document Reference"
+                value={itemValue}
+                meta={FulfilmentCancellationFieldMeta.AdditionalDocumentReference}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-FulfilmentCancellation ubl-Contract"
-          meta={FulfilmentCancellationFieldMeta.Contract} 
-          value={value.Contract}
-          itemDisplay={ (itemValue: Contract, key: string | number) =>
-            <ContractDisplay
-              key={key}
-              label="Contract"
-              value={itemValue}
-              meta={FulfilmentCancellationFieldMeta.Contract}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Contract"
+            label="Contract"
+            items={value.Contract}
+            meta={FulfilmentCancellationFieldMeta.Contract} 
+            itemDisplay={ (itemValue: Contract, key: string | number) =>
+              <ContractDisplay
+                key={key}
+                label="Contract"
+                value={itemValue}
+                meta={FulfilmentCancellationFieldMeta.Contract}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-FulfilmentCancellation ubl-Signature"
-          meta={FulfilmentCancellationFieldMeta.Signature} 
-          value={value.Signature}
-          itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay
-              key={key}
-              label="Signature"
-              value={itemValue}
-              meta={FulfilmentCancellationFieldMeta.Signature}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Signature"
+            label="Signature"
+            items={value.Signature}
+            meta={FulfilmentCancellationFieldMeta.Signature} 
+            itemDisplay={ (itemValue: Signature, key: string | number) =>
+              <SignatureDisplay
+                key={key}
+                label="Signature"
+                value={itemValue}
+                meta={FulfilmentCancellationFieldMeta.Signature}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-FulfilmentCancellation ubl-CustomerParty ubl-BuyerCustomerParty"
-          meta={FulfilmentCancellationFieldMeta.BuyerCustomerParty} 
-          value={value.BuyerCustomerParty}
-          itemDisplay={ (itemValue: CustomerParty, key: string | number) =>
-            <CustomerPartyDisplay
-              key={key}
-              label="Buyer Customer Party"
-              value={itemValue}
-              meta={FulfilmentCancellationFieldMeta.BuyerCustomerParty}
-            />
-          }
-        />
+          <CustomerPartyDisplay
+            label="Buyer Customer Party"
+            value={value.BuyerCustomerParty?.[0]}
+            meta={FulfilmentCancellationFieldMeta.BuyerCustomerParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-FulfilmentCancellation ubl-SupplierParty ubl-SellerSupplierParty"
-          meta={FulfilmentCancellationFieldMeta.SellerSupplierParty} 
-          value={value.SellerSupplierParty}
-          itemDisplay={ (itemValue: SupplierParty, key: string | number) =>
-            <SupplierPartyDisplay
-              key={key}
-              label="Seller Supplier Party"
-              value={itemValue}
-              meta={FulfilmentCancellationFieldMeta.SellerSupplierParty}
-            />
-          }
-        />
+          <SupplierPartyDisplay
+            label="Seller Supplier Party"
+            value={value.SellerSupplierParty?.[0]}
+            meta={FulfilmentCancellationFieldMeta.SellerSupplierParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-FulfilmentCancellation ubl-CustomerParty ubl-DeliveryCustomerParty"
-          meta={FulfilmentCancellationFieldMeta.DeliveryCustomerParty} 
-          value={value.DeliveryCustomerParty}
-          itemDisplay={ (itemValue: CustomerParty, key: string | number) =>
-            <CustomerPartyDisplay
-              key={key}
-              label="Delivery Customer Party"
-              value={itemValue}
-              meta={FulfilmentCancellationFieldMeta.DeliveryCustomerParty}
-            />
-          }
-        />
+          <CustomerPartyDisplay
+            label="Delivery Customer Party"
+            value={value.DeliveryCustomerParty?.[0]}
+            meta={FulfilmentCancellationFieldMeta.DeliveryCustomerParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-FulfilmentCancellation ubl-SupplierParty ubl-DespatchSupplierParty"
-          meta={FulfilmentCancellationFieldMeta.DespatchSupplierParty} 
-          value={value.DespatchSupplierParty}
-          itemDisplay={ (itemValue: SupplierParty, key: string | number) =>
-            <SupplierPartyDisplay
-              key={key}
-              label="Despatch Supplier Party"
-              value={itemValue}
-              meta={FulfilmentCancellationFieldMeta.DespatchSupplierParty}
-            />
-          }
-        />
+          <SupplierPartyDisplay
+            label="Despatch Supplier Party"
+            value={value.DespatchSupplierParty?.[0]}
+            meta={FulfilmentCancellationFieldMeta.DespatchSupplierParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-FulfilmentCancellation ubl-CustomerParty ubl-OriginatorCustomerParty"
-          meta={FulfilmentCancellationFieldMeta.OriginatorCustomerParty} 
-          value={value.OriginatorCustomerParty}
-          itemDisplay={ (itemValue: CustomerParty, key: string | number) =>
-            <CustomerPartyDisplay
-              key={key}
-              label="Originator Customer Party"
-              value={itemValue}
-              meta={FulfilmentCancellationFieldMeta.OriginatorCustomerParty}
-            />
-          }
-        />
+          <CustomerPartyDisplay
+            label="Originator Customer Party"
+            value={value.OriginatorCustomerParty?.[0]}
+            meta={FulfilmentCancellationFieldMeta.OriginatorCustomerParty}
+          />
         </div>
     </div>
   )

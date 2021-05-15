@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ProofOfReexportation } from  '../../model/doc/ProofOfReexportation'
 import { ProofOfReexportationFieldMeta } from  '../../meta/doc/ProofOfReexportationMeta'
@@ -29,252 +28,165 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: ProofOfReexportation
+  value: ProofOfReexportation | undefined
   meta: FieldMeta<T>
 }
 
 export default function ProofOfReexportationDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-doc ubl-ProofOfReexportation ubl-ProofOfReexportationType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-ProofOfReexportation ubl-UBLExtensions"
-          meta={ProofOfReexportationFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={ProofOfReexportationFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-doc ubl-ProofOfReexportation">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={ProofOfReexportationFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ProofOfReexportation ubl-Identifier ubl-UBLVersionID"
-          meta={ProofOfReexportationFieldMeta.UBLVersionID} 
-          value={value.UBLVersionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="UBL Version Identifier"
-              value={itemValue}
-              meta={ProofOfReexportationFieldMeta.UBLVersionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="UBL Version Identifier"
+            value={value.UBLVersionID?.[0]}
+            meta={ProofOfReexportationFieldMeta.UBLVersionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ProofOfReexportation ubl-Identifier ubl-CustomizationID"
-          meta={ProofOfReexportationFieldMeta.CustomizationID} 
-          value={value.CustomizationID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Customization Identifier"
-              value={itemValue}
-              meta={ProofOfReexportationFieldMeta.CustomizationID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Customization Identifier"
+            value={value.CustomizationID?.[0]}
+            meta={ProofOfReexportationFieldMeta.CustomizationID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ProofOfReexportation ubl-Identifier ubl-ProfileID"
-          meta={ProofOfReexportationFieldMeta.ProfileID} 
-          value={value.ProfileID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Profile Identifier"
-              value={itemValue}
-              meta={ProofOfReexportationFieldMeta.ProfileID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Profile Identifier"
+            value={value.ProfileID?.[0]}
+            meta={ProofOfReexportationFieldMeta.ProfileID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ProofOfReexportation ubl-Identifier ubl-ProfileExecutionID"
-          meta={ProofOfReexportationFieldMeta.ProfileExecutionID} 
-          value={value.ProfileExecutionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Profile Execution Identifier"
-              value={itemValue}
-              meta={ProofOfReexportationFieldMeta.ProfileExecutionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Profile Execution Identifier"
+            value={value.ProfileExecutionID?.[0]}
+            meta={ProofOfReexportationFieldMeta.ProfileExecutionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ProofOfReexportation ubl-Identifier ubl-ID"
-          meta={ProofOfReexportationFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={ProofOfReexportationFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={ProofOfReexportationFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ProofOfReexportation ubl-Identifier ubl-UUID"
-          meta={ProofOfReexportationFieldMeta.UUID} 
-          value={value.UUID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="UUID"
-              value={itemValue}
-              meta={ProofOfReexportationFieldMeta.UUID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="UUID"
+            value={value.UUID?.[0]}
+            meta={ProofOfReexportationFieldMeta.UUID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ProofOfReexportation ubl-Date ubl-IssueDate"
-          meta={ProofOfReexportationFieldMeta.IssueDate} 
-          value={value.IssueDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Issue Date"
-              value={itemValue}
-              meta={ProofOfReexportationFieldMeta.IssueDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Issue Date"
+            value={value.IssueDate?.[0]}
+            meta={ProofOfReexportationFieldMeta.IssueDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ProofOfReexportation ubl-Time ubl-IssueTime"
-          meta={ProofOfReexportationFieldMeta.IssueTime} 
-          value={value.IssueTime}
-          itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay
-              key={key}
-              label="Issue Time"
-              value={itemValue}
-              meta={ProofOfReexportationFieldMeta.IssueTime}
-            />
-          }
-        />
+          <TimeDisplay
+            label="Issue Time"
+            value={value.IssueTime?.[0]}
+            meta={ProofOfReexportationFieldMeta.IssueTime}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-ProofOfReexportation ubl-Text ubl-Note"
-          meta={ProofOfReexportationFieldMeta.Note} 
-          value={value.Note}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Note"
-              value={itemValue}
-              meta={ProofOfReexportationFieldMeta.Note}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Text ubl-Note"
+            label="Note"
+            items={value.Note}
+            meta={ProofOfReexportationFieldMeta.Note} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Note"
+                value={itemValue}
+                meta={ProofOfReexportationFieldMeta.Note}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ProofOfReexportation ubl-Identifier ubl-VersionID"
-          meta={ProofOfReexportationFieldMeta.VersionID} 
-          value={value.VersionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Version"
-              value={itemValue}
-              meta={ProofOfReexportationFieldMeta.VersionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Version"
+            value={value.VersionID?.[0]}
+            meta={ProofOfReexportationFieldMeta.VersionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-ProofOfReexportation ubl-Party ubl-IssuerParty"
-          meta={ProofOfReexportationFieldMeta.IssuerParty} 
-          value={value.IssuerParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Issuer Party"
-              value={itemValue}
-              meta={ProofOfReexportationFieldMeta.IssuerParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Issuer Party"
+            value={value.IssuerParty?.[0]}
+            meta={ProofOfReexportationFieldMeta.IssuerParty}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-ProofOfReexportation ubl-GoodsItemPassportCounterfoil"
-          meta={ProofOfReexportationFieldMeta.GoodsItemPassportCounterfoil} 
-          value={value.GoodsItemPassportCounterfoil}
-          itemDisplay={ (itemValue: GoodsItemPassportCounterfoil, key: string | number) =>
-            <GoodsItemPassportCounterfoilDisplay
-              key={key}
-              label="Goods Item Passport Counterfoil"
-              value={itemValue}
-              meta={ProofOfReexportationFieldMeta.GoodsItemPassportCounterfoil}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-GoodsItemPassportCounterfoil"
+            label="Goods Item Passport Counterfoil"
+            items={value.GoodsItemPassportCounterfoil}
+            meta={ProofOfReexportationFieldMeta.GoodsItemPassportCounterfoil} 
+            itemDisplay={ (itemValue: GoodsItemPassportCounterfoil, key: string | number) =>
+              <GoodsItemPassportCounterfoilDisplay
+                key={key}
+                label="Goods Item Passport Counterfoil"
+                value={itemValue}
+                meta={ProofOfReexportationFieldMeta.GoodsItemPassportCounterfoil}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-ProofOfReexportation ubl-Evidence ubl-ReexportationEvidence"
-          meta={ProofOfReexportationFieldMeta.ReexportationEvidence} 
-          value={value.ReexportationEvidence}
-          itemDisplay={ (itemValue: Evidence, key: string | number) =>
-            <EvidenceDisplay
-              key={key}
-              label="Reexportation Evidence"
-              value={itemValue}
-              meta={ProofOfReexportationFieldMeta.ReexportationEvidence}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Evidence ubl-ReexportationEvidence"
+            label="Reexportation Evidence"
+            items={value.ReexportationEvidence}
+            meta={ProofOfReexportationFieldMeta.ReexportationEvidence} 
+            itemDisplay={ (itemValue: Evidence, key: string | number) =>
+              <EvidenceDisplay
+                key={key}
+                label="Reexportation Evidence"
+                value={itemValue}
+                meta={ProofOfReexportationFieldMeta.ReexportationEvidence}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-ProofOfReexportation ubl-Attachment ubl-GoodsItemPassportAttachment"
-          meta={ProofOfReexportationFieldMeta.GoodsItemPassportAttachment} 
-          value={value.GoodsItemPassportAttachment}
-          itemDisplay={ (itemValue: Attachment, key: string | number) =>
-            <AttachmentDisplay
-              key={key}
-              label="Goods Item Passport Attachment"
-              value={itemValue}
-              meta={ProofOfReexportationFieldMeta.GoodsItemPassportAttachment}
-            />
-          }
-        />
+          <AttachmentDisplay
+            label="Goods Item Passport Attachment"
+            value={value.GoodsItemPassportAttachment?.[0]}
+            meta={ProofOfReexportationFieldMeta.GoodsItemPassportAttachment}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-ProofOfReexportation ubl-DocumentReference ubl-AdditionalDocumentReference"
-          meta={ProofOfReexportationFieldMeta.AdditionalDocumentReference} 
-          value={value.AdditionalDocumentReference}
-          itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay
-              key={key}
-              label="Additional Document Reference"
-              value={itemValue}
-              meta={ProofOfReexportationFieldMeta.AdditionalDocumentReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-DocumentReference ubl-AdditionalDocumentReference"
+            label="Additional Document Reference"
+            items={value.AdditionalDocumentReference}
+            meta={ProofOfReexportationFieldMeta.AdditionalDocumentReference} 
+            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
+              <DocumentReferenceDisplay
+                key={key}
+                label="Additional Document Reference"
+                value={itemValue}
+                meta={ProofOfReexportationFieldMeta.AdditionalDocumentReference}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-ProofOfReexportation ubl-Signature"
-          meta={ProofOfReexportationFieldMeta.Signature} 
-          value={value.Signature}
-          itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay
-              key={key}
-              label="Signature"
-              value={itemValue}
-              meta={ProofOfReexportationFieldMeta.Signature}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Signature"
+            label="Signature"
+            items={value.Signature}
+            meta={ProofOfReexportationFieldMeta.Signature} 
+            itemDisplay={ (itemValue: Signature, key: string | number) =>
+              <SignatureDisplay
+                key={key}
+                label="Signature"
+                value={itemValue}
+                meta={ProofOfReexportationFieldMeta.Signature}
+              />
+            }
+          />
         </div>
     </div>
   )

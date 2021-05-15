@@ -18,14 +18,13 @@ export type TypeDescriptorMap = {
 }
 
 export class FieldMapGenerator {
-  async generateFieldMaps(version: string) {
+  async generateFieldMaps(rootGenDirPath: string, version: string, addVersionToPath: boolean) {
     console.log(`Generating field maps for UBL version ${version}...`)
     const ublSchema = new UblSchema(version)
     const typeDictionary = await new TypeDictionary(ublSchema).loadFromSchema()
     const typeResolver = new TypeResolver(typeDictionary)
     const aggregateTypesReader = new AggregateTypesReader(ublSchema, typeResolver)
-    const rootGenDirPath = '../ubl-model-library/src/ubl'
-    const codeFileWriter = new CodeFileWriter(rootGenDirPath, version)
+    const codeFileWriter = new CodeFileWriter(rootGenDirPath, version, addVersionToPath)
     const refTypes = await aggregateTypesReader.readAllTypes()
     const mapBuilder = new FieldMapBuilder(refTypes, typeResolver)
     const allTypes = await Promise.all(ublSchema.listMainDocFileNames().map(async (mainDocFileName) => {

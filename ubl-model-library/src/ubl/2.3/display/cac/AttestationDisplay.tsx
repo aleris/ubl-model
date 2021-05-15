@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Attestation } from  '../../model/cac/Attestation'
 import { AttestationFieldMeta } from  '../../meta/cac/AttestationMeta'
@@ -19,112 +18,78 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: Attestation
+  value: Attestation | undefined
   meta: FieldMeta<T>
 }
 
 export default function AttestationDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-Attestation ubl-AttestationType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-Attestation ubl-UBLExtensions"
-          meta={AttestationFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={AttestationFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-Attestation">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={AttestationFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-Attestation ubl-Identifier ubl-ID"
-          meta={AttestationFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={AttestationFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={AttestationFieldMeta.ID}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-Attestation ubl-Text ubl-Description"
-          meta={AttestationFieldMeta.Description} 
-          value={value.Description}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Description"
-              value={itemValue}
-              meta={AttestationFieldMeta.Description}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Description"
+            label="Description"
+            items={value.Description}
+            meta={AttestationFieldMeta.Description} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Description"
+                value={itemValue}
+                meta={AttestationFieldMeta.Description}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-Attestation ubl-Text ubl-Note"
-          meta={AttestationFieldMeta.Note} 
-          value={value.Note}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Note"
-              value={itemValue}
-              meta={AttestationFieldMeta.Note}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Note"
+            label="Note"
+            items={value.Note}
+            meta={AttestationFieldMeta.Note} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Note"
+                value={itemValue}
+                meta={AttestationFieldMeta.Note}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-Attestation ubl-Period ubl-ValidityPeriod"
-          meta={AttestationFieldMeta.ValidityPeriod} 
-          value={value.ValidityPeriod}
-          itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay
-              key={key}
-              label="Validity Period"
-              value={itemValue}
-              meta={AttestationFieldMeta.ValidityPeriod}
-            />
-          }
-        />
+          <PeriodDisplay
+            label="Validity Period"
+            value={value.ValidityPeriod?.[0]}
+            meta={AttestationFieldMeta.ValidityPeriod}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-Attestation ubl-Party ubl-IssuerParty"
-          meta={AttestationFieldMeta.IssuerParty} 
-          value={value.IssuerParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Issuer Party"
-              value={itemValue}
-              meta={AttestationFieldMeta.IssuerParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Issuer Party"
+            value={value.IssuerParty?.[0]}
+            meta={AttestationFieldMeta.IssuerParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-Attestation ubl-AttestationLine"
-          meta={AttestationFieldMeta.AttestationLine} 
-          value={value.AttestationLine}
-          itemDisplay={ (itemValue: AttestationLine, key: string | number) =>
-            <AttestationLineDisplay
-              key={key}
-              label="Attestation Line"
-              value={itemValue}
-              meta={AttestationFieldMeta.AttestationLine}
-            />
-          }
-        />
+          <AttestationLineDisplay
+            label="Attestation Line"
+            value={value.AttestationLine?.[0]}
+            meta={AttestationFieldMeta.AttestationLine}
+          />
         </div>
     </div>
   )

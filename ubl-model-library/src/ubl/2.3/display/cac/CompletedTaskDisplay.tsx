@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { CompletedTask } from  '../../model/cac/CompletedTask'
 import { CompletedTaskFieldMeta } from  '../../meta/cac/CompletedTaskMeta'
@@ -19,126 +18,84 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: CompletedTask
+  value: CompletedTask | undefined
   meta: FieldMeta<T>
 }
 
 export default function CompletedTaskDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-CompletedTask ubl-CompletedTaskType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-CompletedTask ubl-UBLExtensions"
-          meta={CompletedTaskFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={CompletedTaskFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-CompletedTask">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={CompletedTaskFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CompletedTask ubl-Amount ubl-AnnualAverageAmount"
-          meta={CompletedTaskFieldMeta.AnnualAverageAmount} 
-          value={value.AnnualAverageAmount}
-          itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay
-              key={key}
-              label="Annual Average"
-              value={itemValue}
-              meta={CompletedTaskFieldMeta.AnnualAverageAmount}
-            />
-          }
-        />
+          <AmountDisplay
+            label="Annual Average"
+            value={value.AnnualAverageAmount?.[0]}
+            meta={CompletedTaskFieldMeta.AnnualAverageAmount}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CompletedTask ubl-Amount ubl-TotalTaskAmount"
-          meta={CompletedTaskFieldMeta.TotalTaskAmount} 
-          value={value.TotalTaskAmount}
-          itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay
-              key={key}
-              label="Total Task"
-              value={itemValue}
-              meta={CompletedTaskFieldMeta.TotalTaskAmount}
-            />
-          }
-        />
+          <AmountDisplay
+            label="Total Task"
+            value={value.TotalTaskAmount?.[0]}
+            meta={CompletedTaskFieldMeta.TotalTaskAmount}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CompletedTask ubl-Amount ubl-PartyCapacityAmount"
-          meta={CompletedTaskFieldMeta.PartyCapacityAmount} 
-          value={value.PartyCapacityAmount}
-          itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay
-              key={key}
-              label="Party Capacity"
-              value={itemValue}
-              meta={CompletedTaskFieldMeta.PartyCapacityAmount}
-            />
-          }
-        />
+          <AmountDisplay
+            label="Party Capacity"
+            value={value.PartyCapacityAmount?.[0]}
+            meta={CompletedTaskFieldMeta.PartyCapacityAmount}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-CompletedTask ubl-Text ubl-Description"
-          meta={CompletedTaskFieldMeta.Description} 
-          value={value.Description}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Description"
-              value={itemValue}
-              meta={CompletedTaskFieldMeta.Description}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Description"
+            label="Description"
+            items={value.Description}
+            meta={CompletedTaskFieldMeta.Description} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Description"
+                value={itemValue}
+                meta={CompletedTaskFieldMeta.Description}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-CompletedTask ubl-EvidenceSupplied"
-          meta={CompletedTaskFieldMeta.EvidenceSupplied} 
-          value={value.EvidenceSupplied}
-          itemDisplay={ (itemValue: EvidenceSupplied, key: string | number) =>
-            <EvidenceSuppliedDisplay
-              key={key}
-              label="Evidence Supplied"
-              value={itemValue}
-              meta={CompletedTaskFieldMeta.EvidenceSupplied}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-EvidenceSupplied"
+            label="Evidence Supplied"
+            items={value.EvidenceSupplied}
+            meta={CompletedTaskFieldMeta.EvidenceSupplied} 
+            itemDisplay={ (itemValue: EvidenceSupplied, key: string | number) =>
+              <EvidenceSuppliedDisplay
+                key={key}
+                label="Evidence Supplied"
+                value={itemValue}
+                meta={CompletedTaskFieldMeta.EvidenceSupplied}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-CompletedTask ubl-Period"
-          meta={CompletedTaskFieldMeta.Period} 
-          value={value.Period}
-          itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay
-              key={key}
-              label="Period"
-              value={itemValue}
-              meta={CompletedTaskFieldMeta.Period}
-            />
-          }
-        />
+          <PeriodDisplay
+            label="Period"
+            value={value.Period?.[0]}
+            meta={CompletedTaskFieldMeta.Period}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-CompletedTask ubl-CustomerParty ubl-RecipientCustomerParty"
-          meta={CompletedTaskFieldMeta.RecipientCustomerParty} 
-          value={value.RecipientCustomerParty}
-          itemDisplay={ (itemValue: CustomerParty, key: string | number) =>
-            <CustomerPartyDisplay
-              key={key}
-              label="Recipient Customer Party"
-              value={itemValue}
-              meta={CompletedTaskFieldMeta.RecipientCustomerParty}
-            />
-          }
-        />
+          <CustomerPartyDisplay
+            label="Recipient Customer Party"
+            value={value.RecipientCustomerParty?.[0]}
+            meta={CompletedTaskFieldMeta.RecipientCustomerParty}
+          />
         </div>
     </div>
   )

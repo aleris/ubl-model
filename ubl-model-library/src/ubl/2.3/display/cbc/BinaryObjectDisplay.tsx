@@ -5,10 +5,13 @@ import FieldDisplay from '../FieldDisplay'
 
 type Props = {
   label: string
+  value: BinaryObject | undefined
   meta: FieldMeta<any>
-  value: BinaryObject
 }
 
-export default function BinaryObjectDisplay({ label, meta, value }: Props) {
-  return <div>[binary]</div>
+export default function BinaryObjectDisplay({ label, value, meta }: Props) {
+  if (value === undefined) {
+    return null
+  }
+  return <div className="ubl-cbc ubl-BinaryObject">[binary]</div>
 }

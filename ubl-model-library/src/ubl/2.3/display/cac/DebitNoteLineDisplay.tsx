@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { DebitNoteLine } from  '../../model/cac/DebitNoteLine'
 import { DebitNoteLineFieldMeta } from  '../../meta/cac/DebitNoteLineMeta'
@@ -41,336 +40,246 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: DebitNoteLine
+  value: DebitNoteLine | undefined
   meta: FieldMeta<T>
 }
 
 export default function DebitNoteLineDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-DebitNoteLine ubl-DebitNoteLineType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-DebitNoteLine ubl-UBLExtensions"
-          meta={DebitNoteLineFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={DebitNoteLineFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-DebitNoteLine">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={DebitNoteLineFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-DebitNoteLine ubl-Identifier ubl-ID"
-          meta={DebitNoteLineFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={DebitNoteLineFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={DebitNoteLineFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-DebitNoteLine ubl-Identifier ubl-UUID"
-          meta={DebitNoteLineFieldMeta.UUID} 
-          value={value.UUID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="UUID"
-              value={itemValue}
-              meta={DebitNoteLineFieldMeta.UUID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="UUID"
+            value={value.UUID?.[0]}
+            meta={DebitNoteLineFieldMeta.UUID}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-DebitNoteLine ubl-Text ubl-Note"
-          meta={DebitNoteLineFieldMeta.Note} 
-          value={value.Note}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Note"
-              value={itemValue}
-              meta={DebitNoteLineFieldMeta.Note}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Note"
+            label="Note"
+            items={value.Note}
+            meta={DebitNoteLineFieldMeta.Note} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Note"
+                value={itemValue}
+                meta={DebitNoteLineFieldMeta.Note}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-DebitNoteLine ubl-Quantity ubl-DebitedQuantity"
-          meta={DebitNoteLineFieldMeta.DebitedQuantity} 
-          value={value.DebitedQuantity}
-          itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay
-              key={key}
-              label="Debited Quantity"
-              value={itemValue}
-              meta={DebitNoteLineFieldMeta.DebitedQuantity}
-            />
-          }
-        />
+          <QuantityDisplay
+            label="Debited Quantity"
+            value={value.DebitedQuantity?.[0]}
+            meta={DebitNoteLineFieldMeta.DebitedQuantity}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-DebitNoteLine ubl-Amount ubl-LineExtensionAmount"
-          meta={DebitNoteLineFieldMeta.LineExtensionAmount} 
-          value={value.LineExtensionAmount}
-          itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay
-              key={key}
-              label="Line Extension Amount"
-              value={itemValue}
-              meta={DebitNoteLineFieldMeta.LineExtensionAmount}
-            />
-          }
-        />
+          <AmountDisplay
+            label="Line Extension Amount"
+            value={value.LineExtensionAmount?.[0]}
+            meta={DebitNoteLineFieldMeta.LineExtensionAmount}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-DebitNoteLine ubl-Amount ubl-TaxInclusiveLineExtensionAmount"
-          meta={DebitNoteLineFieldMeta.TaxInclusiveLineExtensionAmount} 
-          value={value.TaxInclusiveLineExtensionAmount}
-          itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay
-              key={key}
-              label="Tax Inclusive Line Extension Amount"
-              value={itemValue}
-              meta={DebitNoteLineFieldMeta.TaxInclusiveLineExtensionAmount}
-            />
-          }
-        />
+          <AmountDisplay
+            label="Tax Inclusive Line Extension Amount"
+            value={value.TaxInclusiveLineExtensionAmount?.[0]}
+            meta={DebitNoteLineFieldMeta.TaxInclusiveLineExtensionAmount}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-DebitNoteLine ubl-Date ubl-TaxPointDate"
-          meta={DebitNoteLineFieldMeta.TaxPointDate} 
-          value={value.TaxPointDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Tax Point Date"
-              value={itemValue}
-              meta={DebitNoteLineFieldMeta.TaxPointDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Tax Point Date"
+            value={value.TaxPointDate?.[0]}
+            meta={DebitNoteLineFieldMeta.TaxPointDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-DebitNoteLine ubl-Code ubl-AccountingCostCode"
-          meta={DebitNoteLineFieldMeta.AccountingCostCode} 
-          value={value.AccountingCostCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Accounting Cost Code"
-              value={itemValue}
-              meta={DebitNoteLineFieldMeta.AccountingCostCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Accounting Cost Code"
+            value={value.AccountingCostCode?.[0]}
+            meta={DebitNoteLineFieldMeta.AccountingCostCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-DebitNoteLine ubl-Text ubl-AccountingCost"
-          meta={DebitNoteLineFieldMeta.AccountingCost} 
-          value={value.AccountingCost}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Accounting Cost"
-              value={itemValue}
-              meta={DebitNoteLineFieldMeta.AccountingCost}
-            />
-          }
-        />
+          <TextDisplay
+            label="Accounting Cost"
+            value={value.AccountingCost?.[0]}
+            meta={DebitNoteLineFieldMeta.AccountingCost}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-DebitNoteLine ubl-Code ubl-PaymentPurposeCode"
-          meta={DebitNoteLineFieldMeta.PaymentPurposeCode} 
-          value={value.PaymentPurposeCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Payment Purpose Code"
-              value={itemValue}
-              meta={DebitNoteLineFieldMeta.PaymentPurposeCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Payment Purpose Code"
+            value={value.PaymentPurposeCode?.[0]}
+            meta={DebitNoteLineFieldMeta.PaymentPurposeCode}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-DebitNoteLine ubl-Response ubl-DiscrepancyResponse"
-          meta={DebitNoteLineFieldMeta.DiscrepancyResponse} 
-          value={value.DiscrepancyResponse}
-          itemDisplay={ (itemValue: Response, key: string | number) =>
-            <ResponseDisplay
-              key={key}
-              label="Discrepancy Response"
-              value={itemValue}
-              meta={DebitNoteLineFieldMeta.DiscrepancyResponse}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Response ubl-DiscrepancyResponse"
+            label="Discrepancy Response"
+            items={value.DiscrepancyResponse}
+            meta={DebitNoteLineFieldMeta.DiscrepancyResponse} 
+            itemDisplay={ (itemValue: Response, key: string | number) =>
+              <ResponseDisplay
+                key={key}
+                label="Discrepancy Response"
+                value={itemValue}
+                meta={DebitNoteLineFieldMeta.DiscrepancyResponse}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-DebitNoteLine ubl-LineReference ubl-DespatchLineReference"
-          meta={DebitNoteLineFieldMeta.DespatchLineReference} 
-          value={value.DespatchLineReference}
-          itemDisplay={ (itemValue: LineReference, key: string | number) =>
-            <LineReferenceDisplay
-              key={key}
-              label="Despatch Line Reference"
-              value={itemValue}
-              meta={DebitNoteLineFieldMeta.DespatchLineReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-LineReference ubl-DespatchLineReference"
+            label="Despatch Line Reference"
+            items={value.DespatchLineReference}
+            meta={DebitNoteLineFieldMeta.DespatchLineReference} 
+            itemDisplay={ (itemValue: LineReference, key: string | number) =>
+              <LineReferenceDisplay
+                key={key}
+                label="Despatch Line Reference"
+                value={itemValue}
+                meta={DebitNoteLineFieldMeta.DespatchLineReference}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-DebitNoteLine ubl-LineReference ubl-ReceiptLineReference"
-          meta={DebitNoteLineFieldMeta.ReceiptLineReference} 
-          value={value.ReceiptLineReference}
-          itemDisplay={ (itemValue: LineReference, key: string | number) =>
-            <LineReferenceDisplay
-              key={key}
-              label="Receipt Line Reference"
-              value={itemValue}
-              meta={DebitNoteLineFieldMeta.ReceiptLineReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-LineReference ubl-ReceiptLineReference"
+            label="Receipt Line Reference"
+            items={value.ReceiptLineReference}
+            meta={DebitNoteLineFieldMeta.ReceiptLineReference} 
+            itemDisplay={ (itemValue: LineReference, key: string | number) =>
+              <LineReferenceDisplay
+                key={key}
+                label="Receipt Line Reference"
+                value={itemValue}
+                meta={DebitNoteLineFieldMeta.ReceiptLineReference}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-DebitNoteLine ubl-BillingReference"
-          meta={DebitNoteLineFieldMeta.BillingReference} 
-          value={value.BillingReference}
-          itemDisplay={ (itemValue: BillingReference, key: string | number) =>
-            <BillingReferenceDisplay
-              key={key}
-              label="Billing Reference"
-              value={itemValue}
-              meta={DebitNoteLineFieldMeta.BillingReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-BillingReference"
+            label="Billing Reference"
+            items={value.BillingReference}
+            meta={DebitNoteLineFieldMeta.BillingReference} 
+            itemDisplay={ (itemValue: BillingReference, key: string | number) =>
+              <BillingReferenceDisplay
+                key={key}
+                label="Billing Reference"
+                value={itemValue}
+                meta={DebitNoteLineFieldMeta.BillingReference}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-DebitNoteLine ubl-DocumentReference"
-          meta={DebitNoteLineFieldMeta.DocumentReference} 
-          value={value.DocumentReference}
-          itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay
-              key={key}
-              label="Document Reference"
-              value={itemValue}
-              meta={DebitNoteLineFieldMeta.DocumentReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-DocumentReference"
+            label="Document Reference"
+            items={value.DocumentReference}
+            meta={DebitNoteLineFieldMeta.DocumentReference} 
+            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
+              <DocumentReferenceDisplay
+                key={key}
+                label="Document Reference"
+                value={itemValue}
+                meta={DebitNoteLineFieldMeta.DocumentReference}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-DebitNoteLine ubl-PricingReference"
-          meta={DebitNoteLineFieldMeta.PricingReference} 
-          value={value.PricingReference}
-          itemDisplay={ (itemValue: PricingReference, key: string | number) =>
-            <PricingReferenceDisplay
-              key={key}
-              label="Pricing Reference"
-              value={itemValue}
-              meta={DebitNoteLineFieldMeta.PricingReference}
-            />
-          }
-        />
+          <PricingReferenceDisplay
+            label="Pricing Reference"
+            value={value.PricingReference?.[0]}
+            meta={DebitNoteLineFieldMeta.PricingReference}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-DebitNoteLine ubl-Delivery"
-          meta={DebitNoteLineFieldMeta.Delivery} 
-          value={value.Delivery}
-          itemDisplay={ (itemValue: Delivery, key: string | number) =>
-            <DeliveryDisplay
-              key={key}
-              label="Delivery"
-              value={itemValue}
-              meta={DebitNoteLineFieldMeta.Delivery}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Delivery"
+            label="Delivery"
+            items={value.Delivery}
+            meta={DebitNoteLineFieldMeta.Delivery} 
+            itemDisplay={ (itemValue: Delivery, key: string | number) =>
+              <DeliveryDisplay
+                key={key}
+                label="Delivery"
+                value={itemValue}
+                meta={DebitNoteLineFieldMeta.Delivery}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-DebitNoteLine ubl-TaxTotal"
-          meta={DebitNoteLineFieldMeta.TaxTotal} 
-          value={value.TaxTotal}
-          itemDisplay={ (itemValue: TaxTotal, key: string | number) =>
-            <TaxTotalDisplay
-              key={key}
-              label="Tax Total"
-              value={itemValue}
-              meta={DebitNoteLineFieldMeta.TaxTotal}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-TaxTotal"
+            label="Tax Total"
+            items={value.TaxTotal}
+            meta={DebitNoteLineFieldMeta.TaxTotal} 
+            itemDisplay={ (itemValue: TaxTotal, key: string | number) =>
+              <TaxTotalDisplay
+                key={key}
+                label="Tax Total"
+                value={itemValue}
+                meta={DebitNoteLineFieldMeta.TaxTotal}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-DebitNoteLine ubl-AllowanceCharge"
-          meta={DebitNoteLineFieldMeta.AllowanceCharge} 
-          value={value.AllowanceCharge}
-          itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-            <AllowanceChargeDisplay
-              key={key}
-              label="Allowance Charge"
-              value={itemValue}
-              meta={DebitNoteLineFieldMeta.AllowanceCharge}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-AllowanceCharge"
+            label="Allowance Charge"
+            items={value.AllowanceCharge}
+            meta={DebitNoteLineFieldMeta.AllowanceCharge} 
+            itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
+              <AllowanceChargeDisplay
+                key={key}
+                label="Allowance Charge"
+                value={itemValue}
+                meta={DebitNoteLineFieldMeta.AllowanceCharge}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-DebitNoteLine ubl-Item"
-          meta={DebitNoteLineFieldMeta.Item} 
-          value={value.Item}
-          itemDisplay={ (itemValue: Item, key: string | number) =>
-            <ItemDisplay
-              key={key}
-              label="Item"
-              value={itemValue}
-              meta={DebitNoteLineFieldMeta.Item}
-            />
-          }
-        />
+          <ItemDisplay
+            label="Item"
+            value={value.Item?.[0]}
+            meta={DebitNoteLineFieldMeta.Item}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-DebitNoteLine ubl-Price"
-          meta={DebitNoteLineFieldMeta.Price} 
-          value={value.Price}
-          itemDisplay={ (itemValue: Price, key: string | number) =>
-            <PriceDisplay
-              key={key}
-              label="Price"
-              value={itemValue}
-              meta={DebitNoteLineFieldMeta.Price}
-            />
-          }
-        />
+          <PriceDisplay
+            label="Price"
+            value={value.Price?.[0]}
+            meta={DebitNoteLineFieldMeta.Price}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-DebitNoteLine ubl-SubDebitNoteLine"
-          meta={DebitNoteLineFieldMeta.SubDebitNoteLine} 
-          value={value.SubDebitNoteLine}
-          itemDisplay={ (itemValue: DebitNoteLine, key: string | number) =>
-            <DebitNoteLineDisplay
-              key={key}
-              label="Sub Debit Note Line"
-              value={itemValue}
-              meta={DebitNoteLineFieldMeta.SubDebitNoteLine}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-DebitNoteLine ubl-SubDebitNoteLine"
+            label="Sub Debit Note Line"
+            items={value.SubDebitNoteLine}
+            meta={DebitNoteLineFieldMeta.SubDebitNoteLine} 
+            itemDisplay={ (itemValue: DebitNoteLine, key: string | number) =>
+              <DebitNoteLineDisplay
+                key={key}
+                label="Sub Debit Note Line"
+                value={itemValue}
+                meta={DebitNoteLineFieldMeta.SubDebitNoteLine}
+              />
+            }
+          />
         </div>
     </div>
   )

@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ItemLocationQuantity } from  '../../model/cac/ItemLocationQuantity'
 import { ItemLocationQuantityFieldMeta } from  '../../meta/cac/ItemLocationQuantityMeta'
@@ -31,196 +30,141 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: ItemLocationQuantity
+  value: ItemLocationQuantity | undefined
   meta: FieldMeta<T>
 }
 
 export default function ItemLocationQuantityDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-ItemLocationQuantity ubl-ItemLocationQuantityType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-ItemLocationQuantity ubl-UBLExtensions"
-          meta={ItemLocationQuantityFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={ItemLocationQuantityFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-ItemLocationQuantity">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={ItemLocationQuantityFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ItemLocationQuantity ubl-Measure ubl-LeadTimeMeasure"
-          meta={ItemLocationQuantityFieldMeta.LeadTimeMeasure} 
-          value={value.LeadTimeMeasure}
-          itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay
-              key={key}
-              label="Lead Time"
-              value={itemValue}
-              meta={ItemLocationQuantityFieldMeta.LeadTimeMeasure}
-            />
-          }
-        />
+          <MeasureDisplay
+            label="Lead Time"
+            value={value.LeadTimeMeasure?.[0]}
+            meta={ItemLocationQuantityFieldMeta.LeadTimeMeasure}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ItemLocationQuantity ubl-Quantity ubl-MinimumQuantity"
-          meta={ItemLocationQuantityFieldMeta.MinimumQuantity} 
-          value={value.MinimumQuantity}
-          itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay
-              key={key}
-              label="Minimum Quantity"
-              value={itemValue}
-              meta={ItemLocationQuantityFieldMeta.MinimumQuantity}
-            />
-          }
-        />
+          <QuantityDisplay
+            label="Minimum Quantity"
+            value={value.MinimumQuantity?.[0]}
+            meta={ItemLocationQuantityFieldMeta.MinimumQuantity}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ItemLocationQuantity ubl-Quantity ubl-MaximumQuantity"
-          meta={ItemLocationQuantityFieldMeta.MaximumQuantity} 
-          value={value.MaximumQuantity}
-          itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay
-              key={key}
-              label="Maximum Quantity"
-              value={itemValue}
-              meta={ItemLocationQuantityFieldMeta.MaximumQuantity}
-            />
-          }
-        />
+          <QuantityDisplay
+            label="Maximum Quantity"
+            value={value.MaximumQuantity?.[0]}
+            meta={ItemLocationQuantityFieldMeta.MaximumQuantity}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ItemLocationQuantity ubl-Indicator ubl-HazardousRiskIndicator"
-          meta={ItemLocationQuantityFieldMeta.HazardousRiskIndicator} 
-          value={value.HazardousRiskIndicator}
-          itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay
-              key={key}
-              label="Hazardous Risk Indicator"
-              value={itemValue}
-              meta={ItemLocationQuantityFieldMeta.HazardousRiskIndicator}
-            />
-          }
-        />
+          <IndicatorDisplay
+            label="Hazardous Risk Indicator"
+            value={value.HazardousRiskIndicator?.[0]}
+            meta={ItemLocationQuantityFieldMeta.HazardousRiskIndicator}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-ItemLocationQuantity ubl-Text ubl-TradingRestrictions"
-          meta={ItemLocationQuantityFieldMeta.TradingRestrictions} 
-          value={value.TradingRestrictions}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Trading Restrictions"
-              value={itemValue}
-              meta={ItemLocationQuantityFieldMeta.TradingRestrictions}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-TradingRestrictions"
+            label="Trading Restrictions"
+            items={value.TradingRestrictions}
+            meta={ItemLocationQuantityFieldMeta.TradingRestrictions} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Trading Restrictions"
+                value={itemValue}
+                meta={ItemLocationQuantityFieldMeta.TradingRestrictions}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-ItemLocationQuantity ubl-Address ubl-ApplicableTerritoryAddress"
-          meta={ItemLocationQuantityFieldMeta.ApplicableTerritoryAddress} 
-          value={value.ApplicableTerritoryAddress}
-          itemDisplay={ (itemValue: Address, key: string | number) =>
-            <AddressDisplay
-              key={key}
-              label="Applicable Territory Address"
-              value={itemValue}
-              meta={ItemLocationQuantityFieldMeta.ApplicableTerritoryAddress}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Address ubl-ApplicableTerritoryAddress"
+            label="Applicable Territory Address"
+            items={value.ApplicableTerritoryAddress}
+            meta={ItemLocationQuantityFieldMeta.ApplicableTerritoryAddress} 
+            itemDisplay={ (itemValue: Address, key: string | number) =>
+              <AddressDisplay
+                key={key}
+                label="Applicable Territory Address"
+                value={itemValue}
+                meta={ItemLocationQuantityFieldMeta.ApplicableTerritoryAddress}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-ItemLocationQuantity ubl-Price"
-          meta={ItemLocationQuantityFieldMeta.Price} 
-          value={value.Price}
-          itemDisplay={ (itemValue: Price, key: string | number) =>
-            <PriceDisplay
-              key={key}
-              label="Price"
-              value={itemValue}
-              meta={ItemLocationQuantityFieldMeta.Price}
-            />
-          }
-        />
+          <PriceDisplay
+            label="Price"
+            value={value.Price?.[0]}
+            meta={ItemLocationQuantityFieldMeta.Price}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-ItemLocationQuantity ubl-DeliveryUnit"
-          meta={ItemLocationQuantityFieldMeta.DeliveryUnit} 
-          value={value.DeliveryUnit}
-          itemDisplay={ (itemValue: DeliveryUnit, key: string | number) =>
-            <DeliveryUnitDisplay
-              key={key}
-              label="Delivery Unit"
-              value={itemValue}
-              meta={ItemLocationQuantityFieldMeta.DeliveryUnit}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-DeliveryUnit"
+            label="Delivery Unit"
+            items={value.DeliveryUnit}
+            meta={ItemLocationQuantityFieldMeta.DeliveryUnit} 
+            itemDisplay={ (itemValue: DeliveryUnit, key: string | number) =>
+              <DeliveryUnitDisplay
+                key={key}
+                label="Delivery Unit"
+                value={itemValue}
+                meta={ItemLocationQuantityFieldMeta.DeliveryUnit}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-ItemLocationQuantity ubl-TaxCategory ubl-ApplicableTaxCategory"
-          meta={ItemLocationQuantityFieldMeta.ApplicableTaxCategory} 
-          value={value.ApplicableTaxCategory}
-          itemDisplay={ (itemValue: TaxCategory, key: string | number) =>
-            <TaxCategoryDisplay
-              key={key}
-              label="Applicable Tax Category"
-              value={itemValue}
-              meta={ItemLocationQuantityFieldMeta.ApplicableTaxCategory}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-TaxCategory ubl-ApplicableTaxCategory"
+            label="Applicable Tax Category"
+            items={value.ApplicableTaxCategory}
+            meta={ItemLocationQuantityFieldMeta.ApplicableTaxCategory} 
+            itemDisplay={ (itemValue: TaxCategory, key: string | number) =>
+              <TaxCategoryDisplay
+                key={key}
+                label="Applicable Tax Category"
+                value={itemValue}
+                meta={ItemLocationQuantityFieldMeta.ApplicableTaxCategory}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-ItemLocationQuantity ubl-Package"
-          meta={ItemLocationQuantityFieldMeta.Package} 
-          value={value.Package}
-          itemDisplay={ (itemValue: Package, key: string | number) =>
-            <PackageDisplay
-              key={key}
-              label="Package"
-              value={itemValue}
-              meta={ItemLocationQuantityFieldMeta.Package}
-            />
-          }
-        />
+          <PackageDisplay
+            label="Package"
+            value={value.Package?.[0]}
+            meta={ItemLocationQuantityFieldMeta.Package}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-ItemLocationQuantity ubl-AllowanceCharge"
-          meta={ItemLocationQuantityFieldMeta.AllowanceCharge} 
-          value={value.AllowanceCharge}
-          itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-            <AllowanceChargeDisplay
-              key={key}
-              label="Allowance Charge"
-              value={itemValue}
-              meta={ItemLocationQuantityFieldMeta.AllowanceCharge}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-AllowanceCharge"
+            label="Allowance Charge"
+            items={value.AllowanceCharge}
+            meta={ItemLocationQuantityFieldMeta.AllowanceCharge} 
+            itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
+              <AllowanceChargeDisplay
+                key={key}
+                label="Allowance Charge"
+                value={itemValue}
+                meta={ItemLocationQuantityFieldMeta.AllowanceCharge}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-ItemLocationQuantity ubl-DependentPriceReference"
-          meta={ItemLocationQuantityFieldMeta.DependentPriceReference} 
-          value={value.DependentPriceReference}
-          itemDisplay={ (itemValue: DependentPriceReference, key: string | number) =>
-            <DependentPriceReferenceDisplay
-              key={key}
-              label="Dependent Price Reference"
-              value={itemValue}
-              meta={ItemLocationQuantityFieldMeta.DependentPriceReference}
-            />
-          }
-        />
+          <DependentPriceReferenceDisplay
+            label="Dependent Price Reference"
+            value={value.DependentPriceReference?.[0]}
+            meta={ItemLocationQuantityFieldMeta.DependentPriceReference}
+          />
         </div>
     </div>
   )

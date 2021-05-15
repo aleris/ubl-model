@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { PhysicalAttribute } from  '../../model/cac/PhysicalAttribute'
 import { PhysicalAttributeFieldMeta } from  '../../meta/cac/PhysicalAttributeMeta'
@@ -15,84 +14,57 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: PhysicalAttribute
+  value: PhysicalAttribute | undefined
   meta: FieldMeta<T>
 }
 
 export default function PhysicalAttributeDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-PhysicalAttribute ubl-PhysicalAttributeType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-PhysicalAttribute ubl-UBLExtensions"
-          meta={PhysicalAttributeFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={PhysicalAttributeFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-PhysicalAttribute">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={PhysicalAttributeFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PhysicalAttribute ubl-Identifier ubl-AttributeID"
-          meta={PhysicalAttributeFieldMeta.AttributeID} 
-          value={value.AttributeID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Attribute Identifier"
-              value={itemValue}
-              meta={PhysicalAttributeFieldMeta.AttributeID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Attribute Identifier"
+            value={value.AttributeID?.[0]}
+            meta={PhysicalAttributeFieldMeta.AttributeID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PhysicalAttribute ubl-Code ubl-PositionCode"
-          meta={PhysicalAttributeFieldMeta.PositionCode} 
-          value={value.PositionCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Position Code"
-              value={itemValue}
-              meta={PhysicalAttributeFieldMeta.PositionCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Position Code"
+            value={value.PositionCode?.[0]}
+            meta={PhysicalAttributeFieldMeta.PositionCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PhysicalAttribute ubl-Code ubl-DescriptionCode"
-          meta={PhysicalAttributeFieldMeta.DescriptionCode} 
-          value={value.DescriptionCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Description Code"
-              value={itemValue}
-              meta={PhysicalAttributeFieldMeta.DescriptionCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Description Code"
+            value={value.DescriptionCode?.[0]}
+            meta={PhysicalAttributeFieldMeta.DescriptionCode}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-PhysicalAttribute ubl-Text ubl-Description"
-          meta={PhysicalAttributeFieldMeta.Description} 
-          value={value.Description}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Description"
-              value={itemValue}
-              meta={PhysicalAttributeFieldMeta.Description}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Description"
+            label="Description"
+            items={value.Description}
+            meta={PhysicalAttributeFieldMeta.Description} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Description"
+                value={itemValue}
+                meta={PhysicalAttributeFieldMeta.Description}
+              />
+            }
+          />
         </div>
     </div>
   )

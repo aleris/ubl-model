@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { SecondaryHazard } from  '../../model/cac/SecondaryHazard'
 import { SecondaryHazardFieldMeta } from  '../../meta/cac/SecondaryHazardMeta'
@@ -15,98 +14,63 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: SecondaryHazard
+  value: SecondaryHazard | undefined
   meta: FieldMeta<T>
 }
 
 export default function SecondaryHazardDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-SecondaryHazard ubl-SecondaryHazardType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-SecondaryHazard ubl-UBLExtensions"
-          meta={SecondaryHazardFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={SecondaryHazardFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-SecondaryHazard">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={SecondaryHazardFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-SecondaryHazard ubl-Identifier ubl-ID"
-          meta={SecondaryHazardFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={SecondaryHazardFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={SecondaryHazardFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-SecondaryHazard ubl-Text ubl-PlacardNotation"
-          meta={SecondaryHazardFieldMeta.PlacardNotation} 
-          value={value.PlacardNotation}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Placard Notation"
-              value={itemValue}
-              meta={SecondaryHazardFieldMeta.PlacardNotation}
-            />
-          }
-        />
+          <TextDisplay
+            label="Placard Notation"
+            value={value.PlacardNotation?.[0]}
+            meta={SecondaryHazardFieldMeta.PlacardNotation}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-SecondaryHazard ubl-Text ubl-PlacardEndorsement"
-          meta={SecondaryHazardFieldMeta.PlacardEndorsement} 
-          value={value.PlacardEndorsement}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Placard Endorsement"
-              value={itemValue}
-              meta={SecondaryHazardFieldMeta.PlacardEndorsement}
-            />
-          }
-        />
+          <TextDisplay
+            label="Placard Endorsement"
+            value={value.PlacardEndorsement?.[0]}
+            meta={SecondaryHazardFieldMeta.PlacardEndorsement}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-SecondaryHazard ubl-Code ubl-EmergencyProceduresCode"
-          meta={SecondaryHazardFieldMeta.EmergencyProceduresCode} 
-          value={value.EmergencyProceduresCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Emergency Procedures Code"
-              value={itemValue}
-              meta={SecondaryHazardFieldMeta.EmergencyProceduresCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Emergency Procedures Code"
+            value={value.EmergencyProceduresCode?.[0]}
+            meta={SecondaryHazardFieldMeta.EmergencyProceduresCode}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-SecondaryHazard ubl-Text ubl-Extension"
-          meta={SecondaryHazardFieldMeta.Extension} 
-          value={value.Extension}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Extension"
-              value={itemValue}
-              meta={SecondaryHazardFieldMeta.Extension}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Extension"
+            label="Extension"
+            items={value.Extension}
+            meta={SecondaryHazardFieldMeta.Extension} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Extension"
+                value={itemValue}
+                meta={SecondaryHazardFieldMeta.Extension}
+              />
+            }
+          />
         </div>
     </div>
   )

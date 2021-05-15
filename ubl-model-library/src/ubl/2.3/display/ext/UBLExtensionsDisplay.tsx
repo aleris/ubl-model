@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { UBLExtensions } from  '../../model/ext/UBLExtensions'
 import { UBLExtensionsFieldMeta } from  '../../meta/ext/UBLExtensionsMeta'
@@ -9,28 +8,33 @@ import { UBLExtension } from '../../model/ext/UBLExtension'
 
 type Props<T> = {
   label: string
-  value: UBLExtensions
+  value: UBLExtensions | undefined
   meta: FieldMeta<T>
 }
 
 export default function UBLExtensionsDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-ext ubl-UBLExtensions ubl-UBLExtensionsType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeListDisplay
-          className="ubl-ext ubl-UBLExtensions ubl-UBLExtension"
-          meta={UBLExtensionsFieldMeta.UBLExtension} 
-          value={value.UBLExtension}
-          itemDisplay={ (itemValue: UBLExtension, key: string | number) =>
-            <UBLExtensionDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={UBLExtensionsFieldMeta.UBLExtension}
-            />
-          }
-        />
+    <div className="ubl-ext ubl-UBLExtensions">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <ElementListDisplay
+            className="ubl-ext ubl-UBLExtension"
+            label="undefined"
+            items={value.UBLExtension}
+            meta={UBLExtensionsFieldMeta.UBLExtension} 
+            itemDisplay={ (itemValue: UBLExtension, key: string | number) =>
+              <UBLExtensionDisplay
+                key={key}
+                label="undefined"
+                value={itemValue}
+                meta={UBLExtensionsFieldMeta.UBLExtension}
+              />
+            }
+          />
         </div>
     </div>
   )

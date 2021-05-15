@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ItemManagementProfile } from  '../../model/cac/ItemManagementProfile'
 import { ItemManagementProfileFieldMeta } from  '../../meta/cac/ItemManagementProfileMeta'
@@ -21,168 +20,93 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: ItemManagementProfile
+  value: ItemManagementProfile | undefined
   meta: FieldMeta<T>
 }
 
 export default function ItemManagementProfileDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-ItemManagementProfile ubl-ItemManagementProfileType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-ItemManagementProfile ubl-UBLExtensions"
-          meta={ItemManagementProfileFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={ItemManagementProfileFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-ItemManagementProfile">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={ItemManagementProfileFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ItemManagementProfile ubl-Numeric ubl-FrozenPeriodDaysNumeric"
-          meta={ItemManagementProfileFieldMeta.FrozenPeriodDaysNumeric} 
-          value={value.FrozenPeriodDaysNumeric}
-          itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay
-              key={key}
-              label="Frozen Period Days"
-              value={itemValue}
-              meta={ItemManagementProfileFieldMeta.FrozenPeriodDaysNumeric}
-            />
-          }
-        />
+          <NumericDisplay
+            label="Frozen Period Days"
+            value={value.FrozenPeriodDaysNumeric?.[0]}
+            meta={ItemManagementProfileFieldMeta.FrozenPeriodDaysNumeric}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ItemManagementProfile ubl-Quantity ubl-MinimumInventoryQuantity"
-          meta={ItemManagementProfileFieldMeta.MinimumInventoryQuantity} 
-          value={value.MinimumInventoryQuantity}
-          itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay
-              key={key}
-              label="Minimum Inventory Quantity"
-              value={itemValue}
-              meta={ItemManagementProfileFieldMeta.MinimumInventoryQuantity}
-            />
-          }
-        />
+          <QuantityDisplay
+            label="Minimum Inventory Quantity"
+            value={value.MinimumInventoryQuantity?.[0]}
+            meta={ItemManagementProfileFieldMeta.MinimumInventoryQuantity}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ItemManagementProfile ubl-Quantity ubl-MultipleOrderQuantity"
-          meta={ItemManagementProfileFieldMeta.MultipleOrderQuantity} 
-          value={value.MultipleOrderQuantity}
-          itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay
-              key={key}
-              label="Multiple Order Quantity"
-              value={itemValue}
-              meta={ItemManagementProfileFieldMeta.MultipleOrderQuantity}
-            />
-          }
-        />
+          <QuantityDisplay
+            label="Multiple Order Quantity"
+            value={value.MultipleOrderQuantity?.[0]}
+            meta={ItemManagementProfileFieldMeta.MultipleOrderQuantity}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ItemManagementProfile ubl-Numeric ubl-OrderIntervalDaysNumeric"
-          meta={ItemManagementProfileFieldMeta.OrderIntervalDaysNumeric} 
-          value={value.OrderIntervalDaysNumeric}
-          itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay
-              key={key}
-              label="Order Interval Days"
-              value={itemValue}
-              meta={ItemManagementProfileFieldMeta.OrderIntervalDaysNumeric}
-            />
-          }
-        />
+          <NumericDisplay
+            label="Order Interval Days"
+            value={value.OrderIntervalDaysNumeric?.[0]}
+            meta={ItemManagementProfileFieldMeta.OrderIntervalDaysNumeric}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-ItemManagementProfile ubl-Text ubl-ReplenishmentOwnerDescription"
-          meta={ItemManagementProfileFieldMeta.ReplenishmentOwnerDescription} 
-          value={value.ReplenishmentOwnerDescription}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Replenishment Owner Description"
-              value={itemValue}
-              meta={ItemManagementProfileFieldMeta.ReplenishmentOwnerDescription}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-ReplenishmentOwnerDescription"
+            label="Replenishment Owner Description"
+            items={value.ReplenishmentOwnerDescription}
+            meta={ItemManagementProfileFieldMeta.ReplenishmentOwnerDescription} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Replenishment Owner Description"
+                value={itemValue}
+                meta={ItemManagementProfileFieldMeta.ReplenishmentOwnerDescription}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ItemManagementProfile ubl-Numeric ubl-TargetServicePercent"
-          meta={ItemManagementProfileFieldMeta.TargetServicePercent} 
-          value={value.TargetServicePercent}
-          itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay
-              key={key}
-              label="Target Service Percent"
-              value={itemValue}
-              meta={ItemManagementProfileFieldMeta.TargetServicePercent}
-            />
-          }
-        />
+          <NumericDisplay
+            label="Target Service Percent"
+            value={value.TargetServicePercent?.[0]}
+            meta={ItemManagementProfileFieldMeta.TargetServicePercent}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ItemManagementProfile ubl-Quantity ubl-TargetInventoryQuantity"
-          meta={ItemManagementProfileFieldMeta.TargetInventoryQuantity} 
-          value={value.TargetInventoryQuantity}
-          itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay
-              key={key}
-              label="Target Inventory Quantity"
-              value={itemValue}
-              meta={ItemManagementProfileFieldMeta.TargetInventoryQuantity}
-            />
-          }
-        />
+          <QuantityDisplay
+            label="Target Inventory Quantity"
+            value={value.TargetInventoryQuantity?.[0]}
+            meta={ItemManagementProfileFieldMeta.TargetInventoryQuantity}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-ItemManagementProfile ubl-Period ubl-EffectivePeriod"
-          meta={ItemManagementProfileFieldMeta.EffectivePeriod} 
-          value={value.EffectivePeriod}
-          itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay
-              key={key}
-              label="Effective Period"
-              value={itemValue}
-              meta={ItemManagementProfileFieldMeta.EffectivePeriod}
-            />
-          }
-        />
+          <PeriodDisplay
+            label="Effective Period"
+            value={value.EffectivePeriod?.[0]}
+            meta={ItemManagementProfileFieldMeta.EffectivePeriod}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-ItemManagementProfile ubl-Item"
-          meta={ItemManagementProfileFieldMeta.Item} 
-          value={value.Item}
-          itemDisplay={ (itemValue: Item, key: string | number) =>
-            <ItemDisplay
-              key={key}
-              label="Item"
-              value={itemValue}
-              meta={ItemManagementProfileFieldMeta.Item}
-            />
-          }
-        />
+          <ItemDisplay
+            label="Item"
+            value={value.Item?.[0]}
+            meta={ItemManagementProfileFieldMeta.Item}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-ItemManagementProfile ubl-ItemLocationQuantity"
-          meta={ItemManagementProfileFieldMeta.ItemLocationQuantity} 
-          value={value.ItemLocationQuantity}
-          itemDisplay={ (itemValue: ItemLocationQuantity, key: string | number) =>
-            <ItemLocationQuantityDisplay
-              key={key}
-              label="Item Location Quantity"
-              value={itemValue}
-              meta={ItemManagementProfileFieldMeta.ItemLocationQuantity}
-            />
-          }
-        />
+          <ItemLocationQuantityDisplay
+            label="Item Location Quantity"
+            value={value.ItemLocationQuantity?.[0]}
+            meta={ItemManagementProfileFieldMeta.ItemLocationQuantity}
+          />
         </div>
     </div>
   )

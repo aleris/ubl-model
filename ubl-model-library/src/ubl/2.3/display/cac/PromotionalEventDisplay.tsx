@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { PromotionalEvent } from  '../../model/cac/PromotionalEvent'
 import { PromotionalEventFieldMeta } from  '../../meta/cac/PromotionalEventMeta'
@@ -15,98 +14,63 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: PromotionalEvent
+  value: PromotionalEvent | undefined
   meta: FieldMeta<T>
 }
 
 export default function PromotionalEventDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-PromotionalEvent ubl-PromotionalEventType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-PromotionalEvent ubl-UBLExtensions"
-          meta={PromotionalEventFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={PromotionalEventFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-PromotionalEvent">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={PromotionalEventFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PromotionalEvent ubl-Code ubl-PromotionalEventTypeCode"
-          meta={PromotionalEventFieldMeta.PromotionalEventTypeCode} 
-          value={value.PromotionalEventTypeCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Promotional Event Type Code"
-              value={itemValue}
-              meta={PromotionalEventFieldMeta.PromotionalEventTypeCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Promotional Event Type Code"
+            value={value.PromotionalEventTypeCode?.[0]}
+            meta={PromotionalEventFieldMeta.PromotionalEventTypeCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PromotionalEvent ubl-Date ubl-SubmissionDate"
-          meta={PromotionalEventFieldMeta.SubmissionDate} 
-          value={value.SubmissionDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Submission"
-              value={itemValue}
-              meta={PromotionalEventFieldMeta.SubmissionDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Submission"
+            value={value.SubmissionDate?.[0]}
+            meta={PromotionalEventFieldMeta.SubmissionDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PromotionalEvent ubl-Date ubl-FirstShipmentAvailibilityDate"
-          meta={PromotionalEventFieldMeta.FirstShipmentAvailibilityDate} 
-          value={value.FirstShipmentAvailibilityDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="First Shipment Availibility Date"
-              value={itemValue}
-              meta={PromotionalEventFieldMeta.FirstShipmentAvailibilityDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="First Shipment Availibility Date"
+            value={value.FirstShipmentAvailibilityDate?.[0]}
+            meta={PromotionalEventFieldMeta.FirstShipmentAvailibilityDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PromotionalEvent ubl-Date ubl-LatestProposalAcceptanceDate"
-          meta={PromotionalEventFieldMeta.LatestProposalAcceptanceDate} 
-          value={value.LatestProposalAcceptanceDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Latest Proposal Acceptance Date"
-              value={itemValue}
-              meta={PromotionalEventFieldMeta.LatestProposalAcceptanceDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Latest Proposal Acceptance Date"
+            value={value.LatestProposalAcceptanceDate?.[0]}
+            meta={PromotionalEventFieldMeta.LatestProposalAcceptanceDate}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-PromotionalEvent ubl-PromotionalSpecification"
-          meta={PromotionalEventFieldMeta.PromotionalSpecification} 
-          value={value.PromotionalSpecification}
-          itemDisplay={ (itemValue: PromotionalSpecification, key: string | number) =>
-            <PromotionalSpecificationDisplay
-              key={key}
-              label="Promotional Specification"
-              value={itemValue}
-              meta={PromotionalEventFieldMeta.PromotionalSpecification}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-PromotionalSpecification"
+            label="Promotional Specification"
+            items={value.PromotionalSpecification}
+            meta={PromotionalEventFieldMeta.PromotionalSpecification} 
+            itemDisplay={ (itemValue: PromotionalSpecification, key: string | number) =>
+              <PromotionalSpecificationDisplay
+                key={key}
+                label="Promotional Specification"
+                value={itemValue}
+                meta={PromotionalEventFieldMeta.PromotionalSpecification}
+              />
+            }
+          />
         </div>
     </div>
   )

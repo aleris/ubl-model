@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { OrderedShipment } from  '../../model/cac/OrderedShipment'
 import { OrderedShipmentFieldMeta } from  '../../meta/cac/OrderedShipmentMeta'
@@ -13,56 +12,45 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: OrderedShipment
+  value: OrderedShipment | undefined
   meta: FieldMeta<T>
 }
 
 export default function OrderedShipmentDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-OrderedShipment ubl-OrderedShipmentType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-OrderedShipment ubl-UBLExtensions"
-          meta={OrderedShipmentFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={OrderedShipmentFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-OrderedShipment">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={OrderedShipmentFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-OrderedShipment ubl-Shipment"
-          meta={OrderedShipmentFieldMeta.Shipment} 
-          value={value.Shipment}
-          itemDisplay={ (itemValue: Shipment, key: string | number) =>
-            <ShipmentDisplay
-              key={key}
-              label="Shipment"
-              value={itemValue}
-              meta={OrderedShipmentFieldMeta.Shipment}
-            />
-          }
-        />
+          <ShipmentDisplay
+            label="Shipment"
+            value={value.Shipment?.[0]}
+            meta={OrderedShipmentFieldMeta.Shipment}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-OrderedShipment ubl-Package"
-          meta={OrderedShipmentFieldMeta.Package} 
-          value={value.Package}
-          itemDisplay={ (itemValue: Package, key: string | number) =>
-            <PackageDisplay
-              key={key}
-              label="Package"
-              value={itemValue}
-              meta={OrderedShipmentFieldMeta.Package}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Package"
+            label="Package"
+            items={value.Package}
+            meta={OrderedShipmentFieldMeta.Package} 
+            itemDisplay={ (itemValue: Package, key: string | number) =>
+              <PackageDisplay
+                key={key}
+                label="Package"
+                value={itemValue}
+                meta={OrderedShipmentFieldMeta.Package}
+              />
+            }
+          />
         </div>
     </div>
   )

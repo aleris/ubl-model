@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TransportSchedule } from  '../../model/cac/TransportSchedule'
 import { TransportScheduleFieldMeta } from  '../../meta/cac/TransportScheduleMeta'
@@ -21,196 +20,105 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: TransportSchedule
+  value: TransportSchedule | undefined
   meta: FieldMeta<T>
 }
 
 export default function TransportScheduleDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-TransportSchedule ubl-TransportScheduleType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-TransportSchedule ubl-UBLExtensions"
-          meta={TransportScheduleFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={TransportScheduleFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-TransportSchedule">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={TransportScheduleFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TransportSchedule ubl-Numeric ubl-SequenceNumeric"
-          meta={TransportScheduleFieldMeta.SequenceNumeric} 
-          value={value.SequenceNumeric}
-          itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay
-              key={key}
-              label="Sequence"
-              value={itemValue}
-              meta={TransportScheduleFieldMeta.SequenceNumeric}
-            />
-          }
-        />
+          <NumericDisplay
+            label="Sequence"
+            value={value.SequenceNumeric?.[0]}
+            meta={TransportScheduleFieldMeta.SequenceNumeric}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TransportSchedule ubl-Date ubl-ReferenceDate"
-          meta={TransportScheduleFieldMeta.ReferenceDate} 
-          value={value.ReferenceDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Reference Date"
-              value={itemValue}
-              meta={TransportScheduleFieldMeta.ReferenceDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Reference Date"
+            value={value.ReferenceDate?.[0]}
+            meta={TransportScheduleFieldMeta.ReferenceDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TransportSchedule ubl-Time ubl-ReferenceTime"
-          meta={TransportScheduleFieldMeta.ReferenceTime} 
-          value={value.ReferenceTime}
-          itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay
-              key={key}
-              label="Reference Time"
-              value={itemValue}
-              meta={TransportScheduleFieldMeta.ReferenceTime}
-            />
-          }
-        />
+          <TimeDisplay
+            label="Reference Time"
+            value={value.ReferenceTime?.[0]}
+            meta={TransportScheduleFieldMeta.ReferenceTime}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TransportSchedule ubl-Numeric ubl-ReliabilityPercent"
-          meta={TransportScheduleFieldMeta.ReliabilityPercent} 
-          value={value.ReliabilityPercent}
-          itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay
-              key={key}
-              label="Reliability Percent"
-              value={itemValue}
-              meta={TransportScheduleFieldMeta.ReliabilityPercent}
-            />
-          }
-        />
+          <NumericDisplay
+            label="Reliability Percent"
+            value={value.ReliabilityPercent?.[0]}
+            meta={TransportScheduleFieldMeta.ReliabilityPercent}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-TransportSchedule ubl-Text ubl-Remarks"
-          meta={TransportScheduleFieldMeta.Remarks} 
-          value={value.Remarks}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Remarks"
-              value={itemValue}
-              meta={TransportScheduleFieldMeta.Remarks}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Remarks"
+            label="Remarks"
+            items={value.Remarks}
+            meta={TransportScheduleFieldMeta.Remarks} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Remarks"
+                value={itemValue}
+                meta={TransportScheduleFieldMeta.Remarks}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TransportSchedule ubl-Location ubl-StatusLocation"
-          meta={TransportScheduleFieldMeta.StatusLocation} 
-          value={value.StatusLocation}
-          itemDisplay={ (itemValue: Location, key: string | number) =>
-            <LocationDisplay
-              key={key}
-              label="Status Location"
-              value={itemValue}
-              meta={TransportScheduleFieldMeta.StatusLocation}
-            />
-          }
-        />
+          <LocationDisplay
+            label="Status Location"
+            value={value.StatusLocation?.[0]}
+            meta={TransportScheduleFieldMeta.StatusLocation}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TransportSchedule ubl-TransportEvent ubl-ActualArrivalTransportEvent"
-          meta={TransportScheduleFieldMeta.ActualArrivalTransportEvent} 
-          value={value.ActualArrivalTransportEvent}
-          itemDisplay={ (itemValue: TransportEvent, key: string | number) =>
-            <TransportEventDisplay
-              key={key}
-              label="Actual Arrival Transport Event"
-              value={itemValue}
-              meta={TransportScheduleFieldMeta.ActualArrivalTransportEvent}
-            />
-          }
-        />
+          <TransportEventDisplay
+            label="Actual Arrival Transport Event"
+            value={value.ActualArrivalTransportEvent?.[0]}
+            meta={TransportScheduleFieldMeta.ActualArrivalTransportEvent}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TransportSchedule ubl-TransportEvent ubl-ActualDepartureTransportEvent"
-          meta={TransportScheduleFieldMeta.ActualDepartureTransportEvent} 
-          value={value.ActualDepartureTransportEvent}
-          itemDisplay={ (itemValue: TransportEvent, key: string | number) =>
-            <TransportEventDisplay
-              key={key}
-              label="Actual Departure Transport Event"
-              value={itemValue}
-              meta={TransportScheduleFieldMeta.ActualDepartureTransportEvent}
-            />
-          }
-        />
+          <TransportEventDisplay
+            label="Actual Departure Transport Event"
+            value={value.ActualDepartureTransportEvent?.[0]}
+            meta={TransportScheduleFieldMeta.ActualDepartureTransportEvent}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TransportSchedule ubl-TransportEvent ubl-EstimatedDepartureTransportEvent"
-          meta={TransportScheduleFieldMeta.EstimatedDepartureTransportEvent} 
-          value={value.EstimatedDepartureTransportEvent}
-          itemDisplay={ (itemValue: TransportEvent, key: string | number) =>
-            <TransportEventDisplay
-              key={key}
-              label="Estimated Departure Transport Event"
-              value={itemValue}
-              meta={TransportScheduleFieldMeta.EstimatedDepartureTransportEvent}
-            />
-          }
-        />
+          <TransportEventDisplay
+            label="Estimated Departure Transport Event"
+            value={value.EstimatedDepartureTransportEvent?.[0]}
+            meta={TransportScheduleFieldMeta.EstimatedDepartureTransportEvent}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TransportSchedule ubl-TransportEvent ubl-EstimatedArrivalTransportEvent"
-          meta={TransportScheduleFieldMeta.EstimatedArrivalTransportEvent} 
-          value={value.EstimatedArrivalTransportEvent}
-          itemDisplay={ (itemValue: TransportEvent, key: string | number) =>
-            <TransportEventDisplay
-              key={key}
-              label="Estimated Arrival Transport Event"
-              value={itemValue}
-              meta={TransportScheduleFieldMeta.EstimatedArrivalTransportEvent}
-            />
-          }
-        />
+          <TransportEventDisplay
+            label="Estimated Arrival Transport Event"
+            value={value.EstimatedArrivalTransportEvent?.[0]}
+            meta={TransportScheduleFieldMeta.EstimatedArrivalTransportEvent}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TransportSchedule ubl-TransportEvent ubl-PlannedDepartureTransportEvent"
-          meta={TransportScheduleFieldMeta.PlannedDepartureTransportEvent} 
-          value={value.PlannedDepartureTransportEvent}
-          itemDisplay={ (itemValue: TransportEvent, key: string | number) =>
-            <TransportEventDisplay
-              key={key}
-              label="Planned Departure Transport Event"
-              value={itemValue}
-              meta={TransportScheduleFieldMeta.PlannedDepartureTransportEvent}
-            />
-          }
-        />
+          <TransportEventDisplay
+            label="Planned Departure Transport Event"
+            value={value.PlannedDepartureTransportEvent?.[0]}
+            meta={TransportScheduleFieldMeta.PlannedDepartureTransportEvent}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TransportSchedule ubl-TransportEvent ubl-PlannedArrivalTransportEvent"
-          meta={TransportScheduleFieldMeta.PlannedArrivalTransportEvent} 
-          value={value.PlannedArrivalTransportEvent}
-          itemDisplay={ (itemValue: TransportEvent, key: string | number) =>
-            <TransportEventDisplay
-              key={key}
-              label="Planned Arrival Transport Event"
-              value={itemValue}
-              meta={TransportScheduleFieldMeta.PlannedArrivalTransportEvent}
-            />
-          }
-        />
+          <TransportEventDisplay
+            label="Planned Arrival Transport Event"
+            value={value.PlannedArrivalTransportEvent?.[0]}
+            meta={TransportScheduleFieldMeta.PlannedArrivalTransportEvent}
+          />
         </div>
     </div>
   )

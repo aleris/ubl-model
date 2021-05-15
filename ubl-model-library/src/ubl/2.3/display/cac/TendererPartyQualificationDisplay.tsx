@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TendererPartyQualification } from  '../../model/cac/TendererPartyQualification'
 import { TendererPartyQualificationFieldMeta } from  '../../meta/cac/TendererPartyQualificationMeta'
@@ -13,70 +12,60 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: TendererPartyQualification
+  value: TendererPartyQualification | undefined
   meta: FieldMeta<T>
 }
 
 export default function TendererPartyQualificationDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-TendererPartyQualification ubl-TendererPartyQualificationType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-TendererPartyQualification ubl-UBLExtensions"
-          meta={TendererPartyQualificationFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={TendererPartyQualificationFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-TendererPartyQualification">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={TendererPartyQualificationFieldMeta.UBLExtensions}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-TendererPartyQualification ubl-ProcurementProjectLot ubl-InterestedProcurementProjectLot"
-          meta={TendererPartyQualificationFieldMeta.InterestedProcurementProjectLot} 
-          value={value.InterestedProcurementProjectLot}
-          itemDisplay={ (itemValue: ProcurementProjectLot, key: string | number) =>
-            <ProcurementProjectLotDisplay
-              key={key}
-              label="Interested Procurement Project Lot"
-              value={itemValue}
-              meta={TendererPartyQualificationFieldMeta.InterestedProcurementProjectLot}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-ProcurementProjectLot ubl-InterestedProcurementProjectLot"
+            label="Interested Procurement Project Lot"
+            items={value.InterestedProcurementProjectLot}
+            meta={TendererPartyQualificationFieldMeta.InterestedProcurementProjectLot} 
+            itemDisplay={ (itemValue: ProcurementProjectLot, key: string | number) =>
+              <ProcurementProjectLotDisplay
+                key={key}
+                label="Interested Procurement Project Lot"
+                value={itemValue}
+                meta={TendererPartyQualificationFieldMeta.InterestedProcurementProjectLot}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TendererPartyQualification ubl-QualifyingParty ubl-MainQualifyingParty"
-          meta={TendererPartyQualificationFieldMeta.MainQualifyingParty} 
-          value={value.MainQualifyingParty}
-          itemDisplay={ (itemValue: QualifyingParty, key: string | number) =>
-            <QualifyingPartyDisplay
-              key={key}
-              label="Main Qualifying Party"
-              value={itemValue}
-              meta={TendererPartyQualificationFieldMeta.MainQualifyingParty}
-            />
-          }
-        />
+          <QualifyingPartyDisplay
+            label="Main Qualifying Party"
+            value={value.MainQualifyingParty?.[0]}
+            meta={TendererPartyQualificationFieldMeta.MainQualifyingParty}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-TendererPartyQualification ubl-QualifyingParty ubl-AdditionalQualifyingParty"
-          meta={TendererPartyQualificationFieldMeta.AdditionalQualifyingParty} 
-          value={value.AdditionalQualifyingParty}
-          itemDisplay={ (itemValue: QualifyingParty, key: string | number) =>
-            <QualifyingPartyDisplay
-              key={key}
-              label="Additional Qualifying Party"
-              value={itemValue}
-              meta={TendererPartyQualificationFieldMeta.AdditionalQualifyingParty}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-QualifyingParty ubl-AdditionalQualifyingParty"
+            label="Additional Qualifying Party"
+            items={value.AdditionalQualifyingParty}
+            meta={TendererPartyQualificationFieldMeta.AdditionalQualifyingParty} 
+            itemDisplay={ (itemValue: QualifyingParty, key: string | number) =>
+              <QualifyingPartyDisplay
+                key={key}
+                label="Additional Qualifying Party"
+                value={itemValue}
+                meta={TendererPartyQualificationFieldMeta.AdditionalQualifyingParty}
+              />
+            }
+          />
         </div>
     </div>
   )

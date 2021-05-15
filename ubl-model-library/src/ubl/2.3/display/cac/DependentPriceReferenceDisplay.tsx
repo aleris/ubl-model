@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { DependentPriceReference } from  '../../model/cac/DependentPriceReference'
 import { DependentPriceReferenceFieldMeta } from  '../../meta/cac/DependentPriceReferenceMeta'
@@ -15,70 +14,42 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: DependentPriceReference
+  value: DependentPriceReference | undefined
   meta: FieldMeta<T>
 }
 
 export default function DependentPriceReferenceDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-DependentPriceReference ubl-DependentPriceReferenceType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-DependentPriceReference ubl-UBLExtensions"
-          meta={DependentPriceReferenceFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={DependentPriceReferenceFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-DependentPriceReference">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={DependentPriceReferenceFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-DependentPriceReference ubl-Numeric ubl-Percent"
-          meta={DependentPriceReferenceFieldMeta.Percent} 
-          value={value.Percent}
-          itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay
-              key={key}
-              label="Percent"
-              value={itemValue}
-              meta={DependentPriceReferenceFieldMeta.Percent}
-            />
-          }
-        />
+          <NumericDisplay
+            label="Percent"
+            value={value.Percent?.[0]}
+            meta={DependentPriceReferenceFieldMeta.Percent}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-DependentPriceReference ubl-Address ubl-LocationAddress"
-          meta={DependentPriceReferenceFieldMeta.LocationAddress} 
-          value={value.LocationAddress}
-          itemDisplay={ (itemValue: Address, key: string | number) =>
-            <AddressDisplay
-              key={key}
-              label="Location Address"
-              value={itemValue}
-              meta={DependentPriceReferenceFieldMeta.LocationAddress}
-            />
-          }
-        />
+          <AddressDisplay
+            label="Location Address"
+            value={value.LocationAddress?.[0]}
+            meta={DependentPriceReferenceFieldMeta.LocationAddress}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-DependentPriceReference ubl-LineReference ubl-DependentLineReference"
-          meta={DependentPriceReferenceFieldMeta.DependentLineReference} 
-          value={value.DependentLineReference}
-          itemDisplay={ (itemValue: LineReference, key: string | number) =>
-            <LineReferenceDisplay
-              key={key}
-              label="Dependent Line Reference"
-              value={itemValue}
-              meta={DependentPriceReferenceFieldMeta.DependentLineReference}
-            />
-          }
-        />
+          <LineReferenceDisplay
+            label="Dependent Line Reference"
+            value={value.DependentLineReference?.[0]}
+            meta={DependentPriceReferenceFieldMeta.DependentLineReference}
+          />
         </div>
     </div>
   )

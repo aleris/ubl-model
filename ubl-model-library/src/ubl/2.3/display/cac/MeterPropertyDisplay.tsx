@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { MeterProperty } from  '../../model/cac/MeterProperty'
 import { MeterPropertyFieldMeta } from  '../../meta/cac/MeterPropertyMeta'
@@ -15,98 +14,63 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: MeterProperty
+  value: MeterProperty | undefined
   meta: FieldMeta<T>
 }
 
 export default function MeterPropertyDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-MeterProperty ubl-MeterPropertyType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-MeterProperty ubl-UBLExtensions"
-          meta={MeterPropertyFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={MeterPropertyFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-MeterProperty">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={MeterPropertyFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-MeterProperty ubl-Text ubl-Name"
-          meta={MeterPropertyFieldMeta.Name} 
-          value={value.Name}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Name"
-              value={itemValue}
-              meta={MeterPropertyFieldMeta.Name}
-            />
-          }
-        />
+          <TextDisplay
+            label="Name"
+            value={value.Name?.[0]}
+            meta={MeterPropertyFieldMeta.Name}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-MeterProperty ubl-Code ubl-NameCode"
-          meta={MeterPropertyFieldMeta.NameCode} 
-          value={value.NameCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Name Code"
-              value={itemValue}
-              meta={MeterPropertyFieldMeta.NameCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Name Code"
+            value={value.NameCode?.[0]}
+            meta={MeterPropertyFieldMeta.NameCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-MeterProperty ubl-Text ubl-Value"
-          meta={MeterPropertyFieldMeta.Value} 
-          value={value.Value}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Value"
-              value={itemValue}
-              meta={MeterPropertyFieldMeta.Value}
-            />
-          }
-        />
+          <TextDisplay
+            label="Value"
+            value={value.Value?.[0]}
+            meta={MeterPropertyFieldMeta.Value}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-MeterProperty ubl-Quantity ubl-ValueQuantity"
-          meta={MeterPropertyFieldMeta.ValueQuantity} 
-          value={value.ValueQuantity}
-          itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay
-              key={key}
-              label="Value Quantity"
-              value={itemValue}
-              meta={MeterPropertyFieldMeta.ValueQuantity}
-            />
-          }
-        />
+          <QuantityDisplay
+            label="Value Quantity"
+            value={value.ValueQuantity?.[0]}
+            meta={MeterPropertyFieldMeta.ValueQuantity}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-MeterProperty ubl-Text ubl-ValueQualifier"
-          meta={MeterPropertyFieldMeta.ValueQualifier} 
-          value={value.ValueQualifier}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Value Qualifier"
-              value={itemValue}
-              meta={MeterPropertyFieldMeta.ValueQualifier}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-ValueQualifier"
+            label="Value Qualifier"
+            items={value.ValueQualifier}
+            meta={MeterPropertyFieldMeta.ValueQualifier} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Value Qualifier"
+                value={itemValue}
+                meta={MeterPropertyFieldMeta.ValueQualifier}
+              />
+            }
+          />
         </div>
     </div>
   )

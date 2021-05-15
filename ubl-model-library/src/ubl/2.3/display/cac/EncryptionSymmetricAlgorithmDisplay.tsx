@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { EncryptionSymmetricAlgorithm } from  '../../model/cac/EncryptionSymmetricAlgorithm'
 import { EncryptionSymmetricAlgorithmFieldMeta } from  '../../meta/cac/EncryptionSymmetricAlgorithmMeta'
@@ -11,56 +10,36 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: EncryptionSymmetricAlgorithm
+  value: EncryptionSymmetricAlgorithm | undefined
   meta: FieldMeta<T>
 }
 
 export default function EncryptionSymmetricAlgorithmDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-EncryptionSymmetricAlgorithm ubl-EncryptionSymmetricAlgorithmType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-EncryptionSymmetricAlgorithm ubl-UBLExtensions"
-          meta={EncryptionSymmetricAlgorithmFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={EncryptionSymmetricAlgorithmFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-EncryptionSymmetricAlgorithm">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={EncryptionSymmetricAlgorithmFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-EncryptionSymmetricAlgorithm ubl-Identifier ubl-ID"
-          meta={EncryptionSymmetricAlgorithmFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={EncryptionSymmetricAlgorithmFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={EncryptionSymmetricAlgorithmFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-EncryptionSymmetricAlgorithm ubl-Identifier ubl-OID"
-          meta={EncryptionSymmetricAlgorithmFieldMeta.OID} 
-          value={value.OID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="OID"
-              value={itemValue}
-              meta={EncryptionSymmetricAlgorithmFieldMeta.OID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="OID"
+            value={value.OID?.[0]}
+            meta={EncryptionSymmetricAlgorithmFieldMeta.OID}
+          />
         </div>
     </div>
   )

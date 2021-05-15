@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { OnAccountPayment } from  '../../model/cac/OnAccountPayment'
 import { OnAccountPaymentFieldMeta } from  '../../meta/cac/OnAccountPaymentMeta'
@@ -15,70 +14,60 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: OnAccountPayment
+  value: OnAccountPayment | undefined
   meta: FieldMeta<T>
 }
 
 export default function OnAccountPaymentDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-OnAccountPayment ubl-OnAccountPaymentType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-OnAccountPayment ubl-UBLExtensions"
-          meta={OnAccountPaymentFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={OnAccountPaymentFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-OnAccountPayment">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={OnAccountPaymentFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-OnAccountPayment ubl-Quantity ubl-EstimatedConsumedQuantity"
-          meta={OnAccountPaymentFieldMeta.EstimatedConsumedQuantity} 
-          value={value.EstimatedConsumedQuantity}
-          itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay
-              key={key}
-              label="Estimated Consumed Quantity"
-              value={itemValue}
-              meta={OnAccountPaymentFieldMeta.EstimatedConsumedQuantity}
-            />
-          }
-        />
+          <QuantityDisplay
+            label="Estimated Consumed Quantity"
+            value={value.EstimatedConsumedQuantity?.[0]}
+            meta={OnAccountPaymentFieldMeta.EstimatedConsumedQuantity}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-OnAccountPayment ubl-Text ubl-Note"
-          meta={OnAccountPaymentFieldMeta.Note} 
-          value={value.Note}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Note"
-              value={itemValue}
-              meta={OnAccountPaymentFieldMeta.Note}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Note"
+            label="Note"
+            items={value.Note}
+            meta={OnAccountPaymentFieldMeta.Note} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Note"
+                value={itemValue}
+                meta={OnAccountPaymentFieldMeta.Note}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-OnAccountPayment ubl-PaymentTerms"
-          meta={OnAccountPaymentFieldMeta.PaymentTerms} 
-          value={value.PaymentTerms}
-          itemDisplay={ (itemValue: PaymentTerms, key: string | number) =>
-            <PaymentTermsDisplay
-              key={key}
-              label="Payment Terms"
-              value={itemValue}
-              meta={OnAccountPaymentFieldMeta.PaymentTerms}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-PaymentTerms"
+            label="Payment Terms"
+            items={value.PaymentTerms}
+            meta={OnAccountPaymentFieldMeta.PaymentTerms} 
+            itemDisplay={ (itemValue: PaymentTerms, key: string | number) =>
+              <PaymentTermsDisplay
+                key={key}
+                label="Payment Terms"
+                value={itemValue}
+                meta={OnAccountPaymentFieldMeta.PaymentTerms}
+              />
+            }
+          />
         </div>
     </div>
   )

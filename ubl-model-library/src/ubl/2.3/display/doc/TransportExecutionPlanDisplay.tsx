@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TransportExecutionPlan } from  '../../model/doc/TransportExecutionPlan'
 import { TransportExecutionPlanFieldMeta } from  '../../meta/doc/TransportExecutionPlanMeta'
@@ -39,574 +38,348 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: TransportExecutionPlan
+  value: TransportExecutionPlan | undefined
   meta: FieldMeta<T>
 }
 
 export default function TransportExecutionPlanDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-doc ubl-TransportExecutionPlan ubl-TransportExecutionPlanType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-TransportExecutionPlan ubl-UBLExtensions"
-          meta={TransportExecutionPlanFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-doc ubl-TransportExecutionPlan">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={TransportExecutionPlanFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TransportExecutionPlan ubl-Identifier ubl-UBLVersionID"
-          meta={TransportExecutionPlanFieldMeta.UBLVersionID} 
-          value={value.UBLVersionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="UBL Version Identifier"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.UBLVersionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="UBL Version Identifier"
+            value={value.UBLVersionID?.[0]}
+            meta={TransportExecutionPlanFieldMeta.UBLVersionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TransportExecutionPlan ubl-Identifier ubl-CustomizationID"
-          meta={TransportExecutionPlanFieldMeta.CustomizationID} 
-          value={value.CustomizationID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Customization Identifier"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.CustomizationID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Customization Identifier"
+            value={value.CustomizationID?.[0]}
+            meta={TransportExecutionPlanFieldMeta.CustomizationID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TransportExecutionPlan ubl-Identifier ubl-ProfileID"
-          meta={TransportExecutionPlanFieldMeta.ProfileID} 
-          value={value.ProfileID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Profile Identifier"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.ProfileID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Profile Identifier"
+            value={value.ProfileID?.[0]}
+            meta={TransportExecutionPlanFieldMeta.ProfileID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TransportExecutionPlan ubl-Identifier ubl-ProfileExecutionID"
-          meta={TransportExecutionPlanFieldMeta.ProfileExecutionID} 
-          value={value.ProfileExecutionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Profile Execution Identifier"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.ProfileExecutionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Profile Execution Identifier"
+            value={value.ProfileExecutionID?.[0]}
+            meta={TransportExecutionPlanFieldMeta.ProfileExecutionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TransportExecutionPlan ubl-Identifier ubl-ID"
-          meta={TransportExecutionPlanFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={TransportExecutionPlanFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TransportExecutionPlan ubl-Identifier ubl-VersionID"
-          meta={TransportExecutionPlanFieldMeta.VersionID} 
-          value={value.VersionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Version"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.VersionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Version"
+            value={value.VersionID?.[0]}
+            meta={TransportExecutionPlanFieldMeta.VersionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TransportExecutionPlan ubl-Indicator ubl-CopyIndicator"
-          meta={TransportExecutionPlanFieldMeta.CopyIndicator} 
-          value={value.CopyIndicator}
-          itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay
-              key={key}
-              label="Copy Indicator"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.CopyIndicator}
-            />
-          }
-        />
+          <IndicatorDisplay
+            label="Copy Indicator"
+            value={value.CopyIndicator?.[0]}
+            meta={TransportExecutionPlanFieldMeta.CopyIndicator}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TransportExecutionPlan ubl-Identifier ubl-UUID"
-          meta={TransportExecutionPlanFieldMeta.UUID} 
-          value={value.UUID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="UUID"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.UUID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="UUID"
+            value={value.UUID?.[0]}
+            meta={TransportExecutionPlanFieldMeta.UUID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TransportExecutionPlan ubl-Date ubl-IssueDate"
-          meta={TransportExecutionPlanFieldMeta.IssueDate} 
-          value={value.IssueDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Issue Date"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.IssueDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Issue Date"
+            value={value.IssueDate?.[0]}
+            meta={TransportExecutionPlanFieldMeta.IssueDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TransportExecutionPlan ubl-Time ubl-IssueTime"
-          meta={TransportExecutionPlanFieldMeta.IssueTime} 
-          value={value.IssueTime}
-          itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay
-              key={key}
-              label="Issue Time"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.IssueTime}
-            />
-          }
-        />
+          <TimeDisplay
+            label="Issue Time"
+            value={value.IssueTime?.[0]}
+            meta={TransportExecutionPlanFieldMeta.IssueTime}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TransportExecutionPlan ubl-Code ubl-DocumentStatusCode"
-          meta={TransportExecutionPlanFieldMeta.DocumentStatusCode} 
-          value={value.DocumentStatusCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Document Status Code"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.DocumentStatusCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Document Status Code"
+            value={value.DocumentStatusCode?.[0]}
+            meta={TransportExecutionPlanFieldMeta.DocumentStatusCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TransportExecutionPlan ubl-Code ubl-DocumentStatusReasonCode"
-          meta={TransportExecutionPlanFieldMeta.DocumentStatusReasonCode} 
-          value={value.DocumentStatusReasonCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Document Status Reason Code"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.DocumentStatusReasonCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Document Status Reason Code"
+            value={value.DocumentStatusReasonCode?.[0]}
+            meta={TransportExecutionPlanFieldMeta.DocumentStatusReasonCode}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-TransportExecutionPlan ubl-Text ubl-DocumentStatusReasonDescription"
-          meta={TransportExecutionPlanFieldMeta.DocumentStatusReasonDescription} 
-          value={value.DocumentStatusReasonDescription}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Document Status Reason Description"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.DocumentStatusReasonDescription}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Text ubl-DocumentStatusReasonDescription"
+            label="Document Status Reason Description"
+            items={value.DocumentStatusReasonDescription}
+            meta={TransportExecutionPlanFieldMeta.DocumentStatusReasonDescription} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Document Status Reason Description"
+                value={itemValue}
+                meta={TransportExecutionPlanFieldMeta.DocumentStatusReasonDescription}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-TransportExecutionPlan ubl-Text ubl-Note"
-          meta={TransportExecutionPlanFieldMeta.Note} 
-          value={value.Note}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Note"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.Note}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Text ubl-Note"
+            label="Note"
+            items={value.Note}
+            meta={TransportExecutionPlanFieldMeta.Note} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Note"
+                value={itemValue}
+                meta={TransportExecutionPlanFieldMeta.Note}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-TransportExecutionPlan ubl-Text ubl-TransportUserRemarks"
-          meta={TransportExecutionPlanFieldMeta.TransportUserRemarks} 
-          value={value.TransportUserRemarks}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Transport User Remarks"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.TransportUserRemarks}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Text ubl-TransportUserRemarks"
+            label="Transport User Remarks"
+            items={value.TransportUserRemarks}
+            meta={TransportExecutionPlanFieldMeta.TransportUserRemarks} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Transport User Remarks"
+                value={itemValue}
+                meta={TransportExecutionPlanFieldMeta.TransportUserRemarks}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-TransportExecutionPlan ubl-Text ubl-TransportServiceProviderRemarks"
-          meta={TransportExecutionPlanFieldMeta.TransportServiceProviderRemarks} 
-          value={value.TransportServiceProviderRemarks}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Transport Service Provider Remarks"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.TransportServiceProviderRemarks}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Text ubl-TransportServiceProviderRemarks"
+            label="Transport Service Provider Remarks"
+            items={value.TransportServiceProviderRemarks}
+            meta={TransportExecutionPlanFieldMeta.TransportServiceProviderRemarks} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Transport Service Provider Remarks"
+                value={itemValue}
+                meta={TransportExecutionPlanFieldMeta.TransportServiceProviderRemarks}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TransportExecutionPlan ubl-Party ubl-SenderParty"
-          meta={TransportExecutionPlanFieldMeta.SenderParty} 
-          value={value.SenderParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Sender Party"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.SenderParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Sender Party"
+            value={value.SenderParty?.[0]}
+            meta={TransportExecutionPlanFieldMeta.SenderParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TransportExecutionPlan ubl-Party ubl-ReceiverParty"
-          meta={TransportExecutionPlanFieldMeta.ReceiverParty} 
-          value={value.ReceiverParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Receiver Party"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.ReceiverParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Receiver Party"
+            value={value.ReceiverParty?.[0]}
+            meta={TransportExecutionPlanFieldMeta.ReceiverParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TransportExecutionPlan ubl-Party ubl-TransportUserParty"
-          meta={TransportExecutionPlanFieldMeta.TransportUserParty} 
-          value={value.TransportUserParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Transport User Party"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.TransportUserParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Transport User Party"
+            value={value.TransportUserParty?.[0]}
+            meta={TransportExecutionPlanFieldMeta.TransportUserParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TransportExecutionPlan ubl-Party ubl-TransportServiceProviderParty"
-          meta={TransportExecutionPlanFieldMeta.TransportServiceProviderParty} 
-          value={value.TransportServiceProviderParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Transport Service Provider Party"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.TransportServiceProviderParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Transport Service Provider Party"
+            value={value.TransportServiceProviderParty?.[0]}
+            meta={TransportExecutionPlanFieldMeta.TransportServiceProviderParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TransportExecutionPlan ubl-Party ubl-BillToParty"
-          meta={TransportExecutionPlanFieldMeta.BillToParty} 
-          value={value.BillToParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Bill To Party"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.BillToParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Bill To Party"
+            value={value.BillToParty?.[0]}
+            meta={TransportExecutionPlanFieldMeta.BillToParty}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-TransportExecutionPlan ubl-Signature"
-          meta={TransportExecutionPlanFieldMeta.Signature} 
-          value={value.Signature}
-          itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay
-              key={key}
-              label="Signature"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.Signature}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Signature"
+            label="Signature"
+            items={value.Signature}
+            meta={TransportExecutionPlanFieldMeta.Signature} 
+            itemDisplay={ (itemValue: Signature, key: string | number) =>
+              <SignatureDisplay
+                key={key}
+                label="Signature"
+                value={itemValue}
+                meta={TransportExecutionPlanFieldMeta.Signature}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TransportExecutionPlan ubl-DocumentReference ubl-TransportExecutionPlanRequestDocumentReference"
-          meta={TransportExecutionPlanFieldMeta.TransportExecutionPlanRequestDocumentReference} 
-          value={value.TransportExecutionPlanRequestDocumentReference}
-          itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay
-              key={key}
-              label="Transport Execution Plan Request Document Reference"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.TransportExecutionPlanRequestDocumentReference}
-            />
-          }
-        />
+          <DocumentReferenceDisplay
+            label="Transport Execution Plan Request Document Reference"
+            value={value.TransportExecutionPlanRequestDocumentReference?.[0]}
+            meta={TransportExecutionPlanFieldMeta.TransportExecutionPlanRequestDocumentReference}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TransportExecutionPlan ubl-DocumentReference ubl-TransportExecutionPlanDocumentReference"
-          meta={TransportExecutionPlanFieldMeta.TransportExecutionPlanDocumentReference} 
-          value={value.TransportExecutionPlanDocumentReference}
-          itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay
-              key={key}
-              label="Transport Execution Plan Document Reference"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.TransportExecutionPlanDocumentReference}
-            />
-          }
-        />
+          <DocumentReferenceDisplay
+            label="Transport Execution Plan Document Reference"
+            value={value.TransportExecutionPlanDocumentReference?.[0]}
+            meta={TransportExecutionPlanFieldMeta.TransportExecutionPlanDocumentReference}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TransportExecutionPlan ubl-DocumentReference ubl-TransportServiceDescriptionDocumentReference"
-          meta={TransportExecutionPlanFieldMeta.TransportServiceDescriptionDocumentReference} 
-          value={value.TransportServiceDescriptionDocumentReference}
-          itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay
-              key={key}
-              label="Transport Service Description Document Reference"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.TransportServiceDescriptionDocumentReference}
-            />
-          }
-        />
+          <DocumentReferenceDisplay
+            label="Transport Service Description Document Reference"
+            value={value.TransportServiceDescriptionDocumentReference?.[0]}
+            meta={TransportExecutionPlanFieldMeta.TransportServiceDescriptionDocumentReference}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-TransportExecutionPlan ubl-DocumentReference ubl-AdditionalDocumentReference"
-          meta={TransportExecutionPlanFieldMeta.AdditionalDocumentReference} 
-          value={value.AdditionalDocumentReference}
-          itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay
-              key={key}
-              label="Additional Document Reference"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.AdditionalDocumentReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-DocumentReference ubl-AdditionalDocumentReference"
+            label="Additional Document Reference"
+            items={value.AdditionalDocumentReference}
+            meta={TransportExecutionPlanFieldMeta.AdditionalDocumentReference} 
+            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
+              <DocumentReferenceDisplay
+                key={key}
+                label="Additional Document Reference"
+                value={itemValue}
+                meta={TransportExecutionPlanFieldMeta.AdditionalDocumentReference}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TransportExecutionPlan ubl-Contract ubl-TransportContract"
-          meta={TransportExecutionPlanFieldMeta.TransportContract} 
-          value={value.TransportContract}
-          itemDisplay={ (itemValue: Contract, key: string | number) =>
-            <ContractDisplay
-              key={key}
-              label="Transport Contract"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.TransportContract}
-            />
-          }
-        />
+          <ContractDisplay
+            label="Transport Contract"
+            value={value.TransportContract?.[0]}
+            meta={TransportExecutionPlanFieldMeta.TransportContract}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TransportExecutionPlan ubl-Period ubl-TransportServiceProviderResponseRequiredPeriod"
-          meta={TransportExecutionPlanFieldMeta.TransportServiceProviderResponseRequiredPeriod} 
-          value={value.TransportServiceProviderResponseRequiredPeriod}
-          itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay
-              key={key}
-              label="Transport Service Provider Response Required Period"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.TransportServiceProviderResponseRequiredPeriod}
-            />
-          }
-        />
+          <PeriodDisplay
+            label="Transport Service Provider Response Required Period"
+            value={value.TransportServiceProviderResponseRequiredPeriod?.[0]}
+            meta={TransportExecutionPlanFieldMeta.TransportServiceProviderResponseRequiredPeriod}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-TransportExecutionPlan ubl-Period ubl-TransportUserResponseRequiredPeriod"
-          meta={TransportExecutionPlanFieldMeta.TransportUserResponseRequiredPeriod} 
-          value={value.TransportUserResponseRequiredPeriod}
-          itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay
-              key={key}
-              label="Transport User Response Required Period"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.TransportUserResponseRequiredPeriod}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Period ubl-TransportUserResponseRequiredPeriod"
+            label="Transport User Response Required Period"
+            items={value.TransportUserResponseRequiredPeriod}
+            meta={TransportExecutionPlanFieldMeta.TransportUserResponseRequiredPeriod} 
+            itemDisplay={ (itemValue: Period, key: string | number) =>
+              <PeriodDisplay
+                key={key}
+                label="Transport User Response Required Period"
+                value={itemValue}
+                meta={TransportExecutionPlanFieldMeta.TransportUserResponseRequiredPeriod}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-TransportExecutionPlan ubl-Period ubl-ValidityPeriod"
-          meta={TransportExecutionPlanFieldMeta.ValidityPeriod} 
-          value={value.ValidityPeriod}
-          itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay
-              key={key}
-              label="Validity Period"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.ValidityPeriod}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Period ubl-ValidityPeriod"
+            label="Validity Period"
+            items={value.ValidityPeriod}
+            meta={TransportExecutionPlanFieldMeta.ValidityPeriod} 
+            itemDisplay={ (itemValue: Period, key: string | number) =>
+              <PeriodDisplay
+                key={key}
+                label="Validity Period"
+                value={itemValue}
+                meta={TransportExecutionPlanFieldMeta.ValidityPeriod}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TransportExecutionPlan ubl-TransportationService ubl-MainTransportationService"
-          meta={TransportExecutionPlanFieldMeta.MainTransportationService} 
-          value={value.MainTransportationService}
-          itemDisplay={ (itemValue: TransportationService, key: string | number) =>
-            <TransportationServiceDisplay
-              key={key}
-              label="Main Transportation Service"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.MainTransportationService}
-            />
-          }
-        />
+          <TransportationServiceDisplay
+            label="Main Transportation Service"
+            value={value.MainTransportationService?.[0]}
+            meta={TransportExecutionPlanFieldMeta.MainTransportationService}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-TransportExecutionPlan ubl-TransportationService ubl-AdditionalTransportationService"
-          meta={TransportExecutionPlanFieldMeta.AdditionalTransportationService} 
-          value={value.AdditionalTransportationService}
-          itemDisplay={ (itemValue: TransportationService, key: string | number) =>
-            <TransportationServiceDisplay
-              key={key}
-              label="Additional Transportation Service"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.AdditionalTransportationService}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-TransportationService ubl-AdditionalTransportationService"
+            label="Additional Transportation Service"
+            items={value.AdditionalTransportationService}
+            meta={TransportExecutionPlanFieldMeta.AdditionalTransportationService} 
+            itemDisplay={ (itemValue: TransportationService, key: string | number) =>
+              <TransportationServiceDisplay
+                key={key}
+                label="Additional Transportation Service"
+                value={itemValue}
+                meta={TransportExecutionPlanFieldMeta.AdditionalTransportationService}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TransportExecutionPlan ubl-Period ubl-ServiceStartTimePeriod"
-          meta={TransportExecutionPlanFieldMeta.ServiceStartTimePeriod} 
-          value={value.ServiceStartTimePeriod}
-          itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay
-              key={key}
-              label="Service Start Time Period"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.ServiceStartTimePeriod}
-            />
-          }
-        />
+          <PeriodDisplay
+            label="Service Start Time Period"
+            value={value.ServiceStartTimePeriod?.[0]}
+            meta={TransportExecutionPlanFieldMeta.ServiceStartTimePeriod}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TransportExecutionPlan ubl-Period ubl-ServiceEndTimePeriod"
-          meta={TransportExecutionPlanFieldMeta.ServiceEndTimePeriod} 
-          value={value.ServiceEndTimePeriod}
-          itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay
-              key={key}
-              label="Service End Time Period"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.ServiceEndTimePeriod}
-            />
-          }
-        />
+          <PeriodDisplay
+            label="Service End Time Period"
+            value={value.ServiceEndTimePeriod?.[0]}
+            meta={TransportExecutionPlanFieldMeta.ServiceEndTimePeriod}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TransportExecutionPlan ubl-Location ubl-FromLocation"
-          meta={TransportExecutionPlanFieldMeta.FromLocation} 
-          value={value.FromLocation}
-          itemDisplay={ (itemValue: Location, key: string | number) =>
-            <LocationDisplay
-              key={key}
-              label="From Location"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.FromLocation}
-            />
-          }
-        />
+          <LocationDisplay
+            label="From Location"
+            value={value.FromLocation?.[0]}
+            meta={TransportExecutionPlanFieldMeta.FromLocation}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TransportExecutionPlan ubl-Location ubl-ToLocation"
-          meta={TransportExecutionPlanFieldMeta.ToLocation} 
-          value={value.ToLocation}
-          itemDisplay={ (itemValue: Location, key: string | number) =>
-            <LocationDisplay
-              key={key}
-              label="To Location"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.ToLocation}
-            />
-          }
-        />
+          <LocationDisplay
+            label="To Location"
+            value={value.ToLocation?.[0]}
+            meta={TransportExecutionPlanFieldMeta.ToLocation}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TransportExecutionPlan ubl-Location ubl-AtLocation"
-          meta={TransportExecutionPlanFieldMeta.AtLocation} 
-          value={value.AtLocation}
-          itemDisplay={ (itemValue: Location, key: string | number) =>
-            <LocationDisplay
-              key={key}
-              label="At Location"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.AtLocation}
-            />
-          }
-        />
+          <LocationDisplay
+            label="At Location"
+            value={value.AtLocation?.[0]}
+            meta={TransportExecutionPlanFieldMeta.AtLocation}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TransportExecutionPlan ubl-TransportExecutionTerms"
-          meta={TransportExecutionPlanFieldMeta.TransportExecutionTerms} 
-          value={value.TransportExecutionTerms}
-          itemDisplay={ (itemValue: TransportExecutionTerms, key: string | number) =>
-            <TransportExecutionTermsDisplay
-              key={key}
-              label="Transport Execution Terms"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.TransportExecutionTerms}
-            />
-          }
-        />
+          <TransportExecutionTermsDisplay
+            label="Transport Execution Terms"
+            value={value.TransportExecutionTerms?.[0]}
+            meta={TransportExecutionPlanFieldMeta.TransportExecutionTerms}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-TransportExecutionPlan ubl-Consignment"
-          meta={TransportExecutionPlanFieldMeta.Consignment} 
-          value={value.Consignment}
-          itemDisplay={ (itemValue: Consignment, key: string | number) =>
-            <ConsignmentDisplay
-              key={key}
-              label="Consignment"
-              value={itemValue}
-              meta={TransportExecutionPlanFieldMeta.Consignment}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Consignment"
+            label="Consignment"
+            items={value.Consignment}
+            meta={TransportExecutionPlanFieldMeta.Consignment} 
+            itemDisplay={ (itemValue: Consignment, key: string | number) =>
+              <ConsignmentDisplay
+                key={key}
+                label="Consignment"
+                value={itemValue}
+                meta={TransportExecutionPlanFieldMeta.Consignment}
+              />
+            }
+          />
         </div>
     </div>
   )

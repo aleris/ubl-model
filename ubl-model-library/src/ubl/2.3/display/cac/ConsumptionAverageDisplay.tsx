@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ConsumptionAverage } from  '../../model/cac/ConsumptionAverage'
 import { ConsumptionAverageFieldMeta } from  '../../meta/cac/ConsumptionAverageMeta'
@@ -13,56 +12,45 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: ConsumptionAverage
+  value: ConsumptionAverage | undefined
   meta: FieldMeta<T>
 }
 
 export default function ConsumptionAverageDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-ConsumptionAverage ubl-ConsumptionAverageType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-ConsumptionAverage ubl-UBLExtensions"
-          meta={ConsumptionAverageFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={ConsumptionAverageFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-ConsumptionAverage">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={ConsumptionAverageFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ConsumptionAverage ubl-Amount ubl-AverageAmount"
-          meta={ConsumptionAverageFieldMeta.AverageAmount} 
-          value={value.AverageAmount}
-          itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay
-              key={key}
-              label="Average Amount"
-              value={itemValue}
-              meta={ConsumptionAverageFieldMeta.AverageAmount}
-            />
-          }
-        />
+          <AmountDisplay
+            label="Average Amount"
+            value={value.AverageAmount?.[0]}
+            meta={ConsumptionAverageFieldMeta.AverageAmount}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-ConsumptionAverage ubl-Text ubl-Description"
-          meta={ConsumptionAverageFieldMeta.Description} 
-          value={value.Description}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Description"
-              value={itemValue}
-              meta={ConsumptionAverageFieldMeta.Description}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Description"
+            label="Description"
+            items={value.Description}
+            meta={ConsumptionAverageFieldMeta.Description} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Description"
+                value={itemValue}
+                meta={ConsumptionAverageFieldMeta.Description}
+              />
+            }
+          />
         </div>
     </div>
   )

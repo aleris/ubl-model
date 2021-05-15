@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { QualificationResolution } from  '../../model/cac/QualificationResolution'
 import { QualificationResolutionFieldMeta } from  '../../meta/cac/QualificationResolutionMeta'
@@ -19,112 +18,78 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: QualificationResolution
+  value: QualificationResolution | undefined
   meta: FieldMeta<T>
 }
 
 export default function QualificationResolutionDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-QualificationResolution ubl-QualificationResolutionType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-QualificationResolution ubl-UBLExtensions"
-          meta={QualificationResolutionFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={QualificationResolutionFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-QualificationResolution">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={QualificationResolutionFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-QualificationResolution ubl-Code ubl-AdmissionCode"
-          meta={QualificationResolutionFieldMeta.AdmissionCode} 
-          value={value.AdmissionCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Admission Code"
-              value={itemValue}
-              meta={QualificationResolutionFieldMeta.AdmissionCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Admission Code"
+            value={value.AdmissionCode?.[0]}
+            meta={QualificationResolutionFieldMeta.AdmissionCode}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-QualificationResolution ubl-Text ubl-ExclusionReason"
-          meta={QualificationResolutionFieldMeta.ExclusionReason} 
-          value={value.ExclusionReason}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Exclusion Reason"
-              value={itemValue}
-              meta={QualificationResolutionFieldMeta.ExclusionReason}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-ExclusionReason"
+            label="Exclusion Reason"
+            items={value.ExclusionReason}
+            meta={QualificationResolutionFieldMeta.ExclusionReason} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Exclusion Reason"
+                value={itemValue}
+                meta={QualificationResolutionFieldMeta.ExclusionReason}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-QualificationResolution ubl-Text ubl-Resolution"
-          meta={QualificationResolutionFieldMeta.Resolution} 
-          value={value.Resolution}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Resolution"
-              value={itemValue}
-              meta={QualificationResolutionFieldMeta.Resolution}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Resolution"
+            label="Resolution"
+            items={value.Resolution}
+            meta={QualificationResolutionFieldMeta.Resolution} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Resolution"
+                value={itemValue}
+                meta={QualificationResolutionFieldMeta.Resolution}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-QualificationResolution ubl-Date ubl-ResolutionDate"
-          meta={QualificationResolutionFieldMeta.ResolutionDate} 
-          value={value.ResolutionDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Resolution Date"
-              value={itemValue}
-              meta={QualificationResolutionFieldMeta.ResolutionDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Resolution Date"
+            value={value.ResolutionDate?.[0]}
+            meta={QualificationResolutionFieldMeta.ResolutionDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-QualificationResolution ubl-Time ubl-ResolutionTime"
-          meta={QualificationResolutionFieldMeta.ResolutionTime} 
-          value={value.ResolutionTime}
-          itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay
-              key={key}
-              label="Resolution Time"
-              value={itemValue}
-              meta={QualificationResolutionFieldMeta.ResolutionTime}
-            />
-          }
-        />
+          <TimeDisplay
+            label="Resolution Time"
+            value={value.ResolutionTime?.[0]}
+            meta={QualificationResolutionFieldMeta.ResolutionTime}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-QualificationResolution ubl-ProcurementProjectLot"
-          meta={QualificationResolutionFieldMeta.ProcurementProjectLot} 
-          value={value.ProcurementProjectLot}
-          itemDisplay={ (itemValue: ProcurementProjectLot, key: string | number) =>
-            <ProcurementProjectLotDisplay
-              key={key}
-              label="Procurement Project Lot"
-              value={itemValue}
-              meta={QualificationResolutionFieldMeta.ProcurementProjectLot}
-            />
-          }
-        />
+          <ProcurementProjectLotDisplay
+            label="Procurement Project Lot"
+            value={value.ProcurementProjectLot?.[0]}
+            meta={QualificationResolutionFieldMeta.ProcurementProjectLot}
+          />
         </div>
     </div>
   )

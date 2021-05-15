@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { PriorInformationNotice } from  '../../model/doc/PriorInformationNotice'
 import { PriorInformationNoticeFieldMeta } from  '../../meta/doc/PriorInformationNoticeMeta'
@@ -41,420 +40,264 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: PriorInformationNotice
+  value: PriorInformationNotice | undefined
   meta: FieldMeta<T>
 }
 
 export default function PriorInformationNoticeDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-doc ubl-PriorInformationNotice ubl-PriorInformationNoticeType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-PriorInformationNotice ubl-UBLExtensions"
-          meta={PriorInformationNoticeFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={PriorInformationNoticeFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-doc ubl-PriorInformationNotice">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={PriorInformationNoticeFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PriorInformationNotice ubl-Identifier ubl-UBLVersionID"
-          meta={PriorInformationNoticeFieldMeta.UBLVersionID} 
-          value={value.UBLVersionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="UBL Version Identifier"
-              value={itemValue}
-              meta={PriorInformationNoticeFieldMeta.UBLVersionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="UBL Version Identifier"
+            value={value.UBLVersionID?.[0]}
+            meta={PriorInformationNoticeFieldMeta.UBLVersionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PriorInformationNotice ubl-Identifier ubl-CustomizationID"
-          meta={PriorInformationNoticeFieldMeta.CustomizationID} 
-          value={value.CustomizationID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Customization Identifier"
-              value={itemValue}
-              meta={PriorInformationNoticeFieldMeta.CustomizationID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Customization Identifier"
+            value={value.CustomizationID?.[0]}
+            meta={PriorInformationNoticeFieldMeta.CustomizationID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PriorInformationNotice ubl-Identifier ubl-ProfileID"
-          meta={PriorInformationNoticeFieldMeta.ProfileID} 
-          value={value.ProfileID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Profile Identifier"
-              value={itemValue}
-              meta={PriorInformationNoticeFieldMeta.ProfileID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Profile Identifier"
+            value={value.ProfileID?.[0]}
+            meta={PriorInformationNoticeFieldMeta.ProfileID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PriorInformationNotice ubl-Identifier ubl-ProfileExecutionID"
-          meta={PriorInformationNoticeFieldMeta.ProfileExecutionID} 
-          value={value.ProfileExecutionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Profile Execution Identifier"
-              value={itemValue}
-              meta={PriorInformationNoticeFieldMeta.ProfileExecutionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Profile Execution Identifier"
+            value={value.ProfileExecutionID?.[0]}
+            meta={PriorInformationNoticeFieldMeta.ProfileExecutionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PriorInformationNotice ubl-Identifier ubl-ID"
-          meta={PriorInformationNoticeFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={PriorInformationNoticeFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={PriorInformationNoticeFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PriorInformationNotice ubl-Indicator ubl-CopyIndicator"
-          meta={PriorInformationNoticeFieldMeta.CopyIndicator} 
-          value={value.CopyIndicator}
-          itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay
-              key={key}
-              label="Copy Indicator"
-              value={itemValue}
-              meta={PriorInformationNoticeFieldMeta.CopyIndicator}
-            />
-          }
-        />
+          <IndicatorDisplay
+            label="Copy Indicator"
+            value={value.CopyIndicator?.[0]}
+            meta={PriorInformationNoticeFieldMeta.CopyIndicator}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PriorInformationNotice ubl-Identifier ubl-UUID"
-          meta={PriorInformationNoticeFieldMeta.UUID} 
-          value={value.UUID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="UUID"
-              value={itemValue}
-              meta={PriorInformationNoticeFieldMeta.UUID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="UUID"
+            value={value.UUID?.[0]}
+            meta={PriorInformationNoticeFieldMeta.UUID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PriorInformationNotice ubl-Identifier ubl-ContractFolderID"
-          meta={PriorInformationNoticeFieldMeta.ContractFolderID} 
-          value={value.ContractFolderID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Contract Folder Identifier"
-              value={itemValue}
-              meta={PriorInformationNoticeFieldMeta.ContractFolderID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Contract Folder Identifier"
+            value={value.ContractFolderID?.[0]}
+            meta={PriorInformationNoticeFieldMeta.ContractFolderID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PriorInformationNotice ubl-Date ubl-IssueDate"
-          meta={PriorInformationNoticeFieldMeta.IssueDate} 
-          value={value.IssueDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Issue Date"
-              value={itemValue}
-              meta={PriorInformationNoticeFieldMeta.IssueDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Issue Date"
+            value={value.IssueDate?.[0]}
+            meta={PriorInformationNoticeFieldMeta.IssueDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PriorInformationNotice ubl-Time ubl-IssueTime"
-          meta={PriorInformationNoticeFieldMeta.IssueTime} 
-          value={value.IssueTime}
-          itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay
-              key={key}
-              label="Issue Time"
-              value={itemValue}
-              meta={PriorInformationNoticeFieldMeta.IssueTime}
-            />
-          }
-        />
+          <TimeDisplay
+            label="Issue Time"
+            value={value.IssueTime?.[0]}
+            meta={PriorInformationNoticeFieldMeta.IssueTime}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-PriorInformationNotice ubl-Text ubl-Note"
-          meta={PriorInformationNoticeFieldMeta.Note} 
-          value={value.Note}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Note"
-              value={itemValue}
-              meta={PriorInformationNoticeFieldMeta.Note}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Text ubl-Note"
+            label="Note"
+            items={value.Note}
+            meta={PriorInformationNoticeFieldMeta.Note} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Note"
+                value={itemValue}
+                meta={PriorInformationNoticeFieldMeta.Note}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PriorInformationNotice ubl-Identifier ubl-VersionID"
-          meta={PriorInformationNoticeFieldMeta.VersionID} 
-          value={value.VersionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Version Identifier"
-              value={itemValue}
-              meta={PriorInformationNoticeFieldMeta.VersionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Version Identifier"
+            value={value.VersionID?.[0]}
+            meta={PriorInformationNoticeFieldMeta.VersionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PriorInformationNotice ubl-Identifier ubl-PreviousVersionID"
-          meta={PriorInformationNoticeFieldMeta.PreviousVersionID} 
-          value={value.PreviousVersionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Previous Version Identifier"
-              value={itemValue}
-              meta={PriorInformationNoticeFieldMeta.PreviousVersionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Previous Version Identifier"
+            value={value.PreviousVersionID?.[0]}
+            meta={PriorInformationNoticeFieldMeta.PreviousVersionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PriorInformationNotice ubl-Date ubl-RequestedPublicationDate"
-          meta={PriorInformationNoticeFieldMeta.RequestedPublicationDate} 
-          value={value.RequestedPublicationDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Requested Publication Date"
-              value={itemValue}
-              meta={PriorInformationNoticeFieldMeta.RequestedPublicationDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Requested Publication Date"
+            value={value.RequestedPublicationDate?.[0]}
+            meta={PriorInformationNoticeFieldMeta.RequestedPublicationDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PriorInformationNotice ubl-Date ubl-PlannedDate"
-          meta={PriorInformationNoticeFieldMeta.PlannedDate} 
-          value={value.PlannedDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Planned Date"
-              value={itemValue}
-              meta={PriorInformationNoticeFieldMeta.PlannedDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Planned Date"
+            value={value.PlannedDate?.[0]}
+            meta={PriorInformationNoticeFieldMeta.PlannedDate}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-PriorInformationNotice ubl-Text ubl-RegulatoryDomain"
-          meta={PriorInformationNoticeFieldMeta.RegulatoryDomain} 
-          value={value.RegulatoryDomain}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Regulatory Domain"
-              value={itemValue}
-              meta={PriorInformationNoticeFieldMeta.RegulatoryDomain}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Text ubl-RegulatoryDomain"
+            label="Regulatory Domain"
+            items={value.RegulatoryDomain}
+            meta={PriorInformationNoticeFieldMeta.RegulatoryDomain} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Regulatory Domain"
+                value={itemValue}
+                meta={PriorInformationNoticeFieldMeta.RegulatoryDomain}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PriorInformationNotice ubl-Code ubl-NoticeTypeCode"
-          meta={PriorInformationNoticeFieldMeta.NoticeTypeCode} 
-          value={value.NoticeTypeCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Notice Type Code"
-              value={itemValue}
-              meta={PriorInformationNoticeFieldMeta.NoticeTypeCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Notice Type Code"
+            value={value.NoticeTypeCode?.[0]}
+            meta={PriorInformationNoticeFieldMeta.NoticeTypeCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PriorInformationNotice ubl-Code ubl-NoticeLanguageCode"
-          meta={PriorInformationNoticeFieldMeta.NoticeLanguageCode} 
-          value={value.NoticeLanguageCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Notice Language Code"
-              value={itemValue}
-              meta={PriorInformationNoticeFieldMeta.NoticeLanguageCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Notice Language Code"
+            value={value.NoticeLanguageCode?.[0]}
+            meta={PriorInformationNoticeFieldMeta.NoticeLanguageCode}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-PriorInformationNotice ubl-Language ubl-AdditionalNoticeLanguage"
-          meta={PriorInformationNoticeFieldMeta.AdditionalNoticeLanguage} 
-          value={value.AdditionalNoticeLanguage}
-          itemDisplay={ (itemValue: Language, key: string | number) =>
-            <LanguageDisplay
-              key={key}
-              label="Additional Notice Language"
-              value={itemValue}
-              meta={PriorInformationNoticeFieldMeta.AdditionalNoticeLanguage}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Language ubl-AdditionalNoticeLanguage"
+            label="Additional Notice Language"
+            items={value.AdditionalNoticeLanguage}
+            meta={PriorInformationNoticeFieldMeta.AdditionalNoticeLanguage} 
+            itemDisplay={ (itemValue: Language, key: string | number) =>
+              <LanguageDisplay
+                key={key}
+                label="Additional Notice Language"
+                value={itemValue}
+                meta={PriorInformationNoticeFieldMeta.AdditionalNoticeLanguage}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-PriorInformationNotice ubl-DocumentReference"
-          meta={PriorInformationNoticeFieldMeta.DocumentReference} 
-          value={value.DocumentReference}
-          itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay
-              key={key}
-              label="Document Reference"
-              value={itemValue}
-              meta={PriorInformationNoticeFieldMeta.DocumentReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-DocumentReference"
+            label="Document Reference"
+            items={value.DocumentReference}
+            meta={PriorInformationNoticeFieldMeta.DocumentReference} 
+            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
+              <DocumentReferenceDisplay
+                key={key}
+                label="Document Reference"
+                value={itemValue}
+                meta={PriorInformationNoticeFieldMeta.DocumentReference}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-PriorInformationNotice ubl-Signature"
-          meta={PriorInformationNoticeFieldMeta.Signature} 
-          value={value.Signature}
-          itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay
-              key={key}
-              label="Signature"
-              value={itemValue}
-              meta={PriorInformationNoticeFieldMeta.Signature}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Signature"
+            label="Signature"
+            items={value.Signature}
+            meta={PriorInformationNoticeFieldMeta.Signature} 
+            itemDisplay={ (itemValue: Signature, key: string | number) =>
+              <SignatureDisplay
+                key={key}
+                label="Signature"
+                value={itemValue}
+                meta={PriorInformationNoticeFieldMeta.Signature}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-PriorInformationNotice ubl-ContractingParty"
-          meta={PriorInformationNoticeFieldMeta.ContractingParty} 
-          value={value.ContractingParty}
-          itemDisplay={ (itemValue: ContractingParty, key: string | number) =>
-            <ContractingPartyDisplay
-              key={key}
-              label="Contracting Party"
-              value={itemValue}
-              meta={PriorInformationNoticeFieldMeta.ContractingParty}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-ContractingParty"
+            label="Contracting Party"
+            items={value.ContractingParty}
+            meta={PriorInformationNoticeFieldMeta.ContractingParty} 
+            itemDisplay={ (itemValue: ContractingParty, key: string | number) =>
+              <ContractingPartyDisplay
+                key={key}
+                label="Contracting Party"
+                value={itemValue}
+                meta={PriorInformationNoticeFieldMeta.ContractingParty}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-PriorInformationNotice ubl-CustomerParty ubl-OriginatorCustomerParty"
-          meta={PriorInformationNoticeFieldMeta.OriginatorCustomerParty} 
-          value={value.OriginatorCustomerParty}
-          itemDisplay={ (itemValue: CustomerParty, key: string | number) =>
-            <CustomerPartyDisplay
-              key={key}
-              label="Originator Customer Party"
-              value={itemValue}
-              meta={PriorInformationNoticeFieldMeta.OriginatorCustomerParty}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-CustomerParty ubl-OriginatorCustomerParty"
+            label="Originator Customer Party"
+            items={value.OriginatorCustomerParty}
+            meta={PriorInformationNoticeFieldMeta.OriginatorCustomerParty} 
+            itemDisplay={ (itemValue: CustomerParty, key: string | number) =>
+              <CustomerPartyDisplay
+                key={key}
+                label="Originator Customer Party"
+                value={itemValue}
+                meta={PriorInformationNoticeFieldMeta.OriginatorCustomerParty}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-PriorInformationNotice ubl-Party ubl-ReceiverParty"
-          meta={PriorInformationNoticeFieldMeta.ReceiverParty} 
-          value={value.ReceiverParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Receiver Party"
-              value={itemValue}
-              meta={PriorInformationNoticeFieldMeta.ReceiverParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Receiver Party"
+            value={value.ReceiverParty?.[0]}
+            meta={PriorInformationNoticeFieldMeta.ReceiverParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-PriorInformationNotice ubl-TenderingTerms"
-          meta={PriorInformationNoticeFieldMeta.TenderingTerms} 
-          value={value.TenderingTerms}
-          itemDisplay={ (itemValue: TenderingTerms, key: string | number) =>
-            <TenderingTermsDisplay
-              key={key}
-              label="Tendering Terms"
-              value={itemValue}
-              meta={PriorInformationNoticeFieldMeta.TenderingTerms}
-            />
-          }
-        />
+          <TenderingTermsDisplay
+            label="Tendering Terms"
+            value={value.TenderingTerms?.[0]}
+            meta={PriorInformationNoticeFieldMeta.TenderingTerms}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-PriorInformationNotice ubl-TenderingProcess"
-          meta={PriorInformationNoticeFieldMeta.TenderingProcess} 
-          value={value.TenderingProcess}
-          itemDisplay={ (itemValue: TenderingProcess, key: string | number) =>
-            <TenderingProcessDisplay
-              key={key}
-              label="Tendering Process"
-              value={itemValue}
-              meta={PriorInformationNoticeFieldMeta.TenderingProcess}
-            />
-          }
-        />
+          <TenderingProcessDisplay
+            label="Tendering Process"
+            value={value.TenderingProcess?.[0]}
+            meta={PriorInformationNoticeFieldMeta.TenderingProcess}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-PriorInformationNotice ubl-ProcurementProject"
-          meta={PriorInformationNoticeFieldMeta.ProcurementProject} 
-          value={value.ProcurementProject}
-          itemDisplay={ (itemValue: ProcurementProject, key: string | number) =>
-            <ProcurementProjectDisplay
-              key={key}
-              label="Procurement Project"
-              value={itemValue}
-              meta={PriorInformationNoticeFieldMeta.ProcurementProject}
-            />
-          }
-        />
+          <ProcurementProjectDisplay
+            label="Procurement Project"
+            value={value.ProcurementProject?.[0]}
+            meta={PriorInformationNoticeFieldMeta.ProcurementProject}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-PriorInformationNotice ubl-ProcurementProjectLot"
-          meta={PriorInformationNoticeFieldMeta.ProcurementProjectLot} 
-          value={value.ProcurementProjectLot}
-          itemDisplay={ (itemValue: ProcurementProjectLot, key: string | number) =>
-            <ProcurementProjectLotDisplay
-              key={key}
-              label="Procurement Project Lot"
-              value={itemValue}
-              meta={PriorInformationNoticeFieldMeta.ProcurementProjectLot}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-ProcurementProjectLot"
+            label="Procurement Project Lot"
+            items={value.ProcurementProjectLot}
+            meta={PriorInformationNoticeFieldMeta.ProcurementProjectLot} 
+            itemDisplay={ (itemValue: ProcurementProjectLot, key: string | number) =>
+              <ProcurementProjectLotDisplay
+                key={key}
+                label="Procurement Project Lot"
+                value={itemValue}
+                meta={PriorInformationNoticeFieldMeta.ProcurementProjectLot}
+              />
+            }
+          />
         </div>
     </div>
   )

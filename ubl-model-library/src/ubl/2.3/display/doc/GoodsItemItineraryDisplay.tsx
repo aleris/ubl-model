@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { GoodsItemItinerary } from  '../../model/doc/GoodsItemItinerary'
 import { GoodsItemItineraryFieldMeta } from  '../../meta/doc/GoodsItemItineraryMeta'
@@ -33,308 +32,207 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: GoodsItemItinerary
+  value: GoodsItemItinerary | undefined
   meta: FieldMeta<T>
 }
 
 export default function GoodsItemItineraryDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-doc ubl-GoodsItemItinerary ubl-GoodsItemItineraryType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-GoodsItemItinerary ubl-UBLExtensions"
-          meta={GoodsItemItineraryFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={GoodsItemItineraryFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-doc ubl-GoodsItemItinerary">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={GoodsItemItineraryFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-GoodsItemItinerary ubl-Identifier ubl-UBLVersionID"
-          meta={GoodsItemItineraryFieldMeta.UBLVersionID} 
-          value={value.UBLVersionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="UBL Version Identifier"
-              value={itemValue}
-              meta={GoodsItemItineraryFieldMeta.UBLVersionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="UBL Version Identifier"
+            value={value.UBLVersionID?.[0]}
+            meta={GoodsItemItineraryFieldMeta.UBLVersionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-GoodsItemItinerary ubl-Identifier ubl-CustomizationID"
-          meta={GoodsItemItineraryFieldMeta.CustomizationID} 
-          value={value.CustomizationID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Customization Identifier"
-              value={itemValue}
-              meta={GoodsItemItineraryFieldMeta.CustomizationID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Customization Identifier"
+            value={value.CustomizationID?.[0]}
+            meta={GoodsItemItineraryFieldMeta.CustomizationID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-GoodsItemItinerary ubl-Identifier ubl-ProfileID"
-          meta={GoodsItemItineraryFieldMeta.ProfileID} 
-          value={value.ProfileID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Profile Identifier"
-              value={itemValue}
-              meta={GoodsItemItineraryFieldMeta.ProfileID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Profile Identifier"
+            value={value.ProfileID?.[0]}
+            meta={GoodsItemItineraryFieldMeta.ProfileID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-GoodsItemItinerary ubl-Identifier ubl-ProfileExecutionID"
-          meta={GoodsItemItineraryFieldMeta.ProfileExecutionID} 
-          value={value.ProfileExecutionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Profile Execution Identifier"
-              value={itemValue}
-              meta={GoodsItemItineraryFieldMeta.ProfileExecutionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Profile Execution Identifier"
+            value={value.ProfileExecutionID?.[0]}
+            meta={GoodsItemItineraryFieldMeta.ProfileExecutionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-GoodsItemItinerary ubl-Identifier ubl-ID"
-          meta={GoodsItemItineraryFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={GoodsItemItineraryFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={GoodsItemItineraryFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-GoodsItemItinerary ubl-Indicator ubl-CopyIndicator"
-          meta={GoodsItemItineraryFieldMeta.CopyIndicator} 
-          value={value.CopyIndicator}
-          itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay
-              key={key}
-              label="Copy Indicator"
-              value={itemValue}
-              meta={GoodsItemItineraryFieldMeta.CopyIndicator}
-            />
-          }
-        />
+          <IndicatorDisplay
+            label="Copy Indicator"
+            value={value.CopyIndicator?.[0]}
+            meta={GoodsItemItineraryFieldMeta.CopyIndicator}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-GoodsItemItinerary ubl-Identifier ubl-UUID"
-          meta={GoodsItemItineraryFieldMeta.UUID} 
-          value={value.UUID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="UUID"
-              value={itemValue}
-              meta={GoodsItemItineraryFieldMeta.UUID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="UUID"
+            value={value.UUID?.[0]}
+            meta={GoodsItemItineraryFieldMeta.UUID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-GoodsItemItinerary ubl-Date ubl-IssueDate"
-          meta={GoodsItemItineraryFieldMeta.IssueDate} 
-          value={value.IssueDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Issue Date"
-              value={itemValue}
-              meta={GoodsItemItineraryFieldMeta.IssueDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Issue Date"
+            value={value.IssueDate?.[0]}
+            meta={GoodsItemItineraryFieldMeta.IssueDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-GoodsItemItinerary ubl-Time ubl-IssueTime"
-          meta={GoodsItemItineraryFieldMeta.IssueTime} 
-          value={value.IssueTime}
-          itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay
-              key={key}
-              label="Issue Time"
-              value={itemValue}
-              meta={GoodsItemItineraryFieldMeta.IssueTime}
-            />
-          }
-        />
+          <TimeDisplay
+            label="Issue Time"
+            value={value.IssueTime?.[0]}
+            meta={GoodsItemItineraryFieldMeta.IssueTime}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-GoodsItemItinerary ubl-Text ubl-Note"
-          meta={GoodsItemItineraryFieldMeta.Note} 
-          value={value.Note}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Note"
-              value={itemValue}
-              meta={GoodsItemItineraryFieldMeta.Note}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Text ubl-Note"
+            label="Note"
+            items={value.Note}
+            meta={GoodsItemItineraryFieldMeta.Note} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Note"
+                value={itemValue}
+                meta={GoodsItemItineraryFieldMeta.Note}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-GoodsItemItinerary ubl-Identifier ubl-VersionID"
-          meta={GoodsItemItineraryFieldMeta.VersionID} 
-          value={value.VersionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Version"
-              value={itemValue}
-              meta={GoodsItemItineraryFieldMeta.VersionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Version"
+            value={value.VersionID?.[0]}
+            meta={GoodsItemItineraryFieldMeta.VersionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-GoodsItemItinerary ubl-Identifier ubl-TransportExecutionPlanReferenceID"
-          meta={GoodsItemItineraryFieldMeta.TransportExecutionPlanReferenceID} 
-          value={value.TransportExecutionPlanReferenceID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Transport Execution Plan Reference"
-              value={itemValue}
-              meta={GoodsItemItineraryFieldMeta.TransportExecutionPlanReferenceID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Transport Execution Plan Reference"
+            value={value.TransportExecutionPlanReferenceID?.[0]}
+            meta={GoodsItemItineraryFieldMeta.TransportExecutionPlanReferenceID}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-GoodsItemItinerary ubl-Signature"
-          meta={GoodsItemItineraryFieldMeta.Signature} 
-          value={value.Signature}
-          itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay
-              key={key}
-              label="Signature"
-              value={itemValue}
-              meta={GoodsItemItineraryFieldMeta.Signature}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Signature"
+            label="Signature"
+            items={value.Signature}
+            meta={GoodsItemItineraryFieldMeta.Signature} 
+            itemDisplay={ (itemValue: Signature, key: string | number) =>
+              <SignatureDisplay
+                key={key}
+                label="Signature"
+                value={itemValue}
+                meta={GoodsItemItineraryFieldMeta.Signature}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-GoodsItemItinerary ubl-Party ubl-SenderParty"
-          meta={GoodsItemItineraryFieldMeta.SenderParty} 
-          value={value.SenderParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Sender Party"
-              value={itemValue}
-              meta={GoodsItemItineraryFieldMeta.SenderParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Sender Party"
+            value={value.SenderParty?.[0]}
+            meta={GoodsItemItineraryFieldMeta.SenderParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-GoodsItemItinerary ubl-Party ubl-ReceiverParty"
-          meta={GoodsItemItineraryFieldMeta.ReceiverParty} 
-          value={value.ReceiverParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Receiver Party"
-              value={itemValue}
-              meta={GoodsItemItineraryFieldMeta.ReceiverParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Receiver Party"
+            value={value.ReceiverParty?.[0]}
+            meta={GoodsItemItineraryFieldMeta.ReceiverParty}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-GoodsItemItinerary ubl-Consignment ubl-ReferencedConsignment"
-          meta={GoodsItemItineraryFieldMeta.ReferencedConsignment} 
-          value={value.ReferencedConsignment}
-          itemDisplay={ (itemValue: Consignment, key: string | number) =>
-            <ConsignmentDisplay
-              key={key}
-              label="Referenced Consignment"
-              value={itemValue}
-              meta={GoodsItemItineraryFieldMeta.ReferencedConsignment}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Consignment ubl-ReferencedConsignment"
+            label="Referenced Consignment"
+            items={value.ReferencedConsignment}
+            meta={GoodsItemItineraryFieldMeta.ReferencedConsignment} 
+            itemDisplay={ (itemValue: Consignment, key: string | number) =>
+              <ConsignmentDisplay
+                key={key}
+                label="Referenced Consignment"
+                value={itemValue}
+                meta={GoodsItemItineraryFieldMeta.ReferencedConsignment}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-GoodsItemItinerary ubl-TransportEquipment ubl-ReferencedTransportEquipment"
-          meta={GoodsItemItineraryFieldMeta.ReferencedTransportEquipment} 
-          value={value.ReferencedTransportEquipment}
-          itemDisplay={ (itemValue: TransportEquipment, key: string | number) =>
-            <TransportEquipmentDisplay
-              key={key}
-              label="Referenced Transport Equipment"
-              value={itemValue}
-              meta={GoodsItemItineraryFieldMeta.ReferencedTransportEquipment}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-TransportEquipment ubl-ReferencedTransportEquipment"
+            label="Referenced Transport Equipment"
+            items={value.ReferencedTransportEquipment}
+            meta={GoodsItemItineraryFieldMeta.ReferencedTransportEquipment} 
+            itemDisplay={ (itemValue: TransportEquipment, key: string | number) =>
+              <TransportEquipmentDisplay
+                key={key}
+                label="Referenced Transport Equipment"
+                value={itemValue}
+                meta={GoodsItemItineraryFieldMeta.ReferencedTransportEquipment}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-GoodsItemItinerary ubl-Package ubl-ReferencedPackage"
-          meta={GoodsItemItineraryFieldMeta.ReferencedPackage} 
-          value={value.ReferencedPackage}
-          itemDisplay={ (itemValue: Package, key: string | number) =>
-            <PackageDisplay
-              key={key}
-              label="Referenced Package"
-              value={itemValue}
-              meta={GoodsItemItineraryFieldMeta.ReferencedPackage}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Package ubl-ReferencedPackage"
+            label="Referenced Package"
+            items={value.ReferencedPackage}
+            meta={GoodsItemItineraryFieldMeta.ReferencedPackage} 
+            itemDisplay={ (itemValue: Package, key: string | number) =>
+              <PackageDisplay
+                key={key}
+                label="Referenced Package"
+                value={itemValue}
+                meta={GoodsItemItineraryFieldMeta.ReferencedPackage}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-GoodsItemItinerary ubl-GoodsItem ubl-ReferencedGoodsItem"
-          meta={GoodsItemItineraryFieldMeta.ReferencedGoodsItem} 
-          value={value.ReferencedGoodsItem}
-          itemDisplay={ (itemValue: GoodsItem, key: string | number) =>
-            <GoodsItemDisplay
-              key={key}
-              label="Referenced Goods Item"
-              value={itemValue}
-              meta={GoodsItemItineraryFieldMeta.ReferencedGoodsItem}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-GoodsItem ubl-ReferencedGoodsItem"
+            label="Referenced Goods Item"
+            items={value.ReferencedGoodsItem}
+            meta={GoodsItemItineraryFieldMeta.ReferencedGoodsItem} 
+            itemDisplay={ (itemValue: GoodsItem, key: string | number) =>
+              <GoodsItemDisplay
+                key={key}
+                label="Referenced Goods Item"
+                value={itemValue}
+                meta={GoodsItemItineraryFieldMeta.ReferencedGoodsItem}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-GoodsItemItinerary ubl-TransportationSegment"
-          meta={GoodsItemItineraryFieldMeta.TransportationSegment} 
-          value={value.TransportationSegment}
-          itemDisplay={ (itemValue: TransportationSegment, key: string | number) =>
-            <TransportationSegmentDisplay
-              key={key}
-              label="Transportation Segment"
-              value={itemValue}
-              meta={GoodsItemItineraryFieldMeta.TransportationSegment}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-TransportationSegment"
+            label="Transportation Segment"
+            items={value.TransportationSegment}
+            meta={GoodsItemItineraryFieldMeta.TransportationSegment} 
+            itemDisplay={ (itemValue: TransportationSegment, key: string | number) =>
+              <TransportationSegmentDisplay
+                key={key}
+                label="Transportation Segment"
+                value={itemValue}
+                meta={GoodsItemItineraryFieldMeta.TransportationSegment}
+              />
+            }
+          />
         </div>
     </div>
   )

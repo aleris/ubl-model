@@ -4,39 +4,35 @@ import { FieldCodeGenerator } from '../CodeGenerator'
 
 export class DisplayFieldGenerator implements FieldCodeGenerator<AggregateType, AggregateField> {
   asCodeString(type: AggregateType, fieldType: AggregateField): string {
-    const names = Array.from(new Set([type.typeName, fieldType.resolvedType.name, fieldType.fieldName]).values())
+    const className = Array.from(new Set([
+      fieldType.aggregateType.module,
+      fieldType.resolvedType.name,
+      fieldType.fieldName
+    ]).values())
       .map(name => `ubl-${name}`)
       .join(' ')
-    const className = `ubl-${fieldType.resolvedType.prefix} ${names}`
-    console.log(type.typeName, fieldType.cardinalityWithFallbackToOccur)
+
     if (fieldType.cardinalityWithFallbackToOccur.endsWith('..n')) {
-      return `        <AttributeListDisplay
-          className="${className}"
-          meta={${type.typeName}FieldMeta.${fieldType.fieldName}} 
-          value={value.${fieldType.fieldName}}
-          itemDisplay={ (itemValue: ${fieldType.resolvedType.name}, key: string | number) =>
-            <${fieldType.resolvedType.name}Display
-              key={key}
-              label="${fieldType.propertyTermWithFallbackToName}"
-              value={itemValue}
-              meta={${type.typeName}FieldMeta.${fieldType.fieldName}}
-            />
-          }
-        />`
+      return `          <ElementListDisplay
+            className="${className}"
+            label="${fieldType.propertyTermWithFallbackToName}"
+            items={value.${fieldType.fieldName}}
+            meta={${type.typeName}FieldMeta.${fieldType.fieldName}} 
+            itemDisplay={ (itemValue: ${fieldType.resolvedType.name}, key: string | number) =>
+              <${fieldType.resolvedType.name}Display
+                key={key}
+                label="${fieldType.propertyTermWithFallbackToName}"
+                value={itemValue}
+                meta={${type.typeName}FieldMeta.${fieldType.fieldName}}
+              />
+            }
+          />`
     } else {
-      return `        <AttributeSingleDisplay
-          className="${className}"
-          meta={${type.typeName}FieldMeta.${fieldType.fieldName}} 
-          value={value.${fieldType.fieldName}}
-          itemDisplay={ (itemValue: ${fieldType.resolvedType.name}, key: string | number) =>
-            <${fieldType.resolvedType.name}Display
-              key={key}
-              label="${fieldType.propertyTermWithFallbackToName}"
-              value={itemValue}
-              meta={${type.typeName}FieldMeta.${fieldType.fieldName}}
-            />
-          }
-        />`
+      return `          <${fieldType.resolvedType.name}Display
+            label="${fieldType.propertyTermWithFallbackToName}"
+            value={value.${fieldType.fieldName}?.[0]}
+            meta={${type.typeName}FieldMeta.${fieldType.fieldName}}
+          />`
     }
   }
 

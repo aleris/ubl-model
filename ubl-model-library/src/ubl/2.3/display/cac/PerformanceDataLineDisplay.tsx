@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { PerformanceDataLine } from  '../../model/cac/PerformanceDataLine'
 import { PerformanceDataLineFieldMeta } from  '../../meta/cac/PerformanceDataLineMeta'
@@ -21,112 +20,69 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: PerformanceDataLine
+  value: PerformanceDataLine | undefined
   meta: FieldMeta<T>
 }
 
 export default function PerformanceDataLineDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-PerformanceDataLine ubl-PerformanceDataLineType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-PerformanceDataLine ubl-UBLExtensions"
-          meta={PerformanceDataLineFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={PerformanceDataLineFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-PerformanceDataLine">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={PerformanceDataLineFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PerformanceDataLine ubl-Identifier ubl-ID"
-          meta={PerformanceDataLineFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={PerformanceDataLineFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={PerformanceDataLineFieldMeta.ID}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-PerformanceDataLine ubl-Text ubl-Note"
-          meta={PerformanceDataLineFieldMeta.Note} 
-          value={value.Note}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Note"
-              value={itemValue}
-              meta={PerformanceDataLineFieldMeta.Note}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Note"
+            label="Note"
+            items={value.Note}
+            meta={PerformanceDataLineFieldMeta.Note} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Note"
+                value={itemValue}
+                meta={PerformanceDataLineFieldMeta.Note}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PerformanceDataLine ubl-Quantity ubl-PerformanceValueQuantity"
-          meta={PerformanceDataLineFieldMeta.PerformanceValueQuantity} 
-          value={value.PerformanceValueQuantity}
-          itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay
-              key={key}
-              label="Performance Value"
-              value={itemValue}
-              meta={PerformanceDataLineFieldMeta.PerformanceValueQuantity}
-            />
-          }
-        />
+          <QuantityDisplay
+            label="Performance Value"
+            value={value.PerformanceValueQuantity?.[0]}
+            meta={PerformanceDataLineFieldMeta.PerformanceValueQuantity}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PerformanceDataLine ubl-Code ubl-PerformanceMetricTypeCode"
-          meta={PerformanceDataLineFieldMeta.PerformanceMetricTypeCode} 
-          value={value.PerformanceMetricTypeCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Performance Metric Type Code"
-              value={itemValue}
-              meta={PerformanceDataLineFieldMeta.PerformanceMetricTypeCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Performance Metric Type Code"
+            value={value.PerformanceMetricTypeCode?.[0]}
+            meta={PerformanceDataLineFieldMeta.PerformanceMetricTypeCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-PerformanceDataLine ubl-Period"
-          meta={PerformanceDataLineFieldMeta.Period} 
-          value={value.Period}
-          itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay
-              key={key}
-              label="Period"
-              value={itemValue}
-              meta={PerformanceDataLineFieldMeta.Period}
-            />
-          }
-        />
+          <PeriodDisplay
+            label="Period"
+            value={value.Period?.[0]}
+            meta={PerformanceDataLineFieldMeta.Period}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-PerformanceDataLine ubl-Item"
-          meta={PerformanceDataLineFieldMeta.Item} 
-          value={value.Item}
-          itemDisplay={ (itemValue: Item, key: string | number) =>
-            <ItemDisplay
-              key={key}
-              label="Item"
-              value={itemValue}
-              meta={PerformanceDataLineFieldMeta.Item}
-            />
-          }
-        />
+          <ItemDisplay
+            label="Item"
+            value={value.Item?.[0]}
+            meta={PerformanceDataLineFieldMeta.Item}
+          />
         </div>
     </div>
   )

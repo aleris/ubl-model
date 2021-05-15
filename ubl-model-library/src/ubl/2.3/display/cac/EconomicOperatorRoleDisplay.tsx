@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { EconomicOperatorRole } from  '../../model/cac/EconomicOperatorRole'
 import { EconomicOperatorRoleFieldMeta } from  '../../meta/cac/EconomicOperatorRoleMeta'
@@ -13,56 +12,45 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: EconomicOperatorRole
+  value: EconomicOperatorRole | undefined
   meta: FieldMeta<T>
 }
 
 export default function EconomicOperatorRoleDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-EconomicOperatorRole ubl-EconomicOperatorRoleType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-EconomicOperatorRole ubl-UBLExtensions"
-          meta={EconomicOperatorRoleFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={EconomicOperatorRoleFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-EconomicOperatorRole">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={EconomicOperatorRoleFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-EconomicOperatorRole ubl-Code ubl-RoleCode"
-          meta={EconomicOperatorRoleFieldMeta.RoleCode} 
-          value={value.RoleCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Role Code"
-              value={itemValue}
-              meta={EconomicOperatorRoleFieldMeta.RoleCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Role Code"
+            value={value.RoleCode?.[0]}
+            meta={EconomicOperatorRoleFieldMeta.RoleCode}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-EconomicOperatorRole ubl-Text ubl-RoleDescription"
-          meta={EconomicOperatorRoleFieldMeta.RoleDescription} 
-          value={value.RoleDescription}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Role Description"
-              value={itemValue}
-              meta={EconomicOperatorRoleFieldMeta.RoleDescription}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-RoleDescription"
+            label="Role Description"
+            items={value.RoleDescription}
+            meta={EconomicOperatorRoleFieldMeta.RoleDescription} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Role Description"
+                value={itemValue}
+                meta={EconomicOperatorRoleFieldMeta.RoleDescription}
+              />
+            }
+          />
         </div>
     </div>
   )

@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { StatementLine } from  '../../model/cac/StatementLine'
 import { StatementLineFieldMeta } from  '../../meta/cac/StatementLineMeta'
@@ -41,336 +40,219 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: StatementLine
+  value: StatementLine | undefined
   meta: FieldMeta<T>
 }
 
 export default function StatementLineDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-StatementLine ubl-StatementLineType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-StatementLine ubl-UBLExtensions"
-          meta={StatementLineFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={StatementLineFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-StatementLine">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={StatementLineFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-StatementLine ubl-Identifier ubl-ID"
-          meta={StatementLineFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={StatementLineFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={StatementLineFieldMeta.ID}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-StatementLine ubl-Text ubl-Note"
-          meta={StatementLineFieldMeta.Note} 
-          value={value.Note}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Note"
-              value={itemValue}
-              meta={StatementLineFieldMeta.Note}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Note"
+            label="Note"
+            items={value.Note}
+            meta={StatementLineFieldMeta.Note} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Note"
+                value={itemValue}
+                meta={StatementLineFieldMeta.Note}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-StatementLine ubl-Identifier ubl-UUID"
-          meta={StatementLineFieldMeta.UUID} 
-          value={value.UUID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="UUID"
-              value={itemValue}
-              meta={StatementLineFieldMeta.UUID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="UUID"
+            value={value.UUID?.[0]}
+            meta={StatementLineFieldMeta.UUID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-StatementLine ubl-Indicator ubl-BalanceBroughtForwardIndicator"
-          meta={StatementLineFieldMeta.BalanceBroughtForwardIndicator} 
-          value={value.BalanceBroughtForwardIndicator}
-          itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay
-              key={key}
-              label="Balance Brought Forward Indicator"
-              value={itemValue}
-              meta={StatementLineFieldMeta.BalanceBroughtForwardIndicator}
-            />
-          }
-        />
+          <IndicatorDisplay
+            label="Balance Brought Forward Indicator"
+            value={value.BalanceBroughtForwardIndicator?.[0]}
+            meta={StatementLineFieldMeta.BalanceBroughtForwardIndicator}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-StatementLine ubl-Amount ubl-DebitLineAmount"
-          meta={StatementLineFieldMeta.DebitLineAmount} 
-          value={value.DebitLineAmount}
-          itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay
-              key={key}
-              label="Debit Line Amount"
-              value={itemValue}
-              meta={StatementLineFieldMeta.DebitLineAmount}
-            />
-          }
-        />
+          <AmountDisplay
+            label="Debit Line Amount"
+            value={value.DebitLineAmount?.[0]}
+            meta={StatementLineFieldMeta.DebitLineAmount}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-StatementLine ubl-Amount ubl-CreditLineAmount"
-          meta={StatementLineFieldMeta.CreditLineAmount} 
-          value={value.CreditLineAmount}
-          itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay
-              key={key}
-              label="Credit Line Amount"
-              value={itemValue}
-              meta={StatementLineFieldMeta.CreditLineAmount}
-            />
-          }
-        />
+          <AmountDisplay
+            label="Credit Line Amount"
+            value={value.CreditLineAmount?.[0]}
+            meta={StatementLineFieldMeta.CreditLineAmount}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-StatementLine ubl-Amount ubl-BalanceAmount"
-          meta={StatementLineFieldMeta.BalanceAmount} 
-          value={value.BalanceAmount}
-          itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay
-              key={key}
-              label="Balance Amount"
-              value={itemValue}
-              meta={StatementLineFieldMeta.BalanceAmount}
-            />
-          }
-        />
+          <AmountDisplay
+            label="Balance Amount"
+            value={value.BalanceAmount?.[0]}
+            meta={StatementLineFieldMeta.BalanceAmount}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-StatementLine ubl-Code ubl-PaymentPurposeCode"
-          meta={StatementLineFieldMeta.PaymentPurposeCode} 
-          value={value.PaymentPurposeCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Payment Purpose Code"
-              value={itemValue}
-              meta={StatementLineFieldMeta.PaymentPurposeCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Payment Purpose Code"
+            value={value.PaymentPurposeCode?.[0]}
+            meta={StatementLineFieldMeta.PaymentPurposeCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-StatementLine ubl-PaymentMeans"
-          meta={StatementLineFieldMeta.PaymentMeans} 
-          value={value.PaymentMeans}
-          itemDisplay={ (itemValue: PaymentMeans, key: string | number) =>
-            <PaymentMeansDisplay
-              key={key}
-              label="Payment Means"
-              value={itemValue}
-              meta={StatementLineFieldMeta.PaymentMeans}
-            />
-          }
-        />
+          <PaymentMeansDisplay
+            label="Payment Means"
+            value={value.PaymentMeans?.[0]}
+            meta={StatementLineFieldMeta.PaymentMeans}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-StatementLine ubl-PaymentTerms"
-          meta={StatementLineFieldMeta.PaymentTerms} 
-          value={value.PaymentTerms}
-          itemDisplay={ (itemValue: PaymentTerms, key: string | number) =>
-            <PaymentTermsDisplay
-              key={key}
-              label="Payment Terms"
-              value={itemValue}
-              meta={StatementLineFieldMeta.PaymentTerms}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-PaymentTerms"
+            label="Payment Terms"
+            items={value.PaymentTerms}
+            meta={StatementLineFieldMeta.PaymentTerms} 
+            itemDisplay={ (itemValue: PaymentTerms, key: string | number) =>
+              <PaymentTermsDisplay
+                key={key}
+                label="Payment Terms"
+                value={itemValue}
+                meta={StatementLineFieldMeta.PaymentTerms}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-StatementLine ubl-CustomerParty ubl-BuyerCustomerParty"
-          meta={StatementLineFieldMeta.BuyerCustomerParty} 
-          value={value.BuyerCustomerParty}
-          itemDisplay={ (itemValue: CustomerParty, key: string | number) =>
-            <CustomerPartyDisplay
-              key={key}
-              label="Buyer Customer Party"
-              value={itemValue}
-              meta={StatementLineFieldMeta.BuyerCustomerParty}
-            />
-          }
-        />
+          <CustomerPartyDisplay
+            label="Buyer Customer Party"
+            value={value.BuyerCustomerParty?.[0]}
+            meta={StatementLineFieldMeta.BuyerCustomerParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-StatementLine ubl-SupplierParty ubl-SellerSupplierParty"
-          meta={StatementLineFieldMeta.SellerSupplierParty} 
-          value={value.SellerSupplierParty}
-          itemDisplay={ (itemValue: SupplierParty, key: string | number) =>
-            <SupplierPartyDisplay
-              key={key}
-              label="Seller Supplier Party"
-              value={itemValue}
-              meta={StatementLineFieldMeta.SellerSupplierParty}
-            />
-          }
-        />
+          <SupplierPartyDisplay
+            label="Seller Supplier Party"
+            value={value.SellerSupplierParty?.[0]}
+            meta={StatementLineFieldMeta.SellerSupplierParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-StatementLine ubl-CustomerParty ubl-OriginatorCustomerParty"
-          meta={StatementLineFieldMeta.OriginatorCustomerParty} 
-          value={value.OriginatorCustomerParty}
-          itemDisplay={ (itemValue: CustomerParty, key: string | number) =>
-            <CustomerPartyDisplay
-              key={key}
-              label="Originator Customer Party"
-              value={itemValue}
-              meta={StatementLineFieldMeta.OriginatorCustomerParty}
-            />
-          }
-        />
+          <CustomerPartyDisplay
+            label="Originator Customer Party"
+            value={value.OriginatorCustomerParty?.[0]}
+            meta={StatementLineFieldMeta.OriginatorCustomerParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-StatementLine ubl-CustomerParty ubl-AccountingCustomerParty"
-          meta={StatementLineFieldMeta.AccountingCustomerParty} 
-          value={value.AccountingCustomerParty}
-          itemDisplay={ (itemValue: CustomerParty, key: string | number) =>
-            <CustomerPartyDisplay
-              key={key}
-              label="Accounting Customer Party"
-              value={itemValue}
-              meta={StatementLineFieldMeta.AccountingCustomerParty}
-            />
-          }
-        />
+          <CustomerPartyDisplay
+            label="Accounting Customer Party"
+            value={value.AccountingCustomerParty?.[0]}
+            meta={StatementLineFieldMeta.AccountingCustomerParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-StatementLine ubl-SupplierParty ubl-AccountingSupplierParty"
-          meta={StatementLineFieldMeta.AccountingSupplierParty} 
-          value={value.AccountingSupplierParty}
-          itemDisplay={ (itemValue: SupplierParty, key: string | number) =>
-            <SupplierPartyDisplay
-              key={key}
-              label="Accounting Supplier Party"
-              value={itemValue}
-              meta={StatementLineFieldMeta.AccountingSupplierParty}
-            />
-          }
-        />
+          <SupplierPartyDisplay
+            label="Accounting Supplier Party"
+            value={value.AccountingSupplierParty?.[0]}
+            meta={StatementLineFieldMeta.AccountingSupplierParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-StatementLine ubl-Party ubl-PayeeParty"
-          meta={StatementLineFieldMeta.PayeeParty} 
-          value={value.PayeeParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Payee Party"
-              value={itemValue}
-              meta={StatementLineFieldMeta.PayeeParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Payee Party"
+            value={value.PayeeParty?.[0]}
+            meta={StatementLineFieldMeta.PayeeParty}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-StatementLine ubl-Period ubl-InvoicePeriod"
-          meta={StatementLineFieldMeta.InvoicePeriod} 
-          value={value.InvoicePeriod}
-          itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay
-              key={key}
-              label="Invoice Period"
-              value={itemValue}
-              meta={StatementLineFieldMeta.InvoicePeriod}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Period ubl-InvoicePeriod"
+            label="Invoice Period"
+            items={value.InvoicePeriod}
+            meta={StatementLineFieldMeta.InvoicePeriod} 
+            itemDisplay={ (itemValue: Period, key: string | number) =>
+              <PeriodDisplay
+                key={key}
+                label="Invoice Period"
+                value={itemValue}
+                meta={StatementLineFieldMeta.InvoicePeriod}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-StatementLine ubl-BillingReference"
-          meta={StatementLineFieldMeta.BillingReference} 
-          value={value.BillingReference}
-          itemDisplay={ (itemValue: BillingReference, key: string | number) =>
-            <BillingReferenceDisplay
-              key={key}
-              label="Billing Reference"
-              value={itemValue}
-              meta={StatementLineFieldMeta.BillingReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-BillingReference"
+            label="Billing Reference"
+            items={value.BillingReference}
+            meta={StatementLineFieldMeta.BillingReference} 
+            itemDisplay={ (itemValue: BillingReference, key: string | number) =>
+              <BillingReferenceDisplay
+                key={key}
+                label="Billing Reference"
+                value={itemValue}
+                meta={StatementLineFieldMeta.BillingReference}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-StatementLine ubl-DocumentReference"
-          meta={StatementLineFieldMeta.DocumentReference} 
-          value={value.DocumentReference}
-          itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay
-              key={key}
-              label="Document Reference"
-              value={itemValue}
-              meta={StatementLineFieldMeta.DocumentReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-DocumentReference"
+            label="Document Reference"
+            items={value.DocumentReference}
+            meta={StatementLineFieldMeta.DocumentReference} 
+            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
+              <DocumentReferenceDisplay
+                key={key}
+                label="Document Reference"
+                value={itemValue}
+                meta={StatementLineFieldMeta.DocumentReference}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-StatementLine ubl-ExchangeRate"
-          meta={StatementLineFieldMeta.ExchangeRate} 
-          value={value.ExchangeRate}
-          itemDisplay={ (itemValue: ExchangeRate, key: string | number) =>
-            <ExchangeRateDisplay
-              key={key}
-              label="Exchange Rate"
-              value={itemValue}
-              meta={StatementLineFieldMeta.ExchangeRate}
-            />
-          }
-        />
+          <ExchangeRateDisplay
+            label="Exchange Rate"
+            value={value.ExchangeRate?.[0]}
+            meta={StatementLineFieldMeta.ExchangeRate}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-StatementLine ubl-AllowanceCharge"
-          meta={StatementLineFieldMeta.AllowanceCharge} 
-          value={value.AllowanceCharge}
-          itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-            <AllowanceChargeDisplay
-              key={key}
-              label="Allowance Charge"
-              value={itemValue}
-              meta={StatementLineFieldMeta.AllowanceCharge}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-AllowanceCharge"
+            label="Allowance Charge"
+            items={value.AllowanceCharge}
+            meta={StatementLineFieldMeta.AllowanceCharge} 
+            itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
+              <AllowanceChargeDisplay
+                key={key}
+                label="Allowance Charge"
+                value={itemValue}
+                meta={StatementLineFieldMeta.AllowanceCharge}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-StatementLine ubl-Payment ubl-CollectedPayment"
-          meta={StatementLineFieldMeta.CollectedPayment} 
-          value={value.CollectedPayment}
-          itemDisplay={ (itemValue: Payment, key: string | number) =>
-            <PaymentDisplay
-              key={key}
-              label="Collected Payment"
-              value={itemValue}
-              meta={StatementLineFieldMeta.CollectedPayment}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Payment ubl-CollectedPayment"
+            label="Collected Payment"
+            items={value.CollectedPayment}
+            meta={StatementLineFieldMeta.CollectedPayment} 
+            itemDisplay={ (itemValue: Payment, key: string | number) =>
+              <PaymentDisplay
+                key={key}
+                label="Collected Payment"
+                value={itemValue}
+                meta={StatementLineFieldMeta.CollectedPayment}
+              />
+            }
+          />
         </div>
     </div>
   )

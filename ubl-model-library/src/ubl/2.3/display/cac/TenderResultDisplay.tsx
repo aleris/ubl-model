@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TenderResult } from  '../../model/cac/TenderResult'
 import { TenderResultFieldMeta } from  '../../meta/cac/TenderResultMeta'
@@ -33,266 +32,153 @@ import { WinningParty } from '../../model/cac/WinningParty'
 
 type Props<T> = {
   label: string
-  value: TenderResult
+  value: TenderResult | undefined
   meta: FieldMeta<T>
 }
 
 export default function TenderResultDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-TenderResult ubl-TenderResultType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-TenderResult ubl-UBLExtensions"
-          meta={TenderResultFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={TenderResultFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-TenderResult">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={TenderResultFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderResult ubl-Identifier ubl-AwardID"
-          meta={TenderResultFieldMeta.AwardID} 
-          value={value.AwardID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Award Identifier"
-              value={itemValue}
-              meta={TenderResultFieldMeta.AwardID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Award Identifier"
+            value={value.AwardID?.[0]}
+            meta={TenderResultFieldMeta.AwardID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderResult ubl-Code ubl-TenderResultCode"
-          meta={TenderResultFieldMeta.TenderResultCode} 
-          value={value.TenderResultCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Tender Result Code"
-              value={itemValue}
-              meta={TenderResultFieldMeta.TenderResultCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Tender Result Code"
+            value={value.TenderResultCode?.[0]}
+            meta={TenderResultFieldMeta.TenderResultCode}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-TenderResult ubl-Text ubl-Description"
-          meta={TenderResultFieldMeta.Description} 
-          value={value.Description}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Description"
-              value={itemValue}
-              meta={TenderResultFieldMeta.Description}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Description"
+            label="Description"
+            items={value.Description}
+            meta={TenderResultFieldMeta.Description} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Description"
+                value={itemValue}
+                meta={TenderResultFieldMeta.Description}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderResult ubl-Amount ubl-AdvertisementAmount"
-          meta={TenderResultFieldMeta.AdvertisementAmount} 
-          value={value.AdvertisementAmount}
-          itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay
-              key={key}
-              label="Advertisement"
-              value={itemValue}
-              meta={TenderResultFieldMeta.AdvertisementAmount}
-            />
-          }
-        />
+          <AmountDisplay
+            label="Advertisement"
+            value={value.AdvertisementAmount?.[0]}
+            meta={TenderResultFieldMeta.AdvertisementAmount}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderResult ubl-Date ubl-AwardDate"
-          meta={TenderResultFieldMeta.AwardDate} 
-          value={value.AwardDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Award Date"
-              value={itemValue}
-              meta={TenderResultFieldMeta.AwardDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Award Date"
+            value={value.AwardDate?.[0]}
+            meta={TenderResultFieldMeta.AwardDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderResult ubl-Time ubl-AwardTime"
-          meta={TenderResultFieldMeta.AwardTime} 
-          value={value.AwardTime}
-          itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay
-              key={key}
-              label="Award Time"
-              value={itemValue}
-              meta={TenderResultFieldMeta.AwardTime}
-            />
-          }
-        />
+          <TimeDisplay
+            label="Award Time"
+            value={value.AwardTime?.[0]}
+            meta={TenderResultFieldMeta.AwardTime}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderResult ubl-Quantity ubl-ReceivedTenderQuantity"
-          meta={TenderResultFieldMeta.ReceivedTenderQuantity} 
-          value={value.ReceivedTenderQuantity}
-          itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay
-              key={key}
-              label="Received Tender Quantity"
-              value={itemValue}
-              meta={TenderResultFieldMeta.ReceivedTenderQuantity}
-            />
-          }
-        />
+          <QuantityDisplay
+            label="Received Tender Quantity"
+            value={value.ReceivedTenderQuantity?.[0]}
+            meta={TenderResultFieldMeta.ReceivedTenderQuantity}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderResult ubl-Amount ubl-LowerTenderAmount"
-          meta={TenderResultFieldMeta.LowerTenderAmount} 
-          value={value.LowerTenderAmount}
-          itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay
-              key={key}
-              label="Lower Tender Amount"
-              value={itemValue}
-              meta={TenderResultFieldMeta.LowerTenderAmount}
-            />
-          }
-        />
+          <AmountDisplay
+            label="Lower Tender Amount"
+            value={value.LowerTenderAmount?.[0]}
+            meta={TenderResultFieldMeta.LowerTenderAmount}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderResult ubl-Amount ubl-HigherTenderAmount"
-          meta={TenderResultFieldMeta.HigherTenderAmount} 
-          value={value.HigherTenderAmount}
-          itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay
-              key={key}
-              label="Higher Tender Amount"
-              value={itemValue}
-              meta={TenderResultFieldMeta.HigherTenderAmount}
-            />
-          }
-        />
+          <AmountDisplay
+            label="Higher Tender Amount"
+            value={value.HigherTenderAmount?.[0]}
+            meta={TenderResultFieldMeta.HigherTenderAmount}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderResult ubl-Date ubl-StartDate"
-          meta={TenderResultFieldMeta.StartDate} 
-          value={value.StartDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Start Date"
-              value={itemValue}
-              meta={TenderResultFieldMeta.StartDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Start Date"
+            value={value.StartDate?.[0]}
+            meta={TenderResultFieldMeta.StartDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderResult ubl-Quantity ubl-ReceivedElectronicTenderQuantity"
-          meta={TenderResultFieldMeta.ReceivedElectronicTenderQuantity} 
-          value={value.ReceivedElectronicTenderQuantity}
-          itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay
-              key={key}
-              label="Received Electronic Tender Quantity"
-              value={itemValue}
-              meta={TenderResultFieldMeta.ReceivedElectronicTenderQuantity}
-            />
-          }
-        />
+          <QuantityDisplay
+            label="Received Electronic Tender Quantity"
+            value={value.ReceivedElectronicTenderQuantity?.[0]}
+            meta={TenderResultFieldMeta.ReceivedElectronicTenderQuantity}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TenderResult ubl-Quantity ubl-ReceivedForeignTenderQuantity"
-          meta={TenderResultFieldMeta.ReceivedForeignTenderQuantity} 
-          value={value.ReceivedForeignTenderQuantity}
-          itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay
-              key={key}
-              label="Received Foreign Tender Quantity"
-              value={itemValue}
-              meta={TenderResultFieldMeta.ReceivedForeignTenderQuantity}
-            />
-          }
-        />
+          <QuantityDisplay
+            label="Received Foreign Tender Quantity"
+            value={value.ReceivedForeignTenderQuantity?.[0]}
+            meta={TenderResultFieldMeta.ReceivedForeignTenderQuantity}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TenderResult ubl-Contract"
-          meta={TenderResultFieldMeta.Contract} 
-          value={value.Contract}
-          itemDisplay={ (itemValue: Contract, key: string | number) =>
-            <ContractDisplay
-              key={key}
-              label="Contract"
-              value={itemValue}
-              meta={TenderResultFieldMeta.Contract}
-            />
-          }
-        />
+          <ContractDisplay
+            label="Contract"
+            value={value.Contract?.[0]}
+            meta={TenderResultFieldMeta.Contract}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TenderResult ubl-TenderedProject ubl-AwardedTenderedProject"
-          meta={TenderResultFieldMeta.AwardedTenderedProject} 
-          value={value.AwardedTenderedProject}
-          itemDisplay={ (itemValue: TenderedProject, key: string | number) =>
-            <TenderedProjectDisplay
-              key={key}
-              label="Awarded Tendered Project"
-              value={itemValue}
-              meta={TenderResultFieldMeta.AwardedTenderedProject}
-            />
-          }
-        />
+          <TenderedProjectDisplay
+            label="Awarded Tendered Project"
+            value={value.AwardedTenderedProject?.[0]}
+            meta={TenderResultFieldMeta.AwardedTenderedProject}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TenderResult ubl-Period ubl-ContractFormalizationPeriod"
-          meta={TenderResultFieldMeta.ContractFormalizationPeriod} 
-          value={value.ContractFormalizationPeriod}
-          itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay
-              key={key}
-              label="Contract Formalization Period"
-              value={itemValue}
-              meta={TenderResultFieldMeta.ContractFormalizationPeriod}
-            />
-          }
-        />
+          <PeriodDisplay
+            label="Contract Formalization Period"
+            value={value.ContractFormalizationPeriod?.[0]}
+            meta={TenderResultFieldMeta.ContractFormalizationPeriod}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-TenderResult ubl-SubcontractTerms"
-          meta={TenderResultFieldMeta.SubcontractTerms} 
-          value={value.SubcontractTerms}
-          itemDisplay={ (itemValue: SubcontractTerms, key: string | number) =>
-            <SubcontractTermsDisplay
-              key={key}
-              label="Subcontract Terms"
-              value={itemValue}
-              meta={TenderResultFieldMeta.SubcontractTerms}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-SubcontractTerms"
+            label="Subcontract Terms"
+            items={value.SubcontractTerms}
+            meta={TenderResultFieldMeta.SubcontractTerms} 
+            itemDisplay={ (itemValue: SubcontractTerms, key: string | number) =>
+              <SubcontractTermsDisplay
+                key={key}
+                label="Subcontract Terms"
+                value={itemValue}
+                meta={TenderResultFieldMeta.SubcontractTerms}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-TenderResult ubl-WinningParty"
-          meta={TenderResultFieldMeta.WinningParty} 
-          value={value.WinningParty}
-          itemDisplay={ (itemValue: WinningParty, key: string | number) =>
-            <WinningPartyDisplay
-              key={key}
-              label="Winning Party"
-              value={itemValue}
-              meta={TenderResultFieldMeta.WinningParty}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-WinningParty"
+            label="Winning Party"
+            items={value.WinningParty}
+            meta={TenderResultFieldMeta.WinningParty} 
+            itemDisplay={ (itemValue: WinningParty, key: string | number) =>
+              <WinningPartyDisplay
+                key={key}
+                label="Winning Party"
+                value={itemValue}
+                meta={TenderResultFieldMeta.WinningParty}
+              />
+            }
+          />
         </div>
     </div>
   )

@@ -5,11 +5,14 @@ import FieldDisplay from '../FieldDisplay'
 
 type Props = {
   label: string
+  value: Measure | undefined
   meta: FieldMeta<any>
-  value: Measure
 }
 
-export default function MeasureDisplay({ label, meta, value }: Props) {
+export default function MeasureDisplay({ label, value, meta }: Props) {
+  if (value === undefined) {
+    return null
+  }
   const stringValue = `${value._}`
-  return <FieldDisplay label={label} value={stringValue} />
+  return <div className="ubl-cbc ubl-Measure"><FieldDisplay label={label} value={stringValue} /></div>
 }

@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { PartyIdentification } from  '../../model/cac/PartyIdentification'
 import { PartyIdentificationFieldMeta } from  '../../meta/cac/PartyIdentificationMeta'
@@ -11,42 +10,30 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: PartyIdentification
+  value: PartyIdentification | undefined
   meta: FieldMeta<T>
 }
 
 export default function PartyIdentificationDisplay<T>({ label, value, meta }: Props<T>) {
-  return (
-    <div className="ubl-cac ubl-PartyIdentification ubl-PartyIdentificationType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-PartyIdentification ubl-UBLExtensions"
-          meta={PartyIdentificationFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={PartyIdentificationFieldMeta.UBLExtensions}
-            />
-          }
-        />
+  if (value === undefined) {
+      return null
+  }
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PartyIdentification ubl-Identifier ubl-ID"
-          meta={PartyIdentificationFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={PartyIdentificationFieldMeta.ID}
-            />
-          }
-        />
+  return (
+    <div className="ubl-cac ubl-PartyIdentification">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={PartyIdentificationFieldMeta.UBLExtensions}
+          />
+
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={PartyIdentificationFieldMeta.ID}
+          />
         </div>
     </div>
   )

@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { BillOfLading } from  '../../model/doc/BillOfLading'
 import { BillOfLadingFieldMeta } from  '../../meta/doc/BillOfLadingMeta'
@@ -35,392 +34,243 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: BillOfLading
+  value: BillOfLading | undefined
   meta: FieldMeta<T>
 }
 
 export default function BillOfLadingDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-doc ubl-BillOfLading ubl-BillOfLadingType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-BillOfLading ubl-UBLExtensions"
-          meta={BillOfLadingFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={BillOfLadingFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-doc ubl-BillOfLading">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={BillOfLadingFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-BillOfLading ubl-Identifier ubl-UBLVersionID"
-          meta={BillOfLadingFieldMeta.UBLVersionID} 
-          value={value.UBLVersionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="UBL Version Identifier"
-              value={itemValue}
-              meta={BillOfLadingFieldMeta.UBLVersionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="UBL Version Identifier"
+            value={value.UBLVersionID?.[0]}
+            meta={BillOfLadingFieldMeta.UBLVersionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-BillOfLading ubl-Identifier ubl-CustomizationID"
-          meta={BillOfLadingFieldMeta.CustomizationID} 
-          value={value.CustomizationID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Customization Identifier"
-              value={itemValue}
-              meta={BillOfLadingFieldMeta.CustomizationID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Customization Identifier"
+            value={value.CustomizationID?.[0]}
+            meta={BillOfLadingFieldMeta.CustomizationID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-BillOfLading ubl-Identifier ubl-ProfileID"
-          meta={BillOfLadingFieldMeta.ProfileID} 
-          value={value.ProfileID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Profile Identifier"
-              value={itemValue}
-              meta={BillOfLadingFieldMeta.ProfileID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Profile Identifier"
+            value={value.ProfileID?.[0]}
+            meta={BillOfLadingFieldMeta.ProfileID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-BillOfLading ubl-Identifier ubl-ProfileExecutionID"
-          meta={BillOfLadingFieldMeta.ProfileExecutionID} 
-          value={value.ProfileExecutionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Profile Execution Identifier"
-              value={itemValue}
-              meta={BillOfLadingFieldMeta.ProfileExecutionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Profile Execution Identifier"
+            value={value.ProfileExecutionID?.[0]}
+            meta={BillOfLadingFieldMeta.ProfileExecutionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-BillOfLading ubl-Identifier ubl-ID"
-          meta={BillOfLadingFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={BillOfLadingFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={BillOfLadingFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-BillOfLading ubl-Identifier ubl-CarrierAssignedID"
-          meta={BillOfLadingFieldMeta.CarrierAssignedID} 
-          value={value.CarrierAssignedID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Carrier Assigned Identifier"
-              value={itemValue}
-              meta={BillOfLadingFieldMeta.CarrierAssignedID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Carrier Assigned Identifier"
+            value={value.CarrierAssignedID?.[0]}
+            meta={BillOfLadingFieldMeta.CarrierAssignedID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-BillOfLading ubl-Identifier ubl-UUID"
-          meta={BillOfLadingFieldMeta.UUID} 
-          value={value.UUID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="UUID"
-              value={itemValue}
-              meta={BillOfLadingFieldMeta.UUID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="UUID"
+            value={value.UUID?.[0]}
+            meta={BillOfLadingFieldMeta.UUID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-BillOfLading ubl-Date ubl-IssueDate"
-          meta={BillOfLadingFieldMeta.IssueDate} 
-          value={value.IssueDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Issue Date"
-              value={itemValue}
-              meta={BillOfLadingFieldMeta.IssueDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Issue Date"
+            value={value.IssueDate?.[0]}
+            meta={BillOfLadingFieldMeta.IssueDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-BillOfLading ubl-Time ubl-IssueTime"
-          meta={BillOfLadingFieldMeta.IssueTime} 
-          value={value.IssueTime}
-          itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay
-              key={key}
-              label="Issue Time"
-              value={itemValue}
-              meta={BillOfLadingFieldMeta.IssueTime}
-            />
-          }
-        />
+          <TimeDisplay
+            label="Issue Time"
+            value={value.IssueTime?.[0]}
+            meta={BillOfLadingFieldMeta.IssueTime}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-BillOfLading ubl-Text ubl-Name"
-          meta={BillOfLadingFieldMeta.Name} 
-          value={value.Name}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Name"
-              value={itemValue}
-              meta={BillOfLadingFieldMeta.Name}
-            />
-          }
-        />
+          <TextDisplay
+            label="Name"
+            value={value.Name?.[0]}
+            meta={BillOfLadingFieldMeta.Name}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-BillOfLading ubl-Text ubl-Description"
-          meta={BillOfLadingFieldMeta.Description} 
-          value={value.Description}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Description"
-              value={itemValue}
-              meta={BillOfLadingFieldMeta.Description}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Text ubl-Description"
+            label="Description"
+            items={value.Description}
+            meta={BillOfLadingFieldMeta.Description} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Description"
+                value={itemValue}
+                meta={BillOfLadingFieldMeta.Description}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-BillOfLading ubl-Text ubl-Note"
-          meta={BillOfLadingFieldMeta.Note} 
-          value={value.Note}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Note"
-              value={itemValue}
-              meta={BillOfLadingFieldMeta.Note}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Text ubl-Note"
+            label="Note"
+            items={value.Note}
+            meta={BillOfLadingFieldMeta.Note} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Note"
+                value={itemValue}
+                meta={BillOfLadingFieldMeta.Note}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-BillOfLading ubl-Code ubl-DocumentStatusCode"
-          meta={BillOfLadingFieldMeta.DocumentStatusCode} 
-          value={value.DocumentStatusCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Document Status Code"
-              value={itemValue}
-              meta={BillOfLadingFieldMeta.DocumentStatusCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Document Status Code"
+            value={value.DocumentStatusCode?.[0]}
+            meta={BillOfLadingFieldMeta.DocumentStatusCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-BillOfLading ubl-Identifier ubl-ShippingOrderID"
-          meta={BillOfLadingFieldMeta.ShippingOrderID} 
-          value={value.ShippingOrderID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Shipping Order Identifier"
-              value={itemValue}
-              meta={BillOfLadingFieldMeta.ShippingOrderID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Shipping Order Identifier"
+            value={value.ShippingOrderID?.[0]}
+            meta={BillOfLadingFieldMeta.ShippingOrderID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-BillOfLading ubl-Indicator ubl-ToOrderIndicator"
-          meta={BillOfLadingFieldMeta.ToOrderIndicator} 
-          value={value.ToOrderIndicator}
-          itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay
-              key={key}
-              label="To Order Indicator"
-              value={itemValue}
-              meta={BillOfLadingFieldMeta.ToOrderIndicator}
-            />
-          }
-        />
+          <IndicatorDisplay
+            label="To Order Indicator"
+            value={value.ToOrderIndicator?.[0]}
+            meta={BillOfLadingFieldMeta.ToOrderIndicator}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-BillOfLading ubl-Indicator ubl-AdValoremIndicator"
-          meta={BillOfLadingFieldMeta.AdValoremIndicator} 
-          value={value.AdValoremIndicator}
-          itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay
-              key={key}
-              label="Ad Valorem Indicator"
-              value={itemValue}
-              meta={BillOfLadingFieldMeta.AdValoremIndicator}
-            />
-          }
-        />
+          <IndicatorDisplay
+            label="Ad Valorem Indicator"
+            value={value.AdValoremIndicator?.[0]}
+            meta={BillOfLadingFieldMeta.AdValoremIndicator}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-BillOfLading ubl-Amount ubl-DeclaredCarriageValueAmount"
-          meta={BillOfLadingFieldMeta.DeclaredCarriageValueAmount} 
-          value={value.DeclaredCarriageValueAmount}
-          itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay
-              key={key}
-              label="Declared Carriage Value"
-              value={itemValue}
-              meta={BillOfLadingFieldMeta.DeclaredCarriageValueAmount}
-            />
-          }
-        />
+          <AmountDisplay
+            label="Declared Carriage Value"
+            value={value.DeclaredCarriageValueAmount?.[0]}
+            meta={BillOfLadingFieldMeta.DeclaredCarriageValueAmount}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-BillOfLading ubl-Text ubl-OtherInstruction"
-          meta={BillOfLadingFieldMeta.OtherInstruction} 
-          value={value.OtherInstruction}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Other Instruction"
-              value={itemValue}
-              meta={BillOfLadingFieldMeta.OtherInstruction}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Text ubl-OtherInstruction"
+            label="Other Instruction"
+            items={value.OtherInstruction}
+            meta={BillOfLadingFieldMeta.OtherInstruction} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Other Instruction"
+                value={itemValue}
+                meta={BillOfLadingFieldMeta.OtherInstruction}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-BillOfLading ubl-Party ubl-ConsignorParty"
-          meta={BillOfLadingFieldMeta.ConsignorParty} 
-          value={value.ConsignorParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Consignor Party"
-              value={itemValue}
-              meta={BillOfLadingFieldMeta.ConsignorParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Consignor Party"
+            value={value.ConsignorParty?.[0]}
+            meta={BillOfLadingFieldMeta.ConsignorParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-BillOfLading ubl-Party ubl-CarrierParty"
-          meta={BillOfLadingFieldMeta.CarrierParty} 
-          value={value.CarrierParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Carrier Party"
-              value={itemValue}
-              meta={BillOfLadingFieldMeta.CarrierParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Carrier Party"
+            value={value.CarrierParty?.[0]}
+            meta={BillOfLadingFieldMeta.CarrierParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-BillOfLading ubl-Party ubl-FreightForwarderParty"
-          meta={BillOfLadingFieldMeta.FreightForwarderParty} 
-          value={value.FreightForwarderParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Freight Forwarder Party"
-              value={itemValue}
-              meta={BillOfLadingFieldMeta.FreightForwarderParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Freight Forwarder Party"
+            value={value.FreightForwarderParty?.[0]}
+            meta={BillOfLadingFieldMeta.FreightForwarderParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-BillOfLading ubl-Shipment"
-          meta={BillOfLadingFieldMeta.Shipment} 
-          value={value.Shipment}
-          itemDisplay={ (itemValue: Shipment, key: string | number) =>
-            <ShipmentDisplay
-              key={key}
-              label="Shipment"
-              value={itemValue}
-              meta={BillOfLadingFieldMeta.Shipment}
-            />
-          }
-        />
+          <ShipmentDisplay
+            label="Shipment"
+            value={value.Shipment?.[0]}
+            meta={BillOfLadingFieldMeta.Shipment}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-BillOfLading ubl-DocumentReference"
-          meta={BillOfLadingFieldMeta.DocumentReference} 
-          value={value.DocumentReference}
-          itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay
-              key={key}
-              label="Document Reference"
-              value={itemValue}
-              meta={BillOfLadingFieldMeta.DocumentReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-DocumentReference"
+            label="Document Reference"
+            items={value.DocumentReference}
+            meta={BillOfLadingFieldMeta.DocumentReference} 
+            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
+              <DocumentReferenceDisplay
+                key={key}
+                label="Document Reference"
+                value={itemValue}
+                meta={BillOfLadingFieldMeta.DocumentReference}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-BillOfLading ubl-ExchangeRate"
-          meta={BillOfLadingFieldMeta.ExchangeRate} 
-          value={value.ExchangeRate}
-          itemDisplay={ (itemValue: ExchangeRate, key: string | number) =>
-            <ExchangeRateDisplay
-              key={key}
-              label="Exchange Rate"
-              value={itemValue}
-              meta={BillOfLadingFieldMeta.ExchangeRate}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-ExchangeRate"
+            label="Exchange Rate"
+            items={value.ExchangeRate}
+            meta={BillOfLadingFieldMeta.ExchangeRate} 
+            itemDisplay={ (itemValue: ExchangeRate, key: string | number) =>
+              <ExchangeRateDisplay
+                key={key}
+                label="Exchange Rate"
+                value={itemValue}
+                meta={BillOfLadingFieldMeta.ExchangeRate}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-BillOfLading ubl-DocumentDistribution"
-          meta={BillOfLadingFieldMeta.DocumentDistribution} 
-          value={value.DocumentDistribution}
-          itemDisplay={ (itemValue: DocumentDistribution, key: string | number) =>
-            <DocumentDistributionDisplay
-              key={key}
-              label="Document Distribution"
-              value={itemValue}
-              meta={BillOfLadingFieldMeta.DocumentDistribution}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-DocumentDistribution"
+            label="Document Distribution"
+            items={value.DocumentDistribution}
+            meta={BillOfLadingFieldMeta.DocumentDistribution} 
+            itemDisplay={ (itemValue: DocumentDistribution, key: string | number) =>
+              <DocumentDistributionDisplay
+                key={key}
+                label="Document Distribution"
+                value={itemValue}
+                meta={BillOfLadingFieldMeta.DocumentDistribution}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-BillOfLading ubl-Signature"
-          meta={BillOfLadingFieldMeta.Signature} 
-          value={value.Signature}
-          itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay
-              key={key}
-              label="Signature"
-              value={itemValue}
-              meta={BillOfLadingFieldMeta.Signature}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Signature"
+            label="Signature"
+            items={value.Signature}
+            meta={BillOfLadingFieldMeta.Signature} 
+            itemDisplay={ (itemValue: Signature, key: string | number) =>
+              <SignatureDisplay
+                key={key}
+                label="Signature"
+                value={itemValue}
+                meta={BillOfLadingFieldMeta.Signature}
+              />
+            }
+          />
         </div>
     </div>
   )

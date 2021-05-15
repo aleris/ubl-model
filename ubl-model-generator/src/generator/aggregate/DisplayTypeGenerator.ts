@@ -28,11 +28,10 @@ export class DisplayTypeGenerator implements TypeCodeGenerator<AggregateType> {
   }
 
   asCodeString(aggregateType: AggregateType) {
-    const className = `ubl-${aggregateType.module} ubl-${aggregateType.typeName} ubl-${aggregateType.name}`
+    const className = `ubl-${aggregateType.module} ubl-${aggregateType.typeName}`
     const imports = this.getImports(aggregateType)
     const code = `import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ${aggregateType.typeName} } from  '../../model/${aggregateType.module}/${aggregateType.typeName}'
 import { ${aggregateType.typeName}FieldMeta } from  '../../meta/${aggregateType.module}/${aggregateType.typeName}Meta'
@@ -40,15 +39,19 @@ ${imports}
 
 type Props<T> = {
   label: string
-  value: ${aggregateType.typeName}
+  value: ${aggregateType.typeName} | undefined
   meta: FieldMeta<T>
 }
 
 export default function ${aggregateType.typeName}Display<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
     <div className="${className}">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
 ${aggregateType
   .fields
   .map(field => this.aggregateFieldDisplayCodeGenerator.asCodeString(aggregateType, field))

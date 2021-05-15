@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Signature } from  '../../model/cac/Signature'
 import { SignatureFieldMeta } from  '../../meta/cac/SignatureMeta'
@@ -25,182 +24,99 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: Signature
+  value: Signature | undefined
   meta: FieldMeta<T>
 }
 
 export default function SignatureDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-Signature ubl-SignatureType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-Signature ubl-UBLExtensions"
-          meta={SignatureFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={SignatureFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-Signature">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={SignatureFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-Signature ubl-Identifier ubl-ID"
-          meta={SignatureFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={SignatureFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={SignatureFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-Signature ubl-Code ubl-ReasonCode"
-          meta={SignatureFieldMeta.ReasonCode} 
-          value={value.ReasonCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Reason"
-              value={itemValue}
-              meta={SignatureFieldMeta.ReasonCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Reason"
+            value={value.ReasonCode?.[0]}
+            meta={SignatureFieldMeta.ReasonCode}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-Signature ubl-Text ubl-Note"
-          meta={SignatureFieldMeta.Note} 
-          value={value.Note}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Note"
-              value={itemValue}
-              meta={SignatureFieldMeta.Note}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Note"
+            label="Note"
+            items={value.Note}
+            meta={SignatureFieldMeta.Note} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Note"
+                value={itemValue}
+                meta={SignatureFieldMeta.Note}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-Signature ubl-Date ubl-ValidationDate"
-          meta={SignatureFieldMeta.ValidationDate} 
-          value={value.ValidationDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Validation Date"
-              value={itemValue}
-              meta={SignatureFieldMeta.ValidationDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Validation Date"
+            value={value.ValidationDate?.[0]}
+            meta={SignatureFieldMeta.ValidationDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-Signature ubl-Time ubl-ValidationTime"
-          meta={SignatureFieldMeta.ValidationTime} 
-          value={value.ValidationTime}
-          itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay
-              key={key}
-              label="Validation Time"
-              value={itemValue}
-              meta={SignatureFieldMeta.ValidationTime}
-            />
-          }
-        />
+          <TimeDisplay
+            label="Validation Time"
+            value={value.ValidationTime?.[0]}
+            meta={SignatureFieldMeta.ValidationTime}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-Signature ubl-Identifier ubl-ValidatorID"
-          meta={SignatureFieldMeta.ValidatorID} 
-          value={value.ValidatorID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Validator"
-              value={itemValue}
-              meta={SignatureFieldMeta.ValidatorID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Validator"
+            value={value.ValidatorID?.[0]}
+            meta={SignatureFieldMeta.ValidatorID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-Signature ubl-Text ubl-CanonicalizationMethod"
-          meta={SignatureFieldMeta.CanonicalizationMethod} 
-          value={value.CanonicalizationMethod}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Canonicalization Method"
-              value={itemValue}
-              meta={SignatureFieldMeta.CanonicalizationMethod}
-            />
-          }
-        />
+          <TextDisplay
+            label="Canonicalization Method"
+            value={value.CanonicalizationMethod?.[0]}
+            meta={SignatureFieldMeta.CanonicalizationMethod}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-Signature ubl-Text ubl-SignatureMethod"
-          meta={SignatureFieldMeta.SignatureMethod} 
-          value={value.SignatureMethod}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Signature Method"
-              value={itemValue}
-              meta={SignatureFieldMeta.SignatureMethod}
-            />
-          }
-        />
+          <TextDisplay
+            label="Signature Method"
+            value={value.SignatureMethod?.[0]}
+            meta={SignatureFieldMeta.SignatureMethod}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-Signature ubl-Party ubl-SignatoryParty"
-          meta={SignatureFieldMeta.SignatoryParty} 
-          value={value.SignatoryParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Signatory Party"
-              value={itemValue}
-              meta={SignatureFieldMeta.SignatoryParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Signatory Party"
+            value={value.SignatoryParty?.[0]}
+            meta={SignatureFieldMeta.SignatoryParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-Signature ubl-Attachment ubl-DigitalSignatureAttachment"
-          meta={SignatureFieldMeta.DigitalSignatureAttachment} 
-          value={value.DigitalSignatureAttachment}
-          itemDisplay={ (itemValue: Attachment, key: string | number) =>
-            <AttachmentDisplay
-              key={key}
-              label="Digital Signature Attachment"
-              value={itemValue}
-              meta={SignatureFieldMeta.DigitalSignatureAttachment}
-            />
-          }
-        />
+          <AttachmentDisplay
+            label="Digital Signature Attachment"
+            value={value.DigitalSignatureAttachment?.[0]}
+            meta={SignatureFieldMeta.DigitalSignatureAttachment}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-Signature ubl-DocumentReference ubl-OriginalDocumentReference"
-          meta={SignatureFieldMeta.OriginalDocumentReference} 
-          value={value.OriginalDocumentReference}
-          itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay
-              key={key}
-              label="Original Document Reference"
-              value={itemValue}
-              meta={SignatureFieldMeta.OriginalDocumentReference}
-            />
-          }
-        />
+          <DocumentReferenceDisplay
+            label="Original Document Reference"
+            value={value.OriginalDocumentReference?.[0]}
+            meta={SignatureFieldMeta.OriginalDocumentReference}
+          />
         </div>
     </div>
   )

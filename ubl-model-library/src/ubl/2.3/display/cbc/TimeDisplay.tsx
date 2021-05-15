@@ -5,11 +5,14 @@ import FieldDisplay from '../FieldDisplay'
 
 type Props = {
   label: string
+  value: Time | undefined
   meta: FieldMeta<any>
-  value: Time
 }
 
-export default function TimeDisplay({ label, meta, value }: Props) {
+export default function TimeDisplay({ label, value, meta }: Props) {
+  if (value === undefined) {
+    return null
+  }
   const stringValue = value._
-  return <FieldDisplay label={label} value={stringValue} />
+  return <div className="ubl-cbc ubl-Time"><FieldDisplay label={label} value={stringValue} /></div>
 }

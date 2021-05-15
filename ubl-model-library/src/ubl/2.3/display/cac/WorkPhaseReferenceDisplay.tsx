@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { WorkPhaseReference } from  '../../model/cac/WorkPhaseReference'
 import { WorkPhaseReferenceFieldMeta } from  '../../meta/cac/WorkPhaseReferenceMeta'
@@ -21,126 +20,84 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: WorkPhaseReference
+  value: WorkPhaseReference | undefined
   meta: FieldMeta<T>
 }
 
 export default function WorkPhaseReferenceDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-WorkPhaseReference ubl-WorkPhaseReferenceType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-WorkPhaseReference ubl-UBLExtensions"
-          meta={WorkPhaseReferenceFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={WorkPhaseReferenceFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-WorkPhaseReference">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={WorkPhaseReferenceFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-WorkPhaseReference ubl-Identifier ubl-ID"
-          meta={WorkPhaseReferenceFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={WorkPhaseReferenceFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={WorkPhaseReferenceFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-WorkPhaseReference ubl-Code ubl-WorkPhaseCode"
-          meta={WorkPhaseReferenceFieldMeta.WorkPhaseCode} 
-          value={value.WorkPhaseCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Work Phase Code"
-              value={itemValue}
-              meta={WorkPhaseReferenceFieldMeta.WorkPhaseCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Work Phase Code"
+            value={value.WorkPhaseCode?.[0]}
+            meta={WorkPhaseReferenceFieldMeta.WorkPhaseCode}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-WorkPhaseReference ubl-Text ubl-WorkPhase"
-          meta={WorkPhaseReferenceFieldMeta.WorkPhase} 
-          value={value.WorkPhase}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Work Phase"
-              value={itemValue}
-              meta={WorkPhaseReferenceFieldMeta.WorkPhase}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-WorkPhase"
+            label="Work Phase"
+            items={value.WorkPhase}
+            meta={WorkPhaseReferenceFieldMeta.WorkPhase} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Work Phase"
+                value={itemValue}
+                meta={WorkPhaseReferenceFieldMeta.WorkPhase}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-WorkPhaseReference ubl-Numeric ubl-ProgressPercent"
-          meta={WorkPhaseReferenceFieldMeta.ProgressPercent} 
-          value={value.ProgressPercent}
-          itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay
-              key={key}
-              label="Progress Percent"
-              value={itemValue}
-              meta={WorkPhaseReferenceFieldMeta.ProgressPercent}
-            />
-          }
-        />
+          <NumericDisplay
+            label="Progress Percent"
+            value={value.ProgressPercent?.[0]}
+            meta={WorkPhaseReferenceFieldMeta.ProgressPercent}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-WorkPhaseReference ubl-Date ubl-StartDate"
-          meta={WorkPhaseReferenceFieldMeta.StartDate} 
-          value={value.StartDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Start Date"
-              value={itemValue}
-              meta={WorkPhaseReferenceFieldMeta.StartDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Start Date"
+            value={value.StartDate?.[0]}
+            meta={WorkPhaseReferenceFieldMeta.StartDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-WorkPhaseReference ubl-Date ubl-EndDate"
-          meta={WorkPhaseReferenceFieldMeta.EndDate} 
-          value={value.EndDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="End Date"
-              value={itemValue}
-              meta={WorkPhaseReferenceFieldMeta.EndDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="End Date"
+            value={value.EndDate?.[0]}
+            meta={WorkPhaseReferenceFieldMeta.EndDate}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-WorkPhaseReference ubl-DocumentReference ubl-WorkOrderDocumentReference"
-          meta={WorkPhaseReferenceFieldMeta.WorkOrderDocumentReference} 
-          value={value.WorkOrderDocumentReference}
-          itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay
-              key={key}
-              label="Work Order Document Reference"
-              value={itemValue}
-              meta={WorkPhaseReferenceFieldMeta.WorkOrderDocumentReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-DocumentReference ubl-WorkOrderDocumentReference"
+            label="Work Order Document Reference"
+            items={value.WorkOrderDocumentReference}
+            meta={WorkPhaseReferenceFieldMeta.WorkOrderDocumentReference} 
+            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
+              <DocumentReferenceDisplay
+                key={key}
+                label="Work Order Document Reference"
+                value={itemValue}
+                meta={WorkPhaseReferenceFieldMeta.WorkOrderDocumentReference}
+              />
+            }
+          />
         </div>
     </div>
   )

@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { PricingReference } from  '../../model/cac/PricingReference'
 import { PricingReferenceFieldMeta } from  '../../meta/cac/PricingReferenceMeta'
@@ -13,56 +12,45 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: PricingReference
+  value: PricingReference | undefined
   meta: FieldMeta<T>
 }
 
 export default function PricingReferenceDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-PricingReference ubl-PricingReferenceType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-PricingReference ubl-UBLExtensions"
-          meta={PricingReferenceFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={PricingReferenceFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-PricingReference">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={PricingReferenceFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-PricingReference ubl-ItemLocationQuantity ubl-OriginalItemLocationQuantity"
-          meta={PricingReferenceFieldMeta.OriginalItemLocationQuantity} 
-          value={value.OriginalItemLocationQuantity}
-          itemDisplay={ (itemValue: ItemLocationQuantity, key: string | number) =>
-            <ItemLocationQuantityDisplay
-              key={key}
-              label="Original Item Location Quantity"
-              value={itemValue}
-              meta={PricingReferenceFieldMeta.OriginalItemLocationQuantity}
-            />
-          }
-        />
+          <ItemLocationQuantityDisplay
+            label="Original Item Location Quantity"
+            value={value.OriginalItemLocationQuantity?.[0]}
+            meta={PricingReferenceFieldMeta.OriginalItemLocationQuantity}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-PricingReference ubl-Price ubl-AlternativeConditionPrice"
-          meta={PricingReferenceFieldMeta.AlternativeConditionPrice} 
-          value={value.AlternativeConditionPrice}
-          itemDisplay={ (itemValue: Price, key: string | number) =>
-            <PriceDisplay
-              key={key}
-              label="Alternative Condition Price"
-              value={itemValue}
-              meta={PricingReferenceFieldMeta.AlternativeConditionPrice}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Price ubl-AlternativeConditionPrice"
+            label="Alternative Condition Price"
+            items={value.AlternativeConditionPrice}
+            meta={PricingReferenceFieldMeta.AlternativeConditionPrice} 
+            itemDisplay={ (itemValue: Price, key: string | number) =>
+              <PriceDisplay
+                key={key}
+                label="Alternative Condition Price"
+                value={itemValue}
+                meta={PricingReferenceFieldMeta.AlternativeConditionPrice}
+              />
+            }
+          />
         </div>
     </div>
   )

@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { HazardousItem } from  '../../model/cac/HazardousItem'
 import { HazardousItemFieldMeta } from  '../../meta/cac/HazardousItemMeta'
@@ -27,350 +26,198 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: HazardousItem
+  value: HazardousItem | undefined
   meta: FieldMeta<T>
 }
 
 export default function HazardousItemDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-HazardousItem ubl-HazardousItemType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-HazardousItem ubl-UBLExtensions"
-          meta={HazardousItemFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={HazardousItemFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-HazardousItem">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={HazardousItemFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-HazardousItem ubl-Identifier ubl-ID"
-          meta={HazardousItemFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={HazardousItemFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={HazardousItemFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-HazardousItem ubl-Text ubl-PlacardNotation"
-          meta={HazardousItemFieldMeta.PlacardNotation} 
-          value={value.PlacardNotation}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Placard Notation"
-              value={itemValue}
-              meta={HazardousItemFieldMeta.PlacardNotation}
-            />
-          }
-        />
+          <TextDisplay
+            label="Placard Notation"
+            value={value.PlacardNotation?.[0]}
+            meta={HazardousItemFieldMeta.PlacardNotation}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-HazardousItem ubl-Text ubl-PlacardEndorsement"
-          meta={HazardousItemFieldMeta.PlacardEndorsement} 
-          value={value.PlacardEndorsement}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Placard Endorsement"
-              value={itemValue}
-              meta={HazardousItemFieldMeta.PlacardEndorsement}
-            />
-          }
-        />
+          <TextDisplay
+            label="Placard Endorsement"
+            value={value.PlacardEndorsement?.[0]}
+            meta={HazardousItemFieldMeta.PlacardEndorsement}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-HazardousItem ubl-Text ubl-AdditionalInformation"
-          meta={HazardousItemFieldMeta.AdditionalInformation} 
-          value={value.AdditionalInformation}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Additional Information"
-              value={itemValue}
-              meta={HazardousItemFieldMeta.AdditionalInformation}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-AdditionalInformation"
+            label="Additional Information"
+            items={value.AdditionalInformation}
+            meta={HazardousItemFieldMeta.AdditionalInformation} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Additional Information"
+                value={itemValue}
+                meta={HazardousItemFieldMeta.AdditionalInformation}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-HazardousItem ubl-Code ubl-UNDGCode"
-          meta={HazardousItemFieldMeta.UNDGCode} 
-          value={value.UNDGCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="UNDG Code"
-              value={itemValue}
-              meta={HazardousItemFieldMeta.UNDGCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="UNDG Code"
+            value={value.UNDGCode?.[0]}
+            meta={HazardousItemFieldMeta.UNDGCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-HazardousItem ubl-Code ubl-EmergencyProceduresCode"
-          meta={HazardousItemFieldMeta.EmergencyProceduresCode} 
-          value={value.EmergencyProceduresCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Emergency Procedures Code"
-              value={itemValue}
-              meta={HazardousItemFieldMeta.EmergencyProceduresCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Emergency Procedures Code"
+            value={value.EmergencyProceduresCode?.[0]}
+            meta={HazardousItemFieldMeta.EmergencyProceduresCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-HazardousItem ubl-Code ubl-MedicalFirstAidGuideCode"
-          meta={HazardousItemFieldMeta.MedicalFirstAidGuideCode} 
-          value={value.MedicalFirstAidGuideCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Medical First Aid Guide Code"
-              value={itemValue}
-              meta={HazardousItemFieldMeta.MedicalFirstAidGuideCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Medical First Aid Guide Code"
+            value={value.MedicalFirstAidGuideCode?.[0]}
+            meta={HazardousItemFieldMeta.MedicalFirstAidGuideCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-HazardousItem ubl-Text ubl-TechnicalName"
-          meta={HazardousItemFieldMeta.TechnicalName} 
-          value={value.TechnicalName}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Technical Name"
-              value={itemValue}
-              meta={HazardousItemFieldMeta.TechnicalName}
-            />
-          }
-        />
+          <TextDisplay
+            label="Technical Name"
+            value={value.TechnicalName?.[0]}
+            meta={HazardousItemFieldMeta.TechnicalName}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-HazardousItem ubl-Text ubl-CategoryName"
-          meta={HazardousItemFieldMeta.CategoryName} 
-          value={value.CategoryName}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Category"
-              value={itemValue}
-              meta={HazardousItemFieldMeta.CategoryName}
-            />
-          }
-        />
+          <TextDisplay
+            label="Category"
+            value={value.CategoryName?.[0]}
+            meta={HazardousItemFieldMeta.CategoryName}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-HazardousItem ubl-Code ubl-HazardousCategoryCode"
-          meta={HazardousItemFieldMeta.HazardousCategoryCode} 
-          value={value.HazardousCategoryCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Hazardous Category Code"
-              value={itemValue}
-              meta={HazardousItemFieldMeta.HazardousCategoryCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Hazardous Category Code"
+            value={value.HazardousCategoryCode?.[0]}
+            meta={HazardousItemFieldMeta.HazardousCategoryCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-HazardousItem ubl-Identifier ubl-UpperOrangeHazardPlacardID"
-          meta={HazardousItemFieldMeta.UpperOrangeHazardPlacardID} 
-          value={value.UpperOrangeHazardPlacardID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Upper Orange Hazard Placard Identifier"
-              value={itemValue}
-              meta={HazardousItemFieldMeta.UpperOrangeHazardPlacardID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Upper Orange Hazard Placard Identifier"
+            value={value.UpperOrangeHazardPlacardID?.[0]}
+            meta={HazardousItemFieldMeta.UpperOrangeHazardPlacardID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-HazardousItem ubl-Identifier ubl-LowerOrangeHazardPlacardID"
-          meta={HazardousItemFieldMeta.LowerOrangeHazardPlacardID} 
-          value={value.LowerOrangeHazardPlacardID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Lower Orange Hazard Placard Identifier"
-              value={itemValue}
-              meta={HazardousItemFieldMeta.LowerOrangeHazardPlacardID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Lower Orange Hazard Placard Identifier"
+            value={value.LowerOrangeHazardPlacardID?.[0]}
+            meta={HazardousItemFieldMeta.LowerOrangeHazardPlacardID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-HazardousItem ubl-Identifier ubl-MarkingID"
-          meta={HazardousItemFieldMeta.MarkingID} 
-          value={value.MarkingID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Marking Identifier"
-              value={itemValue}
-              meta={HazardousItemFieldMeta.MarkingID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Marking Identifier"
+            value={value.MarkingID?.[0]}
+            meta={HazardousItemFieldMeta.MarkingID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-HazardousItem ubl-Identifier ubl-HazardClassID"
-          meta={HazardousItemFieldMeta.HazardClassID} 
-          value={value.HazardClassID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Hazard Class Identifier"
-              value={itemValue}
-              meta={HazardousItemFieldMeta.HazardClassID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Hazard Class Identifier"
+            value={value.HazardClassID?.[0]}
+            meta={HazardousItemFieldMeta.HazardClassID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-HazardousItem ubl-Measure ubl-NetWeightMeasure"
-          meta={HazardousItemFieldMeta.NetWeightMeasure} 
-          value={value.NetWeightMeasure}
-          itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay
-              key={key}
-              label="Net Weight"
-              value={itemValue}
-              meta={HazardousItemFieldMeta.NetWeightMeasure}
-            />
-          }
-        />
+          <MeasureDisplay
+            label="Net Weight"
+            value={value.NetWeightMeasure?.[0]}
+            meta={HazardousItemFieldMeta.NetWeightMeasure}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-HazardousItem ubl-Measure ubl-NetVolumeMeasure"
-          meta={HazardousItemFieldMeta.NetVolumeMeasure} 
-          value={value.NetVolumeMeasure}
-          itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay
-              key={key}
-              label="Net Volume"
-              value={itemValue}
-              meta={HazardousItemFieldMeta.NetVolumeMeasure}
-            />
-          }
-        />
+          <MeasureDisplay
+            label="Net Volume"
+            value={value.NetVolumeMeasure?.[0]}
+            meta={HazardousItemFieldMeta.NetVolumeMeasure}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-HazardousItem ubl-Quantity"
-          meta={HazardousItemFieldMeta.Quantity} 
-          value={value.Quantity}
-          itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay
-              key={key}
-              label="Quantity"
-              value={itemValue}
-              meta={HazardousItemFieldMeta.Quantity}
-            />
-          }
-        />
+          <QuantityDisplay
+            label="Quantity"
+            value={value.Quantity?.[0]}
+            meta={HazardousItemFieldMeta.Quantity}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-HazardousItem ubl-Party ubl-ContactParty"
-          meta={HazardousItemFieldMeta.ContactParty} 
-          value={value.ContactParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Contact Party"
-              value={itemValue}
-              meta={HazardousItemFieldMeta.ContactParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Contact Party"
+            value={value.ContactParty?.[0]}
+            meta={HazardousItemFieldMeta.ContactParty}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-HazardousItem ubl-SecondaryHazard"
-          meta={HazardousItemFieldMeta.SecondaryHazard} 
-          value={value.SecondaryHazard}
-          itemDisplay={ (itemValue: SecondaryHazard, key: string | number) =>
-            <SecondaryHazardDisplay
-              key={key}
-              label="Secondary Hazard"
-              value={itemValue}
-              meta={HazardousItemFieldMeta.SecondaryHazard}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-SecondaryHazard"
+            label="Secondary Hazard"
+            items={value.SecondaryHazard}
+            meta={HazardousItemFieldMeta.SecondaryHazard} 
+            itemDisplay={ (itemValue: SecondaryHazard, key: string | number) =>
+              <SecondaryHazardDisplay
+                key={key}
+                label="Secondary Hazard"
+                value={itemValue}
+                meta={HazardousItemFieldMeta.SecondaryHazard}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-HazardousItem ubl-HazardousGoodsTransit"
-          meta={HazardousItemFieldMeta.HazardousGoodsTransit} 
-          value={value.HazardousGoodsTransit}
-          itemDisplay={ (itemValue: HazardousGoodsTransit, key: string | number) =>
-            <HazardousGoodsTransitDisplay
-              key={key}
-              label="Hazardous Goods Transit"
-              value={itemValue}
-              meta={HazardousItemFieldMeta.HazardousGoodsTransit}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-HazardousGoodsTransit"
+            label="Hazardous Goods Transit"
+            items={value.HazardousGoodsTransit}
+            meta={HazardousItemFieldMeta.HazardousGoodsTransit} 
+            itemDisplay={ (itemValue: HazardousGoodsTransit, key: string | number) =>
+              <HazardousGoodsTransitDisplay
+                key={key}
+                label="Hazardous Goods Transit"
+                value={itemValue}
+                meta={HazardousItemFieldMeta.HazardousGoodsTransit}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-HazardousItem ubl-Temperature ubl-EmergencyTemperature"
-          meta={HazardousItemFieldMeta.EmergencyTemperature} 
-          value={value.EmergencyTemperature}
-          itemDisplay={ (itemValue: Temperature, key: string | number) =>
-            <TemperatureDisplay
-              key={key}
-              label="Emergency Temperature"
-              value={itemValue}
-              meta={HazardousItemFieldMeta.EmergencyTemperature}
-            />
-          }
-        />
+          <TemperatureDisplay
+            label="Emergency Temperature"
+            value={value.EmergencyTemperature?.[0]}
+            meta={HazardousItemFieldMeta.EmergencyTemperature}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-HazardousItem ubl-Temperature ubl-FlashpointTemperature"
-          meta={HazardousItemFieldMeta.FlashpointTemperature} 
-          value={value.FlashpointTemperature}
-          itemDisplay={ (itemValue: Temperature, key: string | number) =>
-            <TemperatureDisplay
-              key={key}
-              label="Flashpoint Temperature"
-              value={itemValue}
-              meta={HazardousItemFieldMeta.FlashpointTemperature}
-            />
-          }
-        />
+          <TemperatureDisplay
+            label="Flashpoint Temperature"
+            value={value.FlashpointTemperature?.[0]}
+            meta={HazardousItemFieldMeta.FlashpointTemperature}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-HazardousItem ubl-Temperature ubl-AdditionalTemperature"
-          meta={HazardousItemFieldMeta.AdditionalTemperature} 
-          value={value.AdditionalTemperature}
-          itemDisplay={ (itemValue: Temperature, key: string | number) =>
-            <TemperatureDisplay
-              key={key}
-              label="Additional Temperature"
-              value={itemValue}
-              meta={HazardousItemFieldMeta.AdditionalTemperature}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Temperature ubl-AdditionalTemperature"
+            label="Additional Temperature"
+            items={value.AdditionalTemperature}
+            meta={HazardousItemFieldMeta.AdditionalTemperature} 
+            itemDisplay={ (itemValue: Temperature, key: string | number) =>
+              <TemperatureDisplay
+                key={key}
+                label="Additional Temperature"
+                value={itemValue}
+                meta={HazardousItemFieldMeta.AdditionalTemperature}
+              />
+            }
+          />
         </div>
     </div>
   )

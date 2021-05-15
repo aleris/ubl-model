@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ContractingSystem } from  '../../model/cac/ContractingSystem'
 import { ContractingSystemFieldMeta } from  '../../meta/cac/ContractingSystemMeta'
@@ -15,70 +14,51 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: ContractingSystem
+  value: ContractingSystem | undefined
   meta: FieldMeta<T>
 }
 
 export default function ContractingSystemDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-ContractingSystem ubl-ContractingSystemType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-ContractingSystem ubl-UBLExtensions"
-          meta={ContractingSystemFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={ContractingSystemFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-ContractingSystem">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={ContractingSystemFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ContractingSystem ubl-Identifier ubl-ID"
-          meta={ContractingSystemFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={ContractingSystemFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={ContractingSystemFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ContractingSystem ubl-Code ubl-ContractingSystemTypeCode"
-          meta={ContractingSystemFieldMeta.ContractingSystemTypeCode} 
-          value={value.ContractingSystemTypeCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Contracting System Type"
-              value={itemValue}
-              meta={ContractingSystemFieldMeta.ContractingSystemTypeCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Contracting System Type"
+            value={value.ContractingSystemTypeCode?.[0]}
+            meta={ContractingSystemFieldMeta.ContractingSystemTypeCode}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-ContractingSystem ubl-Text ubl-Description"
-          meta={ContractingSystemFieldMeta.Description} 
-          value={value.Description}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Description"
-              value={itemValue}
-              meta={ContractingSystemFieldMeta.Description}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Description"
+            label="Description"
+            items={value.Description}
+            meta={ContractingSystemFieldMeta.Description} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Description"
+                value={itemValue}
+                meta={ContractingSystemFieldMeta.Description}
+              />
+            }
+          />
         </div>
     </div>
   )

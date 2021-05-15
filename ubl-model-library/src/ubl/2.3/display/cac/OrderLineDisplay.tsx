@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { OrderLine } from  '../../model/cac/OrderLine'
 import { OrderLineFieldMeta } from  '../../meta/cac/OrderLineMeta'
@@ -21,168 +20,138 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: OrderLine
+  value: OrderLine | undefined
   meta: FieldMeta<T>
 }
 
 export default function OrderLineDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-OrderLine ubl-OrderLineType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-OrderLine ubl-UBLExtensions"
-          meta={OrderLineFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={OrderLineFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-OrderLine">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={OrderLineFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-OrderLine ubl-Code ubl-SubstitutionStatusCode"
-          meta={OrderLineFieldMeta.SubstitutionStatusCode} 
-          value={value.SubstitutionStatusCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Substitution Status Code"
-              value={itemValue}
-              meta={OrderLineFieldMeta.SubstitutionStatusCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Substitution Status Code"
+            value={value.SubstitutionStatusCode?.[0]}
+            meta={OrderLineFieldMeta.SubstitutionStatusCode}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-OrderLine ubl-Text ubl-Note"
-          meta={OrderLineFieldMeta.Note} 
-          value={value.Note}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Note"
-              value={itemValue}
-              meta={OrderLineFieldMeta.Note}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Note"
+            label="Note"
+            items={value.Note}
+            meta={OrderLineFieldMeta.Note} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Note"
+                value={itemValue}
+                meta={OrderLineFieldMeta.Note}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-OrderLine ubl-LineItem"
-          meta={OrderLineFieldMeta.LineItem} 
-          value={value.LineItem}
-          itemDisplay={ (itemValue: LineItem, key: string | number) =>
-            <LineItemDisplay
-              key={key}
-              label="Line Item"
-              value={itemValue}
-              meta={OrderLineFieldMeta.LineItem}
-            />
-          }
-        />
+          <LineItemDisplay
+            label="Line Item"
+            value={value.LineItem?.[0]}
+            meta={OrderLineFieldMeta.LineItem}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-OrderLine ubl-LineItem ubl-SellerProposedSubstituteLineItem"
-          meta={OrderLineFieldMeta.SellerProposedSubstituteLineItem} 
-          value={value.SellerProposedSubstituteLineItem}
-          itemDisplay={ (itemValue: LineItem, key: string | number) =>
-            <LineItemDisplay
-              key={key}
-              label="Seller Proposed Substitute Line Item"
-              value={itemValue}
-              meta={OrderLineFieldMeta.SellerProposedSubstituteLineItem}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-LineItem ubl-SellerProposedSubstituteLineItem"
+            label="Seller Proposed Substitute Line Item"
+            items={value.SellerProposedSubstituteLineItem}
+            meta={OrderLineFieldMeta.SellerProposedSubstituteLineItem} 
+            itemDisplay={ (itemValue: LineItem, key: string | number) =>
+              <LineItemDisplay
+                key={key}
+                label="Seller Proposed Substitute Line Item"
+                value={itemValue}
+                meta={OrderLineFieldMeta.SellerProposedSubstituteLineItem}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-OrderLine ubl-LineItem ubl-SellerSubstitutedLineItem"
-          meta={OrderLineFieldMeta.SellerSubstitutedLineItem} 
-          value={value.SellerSubstitutedLineItem}
-          itemDisplay={ (itemValue: LineItem, key: string | number) =>
-            <LineItemDisplay
-              key={key}
-              label="Seller Substituted Line Item"
-              value={itemValue}
-              meta={OrderLineFieldMeta.SellerSubstitutedLineItem}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-LineItem ubl-SellerSubstitutedLineItem"
+            label="Seller Substituted Line Item"
+            items={value.SellerSubstitutedLineItem}
+            meta={OrderLineFieldMeta.SellerSubstitutedLineItem} 
+            itemDisplay={ (itemValue: LineItem, key: string | number) =>
+              <LineItemDisplay
+                key={key}
+                label="Seller Substituted Line Item"
+                value={itemValue}
+                meta={OrderLineFieldMeta.SellerSubstitutedLineItem}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-OrderLine ubl-LineItem ubl-BuyerProposedSubstituteLineItem"
-          meta={OrderLineFieldMeta.BuyerProposedSubstituteLineItem} 
-          value={value.BuyerProposedSubstituteLineItem}
-          itemDisplay={ (itemValue: LineItem, key: string | number) =>
-            <LineItemDisplay
-              key={key}
-              label="Buyer Proposed Substitute Line Item"
-              value={itemValue}
-              meta={OrderLineFieldMeta.BuyerProposedSubstituteLineItem}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-LineItem ubl-BuyerProposedSubstituteLineItem"
+            label="Buyer Proposed Substitute Line Item"
+            items={value.BuyerProposedSubstituteLineItem}
+            meta={OrderLineFieldMeta.BuyerProposedSubstituteLineItem} 
+            itemDisplay={ (itemValue: LineItem, key: string | number) =>
+              <LineItemDisplay
+                key={key}
+                label="Buyer Proposed Substitute Line Item"
+                value={itemValue}
+                meta={OrderLineFieldMeta.BuyerProposedSubstituteLineItem}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-OrderLine ubl-LineReference ubl-CatalogueLineReference"
-          meta={OrderLineFieldMeta.CatalogueLineReference} 
-          value={value.CatalogueLineReference}
-          itemDisplay={ (itemValue: LineReference, key: string | number) =>
-            <LineReferenceDisplay
-              key={key}
-              label="Catalogue Line Reference"
-              value={itemValue}
-              meta={OrderLineFieldMeta.CatalogueLineReference}
-            />
-          }
-        />
+          <LineReferenceDisplay
+            label="Catalogue Line Reference"
+            value={value.CatalogueLineReference?.[0]}
+            meta={OrderLineFieldMeta.CatalogueLineReference}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-OrderLine ubl-LineReference ubl-QuotationLineReference"
-          meta={OrderLineFieldMeta.QuotationLineReference} 
-          value={value.QuotationLineReference}
-          itemDisplay={ (itemValue: LineReference, key: string | number) =>
-            <LineReferenceDisplay
-              key={key}
-              label="Quotation Line Reference"
-              value={itemValue}
-              meta={OrderLineFieldMeta.QuotationLineReference}
-            />
-          }
-        />
+          <LineReferenceDisplay
+            label="Quotation Line Reference"
+            value={value.QuotationLineReference?.[0]}
+            meta={OrderLineFieldMeta.QuotationLineReference}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-OrderLine ubl-OrderLineReference"
-          meta={OrderLineFieldMeta.OrderLineReference} 
-          value={value.OrderLineReference}
-          itemDisplay={ (itemValue: OrderLineReference, key: string | number) =>
-            <OrderLineReferenceDisplay
-              key={key}
-              label="Order Line Reference"
-              value={itemValue}
-              meta={OrderLineFieldMeta.OrderLineReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-OrderLineReference"
+            label="Order Line Reference"
+            items={value.OrderLineReference}
+            meta={OrderLineFieldMeta.OrderLineReference} 
+            itemDisplay={ (itemValue: OrderLineReference, key: string | number) =>
+              <OrderLineReferenceDisplay
+                key={key}
+                label="Order Line Reference"
+                value={itemValue}
+                meta={OrderLineFieldMeta.OrderLineReference}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-OrderLine ubl-DocumentReference"
-          meta={OrderLineFieldMeta.DocumentReference} 
-          value={value.DocumentReference}
-          itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay
-              key={key}
-              label="Document Reference"
-              value={itemValue}
-              meta={OrderLineFieldMeta.DocumentReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-DocumentReference"
+            label="Document Reference"
+            items={value.DocumentReference}
+            meta={OrderLineFieldMeta.DocumentReference} 
+            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
+              <DocumentReferenceDisplay
+                key={key}
+                label="Document Reference"
+                value={itemValue}
+                meta={OrderLineFieldMeta.DocumentReference}
+              />
+            }
+          />
         </div>
     </div>
   )

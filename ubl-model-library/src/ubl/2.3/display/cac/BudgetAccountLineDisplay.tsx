@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { BudgetAccountLine } from  '../../model/cac/BudgetAccountLine'
 import { BudgetAccountLineFieldMeta } from  '../../meta/cac/BudgetAccountLineMeta'
@@ -15,70 +14,51 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: BudgetAccountLine
+  value: BudgetAccountLine | undefined
   meta: FieldMeta<T>
 }
 
 export default function BudgetAccountLineDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-BudgetAccountLine ubl-BudgetAccountLineType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-BudgetAccountLine ubl-UBLExtensions"
-          meta={BudgetAccountLineFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={BudgetAccountLineFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-BudgetAccountLine">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={BudgetAccountLineFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-BudgetAccountLine ubl-Identifier ubl-ID"
-          meta={BudgetAccountLineFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={BudgetAccountLineFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={BudgetAccountLineFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-BudgetAccountLine ubl-Amount ubl-TotalAmount"
-          meta={BudgetAccountLineFieldMeta.TotalAmount} 
-          value={value.TotalAmount}
-          itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay
-              key={key}
-              label="Total Amount"
-              value={itemValue}
-              meta={BudgetAccountLineFieldMeta.TotalAmount}
-            />
-          }
-        />
+          <AmountDisplay
+            label="Total Amount"
+            value={value.TotalAmount?.[0]}
+            meta={BudgetAccountLineFieldMeta.TotalAmount}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-BudgetAccountLine ubl-BudgetAccount"
-          meta={BudgetAccountLineFieldMeta.BudgetAccount} 
-          value={value.BudgetAccount}
-          itemDisplay={ (itemValue: BudgetAccount, key: string | number) =>
-            <BudgetAccountDisplay
-              key={key}
-              label="Budget Account"
-              value={itemValue}
-              meta={BudgetAccountLineFieldMeta.BudgetAccount}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-BudgetAccount"
+            label="Budget Account"
+            items={value.BudgetAccount}
+            meta={BudgetAccountLineFieldMeta.BudgetAccount} 
+            itemDisplay={ (itemValue: BudgetAccount, key: string | number) =>
+              <BudgetAccountDisplay
+                key={key}
+                label="Budget Account"
+                value={itemValue}
+                meta={BudgetAccountLineFieldMeta.BudgetAccount}
+              />
+            }
+          />
         </div>
     </div>
   )

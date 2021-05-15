@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ContractingActivity } from  '../../model/cac/ContractingActivity'
 import { ContractingActivityFieldMeta } from  '../../meta/cac/ContractingActivityMeta'
@@ -13,56 +12,36 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: ContractingActivity
+  value: ContractingActivity | undefined
   meta: FieldMeta<T>
 }
 
 export default function ContractingActivityDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-ContractingActivity ubl-ContractingActivityType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-ContractingActivity ubl-UBLExtensions"
-          meta={ContractingActivityFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={ContractingActivityFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-ContractingActivity">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={ContractingActivityFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ContractingActivity ubl-Code ubl-ActivityTypeCode"
-          meta={ContractingActivityFieldMeta.ActivityTypeCode} 
-          value={value.ActivityTypeCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Activity Type Code"
-              value={itemValue}
-              meta={ContractingActivityFieldMeta.ActivityTypeCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Activity Type Code"
+            value={value.ActivityTypeCode?.[0]}
+            meta={ContractingActivityFieldMeta.ActivityTypeCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ContractingActivity ubl-Text ubl-ActivityType"
-          meta={ContractingActivityFieldMeta.ActivityType} 
-          value={value.ActivityType}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Activity Type"
-              value={itemValue}
-              meta={ContractingActivityFieldMeta.ActivityType}
-            />
-          }
-        />
+          <TextDisplay
+            label="Activity Type"
+            value={value.ActivityType?.[0]}
+            meta={ContractingActivityFieldMeta.ActivityType}
+          />
         </div>
     </div>
   )

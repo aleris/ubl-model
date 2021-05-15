@@ -11,14 +11,13 @@ import { DisplayTypeGenerator } from './aggregate/DisplayTypeGenerator'
 import { UblModule } from './UblModule'
 
 export class ModelGenerator {
-  async generateModels(version: string) {
-    const rootGenDirPath = '../ubl-model-library/src/ubl'
-    await ModelGenerator.generateForVersion(version, rootGenDirPath)
+  async generateModels(rootGenDirPath: string, version: string, addVersionToPath: boolean) {
+    await ModelGenerator.generateForVersion(version, rootGenDirPath, addVersionToPath)
   }
 
-  private static async generateForVersion(version: string, rootGenDirPath: string) {
+  private static async generateForVersion(version: string, rootGenDirPath: string, addVersionToPath: boolean) {
     const ublSchema = new UblSchema(version)
-    const codeFileWriter = new CodeFileWriter(rootGenDirPath, version)
+    const codeFileWriter = new CodeFileWriter(rootGenDirPath, version, addVersionToPath)
     console.log(`Writing UBL model for version ${version} in ${codeFileWriter.genDirPath}`)
     const typeDictionary = await new TypeDictionary(ublSchema).loadFromSchema()
     const typeResolver = new TypeResolver(typeDictionary)

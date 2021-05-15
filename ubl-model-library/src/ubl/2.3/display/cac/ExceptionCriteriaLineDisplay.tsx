@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ExceptionCriteriaLine } from  '../../model/cac/ExceptionCriteriaLine'
 import { ExceptionCriteriaLineFieldMeta } from  '../../meta/cac/ExceptionCriteriaLineMeta'
@@ -23,196 +22,114 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: ExceptionCriteriaLine
+  value: ExceptionCriteriaLine | undefined
   meta: FieldMeta<T>
 }
 
 export default function ExceptionCriteriaLineDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-ExceptionCriteriaLine ubl-ExceptionCriteriaLineType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-ExceptionCriteriaLine ubl-UBLExtensions"
-          meta={ExceptionCriteriaLineFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={ExceptionCriteriaLineFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-ExceptionCriteriaLine">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={ExceptionCriteriaLineFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ExceptionCriteriaLine ubl-Identifier ubl-ID"
-          meta={ExceptionCriteriaLineFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={ExceptionCriteriaLineFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={ExceptionCriteriaLineFieldMeta.ID}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-ExceptionCriteriaLine ubl-Text ubl-Note"
-          meta={ExceptionCriteriaLineFieldMeta.Note} 
-          value={value.Note}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Note"
-              value={itemValue}
-              meta={ExceptionCriteriaLineFieldMeta.Note}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Note"
+            label="Note"
+            items={value.Note}
+            meta={ExceptionCriteriaLineFieldMeta.Note} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Note"
+                value={itemValue}
+                meta={ExceptionCriteriaLineFieldMeta.Note}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ExceptionCriteriaLine ubl-Code ubl-ThresholdValueComparisonCode"
-          meta={ExceptionCriteriaLineFieldMeta.ThresholdValueComparisonCode} 
-          value={value.ThresholdValueComparisonCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Threshold Value Comparison Code"
-              value={itemValue}
-              meta={ExceptionCriteriaLineFieldMeta.ThresholdValueComparisonCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Threshold Value Comparison Code"
+            value={value.ThresholdValueComparisonCode?.[0]}
+            meta={ExceptionCriteriaLineFieldMeta.ThresholdValueComparisonCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ExceptionCriteriaLine ubl-Quantity ubl-ThresholdQuantity"
-          meta={ExceptionCriteriaLineFieldMeta.ThresholdQuantity} 
-          value={value.ThresholdQuantity}
-          itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay
-              key={key}
-              label="Threshold Quantity"
-              value={itemValue}
-              meta={ExceptionCriteriaLineFieldMeta.ThresholdQuantity}
-            />
-          }
-        />
+          <QuantityDisplay
+            label="Threshold Quantity"
+            value={value.ThresholdQuantity?.[0]}
+            meta={ExceptionCriteriaLineFieldMeta.ThresholdQuantity}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ExceptionCriteriaLine ubl-Code ubl-ExceptionStatusCode"
-          meta={ExceptionCriteriaLineFieldMeta.ExceptionStatusCode} 
-          value={value.ExceptionStatusCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Exception Status Code"
-              value={itemValue}
-              meta={ExceptionCriteriaLineFieldMeta.ExceptionStatusCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Exception Status Code"
+            value={value.ExceptionStatusCode?.[0]}
+            meta={ExceptionCriteriaLineFieldMeta.ExceptionStatusCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ExceptionCriteriaLine ubl-Code ubl-CollaborationPriorityCode"
-          meta={ExceptionCriteriaLineFieldMeta.CollaborationPriorityCode} 
-          value={value.CollaborationPriorityCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Collaboration Priority Code"
-              value={itemValue}
-              meta={ExceptionCriteriaLineFieldMeta.CollaborationPriorityCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Collaboration Priority Code"
+            value={value.CollaborationPriorityCode?.[0]}
+            meta={ExceptionCriteriaLineFieldMeta.CollaborationPriorityCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ExceptionCriteriaLine ubl-Code ubl-ExceptionResolutionCode"
-          meta={ExceptionCriteriaLineFieldMeta.ExceptionResolutionCode} 
-          value={value.ExceptionResolutionCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Exception Resolution Code"
-              value={itemValue}
-              meta={ExceptionCriteriaLineFieldMeta.ExceptionResolutionCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Exception Resolution Code"
+            value={value.ExceptionResolutionCode?.[0]}
+            meta={ExceptionCriteriaLineFieldMeta.ExceptionResolutionCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ExceptionCriteriaLine ubl-Code ubl-SupplyChainActivityTypeCode"
-          meta={ExceptionCriteriaLineFieldMeta.SupplyChainActivityTypeCode} 
-          value={value.SupplyChainActivityTypeCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Supply Chain Activity Type Code"
-              value={itemValue}
-              meta={ExceptionCriteriaLineFieldMeta.SupplyChainActivityTypeCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Supply Chain Activity Type Code"
+            value={value.SupplyChainActivityTypeCode?.[0]}
+            meta={ExceptionCriteriaLineFieldMeta.SupplyChainActivityTypeCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ExceptionCriteriaLine ubl-Code ubl-PerformanceMetricTypeCode"
-          meta={ExceptionCriteriaLineFieldMeta.PerformanceMetricTypeCode} 
-          value={value.PerformanceMetricTypeCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Performance Metric Type Code"
-              value={itemValue}
-              meta={ExceptionCriteriaLineFieldMeta.PerformanceMetricTypeCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Performance Metric Type Code"
+            value={value.PerformanceMetricTypeCode?.[0]}
+            meta={ExceptionCriteriaLineFieldMeta.PerformanceMetricTypeCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-ExceptionCriteriaLine ubl-Period ubl-EffectivePeriod"
-          meta={ExceptionCriteriaLineFieldMeta.EffectivePeriod} 
-          value={value.EffectivePeriod}
-          itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay
-              key={key}
-              label="Effective Period"
-              value={itemValue}
-              meta={ExceptionCriteriaLineFieldMeta.EffectivePeriod}
-            />
-          }
-        />
+          <PeriodDisplay
+            label="Effective Period"
+            value={value.EffectivePeriod?.[0]}
+            meta={ExceptionCriteriaLineFieldMeta.EffectivePeriod}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-ExceptionCriteriaLine ubl-Item ubl-SupplyItem"
-          meta={ExceptionCriteriaLineFieldMeta.SupplyItem} 
-          value={value.SupplyItem}
-          itemDisplay={ (itemValue: Item, key: string | number) =>
-            <ItemDisplay
-              key={key}
-              label="Supply Item"
-              value={itemValue}
-              meta={ExceptionCriteriaLineFieldMeta.SupplyItem}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Item ubl-SupplyItem"
+            label="Supply Item"
+            items={value.SupplyItem}
+            meta={ExceptionCriteriaLineFieldMeta.SupplyItem} 
+            itemDisplay={ (itemValue: Item, key: string | number) =>
+              <ItemDisplay
+                key={key}
+                label="Supply Item"
+                value={itemValue}
+                meta={ExceptionCriteriaLineFieldMeta.SupplyItem}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-ExceptionCriteriaLine ubl-ForecastExceptionCriterionLine"
-          meta={ExceptionCriteriaLineFieldMeta.ForecastExceptionCriterionLine} 
-          value={value.ForecastExceptionCriterionLine}
-          itemDisplay={ (itemValue: ForecastExceptionCriterionLine, key: string | number) =>
-            <ForecastExceptionCriterionLineDisplay
-              key={key}
-              label="Forecast Exception Criterion Line"
-              value={itemValue}
-              meta={ExceptionCriteriaLineFieldMeta.ForecastExceptionCriterionLine}
-            />
-          }
-        />
+          <ForecastExceptionCriterionLineDisplay
+            label="Forecast Exception Criterion Line"
+            value={value.ForecastExceptionCriterionLine?.[0]}
+            meta={ExceptionCriteriaLineFieldMeta.ForecastExceptionCriterionLine}
+          />
         </div>
     </div>
   )

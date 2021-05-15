@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { CatalogueReference } from  '../../model/cac/CatalogueReference'
 import { CatalogueReferenceFieldMeta } from  '../../meta/cac/CatalogueReferenceMeta'
@@ -17,168 +16,102 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: CatalogueReference
+  value: CatalogueReference | undefined
   meta: FieldMeta<T>
 }
 
 export default function CatalogueReferenceDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-CatalogueReference ubl-CatalogueReferenceType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-CatalogueReference ubl-UBLExtensions"
-          meta={CatalogueReferenceFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={CatalogueReferenceFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-CatalogueReference">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={CatalogueReferenceFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CatalogueReference ubl-Identifier ubl-ID"
-          meta={CatalogueReferenceFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={CatalogueReferenceFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={CatalogueReferenceFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CatalogueReference ubl-Identifier ubl-UUID"
-          meta={CatalogueReferenceFieldMeta.UUID} 
-          value={value.UUID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="UUID"
-              value={itemValue}
-              meta={CatalogueReferenceFieldMeta.UUID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="UUID"
+            value={value.UUID?.[0]}
+            meta={CatalogueReferenceFieldMeta.UUID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CatalogueReference ubl-Date ubl-IssueDate"
-          meta={CatalogueReferenceFieldMeta.IssueDate} 
-          value={value.IssueDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Issue Date"
-              value={itemValue}
-              meta={CatalogueReferenceFieldMeta.IssueDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Issue Date"
+            value={value.IssueDate?.[0]}
+            meta={CatalogueReferenceFieldMeta.IssueDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CatalogueReference ubl-Time ubl-IssueTime"
-          meta={CatalogueReferenceFieldMeta.IssueTime} 
-          value={value.IssueTime}
-          itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay
-              key={key}
-              label="Issue Time"
-              value={itemValue}
-              meta={CatalogueReferenceFieldMeta.IssueTime}
-            />
-          }
-        />
+          <TimeDisplay
+            label="Issue Time"
+            value={value.IssueTime?.[0]}
+            meta={CatalogueReferenceFieldMeta.IssueTime}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CatalogueReference ubl-Date ubl-RevisionDate"
-          meta={CatalogueReferenceFieldMeta.RevisionDate} 
-          value={value.RevisionDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Revision Date"
-              value={itemValue}
-              meta={CatalogueReferenceFieldMeta.RevisionDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Revision Date"
+            value={value.RevisionDate?.[0]}
+            meta={CatalogueReferenceFieldMeta.RevisionDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CatalogueReference ubl-Time ubl-RevisionTime"
-          meta={CatalogueReferenceFieldMeta.RevisionTime} 
-          value={value.RevisionTime}
-          itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay
-              key={key}
-              label="Revision Time"
-              value={itemValue}
-              meta={CatalogueReferenceFieldMeta.RevisionTime}
-            />
-          }
-        />
+          <TimeDisplay
+            label="Revision Time"
+            value={value.RevisionTime?.[0]}
+            meta={CatalogueReferenceFieldMeta.RevisionTime}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-CatalogueReference ubl-Text ubl-Note"
-          meta={CatalogueReferenceFieldMeta.Note} 
-          value={value.Note}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Note"
-              value={itemValue}
-              meta={CatalogueReferenceFieldMeta.Note}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Note"
+            label="Note"
+            items={value.Note}
+            meta={CatalogueReferenceFieldMeta.Note} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Note"
+                value={itemValue}
+                meta={CatalogueReferenceFieldMeta.Note}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-CatalogueReference ubl-Text ubl-Description"
-          meta={CatalogueReferenceFieldMeta.Description} 
-          value={value.Description}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Description"
-              value={itemValue}
-              meta={CatalogueReferenceFieldMeta.Description}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Description"
+            label="Description"
+            items={value.Description}
+            meta={CatalogueReferenceFieldMeta.Description} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Description"
+                value={itemValue}
+                meta={CatalogueReferenceFieldMeta.Description}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CatalogueReference ubl-Identifier ubl-VersionID"
-          meta={CatalogueReferenceFieldMeta.VersionID} 
-          value={value.VersionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Version"
-              value={itemValue}
-              meta={CatalogueReferenceFieldMeta.VersionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Version"
+            value={value.VersionID?.[0]}
+            meta={CatalogueReferenceFieldMeta.VersionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CatalogueReference ubl-Identifier ubl-PreviousVersionID"
-          meta={CatalogueReferenceFieldMeta.PreviousVersionID} 
-          value={value.PreviousVersionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Previous Version"
-              value={itemValue}
-              meta={CatalogueReferenceFieldMeta.PreviousVersionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Previous Version"
+            value={value.PreviousVersionID?.[0]}
+            meta={CatalogueReferenceFieldMeta.PreviousVersionID}
+          />
         </div>
     </div>
   )

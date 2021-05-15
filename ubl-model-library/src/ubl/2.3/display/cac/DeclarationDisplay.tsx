@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Declaration } from  '../../model/cac/Declaration'
 import { DeclarationFieldMeta } from  '../../meta/cac/DeclarationMeta'
@@ -15,84 +14,75 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: Declaration
+  value: Declaration | undefined
   meta: FieldMeta<T>
 }
 
 export default function DeclarationDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-Declaration ubl-DeclarationType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-Declaration ubl-UBLExtensions"
-          meta={DeclarationFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={DeclarationFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-Declaration">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={DeclarationFieldMeta.UBLExtensions}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-Declaration ubl-Text ubl-Name"
-          meta={DeclarationFieldMeta.Name} 
-          value={value.Name}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Name"
-              value={itemValue}
-              meta={DeclarationFieldMeta.Name}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Name"
+            label="Name"
+            items={value.Name}
+            meta={DeclarationFieldMeta.Name} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Name"
+                value={itemValue}
+                meta={DeclarationFieldMeta.Name}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-Declaration ubl-Code ubl-DeclarationTypeCode"
-          meta={DeclarationFieldMeta.DeclarationTypeCode} 
-          value={value.DeclarationTypeCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Declaration Type Code"
-              value={itemValue}
-              meta={DeclarationFieldMeta.DeclarationTypeCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Declaration Type Code"
+            value={value.DeclarationTypeCode?.[0]}
+            meta={DeclarationFieldMeta.DeclarationTypeCode}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-Declaration ubl-Text ubl-Description"
-          meta={DeclarationFieldMeta.Description} 
-          value={value.Description}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Description"
-              value={itemValue}
-              meta={DeclarationFieldMeta.Description}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Description"
+            label="Description"
+            items={value.Description}
+            meta={DeclarationFieldMeta.Description} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Description"
+                value={itemValue}
+                meta={DeclarationFieldMeta.Description}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-Declaration ubl-EvidenceSupplied"
-          meta={DeclarationFieldMeta.EvidenceSupplied} 
-          value={value.EvidenceSupplied}
-          itemDisplay={ (itemValue: EvidenceSupplied, key: string | number) =>
-            <EvidenceSuppliedDisplay
-              key={key}
-              label="Evidence Supplied"
-              value={itemValue}
-              meta={DeclarationFieldMeta.EvidenceSupplied}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-EvidenceSupplied"
+            label="Evidence Supplied"
+            items={value.EvidenceSupplied}
+            meta={DeclarationFieldMeta.EvidenceSupplied} 
+            itemDisplay={ (itemValue: EvidenceSupplied, key: string | number) =>
+              <EvidenceSuppliedDisplay
+                key={key}
+                label="Evidence Supplied"
+                value={itemValue}
+                meta={DeclarationFieldMeta.EvidenceSupplied}
+              />
+            }
+          />
         </div>
     </div>
   )

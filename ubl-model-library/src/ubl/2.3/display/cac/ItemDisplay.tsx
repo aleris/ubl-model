@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Item } from  '../../model/cac/Item'
 import { ItemFieldMeta } from  '../../meta/cac/ItemMeta'
@@ -43,448 +42,366 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: Item
+  value: Item | undefined
   meta: FieldMeta<T>
 }
 
 export default function ItemDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-Item ubl-ItemType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-Item ubl-UBLExtensions"
-          meta={ItemFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={ItemFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-Item">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={ItemFieldMeta.UBLExtensions}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-Item ubl-Text ubl-Description"
-          meta={ItemFieldMeta.Description} 
-          value={value.Description}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Description"
-              value={itemValue}
-              meta={ItemFieldMeta.Description}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Description"
+            label="Description"
+            items={value.Description}
+            meta={ItemFieldMeta.Description} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Description"
+                value={itemValue}
+                meta={ItemFieldMeta.Description}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-Item ubl-Quantity ubl-PackQuantity"
-          meta={ItemFieldMeta.PackQuantity} 
-          value={value.PackQuantity}
-          itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay
-              key={key}
-              label="Pack Quantity"
-              value={itemValue}
-              meta={ItemFieldMeta.PackQuantity}
-            />
-          }
-        />
+          <QuantityDisplay
+            label="Pack Quantity"
+            value={value.PackQuantity?.[0]}
+            meta={ItemFieldMeta.PackQuantity}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-Item ubl-Numeric ubl-PackSizeNumeric"
-          meta={ItemFieldMeta.PackSizeNumeric} 
-          value={value.PackSizeNumeric}
-          itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay
-              key={key}
-              label="Pack Size"
-              value={itemValue}
-              meta={ItemFieldMeta.PackSizeNumeric}
-            />
-          }
-        />
+          <NumericDisplay
+            label="Pack Size"
+            value={value.PackSizeNumeric?.[0]}
+            meta={ItemFieldMeta.PackSizeNumeric}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-Item ubl-Indicator ubl-CatalogueIndicator"
-          meta={ItemFieldMeta.CatalogueIndicator} 
-          value={value.CatalogueIndicator}
-          itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay
-              key={key}
-              label="Catalogue Indicator"
-              value={itemValue}
-              meta={ItemFieldMeta.CatalogueIndicator}
-            />
-          }
-        />
+          <IndicatorDisplay
+            label="Catalogue Indicator"
+            value={value.CatalogueIndicator?.[0]}
+            meta={ItemFieldMeta.CatalogueIndicator}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-Item ubl-Text ubl-Name"
-          meta={ItemFieldMeta.Name} 
-          value={value.Name}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Name"
-              value={itemValue}
-              meta={ItemFieldMeta.Name}
-            />
-          }
-        />
+          <TextDisplay
+            label="Name"
+            value={value.Name?.[0]}
+            meta={ItemFieldMeta.Name}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-Item ubl-Indicator ubl-HazardousRiskIndicator"
-          meta={ItemFieldMeta.HazardousRiskIndicator} 
-          value={value.HazardousRiskIndicator}
-          itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay
-              key={key}
-              label="Hazardous Risk Indicator"
-              value={itemValue}
-              meta={ItemFieldMeta.HazardousRiskIndicator}
-            />
-          }
-        />
+          <IndicatorDisplay
+            label="Hazardous Risk Indicator"
+            value={value.HazardousRiskIndicator?.[0]}
+            meta={ItemFieldMeta.HazardousRiskIndicator}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-Item ubl-Text ubl-AdditionalInformation"
-          meta={ItemFieldMeta.AdditionalInformation} 
-          value={value.AdditionalInformation}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Additional Information"
-              value={itemValue}
-              meta={ItemFieldMeta.AdditionalInformation}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-AdditionalInformation"
+            label="Additional Information"
+            items={value.AdditionalInformation}
+            meta={ItemFieldMeta.AdditionalInformation} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Additional Information"
+                value={itemValue}
+                meta={ItemFieldMeta.AdditionalInformation}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-Item ubl-Text ubl-Keyword"
-          meta={ItemFieldMeta.Keyword} 
-          value={value.Keyword}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Keyword"
-              value={itemValue}
-              meta={ItemFieldMeta.Keyword}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Keyword"
+            label="Keyword"
+            items={value.Keyword}
+            meta={ItemFieldMeta.Keyword} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Keyword"
+                value={itemValue}
+                meta={ItemFieldMeta.Keyword}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-Item ubl-Text ubl-BrandName"
-          meta={ItemFieldMeta.BrandName} 
-          value={value.BrandName}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Brand Name"
-              value={itemValue}
-              meta={ItemFieldMeta.BrandName}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-BrandName"
+            label="Brand Name"
+            items={value.BrandName}
+            meta={ItemFieldMeta.BrandName} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Brand Name"
+                value={itemValue}
+                meta={ItemFieldMeta.BrandName}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-Item ubl-Text ubl-ModelName"
-          meta={ItemFieldMeta.ModelName} 
-          value={value.ModelName}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Model Name"
-              value={itemValue}
-              meta={ItemFieldMeta.ModelName}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-ModelName"
+            label="Model Name"
+            items={value.ModelName}
+            meta={ItemFieldMeta.ModelName} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Model Name"
+                value={itemValue}
+                meta={ItemFieldMeta.ModelName}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-Item ubl-ItemIdentification ubl-BuyersItemIdentification"
-          meta={ItemFieldMeta.BuyersItemIdentification} 
-          value={value.BuyersItemIdentification}
-          itemDisplay={ (itemValue: ItemIdentification, key: string | number) =>
-            <ItemIdentificationDisplay
-              key={key}
-              label="Buyers Item Identification"
-              value={itemValue}
-              meta={ItemFieldMeta.BuyersItemIdentification}
-            />
-          }
-        />
+          <ItemIdentificationDisplay
+            label="Buyers Item Identification"
+            value={value.BuyersItemIdentification?.[0]}
+            meta={ItemFieldMeta.BuyersItemIdentification}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-Item ubl-ItemIdentification ubl-SellersItemIdentification"
-          meta={ItemFieldMeta.SellersItemIdentification} 
-          value={value.SellersItemIdentification}
-          itemDisplay={ (itemValue: ItemIdentification, key: string | number) =>
-            <ItemIdentificationDisplay
-              key={key}
-              label="Sellers Item Identification"
-              value={itemValue}
-              meta={ItemFieldMeta.SellersItemIdentification}
-            />
-          }
-        />
+          <ItemIdentificationDisplay
+            label="Sellers Item Identification"
+            value={value.SellersItemIdentification?.[0]}
+            meta={ItemFieldMeta.SellersItemIdentification}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-Item ubl-ItemIdentification ubl-ManufacturersItemIdentification"
-          meta={ItemFieldMeta.ManufacturersItemIdentification} 
-          value={value.ManufacturersItemIdentification}
-          itemDisplay={ (itemValue: ItemIdentification, key: string | number) =>
-            <ItemIdentificationDisplay
-              key={key}
-              label="Manufacturers Item Identification"
-              value={itemValue}
-              meta={ItemFieldMeta.ManufacturersItemIdentification}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-ItemIdentification ubl-ManufacturersItemIdentification"
+            label="Manufacturers Item Identification"
+            items={value.ManufacturersItemIdentification}
+            meta={ItemFieldMeta.ManufacturersItemIdentification} 
+            itemDisplay={ (itemValue: ItemIdentification, key: string | number) =>
+              <ItemIdentificationDisplay
+                key={key}
+                label="Manufacturers Item Identification"
+                value={itemValue}
+                meta={ItemFieldMeta.ManufacturersItemIdentification}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-Item ubl-ItemIdentification ubl-StandardItemIdentification"
-          meta={ItemFieldMeta.StandardItemIdentification} 
-          value={value.StandardItemIdentification}
-          itemDisplay={ (itemValue: ItemIdentification, key: string | number) =>
-            <ItemIdentificationDisplay
-              key={key}
-              label="Standard Item Identification"
-              value={itemValue}
-              meta={ItemFieldMeta.StandardItemIdentification}
-            />
-          }
-        />
+          <ItemIdentificationDisplay
+            label="Standard Item Identification"
+            value={value.StandardItemIdentification?.[0]}
+            meta={ItemFieldMeta.StandardItemIdentification}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-Item ubl-ItemIdentification ubl-CatalogueItemIdentification"
-          meta={ItemFieldMeta.CatalogueItemIdentification} 
-          value={value.CatalogueItemIdentification}
-          itemDisplay={ (itemValue: ItemIdentification, key: string | number) =>
-            <ItemIdentificationDisplay
-              key={key}
-              label="Catalogue Item Identification"
-              value={itemValue}
-              meta={ItemFieldMeta.CatalogueItemIdentification}
-            />
-          }
-        />
+          <ItemIdentificationDisplay
+            label="Catalogue Item Identification"
+            value={value.CatalogueItemIdentification?.[0]}
+            meta={ItemFieldMeta.CatalogueItemIdentification}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-Item ubl-ItemIdentification ubl-AdditionalItemIdentification"
-          meta={ItemFieldMeta.AdditionalItemIdentification} 
-          value={value.AdditionalItemIdentification}
-          itemDisplay={ (itemValue: ItemIdentification, key: string | number) =>
-            <ItemIdentificationDisplay
-              key={key}
-              label="Additional Item Identification"
-              value={itemValue}
-              meta={ItemFieldMeta.AdditionalItemIdentification}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-ItemIdentification ubl-AdditionalItemIdentification"
+            label="Additional Item Identification"
+            items={value.AdditionalItemIdentification}
+            meta={ItemFieldMeta.AdditionalItemIdentification} 
+            itemDisplay={ (itemValue: ItemIdentification, key: string | number) =>
+              <ItemIdentificationDisplay
+                key={key}
+                label="Additional Item Identification"
+                value={itemValue}
+                meta={ItemFieldMeta.AdditionalItemIdentification}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-Item ubl-DocumentReference ubl-CatalogueDocumentReference"
-          meta={ItemFieldMeta.CatalogueDocumentReference} 
-          value={value.CatalogueDocumentReference}
-          itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay
-              key={key}
-              label="Catalogue Document Reference"
-              value={itemValue}
-              meta={ItemFieldMeta.CatalogueDocumentReference}
-            />
-          }
-        />
+          <DocumentReferenceDisplay
+            label="Catalogue Document Reference"
+            value={value.CatalogueDocumentReference?.[0]}
+            meta={ItemFieldMeta.CatalogueDocumentReference}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-Item ubl-DocumentReference ubl-ItemSpecificationDocumentReference"
-          meta={ItemFieldMeta.ItemSpecificationDocumentReference} 
-          value={value.ItemSpecificationDocumentReference}
-          itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay
-              key={key}
-              label="Item Specification Document Reference"
-              value={itemValue}
-              meta={ItemFieldMeta.ItemSpecificationDocumentReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-DocumentReference ubl-ItemSpecificationDocumentReference"
+            label="Item Specification Document Reference"
+            items={value.ItemSpecificationDocumentReference}
+            meta={ItemFieldMeta.ItemSpecificationDocumentReference} 
+            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
+              <DocumentReferenceDisplay
+                key={key}
+                label="Item Specification Document Reference"
+                value={itemValue}
+                meta={ItemFieldMeta.ItemSpecificationDocumentReference}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-Item ubl-Country ubl-OriginCountry"
-          meta={ItemFieldMeta.OriginCountry} 
-          value={value.OriginCountry}
-          itemDisplay={ (itemValue: Country, key: string | number) =>
-            <CountryDisplay
-              key={key}
-              label="Origin Country"
-              value={itemValue}
-              meta={ItemFieldMeta.OriginCountry}
-            />
-          }
-        />
+          <CountryDisplay
+            label="Origin Country"
+            value={value.OriginCountry?.[0]}
+            meta={ItemFieldMeta.OriginCountry}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-Item ubl-CommodityClassification"
-          meta={ItemFieldMeta.CommodityClassification} 
-          value={value.CommodityClassification}
-          itemDisplay={ (itemValue: CommodityClassification, key: string | number) =>
-            <CommodityClassificationDisplay
-              key={key}
-              label="Commodity Classification"
-              value={itemValue}
-              meta={ItemFieldMeta.CommodityClassification}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-CommodityClassification"
+            label="Commodity Classification"
+            items={value.CommodityClassification}
+            meta={ItemFieldMeta.CommodityClassification} 
+            itemDisplay={ (itemValue: CommodityClassification, key: string | number) =>
+              <CommodityClassificationDisplay
+                key={key}
+                label="Commodity Classification"
+                value={itemValue}
+                meta={ItemFieldMeta.CommodityClassification}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-Item ubl-TransactionConditions"
-          meta={ItemFieldMeta.TransactionConditions} 
-          value={value.TransactionConditions}
-          itemDisplay={ (itemValue: TransactionConditions, key: string | number) =>
-            <TransactionConditionsDisplay
-              key={key}
-              label="Transaction Conditions"
-              value={itemValue}
-              meta={ItemFieldMeta.TransactionConditions}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-TransactionConditions"
+            label="Transaction Conditions"
+            items={value.TransactionConditions}
+            meta={ItemFieldMeta.TransactionConditions} 
+            itemDisplay={ (itemValue: TransactionConditions, key: string | number) =>
+              <TransactionConditionsDisplay
+                key={key}
+                label="Transaction Conditions"
+                value={itemValue}
+                meta={ItemFieldMeta.TransactionConditions}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-Item ubl-HazardousItem"
-          meta={ItemFieldMeta.HazardousItem} 
-          value={value.HazardousItem}
-          itemDisplay={ (itemValue: HazardousItem, key: string | number) =>
-            <HazardousItemDisplay
-              key={key}
-              label="Hazardous Item"
-              value={itemValue}
-              meta={ItemFieldMeta.HazardousItem}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-HazardousItem"
+            label="Hazardous Item"
+            items={value.HazardousItem}
+            meta={ItemFieldMeta.HazardousItem} 
+            itemDisplay={ (itemValue: HazardousItem, key: string | number) =>
+              <HazardousItemDisplay
+                key={key}
+                label="Hazardous Item"
+                value={itemValue}
+                meta={ItemFieldMeta.HazardousItem}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-Item ubl-TaxCategory ubl-ClassifiedTaxCategory"
-          meta={ItemFieldMeta.ClassifiedTaxCategory} 
-          value={value.ClassifiedTaxCategory}
-          itemDisplay={ (itemValue: TaxCategory, key: string | number) =>
-            <TaxCategoryDisplay
-              key={key}
-              label="Classified Tax Category"
-              value={itemValue}
-              meta={ItemFieldMeta.ClassifiedTaxCategory}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-TaxCategory ubl-ClassifiedTaxCategory"
+            label="Classified Tax Category"
+            items={value.ClassifiedTaxCategory}
+            meta={ItemFieldMeta.ClassifiedTaxCategory} 
+            itemDisplay={ (itemValue: TaxCategory, key: string | number) =>
+              <TaxCategoryDisplay
+                key={key}
+                label="Classified Tax Category"
+                value={itemValue}
+                meta={ItemFieldMeta.ClassifiedTaxCategory}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-Item ubl-ItemProperty ubl-AdditionalItemProperty"
-          meta={ItemFieldMeta.AdditionalItemProperty} 
-          value={value.AdditionalItemProperty}
-          itemDisplay={ (itemValue: ItemProperty, key: string | number) =>
-            <ItemPropertyDisplay
-              key={key}
-              label="Additional Item Property"
-              value={itemValue}
-              meta={ItemFieldMeta.AdditionalItemProperty}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-ItemProperty ubl-AdditionalItemProperty"
+            label="Additional Item Property"
+            items={value.AdditionalItemProperty}
+            meta={ItemFieldMeta.AdditionalItemProperty} 
+            itemDisplay={ (itemValue: ItemProperty, key: string | number) =>
+              <ItemPropertyDisplay
+                key={key}
+                label="Additional Item Property"
+                value={itemValue}
+                meta={ItemFieldMeta.AdditionalItemProperty}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-Item ubl-Party ubl-ManufacturerParty"
-          meta={ItemFieldMeta.ManufacturerParty} 
-          value={value.ManufacturerParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Manufacturer Party"
-              value={itemValue}
-              meta={ItemFieldMeta.ManufacturerParty}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Party ubl-ManufacturerParty"
+            label="Manufacturer Party"
+            items={value.ManufacturerParty}
+            meta={ItemFieldMeta.ManufacturerParty} 
+            itemDisplay={ (itemValue: Party, key: string | number) =>
+              <PartyDisplay
+                key={key}
+                label="Manufacturer Party"
+                value={itemValue}
+                meta={ItemFieldMeta.ManufacturerParty}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-Item ubl-Party ubl-InformationContentProviderParty"
-          meta={ItemFieldMeta.InformationContentProviderParty} 
-          value={value.InformationContentProviderParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Information Content Provider Party"
-              value={itemValue}
-              meta={ItemFieldMeta.InformationContentProviderParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Information Content Provider Party"
+            value={value.InformationContentProviderParty?.[0]}
+            meta={ItemFieldMeta.InformationContentProviderParty}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-Item ubl-Address ubl-OriginAddress"
-          meta={ItemFieldMeta.OriginAddress} 
-          value={value.OriginAddress}
-          itemDisplay={ (itemValue: Address, key: string | number) =>
-            <AddressDisplay
-              key={key}
-              label="Origin Address"
-              value={itemValue}
-              meta={ItemFieldMeta.OriginAddress}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Address ubl-OriginAddress"
+            label="Origin Address"
+            items={value.OriginAddress}
+            meta={ItemFieldMeta.OriginAddress} 
+            itemDisplay={ (itemValue: Address, key: string | number) =>
+              <AddressDisplay
+                key={key}
+                label="Origin Address"
+                value={itemValue}
+                meta={ItemFieldMeta.OriginAddress}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-Item ubl-ItemInstance"
-          meta={ItemFieldMeta.ItemInstance} 
-          value={value.ItemInstance}
-          itemDisplay={ (itemValue: ItemInstance, key: string | number) =>
-            <ItemInstanceDisplay
-              key={key}
-              label="Item Instance"
-              value={itemValue}
-              meta={ItemFieldMeta.ItemInstance}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-ItemInstance"
+            label="Item Instance"
+            items={value.ItemInstance}
+            meta={ItemFieldMeta.ItemInstance} 
+            itemDisplay={ (itemValue: ItemInstance, key: string | number) =>
+              <ItemInstanceDisplay
+                key={key}
+                label="Item Instance"
+                value={itemValue}
+                meta={ItemFieldMeta.ItemInstance}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-Item ubl-Certificate"
-          meta={ItemFieldMeta.Certificate} 
-          value={value.Certificate}
-          itemDisplay={ (itemValue: Certificate, key: string | number) =>
-            <CertificateDisplay
-              key={key}
-              label="Certificate"
-              value={itemValue}
-              meta={ItemFieldMeta.Certificate}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Certificate"
+            label="Certificate"
+            items={value.Certificate}
+            meta={ItemFieldMeta.Certificate} 
+            itemDisplay={ (itemValue: Certificate, key: string | number) =>
+              <CertificateDisplay
+                key={key}
+                label="Certificate"
+                value={itemValue}
+                meta={ItemFieldMeta.Certificate}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-Item ubl-Dimension"
-          meta={ItemFieldMeta.Dimension} 
-          value={value.Dimension}
-          itemDisplay={ (itemValue: Dimension, key: string | number) =>
-            <DimensionDisplay
-              key={key}
-              label="Dimension"
-              value={itemValue}
-              meta={ItemFieldMeta.Dimension}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Dimension"
+            label="Dimension"
+            items={value.Dimension}
+            meta={ItemFieldMeta.Dimension} 
+            itemDisplay={ (itemValue: Dimension, key: string | number) =>
+              <DimensionDisplay
+                key={key}
+                label="Dimension"
+                value={itemValue}
+                meta={ItemFieldMeta.Dimension}
+              />
+            }
+          />
         </div>
     </div>
   )

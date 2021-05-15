@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TradeFinancing } from  '../../model/cac/TradeFinancing'
 import { TradeFinancingFieldMeta } from  '../../meta/cac/TradeFinancingMeta'
@@ -21,126 +20,84 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: TradeFinancing
+  value: TradeFinancing | undefined
   meta: FieldMeta<T>
 }
 
 export default function TradeFinancingDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-TradeFinancing ubl-TradeFinancingType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-TradeFinancing ubl-UBLExtensions"
-          meta={TradeFinancingFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={TradeFinancingFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-TradeFinancing">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={TradeFinancingFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TradeFinancing ubl-Identifier ubl-ID"
-          meta={TradeFinancingFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={TradeFinancingFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={TradeFinancingFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TradeFinancing ubl-Code ubl-FinancingInstrumentCode"
-          meta={TradeFinancingFieldMeta.FinancingInstrumentCode} 
-          value={value.FinancingInstrumentCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Financing Instrument Code"
-              value={itemValue}
-              meta={TradeFinancingFieldMeta.FinancingInstrumentCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Financing Instrument Code"
+            value={value.FinancingInstrumentCode?.[0]}
+            meta={TradeFinancingFieldMeta.FinancingInstrumentCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TradeFinancing ubl-DocumentReference ubl-ContractDocumentReference"
-          meta={TradeFinancingFieldMeta.ContractDocumentReference} 
-          value={value.ContractDocumentReference}
-          itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay
-              key={key}
-              label="Contract Document Reference"
-              value={itemValue}
-              meta={TradeFinancingFieldMeta.ContractDocumentReference}
-            />
-          }
-        />
+          <DocumentReferenceDisplay
+            label="Contract Document Reference"
+            value={value.ContractDocumentReference?.[0]}
+            meta={TradeFinancingFieldMeta.ContractDocumentReference}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-TradeFinancing ubl-DocumentReference"
-          meta={TradeFinancingFieldMeta.DocumentReference} 
-          value={value.DocumentReference}
-          itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay
-              key={key}
-              label="Document Reference"
-              value={itemValue}
-              meta={TradeFinancingFieldMeta.DocumentReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-DocumentReference"
+            label="Document Reference"
+            items={value.DocumentReference}
+            meta={TradeFinancingFieldMeta.DocumentReference} 
+            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
+              <DocumentReferenceDisplay
+                key={key}
+                label="Document Reference"
+                value={itemValue}
+                meta={TradeFinancingFieldMeta.DocumentReference}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TradeFinancing ubl-Party ubl-FinancingParty"
-          meta={TradeFinancingFieldMeta.FinancingParty} 
-          value={value.FinancingParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Financing Party"
-              value={itemValue}
-              meta={TradeFinancingFieldMeta.FinancingParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Financing Party"
+            value={value.FinancingParty?.[0]}
+            meta={TradeFinancingFieldMeta.FinancingParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TradeFinancing ubl-FinancialAccount ubl-FinancingFinancialAccount"
-          meta={TradeFinancingFieldMeta.FinancingFinancialAccount} 
-          value={value.FinancingFinancialAccount}
-          itemDisplay={ (itemValue: FinancialAccount, key: string | number) =>
-            <FinancialAccountDisplay
-              key={key}
-              label="Financing Financial Account"
-              value={itemValue}
-              meta={TradeFinancingFieldMeta.FinancingFinancialAccount}
-            />
-          }
-        />
+          <FinancialAccountDisplay
+            label="Financing Financial Account"
+            value={value.FinancingFinancialAccount?.[0]}
+            meta={TradeFinancingFieldMeta.FinancingFinancialAccount}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-TradeFinancing ubl-Clause"
-          meta={TradeFinancingFieldMeta.Clause} 
-          value={value.Clause}
-          itemDisplay={ (itemValue: Clause, key: string | number) =>
-            <ClauseDisplay
-              key={key}
-              label="Clause"
-              value={itemValue}
-              meta={TradeFinancingFieldMeta.Clause}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Clause"
+            label="Clause"
+            items={value.Clause}
+            meta={TradeFinancingFieldMeta.Clause} 
+            itemDisplay={ (itemValue: Clause, key: string | number) =>
+              <ClauseDisplay
+                key={key}
+                label="Clause"
+                value={itemValue}
+                meta={TradeFinancingFieldMeta.Clause}
+              />
+            }
+          />
         </div>
     </div>
   )

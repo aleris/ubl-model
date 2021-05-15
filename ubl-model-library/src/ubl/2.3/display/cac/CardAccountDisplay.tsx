@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { CardAccount } from  '../../model/cac/CardAccount'
 import { CardAccountFieldMeta } from  '../../meta/cac/CardAccountMeta'
@@ -17,196 +16,96 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: CardAccount
+  value: CardAccount | undefined
   meta: FieldMeta<T>
 }
 
 export default function CardAccountDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-CardAccount ubl-CardAccountType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-CardAccount ubl-UBLExtensions"
-          meta={CardAccountFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={CardAccountFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-CardAccount">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={CardAccountFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CardAccount ubl-Identifier ubl-PrimaryAccountNumberID"
-          meta={CardAccountFieldMeta.PrimaryAccountNumberID} 
-          value={value.PrimaryAccountNumberID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Primary Account Number"
-              value={itemValue}
-              meta={CardAccountFieldMeta.PrimaryAccountNumberID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Primary Account Number"
+            value={value.PrimaryAccountNumberID?.[0]}
+            meta={CardAccountFieldMeta.PrimaryAccountNumberID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CardAccount ubl-Identifier ubl-NetworkID"
-          meta={CardAccountFieldMeta.NetworkID} 
-          value={value.NetworkID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Network"
-              value={itemValue}
-              meta={CardAccountFieldMeta.NetworkID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Network"
+            value={value.NetworkID?.[0]}
+            meta={CardAccountFieldMeta.NetworkID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CardAccount ubl-Code ubl-CardTypeCode"
-          meta={CardAccountFieldMeta.CardTypeCode} 
-          value={value.CardTypeCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Card Type Code"
-              value={itemValue}
-              meta={CardAccountFieldMeta.CardTypeCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Card Type Code"
+            value={value.CardTypeCode?.[0]}
+            meta={CardAccountFieldMeta.CardTypeCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CardAccount ubl-Date ubl-ValidityStartDate"
-          meta={CardAccountFieldMeta.ValidityStartDate} 
-          value={value.ValidityStartDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Validity Start Date"
-              value={itemValue}
-              meta={CardAccountFieldMeta.ValidityStartDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Validity Start Date"
+            value={value.ValidityStartDate?.[0]}
+            meta={CardAccountFieldMeta.ValidityStartDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CardAccount ubl-Date ubl-ExpiryDate"
-          meta={CardAccountFieldMeta.ExpiryDate} 
-          value={value.ExpiryDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Expiry Date"
-              value={itemValue}
-              meta={CardAccountFieldMeta.ExpiryDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Expiry Date"
+            value={value.ExpiryDate?.[0]}
+            meta={CardAccountFieldMeta.ExpiryDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CardAccount ubl-Identifier ubl-IssuerID"
-          meta={CardAccountFieldMeta.IssuerID} 
-          value={value.IssuerID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Issuer"
-              value={itemValue}
-              meta={CardAccountFieldMeta.IssuerID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Issuer"
+            value={value.IssuerID?.[0]}
+            meta={CardAccountFieldMeta.IssuerID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CardAccount ubl-Identifier ubl-IssueNumberID"
-          meta={CardAccountFieldMeta.IssueNumberID} 
-          value={value.IssueNumberID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Issue Number"
-              value={itemValue}
-              meta={CardAccountFieldMeta.IssueNumberID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Issue Number"
+            value={value.IssueNumberID?.[0]}
+            meta={CardAccountFieldMeta.IssueNumberID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CardAccount ubl-Identifier ubl-CV2ID"
-          meta={CardAccountFieldMeta.CV2ID} 
-          value={value.CV2ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="CV2"
-              value={itemValue}
-              meta={CardAccountFieldMeta.CV2ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="CV2"
+            value={value.CV2ID?.[0]}
+            meta={CardAccountFieldMeta.CV2ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CardAccount ubl-Code ubl-CardChipCode"
-          meta={CardAccountFieldMeta.CardChipCode} 
-          value={value.CardChipCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Card Chip Code"
-              value={itemValue}
-              meta={CardAccountFieldMeta.CardChipCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Card Chip Code"
+            value={value.CardChipCode?.[0]}
+            meta={CardAccountFieldMeta.CardChipCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CardAccount ubl-Identifier ubl-ChipApplicationID"
-          meta={CardAccountFieldMeta.ChipApplicationID} 
-          value={value.ChipApplicationID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Chip Application"
-              value={itemValue}
-              meta={CardAccountFieldMeta.ChipApplicationID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Chip Application"
+            value={value.ChipApplicationID?.[0]}
+            meta={CardAccountFieldMeta.ChipApplicationID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CardAccount ubl-Text ubl-HolderName"
-          meta={CardAccountFieldMeta.HolderName} 
-          value={value.HolderName}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Holder"
-              value={itemValue}
-              meta={CardAccountFieldMeta.HolderName}
-            />
-          }
-        />
+          <TextDisplay
+            label="Holder"
+            value={value.HolderName?.[0]}
+            meta={CardAccountFieldMeta.HolderName}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CardAccount ubl-Code ubl-RoleCode"
-          meta={CardAccountFieldMeta.RoleCode} 
-          value={value.RoleCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Role Code"
-              value={itemValue}
-              meta={CardAccountFieldMeta.RoleCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Role Code"
+            value={value.RoleCode?.[0]}
+            meta={CardAccountFieldMeta.RoleCode}
+          />
         </div>
     </div>
   )

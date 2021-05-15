@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TransportMeans } from  '../../model/cac/TransportMeans'
 import { TransportMeansFieldMeta } from  '../../meta/cac/TransportMeansMeta'
@@ -29,210 +28,120 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: TransportMeans
+  value: TransportMeans | undefined
   meta: FieldMeta<T>
 }
 
 export default function TransportMeansDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-TransportMeans ubl-TransportMeansType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-TransportMeans ubl-UBLExtensions"
-          meta={TransportMeansFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={TransportMeansFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-TransportMeans">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={TransportMeansFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TransportMeans ubl-Identifier ubl-JourneyID"
-          meta={TransportMeansFieldMeta.JourneyID} 
-          value={value.JourneyID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Journey Identifier"
-              value={itemValue}
-              meta={TransportMeansFieldMeta.JourneyID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Journey Identifier"
+            value={value.JourneyID?.[0]}
+            meta={TransportMeansFieldMeta.JourneyID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TransportMeans ubl-Identifier ubl-RegistrationNationalityID"
-          meta={TransportMeansFieldMeta.RegistrationNationalityID} 
-          value={value.RegistrationNationalityID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Registration Nationality Identifier"
-              value={itemValue}
-              meta={TransportMeansFieldMeta.RegistrationNationalityID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Registration Nationality Identifier"
+            value={value.RegistrationNationalityID?.[0]}
+            meta={TransportMeansFieldMeta.RegistrationNationalityID}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-TransportMeans ubl-Text ubl-RegistrationNationality"
-          meta={TransportMeansFieldMeta.RegistrationNationality} 
-          value={value.RegistrationNationality}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Registration Nationality"
-              value={itemValue}
-              meta={TransportMeansFieldMeta.RegistrationNationality}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-RegistrationNationality"
+            label="Registration Nationality"
+            items={value.RegistrationNationality}
+            meta={TransportMeansFieldMeta.RegistrationNationality} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Registration Nationality"
+                value={itemValue}
+                meta={TransportMeansFieldMeta.RegistrationNationality}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TransportMeans ubl-Code ubl-DirectionCode"
-          meta={TransportMeansFieldMeta.DirectionCode} 
-          value={value.DirectionCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Direction Code"
-              value={itemValue}
-              meta={TransportMeansFieldMeta.DirectionCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Direction Code"
+            value={value.DirectionCode?.[0]}
+            meta={TransportMeansFieldMeta.DirectionCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TransportMeans ubl-Code ubl-TransportMeansTypeCode"
-          meta={TransportMeansFieldMeta.TransportMeansTypeCode} 
-          value={value.TransportMeansTypeCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Transport Means Type Code"
-              value={itemValue}
-              meta={TransportMeansFieldMeta.TransportMeansTypeCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Transport Means Type Code"
+            value={value.TransportMeansTypeCode?.[0]}
+            meta={TransportMeansFieldMeta.TransportMeansTypeCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TransportMeans ubl-Code ubl-TradeServiceCode"
-          meta={TransportMeansFieldMeta.TradeServiceCode} 
-          value={value.TradeServiceCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Trade Service Code"
-              value={itemValue}
-              meta={TransportMeansFieldMeta.TradeServiceCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Trade Service Code"
+            value={value.TradeServiceCode?.[0]}
+            meta={TransportMeansFieldMeta.TradeServiceCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TransportMeans ubl-Stowage"
-          meta={TransportMeansFieldMeta.Stowage} 
-          value={value.Stowage}
-          itemDisplay={ (itemValue: Stowage, key: string | number) =>
-            <StowageDisplay
-              key={key}
-              label="Stowage"
-              value={itemValue}
-              meta={TransportMeansFieldMeta.Stowage}
-            />
-          }
-        />
+          <StowageDisplay
+            label="Stowage"
+            value={value.Stowage?.[0]}
+            meta={TransportMeansFieldMeta.Stowage}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TransportMeans ubl-AirTransport"
-          meta={TransportMeansFieldMeta.AirTransport} 
-          value={value.AirTransport}
-          itemDisplay={ (itemValue: AirTransport, key: string | number) =>
-            <AirTransportDisplay
-              key={key}
-              label="Air Transport"
-              value={itemValue}
-              meta={TransportMeansFieldMeta.AirTransport}
-            />
-          }
-        />
+          <AirTransportDisplay
+            label="Air Transport"
+            value={value.AirTransport?.[0]}
+            meta={TransportMeansFieldMeta.AirTransport}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TransportMeans ubl-RoadTransport"
-          meta={TransportMeansFieldMeta.RoadTransport} 
-          value={value.RoadTransport}
-          itemDisplay={ (itemValue: RoadTransport, key: string | number) =>
-            <RoadTransportDisplay
-              key={key}
-              label="Road Transport"
-              value={itemValue}
-              meta={TransportMeansFieldMeta.RoadTransport}
-            />
-          }
-        />
+          <RoadTransportDisplay
+            label="Road Transport"
+            value={value.RoadTransport?.[0]}
+            meta={TransportMeansFieldMeta.RoadTransport}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TransportMeans ubl-RailTransport"
-          meta={TransportMeansFieldMeta.RailTransport} 
-          value={value.RailTransport}
-          itemDisplay={ (itemValue: RailTransport, key: string | number) =>
-            <RailTransportDisplay
-              key={key}
-              label="Rail Transport"
-              value={itemValue}
-              meta={TransportMeansFieldMeta.RailTransport}
-            />
-          }
-        />
+          <RailTransportDisplay
+            label="Rail Transport"
+            value={value.RailTransport?.[0]}
+            meta={TransportMeansFieldMeta.RailTransport}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TransportMeans ubl-MaritimeTransport"
-          meta={TransportMeansFieldMeta.MaritimeTransport} 
-          value={value.MaritimeTransport}
-          itemDisplay={ (itemValue: MaritimeTransport, key: string | number) =>
-            <MaritimeTransportDisplay
-              key={key}
-              label="Maritime Transport"
-              value={itemValue}
-              meta={TransportMeansFieldMeta.MaritimeTransport}
-            />
-          }
-        />
+          <MaritimeTransportDisplay
+            label="Maritime Transport"
+            value={value.MaritimeTransport?.[0]}
+            meta={TransportMeansFieldMeta.MaritimeTransport}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-TransportMeans ubl-Party ubl-OwnerParty"
-          meta={TransportMeansFieldMeta.OwnerParty} 
-          value={value.OwnerParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Owner Party"
-              value={itemValue}
-              meta={TransportMeansFieldMeta.OwnerParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Owner Party"
+            value={value.OwnerParty?.[0]}
+            meta={TransportMeansFieldMeta.OwnerParty}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-TransportMeans ubl-Dimension ubl-MeasurementDimension"
-          meta={TransportMeansFieldMeta.MeasurementDimension} 
-          value={value.MeasurementDimension}
-          itemDisplay={ (itemValue: Dimension, key: string | number) =>
-            <DimensionDisplay
-              key={key}
-              label="Measurement Dimension"
-              value={itemValue}
-              meta={TransportMeansFieldMeta.MeasurementDimension}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Dimension ubl-MeasurementDimension"
+            label="Measurement Dimension"
+            items={value.MeasurementDimension}
+            meta={TransportMeansFieldMeta.MeasurementDimension} 
+            itemDisplay={ (itemValue: Dimension, key: string | number) =>
+              <DimensionDisplay
+                key={key}
+                label="Measurement Dimension"
+                value={itemValue}
+                meta={TransportMeansFieldMeta.MeasurementDimension}
+              />
+            }
+          />
         </div>
     </div>
   )

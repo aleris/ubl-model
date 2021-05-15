@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ExternalReference } from  '../../model/cac/ExternalReference'
 import { ExternalReferenceFieldMeta } from  '../../meta/cac/ExternalReferenceMeta'
@@ -19,182 +18,99 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: ExternalReference
+  value: ExternalReference | undefined
   meta: FieldMeta<T>
 }
 
 export default function ExternalReferenceDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-ExternalReference ubl-ExternalReferenceType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-ExternalReference ubl-UBLExtensions"
-          meta={ExternalReferenceFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={ExternalReferenceFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-ExternalReference">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={ExternalReferenceFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ExternalReference ubl-Identifier ubl-URI"
-          meta={ExternalReferenceFieldMeta.URI} 
-          value={value.URI}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="URI"
-              value={itemValue}
-              meta={ExternalReferenceFieldMeta.URI}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="URI"
+            value={value.URI?.[0]}
+            meta={ExternalReferenceFieldMeta.URI}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ExternalReference ubl-Text ubl-DocumentHash"
-          meta={ExternalReferenceFieldMeta.DocumentHash} 
-          value={value.DocumentHash}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Document Hash"
-              value={itemValue}
-              meta={ExternalReferenceFieldMeta.DocumentHash}
-            />
-          }
-        />
+          <TextDisplay
+            label="Document Hash"
+            value={value.DocumentHash?.[0]}
+            meta={ExternalReferenceFieldMeta.DocumentHash}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ExternalReference ubl-Text ubl-HashAlgorithmMethod"
-          meta={ExternalReferenceFieldMeta.HashAlgorithmMethod} 
-          value={value.HashAlgorithmMethod}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Hash Algorithm Method"
-              value={itemValue}
-              meta={ExternalReferenceFieldMeta.HashAlgorithmMethod}
-            />
-          }
-        />
+          <TextDisplay
+            label="Hash Algorithm Method"
+            value={value.HashAlgorithmMethod?.[0]}
+            meta={ExternalReferenceFieldMeta.HashAlgorithmMethod}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ExternalReference ubl-Date ubl-ExpiryDate"
-          meta={ExternalReferenceFieldMeta.ExpiryDate} 
-          value={value.ExpiryDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Expiry Date"
-              value={itemValue}
-              meta={ExternalReferenceFieldMeta.ExpiryDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Expiry Date"
+            value={value.ExpiryDate?.[0]}
+            meta={ExternalReferenceFieldMeta.ExpiryDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ExternalReference ubl-Time ubl-ExpiryTime"
-          meta={ExternalReferenceFieldMeta.ExpiryTime} 
-          value={value.ExpiryTime}
-          itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay
-              key={key}
-              label="Expiry Time"
-              value={itemValue}
-              meta={ExternalReferenceFieldMeta.ExpiryTime}
-            />
-          }
-        />
+          <TimeDisplay
+            label="Expiry Time"
+            value={value.ExpiryTime?.[0]}
+            meta={ExternalReferenceFieldMeta.ExpiryTime}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ExternalReference ubl-Code ubl-MimeCode"
-          meta={ExternalReferenceFieldMeta.MimeCode} 
-          value={value.MimeCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Mime Code"
-              value={itemValue}
-              meta={ExternalReferenceFieldMeta.MimeCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Mime Code"
+            value={value.MimeCode?.[0]}
+            meta={ExternalReferenceFieldMeta.MimeCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ExternalReference ubl-Code ubl-FormatCode"
-          meta={ExternalReferenceFieldMeta.FormatCode} 
-          value={value.FormatCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Format Code"
-              value={itemValue}
-              meta={ExternalReferenceFieldMeta.FormatCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Format Code"
+            value={value.FormatCode?.[0]}
+            meta={ExternalReferenceFieldMeta.FormatCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ExternalReference ubl-Code ubl-EncodingCode"
-          meta={ExternalReferenceFieldMeta.EncodingCode} 
-          value={value.EncodingCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Encoding Code"
-              value={itemValue}
-              meta={ExternalReferenceFieldMeta.EncodingCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Encoding Code"
+            value={value.EncodingCode?.[0]}
+            meta={ExternalReferenceFieldMeta.EncodingCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ExternalReference ubl-Code ubl-CharacterSetCode"
-          meta={ExternalReferenceFieldMeta.CharacterSetCode} 
-          value={value.CharacterSetCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Character Set Code"
-              value={itemValue}
-              meta={ExternalReferenceFieldMeta.CharacterSetCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Character Set Code"
+            value={value.CharacterSetCode?.[0]}
+            meta={ExternalReferenceFieldMeta.CharacterSetCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ExternalReference ubl-Text ubl-FileName"
-          meta={ExternalReferenceFieldMeta.FileName} 
-          value={value.FileName}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="File Name"
-              value={itemValue}
-              meta={ExternalReferenceFieldMeta.FileName}
-            />
-          }
-        />
+          <TextDisplay
+            label="File Name"
+            value={value.FileName?.[0]}
+            meta={ExternalReferenceFieldMeta.FileName}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-ExternalReference ubl-Text ubl-Description"
-          meta={ExternalReferenceFieldMeta.Description} 
-          value={value.Description}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Description"
-              value={itemValue}
-              meta={ExternalReferenceFieldMeta.Description}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Description"
+            label="Description"
+            items={value.Description}
+            meta={ExternalReferenceFieldMeta.Description} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Description"
+                value={itemValue}
+                meta={ExternalReferenceFieldMeta.Description}
+              />
+            }
+          />
         </div>
     </div>
   )

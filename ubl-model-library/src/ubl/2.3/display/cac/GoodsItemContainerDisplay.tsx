@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { GoodsItemContainer } from  '../../model/cac/GoodsItemContainer'
 import { GoodsItemContainerFieldMeta } from  '../../meta/cac/GoodsItemContainerMeta'
@@ -15,70 +14,51 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: GoodsItemContainer
+  value: GoodsItemContainer | undefined
   meta: FieldMeta<T>
 }
 
 export default function GoodsItemContainerDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-GoodsItemContainer ubl-GoodsItemContainerType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-GoodsItemContainer ubl-UBLExtensions"
-          meta={GoodsItemContainerFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={GoodsItemContainerFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-GoodsItemContainer">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={GoodsItemContainerFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-GoodsItemContainer ubl-Identifier ubl-ID"
-          meta={GoodsItemContainerFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={GoodsItemContainerFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={GoodsItemContainerFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-GoodsItemContainer ubl-Quantity"
-          meta={GoodsItemContainerFieldMeta.Quantity} 
-          value={value.Quantity}
-          itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay
-              key={key}
-              label="Quantity"
-              value={itemValue}
-              meta={GoodsItemContainerFieldMeta.Quantity}
-            />
-          }
-        />
+          <QuantityDisplay
+            label="Quantity"
+            value={value.Quantity?.[0]}
+            meta={GoodsItemContainerFieldMeta.Quantity}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-GoodsItemContainer ubl-TransportEquipment"
-          meta={GoodsItemContainerFieldMeta.TransportEquipment} 
-          value={value.TransportEquipment}
-          itemDisplay={ (itemValue: TransportEquipment, key: string | number) =>
-            <TransportEquipmentDisplay
-              key={key}
-              label="Transport Equipment"
-              value={itemValue}
-              meta={GoodsItemContainerFieldMeta.TransportEquipment}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-TransportEquipment"
+            label="Transport Equipment"
+            items={value.TransportEquipment}
+            meta={GoodsItemContainerFieldMeta.TransportEquipment} 
+            itemDisplay={ (itemValue: TransportEquipment, key: string | number) =>
+              <TransportEquipmentDisplay
+                key={key}
+                label="Transport Equipment"
+                value={itemValue}
+                meta={GoodsItemContainerFieldMeta.TransportEquipment}
+              />
+            }
+          />
         </div>
     </div>
   )

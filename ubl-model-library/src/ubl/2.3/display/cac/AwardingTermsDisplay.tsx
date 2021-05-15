@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { AwardingTerms } from  '../../model/cac/AwardingTerms'
 import { AwardingTermsFieldMeta } from  '../../meta/cac/AwardingTermsMeta'
@@ -19,196 +18,159 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: AwardingTerms
+  value: AwardingTerms | undefined
   meta: FieldMeta<T>
 }
 
 export default function AwardingTermsDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-AwardingTerms ubl-AwardingTermsType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-AwardingTerms ubl-UBLExtensions"
-          meta={AwardingTermsFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={AwardingTermsFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-AwardingTerms">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={AwardingTermsFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-AwardingTerms ubl-Code ubl-WeightingAlgorithmCode"
-          meta={AwardingTermsFieldMeta.WeightingAlgorithmCode} 
-          value={value.WeightingAlgorithmCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Weighting Algorithm Code"
-              value={itemValue}
-              meta={AwardingTermsFieldMeta.WeightingAlgorithmCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Weighting Algorithm Code"
+            value={value.WeightingAlgorithmCode?.[0]}
+            meta={AwardingTermsFieldMeta.WeightingAlgorithmCode}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-AwardingTerms ubl-Text ubl-Description"
-          meta={AwardingTermsFieldMeta.Description} 
-          value={value.Description}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Description"
-              value={itemValue}
-              meta={AwardingTermsFieldMeta.Description}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Description"
+            label="Description"
+            items={value.Description}
+            meta={AwardingTermsFieldMeta.Description} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Description"
+                value={itemValue}
+                meta={AwardingTermsFieldMeta.Description}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-AwardingTerms ubl-Text ubl-TechnicalCommitteeDescription"
-          meta={AwardingTermsFieldMeta.TechnicalCommitteeDescription} 
-          value={value.TechnicalCommitteeDescription}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Technical Committee Description"
-              value={itemValue}
-              meta={AwardingTermsFieldMeta.TechnicalCommitteeDescription}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-TechnicalCommitteeDescription"
+            label="Technical Committee Description"
+            items={value.TechnicalCommitteeDescription}
+            meta={AwardingTermsFieldMeta.TechnicalCommitteeDescription} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Technical Committee Description"
+                value={itemValue}
+                meta={AwardingTermsFieldMeta.TechnicalCommitteeDescription}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-AwardingTerms ubl-Text ubl-LowTendersDescription"
-          meta={AwardingTermsFieldMeta.LowTendersDescription} 
-          value={value.LowTendersDescription}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Low Tenders Description"
-              value={itemValue}
-              meta={AwardingTermsFieldMeta.LowTendersDescription}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-LowTendersDescription"
+            label="Low Tenders Description"
+            items={value.LowTendersDescription}
+            meta={AwardingTermsFieldMeta.LowTendersDescription} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Low Tenders Description"
+                value={itemValue}
+                meta={AwardingTermsFieldMeta.LowTendersDescription}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-AwardingTerms ubl-Indicator ubl-PrizeIndicator"
-          meta={AwardingTermsFieldMeta.PrizeIndicator} 
-          value={value.PrizeIndicator}
-          itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay
-              key={key}
-              label="Prize Indicator"
-              value={itemValue}
-              meta={AwardingTermsFieldMeta.PrizeIndicator}
-            />
-          }
-        />
+          <IndicatorDisplay
+            label="Prize Indicator"
+            value={value.PrizeIndicator?.[0]}
+            meta={AwardingTermsFieldMeta.PrizeIndicator}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-AwardingTerms ubl-Text ubl-PrizeDescription"
-          meta={AwardingTermsFieldMeta.PrizeDescription} 
-          value={value.PrizeDescription}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Prize Description"
-              value={itemValue}
-              meta={AwardingTermsFieldMeta.PrizeDescription}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-PrizeDescription"
+            label="Prize Description"
+            items={value.PrizeDescription}
+            meta={AwardingTermsFieldMeta.PrizeDescription} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Prize Description"
+                value={itemValue}
+                meta={AwardingTermsFieldMeta.PrizeDescription}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-AwardingTerms ubl-Text ubl-PaymentDescription"
-          meta={AwardingTermsFieldMeta.PaymentDescription} 
-          value={value.PaymentDescription}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Payment Description"
-              value={itemValue}
-              meta={AwardingTermsFieldMeta.PaymentDescription}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-PaymentDescription"
+            label="Payment Description"
+            items={value.PaymentDescription}
+            meta={AwardingTermsFieldMeta.PaymentDescription} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Payment Description"
+                value={itemValue}
+                meta={AwardingTermsFieldMeta.PaymentDescription}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-AwardingTerms ubl-Indicator ubl-FollowupContractIndicator"
-          meta={AwardingTermsFieldMeta.FollowupContractIndicator} 
-          value={value.FollowupContractIndicator}
-          itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay
-              key={key}
-              label="Followup Contract Indicator"
-              value={itemValue}
-              meta={AwardingTermsFieldMeta.FollowupContractIndicator}
-            />
-          }
-        />
+          <IndicatorDisplay
+            label="Followup Contract Indicator"
+            value={value.FollowupContractIndicator?.[0]}
+            meta={AwardingTermsFieldMeta.FollowupContractIndicator}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-AwardingTerms ubl-Indicator ubl-BindingOnBuyerIndicator"
-          meta={AwardingTermsFieldMeta.BindingOnBuyerIndicator} 
-          value={value.BindingOnBuyerIndicator}
-          itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay
-              key={key}
-              label="Binding On Buyer Indicator"
-              value={itemValue}
-              meta={AwardingTermsFieldMeta.BindingOnBuyerIndicator}
-            />
-          }
-        />
+          <IndicatorDisplay
+            label="Binding On Buyer Indicator"
+            value={value.BindingOnBuyerIndicator?.[0]}
+            meta={AwardingTermsFieldMeta.BindingOnBuyerIndicator}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-AwardingTerms ubl-Indicator ubl-NoFurtherNegotiationIndicator"
-          meta={AwardingTermsFieldMeta.NoFurtherNegotiationIndicator} 
-          value={value.NoFurtherNegotiationIndicator}
-          itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay
-              key={key}
-              label="No Further Negotiation Indicator"
-              value={itemValue}
-              meta={AwardingTermsFieldMeta.NoFurtherNegotiationIndicator}
-            />
-          }
-        />
+          <IndicatorDisplay
+            label="No Further Negotiation Indicator"
+            value={value.NoFurtherNegotiationIndicator?.[0]}
+            meta={AwardingTermsFieldMeta.NoFurtherNegotiationIndicator}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-AwardingTerms ubl-AwardingCriterion"
-          meta={AwardingTermsFieldMeta.AwardingCriterion} 
-          value={value.AwardingCriterion}
-          itemDisplay={ (itemValue: AwardingCriterion, key: string | number) =>
-            <AwardingCriterionDisplay
-              key={key}
-              label="Awarding Criterion"
-              value={itemValue}
-              meta={AwardingTermsFieldMeta.AwardingCriterion}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-AwardingCriterion"
+            label="Awarding Criterion"
+            items={value.AwardingCriterion}
+            meta={AwardingTermsFieldMeta.AwardingCriterion} 
+            itemDisplay={ (itemValue: AwardingCriterion, key: string | number) =>
+              <AwardingCriterionDisplay
+                key={key}
+                label="Awarding Criterion"
+                value={itemValue}
+                meta={AwardingTermsFieldMeta.AwardingCriterion}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-AwardingTerms ubl-Person ubl-TechnicalCommitteePerson"
-          meta={AwardingTermsFieldMeta.TechnicalCommitteePerson} 
-          value={value.TechnicalCommitteePerson}
-          itemDisplay={ (itemValue: Person, key: string | number) =>
-            <PersonDisplay
-              key={key}
-              label="Technical Committee Person"
-              value={itemValue}
-              meta={AwardingTermsFieldMeta.TechnicalCommitteePerson}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Person ubl-TechnicalCommitteePerson"
+            label="Technical Committee Person"
+            items={value.TechnicalCommitteePerson}
+            meta={AwardingTermsFieldMeta.TechnicalCommitteePerson} 
+            itemDisplay={ (itemValue: Person, key: string | number) =>
+              <PersonDisplay
+                key={key}
+                label="Technical Committee Person"
+                value={itemValue}
+                meta={AwardingTermsFieldMeta.TechnicalCommitteePerson}
+              />
+            }
+          />
         </div>
     </div>
   )

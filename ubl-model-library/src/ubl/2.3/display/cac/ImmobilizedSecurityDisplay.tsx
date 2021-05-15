@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ImmobilizedSecurity } from  '../../model/cac/ImmobilizedSecurity'
 import { ImmobilizedSecurityFieldMeta } from  '../../meta/cac/ImmobilizedSecurityMeta'
@@ -19,126 +18,66 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: ImmobilizedSecurity
+  value: ImmobilizedSecurity | undefined
   meta: FieldMeta<T>
 }
 
 export default function ImmobilizedSecurityDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-ImmobilizedSecurity ubl-ImmobilizedSecurityType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-ImmobilizedSecurity ubl-UBLExtensions"
-          meta={ImmobilizedSecurityFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={ImmobilizedSecurityFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-ImmobilizedSecurity">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={ImmobilizedSecurityFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ImmobilizedSecurity ubl-Identifier ubl-ImmobilizationCertificateID"
-          meta={ImmobilizedSecurityFieldMeta.ImmobilizationCertificateID} 
-          value={value.ImmobilizationCertificateID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Immobilization Certificate Identifier"
-              value={itemValue}
-              meta={ImmobilizedSecurityFieldMeta.ImmobilizationCertificateID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Immobilization Certificate Identifier"
+            value={value.ImmobilizationCertificateID?.[0]}
+            meta={ImmobilizedSecurityFieldMeta.ImmobilizationCertificateID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ImmobilizedSecurity ubl-Identifier ubl-SecurityID"
-          meta={ImmobilizedSecurityFieldMeta.SecurityID} 
-          value={value.SecurityID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Security Identifier"
-              value={itemValue}
-              meta={ImmobilizedSecurityFieldMeta.SecurityID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Security Identifier"
+            value={value.SecurityID?.[0]}
+            meta={ImmobilizedSecurityFieldMeta.SecurityID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ImmobilizedSecurity ubl-Date ubl-IssueDate"
-          meta={ImmobilizedSecurityFieldMeta.IssueDate} 
-          value={value.IssueDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Issue Date"
-              value={itemValue}
-              meta={ImmobilizedSecurityFieldMeta.IssueDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Issue Date"
+            value={value.IssueDate?.[0]}
+            meta={ImmobilizedSecurityFieldMeta.IssueDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ImmobilizedSecurity ubl-Amount ubl-FaceValueAmount"
-          meta={ImmobilizedSecurityFieldMeta.FaceValueAmount} 
-          value={value.FaceValueAmount}
-          itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay
-              key={key}
-              label="Face Value"
-              value={itemValue}
-              meta={ImmobilizedSecurityFieldMeta.FaceValueAmount}
-            />
-          }
-        />
+          <AmountDisplay
+            label="Face Value"
+            value={value.FaceValueAmount?.[0]}
+            meta={ImmobilizedSecurityFieldMeta.FaceValueAmount}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ImmobilizedSecurity ubl-Amount ubl-MarketValueAmount"
-          meta={ImmobilizedSecurityFieldMeta.MarketValueAmount} 
-          value={value.MarketValueAmount}
-          itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay
-              key={key}
-              label="Market Value"
-              value={itemValue}
-              meta={ImmobilizedSecurityFieldMeta.MarketValueAmount}
-            />
-          }
-        />
+          <AmountDisplay
+            label="Market Value"
+            value={value.MarketValueAmount?.[0]}
+            meta={ImmobilizedSecurityFieldMeta.MarketValueAmount}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ImmobilizedSecurity ubl-Quantity ubl-SharesNumberQuantity"
-          meta={ImmobilizedSecurityFieldMeta.SharesNumberQuantity} 
-          value={value.SharesNumberQuantity}
-          itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay
-              key={key}
-              label="Shares Number"
-              value={itemValue}
-              meta={ImmobilizedSecurityFieldMeta.SharesNumberQuantity}
-            />
-          }
-        />
+          <QuantityDisplay
+            label="Shares Number"
+            value={value.SharesNumberQuantity?.[0]}
+            meta={ImmobilizedSecurityFieldMeta.SharesNumberQuantity}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-ImmobilizedSecurity ubl-Party ubl-IssuerParty"
-          meta={ImmobilizedSecurityFieldMeta.IssuerParty} 
-          value={value.IssuerParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Issuer Party"
-              value={itemValue}
-              meta={ImmobilizedSecurityFieldMeta.IssuerParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Issuer Party"
+            value={value.IssuerParty?.[0]}
+            meta={ImmobilizedSecurityFieldMeta.IssuerParty}
+          />
         </div>
     </div>
   )

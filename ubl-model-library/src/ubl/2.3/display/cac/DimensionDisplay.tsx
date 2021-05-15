@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Dimension } from  '../../model/cac/Dimension'
 import { DimensionFieldMeta } from  '../../meta/cac/DimensionMeta'
@@ -15,98 +14,63 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: Dimension
+  value: Dimension | undefined
   meta: FieldMeta<T>
 }
 
 export default function DimensionDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-Dimension ubl-DimensionType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-Dimension ubl-UBLExtensions"
-          meta={DimensionFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={DimensionFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-Dimension">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={DimensionFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-Dimension ubl-Identifier ubl-AttributeID"
-          meta={DimensionFieldMeta.AttributeID} 
-          value={value.AttributeID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Attribute Identifier"
-              value={itemValue}
-              meta={DimensionFieldMeta.AttributeID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Attribute Identifier"
+            value={value.AttributeID?.[0]}
+            meta={DimensionFieldMeta.AttributeID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-Dimension ubl-Measure"
-          meta={DimensionFieldMeta.Measure} 
-          value={value.Measure}
-          itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay
-              key={key}
-              label="Measure"
-              value={itemValue}
-              meta={DimensionFieldMeta.Measure}
-            />
-          }
-        />
+          <MeasureDisplay
+            label="Measure"
+            value={value.Measure?.[0]}
+            meta={DimensionFieldMeta.Measure}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-Dimension ubl-Text ubl-Description"
-          meta={DimensionFieldMeta.Description} 
-          value={value.Description}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Description"
-              value={itemValue}
-              meta={DimensionFieldMeta.Description}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Description"
+            label="Description"
+            items={value.Description}
+            meta={DimensionFieldMeta.Description} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Description"
+                value={itemValue}
+                meta={DimensionFieldMeta.Description}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-Dimension ubl-Measure ubl-MinimumMeasure"
-          meta={DimensionFieldMeta.MinimumMeasure} 
-          value={value.MinimumMeasure}
-          itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay
-              key={key}
-              label="Minimum Measure"
-              value={itemValue}
-              meta={DimensionFieldMeta.MinimumMeasure}
-            />
-          }
-        />
+          <MeasureDisplay
+            label="Minimum Measure"
+            value={value.MinimumMeasure?.[0]}
+            meta={DimensionFieldMeta.MinimumMeasure}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-Dimension ubl-Measure ubl-MaximumMeasure"
-          meta={DimensionFieldMeta.MaximumMeasure} 
-          value={value.MaximumMeasure}
-          itemDisplay={ (itemValue: Measure, key: string | number) =>
-            <MeasureDisplay
-              key={key}
-              label="Maximum Measure"
-              value={itemValue}
-              meta={DimensionFieldMeta.MaximumMeasure}
-            />
-          }
-        />
+          <MeasureDisplay
+            label="Maximum Measure"
+            value={value.MaximumMeasure?.[0]}
+            meta={DimensionFieldMeta.MaximumMeasure}
+          />
         </div>
     </div>
   )

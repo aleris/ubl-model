@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { SelfBilledCreditNote } from  '../../model/doc/SelfBilledCreditNote'
 import { SelfBilledCreditNoteFieldMeta } from  '../../meta/doc/SelfBilledCreditNoteMeta'
@@ -61,770 +60,522 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: SelfBilledCreditNote
+  value: SelfBilledCreditNote | undefined
   meta: FieldMeta<T>
 }
 
 export default function SelfBilledCreditNoteDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-doc ubl-SelfBilledCreditNote ubl-SelfBilledCreditNoteType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-SelfBilledCreditNote ubl-UBLExtensions"
-          meta={SelfBilledCreditNoteFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-doc ubl-SelfBilledCreditNote">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={SelfBilledCreditNoteFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-SelfBilledCreditNote ubl-Identifier ubl-UBLVersionID"
-          meta={SelfBilledCreditNoteFieldMeta.UBLVersionID} 
-          value={value.UBLVersionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="UBL Version Identifier"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.UBLVersionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="UBL Version Identifier"
+            value={value.UBLVersionID?.[0]}
+            meta={SelfBilledCreditNoteFieldMeta.UBLVersionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-SelfBilledCreditNote ubl-Identifier ubl-CustomizationID"
-          meta={SelfBilledCreditNoteFieldMeta.CustomizationID} 
-          value={value.CustomizationID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Customization Identifier"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.CustomizationID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Customization Identifier"
+            value={value.CustomizationID?.[0]}
+            meta={SelfBilledCreditNoteFieldMeta.CustomizationID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-SelfBilledCreditNote ubl-Identifier ubl-ProfileID"
-          meta={SelfBilledCreditNoteFieldMeta.ProfileID} 
-          value={value.ProfileID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Profile Identifier"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.ProfileID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Profile Identifier"
+            value={value.ProfileID?.[0]}
+            meta={SelfBilledCreditNoteFieldMeta.ProfileID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-SelfBilledCreditNote ubl-Identifier ubl-ProfileExecutionID"
-          meta={SelfBilledCreditNoteFieldMeta.ProfileExecutionID} 
-          value={value.ProfileExecutionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Profile Execution Identifier"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.ProfileExecutionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Profile Execution Identifier"
+            value={value.ProfileExecutionID?.[0]}
+            meta={SelfBilledCreditNoteFieldMeta.ProfileExecutionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-SelfBilledCreditNote ubl-Identifier ubl-ID"
-          meta={SelfBilledCreditNoteFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={SelfBilledCreditNoteFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-SelfBilledCreditNote ubl-Indicator ubl-CopyIndicator"
-          meta={SelfBilledCreditNoteFieldMeta.CopyIndicator} 
-          value={value.CopyIndicator}
-          itemDisplay={ (itemValue: Indicator, key: string | number) =>
-            <IndicatorDisplay
-              key={key}
-              label="Copy Indicator"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.CopyIndicator}
-            />
-          }
-        />
+          <IndicatorDisplay
+            label="Copy Indicator"
+            value={value.CopyIndicator?.[0]}
+            meta={SelfBilledCreditNoteFieldMeta.CopyIndicator}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-SelfBilledCreditNote ubl-Identifier ubl-UUID"
-          meta={SelfBilledCreditNoteFieldMeta.UUID} 
-          value={value.UUID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="UUID"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.UUID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="UUID"
+            value={value.UUID?.[0]}
+            meta={SelfBilledCreditNoteFieldMeta.UUID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-SelfBilledCreditNote ubl-Date ubl-IssueDate"
-          meta={SelfBilledCreditNoteFieldMeta.IssueDate} 
-          value={value.IssueDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Issue Date"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.IssueDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Issue Date"
+            value={value.IssueDate?.[0]}
+            meta={SelfBilledCreditNoteFieldMeta.IssueDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-SelfBilledCreditNote ubl-Time ubl-IssueTime"
-          meta={SelfBilledCreditNoteFieldMeta.IssueTime} 
-          value={value.IssueTime}
-          itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay
-              key={key}
-              label="Issue Time"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.IssueTime}
-            />
-          }
-        />
+          <TimeDisplay
+            label="Issue Time"
+            value={value.IssueTime?.[0]}
+            meta={SelfBilledCreditNoteFieldMeta.IssueTime}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-SelfBilledCreditNote ubl-Date ubl-DueDate"
-          meta={SelfBilledCreditNoteFieldMeta.DueDate} 
-          value={value.DueDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Due Date"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.DueDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Due Date"
+            value={value.DueDate?.[0]}
+            meta={SelfBilledCreditNoteFieldMeta.DueDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-SelfBilledCreditNote ubl-Date ubl-TaxPointDate"
-          meta={SelfBilledCreditNoteFieldMeta.TaxPointDate} 
-          value={value.TaxPointDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Tax Point Date"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.TaxPointDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Tax Point Date"
+            value={value.TaxPointDate?.[0]}
+            meta={SelfBilledCreditNoteFieldMeta.TaxPointDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-SelfBilledCreditNote ubl-Code ubl-CreditNoteTypeCode"
-          meta={SelfBilledCreditNoteFieldMeta.CreditNoteTypeCode} 
-          value={value.CreditNoteTypeCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Credit Note Type Code"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.CreditNoteTypeCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Credit Note Type Code"
+            value={value.CreditNoteTypeCode?.[0]}
+            meta={SelfBilledCreditNoteFieldMeta.CreditNoteTypeCode}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-SelfBilledCreditNote ubl-Text ubl-Note"
-          meta={SelfBilledCreditNoteFieldMeta.Note} 
-          value={value.Note}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Note"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.Note}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Text ubl-Note"
+            label="Note"
+            items={value.Note}
+            meta={SelfBilledCreditNoteFieldMeta.Note} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Note"
+                value={itemValue}
+                meta={SelfBilledCreditNoteFieldMeta.Note}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-SelfBilledCreditNote ubl-Code ubl-DocumentCurrencyCode"
-          meta={SelfBilledCreditNoteFieldMeta.DocumentCurrencyCode} 
-          value={value.DocumentCurrencyCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Document Currency Code"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.DocumentCurrencyCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Document Currency Code"
+            value={value.DocumentCurrencyCode?.[0]}
+            meta={SelfBilledCreditNoteFieldMeta.DocumentCurrencyCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-SelfBilledCreditNote ubl-Code ubl-TaxCurrencyCode"
-          meta={SelfBilledCreditNoteFieldMeta.TaxCurrencyCode} 
-          value={value.TaxCurrencyCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Tax Currency Code"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.TaxCurrencyCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Tax Currency Code"
+            value={value.TaxCurrencyCode?.[0]}
+            meta={SelfBilledCreditNoteFieldMeta.TaxCurrencyCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-SelfBilledCreditNote ubl-Code ubl-PricingCurrencyCode"
-          meta={SelfBilledCreditNoteFieldMeta.PricingCurrencyCode} 
-          value={value.PricingCurrencyCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Pricing Currency Code"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.PricingCurrencyCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Pricing Currency Code"
+            value={value.PricingCurrencyCode?.[0]}
+            meta={SelfBilledCreditNoteFieldMeta.PricingCurrencyCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-SelfBilledCreditNote ubl-Code ubl-PaymentCurrencyCode"
-          meta={SelfBilledCreditNoteFieldMeta.PaymentCurrencyCode} 
-          value={value.PaymentCurrencyCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Payment Currency Code"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.PaymentCurrencyCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Payment Currency Code"
+            value={value.PaymentCurrencyCode?.[0]}
+            meta={SelfBilledCreditNoteFieldMeta.PaymentCurrencyCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-SelfBilledCreditNote ubl-Code ubl-PaymentAlternativeCurrencyCode"
-          meta={SelfBilledCreditNoteFieldMeta.PaymentAlternativeCurrencyCode} 
-          value={value.PaymentAlternativeCurrencyCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Payment Alternative Currency Code"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.PaymentAlternativeCurrencyCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Payment Alternative Currency Code"
+            value={value.PaymentAlternativeCurrencyCode?.[0]}
+            meta={SelfBilledCreditNoteFieldMeta.PaymentAlternativeCurrencyCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-SelfBilledCreditNote ubl-Code ubl-AccountingCostCode"
-          meta={SelfBilledCreditNoteFieldMeta.AccountingCostCode} 
-          value={value.AccountingCostCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Accounting Cost Code"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.AccountingCostCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Accounting Cost Code"
+            value={value.AccountingCostCode?.[0]}
+            meta={SelfBilledCreditNoteFieldMeta.AccountingCostCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-SelfBilledCreditNote ubl-Text ubl-AccountingCost"
-          meta={SelfBilledCreditNoteFieldMeta.AccountingCost} 
-          value={value.AccountingCost}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Accounting Cost"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.AccountingCost}
-            />
-          }
-        />
+          <TextDisplay
+            label="Accounting Cost"
+            value={value.AccountingCost?.[0]}
+            meta={SelfBilledCreditNoteFieldMeta.AccountingCost}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-SelfBilledCreditNote ubl-Numeric ubl-LineCountNumeric"
-          meta={SelfBilledCreditNoteFieldMeta.LineCountNumeric} 
-          value={value.LineCountNumeric}
-          itemDisplay={ (itemValue: Numeric, key: string | number) =>
-            <NumericDisplay
-              key={key}
-              label="Line Count"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.LineCountNumeric}
-            />
-          }
-        />
+          <NumericDisplay
+            label="Line Count"
+            value={value.LineCountNumeric?.[0]}
+            meta={SelfBilledCreditNoteFieldMeta.LineCountNumeric}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-SelfBilledCreditNote ubl-Text ubl-BuyerReference"
-          meta={SelfBilledCreditNoteFieldMeta.BuyerReference} 
-          value={value.BuyerReference}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Buyer Reference"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.BuyerReference}
-            />
-          }
-        />
+          <TextDisplay
+            label="Buyer Reference"
+            value={value.BuyerReference?.[0]}
+            meta={SelfBilledCreditNoteFieldMeta.BuyerReference}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-SelfBilledCreditNote ubl-Period ubl-InvoicePeriod"
-          meta={SelfBilledCreditNoteFieldMeta.InvoicePeriod} 
-          value={value.InvoicePeriod}
-          itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay
-              key={key}
-              label="Invoice Period"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.InvoicePeriod}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Period ubl-InvoicePeriod"
+            label="Invoice Period"
+            items={value.InvoicePeriod}
+            meta={SelfBilledCreditNoteFieldMeta.InvoicePeriod} 
+            itemDisplay={ (itemValue: Period, key: string | number) =>
+              <PeriodDisplay
+                key={key}
+                label="Invoice Period"
+                value={itemValue}
+                meta={SelfBilledCreditNoteFieldMeta.InvoicePeriod}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-SelfBilledCreditNote ubl-Response ubl-DiscrepancyResponse"
-          meta={SelfBilledCreditNoteFieldMeta.DiscrepancyResponse} 
-          value={value.DiscrepancyResponse}
-          itemDisplay={ (itemValue: Response, key: string | number) =>
-            <ResponseDisplay
-              key={key}
-              label="Discrepancy Response"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.DiscrepancyResponse}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Response ubl-DiscrepancyResponse"
+            label="Discrepancy Response"
+            items={value.DiscrepancyResponse}
+            meta={SelfBilledCreditNoteFieldMeta.DiscrepancyResponse} 
+            itemDisplay={ (itemValue: Response, key: string | number) =>
+              <ResponseDisplay
+                key={key}
+                label="Discrepancy Response"
+                value={itemValue}
+                meta={SelfBilledCreditNoteFieldMeta.DiscrepancyResponse}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-SelfBilledCreditNote ubl-OrderReference"
-          meta={SelfBilledCreditNoteFieldMeta.OrderReference} 
-          value={value.OrderReference}
-          itemDisplay={ (itemValue: OrderReference, key: string | number) =>
-            <OrderReferenceDisplay
-              key={key}
-              label="Order Reference"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.OrderReference}
-            />
-          }
-        />
+          <OrderReferenceDisplay
+            label="Order Reference"
+            value={value.OrderReference?.[0]}
+            meta={SelfBilledCreditNoteFieldMeta.OrderReference}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-SelfBilledCreditNote ubl-BillingReference"
-          meta={SelfBilledCreditNoteFieldMeta.BillingReference} 
-          value={value.BillingReference}
-          itemDisplay={ (itemValue: BillingReference, key: string | number) =>
-            <BillingReferenceDisplay
-              key={key}
-              label="Billing Reference"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.BillingReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-BillingReference"
+            label="Billing Reference"
+            items={value.BillingReference}
+            meta={SelfBilledCreditNoteFieldMeta.BillingReference} 
+            itemDisplay={ (itemValue: BillingReference, key: string | number) =>
+              <BillingReferenceDisplay
+                key={key}
+                label="Billing Reference"
+                value={itemValue}
+                meta={SelfBilledCreditNoteFieldMeta.BillingReference}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-SelfBilledCreditNote ubl-DocumentReference ubl-DespatchDocumentReference"
-          meta={SelfBilledCreditNoteFieldMeta.DespatchDocumentReference} 
-          value={value.DespatchDocumentReference}
-          itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay
-              key={key}
-              label="Despatch Document Reference"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.DespatchDocumentReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-DocumentReference ubl-DespatchDocumentReference"
+            label="Despatch Document Reference"
+            items={value.DespatchDocumentReference}
+            meta={SelfBilledCreditNoteFieldMeta.DespatchDocumentReference} 
+            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
+              <DocumentReferenceDisplay
+                key={key}
+                label="Despatch Document Reference"
+                value={itemValue}
+                meta={SelfBilledCreditNoteFieldMeta.DespatchDocumentReference}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-SelfBilledCreditNote ubl-DocumentReference ubl-ReceiptDocumentReference"
-          meta={SelfBilledCreditNoteFieldMeta.ReceiptDocumentReference} 
-          value={value.ReceiptDocumentReference}
-          itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay
-              key={key}
-              label="Receipt Document Reference"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.ReceiptDocumentReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-DocumentReference ubl-ReceiptDocumentReference"
+            label="Receipt Document Reference"
+            items={value.ReceiptDocumentReference}
+            meta={SelfBilledCreditNoteFieldMeta.ReceiptDocumentReference} 
+            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
+              <DocumentReferenceDisplay
+                key={key}
+                label="Receipt Document Reference"
+                value={itemValue}
+                meta={SelfBilledCreditNoteFieldMeta.ReceiptDocumentReference}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-SelfBilledCreditNote ubl-DocumentReference ubl-ContractDocumentReference"
-          meta={SelfBilledCreditNoteFieldMeta.ContractDocumentReference} 
-          value={value.ContractDocumentReference}
-          itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay
-              key={key}
-              label="Contract Document Reference"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.ContractDocumentReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-DocumentReference ubl-ContractDocumentReference"
+            label="Contract Document Reference"
+            items={value.ContractDocumentReference}
+            meta={SelfBilledCreditNoteFieldMeta.ContractDocumentReference} 
+            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
+              <DocumentReferenceDisplay
+                key={key}
+                label="Contract Document Reference"
+                value={itemValue}
+                meta={SelfBilledCreditNoteFieldMeta.ContractDocumentReference}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-SelfBilledCreditNote ubl-DocumentReference ubl-StatementDocumentReference"
-          meta={SelfBilledCreditNoteFieldMeta.StatementDocumentReference} 
-          value={value.StatementDocumentReference}
-          itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay
-              key={key}
-              label="Statement Document Reference"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.StatementDocumentReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-DocumentReference ubl-StatementDocumentReference"
+            label="Statement Document Reference"
+            items={value.StatementDocumentReference}
+            meta={SelfBilledCreditNoteFieldMeta.StatementDocumentReference} 
+            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
+              <DocumentReferenceDisplay
+                key={key}
+                label="Statement Document Reference"
+                value={itemValue}
+                meta={SelfBilledCreditNoteFieldMeta.StatementDocumentReference}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-SelfBilledCreditNote ubl-DocumentReference ubl-OriginatorDocumentReference"
-          meta={SelfBilledCreditNoteFieldMeta.OriginatorDocumentReference} 
-          value={value.OriginatorDocumentReference}
-          itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay
-              key={key}
-              label="Originator Document Reference"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.OriginatorDocumentReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-DocumentReference ubl-OriginatorDocumentReference"
+            label="Originator Document Reference"
+            items={value.OriginatorDocumentReference}
+            meta={SelfBilledCreditNoteFieldMeta.OriginatorDocumentReference} 
+            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
+              <DocumentReferenceDisplay
+                key={key}
+                label="Originator Document Reference"
+                value={itemValue}
+                meta={SelfBilledCreditNoteFieldMeta.OriginatorDocumentReference}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-SelfBilledCreditNote ubl-DocumentReference ubl-AdditionalDocumentReference"
-          meta={SelfBilledCreditNoteFieldMeta.AdditionalDocumentReference} 
-          value={value.AdditionalDocumentReference}
-          itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay
-              key={key}
-              label="Additional Document Reference"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.AdditionalDocumentReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-DocumentReference ubl-AdditionalDocumentReference"
+            label="Additional Document Reference"
+            items={value.AdditionalDocumentReference}
+            meta={SelfBilledCreditNoteFieldMeta.AdditionalDocumentReference} 
+            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
+              <DocumentReferenceDisplay
+                key={key}
+                label="Additional Document Reference"
+                value={itemValue}
+                meta={SelfBilledCreditNoteFieldMeta.AdditionalDocumentReference}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-SelfBilledCreditNote ubl-ProjectReference"
-          meta={SelfBilledCreditNoteFieldMeta.ProjectReference} 
-          value={value.ProjectReference}
-          itemDisplay={ (itemValue: ProjectReference, key: string | number) =>
-            <ProjectReferenceDisplay
-              key={key}
-              label="Project Reference"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.ProjectReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-ProjectReference"
+            label="Project Reference"
+            items={value.ProjectReference}
+            meta={SelfBilledCreditNoteFieldMeta.ProjectReference} 
+            itemDisplay={ (itemValue: ProjectReference, key: string | number) =>
+              <ProjectReferenceDisplay
+                key={key}
+                label="Project Reference"
+                value={itemValue}
+                meta={SelfBilledCreditNoteFieldMeta.ProjectReference}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-SelfBilledCreditNote ubl-Signature"
-          meta={SelfBilledCreditNoteFieldMeta.Signature} 
-          value={value.Signature}
-          itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay
-              key={key}
-              label="Signature"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.Signature}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Signature"
+            label="Signature"
+            items={value.Signature}
+            meta={SelfBilledCreditNoteFieldMeta.Signature} 
+            itemDisplay={ (itemValue: Signature, key: string | number) =>
+              <SignatureDisplay
+                key={key}
+                label="Signature"
+                value={itemValue}
+                meta={SelfBilledCreditNoteFieldMeta.Signature}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-SelfBilledCreditNote ubl-CustomerParty ubl-AccountingCustomerParty"
-          meta={SelfBilledCreditNoteFieldMeta.AccountingCustomerParty} 
-          value={value.AccountingCustomerParty}
-          itemDisplay={ (itemValue: CustomerParty, key: string | number) =>
-            <CustomerPartyDisplay
-              key={key}
-              label="Accounting Customer Party"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.AccountingCustomerParty}
-            />
-          }
-        />
+          <CustomerPartyDisplay
+            label="Accounting Customer Party"
+            value={value.AccountingCustomerParty?.[0]}
+            meta={SelfBilledCreditNoteFieldMeta.AccountingCustomerParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-SelfBilledCreditNote ubl-SupplierParty ubl-AccountingSupplierParty"
-          meta={SelfBilledCreditNoteFieldMeta.AccountingSupplierParty} 
-          value={value.AccountingSupplierParty}
-          itemDisplay={ (itemValue: SupplierParty, key: string | number) =>
-            <SupplierPartyDisplay
-              key={key}
-              label="Accounting Supplier Party"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.AccountingSupplierParty}
-            />
-          }
-        />
+          <SupplierPartyDisplay
+            label="Accounting Supplier Party"
+            value={value.AccountingSupplierParty?.[0]}
+            meta={SelfBilledCreditNoteFieldMeta.AccountingSupplierParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-SelfBilledCreditNote ubl-Party ubl-PayeeParty"
-          meta={SelfBilledCreditNoteFieldMeta.PayeeParty} 
-          value={value.PayeeParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Payee Party"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.PayeeParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Payee Party"
+            value={value.PayeeParty?.[0]}
+            meta={SelfBilledCreditNoteFieldMeta.PayeeParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-SelfBilledCreditNote ubl-CustomerParty ubl-BuyerCustomerParty"
-          meta={SelfBilledCreditNoteFieldMeta.BuyerCustomerParty} 
-          value={value.BuyerCustomerParty}
-          itemDisplay={ (itemValue: CustomerParty, key: string | number) =>
-            <CustomerPartyDisplay
-              key={key}
-              label="Buyer Customer Party"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.BuyerCustomerParty}
-            />
-          }
-        />
+          <CustomerPartyDisplay
+            label="Buyer Customer Party"
+            value={value.BuyerCustomerParty?.[0]}
+            meta={SelfBilledCreditNoteFieldMeta.BuyerCustomerParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-SelfBilledCreditNote ubl-SupplierParty ubl-SellerSupplierParty"
-          meta={SelfBilledCreditNoteFieldMeta.SellerSupplierParty} 
-          value={value.SellerSupplierParty}
-          itemDisplay={ (itemValue: SupplierParty, key: string | number) =>
-            <SupplierPartyDisplay
-              key={key}
-              label="Seller Supplier Party"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.SellerSupplierParty}
-            />
-          }
-        />
+          <SupplierPartyDisplay
+            label="Seller Supplier Party"
+            value={value.SellerSupplierParty?.[0]}
+            meta={SelfBilledCreditNoteFieldMeta.SellerSupplierParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-SelfBilledCreditNote ubl-Party ubl-TaxRepresentativeParty"
-          meta={SelfBilledCreditNoteFieldMeta.TaxRepresentativeParty} 
-          value={value.TaxRepresentativeParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Tax Representative Party"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.TaxRepresentativeParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Tax Representative Party"
+            value={value.TaxRepresentativeParty?.[0]}
+            meta={SelfBilledCreditNoteFieldMeta.TaxRepresentativeParty}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-SelfBilledCreditNote ubl-Delivery"
-          meta={SelfBilledCreditNoteFieldMeta.Delivery} 
-          value={value.Delivery}
-          itemDisplay={ (itemValue: Delivery, key: string | number) =>
-            <DeliveryDisplay
-              key={key}
-              label="Delivery"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.Delivery}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Delivery"
+            label="Delivery"
+            items={value.Delivery}
+            meta={SelfBilledCreditNoteFieldMeta.Delivery} 
+            itemDisplay={ (itemValue: Delivery, key: string | number) =>
+              <DeliveryDisplay
+                key={key}
+                label="Delivery"
+                value={itemValue}
+                meta={SelfBilledCreditNoteFieldMeta.Delivery}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-SelfBilledCreditNote ubl-DeliveryTerms"
-          meta={SelfBilledCreditNoteFieldMeta.DeliveryTerms} 
-          value={value.DeliveryTerms}
-          itemDisplay={ (itemValue: DeliveryTerms, key: string | number) =>
-            <DeliveryTermsDisplay
-              key={key}
-              label="Delivery Terms"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.DeliveryTerms}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-DeliveryTerms"
+            label="Delivery Terms"
+            items={value.DeliveryTerms}
+            meta={SelfBilledCreditNoteFieldMeta.DeliveryTerms} 
+            itemDisplay={ (itemValue: DeliveryTerms, key: string | number) =>
+              <DeliveryTermsDisplay
+                key={key}
+                label="Delivery Terms"
+                value={itemValue}
+                meta={SelfBilledCreditNoteFieldMeta.DeliveryTerms}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-SelfBilledCreditNote ubl-PaymentMeans"
-          meta={SelfBilledCreditNoteFieldMeta.PaymentMeans} 
-          value={value.PaymentMeans}
-          itemDisplay={ (itemValue: PaymentMeans, key: string | number) =>
-            <PaymentMeansDisplay
-              key={key}
-              label="Payment Means"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.PaymentMeans}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-PaymentMeans"
+            label="Payment Means"
+            items={value.PaymentMeans}
+            meta={SelfBilledCreditNoteFieldMeta.PaymentMeans} 
+            itemDisplay={ (itemValue: PaymentMeans, key: string | number) =>
+              <PaymentMeansDisplay
+                key={key}
+                label="Payment Means"
+                value={itemValue}
+                meta={SelfBilledCreditNoteFieldMeta.PaymentMeans}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-SelfBilledCreditNote ubl-PaymentTerms"
-          meta={SelfBilledCreditNoteFieldMeta.PaymentTerms} 
-          value={value.PaymentTerms}
-          itemDisplay={ (itemValue: PaymentTerms, key: string | number) =>
-            <PaymentTermsDisplay
-              key={key}
-              label="Payment Terms"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.PaymentTerms}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-PaymentTerms"
+            label="Payment Terms"
+            items={value.PaymentTerms}
+            meta={SelfBilledCreditNoteFieldMeta.PaymentTerms} 
+            itemDisplay={ (itemValue: PaymentTerms, key: string | number) =>
+              <PaymentTermsDisplay
+                key={key}
+                label="Payment Terms"
+                value={itemValue}
+                meta={SelfBilledCreditNoteFieldMeta.PaymentTerms}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-SelfBilledCreditNote ubl-AllowanceCharge"
-          meta={SelfBilledCreditNoteFieldMeta.AllowanceCharge} 
-          value={value.AllowanceCharge}
-          itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-            <AllowanceChargeDisplay
-              key={key}
-              label="Allowance Charge"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.AllowanceCharge}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-AllowanceCharge"
+            label="Allowance Charge"
+            items={value.AllowanceCharge}
+            meta={SelfBilledCreditNoteFieldMeta.AllowanceCharge} 
+            itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
+              <AllowanceChargeDisplay
+                key={key}
+                label="Allowance Charge"
+                value={itemValue}
+                meta={SelfBilledCreditNoteFieldMeta.AllowanceCharge}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-SelfBilledCreditNote ubl-ExchangeRate ubl-TaxExchangeRate"
-          meta={SelfBilledCreditNoteFieldMeta.TaxExchangeRate} 
-          value={value.TaxExchangeRate}
-          itemDisplay={ (itemValue: ExchangeRate, key: string | number) =>
-            <ExchangeRateDisplay
-              key={key}
-              label="Tax Exchange Rate"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.TaxExchangeRate}
-            />
-          }
-        />
+          <ExchangeRateDisplay
+            label="Tax Exchange Rate"
+            value={value.TaxExchangeRate?.[0]}
+            meta={SelfBilledCreditNoteFieldMeta.TaxExchangeRate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-SelfBilledCreditNote ubl-ExchangeRate ubl-PricingExchangeRate"
-          meta={SelfBilledCreditNoteFieldMeta.PricingExchangeRate} 
-          value={value.PricingExchangeRate}
-          itemDisplay={ (itemValue: ExchangeRate, key: string | number) =>
-            <ExchangeRateDisplay
-              key={key}
-              label="Pricing Exchange Rate"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.PricingExchangeRate}
-            />
-          }
-        />
+          <ExchangeRateDisplay
+            label="Pricing Exchange Rate"
+            value={value.PricingExchangeRate?.[0]}
+            meta={SelfBilledCreditNoteFieldMeta.PricingExchangeRate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-SelfBilledCreditNote ubl-ExchangeRate ubl-PaymentExchangeRate"
-          meta={SelfBilledCreditNoteFieldMeta.PaymentExchangeRate} 
-          value={value.PaymentExchangeRate}
-          itemDisplay={ (itemValue: ExchangeRate, key: string | number) =>
-            <ExchangeRateDisplay
-              key={key}
-              label="Payment Exchange Rate"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.PaymentExchangeRate}
-            />
-          }
-        />
+          <ExchangeRateDisplay
+            label="Payment Exchange Rate"
+            value={value.PaymentExchangeRate?.[0]}
+            meta={SelfBilledCreditNoteFieldMeta.PaymentExchangeRate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-SelfBilledCreditNote ubl-ExchangeRate ubl-PaymentAlternativeExchangeRate"
-          meta={SelfBilledCreditNoteFieldMeta.PaymentAlternativeExchangeRate} 
-          value={value.PaymentAlternativeExchangeRate}
-          itemDisplay={ (itemValue: ExchangeRate, key: string | number) =>
-            <ExchangeRateDisplay
-              key={key}
-              label="Payment Alternative Exchange Rate"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.PaymentAlternativeExchangeRate}
-            />
-          }
-        />
+          <ExchangeRateDisplay
+            label="Payment Alternative Exchange Rate"
+            value={value.PaymentAlternativeExchangeRate?.[0]}
+            meta={SelfBilledCreditNoteFieldMeta.PaymentAlternativeExchangeRate}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-SelfBilledCreditNote ubl-TaxTotal"
-          meta={SelfBilledCreditNoteFieldMeta.TaxTotal} 
-          value={value.TaxTotal}
-          itemDisplay={ (itemValue: TaxTotal, key: string | number) =>
-            <TaxTotalDisplay
-              key={key}
-              label="Tax Total"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.TaxTotal}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-TaxTotal"
+            label="Tax Total"
+            items={value.TaxTotal}
+            meta={SelfBilledCreditNoteFieldMeta.TaxTotal} 
+            itemDisplay={ (itemValue: TaxTotal, key: string | number) =>
+              <TaxTotalDisplay
+                key={key}
+                label="Tax Total"
+                value={itemValue}
+                meta={SelfBilledCreditNoteFieldMeta.TaxTotal}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-SelfBilledCreditNote ubl-TaxTotal ubl-WithholdingTaxTotal"
-          meta={SelfBilledCreditNoteFieldMeta.WithholdingTaxTotal} 
-          value={value.WithholdingTaxTotal}
-          itemDisplay={ (itemValue: TaxTotal, key: string | number) =>
-            <TaxTotalDisplay
-              key={key}
-              label="Withholding Tax Total"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.WithholdingTaxTotal}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-TaxTotal ubl-WithholdingTaxTotal"
+            label="Withholding Tax Total"
+            items={value.WithholdingTaxTotal}
+            meta={SelfBilledCreditNoteFieldMeta.WithholdingTaxTotal} 
+            itemDisplay={ (itemValue: TaxTotal, key: string | number) =>
+              <TaxTotalDisplay
+                key={key}
+                label="Withholding Tax Total"
+                value={itemValue}
+                meta={SelfBilledCreditNoteFieldMeta.WithholdingTaxTotal}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-SelfBilledCreditNote ubl-MonetaryTotal ubl-LegalMonetaryTotal"
-          meta={SelfBilledCreditNoteFieldMeta.LegalMonetaryTotal} 
-          value={value.LegalMonetaryTotal}
-          itemDisplay={ (itemValue: MonetaryTotal, key: string | number) =>
-            <MonetaryTotalDisplay
-              key={key}
-              label="Legal Monetary Total"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.LegalMonetaryTotal}
-            />
-          }
-        />
+          <MonetaryTotalDisplay
+            label="Legal Monetary Total"
+            value={value.LegalMonetaryTotal?.[0]}
+            meta={SelfBilledCreditNoteFieldMeta.LegalMonetaryTotal}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-SelfBilledCreditNote ubl-CreditNoteLine"
-          meta={SelfBilledCreditNoteFieldMeta.CreditNoteLine} 
-          value={value.CreditNoteLine}
-          itemDisplay={ (itemValue: CreditNoteLine, key: string | number) =>
-            <CreditNoteLineDisplay
-              key={key}
-              label="Credit Note Line"
-              value={itemValue}
-              meta={SelfBilledCreditNoteFieldMeta.CreditNoteLine}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-CreditNoteLine"
+            label="Credit Note Line"
+            items={value.CreditNoteLine}
+            meta={SelfBilledCreditNoteFieldMeta.CreditNoteLine} 
+            itemDisplay={ (itemValue: CreditNoteLine, key: string | number) =>
+              <CreditNoteLineDisplay
+                key={key}
+                label="Credit Note Line"
+                value={itemValue}
+                meta={SelfBilledCreditNoteFieldMeta.CreditNoteLine}
+              />
+            }
+          />
         </div>
     </div>
   )

@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { GoodsItemPassport } from  '../../model/doc/GoodsItemPassport'
 import { GoodsItemPassportFieldMeta } from  '../../meta/doc/GoodsItemPassportMeta'
@@ -35,392 +34,234 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: GoodsItemPassport
+  value: GoodsItemPassport | undefined
   meta: FieldMeta<T>
 }
 
 export default function GoodsItemPassportDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-doc ubl-GoodsItemPassport ubl-GoodsItemPassportType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-GoodsItemPassport ubl-UBLExtensions"
-          meta={GoodsItemPassportFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={GoodsItemPassportFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-doc ubl-GoodsItemPassport">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={GoodsItemPassportFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-GoodsItemPassport ubl-Identifier ubl-UBLVersionID"
-          meta={GoodsItemPassportFieldMeta.UBLVersionID} 
-          value={value.UBLVersionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="UBL Version Identifier"
-              value={itemValue}
-              meta={GoodsItemPassportFieldMeta.UBLVersionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="UBL Version Identifier"
+            value={value.UBLVersionID?.[0]}
+            meta={GoodsItemPassportFieldMeta.UBLVersionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-GoodsItemPassport ubl-Identifier ubl-CustomizationID"
-          meta={GoodsItemPassportFieldMeta.CustomizationID} 
-          value={value.CustomizationID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Customization Identifier"
-              value={itemValue}
-              meta={GoodsItemPassportFieldMeta.CustomizationID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Customization Identifier"
+            value={value.CustomizationID?.[0]}
+            meta={GoodsItemPassportFieldMeta.CustomizationID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-GoodsItemPassport ubl-Identifier ubl-ProfileID"
-          meta={GoodsItemPassportFieldMeta.ProfileID} 
-          value={value.ProfileID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Profile Identifier"
-              value={itemValue}
-              meta={GoodsItemPassportFieldMeta.ProfileID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Profile Identifier"
+            value={value.ProfileID?.[0]}
+            meta={GoodsItemPassportFieldMeta.ProfileID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-GoodsItemPassport ubl-Identifier ubl-ProfileExecutionID"
-          meta={GoodsItemPassportFieldMeta.ProfileExecutionID} 
-          value={value.ProfileExecutionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Profile Execution Identifier"
-              value={itemValue}
-              meta={GoodsItemPassportFieldMeta.ProfileExecutionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Profile Execution Identifier"
+            value={value.ProfileExecutionID?.[0]}
+            meta={GoodsItemPassportFieldMeta.ProfileExecutionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-GoodsItemPassport ubl-Identifier ubl-ID"
-          meta={GoodsItemPassportFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={GoodsItemPassportFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={GoodsItemPassportFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-GoodsItemPassport ubl-Identifier ubl-UUID"
-          meta={GoodsItemPassportFieldMeta.UUID} 
-          value={value.UUID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="UUID"
-              value={itemValue}
-              meta={GoodsItemPassportFieldMeta.UUID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="UUID"
+            value={value.UUID?.[0]}
+            meta={GoodsItemPassportFieldMeta.UUID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-GoodsItemPassport ubl-Date ubl-IssueDate"
-          meta={GoodsItemPassportFieldMeta.IssueDate} 
-          value={value.IssueDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Issue Date"
-              value={itemValue}
-              meta={GoodsItemPassportFieldMeta.IssueDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Issue Date"
+            value={value.IssueDate?.[0]}
+            meta={GoodsItemPassportFieldMeta.IssueDate}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-GoodsItemPassport ubl-Time ubl-IssueTime"
-          meta={GoodsItemPassportFieldMeta.IssueTime} 
-          value={value.IssueTime}
-          itemDisplay={ (itemValue: Time, key: string | number) =>
-            <TimeDisplay
-              key={key}
-              label="Issue Time"
-              value={itemValue}
-              meta={GoodsItemPassportFieldMeta.IssueTime}
-            />
-          }
-        />
+          <TimeDisplay
+            label="Issue Time"
+            value={value.IssueTime?.[0]}
+            meta={GoodsItemPassportFieldMeta.IssueTime}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-GoodsItemPassport ubl-Text ubl-Note"
-          meta={GoodsItemPassportFieldMeta.Note} 
-          value={value.Note}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Note"
-              value={itemValue}
-              meta={GoodsItemPassportFieldMeta.Note}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Text ubl-Note"
+            label="Note"
+            items={value.Note}
+            meta={GoodsItemPassportFieldMeta.Note} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Note"
+                value={itemValue}
+                meta={GoodsItemPassportFieldMeta.Note}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-GoodsItemPassport ubl-Identifier ubl-VersionID"
-          meta={GoodsItemPassportFieldMeta.VersionID} 
-          value={value.VersionID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Version"
-              value={itemValue}
-              meta={GoodsItemPassportFieldMeta.VersionID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Version"
+            value={value.VersionID?.[0]}
+            meta={GoodsItemPassportFieldMeta.VersionID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-GoodsItemPassport ubl-Code ubl-ExportReasonCode"
-          meta={GoodsItemPassportFieldMeta.ExportReasonCode} 
-          value={value.ExportReasonCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Export Reason"
-              value={itemValue}
-              meta={GoodsItemPassportFieldMeta.ExportReasonCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Export Reason"
+            value={value.ExportReasonCode?.[0]}
+            meta={GoodsItemPassportFieldMeta.ExportReasonCode}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-GoodsItemPassport ubl-Text ubl-ExportReason"
-          meta={GoodsItemPassportFieldMeta.ExportReason} 
-          value={value.ExportReason}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Export Reason"
-              value={itemValue}
-              meta={GoodsItemPassportFieldMeta.ExportReason}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Text ubl-ExportReason"
+            label="Export Reason"
+            items={value.ExportReason}
+            meta={GoodsItemPassportFieldMeta.ExportReason} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Export Reason"
+                value={itemValue}
+                meta={GoodsItemPassportFieldMeta.ExportReason}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-GoodsItemPassport ubl-Period ubl-ValidityPeriod"
-          meta={GoodsItemPassportFieldMeta.ValidityPeriod} 
-          value={value.ValidityPeriod}
-          itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay
-              key={key}
-              label="Validity Period"
-              value={itemValue}
-              meta={GoodsItemPassportFieldMeta.ValidityPeriod}
-            />
-          }
-        />
+          <PeriodDisplay
+            label="Validity Period"
+            value={value.ValidityPeriod?.[0]}
+            meta={GoodsItemPassportFieldMeta.ValidityPeriod}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-GoodsItemPassport ubl-Party ubl-IssuerParty"
-          meta={GoodsItemPassportFieldMeta.IssuerParty} 
-          value={value.IssuerParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Issuer Party"
-              value={itemValue}
-              meta={GoodsItemPassportFieldMeta.IssuerParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Issuer Party"
+            value={value.IssuerParty?.[0]}
+            meta={GoodsItemPassportFieldMeta.IssuerParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-GoodsItemPassport ubl-Party ubl-HolderParty"
-          meta={GoodsItemPassportFieldMeta.HolderParty} 
-          value={value.HolderParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Holder Party"
-              value={itemValue}
-              meta={GoodsItemPassportFieldMeta.HolderParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Holder Party"
+            value={value.HolderParty?.[0]}
+            meta={GoodsItemPassportFieldMeta.HolderParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-GoodsItemPassport ubl-Party ubl-RepresentativeParty"
-          meta={GoodsItemPassportFieldMeta.RepresentativeParty} 
-          value={value.RepresentativeParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Representative Party"
-              value={itemValue}
-              meta={GoodsItemPassportFieldMeta.RepresentativeParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Representative Party"
+            value={value.RepresentativeParty?.[0]}
+            meta={GoodsItemPassportFieldMeta.RepresentativeParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-GoodsItemPassport ubl-Party ubl-ExportingCustomsParty"
-          meta={GoodsItemPassportFieldMeta.ExportingCustomsParty} 
-          value={value.ExportingCustomsParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Exporting Customs Party"
-              value={itemValue}
-              meta={GoodsItemPassportFieldMeta.ExportingCustomsParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Exporting Customs Party"
+            value={value.ExportingCustomsParty?.[0]}
+            meta={GoodsItemPassportFieldMeta.ExportingCustomsParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-GoodsItemPassport ubl-Party ubl-ImportingCustomsParty"
-          meta={GoodsItemPassportFieldMeta.ImportingCustomsParty} 
-          value={value.ImportingCustomsParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Importing Customs Party"
-              value={itemValue}
-              meta={GoodsItemPassportFieldMeta.ImportingCustomsParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Importing Customs Party"
+            value={value.ImportingCustomsParty?.[0]}
+            meta={GoodsItemPassportFieldMeta.ImportingCustomsParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-GoodsItemPassport ubl-Party ubl-ImportingGuarantorParty"
-          meta={GoodsItemPassportFieldMeta.ImportingGuarantorParty} 
-          value={value.ImportingGuarantorParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Importing Guarantor Party"
-              value={itemValue}
-              meta={GoodsItemPassportFieldMeta.ImportingGuarantorParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Importing Guarantor Party"
+            value={value.ImportingGuarantorParty?.[0]}
+            meta={GoodsItemPassportFieldMeta.ImportingGuarantorParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-GoodsItemPassport ubl-Party ubl-ExportingGuarantorParty"
-          meta={GoodsItemPassportFieldMeta.ExportingGuarantorParty} 
-          value={value.ExportingGuarantorParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Exporting Guarantor Party"
-              value={itemValue}
-              meta={GoodsItemPassportFieldMeta.ExportingGuarantorParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Exporting Guarantor Party"
+            value={value.ExportingGuarantorParty?.[0]}
+            meta={GoodsItemPassportFieldMeta.ExportingGuarantorParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-GoodsItemPassport ubl-Shipment"
-          meta={GoodsItemPassportFieldMeta.Shipment} 
-          value={value.Shipment}
-          itemDisplay={ (itemValue: Shipment, key: string | number) =>
-            <ShipmentDisplay
-              key={key}
-              label="Shipment"
-              value={itemValue}
-              meta={GoodsItemPassportFieldMeta.Shipment}
-            />
-          }
-        />
+          <ShipmentDisplay
+            label="Shipment"
+            value={value.Shipment?.[0]}
+            meta={GoodsItemPassportFieldMeta.Shipment}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-GoodsItemPassport ubl-GoodsItemPassportCounterfoil"
-          meta={GoodsItemPassportFieldMeta.GoodsItemPassportCounterfoil} 
-          value={value.GoodsItemPassportCounterfoil}
-          itemDisplay={ (itemValue: GoodsItemPassportCounterfoil, key: string | number) =>
-            <GoodsItemPassportCounterfoilDisplay
-              key={key}
-              label="Goods Item Passport Counterfoil"
-              value={itemValue}
-              meta={GoodsItemPassportFieldMeta.GoodsItemPassportCounterfoil}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-GoodsItemPassportCounterfoil"
+            label="Goods Item Passport Counterfoil"
+            items={value.GoodsItemPassportCounterfoil}
+            meta={GoodsItemPassportFieldMeta.GoodsItemPassportCounterfoil} 
+            itemDisplay={ (itemValue: GoodsItemPassportCounterfoil, key: string | number) =>
+              <GoodsItemPassportCounterfoilDisplay
+                key={key}
+                label="Goods Item Passport Counterfoil"
+                value={itemValue}
+                meta={GoodsItemPassportFieldMeta.GoodsItemPassportCounterfoil}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-GoodsItemPassport ubl-Endorsement ubl-IssuerEndorsement"
-          meta={GoodsItemPassportFieldMeta.IssuerEndorsement} 
-          value={value.IssuerEndorsement}
-          itemDisplay={ (itemValue: Endorsement, key: string | number) =>
-            <EndorsementDisplay
-              key={key}
-              label="Issuer Endorsement"
-              value={itemValue}
-              meta={GoodsItemPassportFieldMeta.IssuerEndorsement}
-            />
-          }
-        />
+          <EndorsementDisplay
+            label="Issuer Endorsement"
+            value={value.IssuerEndorsement?.[0]}
+            meta={GoodsItemPassportFieldMeta.IssuerEndorsement}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-GoodsItemPassport ubl-DocumentReference ubl-AdditionalDocumentReference"
-          meta={GoodsItemPassportFieldMeta.AdditionalDocumentReference} 
-          value={value.AdditionalDocumentReference}
-          itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-            <DocumentReferenceDisplay
-              key={key}
-              label="Additional Document Reference"
-              value={itemValue}
-              meta={GoodsItemPassportFieldMeta.AdditionalDocumentReference}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-DocumentReference ubl-AdditionalDocumentReference"
+            label="Additional Document Reference"
+            items={value.AdditionalDocumentReference}
+            meta={GoodsItemPassportFieldMeta.AdditionalDocumentReference} 
+            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
+              <DocumentReferenceDisplay
+                key={key}
+                label="Additional Document Reference"
+                value={itemValue}
+                meta={GoodsItemPassportFieldMeta.AdditionalDocumentReference}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-GoodsItemPassport ubl-DocumentDistribution"
-          meta={GoodsItemPassportFieldMeta.DocumentDistribution} 
-          value={value.DocumentDistribution}
-          itemDisplay={ (itemValue: DocumentDistribution, key: string | number) =>
-            <DocumentDistributionDisplay
-              key={key}
-              label="Document Distribution"
-              value={itemValue}
-              meta={GoodsItemPassportFieldMeta.DocumentDistribution}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-DocumentDistribution"
+            label="Document Distribution"
+            items={value.DocumentDistribution}
+            meta={GoodsItemPassportFieldMeta.DocumentDistribution} 
+            itemDisplay={ (itemValue: DocumentDistribution, key: string | number) =>
+              <DocumentDistributionDisplay
+                key={key}
+                label="Document Distribution"
+                value={itemValue}
+                meta={GoodsItemPassportFieldMeta.DocumentDistribution}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-GoodsItemPassport ubl-Signature"
-          meta={GoodsItemPassportFieldMeta.Signature} 
-          value={value.Signature}
-          itemDisplay={ (itemValue: Signature, key: string | number) =>
-            <SignatureDisplay
-              key={key}
-              label="Signature"
-              value={itemValue}
-              meta={GoodsItemPassportFieldMeta.Signature}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-doc ubl-Signature"
+            label="Signature"
+            items={value.Signature}
+            meta={GoodsItemPassportFieldMeta.Signature} 
+            itemDisplay={ (itemValue: Signature, key: string | number) =>
+              <SignatureDisplay
+                key={key}
+                label="Signature"
+                value={itemValue}
+                meta={GoodsItemPassportFieldMeta.Signature}
+              />
+            }
+          />
         </div>
     </div>
   )

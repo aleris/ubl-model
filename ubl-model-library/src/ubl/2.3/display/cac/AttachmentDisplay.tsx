@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Attachment } from  '../../model/cac/Attachment'
 import { AttachmentFieldMeta } from  '../../meta/cac/AttachmentMeta'
@@ -15,70 +14,42 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: Attachment
+  value: Attachment | undefined
   meta: FieldMeta<T>
 }
 
 export default function AttachmentDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-Attachment ubl-AttachmentType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-Attachment ubl-UBLExtensions"
-          meta={AttachmentFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={AttachmentFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-Attachment">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={AttachmentFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-Attachment ubl-BinaryObject ubl-EmbeddedDocumentBinaryObject"
-          meta={AttachmentFieldMeta.EmbeddedDocumentBinaryObject} 
-          value={value.EmbeddedDocumentBinaryObject}
-          itemDisplay={ (itemValue: BinaryObject, key: string | number) =>
-            <BinaryObjectDisplay
-              key={key}
-              label="Embedded Document"
-              value={itemValue}
-              meta={AttachmentFieldMeta.EmbeddedDocumentBinaryObject}
-            />
-          }
-        />
+          <BinaryObjectDisplay
+            label="Embedded Document"
+            value={value.EmbeddedDocumentBinaryObject?.[0]}
+            meta={AttachmentFieldMeta.EmbeddedDocumentBinaryObject}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-Attachment ubl-Text ubl-EmbeddedDocument"
-          meta={AttachmentFieldMeta.EmbeddedDocument} 
-          value={value.EmbeddedDocument}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Embedded Document"
-              value={itemValue}
-              meta={AttachmentFieldMeta.EmbeddedDocument}
-            />
-          }
-        />
+          <TextDisplay
+            label="Embedded Document"
+            value={value.EmbeddedDocument?.[0]}
+            meta={AttachmentFieldMeta.EmbeddedDocument}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-Attachment ubl-ExternalReference"
-          meta={AttachmentFieldMeta.ExternalReference} 
-          value={value.ExternalReference}
-          itemDisplay={ (itemValue: ExternalReference, key: string | number) =>
-            <ExternalReferenceDisplay
-              key={key}
-              label="External Reference"
-              value={itemValue}
-              meta={AttachmentFieldMeta.ExternalReference}
-            />
-          }
-        />
+          <ExternalReferenceDisplay
+            label="External Reference"
+            value={value.ExternalReference?.[0]}
+            meta={AttachmentFieldMeta.ExternalReference}
+          />
         </div>
     </div>
   )

@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { LotIdentification } from  '../../model/cac/LotIdentification'
 import { LotIdentificationFieldMeta } from  '../../meta/cac/LotIdentificationMeta'
@@ -15,70 +14,51 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: LotIdentification
+  value: LotIdentification | undefined
   meta: FieldMeta<T>
 }
 
 export default function LotIdentificationDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-LotIdentification ubl-LotIdentificationType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-LotIdentification ubl-UBLExtensions"
-          meta={LotIdentificationFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={LotIdentificationFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-LotIdentification">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={LotIdentificationFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-LotIdentification ubl-Identifier ubl-LotNumberID"
-          meta={LotIdentificationFieldMeta.LotNumberID} 
-          value={value.LotNumberID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Lot Number"
-              value={itemValue}
-              meta={LotIdentificationFieldMeta.LotNumberID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Lot Number"
+            value={value.LotNumberID?.[0]}
+            meta={LotIdentificationFieldMeta.LotNumberID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-LotIdentification ubl-Date ubl-ExpiryDate"
-          meta={LotIdentificationFieldMeta.ExpiryDate} 
-          value={value.ExpiryDate}
-          itemDisplay={ (itemValue: Date, key: string | number) =>
-            <DateDisplay
-              key={key}
-              label="Expiry Date"
-              value={itemValue}
-              meta={LotIdentificationFieldMeta.ExpiryDate}
-            />
-          }
-        />
+          <DateDisplay
+            label="Expiry Date"
+            value={value.ExpiryDate?.[0]}
+            meta={LotIdentificationFieldMeta.ExpiryDate}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-LotIdentification ubl-ItemProperty ubl-AdditionalItemProperty"
-          meta={LotIdentificationFieldMeta.AdditionalItemProperty} 
-          value={value.AdditionalItemProperty}
-          itemDisplay={ (itemValue: ItemProperty, key: string | number) =>
-            <ItemPropertyDisplay
-              key={key}
-              label="Additional Item Property"
-              value={itemValue}
-              meta={LotIdentificationFieldMeta.AdditionalItemProperty}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-ItemProperty ubl-AdditionalItemProperty"
+            label="Additional Item Property"
+            items={value.AdditionalItemProperty}
+            meta={LotIdentificationFieldMeta.AdditionalItemProperty} 
+            itemDisplay={ (itemValue: ItemProperty, key: string | number) =>
+              <ItemPropertyDisplay
+                key={key}
+                label="Additional Item Property"
+                value={itemValue}
+                meta={LotIdentificationFieldMeta.AdditionalItemProperty}
+              />
+            }
+          />
         </div>
     </div>
   )

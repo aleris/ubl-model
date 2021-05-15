@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { CatalogueItemSpecificationUpdateLine } from  '../../model/cac/CatalogueItemSpecificationUpdateLine'
 import { CatalogueItemSpecificationUpdateLineFieldMeta } from  '../../meta/cac/CatalogueItemSpecificationUpdateLineMeta'
@@ -17,84 +16,48 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: CatalogueItemSpecificationUpdateLine
+  value: CatalogueItemSpecificationUpdateLine | undefined
   meta: FieldMeta<T>
 }
 
 export default function CatalogueItemSpecificationUpdateLineDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-CatalogueItemSpecificationUpdateLine ubl-CatalogueItemSpecificationUpdateLineType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-CatalogueItemSpecificationUpdateLine ubl-UBLExtensions"
-          meta={CatalogueItemSpecificationUpdateLineFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={CatalogueItemSpecificationUpdateLineFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-CatalogueItemSpecificationUpdateLine">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={CatalogueItemSpecificationUpdateLineFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CatalogueItemSpecificationUpdateLine ubl-Identifier ubl-ID"
-          meta={CatalogueItemSpecificationUpdateLineFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={CatalogueItemSpecificationUpdateLineFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={CatalogueItemSpecificationUpdateLineFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-CatalogueItemSpecificationUpdateLine ubl-CustomerParty ubl-ContractorCustomerParty"
-          meta={CatalogueItemSpecificationUpdateLineFieldMeta.ContractorCustomerParty} 
-          value={value.ContractorCustomerParty}
-          itemDisplay={ (itemValue: CustomerParty, key: string | number) =>
-            <CustomerPartyDisplay
-              key={key}
-              label="Contractor Customer Party"
-              value={itemValue}
-              meta={CatalogueItemSpecificationUpdateLineFieldMeta.ContractorCustomerParty}
-            />
-          }
-        />
+          <CustomerPartyDisplay
+            label="Contractor Customer Party"
+            value={value.ContractorCustomerParty?.[0]}
+            meta={CatalogueItemSpecificationUpdateLineFieldMeta.ContractorCustomerParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-CatalogueItemSpecificationUpdateLine ubl-SupplierParty ubl-SellerSupplierParty"
-          meta={CatalogueItemSpecificationUpdateLineFieldMeta.SellerSupplierParty} 
-          value={value.SellerSupplierParty}
-          itemDisplay={ (itemValue: SupplierParty, key: string | number) =>
-            <SupplierPartyDisplay
-              key={key}
-              label="Seller Supplier Party"
-              value={itemValue}
-              meta={CatalogueItemSpecificationUpdateLineFieldMeta.SellerSupplierParty}
-            />
-          }
-        />
+          <SupplierPartyDisplay
+            label="Seller Supplier Party"
+            value={value.SellerSupplierParty?.[0]}
+            meta={CatalogueItemSpecificationUpdateLineFieldMeta.SellerSupplierParty}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-CatalogueItemSpecificationUpdateLine ubl-Item"
-          meta={CatalogueItemSpecificationUpdateLineFieldMeta.Item} 
-          value={value.Item}
-          itemDisplay={ (itemValue: Item, key: string | number) =>
-            <ItemDisplay
-              key={key}
-              label="Item"
-              value={itemValue}
-              meta={CatalogueItemSpecificationUpdateLineFieldMeta.Item}
-            />
-          }
-        />
+          <ItemDisplay
+            label="Item"
+            value={value.Item?.[0]}
+            meta={CatalogueItemSpecificationUpdateLineFieldMeta.Item}
+          />
         </div>
     </div>
   )

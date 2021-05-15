@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { CommodityClassification } from  '../../model/cac/CommodityClassification'
 import { CommodityClassificationFieldMeta } from  '../../meta/cac/CommodityClassificationMeta'
@@ -11,84 +10,48 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: CommodityClassification
+  value: CommodityClassification | undefined
   meta: FieldMeta<T>
 }
 
 export default function CommodityClassificationDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-CommodityClassification ubl-CommodityClassificationType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-CommodityClassification ubl-UBLExtensions"
-          meta={CommodityClassificationFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={CommodityClassificationFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-CommodityClassification">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={CommodityClassificationFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CommodityClassification ubl-Code ubl-NatureCode"
-          meta={CommodityClassificationFieldMeta.NatureCode} 
-          value={value.NatureCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Nature Code"
-              value={itemValue}
-              meta={CommodityClassificationFieldMeta.NatureCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Nature Code"
+            value={value.NatureCode?.[0]}
+            meta={CommodityClassificationFieldMeta.NatureCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CommodityClassification ubl-Code ubl-CargoTypeCode"
-          meta={CommodityClassificationFieldMeta.CargoTypeCode} 
-          value={value.CargoTypeCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Cargo Type Code"
-              value={itemValue}
-              meta={CommodityClassificationFieldMeta.CargoTypeCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Cargo Type Code"
+            value={value.CargoTypeCode?.[0]}
+            meta={CommodityClassificationFieldMeta.CargoTypeCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CommodityClassification ubl-Code ubl-CommodityCode"
-          meta={CommodityClassificationFieldMeta.CommodityCode} 
-          value={value.CommodityCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Commodity Code"
-              value={itemValue}
-              meta={CommodityClassificationFieldMeta.CommodityCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Commodity Code"
+            value={value.CommodityCode?.[0]}
+            meta={CommodityClassificationFieldMeta.CommodityCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-CommodityClassification ubl-Code ubl-ItemClassificationCode"
-          meta={CommodityClassificationFieldMeta.ItemClassificationCode} 
-          value={value.ItemClassificationCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Item Classification Code"
-              value={itemValue}
-              meta={CommodityClassificationFieldMeta.ItemClassificationCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Item Classification Code"
+            value={value.ItemClassificationCode?.[0]}
+            meta={CommodityClassificationFieldMeta.ItemClassificationCode}
+          />
         </div>
     </div>
   )

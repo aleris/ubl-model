@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TransportEquipmentSeal } from  '../../model/cac/TransportEquipmentSeal'
 import { TransportEquipmentSealFieldMeta } from  '../../meta/cac/TransportEquipmentSealMeta'
@@ -15,98 +14,54 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: TransportEquipmentSeal
+  value: TransportEquipmentSeal | undefined
   meta: FieldMeta<T>
 }
 
 export default function TransportEquipmentSealDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-TransportEquipmentSeal ubl-TransportEquipmentSealType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-TransportEquipmentSeal ubl-UBLExtensions"
-          meta={TransportEquipmentSealFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={TransportEquipmentSealFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-TransportEquipmentSeal">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={TransportEquipmentSealFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TransportEquipmentSeal ubl-Identifier ubl-ID"
-          meta={TransportEquipmentSealFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={TransportEquipmentSealFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={TransportEquipmentSealFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TransportEquipmentSeal ubl-Code ubl-SealIssuerTypeCode"
-          meta={TransportEquipmentSealFieldMeta.SealIssuerTypeCode} 
-          value={value.SealIssuerTypeCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Seal Issuer Type Code"
-              value={itemValue}
-              meta={TransportEquipmentSealFieldMeta.SealIssuerTypeCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Seal Issuer Type Code"
+            value={value.SealIssuerTypeCode?.[0]}
+            meta={TransportEquipmentSealFieldMeta.SealIssuerTypeCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TransportEquipmentSeal ubl-Text ubl-Condition"
-          meta={TransportEquipmentSealFieldMeta.Condition} 
-          value={value.Condition}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Condition"
-              value={itemValue}
-              meta={TransportEquipmentSealFieldMeta.Condition}
-            />
-          }
-        />
+          <TextDisplay
+            label="Condition"
+            value={value.Condition?.[0]}
+            meta={TransportEquipmentSealFieldMeta.Condition}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TransportEquipmentSeal ubl-Code ubl-SealStatusCode"
-          meta={TransportEquipmentSealFieldMeta.SealStatusCode} 
-          value={value.SealStatusCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Seal Status Code"
-              value={itemValue}
-              meta={TransportEquipmentSealFieldMeta.SealStatusCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Seal Status Code"
+            value={value.SealStatusCode?.[0]}
+            meta={TransportEquipmentSealFieldMeta.SealStatusCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TransportEquipmentSeal ubl-Text ubl-SealingPartyType"
-          meta={TransportEquipmentSealFieldMeta.SealingPartyType} 
-          value={value.SealingPartyType}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Sealing Party Type"
-              value={itemValue}
-              meta={TransportEquipmentSealFieldMeta.SealingPartyType}
-            />
-          }
-        />
+          <TextDisplay
+            label="Sealing Party Type"
+            value={value.SealingPartyType?.[0]}
+            meta={TransportEquipmentSealFieldMeta.SealingPartyType}
+          />
         </div>
     </div>
   )

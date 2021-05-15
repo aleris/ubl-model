@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { RailTransport } from  '../../model/cac/RailTransport'
 import { RailTransportFieldMeta } from  '../../meta/cac/RailTransportMeta'
@@ -11,56 +10,36 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: RailTransport
+  value: RailTransport | undefined
   meta: FieldMeta<T>
 }
 
 export default function RailTransportDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-RailTransport ubl-RailTransportType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-RailTransport ubl-UBLExtensions"
-          meta={RailTransportFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={RailTransportFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-RailTransport">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={RailTransportFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-RailTransport ubl-Identifier ubl-TrainID"
-          meta={RailTransportFieldMeta.TrainID} 
-          value={value.TrainID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Train Identifier"
-              value={itemValue}
-              meta={RailTransportFieldMeta.TrainID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Train Identifier"
+            value={value.TrainID?.[0]}
+            meta={RailTransportFieldMeta.TrainID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-RailTransport ubl-Identifier ubl-RailCarID"
-          meta={RailTransportFieldMeta.RailCarID} 
-          value={value.RailCarID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Rail Car Identifier"
-              value={itemValue}
-              meta={RailTransportFieldMeta.RailCarID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Rail Car Identifier"
+            value={value.RailCarID?.[0]}
+            meta={RailTransportFieldMeta.RailCarID}
+          />
         </div>
     </div>
   )

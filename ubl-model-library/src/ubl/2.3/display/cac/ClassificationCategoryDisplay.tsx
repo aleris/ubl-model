@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ClassificationCategory } from  '../../model/cac/ClassificationCategory'
 import { ClassificationCategoryFieldMeta } from  '../../meta/cac/ClassificationCategoryMeta'
@@ -11,84 +10,66 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: ClassificationCategory
+  value: ClassificationCategory | undefined
   meta: FieldMeta<T>
 }
 
 export default function ClassificationCategoryDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-ClassificationCategory ubl-ClassificationCategoryType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-ClassificationCategory ubl-UBLExtensions"
-          meta={ClassificationCategoryFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={ClassificationCategoryFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-ClassificationCategory">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={ClassificationCategoryFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ClassificationCategory ubl-Text ubl-Name"
-          meta={ClassificationCategoryFieldMeta.Name} 
-          value={value.Name}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Name"
-              value={itemValue}
-              meta={ClassificationCategoryFieldMeta.Name}
-            />
-          }
-        />
+          <TextDisplay
+            label="Name"
+            value={value.Name?.[0]}
+            meta={ClassificationCategoryFieldMeta.Name}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-ClassificationCategory ubl-Text ubl-CodeValue"
-          meta={ClassificationCategoryFieldMeta.CodeValue} 
-          value={value.CodeValue}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Code Value"
-              value={itemValue}
-              meta={ClassificationCategoryFieldMeta.CodeValue}
-            />
-          }
-        />
+          <TextDisplay
+            label="Code Value"
+            value={value.CodeValue?.[0]}
+            meta={ClassificationCategoryFieldMeta.CodeValue}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-ClassificationCategory ubl-Text ubl-Description"
-          meta={ClassificationCategoryFieldMeta.Description} 
-          value={value.Description}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Description"
-              value={itemValue}
-              meta={ClassificationCategoryFieldMeta.Description}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Description"
+            label="Description"
+            items={value.Description}
+            meta={ClassificationCategoryFieldMeta.Description} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Description"
+                value={itemValue}
+                meta={ClassificationCategoryFieldMeta.Description}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-ClassificationCategory ubl-CategorizesClassificationCategory"
-          meta={ClassificationCategoryFieldMeta.CategorizesClassificationCategory} 
-          value={value.CategorizesClassificationCategory}
-          itemDisplay={ (itemValue: ClassificationCategory, key: string | number) =>
-            <ClassificationCategoryDisplay
-              key={key}
-              label="Categorizes Classification Category"
-              value={itemValue}
-              meta={ClassificationCategoryFieldMeta.CategorizesClassificationCategory}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-ClassificationCategory ubl-CategorizesClassificationCategory"
+            label="Categorizes Classification Category"
+            items={value.CategorizesClassificationCategory}
+            meta={ClassificationCategoryFieldMeta.CategorizesClassificationCategory} 
+            itemDisplay={ (itemValue: ClassificationCategory, key: string | number) =>
+              <ClassificationCategoryDisplay
+                key={key}
+                label="Categorizes Classification Category"
+                value={itemValue}
+                meta={ClassificationCategoryFieldMeta.CategorizesClassificationCategory}
+              />
+            }
+          />
         </div>
     </div>
   )

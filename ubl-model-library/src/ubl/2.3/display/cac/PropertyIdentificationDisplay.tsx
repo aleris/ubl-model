@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { PropertyIdentification } from  '../../model/cac/PropertyIdentification'
 import { PropertyIdentificationFieldMeta } from  '../../meta/cac/PropertyIdentificationMeta'
@@ -13,70 +12,42 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: PropertyIdentification
+  value: PropertyIdentification | undefined
   meta: FieldMeta<T>
 }
 
 export default function PropertyIdentificationDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-PropertyIdentification ubl-PropertyIdentificationType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-PropertyIdentification ubl-UBLExtensions"
-          meta={PropertyIdentificationFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={PropertyIdentificationFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-PropertyIdentification">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={PropertyIdentificationFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PropertyIdentification ubl-Identifier ubl-ID"
-          meta={PropertyIdentificationFieldMeta.ID} 
-          value={value.ID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Identifier"
-              value={itemValue}
-              meta={PropertyIdentificationFieldMeta.ID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Identifier"
+            value={value.ID?.[0]}
+            meta={PropertyIdentificationFieldMeta.ID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-PropertyIdentification ubl-Identifier ubl-IssuerScopeID"
-          meta={PropertyIdentificationFieldMeta.IssuerScopeID} 
-          value={value.IssuerScopeID}
-          itemDisplay={ (itemValue: Identifier, key: string | number) =>
-            <IdentifierDisplay
-              key={key}
-              label="Issuer Scope Identifier"
-              value={itemValue}
-              meta={PropertyIdentificationFieldMeta.IssuerScopeID}
-            />
-          }
-        />
+          <IdentifierDisplay
+            label="Issuer Scope Identifier"
+            value={value.IssuerScopeID?.[0]}
+            meta={PropertyIdentificationFieldMeta.IssuerScopeID}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-PropertyIdentification ubl-Party ubl-IssuerParty"
-          meta={PropertyIdentificationFieldMeta.IssuerParty} 
-          value={value.IssuerParty}
-          itemDisplay={ (itemValue: Party, key: string | number) =>
-            <PartyDisplay
-              key={key}
-              label="Issuer Party"
-              value={itemValue}
-              meta={PropertyIdentificationFieldMeta.IssuerParty}
-            />
-          }
-        />
+          <PartyDisplay
+            label="Issuer Party"
+            value={value.IssuerParty?.[0]}
+            meta={PropertyIdentificationFieldMeta.IssuerParty}
+          />
         </div>
     </div>
   )

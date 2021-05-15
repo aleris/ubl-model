@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TelecommunicationsSupply } from  '../../model/cac/TelecommunicationsSupply'
 import { TelecommunicationsSupplyFieldMeta } from  '../../meta/cac/TelecommunicationsSupplyMeta'
@@ -17,112 +16,78 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: TelecommunicationsSupply
+  value: TelecommunicationsSupply | undefined
   meta: FieldMeta<T>
 }
 
 export default function TelecommunicationsSupplyDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-TelecommunicationsSupply ubl-TelecommunicationsSupplyType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-TelecommunicationsSupply ubl-UBLExtensions"
-          meta={TelecommunicationsSupplyFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={TelecommunicationsSupplyFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-TelecommunicationsSupply">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={TelecommunicationsSupplyFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TelecommunicationsSupply ubl-Text ubl-TelecommunicationsSupplyType"
-          meta={TelecommunicationsSupplyFieldMeta.TelecommunicationsSupplyType} 
-          value={value.TelecommunicationsSupplyType}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Telecommunications Supply Type"
-              value={itemValue}
-              meta={TelecommunicationsSupplyFieldMeta.TelecommunicationsSupplyType}
-            />
-          }
-        />
+          <TextDisplay
+            label="Telecommunications Supply Type"
+            value={value.TelecommunicationsSupplyType?.[0]}
+            meta={TelecommunicationsSupplyFieldMeta.TelecommunicationsSupplyType}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TelecommunicationsSupply ubl-Code ubl-TelecommunicationsSupplyTypeCode"
-          meta={TelecommunicationsSupplyFieldMeta.TelecommunicationsSupplyTypeCode} 
-          value={value.TelecommunicationsSupplyTypeCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Telecommunications Supply Type Code"
-              value={itemValue}
-              meta={TelecommunicationsSupplyFieldMeta.TelecommunicationsSupplyTypeCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Telecommunications Supply Type Code"
+            value={value.TelecommunicationsSupplyTypeCode?.[0]}
+            meta={TelecommunicationsSupplyFieldMeta.TelecommunicationsSupplyTypeCode}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TelecommunicationsSupply ubl-Code ubl-PrivacyCode"
-          meta={TelecommunicationsSupplyFieldMeta.PrivacyCode} 
-          value={value.PrivacyCode}
-          itemDisplay={ (itemValue: Code, key: string | number) =>
-            <CodeDisplay
-              key={key}
-              label="Privacy Code"
-              value={itemValue}
-              meta={TelecommunicationsSupplyFieldMeta.PrivacyCode}
-            />
-          }
-        />
+          <CodeDisplay
+            label="Privacy Code"
+            value={value.PrivacyCode?.[0]}
+            meta={TelecommunicationsSupplyFieldMeta.PrivacyCode}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-TelecommunicationsSupply ubl-Text ubl-Description"
-          meta={TelecommunicationsSupplyFieldMeta.Description} 
-          value={value.Description}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Description"
-              value={itemValue}
-              meta={TelecommunicationsSupplyFieldMeta.Description}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Description"
+            label="Description"
+            items={value.Description}
+            meta={TelecommunicationsSupplyFieldMeta.Description} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Description"
+                value={itemValue}
+                meta={TelecommunicationsSupplyFieldMeta.Description}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-TelecommunicationsSupply ubl-Amount ubl-TotalAmount"
-          meta={TelecommunicationsSupplyFieldMeta.TotalAmount} 
-          value={value.TotalAmount}
-          itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay
-              key={key}
-              label="Total Amount"
-              value={itemValue}
-              meta={TelecommunicationsSupplyFieldMeta.TotalAmount}
-            />
-          }
-        />
+          <AmountDisplay
+            label="Total Amount"
+            value={value.TotalAmount?.[0]}
+            meta={TelecommunicationsSupplyFieldMeta.TotalAmount}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-TelecommunicationsSupply ubl-TelecommunicationsSupplyLine"
-          meta={TelecommunicationsSupplyFieldMeta.TelecommunicationsSupplyLine} 
-          value={value.TelecommunicationsSupplyLine}
-          itemDisplay={ (itemValue: TelecommunicationsSupplyLine, key: string | number) =>
-            <TelecommunicationsSupplyLineDisplay
-              key={key}
-              label="Telecommunications Supply Line"
-              value={itemValue}
-              meta={TelecommunicationsSupplyFieldMeta.TelecommunicationsSupplyLine}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-TelecommunicationsSupplyLine"
+            label="Telecommunications Supply Line"
+            items={value.TelecommunicationsSupplyLine}
+            meta={TelecommunicationsSupplyFieldMeta.TelecommunicationsSupplyLine} 
+            itemDisplay={ (itemValue: TelecommunicationsSupplyLine, key: string | number) =>
+              <TelecommunicationsSupplyLineDisplay
+                key={key}
+                label="Telecommunications Supply Line"
+                value={itemValue}
+                meta={TelecommunicationsSupplyFieldMeta.TelecommunicationsSupplyLine}
+              />
+            }
+          />
         </div>
     </div>
   )

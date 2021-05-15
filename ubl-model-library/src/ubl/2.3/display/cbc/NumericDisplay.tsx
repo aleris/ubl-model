@@ -5,11 +5,14 @@ import FieldDisplay from '../FieldDisplay'
 
 type Props = {
   label: string
+  value: Numeric | undefined
   meta: FieldMeta<any>
-  value: Numeric
 }
 
-export default function NumericDisplay({ label, meta, value }: Props) {
+export default function NumericDisplay({ label, value, meta }: Props) {
+  if (value === undefined) {
+    return null
+  }
   const stringValue = `${value._}`
-  return <FieldDisplay label={label} value={stringValue} />
+  return <div className="ubl-cbc ubl-Numeric"><FieldDisplay label={label} value={stringValue} /></div>
 }

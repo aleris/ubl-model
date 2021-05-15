@@ -1,6 +1,5 @@
 import React from 'react'
-import AttributeListDisplay from '../AttributeListDisplay'
-import AttributeSingleDisplay from '../AttributeSingleDisplay'
+import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { FrameworkAgreement } from  '../../model/cac/FrameworkAgreement'
 import { FrameworkAgreementFieldMeta } from  '../../meta/cac/FrameworkAgreementMeta'
@@ -19,140 +18,99 @@ import { UBLExtensions } from '../../model/ext/UBLExtensions'
 
 type Props<T> = {
   label: string
-  value: FrameworkAgreement
+  value: FrameworkAgreement | undefined
   meta: FieldMeta<T>
 }
 
 export default function FrameworkAgreementDisplay<T>({ label, value, meta }: Props<T>) {
+  if (value === undefined) {
+      return null
+  }
+
   return (
-    <div className="ubl-cac ubl-FrameworkAgreement ubl-FrameworkAgreementType">
-        <div className="title">{label}</div>
-        <div className="child-attributes">
-        <AttributeSingleDisplay
-          className="ubl-ext ubl-FrameworkAgreement ubl-UBLExtensions"
-          meta={FrameworkAgreementFieldMeta.UBLExtensions} 
-          value={value.UBLExtensions}
-          itemDisplay={ (itemValue: UBLExtensions, key: string | number) =>
-            <UBLExtensionsDisplay
-              key={key}
-              label="undefined"
-              value={itemValue}
-              meta={FrameworkAgreementFieldMeta.UBLExtensions}
-            />
-          }
-        />
+    <div className="ubl-cac ubl-FrameworkAgreement">
+        <div className="ren-component-title">{label}</div>
+        <div className="ren-component-elements">
+          <UBLExtensionsDisplay
+            label="undefined"
+            value={value.UBLExtensions?.[0]}
+            meta={FrameworkAgreementFieldMeta.UBLExtensions}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-FrameworkAgreement ubl-Quantity ubl-ExpectedOperatorQuantity"
-          meta={FrameworkAgreementFieldMeta.ExpectedOperatorQuantity} 
-          value={value.ExpectedOperatorQuantity}
-          itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay
-              key={key}
-              label="Expected Operator"
-              value={itemValue}
-              meta={FrameworkAgreementFieldMeta.ExpectedOperatorQuantity}
-            />
-          }
-        />
+          <QuantityDisplay
+            label="Expected Operator"
+            value={value.ExpectedOperatorQuantity?.[0]}
+            meta={FrameworkAgreementFieldMeta.ExpectedOperatorQuantity}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-FrameworkAgreement ubl-Quantity ubl-MaximumOperatorQuantity"
-          meta={FrameworkAgreementFieldMeta.MaximumOperatorQuantity} 
-          value={value.MaximumOperatorQuantity}
-          itemDisplay={ (itemValue: Quantity, key: string | number) =>
-            <QuantityDisplay
-              key={key}
-              label="Maximum Operator"
-              value={itemValue}
-              meta={FrameworkAgreementFieldMeta.MaximumOperatorQuantity}
-            />
-          }
-        />
+          <QuantityDisplay
+            label="Maximum Operator"
+            value={value.MaximumOperatorQuantity?.[0]}
+            meta={FrameworkAgreementFieldMeta.MaximumOperatorQuantity}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-FrameworkAgreement ubl-Text ubl-Justification"
-          meta={FrameworkAgreementFieldMeta.Justification} 
-          value={value.Justification}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Justification"
-              value={itemValue}
-              meta={FrameworkAgreementFieldMeta.Justification}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Justification"
+            label="Justification"
+            items={value.Justification}
+            meta={FrameworkAgreementFieldMeta.Justification} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Justification"
+                value={itemValue}
+                meta={FrameworkAgreementFieldMeta.Justification}
+              />
+            }
+          />
 
-        <AttributeListDisplay
-          className="ubl-cbc ubl-FrameworkAgreement ubl-Text ubl-Frequency"
-          meta={FrameworkAgreementFieldMeta.Frequency} 
-          value={value.Frequency}
-          itemDisplay={ (itemValue: Text, key: string | number) =>
-            <TextDisplay
-              key={key}
-              label="Frequency"
-              value={itemValue}
-              meta={FrameworkAgreementFieldMeta.Frequency}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-Text ubl-Frequency"
+            label="Frequency"
+            items={value.Frequency}
+            meta={FrameworkAgreementFieldMeta.Frequency} 
+            itemDisplay={ (itemValue: Text, key: string | number) =>
+              <TextDisplay
+                key={key}
+                label="Frequency"
+                value={itemValue}
+                meta={FrameworkAgreementFieldMeta.Frequency}
+              />
+            }
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-FrameworkAgreement ubl-Amount ubl-EstimatedMaximumValueAmount"
-          meta={FrameworkAgreementFieldMeta.EstimatedMaximumValueAmount} 
-          value={value.EstimatedMaximumValueAmount}
-          itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay
-              key={key}
-              label="Estimated Maximum Value"
-              value={itemValue}
-              meta={FrameworkAgreementFieldMeta.EstimatedMaximumValueAmount}
-            />
-          }
-        />
+          <AmountDisplay
+            label="Estimated Maximum Value"
+            value={value.EstimatedMaximumValueAmount?.[0]}
+            meta={FrameworkAgreementFieldMeta.EstimatedMaximumValueAmount}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cbc ubl-FrameworkAgreement ubl-Amount ubl-MaximumValueAmount"
-          meta={FrameworkAgreementFieldMeta.MaximumValueAmount} 
-          value={value.MaximumValueAmount}
-          itemDisplay={ (itemValue: Amount, key: string | number) =>
-            <AmountDisplay
-              key={key}
-              label="Maximum Value"
-              value={itemValue}
-              meta={FrameworkAgreementFieldMeta.MaximumValueAmount}
-            />
-          }
-        />
+          <AmountDisplay
+            label="Maximum Value"
+            value={value.MaximumValueAmount?.[0]}
+            meta={FrameworkAgreementFieldMeta.MaximumValueAmount}
+          />
 
-        <AttributeSingleDisplay
-          className="ubl-cac ubl-FrameworkAgreement ubl-Period ubl-DurationPeriod"
-          meta={FrameworkAgreementFieldMeta.DurationPeriod} 
-          value={value.DurationPeriod}
-          itemDisplay={ (itemValue: Period, key: string | number) =>
-            <PeriodDisplay
-              key={key}
-              label="Duration Period"
-              value={itemValue}
-              meta={FrameworkAgreementFieldMeta.DurationPeriod}
-            />
-          }
-        />
+          <PeriodDisplay
+            label="Duration Period"
+            value={value.DurationPeriod?.[0]}
+            meta={FrameworkAgreementFieldMeta.DurationPeriod}
+          />
 
-        <AttributeListDisplay
-          className="ubl-cac ubl-FrameworkAgreement ubl-TenderRequirement ubl-SubsequentProcessTenderRequirement"
-          meta={FrameworkAgreementFieldMeta.SubsequentProcessTenderRequirement} 
-          value={value.SubsequentProcessTenderRequirement}
-          itemDisplay={ (itemValue: TenderRequirement, key: string | number) =>
-            <TenderRequirementDisplay
-              key={key}
-              label="Subsequent Process Tender Requirement"
-              value={itemValue}
-              meta={FrameworkAgreementFieldMeta.SubsequentProcessTenderRequirement}
-            />
-          }
-        />
+          <ElementListDisplay
+            className="ubl-cac ubl-TenderRequirement ubl-SubsequentProcessTenderRequirement"
+            label="Subsequent Process Tender Requirement"
+            items={value.SubsequentProcessTenderRequirement}
+            meta={FrameworkAgreementFieldMeta.SubsequentProcessTenderRequirement} 
+            itemDisplay={ (itemValue: TenderRequirement, key: string | number) =>
+              <TenderRequirementDisplay
+                key={key}
+                label="Subsequent Process Tender Requirement"
+                value={itemValue}
+                meta={FrameworkAgreementFieldMeta.SubsequentProcessTenderRequirement}
+              />
+            }
+          />
         </div>
     </div>
   )

@@ -5,11 +5,14 @@ import FieldDisplay from '../FieldDisplay'
 
 type Props = {
   label: string
+  value: Identifier | undefined
   meta: FieldMeta<any>
-  value: Identifier
 }
 
-export default function IdentifierDisplay({ label, meta, value }: Props) {
+export default function IdentifierDisplay({ label, value, meta }: Props) {
+  if (value === undefined) {
+    return null
+  }
   const stringValue = value.schemeID ? `${value.schemeID}:${value._}` : value._
-  return <FieldDisplay label={label} value={stringValue} />
+  return <div className="ubl-cbc ubl-Identifier"><FieldDisplay label={label} value={stringValue} /></div>
 }
