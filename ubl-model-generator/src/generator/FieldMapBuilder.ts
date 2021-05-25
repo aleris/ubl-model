@@ -25,7 +25,7 @@ export class FieldMapBuilder {
   }
 
   private addRecursive(type: AggregateType, map: TypeDescriptorMap) {
-    const list: TypeDescriptor[] = []
+    const entry: {[ref: string]: TypeDescriptor} = {}
     const resolvedFieldTypes = type.fields.map(field => {
       const refFieldTypePrefixedName = this.typeResolver.resolveTypeByPrefixedName(new PrefixedName(field.ref))
       const refFieldType = this.refTypes.find(t => t.prefixedTypeName === refFieldTypePrefixedName.prefixedName)
@@ -33,16 +33,18 @@ export class FieldMapBuilder {
     })
     for (const refField of resolvedFieldTypes) {
       if (refField.refFieldType !== undefined) {
-        list.push([
-          refField.field.ref,
+        entry[refField.field.ref] = [
+          refField.refFieldType.prefixedTypeName,
           refField.field.cardinalityWithFallbackToOccur,
-          refField.refFieldType.prefixedTypeName
-        ])
+        ]
       } else {
-        list.push([refField.field.ref, refField.field.cardinalityWithFallbackToOccur])
+        entry[refField.field.ref] = [
+          refField.field.resolvedType.name,
+          refField.field.cardinalityWithFallbackToOccur,
+        ]
       }
     }
-    map[type.prefixedTypeName] = list
+    map[type.prefixedTypeName] = entry
 
     for (const refField of resolvedFieldTypes) {
       if (refField.refFieldType !== undefined && map[refField.refFieldType.prefixedTypeName] === undefined) {

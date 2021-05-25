@@ -8,13 +8,12 @@ import { FieldMapBuilder } from './FieldMapBuilder'
 import { CodeFile } from './CodeGenerator'
 
 export type TypeDescriptor = [
-  name: string,
   cardinality: string,
-  ref?: string | undefined
+  typeName?: string | undefined
 ]
 
 export type TypeDescriptorMap = {
-  [key: string]: TypeDescriptor[]
+  [typeName: string]: {[typeName: string]: TypeDescriptor}
 }
 
 export class FieldMapGenerator {
