@@ -1,4 +1,9 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ItemPropertyGroupField {
   UBLExtensions = 'UBLExtensions',
@@ -10,11 +15,11 @@ export enum ItemPropertyGroupField {
 export const ItemPropertyGroupFieldMetaUBLExtensions = new FieldMeta<ItemPropertyGroupField>(
   ItemPropertyGroupField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -23,10 +28,10 @@ export const ItemPropertyGroupFieldMetaID = new FieldMeta<ItemPropertyGroupField
   ItemPropertyGroupField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this group of item properties.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   '233-004'
 )
@@ -35,10 +40,10 @@ export const ItemPropertyGroupFieldMetaName = new FieldMeta<ItemPropertyGroupFie
   ItemPropertyGroupField.Name,
   'Name',
   'Name',
-  'Text',
+  TextType.name,
   'The name of this item property group.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Electrical Specifications , Dietary Content'
 )
@@ -47,10 +52,10 @@ export const ItemPropertyGroupFieldMetaImportanceCode = new FieldMeta<ItemProper
   ItemPropertyGroupField.ImportanceCode,
   'ImportanceCode',
   'Importance Code',
-  'Code',
+  CodeType.name,
   'A code signifying the importance of this property group in using it to describe a required Item.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -68,3 +73,11 @@ export const ItemPropertyGroupFieldMap = new Map([
   [ItemPropertyGroupField.Name, ItemPropertyGroupFieldMetaName],
   [ItemPropertyGroupField.ImportanceCode, ItemPropertyGroupFieldMetaImportanceCode]
 ])
+
+export const ItemPropertyGroupType: Type<ItemPropertyGroupField> = {
+  name: 'ItemPropertyGroup',
+  label: 'Item Property Group',
+  module: TypeModule.cac,
+  definition: 'A class to describe a property group or classification.',
+  fields: ItemPropertyGroupFieldMap,
+}

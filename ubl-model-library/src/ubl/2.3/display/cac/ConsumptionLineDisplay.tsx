@@ -1,151 +1,194 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ConsumptionLine } from  '../../model/cac/ConsumptionLine'
-import { ConsumptionLineFieldMeta } from  '../../meta/cac/ConsumptionLineMeta'
-import AllowanceChargeDisplay from './AllowanceChargeDisplay'
-import { AllowanceCharge } from '../../model/cac/AllowanceCharge'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import DeliveryDisplay from './DeliveryDisplay'
-import { Delivery } from '../../model/cac/Delivery'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import PriceDisplay from './PriceDisplay'
-import { Price } from '../../model/cac/Price'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import TaxTotalDisplay from './TaxTotalDisplay'
-import { TaxTotal } from '../../model/cac/TaxTotal'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
-import UnstructuredPriceDisplay from './UnstructuredPriceDisplay'
-import { UnstructuredPrice } from '../../model/cac/UnstructuredPrice'
-import UtilityItemDisplay from './UtilityItemDisplay'
-import { UtilityItem } from '../../model/cac/UtilityItem'
+import { ConsumptionLineField, ConsumptionLineFieldMeta, ConsumptionLineTypeName } from  '../../meta/cac/ConsumptionLineMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AllowanceChargeDisplay } from './AllowanceChargeDisplay'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { DeliveryDisplay } from './DeliveryDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { PriceDisplay } from './PriceDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { TaxTotalDisplay } from './TaxTotalDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
+import { UnstructuredPriceDisplay } from './UnstructuredPriceDisplay'
+import { UtilityItemDisplay } from './UtilityItemDisplay'
 
-type Props<T> = {
-  label: string
-  value: ConsumptionLine | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ConsumptionLine, void>
+  consumptionLine: ConsumptionLine[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ConsumptionLineDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ConsumptionLineSubElementsMap: SubElementsTemplatesMap<ConsumptionLineField, ConsumptionLine, void> = new Map([
+    [
+      ConsumptionLineField.UBLExtensions,
+      { meta: ConsumptionLineFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ConsumptionLineField.UBLExtensions}
+          meta={ConsumptionLineFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ConsumptionLine">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ConsumptionLineFieldMeta.UBLExtensions}
-          />
+    [
+      ConsumptionLineField.ID,
+      { meta: ConsumptionLineFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ConsumptionLineField.ID}
+          meta={ConsumptionLineFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={ConsumptionLineFieldMeta.ID}
-          />
+    [
+      ConsumptionLineField.ParentDocumentLineReferenceID,
+      { meta: ConsumptionLineFieldMeta.ParentDocumentLineReferenceID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ConsumptionLineField.ParentDocumentLineReferenceID}
+          meta={ConsumptionLineFieldMeta.ParentDocumentLineReferenceID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ParentDocumentLineReferenceID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Parent Document Line Reference Identifier"
-            value={value.ParentDocumentLineReferenceID?.[0]}
-            meta={ConsumptionLineFieldMeta.ParentDocumentLineReferenceID}
-          />
+    [
+      ConsumptionLineField.InvoicedQuantity,
+      { meta: ConsumptionLineFieldMeta.InvoicedQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={ConsumptionLineField.InvoicedQuantity}
+          meta={ConsumptionLineFieldMeta.InvoicedQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.InvoicedQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Invoiced Quantity"
-            value={value.InvoicedQuantity?.[0]}
-            meta={ConsumptionLineFieldMeta.InvoicedQuantity}
-          />
+    [
+      ConsumptionLineField.LineExtensionAmount,
+      { meta: ConsumptionLineFieldMeta.LineExtensionAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={ConsumptionLineField.LineExtensionAmount}
+          meta={ConsumptionLineFieldMeta.LineExtensionAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.LineExtensionAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Line Extension Amount"
-            value={value.LineExtensionAmount?.[0]}
-            meta={ConsumptionLineFieldMeta.LineExtensionAmount}
-          />
+    [
+      ConsumptionLineField.TaxInclusiveLineExtensionAmount,
+      { meta: ConsumptionLineFieldMeta.TaxInclusiveLineExtensionAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={ConsumptionLineField.TaxInclusiveLineExtensionAmount}
+          meta={ConsumptionLineFieldMeta.TaxInclusiveLineExtensionAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.TaxInclusiveLineExtensionAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Tax Inclusive Line Extension Amount"
-            value={value.TaxInclusiveLineExtensionAmount?.[0]}
-            meta={ConsumptionLineFieldMeta.TaxInclusiveLineExtensionAmount}
-          />
+    [
+      ConsumptionLineField.Period,
+      { meta: ConsumptionLineFieldMeta.Period,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={ConsumptionLineField.Period}
+          meta={ConsumptionLineFieldMeta.Period}
+          fieldConfig={fieldConfig}
+          period={value?.Period}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Period"
-            value={value.Period?.[0]}
-            meta={ConsumptionLineFieldMeta.Period}
-          />
+    [
+      ConsumptionLineField.Delivery,
+      { meta: ConsumptionLineFieldMeta.Delivery,
+        template: ({value, renderContext, fieldConfig}) => <DeliveryDisplay
+          key={ConsumptionLineField.Delivery}
+          meta={ConsumptionLineFieldMeta.Delivery}
+          fieldConfig={fieldConfig}
+          delivery={value?.Delivery}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Delivery"
-            label="Delivery"
-            items={value.Delivery}
-            meta={ConsumptionLineFieldMeta.Delivery} 
-            itemDisplay={ (itemValue: Delivery, key: string | number) =>
-              <DeliveryDisplay
-                key={key}
-                label="Delivery"
-                value={itemValue}
-                meta={ConsumptionLineFieldMeta.Delivery}
-              />
-            }
-          />
+    [
+      ConsumptionLineField.AllowanceCharge,
+      { meta: ConsumptionLineFieldMeta.AllowanceCharge,
+        template: ({value, renderContext, fieldConfig}) => <AllowanceChargeDisplay
+          key={ConsumptionLineField.AllowanceCharge}
+          meta={ConsumptionLineFieldMeta.AllowanceCharge}
+          fieldConfig={fieldConfig}
+          allowanceCharge={value?.AllowanceCharge}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-AllowanceCharge"
-            label="Allowance Charge"
-            items={value.AllowanceCharge}
-            meta={ConsumptionLineFieldMeta.AllowanceCharge} 
-            itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-              <AllowanceChargeDisplay
-                key={key}
-                label="Allowance Charge"
-                value={itemValue}
-                meta={ConsumptionLineFieldMeta.AllowanceCharge}
-              />
-            }
-          />
+    [
+      ConsumptionLineField.TaxTotal,
+      { meta: ConsumptionLineFieldMeta.TaxTotal,
+        template: ({value, renderContext, fieldConfig}) => <TaxTotalDisplay
+          key={ConsumptionLineField.TaxTotal}
+          meta={ConsumptionLineFieldMeta.TaxTotal}
+          fieldConfig={fieldConfig}
+          taxTotal={value?.TaxTotal}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TaxTotal"
-            label="Tax Total"
-            items={value.TaxTotal}
-            meta={ConsumptionLineFieldMeta.TaxTotal} 
-            itemDisplay={ (itemValue: TaxTotal, key: string | number) =>
-              <TaxTotalDisplay
-                key={key}
-                label="Tax Total"
-                value={itemValue}
-                meta={ConsumptionLineFieldMeta.TaxTotal}
-              />
-            }
-          />
+    [
+      ConsumptionLineField.UtilityItem,
+      { meta: ConsumptionLineFieldMeta.UtilityItem,
+        template: ({value, renderContext, fieldConfig}) => <UtilityItemDisplay
+          key={ConsumptionLineField.UtilityItem}
+          meta={ConsumptionLineFieldMeta.UtilityItem}
+          fieldConfig={fieldConfig}
+          utilityItem={value?.UtilityItem}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <UtilityItemDisplay
-            label="Utility Item"
-            value={value.UtilityItem?.[0]}
-            meta={ConsumptionLineFieldMeta.UtilityItem}
-          />
+    [
+      ConsumptionLineField.Price,
+      { meta: ConsumptionLineFieldMeta.Price,
+        template: ({value, renderContext, fieldConfig}) => <PriceDisplay
+          key={ConsumptionLineField.Price}
+          meta={ConsumptionLineFieldMeta.Price}
+          fieldConfig={fieldConfig}
+          price={value?.Price}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PriceDisplay
-            label="Price"
-            value={value.Price?.[0]}
-            meta={ConsumptionLineFieldMeta.Price}
-          />
+    [
+      ConsumptionLineField.UnstructuredPrice,
+      { meta: ConsumptionLineFieldMeta.UnstructuredPrice,
+        template: ({value, renderContext, fieldConfig}) => <UnstructuredPriceDisplay
+          key={ConsumptionLineField.UnstructuredPrice}
+          meta={ConsumptionLineFieldMeta.UnstructuredPrice}
+          fieldConfig={fieldConfig}
+          unstructuredPrice={value?.UnstructuredPrice}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <UnstructuredPriceDisplay
-            label="Unstructured Price"
-            value={value.UnstructuredPrice?.[0]}
-            meta={ConsumptionLineFieldMeta.UnstructuredPrice}
-          />
-        </div>
-    </div>
+export function ConsumptionLineDisplay<TFieldMeta>({ meta, fieldConfig, consumptionLine, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ConsumptionLineTypeName,
+    meta,
+    fieldConfig,
+    consumptionLine,
+    renderContext,
+    ConsumptionLineSubElementsMap,
   )
 }

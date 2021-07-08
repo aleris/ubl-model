@@ -3,7 +3,6 @@ import { CriterionItem } from './CriterionItem'
 import { Identifier } from '../cbc/Identifier'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class describing an attestation line
  */

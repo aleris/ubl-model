@@ -1,65 +1,79 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { EconomicOperatorParty } from  '../../model/cac/EconomicOperatorParty'
-import { EconomicOperatorPartyFieldMeta } from  '../../meta/cac/EconomicOperatorPartyMeta'
-import EconomicOperatorRoleDisplay from './EconomicOperatorRoleDisplay'
-import { EconomicOperatorRole } from '../../model/cac/EconomicOperatorRole'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import QualifyingPartyDisplay from './QualifyingPartyDisplay'
-import { QualifyingParty } from '../../model/cac/QualifyingParty'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { EconomicOperatorPartyField, EconomicOperatorPartyFieldMeta, EconomicOperatorPartyTypeName } from  '../../meta/cac/EconomicOperatorPartyMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { EconomicOperatorRoleDisplay } from './EconomicOperatorRoleDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { QualifyingPartyDisplay } from './QualifyingPartyDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: EconomicOperatorParty | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<EconomicOperatorParty, void>
+  economicOperatorParty: EconomicOperatorParty[] | undefined
+  renderContext: RenderContext
 }
 
-export default function EconomicOperatorPartyDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const EconomicOperatorPartySubElementsMap: SubElementsTemplatesMap<EconomicOperatorPartyField, EconomicOperatorParty, void> = new Map([
+    [
+      EconomicOperatorPartyField.UBLExtensions,
+      { meta: EconomicOperatorPartyFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={EconomicOperatorPartyField.UBLExtensions}
+          meta={EconomicOperatorPartyFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-EconomicOperatorParty">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={EconomicOperatorPartyFieldMeta.UBLExtensions}
-          />
+    [
+      EconomicOperatorPartyField.QualifyingParty,
+      { meta: EconomicOperatorPartyFieldMeta.QualifyingParty,
+        template: ({value, renderContext, fieldConfig}) => <QualifyingPartyDisplay
+          key={EconomicOperatorPartyField.QualifyingParty}
+          meta={EconomicOperatorPartyFieldMeta.QualifyingParty}
+          fieldConfig={fieldConfig}
+          qualifyingParty={value?.QualifyingParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-QualifyingParty"
-            label="Qualifying Party"
-            items={value.QualifyingParty}
-            meta={EconomicOperatorPartyFieldMeta.QualifyingParty} 
-            itemDisplay={ (itemValue: QualifyingParty, key: string | number) =>
-              <QualifyingPartyDisplay
-                key={key}
-                label="Qualifying Party"
-                value={itemValue}
-                meta={EconomicOperatorPartyFieldMeta.QualifyingParty}
-              />
-            }
-          />
+    [
+      EconomicOperatorPartyField.EconomicOperatorRole,
+      { meta: EconomicOperatorPartyFieldMeta.EconomicOperatorRole,
+        template: ({value, renderContext, fieldConfig}) => <EconomicOperatorRoleDisplay
+          key={EconomicOperatorPartyField.EconomicOperatorRole}
+          meta={EconomicOperatorPartyFieldMeta.EconomicOperatorRole}
+          fieldConfig={fieldConfig}
+          economicOperatorRole={value?.EconomicOperatorRole}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <EconomicOperatorRoleDisplay
-            label="Economic Operator Role"
-            value={value.EconomicOperatorRole?.[0]}
-            meta={EconomicOperatorPartyFieldMeta.EconomicOperatorRole}
-          />
+    [
+      EconomicOperatorPartyField.Party,
+      { meta: EconomicOperatorPartyFieldMeta.Party,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={EconomicOperatorPartyField.Party}
+          meta={EconomicOperatorPartyFieldMeta.Party}
+          fieldConfig={fieldConfig}
+          party={value?.Party}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <PartyDisplay
-            label="Party"
-            value={value.Party?.[0]}
-            meta={EconomicOperatorPartyFieldMeta.Party}
-          />
-        </div>
-    </div>
+export function EconomicOperatorPartyDisplay<TFieldMeta>({ meta, fieldConfig, economicOperatorParty, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    EconomicOperatorPartyTypeName,
+    meta,
+    fieldConfig,
+    economicOperatorParty,
+    renderContext,
+    EconomicOperatorPartySubElementsMap,
   )
 }

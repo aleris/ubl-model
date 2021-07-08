@@ -2,7 +2,6 @@ import { Contact } from './Contact'
 import { Indicator } from '../cbc/Indicator'
 import { Party } from './Party'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a participant party.
  */

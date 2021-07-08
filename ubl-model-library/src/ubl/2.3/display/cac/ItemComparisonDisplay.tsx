@@ -1,48 +1,66 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ItemComparison } from  '../../model/cac/ItemComparison'
-import { ItemComparisonFieldMeta } from  '../../meta/cac/ItemComparisonMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ItemComparisonField, ItemComparisonFieldMeta, ItemComparisonTypeName } from  '../../meta/cac/ItemComparisonMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ItemComparison | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ItemComparison, void>
+  itemComparison: ItemComparison[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ItemComparisonDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ItemComparisonSubElementsMap: SubElementsTemplatesMap<ItemComparisonField, ItemComparison, void> = new Map([
+    [
+      ItemComparisonField.UBLExtensions,
+      { meta: ItemComparisonFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ItemComparisonField.UBLExtensions}
+          meta={ItemComparisonFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ItemComparison">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ItemComparisonFieldMeta.UBLExtensions}
-          />
+    [
+      ItemComparisonField.PriceAmount,
+      { meta: ItemComparisonFieldMeta.PriceAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={ItemComparisonField.PriceAmount}
+          meta={ItemComparisonFieldMeta.PriceAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.PriceAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Price Amount"
-            value={value.PriceAmount?.[0]}
-            meta={ItemComparisonFieldMeta.PriceAmount}
-          />
+    [
+      ItemComparisonField.Quantity,
+      { meta: ItemComparisonFieldMeta.Quantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={ItemComparisonField.Quantity}
+          meta={ItemComparisonFieldMeta.Quantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.Quantity}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <QuantityDisplay
-            label="Quantity"
-            value={value.Quantity?.[0]}
-            meta={ItemComparisonFieldMeta.Quantity}
-          />
-        </div>
-    </div>
+export function ItemComparisonDisplay<TFieldMeta>({ meta, fieldConfig, itemComparison, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ItemComparisonTypeName,
+    meta,
+    fieldConfig,
+    itemComparison,
+    renderContext,
+    ItemComparisonSubElementsMap,
   )
 }

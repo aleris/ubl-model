@@ -6,7 +6,6 @@ import { Party } from './Party'
 import { Period } from './Period'
 import { Shipment } from './Shipment'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class describing identifiers or references relating to customs procedures.
  */

@@ -1,64 +1,92 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Branch } from  '../../model/cac/Branch'
-import { BranchFieldMeta } from  '../../meta/cac/BranchMeta'
-import AddressDisplay from './AddressDisplay'
-import { Address } from '../../model/cac/Address'
-import FinancialInstitutionDisplay from './FinancialInstitutionDisplay'
-import { FinancialInstitution } from '../../model/cac/FinancialInstitution'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { BranchField, BranchFieldMeta, BranchTypeName } from  '../../meta/cac/BranchMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AddressDisplay } from './AddressDisplay'
+import { FinancialInstitutionDisplay } from './FinancialInstitutionDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: Branch | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<Branch, void>
+  branch: Branch[] | undefined
+  renderContext: RenderContext
 }
 
-export default function BranchDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const BranchSubElementsMap: SubElementsTemplatesMap<BranchField, Branch, void> = new Map([
+    [
+      BranchField.UBLExtensions,
+      { meta: BranchFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={BranchField.UBLExtensions}
+          meta={BranchFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-Branch">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={BranchFieldMeta.UBLExtensions}
-          />
+    [
+      BranchField.ID,
+      { meta: BranchFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={BranchField.ID}
+          meta={BranchFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={BranchFieldMeta.ID}
-          />
+    [
+      BranchField.Name,
+      { meta: BranchFieldMeta.Name,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={BranchField.Name}
+          meta={BranchFieldMeta.Name}
+          fieldConfig={fieldConfig}
+          text={value?.Name}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Name"
-            value={value.Name?.[0]}
-            meta={BranchFieldMeta.Name}
-          />
+    [
+      BranchField.FinancialInstitution,
+      { meta: BranchFieldMeta.FinancialInstitution,
+        template: ({value, renderContext, fieldConfig}) => <FinancialInstitutionDisplay
+          key={BranchField.FinancialInstitution}
+          meta={BranchFieldMeta.FinancialInstitution}
+          fieldConfig={fieldConfig}
+          financialInstitution={value?.FinancialInstitution}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <FinancialInstitutionDisplay
-            label="Financial Institution"
-            value={value.FinancialInstitution?.[0]}
-            meta={BranchFieldMeta.FinancialInstitution}
-          />
+    [
+      BranchField.Address,
+      { meta: BranchFieldMeta.Address,
+        template: ({value, renderContext, fieldConfig}) => <AddressDisplay
+          key={BranchField.Address}
+          meta={BranchFieldMeta.Address}
+          fieldConfig={fieldConfig}
+          address={value?.Address}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <AddressDisplay
-            label="Address"
-            value={value.Address?.[0]}
-            meta={BranchFieldMeta.Address}
-          />
-        </div>
-    </div>
+export function BranchDisplay<TFieldMeta>({ meta, fieldConfig, branch, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    BranchTypeName,
+    meta,
+    fieldConfig,
+    branch,
+    renderContext,
+    BranchSubElementsMap,
   )
 }

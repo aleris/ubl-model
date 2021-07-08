@@ -1,4 +1,9 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { DateType } from '../cbc/DateMeta'
+import { PromotionalSpecificationType } from './PromotionalSpecificationMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum PromotionalEventField {
   UBLExtensions = 'UBLExtensions',
@@ -12,11 +17,11 @@ export enum PromotionalEventField {
 export const PromotionalEventFieldMetaUBLExtensions = new FieldMeta<PromotionalEventField>(
   PromotionalEventField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -25,10 +30,10 @@ export const PromotionalEventFieldMetaPromotionalEventTypeCode = new FieldMeta<P
   PromotionalEventField.PromotionalEventTypeCode,
   'PromotionalEventTypeCode',
   'Promotional Event Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of this promotional event. Examples can be: Holiday, Seasonal Event, Store Closing, Trade Item Introduction',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -37,10 +42,10 @@ export const PromotionalEventFieldMetaSubmissionDate = new FieldMeta<Promotional
   PromotionalEventField.SubmissionDate,
   'SubmissionDate',
   'Submission',
-  'Date',
+  DateType.name,
   'The date on which a proposal for this promotional event was submitted.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -49,10 +54,10 @@ export const PromotionalEventFieldMetaFirstShipmentAvailibilityDate = new FieldM
   PromotionalEventField.FirstShipmentAvailibilityDate,
   'FirstShipmentAvailibilityDate',
   'First Shipment Availibility Date',
-  'Date',
+  DateType.name,
   'The first day that products will be available to ship from buyer to seller if the proposal for this promotional event is accepted.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -61,10 +66,10 @@ export const PromotionalEventFieldMetaLatestProposalAcceptanceDate = new FieldMe
   PromotionalEventField.LatestProposalAcceptanceDate,
   'LatestProposalAcceptanceDate',
   'Latest Proposal Acceptance Date',
-  'Date',
+  DateType.name,
   'The deadline for acceptance of this promotional event.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -73,10 +78,10 @@ export const PromotionalEventFieldMetaPromotionalSpecification = new FieldMeta<P
   PromotionalEventField.PromotionalSpecification,
   'PromotionalSpecification',
   'Promotional Specification',
-  'PromotionalSpecification',
+  PromotionalSpecificationType.name,
   'A specification for a promotional event.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -98,3 +103,11 @@ export const PromotionalEventFieldMap = new Map([
   [PromotionalEventField.LatestProposalAcceptanceDate, PromotionalEventFieldMetaLatestProposalAcceptanceDate],
   [PromotionalEventField.PromotionalSpecification, PromotionalEventFieldMetaPromotionalSpecification]
 ])
+
+export const PromotionalEventType: Type<PromotionalEventField> = {
+  name: 'PromotionalEvent',
+  label: 'Promotional Event',
+  module: TypeModule.cac,
+  definition: 'Agree can be renamed as PromotionalEvents',
+  fields: PromotionalEventFieldMap,
+}

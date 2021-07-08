@@ -1,4 +1,8 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum UnstructuredPriceField {
   UBLExtensions = 'UBLExtensions',
@@ -9,11 +13,11 @@ export enum UnstructuredPriceField {
 export const UnstructuredPriceFieldMetaUBLExtensions = new FieldMeta<UnstructuredPriceField>(
   UnstructuredPriceField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -22,10 +26,10 @@ export const UnstructuredPriceFieldMetaPriceAmount = new FieldMeta<UnstructuredP
   UnstructuredPriceField.PriceAmount,
   'PriceAmount',
   'Price Amount',
-  'Amount',
+  AmountType.name,
   'The price amount.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '23.45'
 )
@@ -34,10 +38,10 @@ export const UnstructuredPriceFieldMetaTimeAmount = new FieldMeta<UnstructuredPr
   UnstructuredPriceField.TimeAmount,
   'TimeAmount',
   'Time Amount',
-  'Text',
+  TextType.name,
   'The usage time upon which the price is based.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -53,3 +57,11 @@ export const UnstructuredPriceFieldMap = new Map([
   [UnstructuredPriceField.PriceAmount, UnstructuredPriceFieldMetaPriceAmount],
   [UnstructuredPriceField.TimeAmount, UnstructuredPriceFieldMetaTimeAmount]
 ])
+
+export const UnstructuredPriceType: Type<UnstructuredPriceField> = {
+  name: 'UnstructuredPrice',
+  label: 'Unstructured Price',
+  module: TypeModule.cac,
+  definition: 'A simplified version of the Price class intended for applications such as telephone billing.',
+  fields: UnstructuredPriceFieldMap,
+}

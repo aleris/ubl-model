@@ -1,360 +1,429 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { CatalogueLine } from  '../../model/cac/CatalogueLine'
-import { CatalogueLineFieldMeta } from  '../../meta/cac/CatalogueLineMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import CustomerPartyDisplay from './CustomerPartyDisplay'
-import { CustomerParty } from '../../model/cac/CustomerParty'
-import DocumentReferenceDisplay from './DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import ItemDisplay from './ItemDisplay'
-import { Item } from '../../model/cac/Item'
-import ItemComparisonDisplay from './ItemComparisonDisplay'
-import { ItemComparison } from '../../model/cac/ItemComparison'
-import ItemLocationQuantityDisplay from './ItemLocationQuantityDisplay'
-import { ItemLocationQuantity } from '../../model/cac/ItemLocationQuantity'
-import ItemPropertyDisplay from './ItemPropertyDisplay'
-import { ItemProperty } from '../../model/cac/ItemProperty'
-import LineReferenceDisplay from './LineReferenceDisplay'
-import { LineReference } from '../../model/cac/LineReference'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import RelatedItemDisplay from './RelatedItemDisplay'
-import { RelatedItem } from '../../model/cac/RelatedItem'
-import SupplierPartyDisplay from './SupplierPartyDisplay'
-import { SupplierParty } from '../../model/cac/SupplierParty'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { CatalogueLineField, CatalogueLineFieldMeta, CatalogueLineTypeName } from  '../../meta/cac/CatalogueLineMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { CustomerPartyDisplay } from './CustomerPartyDisplay'
+import { DocumentReferenceDisplay } from './DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { ItemDisplay } from './ItemDisplay'
+import { ItemComparisonDisplay } from './ItemComparisonDisplay'
+import { ItemLocationQuantityDisplay } from './ItemLocationQuantityDisplay'
+import { ItemPropertyDisplay } from './ItemPropertyDisplay'
+import { LineReferenceDisplay } from './LineReferenceDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { RelatedItemDisplay } from './RelatedItemDisplay'
+import { SupplierPartyDisplay } from './SupplierPartyDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: CatalogueLine | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<CatalogueLine, void>
+  catalogueLine: CatalogueLine[] | undefined
+  renderContext: RenderContext
 }
 
-export default function CatalogueLineDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const CatalogueLineSubElementsMap: SubElementsTemplatesMap<CatalogueLineField, CatalogueLine, void> = new Map([
+    [
+      CatalogueLineField.UBLExtensions,
+      { meta: CatalogueLineFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={CatalogueLineField.UBLExtensions}
+          meta={CatalogueLineFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-CatalogueLine">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={CatalogueLineFieldMeta.UBLExtensions}
-          />
+    [
+      CatalogueLineField.ID,
+      { meta: CatalogueLineFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CatalogueLineField.ID}
+          meta={CatalogueLineFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={CatalogueLineFieldMeta.ID}
-          />
+    [
+      CatalogueLineField.ActionCode,
+      { meta: CatalogueLineFieldMeta.ActionCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={CatalogueLineField.ActionCode}
+          meta={CatalogueLineFieldMeta.ActionCode}
+          fieldConfig={fieldConfig}
+          code={value?.ActionCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Action Code"
-            value={value.ActionCode?.[0]}
-            meta={CatalogueLineFieldMeta.ActionCode}
-          />
+    [
+      CatalogueLineField.LifeCycleStatusCode,
+      { meta: CatalogueLineFieldMeta.LifeCycleStatusCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={CatalogueLineField.LifeCycleStatusCode}
+          meta={CatalogueLineFieldMeta.LifeCycleStatusCode}
+          fieldConfig={fieldConfig}
+          code={value?.LifeCycleStatusCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Life Cycle Status Code"
-            value={value.LifeCycleStatusCode?.[0]}
-            meta={CatalogueLineFieldMeta.LifeCycleStatusCode}
-          />
+    [
+      CatalogueLineField.ContractSubdivision,
+      { meta: CatalogueLineFieldMeta.ContractSubdivision,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={CatalogueLineField.ContractSubdivision}
+          meta={CatalogueLineFieldMeta.ContractSubdivision}
+          fieldConfig={fieldConfig}
+          text={value?.ContractSubdivision}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Contract Subdivision"
-            value={value.ContractSubdivision?.[0]}
-            meta={CatalogueLineFieldMeta.ContractSubdivision}
-          />
+    [
+      CatalogueLineField.Note,
+      { meta: CatalogueLineFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={CatalogueLineField.Note}
+          meta={CatalogueLineFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={CatalogueLineFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={CatalogueLineFieldMeta.Note}
-              />
-            }
-          />
+    [
+      CatalogueLineField.OrderableIndicator,
+      { meta: CatalogueLineFieldMeta.OrderableIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={CatalogueLineField.OrderableIndicator}
+          meta={CatalogueLineFieldMeta.OrderableIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.OrderableIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Orderable Indicator"
-            value={value.OrderableIndicator?.[0]}
-            meta={CatalogueLineFieldMeta.OrderableIndicator}
-          />
+    [
+      CatalogueLineField.OrderableUnit,
+      { meta: CatalogueLineFieldMeta.OrderableUnit,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={CatalogueLineField.OrderableUnit}
+          meta={CatalogueLineFieldMeta.OrderableUnit}
+          fieldConfig={fieldConfig}
+          text={value?.OrderableUnit}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Orderable Unit"
-            value={value.OrderableUnit?.[0]}
-            meta={CatalogueLineFieldMeta.OrderableUnit}
-          />
+    [
+      CatalogueLineField.ContentUnitQuantity,
+      { meta: CatalogueLineFieldMeta.ContentUnitQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={CatalogueLineField.ContentUnitQuantity}
+          meta={CatalogueLineFieldMeta.ContentUnitQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.ContentUnitQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Content Unit"
-            value={value.ContentUnitQuantity?.[0]}
-            meta={CatalogueLineFieldMeta.ContentUnitQuantity}
-          />
+    [
+      CatalogueLineField.OrderQuantityIncrementNumeric,
+      { meta: CatalogueLineFieldMeta.OrderQuantityIncrementNumeric,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={CatalogueLineField.OrderQuantityIncrementNumeric}
+          meta={CatalogueLineFieldMeta.OrderQuantityIncrementNumeric}
+          fieldConfig={fieldConfig}
+          numeric={value?.OrderQuantityIncrementNumeric}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Order Quantity Increment"
-            value={value.OrderQuantityIncrementNumeric?.[0]}
-            meta={CatalogueLineFieldMeta.OrderQuantityIncrementNumeric}
-          />
+    [
+      CatalogueLineField.MinimumOrderQuantity,
+      { meta: CatalogueLineFieldMeta.MinimumOrderQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={CatalogueLineField.MinimumOrderQuantity}
+          meta={CatalogueLineFieldMeta.MinimumOrderQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.MinimumOrderQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Minimum Order Quantity"
-            value={value.MinimumOrderQuantity?.[0]}
-            meta={CatalogueLineFieldMeta.MinimumOrderQuantity}
-          />
+    [
+      CatalogueLineField.MaximumOrderQuantity,
+      { meta: CatalogueLineFieldMeta.MaximumOrderQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={CatalogueLineField.MaximumOrderQuantity}
+          meta={CatalogueLineFieldMeta.MaximumOrderQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.MaximumOrderQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Maximum Order Quantity"
-            value={value.MaximumOrderQuantity?.[0]}
-            meta={CatalogueLineFieldMeta.MaximumOrderQuantity}
-          />
+    [
+      CatalogueLineField.WarrantyInformation,
+      { meta: CatalogueLineFieldMeta.WarrantyInformation,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={CatalogueLineField.WarrantyInformation}
+          meta={CatalogueLineFieldMeta.WarrantyInformation}
+          fieldConfig={fieldConfig}
+          text={value?.WarrantyInformation}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-WarrantyInformation"
-            label="Warranty Information"
-            items={value.WarrantyInformation}
-            meta={CatalogueLineFieldMeta.WarrantyInformation} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Warranty Information"
-                value={itemValue}
-                meta={CatalogueLineFieldMeta.WarrantyInformation}
-              />
-            }
-          />
+    [
+      CatalogueLineField.PackLevelCode,
+      { meta: CatalogueLineFieldMeta.PackLevelCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={CatalogueLineField.PackLevelCode}
+          meta={CatalogueLineFieldMeta.PackLevelCode}
+          fieldConfig={fieldConfig}
+          code={value?.PackLevelCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Pack Level Code"
-            value={value.PackLevelCode?.[0]}
-            meta={CatalogueLineFieldMeta.PackLevelCode}
-          />
+    [
+      CatalogueLineField.ContractorCustomerParty,
+      { meta: CatalogueLineFieldMeta.ContractorCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={CatalogueLineField.ContractorCustomerParty}
+          meta={CatalogueLineFieldMeta.ContractorCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.ContractorCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomerPartyDisplay
-            label="Contractor Customer Party"
-            value={value.ContractorCustomerParty?.[0]}
-            meta={CatalogueLineFieldMeta.ContractorCustomerParty}
-          />
+    [
+      CatalogueLineField.SellerSupplierParty,
+      { meta: CatalogueLineFieldMeta.SellerSupplierParty,
+        template: ({value, renderContext, fieldConfig}) => <SupplierPartyDisplay
+          key={CatalogueLineField.SellerSupplierParty}
+          meta={CatalogueLineFieldMeta.SellerSupplierParty}
+          fieldConfig={fieldConfig}
+          supplierParty={value?.SellerSupplierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <SupplierPartyDisplay
-            label="Seller Supplier Party"
-            value={value.SellerSupplierParty?.[0]}
-            meta={CatalogueLineFieldMeta.SellerSupplierParty}
-          />
+    [
+      CatalogueLineField.WarrantyParty,
+      { meta: CatalogueLineFieldMeta.WarrantyParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={CatalogueLineField.WarrantyParty}
+          meta={CatalogueLineFieldMeta.WarrantyParty}
+          fieldConfig={fieldConfig}
+          party={value?.WarrantyParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Warranty Party"
-            value={value.WarrantyParty?.[0]}
-            meta={CatalogueLineFieldMeta.WarrantyParty}
-          />
+    [
+      CatalogueLineField.WarrantyValidityPeriod,
+      { meta: CatalogueLineFieldMeta.WarrantyValidityPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={CatalogueLineField.WarrantyValidityPeriod}
+          meta={CatalogueLineFieldMeta.WarrantyValidityPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.WarrantyValidityPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Warranty Validity Period"
-            value={value.WarrantyValidityPeriod?.[0]}
-            meta={CatalogueLineFieldMeta.WarrantyValidityPeriod}
-          />
+    [
+      CatalogueLineField.LineValidityPeriod,
+      { meta: CatalogueLineFieldMeta.LineValidityPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={CatalogueLineField.LineValidityPeriod}
+          meta={CatalogueLineFieldMeta.LineValidityPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.LineValidityPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Line Validity Period"
-            value={value.LineValidityPeriod?.[0]}
-            meta={CatalogueLineFieldMeta.LineValidityPeriod}
-          />
+    [
+      CatalogueLineField.ItemComparison,
+      { meta: CatalogueLineFieldMeta.ItemComparison,
+        template: ({value, renderContext, fieldConfig}) => <ItemComparisonDisplay
+          key={CatalogueLineField.ItemComparison}
+          meta={CatalogueLineFieldMeta.ItemComparison}
+          fieldConfig={fieldConfig}
+          itemComparison={value?.ItemComparison}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-ItemComparison"
-            label="Item Comparison"
-            items={value.ItemComparison}
-            meta={CatalogueLineFieldMeta.ItemComparison} 
-            itemDisplay={ (itemValue: ItemComparison, key: string | number) =>
-              <ItemComparisonDisplay
-                key={key}
-                label="Item Comparison"
-                value={itemValue}
-                meta={CatalogueLineFieldMeta.ItemComparison}
-              />
-            }
-          />
+    [
+      CatalogueLineField.ComponentRelatedItem,
+      { meta: CatalogueLineFieldMeta.ComponentRelatedItem,
+        template: ({value, renderContext, fieldConfig}) => <RelatedItemDisplay
+          key={CatalogueLineField.ComponentRelatedItem}
+          meta={CatalogueLineFieldMeta.ComponentRelatedItem}
+          fieldConfig={fieldConfig}
+          relatedItem={value?.ComponentRelatedItem}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-RelatedItem ubl-ComponentRelatedItem"
-            label="Component Related Item"
-            items={value.ComponentRelatedItem}
-            meta={CatalogueLineFieldMeta.ComponentRelatedItem} 
-            itemDisplay={ (itemValue: RelatedItem, key: string | number) =>
-              <RelatedItemDisplay
-                key={key}
-                label="Component Related Item"
-                value={itemValue}
-                meta={CatalogueLineFieldMeta.ComponentRelatedItem}
-              />
-            }
-          />
+    [
+      CatalogueLineField.AccessoryRelatedItem,
+      { meta: CatalogueLineFieldMeta.AccessoryRelatedItem,
+        template: ({value, renderContext, fieldConfig}) => <RelatedItemDisplay
+          key={CatalogueLineField.AccessoryRelatedItem}
+          meta={CatalogueLineFieldMeta.AccessoryRelatedItem}
+          fieldConfig={fieldConfig}
+          relatedItem={value?.AccessoryRelatedItem}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-RelatedItem ubl-AccessoryRelatedItem"
-            label="Accessory Related Item"
-            items={value.AccessoryRelatedItem}
-            meta={CatalogueLineFieldMeta.AccessoryRelatedItem} 
-            itemDisplay={ (itemValue: RelatedItem, key: string | number) =>
-              <RelatedItemDisplay
-                key={key}
-                label="Accessory Related Item"
-                value={itemValue}
-                meta={CatalogueLineFieldMeta.AccessoryRelatedItem}
-              />
-            }
-          />
+    [
+      CatalogueLineField.RequiredRelatedItem,
+      { meta: CatalogueLineFieldMeta.RequiredRelatedItem,
+        template: ({value, renderContext, fieldConfig}) => <RelatedItemDisplay
+          key={CatalogueLineField.RequiredRelatedItem}
+          meta={CatalogueLineFieldMeta.RequiredRelatedItem}
+          fieldConfig={fieldConfig}
+          relatedItem={value?.RequiredRelatedItem}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-RelatedItem ubl-RequiredRelatedItem"
-            label="Required Related Item"
-            items={value.RequiredRelatedItem}
-            meta={CatalogueLineFieldMeta.RequiredRelatedItem} 
-            itemDisplay={ (itemValue: RelatedItem, key: string | number) =>
-              <RelatedItemDisplay
-                key={key}
-                label="Required Related Item"
-                value={itemValue}
-                meta={CatalogueLineFieldMeta.RequiredRelatedItem}
-              />
-            }
-          />
+    [
+      CatalogueLineField.ReplacementRelatedItem,
+      { meta: CatalogueLineFieldMeta.ReplacementRelatedItem,
+        template: ({value, renderContext, fieldConfig}) => <RelatedItemDisplay
+          key={CatalogueLineField.ReplacementRelatedItem}
+          meta={CatalogueLineFieldMeta.ReplacementRelatedItem}
+          fieldConfig={fieldConfig}
+          relatedItem={value?.ReplacementRelatedItem}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-RelatedItem ubl-ReplacementRelatedItem"
-            label="Replacement Related Item"
-            items={value.ReplacementRelatedItem}
-            meta={CatalogueLineFieldMeta.ReplacementRelatedItem} 
-            itemDisplay={ (itemValue: RelatedItem, key: string | number) =>
-              <RelatedItemDisplay
-                key={key}
-                label="Replacement Related Item"
-                value={itemValue}
-                meta={CatalogueLineFieldMeta.ReplacementRelatedItem}
-              />
-            }
-          />
+    [
+      CatalogueLineField.ComplementaryRelatedItem,
+      { meta: CatalogueLineFieldMeta.ComplementaryRelatedItem,
+        template: ({value, renderContext, fieldConfig}) => <RelatedItemDisplay
+          key={CatalogueLineField.ComplementaryRelatedItem}
+          meta={CatalogueLineFieldMeta.ComplementaryRelatedItem}
+          fieldConfig={fieldConfig}
+          relatedItem={value?.ComplementaryRelatedItem}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-RelatedItem ubl-ComplementaryRelatedItem"
-            label="Complementary Related Item"
-            items={value.ComplementaryRelatedItem}
-            meta={CatalogueLineFieldMeta.ComplementaryRelatedItem} 
-            itemDisplay={ (itemValue: RelatedItem, key: string | number) =>
-              <RelatedItemDisplay
-                key={key}
-                label="Complementary Related Item"
-                value={itemValue}
-                meta={CatalogueLineFieldMeta.ComplementaryRelatedItem}
-              />
-            }
-          />
+    [
+      CatalogueLineField.ReplacedRelatedItem,
+      { meta: CatalogueLineFieldMeta.ReplacedRelatedItem,
+        template: ({value, renderContext, fieldConfig}) => <RelatedItemDisplay
+          key={CatalogueLineField.ReplacedRelatedItem}
+          meta={CatalogueLineFieldMeta.ReplacedRelatedItem}
+          fieldConfig={fieldConfig}
+          relatedItem={value?.ReplacedRelatedItem}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-RelatedItem ubl-ReplacedRelatedItem"
-            label="Replaced Related Item"
-            items={value.ReplacedRelatedItem}
-            meta={CatalogueLineFieldMeta.ReplacedRelatedItem} 
-            itemDisplay={ (itemValue: RelatedItem, key: string | number) =>
-              <RelatedItemDisplay
-                key={key}
-                label="Replaced Related Item"
-                value={itemValue}
-                meta={CatalogueLineFieldMeta.ReplacedRelatedItem}
-              />
-            }
-          />
+    [
+      CatalogueLineField.RequiredItemLocationQuantity,
+      { meta: CatalogueLineFieldMeta.RequiredItemLocationQuantity,
+        template: ({value, renderContext, fieldConfig}) => <ItemLocationQuantityDisplay
+          key={CatalogueLineField.RequiredItemLocationQuantity}
+          meta={CatalogueLineFieldMeta.RequiredItemLocationQuantity}
+          fieldConfig={fieldConfig}
+          itemLocationQuantity={value?.RequiredItemLocationQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-ItemLocationQuantity ubl-RequiredItemLocationQuantity"
-            label="Required Item Location Quantity"
-            items={value.RequiredItemLocationQuantity}
-            meta={CatalogueLineFieldMeta.RequiredItemLocationQuantity} 
-            itemDisplay={ (itemValue: ItemLocationQuantity, key: string | number) =>
-              <ItemLocationQuantityDisplay
-                key={key}
-                label="Required Item Location Quantity"
-                value={itemValue}
-                meta={CatalogueLineFieldMeta.RequiredItemLocationQuantity}
-              />
-            }
-          />
+    [
+      CatalogueLineField.DocumentReference,
+      { meta: CatalogueLineFieldMeta.DocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={CatalogueLineField.DocumentReference}
+          meta={CatalogueLineFieldMeta.DocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.DocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentReference"
-            label="Document Reference"
-            items={value.DocumentReference}
-            meta={CatalogueLineFieldMeta.DocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Document Reference"
-                value={itemValue}
-                meta={CatalogueLineFieldMeta.DocumentReference}
-              />
-            }
-          />
+    [
+      CatalogueLineField.Item,
+      { meta: CatalogueLineFieldMeta.Item,
+        template: ({value, renderContext, fieldConfig}) => <ItemDisplay
+          key={CatalogueLineField.Item}
+          meta={CatalogueLineFieldMeta.Item}
+          fieldConfig={fieldConfig}
+          item={value?.Item}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ItemDisplay
-            label="Item"
-            value={value.Item?.[0]}
-            meta={CatalogueLineFieldMeta.Item}
-          />
+    [
+      CatalogueLineField.KeywordItemProperty,
+      { meta: CatalogueLineFieldMeta.KeywordItemProperty,
+        template: ({value, renderContext, fieldConfig}) => <ItemPropertyDisplay
+          key={CatalogueLineField.KeywordItemProperty}
+          meta={CatalogueLineFieldMeta.KeywordItemProperty}
+          fieldConfig={fieldConfig}
+          itemProperty={value?.KeywordItemProperty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-ItemProperty ubl-KeywordItemProperty"
-            label="Keyword Item Property"
-            items={value.KeywordItemProperty}
-            meta={CatalogueLineFieldMeta.KeywordItemProperty} 
-            itemDisplay={ (itemValue: ItemProperty, key: string | number) =>
-              <ItemPropertyDisplay
-                key={key}
-                label="Keyword Item Property"
-                value={itemValue}
-                meta={CatalogueLineFieldMeta.KeywordItemProperty}
-              />
-            }
-          />
+    [
+      CatalogueLineField.CallForTendersLineReference,
+      { meta: CatalogueLineFieldMeta.CallForTendersLineReference,
+        template: ({value, renderContext, fieldConfig}) => <LineReferenceDisplay
+          key={CatalogueLineField.CallForTendersLineReference}
+          meta={CatalogueLineFieldMeta.CallForTendersLineReference}
+          fieldConfig={fieldConfig}
+          lineReference={value?.CallForTendersLineReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <LineReferenceDisplay
-            label="Call For Tenders Line Reference"
-            value={value.CallForTendersLineReference?.[0]}
-            meta={CatalogueLineFieldMeta.CallForTendersLineReference}
-          />
+    [
+      CatalogueLineField.CallForTendersDocumentReference,
+      { meta: CatalogueLineFieldMeta.CallForTendersDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={CatalogueLineField.CallForTendersDocumentReference}
+          meta={CatalogueLineFieldMeta.CallForTendersDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.CallForTendersDocumentReference}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <DocumentReferenceDisplay
-            label="Call For Tenders Document Reference"
-            value={value.CallForTendersDocumentReference?.[0]}
-            meta={CatalogueLineFieldMeta.CallForTendersDocumentReference}
-          />
-        </div>
-    </div>
+export function CatalogueLineDisplay<TFieldMeta>({ meta, fieldConfig, catalogueLine, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    CatalogueLineTypeName,
+    meta,
+    fieldConfig,
+    catalogueLine,
+    renderContext,
+    CatalogueLineSubElementsMap,
   )
 }

@@ -1,162 +1,168 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TenderingCriterionResponse } from  '../../model/cac/TenderingCriterionResponse'
-import { TenderingCriterionResponseFieldMeta } from  '../../meta/cac/TenderingCriterionResponseMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import CommodityClassificationDisplay from './CommodityClassificationDisplay'
-import { CommodityClassification } from '../../model/cac/CommodityClassification'
-import EvidenceSuppliedDisplay from './EvidenceSuppliedDisplay'
-import { EvidenceSupplied } from '../../model/cac/EvidenceSupplied'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import ProcurementProjectLotReferenceDisplay from './ProcurementProjectLotReferenceDisplay'
-import { ProcurementProjectLotReference } from '../../model/cac/ProcurementProjectLotReference'
-import ResponseValueDisplay from './ResponseValueDisplay'
-import { ResponseValue } from '../../model/cac/ResponseValue'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { TenderingCriterionResponseField, TenderingCriterionResponseFieldMeta, TenderingCriterionResponseTypeName } from  '../../meta/cac/TenderingCriterionResponseMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { CommodityClassificationDisplay } from './CommodityClassificationDisplay'
+import { EvidenceSuppliedDisplay } from './EvidenceSuppliedDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { ProcurementProjectLotReferenceDisplay } from './ProcurementProjectLotReferenceDisplay'
+import { ResponseValueDisplay } from './ResponseValueDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: TenderingCriterionResponse | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<TenderingCriterionResponse, void>
+  tenderingCriterionResponse: TenderingCriterionResponse[] | undefined
+  renderContext: RenderContext
 }
 
-export default function TenderingCriterionResponseDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const TenderingCriterionResponseSubElementsMap: SubElementsTemplatesMap<TenderingCriterionResponseField, TenderingCriterionResponse, void> = new Map([
+    [
+      TenderingCriterionResponseField.UBLExtensions,
+      { meta: TenderingCriterionResponseFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={TenderingCriterionResponseField.UBLExtensions}
+          meta={TenderingCriterionResponseFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-TenderingCriterionResponse">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={TenderingCriterionResponseFieldMeta.UBLExtensions}
-          />
+    [
+      TenderingCriterionResponseField.ID,
+      { meta: TenderingCriterionResponseFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TenderingCriterionResponseField.ID}
+          meta={TenderingCriterionResponseFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={TenderingCriterionResponseFieldMeta.ID}
-          />
+    [
+      TenderingCriterionResponseField.Name,
+      { meta: TenderingCriterionResponseFieldMeta.Name,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TenderingCriterionResponseField.Name}
+          meta={TenderingCriterionResponseFieldMeta.Name}
+          fieldConfig={fieldConfig}
+          text={value?.Name}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Name"
-            value={value.Name?.[0]}
-            meta={TenderingCriterionResponseFieldMeta.Name}
-          />
+    [
+      TenderingCriterionResponseField.Description,
+      { meta: TenderingCriterionResponseFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TenderingCriterionResponseField.Description}
+          meta={TenderingCriterionResponseFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={TenderingCriterionResponseFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={TenderingCriterionResponseFieldMeta.Description}
-              />
-            }
-          />
+    [
+      TenderingCriterionResponseField.ValidatedCriterionPropertyID,
+      { meta: TenderingCriterionResponseFieldMeta.ValidatedCriterionPropertyID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TenderingCriterionResponseField.ValidatedCriterionPropertyID}
+          meta={TenderingCriterionResponseFieldMeta.ValidatedCriterionPropertyID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ValidatedCriterionPropertyID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Validated Criterion Property Identifier"
-            value={value.ValidatedCriterionPropertyID?.[0]}
-            meta={TenderingCriterionResponseFieldMeta.ValidatedCriterionPropertyID}
-          />
+    [
+      TenderingCriterionResponseField.ConfidentialityLevelCode,
+      { meta: TenderingCriterionResponseFieldMeta.ConfidentialityLevelCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TenderingCriterionResponseField.ConfidentialityLevelCode}
+          meta={TenderingCriterionResponseFieldMeta.ConfidentialityLevelCode}
+          fieldConfig={fieldConfig}
+          code={value?.ConfidentialityLevelCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Confidentiality Level Code"
-            value={value.ConfidentialityLevelCode?.[0]}
-            meta={TenderingCriterionResponseFieldMeta.ConfidentialityLevelCode}
-          />
+    [
+      TenderingCriterionResponseField.ResponseValue,
+      { meta: TenderingCriterionResponseFieldMeta.ResponseValue,
+        template: ({value, renderContext, fieldConfig}) => <ResponseValueDisplay
+          key={TenderingCriterionResponseField.ResponseValue}
+          meta={TenderingCriterionResponseFieldMeta.ResponseValue}
+          fieldConfig={fieldConfig}
+          responseValue={value?.ResponseValue}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-ResponseValue"
-            label="Response Value"
-            items={value.ResponseValue}
-            meta={TenderingCriterionResponseFieldMeta.ResponseValue} 
-            itemDisplay={ (itemValue: ResponseValue, key: string | number) =>
-              <ResponseValueDisplay
-                key={key}
-                label="Response Value"
-                value={itemValue}
-                meta={TenderingCriterionResponseFieldMeta.ResponseValue}
-              />
-            }
-          />
+    [
+      TenderingCriterionResponseField.ApplicablePeriod,
+      { meta: TenderingCriterionResponseFieldMeta.ApplicablePeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={TenderingCriterionResponseField.ApplicablePeriod}
+          meta={TenderingCriterionResponseFieldMeta.ApplicablePeriod}
+          fieldConfig={fieldConfig}
+          period={value?.ApplicablePeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Period ubl-ApplicablePeriod"
-            label="Applicable Period"
-            items={value.ApplicablePeriod}
-            meta={TenderingCriterionResponseFieldMeta.ApplicablePeriod} 
-            itemDisplay={ (itemValue: Period, key: string | number) =>
-              <PeriodDisplay
-                key={key}
-                label="Applicable Period"
-                value={itemValue}
-                meta={TenderingCriterionResponseFieldMeta.ApplicablePeriod}
-              />
-            }
-          />
+    [
+      TenderingCriterionResponseField.EvidenceSupplied,
+      { meta: TenderingCriterionResponseFieldMeta.EvidenceSupplied,
+        template: ({value, renderContext, fieldConfig}) => <EvidenceSuppliedDisplay
+          key={TenderingCriterionResponseField.EvidenceSupplied}
+          meta={TenderingCriterionResponseFieldMeta.EvidenceSupplied}
+          fieldConfig={fieldConfig}
+          evidenceSupplied={value?.EvidenceSupplied}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-EvidenceSupplied"
-            label="Evidence Supplied"
-            items={value.EvidenceSupplied}
-            meta={TenderingCriterionResponseFieldMeta.EvidenceSupplied} 
-            itemDisplay={ (itemValue: EvidenceSupplied, key: string | number) =>
-              <EvidenceSuppliedDisplay
-                key={key}
-                label="Evidence Supplied"
-                value={itemValue}
-                meta={TenderingCriterionResponseFieldMeta.EvidenceSupplied}
-              />
-            }
-          />
+    [
+      TenderingCriterionResponseField.ProcurementProjectLotReference,
+      { meta: TenderingCriterionResponseFieldMeta.ProcurementProjectLotReference,
+        template: ({value, renderContext, fieldConfig}) => <ProcurementProjectLotReferenceDisplay
+          key={TenderingCriterionResponseField.ProcurementProjectLotReference}
+          meta={TenderingCriterionResponseFieldMeta.ProcurementProjectLotReference}
+          fieldConfig={fieldConfig}
+          procurementProjectLotReference={value?.ProcurementProjectLotReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-ProcurementProjectLotReference"
-            label="Procurement Project Lot Reference"
-            items={value.ProcurementProjectLotReference}
-            meta={TenderingCriterionResponseFieldMeta.ProcurementProjectLotReference} 
-            itemDisplay={ (itemValue: ProcurementProjectLotReference, key: string | number) =>
-              <ProcurementProjectLotReferenceDisplay
-                key={key}
-                label="Procurement Project Lot Reference"
-                value={itemValue}
-                meta={TenderingCriterionResponseFieldMeta.ProcurementProjectLotReference}
-              />
-            }
-          />
+    [
+      TenderingCriterionResponseField.CommodityClassification,
+      { meta: TenderingCriterionResponseFieldMeta.CommodityClassification,
+        template: ({value, renderContext, fieldConfig}) => <CommodityClassificationDisplay
+          key={TenderingCriterionResponseField.CommodityClassification}
+          meta={TenderingCriterionResponseFieldMeta.CommodityClassification}
+          fieldConfig={fieldConfig}
+          commodityClassification={value?.CommodityClassification}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-CommodityClassification"
-            label="Commodity Classification"
-            items={value.CommodityClassification}
-            meta={TenderingCriterionResponseFieldMeta.CommodityClassification} 
-            itemDisplay={ (itemValue: CommodityClassification, key: string | number) =>
-              <CommodityClassificationDisplay
-                key={key}
-                label="Commodity Classification"
-                value={itemValue}
-                meta={TenderingCriterionResponseFieldMeta.CommodityClassification}
-              />
-            }
-          />
-        </div>
-    </div>
+export function TenderingCriterionResponseDisplay<TFieldMeta>({ meta, fieldConfig, tenderingCriterionResponse, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    TenderingCriterionResponseTypeName,
+    meta,
+    fieldConfig,
+    tenderingCriterionResponse,
+    renderContext,
+    TenderingCriterionResponseSubElementsMap,
   )
 }

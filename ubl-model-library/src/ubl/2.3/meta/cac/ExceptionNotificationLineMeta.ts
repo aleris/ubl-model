@@ -1,4 +1,15 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { DocumentReferenceType } from './DocumentReferenceMeta'
+import { ForecastExceptionType } from './ForecastExceptionMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { ItemType } from './ItemMeta'
+import { MeasureType } from '../cbc/MeasureMeta'
+import { PeriodType } from './PeriodMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ExceptionNotificationLineField {
   UBLExtensions = 'UBLExtensions',
@@ -22,11 +33,11 @@ export enum ExceptionNotificationLineField {
 export const ExceptionNotificationLineFieldMetaUBLExtensions = new FieldMeta<ExceptionNotificationLineField>(
   ExceptionNotificationLineField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -35,10 +46,10 @@ export const ExceptionNotificationLineFieldMetaID = new FieldMeta<ExceptionNotif
   ExceptionNotificationLineField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this exception notification line.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -47,10 +58,10 @@ export const ExceptionNotificationLineFieldMetaNote = new FieldMeta<ExceptionNot
   ExceptionNotificationLineField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -59,10 +70,10 @@ export const ExceptionNotificationLineFieldMetaDescription = new FieldMeta<Excep
   ExceptionNotificationLineField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing the exception.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -71,10 +82,10 @@ export const ExceptionNotificationLineFieldMetaExceptionStatusCode = new FieldMe
   ExceptionNotificationLineField.ExceptionStatusCode,
   'ExceptionStatusCode',
   'Exception Status Code',
-  'Code',
+  CodeType.name,
   'A code signifying status specific to a shipment exception.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -83,10 +94,10 @@ export const ExceptionNotificationLineFieldMetaCollaborationPriorityCode = new F
   ExceptionNotificationLineField.CollaborationPriorityCode,
   'CollaborationPriorityCode',
   'Collaboration Priority Code',
-  'Code',
+  CodeType.name,
   'Priority of Exception.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -95,10 +106,10 @@ export const ExceptionNotificationLineFieldMetaResolutionCode = new FieldMeta<Ex
   ExceptionNotificationLineField.ResolutionCode,
   'ResolutionCode',
   'Resolution Code',
-  'Code',
+  CodeType.name,
   'Coded representation of possible resolution methods". Possible values are: DEFAULT_TO_AVERAGE_OF_COMPARED_VALUES DEFAULT_TO_BUYERS_VALUE DEFAULT_TO_HIGH_VALUE DEFAULT_TO_LOW_VALUE DEFAULT_TO_SELLERS_VALUE MANUAL_RESOLUTION MUTUALLY_DEFINED',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -107,10 +118,10 @@ export const ExceptionNotificationLineFieldMetaComparedValueMeasure = new FieldM
   ExceptionNotificationLineField.ComparedValueMeasure,
   'ComparedValueMeasure',
   'Compared Value',
-  'Measure',
+  MeasureType.name,
   'The value that was compared with the source value that resulted in the exception',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -119,10 +130,10 @@ export const ExceptionNotificationLineFieldMetaSourceValueMeasure = new FieldMet
   ExceptionNotificationLineField.SourceValueMeasure,
   'SourceValueMeasure',
   'Source Value',
-  'Measure',
+  MeasureType.name,
   'The value used as the basis of comparison',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -131,10 +142,10 @@ export const ExceptionNotificationLineFieldMetaVarianceQuantity = new FieldMeta<
   ExceptionNotificationLineField.VarianceQuantity,
   'VarianceQuantity',
   'Variance',
-  'Quantity',
+  QuantityType.name,
   'The variance of a data item from an expected value during a particular time interval.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -143,10 +154,10 @@ export const ExceptionNotificationLineFieldMetaSupplyChainActivityTypeCode = new
   ExceptionNotificationLineField.SupplyChainActivityTypeCode,
   'SupplyChainActivityTypeCode',
   'Supply Chain Activity Type Code',
-  'Code',
+  CodeType.name,
   'Establishes the criterion for one of the three types of exceptions: Operational, performance metric and forecast. This reports an exception notification about an operational exception. Description could be: A code used to identify an operational exception. Possible values are: CANCELED_ORDERS EMERGENCY_ORDERS ON_HAND ORDERS RECEIPTS SALES SHIPMENTS',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -155,10 +166,10 @@ export const ExceptionNotificationLineFieldMetaPerformanceMetricTypeCode = new F
   ExceptionNotificationLineField.PerformanceMetricTypeCode,
   'PerformanceMetricTypeCode',
   'Performance Metric Type Code',
-  'Code',
+  CodeType.name,
   'A code used to identify a measure of performance. It defines the type of the Performance Metric on which an exception criteria is being defined',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -167,10 +178,10 @@ export const ExceptionNotificationLineFieldMetaExceptionObservationPeriod = new 
   ExceptionNotificationLineField.ExceptionObservationPeriod,
   'ExceptionObservationPeriod',
   'Exception Observation Period',
-  'Period',
+  PeriodType.name,
   'The period (start-end date) when this exception is observed',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -179,10 +190,10 @@ export const ExceptionNotificationLineFieldMetaDocumentReference = new FieldMeta
   ExceptionNotificationLineField.DocumentReference,
   'DocumentReference',
   'Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to Exception Criteria document can be provided.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -191,10 +202,10 @@ export const ExceptionNotificationLineFieldMetaForecastException = new FieldMeta
   ExceptionNotificationLineField.ForecastException,
   'ForecastException',
   'Forecast Exception',
-  'ForecastException',
+  ForecastExceptionType.name,
   'A forecast accuracy or comparison exception.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -203,10 +214,10 @@ export const ExceptionNotificationLineFieldMetaSupplyItem = new FieldMeta<Except
   ExceptionNotificationLineField.SupplyItem,
   'SupplyItem',
   'Supply Item',
-  'Item',
+  ItemType.name,
   'The product associated with this exception notification line.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -248,3 +259,11 @@ export const ExceptionNotificationLineFieldMap = new Map([
   [ExceptionNotificationLineField.ForecastException, ExceptionNotificationLineFieldMetaForecastException],
   [ExceptionNotificationLineField.SupplyItem, ExceptionNotificationLineFieldMetaSupplyItem]
 ])
+
+export const ExceptionNotificationLineType: Type<ExceptionNotificationLineField> = {
+  name: 'ExceptionNotificationLine',
+  label: 'Exception Notification Line',
+  module: TypeModule.cac,
+  definition: 'A class to define a line in an Exception Notification.',
+  fields: ExceptionNotificationLineFieldMap,
+}

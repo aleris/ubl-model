@@ -1,194 +1,256 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { InstructionForReturns } from  '../../model/doc/InstructionForReturns'
-import { InstructionForReturnsFieldMeta } from  '../../meta/doc/InstructionForReturnsMeta'
-import CustomerPartyDisplay from '../cac/CustomerPartyDisplay'
-import { CustomerParty } from '../../model/cac/CustomerParty'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import InstructionForReturnsLineDisplay from '../cac/InstructionForReturnsLineDisplay'
-import { InstructionForReturnsLine } from '../../model/cac/InstructionForReturnsLine'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import ShipmentDisplay from '../cac/ShipmentDisplay'
-import { Shipment } from '../../model/cac/Shipment'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import SupplierPartyDisplay from '../cac/SupplierPartyDisplay'
-import { SupplierParty } from '../../model/cac/SupplierParty'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { InstructionForReturnsField, InstructionForReturnsFieldMeta, InstructionForReturnsTypeName } from  '../../meta/doc/InstructionForReturnsMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CustomerPartyDisplay } from '../cac/CustomerPartyDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { InstructionForReturnsLineDisplay } from '../cac/InstructionForReturnsLineDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { ShipmentDisplay } from '../cac/ShipmentDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { SupplierPartyDisplay } from '../cac/SupplierPartyDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: InstructionForReturns | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<InstructionForReturns, void>
+  instructionForReturns: InstructionForReturns[] | undefined
+  renderContext: RenderContext
 }
 
-export default function InstructionForReturnsDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const InstructionForReturnsSubElementsMap: SubElementsTemplatesMap<InstructionForReturnsField, InstructionForReturns, void> = new Map([
+    [
+      InstructionForReturnsField.UBLExtensions,
+      { meta: InstructionForReturnsFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={InstructionForReturnsField.UBLExtensions}
+          meta={InstructionForReturnsFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-InstructionForReturns">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={InstructionForReturnsFieldMeta.UBLExtensions}
-          />
+    [
+      InstructionForReturnsField.UBLVersionID,
+      { meta: InstructionForReturnsFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={InstructionForReturnsField.UBLVersionID}
+          meta={InstructionForReturnsFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={InstructionForReturnsFieldMeta.UBLVersionID}
-          />
+    [
+      InstructionForReturnsField.CustomizationID,
+      { meta: InstructionForReturnsFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={InstructionForReturnsField.CustomizationID}
+          meta={InstructionForReturnsFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={InstructionForReturnsFieldMeta.CustomizationID}
-          />
+    [
+      InstructionForReturnsField.ProfileID,
+      { meta: InstructionForReturnsFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={InstructionForReturnsField.ProfileID}
+          meta={InstructionForReturnsFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={InstructionForReturnsFieldMeta.ProfileID}
-          />
+    [
+      InstructionForReturnsField.ProfileExecutionID,
+      { meta: InstructionForReturnsFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={InstructionForReturnsField.ProfileExecutionID}
+          meta={InstructionForReturnsFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={InstructionForReturnsFieldMeta.ProfileExecutionID}
-          />
+    [
+      InstructionForReturnsField.ID,
+      { meta: InstructionForReturnsFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={InstructionForReturnsField.ID}
+          meta={InstructionForReturnsFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={InstructionForReturnsFieldMeta.ID}
-          />
+    [
+      InstructionForReturnsField.CopyIndicator,
+      { meta: InstructionForReturnsFieldMeta.CopyIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={InstructionForReturnsField.CopyIndicator}
+          meta={InstructionForReturnsFieldMeta.CopyIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.CopyIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Copy Indicator"
-            value={value.CopyIndicator?.[0]}
-            meta={InstructionForReturnsFieldMeta.CopyIndicator}
-          />
+    [
+      InstructionForReturnsField.UUID,
+      { meta: InstructionForReturnsFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={InstructionForReturnsField.UUID}
+          meta={InstructionForReturnsFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={InstructionForReturnsFieldMeta.UUID}
-          />
+    [
+      InstructionForReturnsField.IssueDate,
+      { meta: InstructionForReturnsFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={InstructionForReturnsField.IssueDate}
+          meta={InstructionForReturnsFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={InstructionForReturnsFieldMeta.IssueDate}
-          />
+    [
+      InstructionForReturnsField.IssueTime,
+      { meta: InstructionForReturnsFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={InstructionForReturnsField.IssueTime}
+          meta={InstructionForReturnsFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={InstructionForReturnsFieldMeta.IssueTime}
-          />
+    [
+      InstructionForReturnsField.Note,
+      { meta: InstructionForReturnsFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={InstructionForReturnsField.Note}
+          meta={InstructionForReturnsFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={InstructionForReturnsFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={InstructionForReturnsFieldMeta.Note}
-              />
-            }
-          />
+    [
+      InstructionForReturnsField.DocumentReference,
+      { meta: InstructionForReturnsFieldMeta.DocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={InstructionForReturnsField.DocumentReference}
+          meta={InstructionForReturnsFieldMeta.DocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.DocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference"
-            label="Document Reference"
-            items={value.DocumentReference}
-            meta={InstructionForReturnsFieldMeta.DocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Document Reference"
-                value={itemValue}
-                meta={InstructionForReturnsFieldMeta.DocumentReference}
-              />
-            }
-          />
+    [
+      InstructionForReturnsField.Signature,
+      { meta: InstructionForReturnsFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={InstructionForReturnsField.Signature}
+          meta={InstructionForReturnsFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={InstructionForReturnsFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={InstructionForReturnsFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      InstructionForReturnsField.SellerSupplierParty,
+      { meta: InstructionForReturnsFieldMeta.SellerSupplierParty,
+        template: ({value, renderContext, fieldConfig}) => <SupplierPartyDisplay
+          key={InstructionForReturnsField.SellerSupplierParty}
+          meta={InstructionForReturnsFieldMeta.SellerSupplierParty}
+          fieldConfig={fieldConfig}
+          supplierParty={value?.SellerSupplierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <SupplierPartyDisplay
-            label="Seller Supplier Party"
-            value={value.SellerSupplierParty?.[0]}
-            meta={InstructionForReturnsFieldMeta.SellerSupplierParty}
-          />
+    [
+      InstructionForReturnsField.RetailerCustomerParty,
+      { meta: InstructionForReturnsFieldMeta.RetailerCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={InstructionForReturnsField.RetailerCustomerParty}
+          meta={InstructionForReturnsFieldMeta.RetailerCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.RetailerCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomerPartyDisplay
-            label="Retailer Customer Party"
-            value={value.RetailerCustomerParty?.[0]}
-            meta={InstructionForReturnsFieldMeta.RetailerCustomerParty}
-          />
+    [
+      InstructionForReturnsField.ManufacturerParty,
+      { meta: InstructionForReturnsFieldMeta.ManufacturerParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={InstructionForReturnsField.ManufacturerParty}
+          meta={InstructionForReturnsFieldMeta.ManufacturerParty}
+          fieldConfig={fieldConfig}
+          party={value?.ManufacturerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Manufacturer Party"
-            value={value.ManufacturerParty?.[0]}
-            meta={InstructionForReturnsFieldMeta.ManufacturerParty}
-          />
+    [
+      InstructionForReturnsField.Shipment,
+      { meta: InstructionForReturnsFieldMeta.Shipment,
+        template: ({value, renderContext, fieldConfig}) => <ShipmentDisplay
+          key={InstructionForReturnsField.Shipment}
+          meta={InstructionForReturnsFieldMeta.Shipment}
+          fieldConfig={fieldConfig}
+          shipment={value?.Shipment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ShipmentDisplay
-            label="Shipment"
-            value={value.Shipment?.[0]}
-            meta={InstructionForReturnsFieldMeta.Shipment}
-          />
+    [
+      InstructionForReturnsField.InstructionForReturnsLine,
+      { meta: InstructionForReturnsFieldMeta.InstructionForReturnsLine,
+        template: ({value, renderContext, fieldConfig}) => <InstructionForReturnsLineDisplay
+          key={InstructionForReturnsField.InstructionForReturnsLine}
+          meta={InstructionForReturnsFieldMeta.InstructionForReturnsLine}
+          fieldConfig={fieldConfig}
+          instructionForReturnsLine={value?.InstructionForReturnsLine}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-InstructionForReturnsLine"
-            label="Instruction For Returns Line"
-            items={value.InstructionForReturnsLine}
-            meta={InstructionForReturnsFieldMeta.InstructionForReturnsLine} 
-            itemDisplay={ (itemValue: InstructionForReturnsLine, key: string | number) =>
-              <InstructionForReturnsLineDisplay
-                key={key}
-                label="Instruction For Returns Line"
-                value={itemValue}
-                meta={InstructionForReturnsFieldMeta.InstructionForReturnsLine}
-              />
-            }
-          />
-        </div>
-    </div>
+export function InstructionForReturnsDisplay<TFieldMeta>({ meta, fieldConfig, instructionForReturns, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    InstructionForReturnsTypeName,
+    meta,
+    fieldConfig,
+    instructionForReturns,
+    renderContext,
+    InstructionForReturnsSubElementsMap,
   )
 }

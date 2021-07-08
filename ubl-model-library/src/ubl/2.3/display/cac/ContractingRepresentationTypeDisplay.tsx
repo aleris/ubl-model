@@ -1,48 +1,66 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ContractingRepresentationType } from  '../../model/cac/ContractingRepresentationType'
-import { ContractingRepresentationTypeFieldMeta } from  '../../meta/cac/ContractingRepresentationTypeMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ContractingRepresentationTypeField, ContractingRepresentationTypeFieldMeta, ContractingRepresentationTypeTypeName } from  '../../meta/cac/ContractingRepresentationTypeMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ContractingRepresentationType | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ContractingRepresentationType, void>
+  contractingRepresentationType: ContractingRepresentationType[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ContractingRepresentationTypeDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ContractingRepresentationTypeSubElementsMap: SubElementsTemplatesMap<ContractingRepresentationTypeField, ContractingRepresentationType, void> = new Map([
+    [
+      ContractingRepresentationTypeField.UBLExtensions,
+      { meta: ContractingRepresentationTypeFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ContractingRepresentationTypeField.UBLExtensions}
+          meta={ContractingRepresentationTypeFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ContractingRepresentationType">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ContractingRepresentationTypeFieldMeta.UBLExtensions}
-          />
+    [
+      ContractingRepresentationTypeField.RepresentationTypeCode,
+      { meta: ContractingRepresentationTypeFieldMeta.RepresentationTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ContractingRepresentationTypeField.RepresentationTypeCode}
+          meta={ContractingRepresentationTypeFieldMeta.RepresentationTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.RepresentationTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Representation Type Code"
-            value={value.RepresentationTypeCode?.[0]}
-            meta={ContractingRepresentationTypeFieldMeta.RepresentationTypeCode}
-          />
+    [
+      ContractingRepresentationTypeField.RepresentationType,
+      { meta: ContractingRepresentationTypeFieldMeta.RepresentationType,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ContractingRepresentationTypeField.RepresentationType}
+          meta={ContractingRepresentationTypeFieldMeta.RepresentationType}
+          fieldConfig={fieldConfig}
+          text={value?.RepresentationType}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <TextDisplay
-            label="Representation Type"
-            value={value.RepresentationType?.[0]}
-            meta={ContractingRepresentationTypeFieldMeta.RepresentationType}
-          />
-        </div>
-    </div>
+export function ContractingRepresentationTypeDisplay<TFieldMeta>({ meta, fieldConfig, contractingRepresentationType, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ContractingRepresentationTypeTypeName,
+    meta,
+    fieldConfig,
+    contractingRepresentationType,
+    renderContext,
+    ContractingRepresentationTypeSubElementsMap,
   )
 }

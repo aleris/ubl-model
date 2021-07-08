@@ -1,88 +1,104 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { DocumentResponse } from  '../../model/cac/DocumentResponse'
-import { DocumentResponseFieldMeta } from  '../../meta/cac/DocumentResponseMeta'
-import DocumentReferenceDisplay from './DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import LineResponseDisplay from './LineResponseDisplay'
-import { LineResponse } from '../../model/cac/LineResponse'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import ResponseDisplay from './ResponseDisplay'
-import { Response } from '../../model/cac/Response'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { DocumentResponseField, DocumentResponseFieldMeta, DocumentResponseTypeName } from  '../../meta/cac/DocumentResponseMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { DocumentReferenceDisplay } from './DocumentReferenceDisplay'
+import { LineResponseDisplay } from './LineResponseDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { ResponseDisplay } from './ResponseDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: DocumentResponse | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<DocumentResponse, void>
+  documentResponse: DocumentResponse[] | undefined
+  renderContext: RenderContext
 }
 
-export default function DocumentResponseDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const DocumentResponseSubElementsMap: SubElementsTemplatesMap<DocumentResponseField, DocumentResponse, void> = new Map([
+    [
+      DocumentResponseField.UBLExtensions,
+      { meta: DocumentResponseFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={DocumentResponseField.UBLExtensions}
+          meta={DocumentResponseFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-DocumentResponse">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={DocumentResponseFieldMeta.UBLExtensions}
-          />
+    [
+      DocumentResponseField.Response,
+      { meta: DocumentResponseFieldMeta.Response,
+        template: ({value, renderContext, fieldConfig}) => <ResponseDisplay
+          key={DocumentResponseField.Response}
+          meta={DocumentResponseFieldMeta.Response}
+          fieldConfig={fieldConfig}
+          response={value?.Response}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ResponseDisplay
-            label="Response"
-            value={value.Response?.[0]}
-            meta={DocumentResponseFieldMeta.Response}
-          />
+    [
+      DocumentResponseField.DocumentReference,
+      { meta: DocumentResponseFieldMeta.DocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={DocumentResponseField.DocumentReference}
+          meta={DocumentResponseFieldMeta.DocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.DocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentReference"
-            label="Document Reference"
-            items={value.DocumentReference}
-            meta={DocumentResponseFieldMeta.DocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Document Reference"
-                value={itemValue}
-                meta={DocumentResponseFieldMeta.DocumentReference}
-              />
-            }
-          />
+    [
+      DocumentResponseField.IssuerParty,
+      { meta: DocumentResponseFieldMeta.IssuerParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={DocumentResponseField.IssuerParty}
+          meta={DocumentResponseFieldMeta.IssuerParty}
+          fieldConfig={fieldConfig}
+          party={value?.IssuerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Issuer Party"
-            value={value.IssuerParty?.[0]}
-            meta={DocumentResponseFieldMeta.IssuerParty}
-          />
+    [
+      DocumentResponseField.RecipientParty,
+      { meta: DocumentResponseFieldMeta.RecipientParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={DocumentResponseField.RecipientParty}
+          meta={DocumentResponseFieldMeta.RecipientParty}
+          fieldConfig={fieldConfig}
+          party={value?.RecipientParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Recipient Party"
-            value={value.RecipientParty?.[0]}
-            meta={DocumentResponseFieldMeta.RecipientParty}
-          />
+    [
+      DocumentResponseField.LineResponse,
+      { meta: DocumentResponseFieldMeta.LineResponse,
+        template: ({value, renderContext, fieldConfig}) => <LineResponseDisplay
+          key={DocumentResponseField.LineResponse}
+          meta={DocumentResponseFieldMeta.LineResponse}
+          fieldConfig={fieldConfig}
+          lineResponse={value?.LineResponse}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-LineResponse"
-            label="Line Response"
-            items={value.LineResponse}
-            meta={DocumentResponseFieldMeta.LineResponse} 
-            itemDisplay={ (itemValue: LineResponse, key: string | number) =>
-              <LineResponseDisplay
-                key={key}
-                label="Line Response"
-                value={itemValue}
-                meta={DocumentResponseFieldMeta.LineResponse}
-              />
-            }
-          />
-        </div>
-    </div>
+export function DocumentResponseDisplay<TFieldMeta>({ meta, fieldConfig, documentResponse, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    DocumentResponseTypeName,
+    meta,
+    fieldConfig,
+    documentResponse,
+    renderContext,
+    DocumentResponseSubElementsMap,
   )
 }

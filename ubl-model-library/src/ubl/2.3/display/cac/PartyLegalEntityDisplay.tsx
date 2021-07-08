@@ -1,145 +1,218 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { PartyLegalEntity } from  '../../model/cac/PartyLegalEntity'
-import { PartyLegalEntityFieldMeta } from  '../../meta/cac/PartyLegalEntityMeta'
-import AddressDisplay from './AddressDisplay'
-import { Address } from '../../model/cac/Address'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import CorporateRegistrationSchemeDisplay from './CorporateRegistrationSchemeDisplay'
-import { CorporateRegistrationScheme } from '../../model/cac/CorporateRegistrationScheme'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import ShareholderPartyDisplay from './ShareholderPartyDisplay'
-import { ShareholderParty } from '../../model/cac/ShareholderParty'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { PartyLegalEntityField, PartyLegalEntityFieldMeta, PartyLegalEntityTypeName } from  '../../meta/cac/PartyLegalEntityMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AddressDisplay } from './AddressDisplay'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { CorporateRegistrationSchemeDisplay } from './CorporateRegistrationSchemeDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { ShareholderPartyDisplay } from './ShareholderPartyDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: PartyLegalEntity | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<PartyLegalEntity, void>
+  partyLegalEntity: PartyLegalEntity[] | undefined
+  renderContext: RenderContext
 }
 
-export default function PartyLegalEntityDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const PartyLegalEntitySubElementsMap: SubElementsTemplatesMap<PartyLegalEntityField, PartyLegalEntity, void> = new Map([
+    [
+      PartyLegalEntityField.UBLExtensions,
+      { meta: PartyLegalEntityFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={PartyLegalEntityField.UBLExtensions}
+          meta={PartyLegalEntityFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-PartyLegalEntity">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={PartyLegalEntityFieldMeta.UBLExtensions}
-          />
+    [
+      PartyLegalEntityField.RegistrationName,
+      { meta: PartyLegalEntityFieldMeta.RegistrationName,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={PartyLegalEntityField.RegistrationName}
+          meta={PartyLegalEntityFieldMeta.RegistrationName}
+          fieldConfig={fieldConfig}
+          text={value?.RegistrationName}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Registration Name"
-            value={value.RegistrationName?.[0]}
-            meta={PartyLegalEntityFieldMeta.RegistrationName}
-          />
+    [
+      PartyLegalEntityField.CompanyID,
+      { meta: PartyLegalEntityFieldMeta.CompanyID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PartyLegalEntityField.CompanyID}
+          meta={PartyLegalEntityFieldMeta.CompanyID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CompanyID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Company Identifier"
-            value={value.CompanyID?.[0]}
-            meta={PartyLegalEntityFieldMeta.CompanyID}
-          />
+    [
+      PartyLegalEntityField.RegistrationDate,
+      { meta: PartyLegalEntityFieldMeta.RegistrationDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={PartyLegalEntityField.RegistrationDate}
+          meta={PartyLegalEntityFieldMeta.RegistrationDate}
+          fieldConfig={fieldConfig}
+          date={value?.RegistrationDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Registration Date"
-            value={value.RegistrationDate?.[0]}
-            meta={PartyLegalEntityFieldMeta.RegistrationDate}
-          />
+    [
+      PartyLegalEntityField.RegistrationExpirationDate,
+      { meta: PartyLegalEntityFieldMeta.RegistrationExpirationDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={PartyLegalEntityField.RegistrationExpirationDate}
+          meta={PartyLegalEntityFieldMeta.RegistrationExpirationDate}
+          fieldConfig={fieldConfig}
+          date={value?.RegistrationExpirationDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Registration Expiration Date"
-            value={value.RegistrationExpirationDate?.[0]}
-            meta={PartyLegalEntityFieldMeta.RegistrationExpirationDate}
-          />
+    [
+      PartyLegalEntityField.CompanyLegalFormCode,
+      { meta: PartyLegalEntityFieldMeta.CompanyLegalFormCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={PartyLegalEntityField.CompanyLegalFormCode}
+          meta={PartyLegalEntityFieldMeta.CompanyLegalFormCode}
+          fieldConfig={fieldConfig}
+          code={value?.CompanyLegalFormCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Company Legal Form Code"
-            value={value.CompanyLegalFormCode?.[0]}
-            meta={PartyLegalEntityFieldMeta.CompanyLegalFormCode}
-          />
+    [
+      PartyLegalEntityField.CompanyLegalForm,
+      { meta: PartyLegalEntityFieldMeta.CompanyLegalForm,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={PartyLegalEntityField.CompanyLegalForm}
+          meta={PartyLegalEntityFieldMeta.CompanyLegalForm}
+          fieldConfig={fieldConfig}
+          text={value?.CompanyLegalForm}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Company Legal Form"
-            value={value.CompanyLegalForm?.[0]}
-            meta={PartyLegalEntityFieldMeta.CompanyLegalForm}
-          />
+    [
+      PartyLegalEntityField.SoleProprietorshipIndicator,
+      { meta: PartyLegalEntityFieldMeta.SoleProprietorshipIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={PartyLegalEntityField.SoleProprietorshipIndicator}
+          meta={PartyLegalEntityFieldMeta.SoleProprietorshipIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.SoleProprietorshipIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Sole Proprietorship Indicator"
-            value={value.SoleProprietorshipIndicator?.[0]}
-            meta={PartyLegalEntityFieldMeta.SoleProprietorshipIndicator}
-          />
+    [
+      PartyLegalEntityField.CompanyLiquidationStatusCode,
+      { meta: PartyLegalEntityFieldMeta.CompanyLiquidationStatusCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={PartyLegalEntityField.CompanyLiquidationStatusCode}
+          meta={PartyLegalEntityFieldMeta.CompanyLiquidationStatusCode}
+          fieldConfig={fieldConfig}
+          code={value?.CompanyLiquidationStatusCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Company Liquidation Status Code"
-            value={value.CompanyLiquidationStatusCode?.[0]}
-            meta={PartyLegalEntityFieldMeta.CompanyLiquidationStatusCode}
-          />
+    [
+      PartyLegalEntityField.CorporateStockAmount,
+      { meta: PartyLegalEntityFieldMeta.CorporateStockAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={PartyLegalEntityField.CorporateStockAmount}
+          meta={PartyLegalEntityFieldMeta.CorporateStockAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.CorporateStockAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Corporate Stock Amount"
-            value={value.CorporateStockAmount?.[0]}
-            meta={PartyLegalEntityFieldMeta.CorporateStockAmount}
-          />
+    [
+      PartyLegalEntityField.FullyPaidSharesIndicator,
+      { meta: PartyLegalEntityFieldMeta.FullyPaidSharesIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={PartyLegalEntityField.FullyPaidSharesIndicator}
+          meta={PartyLegalEntityFieldMeta.FullyPaidSharesIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.FullyPaidSharesIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Fully Paid Shares Indicator"
-            value={value.FullyPaidSharesIndicator?.[0]}
-            meta={PartyLegalEntityFieldMeta.FullyPaidSharesIndicator}
-          />
+    [
+      PartyLegalEntityField.RegistrationAddress,
+      { meta: PartyLegalEntityFieldMeta.RegistrationAddress,
+        template: ({value, renderContext, fieldConfig}) => <AddressDisplay
+          key={PartyLegalEntityField.RegistrationAddress}
+          meta={PartyLegalEntityFieldMeta.RegistrationAddress}
+          fieldConfig={fieldConfig}
+          address={value?.RegistrationAddress}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AddressDisplay
-            label="Registration Address"
-            value={value.RegistrationAddress?.[0]}
-            meta={PartyLegalEntityFieldMeta.RegistrationAddress}
-          />
+    [
+      PartyLegalEntityField.CorporateRegistrationScheme,
+      { meta: PartyLegalEntityFieldMeta.CorporateRegistrationScheme,
+        template: ({value, renderContext, fieldConfig}) => <CorporateRegistrationSchemeDisplay
+          key={PartyLegalEntityField.CorporateRegistrationScheme}
+          meta={PartyLegalEntityFieldMeta.CorporateRegistrationScheme}
+          fieldConfig={fieldConfig}
+          corporateRegistrationScheme={value?.CorporateRegistrationScheme}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CorporateRegistrationSchemeDisplay
-            label="Corporate Registration Scheme"
-            value={value.CorporateRegistrationScheme?.[0]}
-            meta={PartyLegalEntityFieldMeta.CorporateRegistrationScheme}
-          />
+    [
+      PartyLegalEntityField.HeadOfficeParty,
+      { meta: PartyLegalEntityFieldMeta.HeadOfficeParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={PartyLegalEntityField.HeadOfficeParty}
+          meta={PartyLegalEntityFieldMeta.HeadOfficeParty}
+          fieldConfig={fieldConfig}
+          party={value?.HeadOfficeParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Head Office Party"
-            value={value.HeadOfficeParty?.[0]}
-            meta={PartyLegalEntityFieldMeta.HeadOfficeParty}
-          />
+    [
+      PartyLegalEntityField.ShareholderParty,
+      { meta: PartyLegalEntityFieldMeta.ShareholderParty,
+        template: ({value, renderContext, fieldConfig}) => <ShareholderPartyDisplay
+          key={PartyLegalEntityField.ShareholderParty}
+          meta={PartyLegalEntityFieldMeta.ShareholderParty}
+          fieldConfig={fieldConfig}
+          shareholderParty={value?.ShareholderParty}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-ShareholderParty"
-            label="Shareholder Party"
-            items={value.ShareholderParty}
-            meta={PartyLegalEntityFieldMeta.ShareholderParty} 
-            itemDisplay={ (itemValue: ShareholderParty, key: string | number) =>
-              <ShareholderPartyDisplay
-                key={key}
-                label="Shareholder Party"
-                value={itemValue}
-                meta={PartyLegalEntityFieldMeta.ShareholderParty}
-              />
-            }
-          />
-        </div>
-    </div>
+export function PartyLegalEntityDisplay<TFieldMeta>({ meta, fieldConfig, partyLegalEntity, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    PartyLegalEntityTypeName,
+    meta,
+    fieldConfig,
+    partyLegalEntity,
+    renderContext,
+    PartyLegalEntitySubElementsMap,
   )
 }

@@ -1,4 +1,11 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { DocumentReferenceType } from './DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { ProcurementProjectType } from './ProcurementProjectMeta'
+import { TenderingProcessType } from './TenderingProcessMeta'
+import { TenderingTermsType } from './TenderingTermsMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ProcurementProjectLotField {
   UBLExtensions = 'UBLExtensions',
@@ -16,11 +23,11 @@ export enum ProcurementProjectLotField {
 export const ProcurementProjectLotFieldMetaUBLExtensions = new FieldMeta<ProcurementProjectLotField>(
   ProcurementProjectLotField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -29,10 +36,10 @@ export const ProcurementProjectLotFieldMetaID = new FieldMeta<ProcurementProject
   ProcurementProjectLotField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this procurement project lot.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -41,10 +48,10 @@ export const ProcurementProjectLotFieldMetaLegalDocumentReference = new FieldMet
   ProcurementProjectLotField.LegalDocumentReference,
   'LegalDocumentReference',
   'Legal Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a legal document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -53,10 +60,10 @@ export const ProcurementProjectLotFieldMetaTechnicalDocumentReference = new Fiel
   ProcurementProjectLotField.TechnicalDocumentReference,
   'TechnicalDocumentReference',
   'Technical Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a technical document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -65,10 +72,10 @@ export const ProcurementProjectLotFieldMetaRequiredDocumentReference = new Field
   ProcurementProjectLotField.RequiredDocumentReference,
   'RequiredDocumentReference',
   'Required Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a required document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -77,10 +84,10 @@ export const ProcurementProjectLotFieldMetaProvidedDocumentReference = new Field
   ProcurementProjectLotField.ProvidedDocumentReference,
   'ProvidedDocumentReference',
   'Provided Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a provided document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -89,10 +96,10 @@ export const ProcurementProjectLotFieldMetaAdditionalDocumentReference = new Fie
   ProcurementProjectLotField.AdditionalDocumentReference,
   'AdditionalDocumentReference',
   'Additional Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to an additional document associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -101,10 +108,10 @@ export const ProcurementProjectLotFieldMetaTenderingTerms = new FieldMeta<Procur
   ProcurementProjectLotField.TenderingTerms,
   'TenderingTerms',
   'Tendering Terms',
-  'TenderingTerms',
+  TenderingTermsType.name,
   'Tendering terms for this procurement project lot.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -113,10 +120,10 @@ export const ProcurementProjectLotFieldMetaTenderingProcess = new FieldMeta<Proc
   ProcurementProjectLotField.TenderingProcess,
   'TenderingProcess',
   'Tendering Process',
-  'TenderingProcess',
+  TenderingProcessType.name,
   'Tendering process for this procurement project lot.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -125,10 +132,10 @@ export const ProcurementProjectLotFieldMetaProcurementProject = new FieldMeta<Pr
   ProcurementProjectLotField.ProcurementProject,
   'ProcurementProject',
   'Procurement Project',
-  'ProcurementProject',
+  ProcurementProjectType.name,
   'A description of the procurement project to be divided.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -158,3 +165,11 @@ export const ProcurementProjectLotFieldMap = new Map([
   [ProcurementProjectLotField.TenderingProcess, ProcurementProjectLotFieldMetaTenderingProcess],
   [ProcurementProjectLotField.ProcurementProject, ProcurementProjectLotFieldMetaProcurementProject]
 ])
+
+export const ProcurementProjectLotType: Type<ProcurementProjectLotField> = {
+  name: 'ProcurementProjectLot',
+  label: 'Procurement Project Lot',
+  module: TypeModule.cac,
+  definition: 'A class to describe one of the parts of a procurement project that is being subdivided to allow the contracting party to award different lots to different economic operators under different contracts.',
+  fields: ProcurementProjectLotFieldMap,
+}

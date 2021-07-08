@@ -2,7 +2,6 @@ import { PaymentTerms } from './PaymentTerms'
 import { Quantity } from '../cbc/Quantity'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A scheduled prepayment (on-account payment) for a estimated utility consumption
  */

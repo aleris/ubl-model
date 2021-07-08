@@ -1,4 +1,7 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum PostAwardProcessField {
   UBLExtensions = 'UBLExtensions',
@@ -11,11 +14,11 @@ export enum PostAwardProcessField {
 export const PostAwardProcessFieldMetaUBLExtensions = new FieldMeta<PostAwardProcessField>(
   PostAwardProcessField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -24,10 +27,10 @@ export const PostAwardProcessFieldMetaElectronicCatalogueUsageIndicator = new Fi
   PostAwardProcessField.ElectronicCatalogueUsageIndicator,
   'ElectronicCatalogueUsageIndicator',
   'Electronic Catalogue Usage',
-  'Indicator',
+  IndicatorType.name,
   'An indicator to specify whether an electronic catalogue will be used during the post award phase.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -36,10 +39,10 @@ export const PostAwardProcessFieldMetaElectronicInvoiceAcceptedIndicator = new F
   PostAwardProcessField.ElectronicInvoiceAcceptedIndicator,
   'ElectronicInvoiceAcceptedIndicator',
   'Electronic Invoice Accepted',
-  'Indicator',
+  IndicatorType.name,
   'An indicator on whether the electronic invoice is allowed for this process.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -48,10 +51,10 @@ export const PostAwardProcessFieldMetaElectronicOrderUsageIndicator = new FieldM
   PostAwardProcessField.ElectronicOrderUsageIndicator,
   'ElectronicOrderUsageIndicator',
   'Electronic Order Usage',
-  'Indicator',
+  IndicatorType.name,
   'An indicator on whether electronic ordering shall be used in the post award process.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -60,10 +63,10 @@ export const PostAwardProcessFieldMetaElectronicPaymentUsageIndicator = new Fiel
   PostAwardProcessField.ElectronicPaymentUsageIndicator,
   'ElectronicPaymentUsageIndicator',
   'Electronic Payment Usage',
-  'Indicator',
+  IndicatorType.name,
   'An indicator on whether electronic payment shall be used in the post award process.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -83,3 +86,11 @@ export const PostAwardProcessFieldMap = new Map([
   [PostAwardProcessField.ElectronicOrderUsageIndicator, PostAwardProcessFieldMetaElectronicOrderUsageIndicator],
   [PostAwardProcessField.ElectronicPaymentUsageIndicator, PostAwardProcessFieldMetaElectronicPaymentUsageIndicator]
 ])
+
+export const PostAwardProcessType: Type<PostAwardProcessField> = {
+  name: 'PostAwardProcess',
+  label: 'Post Award Process',
+  module: TypeModule.cac,
+  definition: 'A class to describe a post award process. These processes following the agreement on a contract for supply of goods or services ( for example, after the awarding of a tender).',
+  fields: PostAwardProcessFieldMap,
+}

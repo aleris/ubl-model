@@ -14,7 +14,6 @@ import { Time } from '../cbc/Time'
 import { TransportEquipment } from './TransportEquipment'
 import { TransportEvent } from './TransportEvent'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a transportation service.
  */

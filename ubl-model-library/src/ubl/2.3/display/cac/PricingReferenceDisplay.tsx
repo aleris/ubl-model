@@ -1,57 +1,66 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { PricingReference } from  '../../model/cac/PricingReference'
-import { PricingReferenceFieldMeta } from  '../../meta/cac/PricingReferenceMeta'
-import ItemLocationQuantityDisplay from './ItemLocationQuantityDisplay'
-import { ItemLocationQuantity } from '../../model/cac/ItemLocationQuantity'
-import PriceDisplay from './PriceDisplay'
-import { Price } from '../../model/cac/Price'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { PricingReferenceField, PricingReferenceFieldMeta, PricingReferenceTypeName } from  '../../meta/cac/PricingReferenceMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { ItemLocationQuantityDisplay } from './ItemLocationQuantityDisplay'
+import { PriceDisplay } from './PriceDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: PricingReference | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<PricingReference, void>
+  pricingReference: PricingReference[] | undefined
+  renderContext: RenderContext
 }
 
-export default function PricingReferenceDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const PricingReferenceSubElementsMap: SubElementsTemplatesMap<PricingReferenceField, PricingReference, void> = new Map([
+    [
+      PricingReferenceField.UBLExtensions,
+      { meta: PricingReferenceFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={PricingReferenceField.UBLExtensions}
+          meta={PricingReferenceFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-PricingReference">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={PricingReferenceFieldMeta.UBLExtensions}
-          />
+    [
+      PricingReferenceField.OriginalItemLocationQuantity,
+      { meta: PricingReferenceFieldMeta.OriginalItemLocationQuantity,
+        template: ({value, renderContext, fieldConfig}) => <ItemLocationQuantityDisplay
+          key={PricingReferenceField.OriginalItemLocationQuantity}
+          meta={PricingReferenceFieldMeta.OriginalItemLocationQuantity}
+          fieldConfig={fieldConfig}
+          itemLocationQuantity={value?.OriginalItemLocationQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ItemLocationQuantityDisplay
-            label="Original Item Location Quantity"
-            value={value.OriginalItemLocationQuantity?.[0]}
-            meta={PricingReferenceFieldMeta.OriginalItemLocationQuantity}
-          />
+    [
+      PricingReferenceField.AlternativeConditionPrice,
+      { meta: PricingReferenceFieldMeta.AlternativeConditionPrice,
+        template: ({value, renderContext, fieldConfig}) => <PriceDisplay
+          key={PricingReferenceField.AlternativeConditionPrice}
+          meta={PricingReferenceFieldMeta.AlternativeConditionPrice}
+          fieldConfig={fieldConfig}
+          price={value?.AlternativeConditionPrice}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Price ubl-AlternativeConditionPrice"
-            label="Alternative Condition Price"
-            items={value.AlternativeConditionPrice}
-            meta={PricingReferenceFieldMeta.AlternativeConditionPrice} 
-            itemDisplay={ (itemValue: Price, key: string | number) =>
-              <PriceDisplay
-                key={key}
-                label="Alternative Condition Price"
-                value={itemValue}
-                meta={PricingReferenceFieldMeta.AlternativeConditionPrice}
-              />
-            }
-          />
-        </div>
-    </div>
+export function PricingReferenceDisplay<TFieldMeta>({ meta, fieldConfig, pricingReference, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    PricingReferenceTypeName,
+    meta,
+    fieldConfig,
+    pricingReference,
+    renderContext,
+    PricingReferenceSubElementsMap,
   )
 }

@@ -1,4 +1,10 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AttachmentType } from './AttachmentMeta'
+import { EncryptionCertificatePathChainType } from './EncryptionCertificatePathChainMeta'
+import { EncryptionSymmetricAlgorithmType } from './EncryptionSymmetricAlgorithmMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum EncryptionDataField {
   UBLExtensions = 'UBLExtensions',
@@ -11,11 +17,11 @@ export enum EncryptionDataField {
 export const EncryptionDataFieldMetaUBLExtensions = new FieldMeta<EncryptionDataField>(
   EncryptionDataField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -24,10 +30,10 @@ export const EncryptionDataFieldMetaMessageFormat = new FieldMeta<EncryptionData
   EncryptionDataField.MessageFormat,
   'MessageFormat',
   'Message Format',
-  'Text',
+  TextType.name,
   'The format of the encrypted message.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -36,10 +42,10 @@ export const EncryptionDataFieldMetaEncryptionCertificateAttachment = new FieldM
   EncryptionDataField.EncryptionCertificateAttachment,
   'EncryptionCertificateAttachment',
   'Encryption Certificate Attachment',
-  'Attachment',
+  AttachmentType.name,
   'A reference to the certificate used in the encryption process.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -48,10 +54,10 @@ export const EncryptionDataFieldMetaEncryptionCertificatePathChain = new FieldMe
   EncryptionDataField.EncryptionCertificatePathChain,
   'EncryptionCertificatePathChain',
   'Encryption Certificate Path Chain',
-  'EncryptionCertificatePathChain',
+  EncryptionCertificatePathChainType.name,
   'A reference to the path chain defined for the encryption process.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -60,10 +66,10 @@ export const EncryptionDataFieldMetaEncryptionSymmetricAlgorithm = new FieldMeta
   EncryptionDataField.EncryptionSymmetricAlgorithm,
   'EncryptionSymmetricAlgorithm',
   'Encryption Symmetric Algorithm',
-  'EncryptionSymmetricAlgorithm',
+  EncryptionSymmetricAlgorithmType.name,
   'A reference to the symmetric algorithm used for the encryption process.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -83,3 +89,11 @@ export const EncryptionDataFieldMap = new Map([
   [EncryptionDataField.EncryptionCertificatePathChain, EncryptionDataFieldMetaEncryptionCertificatePathChain],
   [EncryptionDataField.EncryptionSymmetricAlgorithm, EncryptionDataFieldMetaEncryptionSymmetricAlgorithm]
 ])
+
+export const EncryptionDataType: Type<EncryptionDataField> = {
+  name: 'EncryptionData',
+  label: 'Encryption Data',
+  module: TypeModule.cac,
+  definition: 'Details of an encryption process',
+  fields: EncryptionDataFieldMap,
+}

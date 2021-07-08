@@ -9,7 +9,6 @@ import { Shipment } from './Shipment'
 import { Signature } from './Signature'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to define an application for a Certificate of Origin (CoO).
  */

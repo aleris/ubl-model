@@ -1,4 +1,10 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AddressType } from './AddressMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { LanguageType } from './LanguageMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum LegislationField {
   UBLExtensions = 'UBLExtensions',
@@ -15,11 +21,11 @@ export enum LegislationField {
 export const LegislationFieldMetaUBLExtensions = new FieldMeta<LegislationField>(
   LegislationField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -28,10 +34,10 @@ export const LegislationFieldMetaID = new FieldMeta<LegislationField>(
   LegislationField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier to refer to the legislation.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -40,10 +46,10 @@ export const LegislationFieldMetaTitle = new FieldMeta<LegislationField>(
   LegislationField.Title,
   'Title',
   'Title',
-  'Text',
+  TextType.name,
   'The title of the legislation.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -52,10 +58,10 @@ export const LegislationFieldMetaDescription = new FieldMeta<LegislationField>(
   LegislationField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'The textual description of the legislation.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -64,10 +70,10 @@ export const LegislationFieldMetaJurisdictionLevel = new FieldMeta<LegislationFi
   LegislationField.JurisdictionLevel,
   'JurisdictionLevel',
   'Jurisdiction Level',
-  'Text',
+  TextType.name,
   'The jurisdiction level for the legislation.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -76,10 +82,10 @@ export const LegislationFieldMetaArticle = new FieldMeta<LegislationField>(
   LegislationField.Article,
   'Article',
   'Article',
-  'Text',
+  TextType.name,
   'The article of the legislation.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -88,10 +94,10 @@ export const LegislationFieldMetaURI = new FieldMeta<LegislationField>(
   LegislationField.URI,
   'URI',
   'URI',
-  'Identifier',
+  IdentifierType.name,
   'A URI to the legislation.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -100,10 +106,10 @@ export const LegislationFieldMetaLanguage = new FieldMeta<LegislationField>(
   LegislationField.Language,
   'Language',
   'Language',
-  'Language',
+  LanguageType.name,
   'The language of the legislation.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -112,10 +118,10 @@ export const LegislationFieldMetaJurisdictionRegionAddress = new FieldMeta<Legis
   LegislationField.JurisdictionRegionAddress,
   'JurisdictionRegionAddress',
   'Jurisdiction Region Address',
-  'Address',
+  AddressType.name,
   'The geopolitical region in which this legislation applies.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -143,3 +149,11 @@ export const LegislationFieldMap = new Map([
   [LegislationField.Language, LegislationFieldMetaLanguage],
   [LegislationField.JurisdictionRegionAddress, LegislationFieldMetaJurisdictionRegionAddress]
 ])
+
+export const LegislationType: Type<LegislationField> = {
+  name: 'Legislation',
+  label: 'Legislation',
+  module: TypeModule.cac,
+  definition: 'A class to describe a reference to a piece of legislation.',
+  fields: LegislationFieldMap,
+}

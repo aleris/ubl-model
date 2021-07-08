@@ -1,4 +1,15 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AddressType } from './AddressMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { ContactType } from './ContactMeta'
+import { CountryType } from './CountryMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from './DocumentReferenceMeta'
+import { FinancialAccountType } from './FinancialAccountMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum PersonField {
   UBLExtensions = 'UBLExtensions',
@@ -26,11 +37,11 @@ export enum PersonField {
 export const PersonFieldMetaUBLExtensions = new FieldMeta<PersonField>(
   PersonField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -39,10 +50,10 @@ export const PersonFieldMetaID = new FieldMeta<PersonField>(
   PersonField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this person.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -51,10 +62,10 @@ export const PersonFieldMetaFirstName = new FieldMeta<PersonField>(
   PersonField.FirstName,
   'FirstName',
   'First Name',
-  'Text',
+  TextType.name,
   'This person\'s given name.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -63,10 +74,10 @@ export const PersonFieldMetaFamilyName = new FieldMeta<PersonField>(
   PersonField.FamilyName,
   'FamilyName',
   'Family Name',
-  'Text',
+  TextType.name,
   'This person\'s family name.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -75,10 +86,10 @@ export const PersonFieldMetaTitle = new FieldMeta<PersonField>(
   PersonField.Title,
   'Title',
   'Title',
-  'Text',
+  TextType.name,
   'This person\'s title of address (e.g., Mr, Ms, Dr, Sir).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -87,10 +98,10 @@ export const PersonFieldMetaMiddleName = new FieldMeta<PersonField>(
   PersonField.MiddleName,
   'MiddleName',
   'Middle Name',
-  'Text',
+  TextType.name,
   'This person\'s middle name(s) or initials.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -99,10 +110,10 @@ export const PersonFieldMetaOtherName = new FieldMeta<PersonField>(
   PersonField.OtherName,
   'OtherName',
   'Other Name',
-  'Text',
+  TextType.name,
   'This person\'s second family name.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Delivery Dock'
 )
@@ -111,10 +122,10 @@ export const PersonFieldMetaNameSuffix = new FieldMeta<PersonField>(
   PersonField.NameSuffix,
   'NameSuffix',
   'Name Suffix',
-  'Text',
+  TextType.name,
   'A suffix to this person\'s name (e.g., PhD, OBE, Jr).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -123,10 +134,10 @@ export const PersonFieldMetaJobTitle = new FieldMeta<PersonField>(
   PersonField.JobTitle,
   'JobTitle',
   'Job Title',
-  'Text',
+  TextType.name,
   'This person\'s job title (for a particular role) within an organization.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -135,10 +146,10 @@ export const PersonFieldMetaNationalityID = new FieldMeta<PersonField>(
   PersonField.NationalityID,
   'NationalityID',
   'Nationality',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this person\'s nationality.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -147,10 +158,10 @@ export const PersonFieldMetaGenderCode = new FieldMeta<PersonField>(
   PersonField.GenderCode,
   'GenderCode',
   'Gender Code',
-  'Code',
+  CodeType.name,
   'A code (e.g., ISO 5218) signifying the gender of this person.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -159,10 +170,10 @@ export const PersonFieldMetaBirthDate = new FieldMeta<PersonField>(
   PersonField.BirthDate,
   'BirthDate',
   'Birth Date',
-  'Date',
+  DateType.name,
   'This person\'s date of birth.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -171,10 +182,10 @@ export const PersonFieldMetaBirthplaceName = new FieldMeta<PersonField>(
   PersonField.BirthplaceName,
   'BirthplaceName',
   'Birthplace Name',
-  'Text',
+  TextType.name,
   'The name of the place where this person was born, expressed as text.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -183,10 +194,10 @@ export const PersonFieldMetaOrganizationDepartment = new FieldMeta<PersonField>(
   PersonField.OrganizationDepartment,
   'OrganizationDepartment',
   'Organization Department',
-  'Text',
+  TextType.name,
   'The department or subdivision of an organization that this person belongs to (in a particular role).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -195,10 +206,10 @@ export const PersonFieldMetaRoleCode = new FieldMeta<PersonField>(
   PersonField.RoleCode,
   'RoleCode',
   'Role Code',
-  'Code',
+  CodeType.name,
   'A code stating the person\'s role',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -207,10 +218,10 @@ export const PersonFieldMetaCitizenshipCountry = new FieldMeta<PersonField>(
   PersonField.CitizenshipCountry,
   'CitizenshipCountry',
   'Citizenship Country',
-  'Country',
+  CountryType.name,
   'The country of the person\'s citizenship.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -219,10 +230,10 @@ export const PersonFieldMetaContact = new FieldMeta<PersonField>(
   PersonField.Contact,
   'Contact',
   'Contact',
-  'Contact',
+  ContactType.name,
   'Contact information for this person.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -231,10 +242,10 @@ export const PersonFieldMetaFinancialAccount = new FieldMeta<PersonField>(
   PersonField.FinancialAccount,
   'FinancialAccount',
   'Financial Account',
-  'FinancialAccount',
+  FinancialAccountType.name,
   'The financial account associated with this person.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -243,10 +254,10 @@ export const PersonFieldMetaIdentityDocumentReference = new FieldMeta<PersonFiel
   PersonField.IdentityDocumentReference,
   'IdentityDocumentReference',
   'Identity Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a document that can precisely identify this person (e.g., a driver\'s license).',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -255,10 +266,10 @@ export const PersonFieldMetaResidenceAddress = new FieldMeta<PersonField>(
   PersonField.ResidenceAddress,
   'ResidenceAddress',
   'Residence Address',
-  'Address',
+  AddressType.name,
   'This person\'s address of residence.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -308,3 +319,11 @@ export const PersonFieldMap = new Map([
   [PersonField.IdentityDocumentReference, PersonFieldMetaIdentityDocumentReference],
   [PersonField.ResidenceAddress, PersonFieldMetaResidenceAddress]
 ])
+
+export const PersonType: Type<PersonField> = {
+  name: 'Person',
+  label: 'Person',
+  module: TypeModule.cac,
+  definition: 'A class to describe a person.',
+  fields: PersonFieldMap,
+}

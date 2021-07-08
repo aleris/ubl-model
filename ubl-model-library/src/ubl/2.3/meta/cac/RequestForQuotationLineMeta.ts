@@ -1,4 +1,12 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { DocumentReferenceType } from './DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { LineItemType } from './LineItemMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum RequestForQuotationLineField {
   UBLExtensions = 'UBLExtensions',
@@ -15,11 +23,11 @@ export enum RequestForQuotationLineField {
 export const RequestForQuotationLineFieldMetaUBLExtensions = new FieldMeta<RequestForQuotationLineField>(
   RequestForQuotationLineField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -28,10 +36,10 @@ export const RequestForQuotationLineFieldMetaID = new FieldMeta<RequestForQuotat
   RequestForQuotationLineField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this line in the request for quotation.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -40,10 +48,10 @@ export const RequestForQuotationLineFieldMetaUUID = new FieldMeta<RequestForQuot
   RequestForQuotationLineField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for this line in the request for quotation.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -52,10 +60,10 @@ export const RequestForQuotationLineFieldMetaNote = new FieldMeta<RequestForQuot
   RequestForQuotationLineField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -64,10 +72,10 @@ export const RequestForQuotationLineFieldMetaOptionalLineItemIndicator = new Fie
   RequestForQuotationLineField.OptionalLineItemIndicator,
   'OptionalLineItemIndicator',
   'Optional Line Item Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indication whether this line is optional (true) or not (false) for purposes of this request for quotation.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -76,10 +84,10 @@ export const RequestForQuotationLineFieldMetaPrivacyCode = new FieldMeta<Request
   RequestForQuotationLineField.PrivacyCode,
   'PrivacyCode',
   'Privacy Code',
-  'Code',
+  CodeType.name,
   'A code signifying the level of confidentiality of this request for quotation line.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -88,10 +96,10 @@ export const RequestForQuotationLineFieldMetaSecurityClassificationCode = new Fi
   RequestForQuotationLineField.SecurityClassificationCode,
   'SecurityClassificationCode',
   'Security Classification Code',
-  'Code',
+  CodeType.name,
   'A code signifying the security classification of this request for quotation line.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -100,10 +108,10 @@ export const RequestForQuotationLineFieldMetaDocumentReference = new FieldMeta<R
   RequestForQuotationLineField.DocumentReference,
   'DocumentReference',
   'Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A document associated with this request for quotation line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -112,10 +120,10 @@ export const RequestForQuotationLineFieldMetaLineItem = new FieldMeta<RequestFor
   RequestForQuotationLineField.LineItem,
   'LineItem',
   'Line Item',
-  'LineItem',
+  LineItemType.name,
   'A description of the item for which a quotation is requested.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -143,3 +151,11 @@ export const RequestForQuotationLineFieldMap = new Map([
   [RequestForQuotationLineField.DocumentReference, RequestForQuotationLineFieldMetaDocumentReference],
   [RequestForQuotationLineField.LineItem, RequestForQuotationLineFieldMetaLineItem]
 ])
+
+export const RequestForQuotationLineType: Type<RequestForQuotationLineField> = {
+  name: 'RequestForQuotationLine',
+  label: 'Request For Quotation Line',
+  module: TypeModule.cac,
+  definition: 'A class to define a line in a Request for Quotation.',
+  fields: RequestForQuotationLineFieldMap,
+}

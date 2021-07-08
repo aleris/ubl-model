@@ -1,65 +1,79 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { LotIdentification } from  '../../model/cac/LotIdentification'
-import { LotIdentificationFieldMeta } from  '../../meta/cac/LotIdentificationMeta'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import ItemPropertyDisplay from './ItemPropertyDisplay'
-import { ItemProperty } from '../../model/cac/ItemProperty'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { LotIdentificationField, LotIdentificationFieldMeta, LotIdentificationTypeName } from  '../../meta/cac/LotIdentificationMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { ItemPropertyDisplay } from './ItemPropertyDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: LotIdentification | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<LotIdentification, void>
+  lotIdentification: LotIdentification[] | undefined
+  renderContext: RenderContext
 }
 
-export default function LotIdentificationDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const LotIdentificationSubElementsMap: SubElementsTemplatesMap<LotIdentificationField, LotIdentification, void> = new Map([
+    [
+      LotIdentificationField.UBLExtensions,
+      { meta: LotIdentificationFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={LotIdentificationField.UBLExtensions}
+          meta={LotIdentificationFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-LotIdentification">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={LotIdentificationFieldMeta.UBLExtensions}
-          />
+    [
+      LotIdentificationField.LotNumberID,
+      { meta: LotIdentificationFieldMeta.LotNumberID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={LotIdentificationField.LotNumberID}
+          meta={LotIdentificationFieldMeta.LotNumberID}
+          fieldConfig={fieldConfig}
+          identifier={value?.LotNumberID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Lot Number"
-            value={value.LotNumberID?.[0]}
-            meta={LotIdentificationFieldMeta.LotNumberID}
-          />
+    [
+      LotIdentificationField.ExpiryDate,
+      { meta: LotIdentificationFieldMeta.ExpiryDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={LotIdentificationField.ExpiryDate}
+          meta={LotIdentificationFieldMeta.ExpiryDate}
+          fieldConfig={fieldConfig}
+          date={value?.ExpiryDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Expiry Date"
-            value={value.ExpiryDate?.[0]}
-            meta={LotIdentificationFieldMeta.ExpiryDate}
-          />
+    [
+      LotIdentificationField.AdditionalItemProperty,
+      { meta: LotIdentificationFieldMeta.AdditionalItemProperty,
+        template: ({value, renderContext, fieldConfig}) => <ItemPropertyDisplay
+          key={LotIdentificationField.AdditionalItemProperty}
+          meta={LotIdentificationFieldMeta.AdditionalItemProperty}
+          fieldConfig={fieldConfig}
+          itemProperty={value?.AdditionalItemProperty}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-ItemProperty ubl-AdditionalItemProperty"
-            label="Additional Item Property"
-            items={value.AdditionalItemProperty}
-            meta={LotIdentificationFieldMeta.AdditionalItemProperty} 
-            itemDisplay={ (itemValue: ItemProperty, key: string | number) =>
-              <ItemPropertyDisplay
-                key={key}
-                label="Additional Item Property"
-                value={itemValue}
-                meta={LotIdentificationFieldMeta.AdditionalItemProperty}
-              />
-            }
-          />
-        </div>
-    </div>
+export function LotIdentificationDisplay<TFieldMeta>({ meta, fieldConfig, lotIdentification, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    LotIdentificationTypeName,
+    meta,
+    fieldConfig,
+    lotIdentification,
+    renderContext,
+    LotIdentificationSubElementsMap,
   )
 }

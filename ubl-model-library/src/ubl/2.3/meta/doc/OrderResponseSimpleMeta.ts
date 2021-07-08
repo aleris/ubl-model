@@ -1,4 +1,17 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { CustomerPartyType } from '../cac/CustomerPartyMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { OrderReferenceType } from '../cac/OrderReferenceMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { SupplierPartyType } from '../cac/SupplierPartyMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum OrderResponseSimpleField {
   UBLExtensions = 'UBLExtensions',
@@ -31,11 +44,11 @@ export enum OrderResponseSimpleField {
 export const OrderResponseSimpleFieldMetaUBLExtensions = new FieldMeta<OrderResponseSimpleField>(
   OrderResponseSimpleField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -44,10 +57,10 @@ export const OrderResponseSimpleFieldMetaUBLVersionID = new FieldMeta<OrderRespo
   OrderResponseSimpleField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.0.5'
 )
@@ -56,10 +69,10 @@ export const OrderResponseSimpleFieldMetaCustomizationID = new FieldMeta<OrderRe
   OrderResponseSimpleField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -68,10 +81,10 @@ export const OrderResponseSimpleFieldMetaProfileID = new FieldMeta<OrderResponse
   OrderResponseSimpleField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BasicProcurementProcess'
 )
@@ -80,10 +93,10 @@ export const OrderResponseSimpleFieldMetaProfileExecutionID = new FieldMeta<Orde
   OrderResponseSimpleField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -92,10 +105,10 @@ export const OrderResponseSimpleFieldMetaID = new FieldMeta<OrderResponseSimpleF
   OrderResponseSimpleField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   'Purchase Order Response Number, Acknowledgement of Order Number',
   undefined
 )
@@ -104,10 +117,10 @@ export const OrderResponseSimpleFieldMetaCopyIndicator = new FieldMeta<OrderResp
   OrderResponseSimpleField.CopyIndicator,
   'CopyIndicator',
   'Copy Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this document is a copy (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -116,10 +129,10 @@ export const OrderResponseSimpleFieldMetaUUID = new FieldMeta<OrderResponseSimpl
   OrderResponseSimpleField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -128,10 +141,10 @@ export const OrderResponseSimpleFieldMetaIssueDate = new FieldMeta<OrderResponse
   OrderResponseSimpleField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -140,10 +153,10 @@ export const OrderResponseSimpleFieldMetaIssueTime = new FieldMeta<OrderResponse
   OrderResponseSimpleField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -152,10 +165,10 @@ export const OrderResponseSimpleFieldMetaNote = new FieldMeta<OrderResponseSimpl
   OrderResponseSimpleField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -164,10 +177,10 @@ export const OrderResponseSimpleFieldMetaAcceptedIndicator = new FieldMeta<Order
   OrderResponseSimpleField.AcceptedIndicator,
   'AcceptedIndicator',
   'Accepted Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether the Order is accepted (true) or rejected (false).',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -176,10 +189,10 @@ export const OrderResponseSimpleFieldMetaRejectionNote = new FieldMeta<OrderResp
   OrderResponseSimpleField.RejectionNote,
   'RejectionNote',
   'Rejection Note',
-  'Text',
+  TextType.name,
   'The reason for rejection if the order was not accepted.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   'Out of Stock , Not able to supply , Unable to fulfill within the contracted conditions , Buyer Account not Recognised'
 )
@@ -188,10 +201,10 @@ export const OrderResponseSimpleFieldMetaCustomerReference = new FieldMeta<Order
   OrderResponseSimpleField.CustomerReference,
   'CustomerReference',
   'Customer Reference',
-  'Text',
+  TextType.name,
   'A supplementary reference for the transaction (e.g., when using a purchasing card).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -200,10 +213,10 @@ export const OrderResponseSimpleFieldMetaAccountingCostCode = new FieldMeta<Orde
   OrderResponseSimpleField.AccountingCostCode,
   'AccountingCostCode',
   'Accounting Cost Code',
-  'Code',
+  CodeType.name,
   'An accounting cost code applied to the order as a whole.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -212,10 +225,10 @@ export const OrderResponseSimpleFieldMetaAccountingCost = new FieldMeta<OrderRes
   OrderResponseSimpleField.AccountingCost,
   'AccountingCost',
   'Accounting Cost',
-  'Text',
+  TextType.name,
   'An accounting cost code applied to the order as a whole, expressed as text.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -224,10 +237,10 @@ export const OrderResponseSimpleFieldMetaOrderReference = new FieldMeta<OrderRes
   OrderResponseSimpleField.OrderReference,
   'OrderReference',
   'Order Reference',
-  'OrderReference',
+  OrderReferenceType.name,
   'A reference to the Order being responded to.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -236,10 +249,10 @@ export const OrderResponseSimpleFieldMetaOrderChangeDocumentReference = new Fiel
   OrderResponseSimpleField.OrderChangeDocumentReference,
   'OrderChangeDocumentReference',
   'Order Change Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to an Order Change being responded to.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -248,10 +261,10 @@ export const OrderResponseSimpleFieldMetaAdditionalDocumentReference = new Field
   OrderResponseSimpleField.AdditionalDocumentReference,
   'AdditionalDocumentReference',
   'Additional Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to an additional document associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -260,10 +273,10 @@ export const OrderResponseSimpleFieldMetaSignature = new FieldMeta<OrderResponse
   OrderResponseSimpleField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -272,10 +285,10 @@ export const OrderResponseSimpleFieldMetaSellerSupplierParty = new FieldMeta<Ord
   OrderResponseSimpleField.SellerSupplierParty,
   'SellerSupplierParty',
   'Seller Supplier Party',
-  'SupplierParty',
+  SupplierPartyType.name,
   'The seller.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -284,10 +297,10 @@ export const OrderResponseSimpleFieldMetaBuyerCustomerParty = new FieldMeta<Orde
   OrderResponseSimpleField.BuyerCustomerParty,
   'BuyerCustomerParty',
   'Buyer Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The buyer.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -296,10 +309,10 @@ export const OrderResponseSimpleFieldMetaOriginatorCustomerParty = new FieldMeta
   OrderResponseSimpleField.OriginatorCustomerParty,
   'OriginatorCustomerParty',
   'Originator Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The originator.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -308,10 +321,10 @@ export const OrderResponseSimpleFieldMetaAccountingSupplierParty = new FieldMeta
   OrderResponseSimpleField.AccountingSupplierParty,
   'AccountingSupplierParty',
   'Accounting Supplier Party',
-  'SupplierParty',
+  SupplierPartyType.name,
   'The accounting supplier party.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -320,10 +333,10 @@ export const OrderResponseSimpleFieldMetaAccountingCustomerParty = new FieldMeta
   OrderResponseSimpleField.AccountingCustomerParty,
   'AccountingCustomerParty',
   'Accounting Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The accounting customer party.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -383,3 +396,11 @@ export const OrderResponseSimpleFieldMap = new Map([
   [OrderResponseSimpleField.AccountingSupplierParty, OrderResponseSimpleFieldMetaAccountingSupplierParty],
   [OrderResponseSimpleField.AccountingCustomerParty, OrderResponseSimpleFieldMetaAccountingCustomerParty]
 ])
+
+export const OrderResponseSimpleType: Type<OrderResponseSimpleField> = {
+  name: 'OrderResponseSimple',
+  label: 'Order Response Simple',
+  module: TypeModule.doc,
+  definition: 'A document used to indicate simple acceptance or rejection of an entire Order.',
+  fields: OrderResponseSimpleFieldMap,
+}

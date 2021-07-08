@@ -1,4 +1,10 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { TelecommunicationsSupplyLineType } from './TelecommunicationsSupplyLineMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum TelecommunicationsSupplyField {
   UBLExtensions = 'UBLExtensions',
@@ -13,11 +19,11 @@ export enum TelecommunicationsSupplyField {
 export const TelecommunicationsSupplyFieldMetaUBLExtensions = new FieldMeta<TelecommunicationsSupplyField>(
   TelecommunicationsSupplyField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -26,10 +32,10 @@ export const TelecommunicationsSupplyFieldMetaTelecommunicationsSupplyType = new
   TelecommunicationsSupplyField.TelecommunicationsSupplyType,
   'TelecommunicationsSupplyType',
   'Telecommunications Supply Type',
-  'Text',
+  TextType.name,
   'The type of telecommunications supply, expressed as text.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Itemized tele Statement'
 )
@@ -38,10 +44,10 @@ export const TelecommunicationsSupplyFieldMetaTelecommunicationsSupplyTypeCode =
   TelecommunicationsSupplyField.TelecommunicationsSupplyTypeCode,
   'TelecommunicationsSupplyTypeCode',
   'Telecommunications Supply Type Code',
-  'Code',
+  CodeType.name,
   'The type of telecommunications supply, expressed as a code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'TeleExtended'
 )
@@ -50,10 +56,10 @@ export const TelecommunicationsSupplyFieldMetaPrivacyCode = new FieldMeta<Teleco
   TelecommunicationsSupplyField.PrivacyCode,
   'PrivacyCode',
   'Privacy Code',
-  'Code',
+  CodeType.name,
   'A code signifying the level of confidentiality of this information for this telecommunication supply.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   'CompanyLevel'
 )
@@ -62,10 +68,10 @@ export const TelecommunicationsSupplyFieldMetaDescription = new FieldMeta<Teleco
   TelecommunicationsSupplyField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing the telecommunications supply.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   'Extended conversation Statement January quarter 2008.'
 )
@@ -74,10 +80,10 @@ export const TelecommunicationsSupplyFieldMetaTotalAmount = new FieldMeta<Teleco
   TelecommunicationsSupplyField.TotalAmount,
   'TotalAmount',
   'Total Amount',
-  'Amount',
+  AmountType.name,
   'The total amount associated with this telecommunications supply.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -86,10 +92,10 @@ export const TelecommunicationsSupplyFieldMetaTelecommunicationsSupplyLine = new
   TelecommunicationsSupplyField.TelecommunicationsSupplyLine,
   'TelecommunicationsSupplyLine',
   'Telecommunications Supply Line',
-  'TelecommunicationsSupplyLine',
+  TelecommunicationsSupplyLineType.name,
   'Outlines the provided telecommunication supply',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -113,3 +119,11 @@ export const TelecommunicationsSupplyFieldMap = new Map([
   [TelecommunicationsSupplyField.TotalAmount, TelecommunicationsSupplyFieldMetaTotalAmount],
   [TelecommunicationsSupplyField.TelecommunicationsSupplyLine, TelecommunicationsSupplyFieldMetaTelecommunicationsSupplyLine]
 ])
+
+export const TelecommunicationsSupplyType: Type<TelecommunicationsSupplyField> = {
+  name: 'TelecommunicationsSupply',
+  label: 'Telecommunications Supply',
+  module: TypeModule.cac,
+  definition: 'A class describing the supply of a telecommunication service, e.g., providing telephone calls.',
+  fields: TelecommunicationsSupplyFieldMap,
+}

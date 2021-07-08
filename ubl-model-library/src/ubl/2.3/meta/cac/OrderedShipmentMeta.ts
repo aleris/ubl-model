@@ -1,4 +1,8 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { PackageType } from './PackageMeta'
+import { ShipmentType } from './ShipmentMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum OrderedShipmentField {
   UBLExtensions = 'UBLExtensions',
@@ -9,11 +13,11 @@ export enum OrderedShipmentField {
 export const OrderedShipmentFieldMetaUBLExtensions = new FieldMeta<OrderedShipmentField>(
   OrderedShipmentField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -22,10 +26,10 @@ export const OrderedShipmentFieldMetaShipment = new FieldMeta<OrderedShipmentFie
   OrderedShipmentField.Shipment,
   'Shipment',
   'Shipment',
-  'Shipment',
+  ShipmentType.name,
   'The ordered shipment.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -34,10 +38,10 @@ export const OrderedShipmentFieldMetaPackage = new FieldMeta<OrderedShipmentFiel
   OrderedShipmentField.Package,
   'Package',
   'Package',
-  'Package',
+  PackageType.name,
   'A package in this ordered shipment.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -53,3 +57,11 @@ export const OrderedShipmentFieldMap = new Map([
   [OrderedShipmentField.Shipment, OrderedShipmentFieldMetaShipment],
   [OrderedShipmentField.Package, OrderedShipmentFieldMetaPackage]
 ])
+
+export const OrderedShipmentType: Type<OrderedShipmentField> = {
+  name: 'OrderedShipment',
+  label: 'Ordered Shipment',
+  module: TypeModule.cac,
+  definition: 'A class to describe an ordered shipment.',
+  fields: OrderedShipmentFieldMap,
+}

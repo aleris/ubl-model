@@ -1,4 +1,14 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum TenderReceiptField {
   UBLExtensions = 'UBLExtensions',
@@ -25,11 +35,11 @@ export enum TenderReceiptField {
 export const TenderReceiptFieldMetaUBLExtensions = new FieldMeta<TenderReceiptField>(
   TenderReceiptField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -38,10 +48,10 @@ export const TenderReceiptFieldMetaUBLVersionID = new FieldMeta<TenderReceiptFie
   TenderReceiptField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.0.5'
 )
@@ -50,10 +60,10 @@ export const TenderReceiptFieldMetaCustomizationID = new FieldMeta<TenderReceipt
   TenderReceiptField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -62,10 +72,10 @@ export const TenderReceiptFieldMetaProfileID = new FieldMeta<TenderReceiptField>
   TenderReceiptField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BasicProcurementProcess'
 )
@@ -74,10 +84,10 @@ export const TenderReceiptFieldMetaProfileExecutionID = new FieldMeta<TenderRece
   TenderReceiptField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BPP-1001'
 )
@@ -86,10 +96,10 @@ export const TenderReceiptFieldMetaID = new FieldMeta<TenderReceiptField>(
   TenderReceiptField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -98,10 +108,10 @@ export const TenderReceiptFieldMetaCopyIndicator = new FieldMeta<TenderReceiptFi
   TenderReceiptField.CopyIndicator,
   'CopyIndicator',
   'Copy Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this document is a copy (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -110,10 +120,10 @@ export const TenderReceiptFieldMetaUUID = new FieldMeta<TenderReceiptField>(
   TenderReceiptField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -122,10 +132,10 @@ export const TenderReceiptFieldMetaContractFolderID = new FieldMeta<TenderReceip
   TenderReceiptField.ContractFolderID,
   'ContractFolderID',
   'Contract Folder Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier, assigned by the sender, for the process file (i.e., record) to which this document belongs.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -134,10 +144,10 @@ export const TenderReceiptFieldMetaIssueDate = new FieldMeta<TenderReceiptField>
   TenderReceiptField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -146,10 +156,10 @@ export const TenderReceiptFieldMetaIssueTime = new FieldMeta<TenderReceiptField>
   TenderReceiptField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -158,10 +168,10 @@ export const TenderReceiptFieldMetaContractName = new FieldMeta<TenderReceiptFie
   TenderReceiptField.ContractName,
   'ContractName',
   'Contract Name',
-  'Text',
+  TextType.name,
   'Short title of a contract associated with this Tender.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -170,10 +180,10 @@ export const TenderReceiptFieldMetaNote = new FieldMeta<TenderReceiptField>(
   TenderReceiptField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -182,10 +192,10 @@ export const TenderReceiptFieldMetaRegisteredDate = new FieldMeta<TenderReceiptF
   TenderReceiptField.RegisteredDate,
   'RegisteredDate',
   'Registered Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which the Tender Receipt was created.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -194,10 +204,10 @@ export const TenderReceiptFieldMetaRegisteredTime = new FieldMeta<TenderReceiptF
   TenderReceiptField.RegisteredTime,
   'RegisteredTime',
   'Registered Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which the Tender Receipt was created.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -206,10 +216,10 @@ export const TenderReceiptFieldMetaTenderDocumentReference = new FieldMeta<Tende
   TenderReceiptField.TenderDocumentReference,
   'TenderDocumentReference',
   'Tender Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a received Tender.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -218,10 +228,10 @@ export const TenderReceiptFieldMetaSignature = new FieldMeta<TenderReceiptField>
   TenderReceiptField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -230,10 +240,10 @@ export const TenderReceiptFieldMetaSenderParty = new FieldMeta<TenderReceiptFiel
   TenderReceiptField.SenderParty,
   'SenderParty',
   'Sender Party',
-  'Party',
+  PartyType.name,
   'The party sending this document.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -242,10 +252,10 @@ export const TenderReceiptFieldMetaReceiverParty = new FieldMeta<TenderReceiptFi
   TenderReceiptField.ReceiverParty,
   'ReceiverParty',
   'Receiver Party',
-  'Party',
+  PartyType.name,
   'The party receiving this document.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -293,3 +303,11 @@ export const TenderReceiptFieldMap = new Map([
   [TenderReceiptField.SenderParty, TenderReceiptFieldMetaSenderParty],
   [TenderReceiptField.ReceiverParty, TenderReceiptFieldMetaReceiverParty]
 ])
+
+export const TenderReceiptType: Type<TenderReceiptField> = {
+  name: 'TenderReceipt',
+  label: 'Tender Receipt',
+  module: TypeModule.doc,
+  definition: 'A document sent by a contracting party to an economic operator acknowledging receipt of a Tender.',
+  fields: TenderReceiptFieldMap,
+}

@@ -1,46 +1,65 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { RailTransport } from  '../../model/cac/RailTransport'
-import { RailTransportFieldMeta } from  '../../meta/cac/RailTransportMeta'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { RailTransportField, RailTransportFieldMeta, RailTransportTypeName } from  '../../meta/cac/RailTransportMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: RailTransport | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<RailTransport, void>
+  railTransport: RailTransport[] | undefined
+  renderContext: RenderContext
 }
 
-export default function RailTransportDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const RailTransportSubElementsMap: SubElementsTemplatesMap<RailTransportField, RailTransport, void> = new Map([
+    [
+      RailTransportField.UBLExtensions,
+      { meta: RailTransportFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={RailTransportField.UBLExtensions}
+          meta={RailTransportFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-RailTransport">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={RailTransportFieldMeta.UBLExtensions}
-          />
+    [
+      RailTransportField.TrainID,
+      { meta: RailTransportFieldMeta.TrainID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={RailTransportField.TrainID}
+          meta={RailTransportFieldMeta.TrainID}
+          fieldConfig={fieldConfig}
+          identifier={value?.TrainID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Train Identifier"
-            value={value.TrainID?.[0]}
-            meta={RailTransportFieldMeta.TrainID}
-          />
+    [
+      RailTransportField.RailCarID,
+      { meta: RailTransportFieldMeta.RailCarID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={RailTransportField.RailCarID}
+          meta={RailTransportFieldMeta.RailCarID}
+          fieldConfig={fieldConfig}
+          identifier={value?.RailCarID}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <IdentifierDisplay
-            label="Rail Car Identifier"
-            value={value.RailCarID?.[0]}
-            meta={RailTransportFieldMeta.RailCarID}
-          />
-        </div>
-    </div>
+export function RailTransportDisplay<TFieldMeta>({ meta, fieldConfig, railTransport, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    RailTransportTypeName,
+    meta,
+    fieldConfig,
+    railTransport,
+    renderContext,
+    RailTransportSubElementsMap,
   )
 }

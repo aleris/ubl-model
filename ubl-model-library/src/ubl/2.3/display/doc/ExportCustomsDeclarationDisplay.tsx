@@ -1,156 +1,228 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ExportCustomsDeclaration } from  '../../model/doc/ExportCustomsDeclaration'
-import { ExportCustomsDeclarationFieldMeta } from  '../../meta/doc/ExportCustomsDeclarationMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import CustomsDeclarationDisplay from '../cac/CustomsDeclarationDisplay'
-import { CustomsDeclaration } from '../../model/cac/CustomsDeclaration'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ExportCustomsDeclarationField, ExportCustomsDeclarationFieldMeta, ExportCustomsDeclarationTypeName } from  '../../meta/doc/ExportCustomsDeclarationMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { CustomsDeclarationDisplay } from '../cac/CustomsDeclarationDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ExportCustomsDeclaration | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ExportCustomsDeclaration, void>
+  exportCustomsDeclaration: ExportCustomsDeclaration[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ExportCustomsDeclarationDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ExportCustomsDeclarationSubElementsMap: SubElementsTemplatesMap<ExportCustomsDeclarationField, ExportCustomsDeclaration, void> = new Map([
+    [
+      ExportCustomsDeclarationField.UBLExtensions,
+      { meta: ExportCustomsDeclarationFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ExportCustomsDeclarationField.UBLExtensions}
+          meta={ExportCustomsDeclarationFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-ExportCustomsDeclaration">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ExportCustomsDeclarationFieldMeta.UBLExtensions}
-          />
+    [
+      ExportCustomsDeclarationField.UBLVersionID,
+      { meta: ExportCustomsDeclarationFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ExportCustomsDeclarationField.UBLVersionID}
+          meta={ExportCustomsDeclarationFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={ExportCustomsDeclarationFieldMeta.UBLVersionID}
-          />
+    [
+      ExportCustomsDeclarationField.CustomizationID,
+      { meta: ExportCustomsDeclarationFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ExportCustomsDeclarationField.CustomizationID}
+          meta={ExportCustomsDeclarationFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={ExportCustomsDeclarationFieldMeta.CustomizationID}
-          />
+    [
+      ExportCustomsDeclarationField.ProfileID,
+      { meta: ExportCustomsDeclarationFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ExportCustomsDeclarationField.ProfileID}
+          meta={ExportCustomsDeclarationFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={ExportCustomsDeclarationFieldMeta.ProfileID}
-          />
+    [
+      ExportCustomsDeclarationField.ProfileExecutionID,
+      { meta: ExportCustomsDeclarationFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ExportCustomsDeclarationField.ProfileExecutionID}
+          meta={ExportCustomsDeclarationFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={ExportCustomsDeclarationFieldMeta.ProfileExecutionID}
-          />
+    [
+      ExportCustomsDeclarationField.ID,
+      { meta: ExportCustomsDeclarationFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ExportCustomsDeclarationField.ID}
+          meta={ExportCustomsDeclarationFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={ExportCustomsDeclarationFieldMeta.ID}
-          />
+    [
+      ExportCustomsDeclarationField.UUID,
+      { meta: ExportCustomsDeclarationFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ExportCustomsDeclarationField.UUID}
+          meta={ExportCustomsDeclarationFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={ExportCustomsDeclarationFieldMeta.UUID}
-          />
+    [
+      ExportCustomsDeclarationField.IssueDate,
+      { meta: ExportCustomsDeclarationFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={ExportCustomsDeclarationField.IssueDate}
+          meta={ExportCustomsDeclarationFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={ExportCustomsDeclarationFieldMeta.IssueDate}
-          />
+    [
+      ExportCustomsDeclarationField.IssueTime,
+      { meta: ExportCustomsDeclarationFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={ExportCustomsDeclarationField.IssueTime}
+          meta={ExportCustomsDeclarationFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={ExportCustomsDeclarationFieldMeta.IssueTime}
-          />
+    [
+      ExportCustomsDeclarationField.ExportTypeCode,
+      { meta: ExportCustomsDeclarationFieldMeta.ExportTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ExportCustomsDeclarationField.ExportTypeCode}
+          meta={ExportCustomsDeclarationFieldMeta.ExportTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.ExportTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Export Type Code"
-            value={value.ExportTypeCode?.[0]}
-            meta={ExportCustomsDeclarationFieldMeta.ExportTypeCode}
-          />
+    [
+      ExportCustomsDeclarationField.ExportReasonCode,
+      { meta: ExportCustomsDeclarationFieldMeta.ExportReasonCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ExportCustomsDeclarationField.ExportReasonCode}
+          meta={ExportCustomsDeclarationFieldMeta.ExportReasonCode}
+          fieldConfig={fieldConfig}
+          code={value?.ExportReasonCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Export Reason Code"
-            value={value.ExportReasonCode?.[0]}
-            meta={ExportCustomsDeclarationFieldMeta.ExportReasonCode}
-          />
+    [
+      ExportCustomsDeclarationField.Note,
+      { meta: ExportCustomsDeclarationFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ExportCustomsDeclarationField.Note}
+          meta={ExportCustomsDeclarationFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={ExportCustomsDeclarationFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={ExportCustomsDeclarationFieldMeta.Note}
-              />
-            }
-          />
+    [
+      ExportCustomsDeclarationField.VersionID,
+      { meta: ExportCustomsDeclarationFieldMeta.VersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ExportCustomsDeclarationField.VersionID}
+          meta={ExportCustomsDeclarationFieldMeta.VersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.VersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Version"
-            value={value.VersionID?.[0]}
-            meta={ExportCustomsDeclarationFieldMeta.VersionID}
-          />
+    [
+      ExportCustomsDeclarationField.ExporterParty,
+      { meta: ExportCustomsDeclarationFieldMeta.ExporterParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ExportCustomsDeclarationField.ExporterParty}
+          meta={ExportCustomsDeclarationFieldMeta.ExporterParty}
+          fieldConfig={fieldConfig}
+          party={value?.ExporterParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Exporter Party"
-            value={value.ExporterParty?.[0]}
-            meta={ExportCustomsDeclarationFieldMeta.ExporterParty}
-          />
+    [
+      ExportCustomsDeclarationField.CustomsDeclaration,
+      { meta: ExportCustomsDeclarationFieldMeta.CustomsDeclaration,
+        template: ({value, renderContext, fieldConfig}) => <CustomsDeclarationDisplay
+          key={ExportCustomsDeclarationField.CustomsDeclaration}
+          meta={ExportCustomsDeclarationFieldMeta.CustomsDeclaration}
+          fieldConfig={fieldConfig}
+          customsDeclaration={value?.CustomsDeclaration}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomsDeclarationDisplay
-            label="Customs Declaration"
-            value={value.CustomsDeclaration?.[0]}
-            meta={ExportCustomsDeclarationFieldMeta.CustomsDeclaration}
-          />
+    [
+      ExportCustomsDeclarationField.Signature,
+      { meta: ExportCustomsDeclarationFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={ExportCustomsDeclarationField.Signature}
+          meta={ExportCustomsDeclarationFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={ExportCustomsDeclarationFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={ExportCustomsDeclarationFieldMeta.Signature}
-              />
-            }
-          />
-        </div>
-    </div>
+export function ExportCustomsDeclarationDisplay<TFieldMeta>({ meta, fieldConfig, exportCustomsDeclaration, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ExportCustomsDeclarationTypeName,
+    meta,
+    fieldConfig,
+    exportCustomsDeclaration,
+    renderContext,
+    ExportCustomsDeclarationSubElementsMap,
   )
 }

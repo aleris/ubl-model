@@ -1,7 +1,6 @@
 import { LineReference } from './LineReference'
 import { Response } from './Response'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe responses to a line in a document.
  */

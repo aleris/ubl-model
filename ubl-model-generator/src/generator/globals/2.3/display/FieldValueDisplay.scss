@@ -1,0 +1,14 @@
+@import "../variables";
+
+.FieldValue {
+  font-size: $font-size-normal;
+  color: $field-color-value;
+
+  &.Big {
+    font-size: $font-size-big;
+  }
+
+  &.Small {
+    font-size: $font-size-small;
+  }
+}

@@ -1,4 +1,9 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AddressType } from './AddressMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum FinancialInstitutionField {
   UBLExtensions = 'UBLExtensions',
@@ -10,11 +15,11 @@ export enum FinancialInstitutionField {
 export const FinancialInstitutionFieldMetaUBLExtensions = new FieldMeta<FinancialInstitutionField>(
   FinancialInstitutionField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -23,10 +28,10 @@ export const FinancialInstitutionFieldMetaID = new FieldMeta<FinancialInstitutio
   FinancialInstitutionField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this financial institution. It is recommended that the ISO 9362 Bank Identification Code (BIC) be used as the ID.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -35,10 +40,10 @@ export const FinancialInstitutionFieldMetaName = new FieldMeta<FinancialInstitut
   FinancialInstitutionField.Name,
   'Name',
   'Name',
-  'Text',
+  TextType.name,
   'The name of this financial institution.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -47,10 +52,10 @@ export const FinancialInstitutionFieldMetaAddress = new FieldMeta<FinancialInsti
   FinancialInstitutionField.Address,
   'Address',
   'Address',
-  'Address',
+  AddressType.name,
   'The address of this financial institution.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -68,3 +73,11 @@ export const FinancialInstitutionFieldMap = new Map([
   [FinancialInstitutionField.Name, FinancialInstitutionFieldMetaName],
   [FinancialInstitutionField.Address, FinancialInstitutionFieldMetaAddress]
 ])
+
+export const FinancialInstitutionType: Type<FinancialInstitutionField> = {
+  name: 'FinancialInstitution',
+  label: 'Financial Institution',
+  module: TypeModule.cac,
+  definition: 'A class to describe a financial institution.',
+  fields: FinancialInstitutionFieldMap,
+}

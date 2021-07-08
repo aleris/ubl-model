@@ -1,129 +1,201 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { MeterReading } from  '../../model/cac/MeterReading'
-import { MeterReadingFieldMeta } from  '../../meta/cac/MeterReadingMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { MeterReadingField, MeterReadingFieldMeta, MeterReadingTypeName } from  '../../meta/cac/MeterReadingMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: MeterReading | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<MeterReading, void>
+  meterReading: MeterReading[] | undefined
+  renderContext: RenderContext
 }
 
-export default function MeterReadingDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const MeterReadingSubElementsMap: SubElementsTemplatesMap<MeterReadingField, MeterReading, void> = new Map([
+    [
+      MeterReadingField.UBLExtensions,
+      { meta: MeterReadingFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={MeterReadingField.UBLExtensions}
+          meta={MeterReadingFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-MeterReading">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={MeterReadingFieldMeta.UBLExtensions}
-          />
+    [
+      MeterReadingField.ID,
+      { meta: MeterReadingFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={MeterReadingField.ID}
+          meta={MeterReadingFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={MeterReadingFieldMeta.ID}
-          />
+    [
+      MeterReadingField.MeterReadingType,
+      { meta: MeterReadingFieldMeta.MeterReadingType,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={MeterReadingField.MeterReadingType}
+          meta={MeterReadingFieldMeta.MeterReadingType}
+          fieldConfig={fieldConfig}
+          text={value?.MeterReadingType}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Meter Reading Type"
-            value={value.MeterReadingType?.[0]}
-            meta={MeterReadingFieldMeta.MeterReadingType}
-          />
+    [
+      MeterReadingField.MeterReadingTypeCode,
+      { meta: MeterReadingFieldMeta.MeterReadingTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={MeterReadingField.MeterReadingTypeCode}
+          meta={MeterReadingFieldMeta.MeterReadingTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.MeterReadingTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Meter Reading Type Code"
-            value={value.MeterReadingTypeCode?.[0]}
-            meta={MeterReadingFieldMeta.MeterReadingTypeCode}
-          />
+    [
+      MeterReadingField.PreviousMeterReadingDate,
+      { meta: MeterReadingFieldMeta.PreviousMeterReadingDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={MeterReadingField.PreviousMeterReadingDate}
+          meta={MeterReadingFieldMeta.PreviousMeterReadingDate}
+          fieldConfig={fieldConfig}
+          date={value?.PreviousMeterReadingDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Previous Meter Reading Date"
-            value={value.PreviousMeterReadingDate?.[0]}
-            meta={MeterReadingFieldMeta.PreviousMeterReadingDate}
-          />
+    [
+      MeterReadingField.PreviousMeterQuantity,
+      { meta: MeterReadingFieldMeta.PreviousMeterQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={MeterReadingField.PreviousMeterQuantity}
+          meta={MeterReadingFieldMeta.PreviousMeterQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.PreviousMeterQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Previous Meter Quantity"
-            value={value.PreviousMeterQuantity?.[0]}
-            meta={MeterReadingFieldMeta.PreviousMeterQuantity}
-          />
+    [
+      MeterReadingField.LatestMeterReadingDate,
+      { meta: MeterReadingFieldMeta.LatestMeterReadingDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={MeterReadingField.LatestMeterReadingDate}
+          meta={MeterReadingFieldMeta.LatestMeterReadingDate}
+          fieldConfig={fieldConfig}
+          date={value?.LatestMeterReadingDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Latest Meter Reading Date"
-            value={value.LatestMeterReadingDate?.[0]}
-            meta={MeterReadingFieldMeta.LatestMeterReadingDate}
-          />
+    [
+      MeterReadingField.LatestMeterQuantity,
+      { meta: MeterReadingFieldMeta.LatestMeterQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={MeterReadingField.LatestMeterQuantity}
+          meta={MeterReadingFieldMeta.LatestMeterQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.LatestMeterQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Latest Meter Quantity"
-            value={value.LatestMeterQuantity?.[0]}
-            meta={MeterReadingFieldMeta.LatestMeterQuantity}
-          />
+    [
+      MeterReadingField.PreviousMeterReadingMethod,
+      { meta: MeterReadingFieldMeta.PreviousMeterReadingMethod,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={MeterReadingField.PreviousMeterReadingMethod}
+          meta={MeterReadingFieldMeta.PreviousMeterReadingMethod}
+          fieldConfig={fieldConfig}
+          text={value?.PreviousMeterReadingMethod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Previous Meter Reading Method"
-            value={value.PreviousMeterReadingMethod?.[0]}
-            meta={MeterReadingFieldMeta.PreviousMeterReadingMethod}
-          />
+    [
+      MeterReadingField.PreviousMeterReadingMethodCode,
+      { meta: MeterReadingFieldMeta.PreviousMeterReadingMethodCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={MeterReadingField.PreviousMeterReadingMethodCode}
+          meta={MeterReadingFieldMeta.PreviousMeterReadingMethodCode}
+          fieldConfig={fieldConfig}
+          code={value?.PreviousMeterReadingMethodCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Previous Meter Reading Method Code"
-            value={value.PreviousMeterReadingMethodCode?.[0]}
-            meta={MeterReadingFieldMeta.PreviousMeterReadingMethodCode}
-          />
+    [
+      MeterReadingField.LatestMeterReadingMethod,
+      { meta: MeterReadingFieldMeta.LatestMeterReadingMethod,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={MeterReadingField.LatestMeterReadingMethod}
+          meta={MeterReadingFieldMeta.LatestMeterReadingMethod}
+          fieldConfig={fieldConfig}
+          text={value?.LatestMeterReadingMethod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Latest Meter Reading Method"
-            value={value.LatestMeterReadingMethod?.[0]}
-            meta={MeterReadingFieldMeta.LatestMeterReadingMethod}
-          />
+    [
+      MeterReadingField.LatestMeterReadingMethodCode,
+      { meta: MeterReadingFieldMeta.LatestMeterReadingMethodCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={MeterReadingField.LatestMeterReadingMethodCode}
+          meta={MeterReadingFieldMeta.LatestMeterReadingMethodCode}
+          fieldConfig={fieldConfig}
+          code={value?.LatestMeterReadingMethodCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Latest Meter Reading Method Code"
-            value={value.LatestMeterReadingMethodCode?.[0]}
-            meta={MeterReadingFieldMeta.LatestMeterReadingMethodCode}
-          />
+    [
+      MeterReadingField.MeterReadingComments,
+      { meta: MeterReadingFieldMeta.MeterReadingComments,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={MeterReadingField.MeterReadingComments}
+          meta={MeterReadingFieldMeta.MeterReadingComments}
+          fieldConfig={fieldConfig}
+          text={value?.MeterReadingComments}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-MeterReadingComments"
-            label="Meter Reading Comments"
-            items={value.MeterReadingComments}
-            meta={MeterReadingFieldMeta.MeterReadingComments} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Meter Reading Comments"
-                value={itemValue}
-                meta={MeterReadingFieldMeta.MeterReadingComments}
-              />
-            }
-          />
+    [
+      MeterReadingField.DeliveredQuantity,
+      { meta: MeterReadingFieldMeta.DeliveredQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={MeterReadingField.DeliveredQuantity}
+          meta={MeterReadingFieldMeta.DeliveredQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.DeliveredQuantity}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <QuantityDisplay
-            label="Delivered Quantity"
-            value={value.DeliveredQuantity?.[0]}
-            meta={MeterReadingFieldMeta.DeliveredQuantity}
-          />
-        </div>
-    </div>
+export function MeterReadingDisplay<TFieldMeta>({ meta, fieldConfig, meterReading, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    MeterReadingTypeName,
+    meta,
+    fieldConfig,
+    meterReading,
+    renderContext,
+    MeterReadingSubElementsMap,
   )
 }

@@ -1,119 +1,142 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { EvaluationCriterion } from  '../../model/cac/EvaluationCriterion'
-import { EvaluationCriterionFieldMeta } from  '../../meta/cac/EvaluationCriterionMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import EvidenceDisplay from './EvidenceDisplay'
-import { Evidence } from '../../model/cac/Evidence'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { EvaluationCriterionField, EvaluationCriterionFieldMeta, EvaluationCriterionTypeName } from  '../../meta/cac/EvaluationCriterionMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { EvidenceDisplay } from './EvidenceDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: EvaluationCriterion | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<EvaluationCriterion, void>
+  evaluationCriterion: EvaluationCriterion[] | undefined
+  renderContext: RenderContext
 }
 
-export default function EvaluationCriterionDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const EvaluationCriterionSubElementsMap: SubElementsTemplatesMap<EvaluationCriterionField, EvaluationCriterion, void> = new Map([
+    [
+      EvaluationCriterionField.UBLExtensions,
+      { meta: EvaluationCriterionFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={EvaluationCriterionField.UBLExtensions}
+          meta={EvaluationCriterionFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-EvaluationCriterion">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={EvaluationCriterionFieldMeta.UBLExtensions}
-          />
+    [
+      EvaluationCriterionField.EvaluationCriterionTypeCode,
+      { meta: EvaluationCriterionFieldMeta.EvaluationCriterionTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={EvaluationCriterionField.EvaluationCriterionTypeCode}
+          meta={EvaluationCriterionFieldMeta.EvaluationCriterionTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.EvaluationCriterionTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Evaluation Criterion Type Code"
-            value={value.EvaluationCriterionTypeCode?.[0]}
-            meta={EvaluationCriterionFieldMeta.EvaluationCriterionTypeCode}
-          />
+    [
+      EvaluationCriterionField.Description,
+      { meta: EvaluationCriterionFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={EvaluationCriterionField.Description}
+          meta={EvaluationCriterionFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={EvaluationCriterionFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={EvaluationCriterionFieldMeta.Description}
-              />
-            }
-          />
+    [
+      EvaluationCriterionField.ThresholdAmount,
+      { meta: EvaluationCriterionFieldMeta.ThresholdAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={EvaluationCriterionField.ThresholdAmount}
+          meta={EvaluationCriterionFieldMeta.ThresholdAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.ThresholdAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Threshold Amount"
-            value={value.ThresholdAmount?.[0]}
-            meta={EvaluationCriterionFieldMeta.ThresholdAmount}
-          />
+    [
+      EvaluationCriterionField.ThresholdQuantity,
+      { meta: EvaluationCriterionFieldMeta.ThresholdQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={EvaluationCriterionField.ThresholdQuantity}
+          meta={EvaluationCriterionFieldMeta.ThresholdQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.ThresholdQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Threshold Quantity"
-            value={value.ThresholdQuantity?.[0]}
-            meta={EvaluationCriterionFieldMeta.ThresholdQuantity}
-          />
+    [
+      EvaluationCriterionField.ExpressionCode,
+      { meta: EvaluationCriterionFieldMeta.ExpressionCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={EvaluationCriterionField.ExpressionCode}
+          meta={EvaluationCriterionFieldMeta.ExpressionCode}
+          fieldConfig={fieldConfig}
+          code={value?.ExpressionCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Expression Code"
-            value={value.ExpressionCode?.[0]}
-            meta={EvaluationCriterionFieldMeta.ExpressionCode}
-          />
+    [
+      EvaluationCriterionField.Expression,
+      { meta: EvaluationCriterionFieldMeta.Expression,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={EvaluationCriterionField.Expression}
+          meta={EvaluationCriterionFieldMeta.Expression}
+          fieldConfig={fieldConfig}
+          text={value?.Expression}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Expression"
-            label="Expression"
-            items={value.Expression}
-            meta={EvaluationCriterionFieldMeta.Expression} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Expression"
-                value={itemValue}
-                meta={EvaluationCriterionFieldMeta.Expression}
-              />
-            }
-          />
+    [
+      EvaluationCriterionField.DurationPeriod,
+      { meta: EvaluationCriterionFieldMeta.DurationPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={EvaluationCriterionField.DurationPeriod}
+          meta={EvaluationCriterionFieldMeta.DurationPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.DurationPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Duration Period"
-            value={value.DurationPeriod?.[0]}
-            meta={EvaluationCriterionFieldMeta.DurationPeriod}
-          />
+    [
+      EvaluationCriterionField.SuggestedEvidence,
+      { meta: EvaluationCriterionFieldMeta.SuggestedEvidence,
+        template: ({value, renderContext, fieldConfig}) => <EvidenceDisplay
+          key={EvaluationCriterionField.SuggestedEvidence}
+          meta={EvaluationCriterionFieldMeta.SuggestedEvidence}
+          fieldConfig={fieldConfig}
+          evidence={value?.SuggestedEvidence}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Evidence ubl-SuggestedEvidence"
-            label="Suggested Evidence"
-            items={value.SuggestedEvidence}
-            meta={EvaluationCriterionFieldMeta.SuggestedEvidence} 
-            itemDisplay={ (itemValue: Evidence, key: string | number) =>
-              <EvidenceDisplay
-                key={key}
-                label="Suggested Evidence"
-                value={itemValue}
-                meta={EvaluationCriterionFieldMeta.SuggestedEvidence}
-              />
-            }
-          />
-        </div>
-    </div>
+export function EvaluationCriterionDisplay<TFieldMeta>({ meta, fieldConfig, evaluationCriterion, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    EvaluationCriterionTypeName,
+    meta,
+    fieldConfig,
+    evaluationCriterion,
+    renderContext,
+    EvaluationCriterionSubElementsMap,
   )
 }

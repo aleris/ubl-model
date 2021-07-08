@@ -1,54 +1,78 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { PropertyIdentification } from  '../../model/cac/PropertyIdentification'
-import { PropertyIdentificationFieldMeta } from  '../../meta/cac/PropertyIdentificationMeta'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { PropertyIdentificationField, PropertyIdentificationFieldMeta, PropertyIdentificationTypeName } from  '../../meta/cac/PropertyIdentificationMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: PropertyIdentification | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<PropertyIdentification, void>
+  propertyIdentification: PropertyIdentification[] | undefined
+  renderContext: RenderContext
 }
 
-export default function PropertyIdentificationDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const PropertyIdentificationSubElementsMap: SubElementsTemplatesMap<PropertyIdentificationField, PropertyIdentification, void> = new Map([
+    [
+      PropertyIdentificationField.UBLExtensions,
+      { meta: PropertyIdentificationFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={PropertyIdentificationField.UBLExtensions}
+          meta={PropertyIdentificationFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-PropertyIdentification">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={PropertyIdentificationFieldMeta.UBLExtensions}
-          />
+    [
+      PropertyIdentificationField.ID,
+      { meta: PropertyIdentificationFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PropertyIdentificationField.ID}
+          meta={PropertyIdentificationFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={PropertyIdentificationFieldMeta.ID}
-          />
+    [
+      PropertyIdentificationField.IssuerScopeID,
+      { meta: PropertyIdentificationFieldMeta.IssuerScopeID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PropertyIdentificationField.IssuerScopeID}
+          meta={PropertyIdentificationFieldMeta.IssuerScopeID}
+          fieldConfig={fieldConfig}
+          identifier={value?.IssuerScopeID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Issuer Scope Identifier"
-            value={value.IssuerScopeID?.[0]}
-            meta={PropertyIdentificationFieldMeta.IssuerScopeID}
-          />
+    [
+      PropertyIdentificationField.IssuerParty,
+      { meta: PropertyIdentificationFieldMeta.IssuerParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={PropertyIdentificationField.IssuerParty}
+          meta={PropertyIdentificationFieldMeta.IssuerParty}
+          fieldConfig={fieldConfig}
+          party={value?.IssuerParty}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <PartyDisplay
-            label="Issuer Party"
-            value={value.IssuerParty?.[0]}
-            meta={PropertyIdentificationFieldMeta.IssuerParty}
-          />
-        </div>
-    </div>
+export function PropertyIdentificationDisplay<TFieldMeta>({ meta, fieldConfig, propertyIdentification, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    PropertyIdentificationTypeName,
+    meta,
+    fieldConfig,
+    propertyIdentification,
+    renderContext,
+    PropertyIdentificationSubElementsMap,
   )
 }

@@ -1,4 +1,12 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { DateType } from '../cbc/DateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { StatusType } from './StatusMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ResponseField {
   UBLExtensions = 'UBLExtensions',
@@ -13,11 +21,11 @@ export enum ResponseField {
 export const ResponseFieldMetaUBLExtensions = new FieldMeta<ResponseField>(
   ResponseField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -26,10 +34,10 @@ export const ResponseFieldMetaReferenceID = new FieldMeta<ResponseField>(
   ResponseField.ReferenceID,
   'ReferenceID',
   'Reference',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the section (or line) of the document to which this response applies.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -38,10 +46,10 @@ export const ResponseFieldMetaResponseCode = new FieldMeta<ResponseField>(
   ResponseField.ResponseCode,
   'ResponseCode',
   'Response Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of response.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -50,10 +58,10 @@ export const ResponseFieldMetaDescription = new FieldMeta<ResponseField>(
   ResponseField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing this response.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -62,10 +70,10 @@ export const ResponseFieldMetaEffectiveDate = new FieldMeta<ResponseField>(
   ResponseField.EffectiveDate,
   'EffectiveDate',
   'Effective Date',
-  'Date',
+  DateType.name,
   'The date upon which this response is valid.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -74,10 +82,10 @@ export const ResponseFieldMetaEffectiveTime = new FieldMeta<ResponseField>(
   ResponseField.EffectiveTime,
   'EffectiveTime',
   'Effective Time',
-  'Time',
+  TimeType.name,
   'The time at which this response is valid.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -86,10 +94,10 @@ export const ResponseFieldMetaStatus = new FieldMeta<ResponseField>(
   ResponseField.Status,
   'Status',
   'Status',
-  'Status',
+  StatusType.name,
   'A status report associated with this response.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -113,3 +121,11 @@ export const ResponseFieldMap = new Map([
   [ResponseField.EffectiveTime, ResponseFieldMetaEffectiveTime],
   [ResponseField.Status, ResponseFieldMetaStatus]
 ])
+
+export const ResponseType: Type<ResponseField> = {
+  name: 'Response',
+  label: 'Response',
+  module: TypeModule.cac,
+  definition: 'A class to describe an application-level response to a document.',
+  fields: ResponseFieldMap,
+}

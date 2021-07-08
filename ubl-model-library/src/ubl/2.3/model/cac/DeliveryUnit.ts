@@ -1,7 +1,6 @@
 import { Indicator } from '../cbc/Indicator'
 import { Quantity } from '../cbc/Quantity'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a delivery unit.
  */

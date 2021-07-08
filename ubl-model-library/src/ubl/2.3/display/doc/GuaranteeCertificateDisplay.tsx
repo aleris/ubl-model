@@ -1,250 +1,329 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { GuaranteeCertificate } from  '../../model/doc/GuaranteeCertificate'
-import { GuaranteeCertificateFieldMeta } from  '../../meta/doc/GuaranteeCertificateMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import ImmobilizedSecurityDisplay from '../cac/ImmobilizedSecurityDisplay'
-import { ImmobilizedSecurity } from '../../model/cac/ImmobilizedSecurity'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PeriodDisplay from '../cac/PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import RegulationDisplay from '../cac/RegulationDisplay'
-import { Regulation } from '../../model/cac/Regulation'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { GuaranteeCertificateField, GuaranteeCertificateFieldMeta, GuaranteeCertificateTypeName } from  '../../meta/doc/GuaranteeCertificateMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { ImmobilizedSecurityDisplay } from '../cac/ImmobilizedSecurityDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { PeriodDisplay } from '../cac/PeriodDisplay'
+import { RegulationDisplay } from '../cac/RegulationDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: GuaranteeCertificate | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<GuaranteeCertificate, void>
+  guaranteeCertificate: GuaranteeCertificate[] | undefined
+  renderContext: RenderContext
 }
 
-export default function GuaranteeCertificateDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const GuaranteeCertificateSubElementsMap: SubElementsTemplatesMap<GuaranteeCertificateField, GuaranteeCertificate, void> = new Map([
+    [
+      GuaranteeCertificateField.UBLExtensions,
+      { meta: GuaranteeCertificateFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={GuaranteeCertificateField.UBLExtensions}
+          meta={GuaranteeCertificateFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-GuaranteeCertificate">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={GuaranteeCertificateFieldMeta.UBLExtensions}
-          />
+    [
+      GuaranteeCertificateField.UBLVersionID,
+      { meta: GuaranteeCertificateFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={GuaranteeCertificateField.UBLVersionID}
+          meta={GuaranteeCertificateFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={GuaranteeCertificateFieldMeta.UBLVersionID}
-          />
+    [
+      GuaranteeCertificateField.CustomizationID,
+      { meta: GuaranteeCertificateFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={GuaranteeCertificateField.CustomizationID}
+          meta={GuaranteeCertificateFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={GuaranteeCertificateFieldMeta.CustomizationID}
-          />
+    [
+      GuaranteeCertificateField.ProfileID,
+      { meta: GuaranteeCertificateFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={GuaranteeCertificateField.ProfileID}
+          meta={GuaranteeCertificateFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={GuaranteeCertificateFieldMeta.ProfileID}
-          />
+    [
+      GuaranteeCertificateField.ProfileExecutionID,
+      { meta: GuaranteeCertificateFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={GuaranteeCertificateField.ProfileExecutionID}
+          meta={GuaranteeCertificateFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={GuaranteeCertificateFieldMeta.ProfileExecutionID}
-          />
+    [
+      GuaranteeCertificateField.ID,
+      { meta: GuaranteeCertificateFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={GuaranteeCertificateField.ID}
+          meta={GuaranteeCertificateFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={GuaranteeCertificateFieldMeta.ID}
-          />
+    [
+      GuaranteeCertificateField.CopyIndicator,
+      { meta: GuaranteeCertificateFieldMeta.CopyIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={GuaranteeCertificateField.CopyIndicator}
+          meta={GuaranteeCertificateFieldMeta.CopyIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.CopyIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Copy Indicator"
-            value={value.CopyIndicator?.[0]}
-            meta={GuaranteeCertificateFieldMeta.CopyIndicator}
-          />
+    [
+      GuaranteeCertificateField.UUID,
+      { meta: GuaranteeCertificateFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={GuaranteeCertificateField.UUID}
+          meta={GuaranteeCertificateFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={GuaranteeCertificateFieldMeta.UUID}
-          />
+    [
+      GuaranteeCertificateField.ContractFolderID,
+      { meta: GuaranteeCertificateFieldMeta.ContractFolderID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={GuaranteeCertificateField.ContractFolderID}
+          meta={GuaranteeCertificateFieldMeta.ContractFolderID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ContractFolderID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Contract Folder Identifier"
-            value={value.ContractFolderID?.[0]}
-            meta={GuaranteeCertificateFieldMeta.ContractFolderID}
-          />
+    [
+      GuaranteeCertificateField.IssueDate,
+      { meta: GuaranteeCertificateFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={GuaranteeCertificateField.IssueDate}
+          meta={GuaranteeCertificateFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={GuaranteeCertificateFieldMeta.IssueDate}
-          />
+    [
+      GuaranteeCertificateField.IssueTime,
+      { meta: GuaranteeCertificateFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={GuaranteeCertificateField.IssueTime}
+          meta={GuaranteeCertificateFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={GuaranteeCertificateFieldMeta.IssueTime}
-          />
+    [
+      GuaranteeCertificateField.GuaranteeTypeCode,
+      { meta: GuaranteeCertificateFieldMeta.GuaranteeTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={GuaranteeCertificateField.GuaranteeTypeCode}
+          meta={GuaranteeCertificateFieldMeta.GuaranteeTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.GuaranteeTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Guarantee Type Code"
-            value={value.GuaranteeTypeCode?.[0]}
-            meta={GuaranteeCertificateFieldMeta.GuaranteeTypeCode}
-          />
+    [
+      GuaranteeCertificateField.Purpose,
+      { meta: GuaranteeCertificateFieldMeta.Purpose,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={GuaranteeCertificateField.Purpose}
+          meta={GuaranteeCertificateFieldMeta.Purpose}
+          fieldConfig={fieldConfig}
+          text={value?.Purpose}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Purpose"
-            label="Purpose"
-            items={value.Purpose}
-            meta={GuaranteeCertificateFieldMeta.Purpose} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Purpose"
-                value={itemValue}
-                meta={GuaranteeCertificateFieldMeta.Purpose}
-              />
-            }
-          />
+    [
+      GuaranteeCertificateField.LiabilityAmount,
+      { meta: GuaranteeCertificateFieldMeta.LiabilityAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={GuaranteeCertificateField.LiabilityAmount}
+          meta={GuaranteeCertificateFieldMeta.LiabilityAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.LiabilityAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Liability"
-            value={value.LiabilityAmount?.[0]}
-            meta={GuaranteeCertificateFieldMeta.LiabilityAmount}
-          />
+    [
+      GuaranteeCertificateField.ConstitutionCode,
+      { meta: GuaranteeCertificateFieldMeta.ConstitutionCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={GuaranteeCertificateField.ConstitutionCode}
+          meta={GuaranteeCertificateFieldMeta.ConstitutionCode}
+          fieldConfig={fieldConfig}
+          code={value?.ConstitutionCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Constitution Code"
-            value={value.ConstitutionCode?.[0]}
-            meta={GuaranteeCertificateFieldMeta.ConstitutionCode}
-          />
+    [
+      GuaranteeCertificateField.Note,
+      { meta: GuaranteeCertificateFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={GuaranteeCertificateField.Note}
+          meta={GuaranteeCertificateFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={GuaranteeCertificateFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={GuaranteeCertificateFieldMeta.Note}
-              />
-            }
-          />
+    [
+      GuaranteeCertificateField.ApplicablePeriod,
+      { meta: GuaranteeCertificateFieldMeta.ApplicablePeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={GuaranteeCertificateField.ApplicablePeriod}
+          meta={GuaranteeCertificateFieldMeta.ApplicablePeriod}
+          fieldConfig={fieldConfig}
+          period={value?.ApplicablePeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Applicable Period"
-            value={value.ApplicablePeriod?.[0]}
-            meta={GuaranteeCertificateFieldMeta.ApplicablePeriod}
-          />
+    [
+      GuaranteeCertificateField.ApplicableRegulation,
+      { meta: GuaranteeCertificateFieldMeta.ApplicableRegulation,
+        template: ({value, renderContext, fieldConfig}) => <RegulationDisplay
+          key={GuaranteeCertificateField.ApplicableRegulation}
+          meta={GuaranteeCertificateFieldMeta.ApplicableRegulation}
+          fieldConfig={fieldConfig}
+          regulation={value?.ApplicableRegulation}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Regulation ubl-ApplicableRegulation"
-            label="Applicable Regulation"
-            items={value.ApplicableRegulation}
-            meta={GuaranteeCertificateFieldMeta.ApplicableRegulation} 
-            itemDisplay={ (itemValue: Regulation, key: string | number) =>
-              <RegulationDisplay
-                key={key}
-                label="Applicable Regulation"
-                value={itemValue}
-                meta={GuaranteeCertificateFieldMeta.ApplicableRegulation}
-              />
-            }
-          />
+    [
+      GuaranteeCertificateField.GuaranteeDocumentReference,
+      { meta: GuaranteeCertificateFieldMeta.GuaranteeDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={GuaranteeCertificateField.GuaranteeDocumentReference}
+          meta={GuaranteeCertificateFieldMeta.GuaranteeDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.GuaranteeDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-GuaranteeDocumentReference"
-            label="Guarantee Document Reference"
-            items={value.GuaranteeDocumentReference}
-            meta={GuaranteeCertificateFieldMeta.GuaranteeDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Guarantee Document Reference"
-                value={itemValue}
-                meta={GuaranteeCertificateFieldMeta.GuaranteeDocumentReference}
-              />
-            }
-          />
+    [
+      GuaranteeCertificateField.ImmobilizedSecurity,
+      { meta: GuaranteeCertificateFieldMeta.ImmobilizedSecurity,
+        template: ({value, renderContext, fieldConfig}) => <ImmobilizedSecurityDisplay
+          key={GuaranteeCertificateField.ImmobilizedSecurity}
+          meta={GuaranteeCertificateFieldMeta.ImmobilizedSecurity}
+          fieldConfig={fieldConfig}
+          immobilizedSecurity={value?.ImmobilizedSecurity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-ImmobilizedSecurity"
-            label="Immobilized Security"
-            items={value.ImmobilizedSecurity}
-            meta={GuaranteeCertificateFieldMeta.ImmobilizedSecurity} 
-            itemDisplay={ (itemValue: ImmobilizedSecurity, key: string | number) =>
-              <ImmobilizedSecurityDisplay
-                key={key}
-                label="Immobilized Security"
-                value={itemValue}
-                meta={GuaranteeCertificateFieldMeta.ImmobilizedSecurity}
-              />
-            }
-          />
+    [
+      GuaranteeCertificateField.Signature,
+      { meta: GuaranteeCertificateFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={GuaranteeCertificateField.Signature}
+          meta={GuaranteeCertificateFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={GuaranteeCertificateFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={GuaranteeCertificateFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      GuaranteeCertificateField.GuarantorParty,
+      { meta: GuaranteeCertificateFieldMeta.GuarantorParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={GuaranteeCertificateField.GuarantorParty}
+          meta={GuaranteeCertificateFieldMeta.GuarantorParty}
+          fieldConfig={fieldConfig}
+          party={value?.GuarantorParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Guarantor Party"
-            value={value.GuarantorParty?.[0]}
-            meta={GuaranteeCertificateFieldMeta.GuarantorParty}
-          />
+    [
+      GuaranteeCertificateField.InterestedParty,
+      { meta: GuaranteeCertificateFieldMeta.InterestedParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={GuaranteeCertificateField.InterestedParty}
+          meta={GuaranteeCertificateFieldMeta.InterestedParty}
+          fieldConfig={fieldConfig}
+          party={value?.InterestedParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Interested Party"
-            value={value.InterestedParty?.[0]}
-            meta={GuaranteeCertificateFieldMeta.InterestedParty}
-          />
+    [
+      GuaranteeCertificateField.BeneficiaryParty,
+      { meta: GuaranteeCertificateFieldMeta.BeneficiaryParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={GuaranteeCertificateField.BeneficiaryParty}
+          meta={GuaranteeCertificateFieldMeta.BeneficiaryParty}
+          fieldConfig={fieldConfig}
+          party={value?.BeneficiaryParty}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <PartyDisplay
-            label="Beneficiary Party"
-            value={value.BeneficiaryParty?.[0]}
-            meta={GuaranteeCertificateFieldMeta.BeneficiaryParty}
-          />
-        </div>
-    </div>
+export function GuaranteeCertificateDisplay<TFieldMeta>({ meta, fieldConfig, guaranteeCertificate, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    GuaranteeCertificateTypeName,
+    meta,
+    fieldConfig,
+    guaranteeCertificate,
+    renderContext,
+    GuaranteeCertificateSubElementsMap,
   )
 }

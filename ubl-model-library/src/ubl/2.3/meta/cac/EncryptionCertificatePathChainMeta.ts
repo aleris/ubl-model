@@ -1,4 +1,8 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum EncryptionCertificatePathChainField {
   UBLExtensions = 'UBLExtensions',
@@ -9,11 +13,11 @@ export enum EncryptionCertificatePathChainField {
 export const EncryptionCertificatePathChainFieldMetaUBLExtensions = new FieldMeta<EncryptionCertificatePathChainField>(
   EncryptionCertificatePathChainField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -22,10 +26,10 @@ export const EncryptionCertificatePathChainFieldMetaValue = new FieldMeta<Encryp
   EncryptionCertificatePathChainField.Value,
   'Value',
   'Value',
-  'Text',
+  TextType.name,
   'The path chain value manifest in the instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -34,10 +38,10 @@ export const EncryptionCertificatePathChainFieldMetaURI = new FieldMeta<Encrypti
   EncryptionCertificatePathChainField.URI,
   'URI',
   'URI',
-  'Identifier',
+  IdentifierType.name,
   'The path chain value references external to the instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -53,3 +57,11 @@ export const EncryptionCertificatePathChainFieldMap = new Map([
   [EncryptionCertificatePathChainField.Value, EncryptionCertificatePathChainFieldMetaValue],
   [EncryptionCertificatePathChainField.URI, EncryptionCertificatePathChainFieldMetaURI]
 ])
+
+export const EncryptionCertificatePathChainType: Type<EncryptionCertificatePathChainField> = {
+  name: 'EncryptionCertificatePathChain',
+  label: 'Encryption Certificate Path Chain',
+  module: TypeModule.cac,
+  definition: 'Details of a certificate path chain used in encryption.',
+  fields: EncryptionCertificatePathChainFieldMap,
+}

@@ -4,7 +4,6 @@ import { ProcurementProject } from './ProcurementProject'
 import { TenderingProcess } from './TenderingProcess'
 import { TenderingTerms } from './TenderingTerms'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe one of the parts of a procurement project that is being subdivided to allow the contracting party
  * to award different lots to different economic operators under different contracts.

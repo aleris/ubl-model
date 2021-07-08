@@ -15,7 +15,6 @@ import { TenderingTerms } from '../cac/TenderingTerms'
 import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A document used by a Contracting party to announce a project to buy goods, services, or works.
  */

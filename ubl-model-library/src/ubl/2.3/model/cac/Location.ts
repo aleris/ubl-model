@@ -5,7 +5,6 @@ import { LocationCoordinate } from './LocationCoordinate'
 import { Period } from './Period'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a location.
  */

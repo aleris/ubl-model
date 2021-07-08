@@ -10,7 +10,6 @@ import { Party } from './Party'
 import { Quantity } from '../cbc/Quantity'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe the distinctive features or characteristics qualifying an economic operator to be a party in a
  * tendering process (e.g., number of employees, number of operating units, type of business, technical and financial

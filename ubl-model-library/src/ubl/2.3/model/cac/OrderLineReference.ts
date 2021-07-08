@@ -2,7 +2,6 @@ import { Code } from '../cbc/Code'
 import { Identifier } from '../cbc/Identifier'
 import { OrderReference } from './OrderReference'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to define a reference to an order line.
  */

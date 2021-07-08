@@ -1,171 +1,204 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Status } from  '../../model/cac/Status'
-import { StatusFieldMeta } from  '../../meta/cac/StatusMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import ConditionDisplay from './ConditionDisplay'
-import { Condition } from '../../model/cac/Condition'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { StatusField, StatusFieldMeta, StatusTypeName } from  '../../meta/cac/StatusMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { ConditionDisplay } from './ConditionDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: Status | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<Status, void>
+  status: Status[] | undefined
+  renderContext: RenderContext
 }
 
-export default function StatusDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const StatusSubElementsMap: SubElementsTemplatesMap<StatusField, Status, void> = new Map([
+    [
+      StatusField.UBLExtensions,
+      { meta: StatusFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={StatusField.UBLExtensions}
+          meta={StatusFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-Status">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={StatusFieldMeta.UBLExtensions}
-          />
+    [
+      StatusField.ConditionCode,
+      { meta: StatusFieldMeta.ConditionCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={StatusField.ConditionCode}
+          meta={StatusFieldMeta.ConditionCode}
+          fieldConfig={fieldConfig}
+          code={value?.ConditionCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Condition Code"
-            value={value.ConditionCode?.[0]}
-            meta={StatusFieldMeta.ConditionCode}
-          />
+    [
+      StatusField.ReferenceDate,
+      { meta: StatusFieldMeta.ReferenceDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={StatusField.ReferenceDate}
+          meta={StatusFieldMeta.ReferenceDate}
+          fieldConfig={fieldConfig}
+          date={value?.ReferenceDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Reference Date"
-            value={value.ReferenceDate?.[0]}
-            meta={StatusFieldMeta.ReferenceDate}
-          />
+    [
+      StatusField.ReferenceTime,
+      { meta: StatusFieldMeta.ReferenceTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={StatusField.ReferenceTime}
+          meta={StatusFieldMeta.ReferenceTime}
+          fieldConfig={fieldConfig}
+          time={value?.ReferenceTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Reference Time"
-            value={value.ReferenceTime?.[0]}
-            meta={StatusFieldMeta.ReferenceTime}
-          />
+    [
+      StatusField.Description,
+      { meta: StatusFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={StatusField.Description}
+          meta={StatusFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={StatusFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={StatusFieldMeta.Description}
-              />
-            }
-          />
+    [
+      StatusField.StatusReasonCode,
+      { meta: StatusFieldMeta.StatusReasonCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={StatusField.StatusReasonCode}
+          meta={StatusFieldMeta.StatusReasonCode}
+          fieldConfig={fieldConfig}
+          code={value?.StatusReasonCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Status Reason Code"
-            value={value.StatusReasonCode?.[0]}
-            meta={StatusFieldMeta.StatusReasonCode}
-          />
+    [
+      StatusField.StatusReason,
+      { meta: StatusFieldMeta.StatusReason,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={StatusField.StatusReason}
+          meta={StatusFieldMeta.StatusReason}
+          fieldConfig={fieldConfig}
+          text={value?.StatusReason}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-StatusReason"
-            label="Status Reason"
-            items={value.StatusReason}
-            meta={StatusFieldMeta.StatusReason} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Status Reason"
-                value={itemValue}
-                meta={StatusFieldMeta.StatusReason}
-              />
-            }
-          />
+    [
+      StatusField.SequenceID,
+      { meta: StatusFieldMeta.SequenceID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={StatusField.SequenceID}
+          meta={StatusFieldMeta.SequenceID}
+          fieldConfig={fieldConfig}
+          identifier={value?.SequenceID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Sequence Identifier"
-            value={value.SequenceID?.[0]}
-            meta={StatusFieldMeta.SequenceID}
-          />
+    [
+      StatusField.Text,
+      { meta: StatusFieldMeta.Text,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={StatusField.Text}
+          meta={StatusFieldMeta.Text}
+          fieldConfig={fieldConfig}
+          text={value?.Text}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text"
-            label="Text"
-            items={value.Text}
-            meta={StatusFieldMeta.Text} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Text"
-                value={itemValue}
-                meta={StatusFieldMeta.Text}
-              />
-            }
-          />
+    [
+      StatusField.IndicationIndicator,
+      { meta: StatusFieldMeta.IndicationIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={StatusField.IndicationIndicator}
+          meta={StatusFieldMeta.IndicationIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.IndicationIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Indication Indicator"
-            value={value.IndicationIndicator?.[0]}
-            meta={StatusFieldMeta.IndicationIndicator}
-          />
+    [
+      StatusField.Percent,
+      { meta: StatusFieldMeta.Percent,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={StatusField.Percent}
+          meta={StatusFieldMeta.Percent}
+          fieldConfig={fieldConfig}
+          numeric={value?.Percent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Percent"
-            value={value.Percent?.[0]}
-            meta={StatusFieldMeta.Percent}
-          />
+    [
+      StatusField.ReliabilityPercent,
+      { meta: StatusFieldMeta.ReliabilityPercent,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={StatusField.ReliabilityPercent}
+          meta={StatusFieldMeta.ReliabilityPercent}
+          fieldConfig={fieldConfig}
+          numeric={value?.ReliabilityPercent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Reliability Percent"
-            value={value.ReliabilityPercent?.[0]}
-            meta={StatusFieldMeta.ReliabilityPercent}
-          />
+    [
+      StatusField.SubStatus,
+      { meta: StatusFieldMeta.SubStatus,
+        template: ({value, renderContext, fieldConfig}) => <StatusDisplay
+          key={StatusField.SubStatus}
+          meta={StatusFieldMeta.SubStatus}
+          fieldConfig={fieldConfig}
+          status={value?.SubStatus}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Status ubl-SubStatus"
-            label="Sub Status"
-            items={value.SubStatus}
-            meta={StatusFieldMeta.SubStatus} 
-            itemDisplay={ (itemValue: Status, key: string | number) =>
-              <StatusDisplay
-                key={key}
-                label="Sub Status"
-                value={itemValue}
-                meta={StatusFieldMeta.SubStatus}
-              />
-            }
-          />
+    [
+      StatusField.Condition,
+      { meta: StatusFieldMeta.Condition,
+        template: ({value, renderContext, fieldConfig}) => <ConditionDisplay
+          key={StatusField.Condition}
+          meta={StatusFieldMeta.Condition}
+          fieldConfig={fieldConfig}
+          condition={value?.Condition}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Condition"
-            label="Condition"
-            items={value.Condition}
-            meta={StatusFieldMeta.Condition} 
-            itemDisplay={ (itemValue: Condition, key: string | number) =>
-              <ConditionDisplay
-                key={key}
-                label="Condition"
-                value={itemValue}
-                meta={StatusFieldMeta.Condition}
-              />
-            }
-          />
-        </div>
-    </div>
+export function StatusDisplay<TFieldMeta>({ meta, fieldConfig, status, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    StatusTypeName,
+    meta,
+    fieldConfig,
+    status,
+    renderContext,
+    StatusSubElementsMap,
   )
 }

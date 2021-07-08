@@ -1,263 +1,340 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Waybill } from  '../../model/doc/Waybill'
-import { WaybillFieldMeta } from  '../../meta/doc/WaybillMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentDistributionDisplay from '../cac/DocumentDistributionDisplay'
-import { DocumentDistribution } from '../../model/cac/DocumentDistribution'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import ExchangeRateDisplay from '../cac/ExchangeRateDisplay'
-import { ExchangeRate } from '../../model/cac/ExchangeRate'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import ShipmentDisplay from '../cac/ShipmentDisplay'
-import { Shipment } from '../../model/cac/Shipment'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { WaybillField, WaybillFieldMeta, WaybillTypeName } from  '../../meta/doc/WaybillMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentDistributionDisplay } from '../cac/DocumentDistributionDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { ExchangeRateDisplay } from '../cac/ExchangeRateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { ShipmentDisplay } from '../cac/ShipmentDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: Waybill | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<Waybill, void>
+  waybill: Waybill[] | undefined
+  renderContext: RenderContext
 }
 
-export default function WaybillDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const WaybillSubElementsMap: SubElementsTemplatesMap<WaybillField, Waybill, void> = new Map([
+    [
+      WaybillField.UBLExtensions,
+      { meta: WaybillFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={WaybillField.UBLExtensions}
+          meta={WaybillFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-Waybill">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={WaybillFieldMeta.UBLExtensions}
-          />
+    [
+      WaybillField.UBLVersionID,
+      { meta: WaybillFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={WaybillField.UBLVersionID}
+          meta={WaybillFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={WaybillFieldMeta.UBLVersionID}
-          />
+    [
+      WaybillField.CustomizationID,
+      { meta: WaybillFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={WaybillField.CustomizationID}
+          meta={WaybillFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={WaybillFieldMeta.CustomizationID}
-          />
+    [
+      WaybillField.ProfileID,
+      { meta: WaybillFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={WaybillField.ProfileID}
+          meta={WaybillFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={WaybillFieldMeta.ProfileID}
-          />
+    [
+      WaybillField.ProfileExecutionID,
+      { meta: WaybillFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={WaybillField.ProfileExecutionID}
+          meta={WaybillFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={WaybillFieldMeta.ProfileExecutionID}
-          />
+    [
+      WaybillField.ID,
+      { meta: WaybillFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={WaybillField.ID}
+          meta={WaybillFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={WaybillFieldMeta.ID}
-          />
+    [
+      WaybillField.CarrierAssignedID,
+      { meta: WaybillFieldMeta.CarrierAssignedID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={WaybillField.CarrierAssignedID}
+          meta={WaybillFieldMeta.CarrierAssignedID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CarrierAssignedID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Carrier Assigned Identifier"
-            value={value.CarrierAssignedID?.[0]}
-            meta={WaybillFieldMeta.CarrierAssignedID}
-          />
+    [
+      WaybillField.UUID,
+      { meta: WaybillFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={WaybillField.UUID}
+          meta={WaybillFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={WaybillFieldMeta.UUID}
-          />
+    [
+      WaybillField.IssueDate,
+      { meta: WaybillFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={WaybillField.IssueDate}
+          meta={WaybillFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={WaybillFieldMeta.IssueDate}
-          />
+    [
+      WaybillField.IssueTime,
+      { meta: WaybillFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={WaybillField.IssueTime}
+          meta={WaybillFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={WaybillFieldMeta.IssueTime}
-          />
+    [
+      WaybillField.Name,
+      { meta: WaybillFieldMeta.Name,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={WaybillField.Name}
+          meta={WaybillFieldMeta.Name}
+          fieldConfig={fieldConfig}
+          text={value?.Name}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Name"
-            value={value.Name?.[0]}
-            meta={WaybillFieldMeta.Name}
-          />
+    [
+      WaybillField.Description,
+      { meta: WaybillFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={WaybillField.Description}
+          meta={WaybillFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={WaybillFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={WaybillFieldMeta.Description}
-              />
-            }
-          />
+    [
+      WaybillField.Note,
+      { meta: WaybillFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={WaybillField.Note}
+          meta={WaybillFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={WaybillFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={WaybillFieldMeta.Note}
-              />
-            }
-          />
+    [
+      WaybillField.ShippingOrderID,
+      { meta: WaybillFieldMeta.ShippingOrderID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={WaybillField.ShippingOrderID}
+          meta={WaybillFieldMeta.ShippingOrderID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ShippingOrderID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Shipping Order Identifier"
-            value={value.ShippingOrderID?.[0]}
-            meta={WaybillFieldMeta.ShippingOrderID}
-          />
+    [
+      WaybillField.AdValoremIndicator,
+      { meta: WaybillFieldMeta.AdValoremIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={WaybillField.AdValoremIndicator}
+          meta={WaybillFieldMeta.AdValoremIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.AdValoremIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Ad Valorem Indicator"
-            value={value.AdValoremIndicator?.[0]}
-            meta={WaybillFieldMeta.AdValoremIndicator}
-          />
+    [
+      WaybillField.DeclaredCarriageValueAmount,
+      { meta: WaybillFieldMeta.DeclaredCarriageValueAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={WaybillField.DeclaredCarriageValueAmount}
+          meta={WaybillFieldMeta.DeclaredCarriageValueAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.DeclaredCarriageValueAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Declared Carriage Value"
-            value={value.DeclaredCarriageValueAmount?.[0]}
-            meta={WaybillFieldMeta.DeclaredCarriageValueAmount}
-          />
+    [
+      WaybillField.OtherInstruction,
+      { meta: WaybillFieldMeta.OtherInstruction,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={WaybillField.OtherInstruction}
+          meta={WaybillFieldMeta.OtherInstruction}
+          fieldConfig={fieldConfig}
+          text={value?.OtherInstruction}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-OtherInstruction"
-            label="Other Instruction"
-            items={value.OtherInstruction}
-            meta={WaybillFieldMeta.OtherInstruction} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Other Instruction"
-                value={itemValue}
-                meta={WaybillFieldMeta.OtherInstruction}
-              />
-            }
-          />
+    [
+      WaybillField.ConsignorParty,
+      { meta: WaybillFieldMeta.ConsignorParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={WaybillField.ConsignorParty}
+          meta={WaybillFieldMeta.ConsignorParty}
+          fieldConfig={fieldConfig}
+          party={value?.ConsignorParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Consignor Party"
-            value={value.ConsignorParty?.[0]}
-            meta={WaybillFieldMeta.ConsignorParty}
-          />
+    [
+      WaybillField.CarrierParty,
+      { meta: WaybillFieldMeta.CarrierParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={WaybillField.CarrierParty}
+          meta={WaybillFieldMeta.CarrierParty}
+          fieldConfig={fieldConfig}
+          party={value?.CarrierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Carrier Party"
-            value={value.CarrierParty?.[0]}
-            meta={WaybillFieldMeta.CarrierParty}
-          />
+    [
+      WaybillField.FreightForwarderParty,
+      { meta: WaybillFieldMeta.FreightForwarderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={WaybillField.FreightForwarderParty}
+          meta={WaybillFieldMeta.FreightForwarderParty}
+          fieldConfig={fieldConfig}
+          party={value?.FreightForwarderParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Freight Forwarder Party"
-            value={value.FreightForwarderParty?.[0]}
-            meta={WaybillFieldMeta.FreightForwarderParty}
-          />
+    [
+      WaybillField.Shipment,
+      { meta: WaybillFieldMeta.Shipment,
+        template: ({value, renderContext, fieldConfig}) => <ShipmentDisplay
+          key={WaybillField.Shipment}
+          meta={WaybillFieldMeta.Shipment}
+          fieldConfig={fieldConfig}
+          shipment={value?.Shipment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ShipmentDisplay
-            label="Shipment"
-            value={value.Shipment?.[0]}
-            meta={WaybillFieldMeta.Shipment}
-          />
+    [
+      WaybillField.DocumentReference,
+      { meta: WaybillFieldMeta.DocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={WaybillField.DocumentReference}
+          meta={WaybillFieldMeta.DocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.DocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference"
-            label="Document Reference"
-            items={value.DocumentReference}
-            meta={WaybillFieldMeta.DocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Document Reference"
-                value={itemValue}
-                meta={WaybillFieldMeta.DocumentReference}
-              />
-            }
-          />
+    [
+      WaybillField.ExchangeRate,
+      { meta: WaybillFieldMeta.ExchangeRate,
+        template: ({value, renderContext, fieldConfig}) => <ExchangeRateDisplay
+          key={WaybillField.ExchangeRate}
+          meta={WaybillFieldMeta.ExchangeRate}
+          fieldConfig={fieldConfig}
+          exchangeRate={value?.ExchangeRate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-ExchangeRate"
-            label="Exchange Rate"
-            items={value.ExchangeRate}
-            meta={WaybillFieldMeta.ExchangeRate} 
-            itemDisplay={ (itemValue: ExchangeRate, key: string | number) =>
-              <ExchangeRateDisplay
-                key={key}
-                label="Exchange Rate"
-                value={itemValue}
-                meta={WaybillFieldMeta.ExchangeRate}
-              />
-            }
-          />
+    [
+      WaybillField.DocumentDistribution,
+      { meta: WaybillFieldMeta.DocumentDistribution,
+        template: ({value, renderContext, fieldConfig}) => <DocumentDistributionDisplay
+          key={WaybillField.DocumentDistribution}
+          meta={WaybillFieldMeta.DocumentDistribution}
+          fieldConfig={fieldConfig}
+          documentDistribution={value?.DocumentDistribution}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentDistribution"
-            label="Document Distribution"
-            items={value.DocumentDistribution}
-            meta={WaybillFieldMeta.DocumentDistribution} 
-            itemDisplay={ (itemValue: DocumentDistribution, key: string | number) =>
-              <DocumentDistributionDisplay
-                key={key}
-                label="Document Distribution"
-                value={itemValue}
-                meta={WaybillFieldMeta.DocumentDistribution}
-              />
-            }
-          />
+    [
+      WaybillField.Signature,
+      { meta: WaybillFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={WaybillField.Signature}
+          meta={WaybillFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={WaybillFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={WaybillFieldMeta.Signature}
-              />
-            }
-          />
-        </div>
-    </div>
+export function WaybillDisplay<TFieldMeta>({ meta, fieldConfig, waybill, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    WaybillTypeName,
+    meta,
+    fieldConfig,
+    waybill,
+    renderContext,
+    WaybillSubElementsMap,
   )
 }

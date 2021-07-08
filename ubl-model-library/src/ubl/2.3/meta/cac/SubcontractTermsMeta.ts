@@ -1,4 +1,11 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum SubcontractTermsField {
   UBLExtensions = 'UBLExtensions',
@@ -14,11 +21,11 @@ export enum SubcontractTermsField {
 export const SubcontractTermsFieldMetaUBLExtensions = new FieldMeta<SubcontractTermsField>(
   SubcontractTermsField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -27,10 +34,10 @@ export const SubcontractTermsFieldMetaRate = new FieldMeta<SubcontractTermsField
   SubcontractTermsField.Rate,
   'Rate',
   'Rate',
-  'Numeric',
+  NumericType.name,
   'The precise percentage allowed to be subcontracted.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -39,10 +46,10 @@ export const SubcontractTermsFieldMetaUnknownPriceIndicator = new FieldMeta<Subc
   SubcontractTermsField.UnknownPriceIndicator,
   'UnknownPriceIndicator',
   'Unknown Price',
-  'Indicator',
+  IndicatorType.name,
   'An indicator that the subcontract price is known (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -51,10 +58,10 @@ export const SubcontractTermsFieldMetaDescription = new FieldMeta<SubcontractTer
   SubcontractTermsField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing the subcontract terms.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -63,10 +70,10 @@ export const SubcontractTermsFieldMetaAmount = new FieldMeta<SubcontractTermsFie
   SubcontractTermsField.Amount,
   'Amount',
   'Amount',
-  'Amount',
+  AmountType.name,
   'The monetary amount assigned to the subcontracted task.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -75,10 +82,10 @@ export const SubcontractTermsFieldMetaSubcontractingConditionsCode = new FieldMe
   SubcontractTermsField.SubcontractingConditionsCode,
   'SubcontractingConditionsCode',
   'Subcontracting Conditions Code',
-  'Code',
+  CodeType.name,
   'A code specifying the conditions for subcontracting.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -87,10 +94,10 @@ export const SubcontractTermsFieldMetaMaximumPercent = new FieldMeta<Subcontract
   SubcontractTermsField.MaximumPercent,
   'MaximumPercent',
   'Maximum Percent',
-  'Numeric',
+  NumericType.name,
   'The maximum percentage allowed to be subcontracted.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -99,10 +106,10 @@ export const SubcontractTermsFieldMetaMinimumPercent = new FieldMeta<Subcontract
   SubcontractTermsField.MinimumPercent,
   'MinimumPercent',
   'Minimum Percent',
-  'Numeric',
+  NumericType.name,
   'The minimum percentage allowed to be subcontracted.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -128,3 +135,11 @@ export const SubcontractTermsFieldMap = new Map([
   [SubcontractTermsField.MaximumPercent, SubcontractTermsFieldMetaMaximumPercent],
   [SubcontractTermsField.MinimumPercent, SubcontractTermsFieldMetaMinimumPercent]
 ])
+
+export const SubcontractTermsType: Type<SubcontractTermsField> = {
+  name: 'SubcontractTerms',
+  label: 'Subcontract Terms',
+  module: TypeModule.cac,
+  definition: 'A class to describe subcontract terms for a tendering process.',
+  fields: SubcontractTermsFieldMap,
+}

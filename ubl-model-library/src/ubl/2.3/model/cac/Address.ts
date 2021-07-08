@@ -5,7 +5,6 @@ import { Identifier } from '../cbc/Identifier'
 import { LocationCoordinate } from './LocationCoordinate'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to define common information related to an address.
  */

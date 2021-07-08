@@ -1,40 +1,53 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ServiceFrequency } from  '../../model/cac/ServiceFrequency'
-import { ServiceFrequencyFieldMeta } from  '../../meta/cac/ServiceFrequencyMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ServiceFrequencyField, ServiceFrequencyFieldMeta, ServiceFrequencyTypeName } from  '../../meta/cac/ServiceFrequencyMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ServiceFrequency | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ServiceFrequency, void>
+  serviceFrequency: ServiceFrequency[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ServiceFrequencyDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ServiceFrequencySubElementsMap: SubElementsTemplatesMap<ServiceFrequencyField, ServiceFrequency, void> = new Map([
+    [
+      ServiceFrequencyField.UBLExtensions,
+      { meta: ServiceFrequencyFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ServiceFrequencyField.UBLExtensions}
+          meta={ServiceFrequencyFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ServiceFrequency">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ServiceFrequencyFieldMeta.UBLExtensions}
-          />
+    [
+      ServiceFrequencyField.WeekDayCode,
+      { meta: ServiceFrequencyFieldMeta.WeekDayCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ServiceFrequencyField.WeekDayCode}
+          meta={ServiceFrequencyFieldMeta.WeekDayCode}
+          fieldConfig={fieldConfig}
+          code={value?.WeekDayCode}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <CodeDisplay
-            label="Week Day"
-            value={value.WeekDayCode?.[0]}
-            meta={ServiceFrequencyFieldMeta.WeekDayCode}
-          />
-        </div>
-    </div>
+export function ServiceFrequencyDisplay<TFieldMeta>({ meta, fieldConfig, serviceFrequency, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ServiceFrequencyTypeName,
+    meta,
+    fieldConfig,
+    serviceFrequency,
+    renderContext,
+    ServiceFrequencySubElementsMap,
   )
 }

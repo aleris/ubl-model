@@ -1,164 +1,178 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { GoodsItemPassportCounterfoil } from  '../../model/cac/GoodsItemPassportCounterfoil'
-import { GoodsItemPassportCounterfoilFieldMeta } from  '../../meta/cac/GoodsItemPassportCounterfoilMeta'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentReferenceDisplay from './DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import GoodsItemDisplay from './GoodsItemDisplay'
-import { GoodsItem } from '../../model/cac/GoodsItem'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import LocationDisplay from './LocationDisplay'
-import { Location } from '../../model/cac/Location'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { GoodsItemPassportCounterfoilField, GoodsItemPassportCounterfoilFieldMeta, GoodsItemPassportCounterfoilTypeName } from  '../../meta/cac/GoodsItemPassportCounterfoilMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentReferenceDisplay } from './DocumentReferenceDisplay'
+import { GoodsItemDisplay } from './GoodsItemDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { LocationDisplay } from './LocationDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: GoodsItemPassportCounterfoil | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<GoodsItemPassportCounterfoil, void>
+  goodsItemPassportCounterfoil: GoodsItemPassportCounterfoil[] | undefined
+  renderContext: RenderContext
 }
 
-export default function GoodsItemPassportCounterfoilDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const GoodsItemPassportCounterfoilSubElementsMap: SubElementsTemplatesMap<GoodsItemPassportCounterfoilField, GoodsItemPassportCounterfoil, void> = new Map([
+    [
+      GoodsItemPassportCounterfoilField.UBLExtensions,
+      { meta: GoodsItemPassportCounterfoilFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={GoodsItemPassportCounterfoilField.UBLExtensions}
+          meta={GoodsItemPassportCounterfoilFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-GoodsItemPassportCounterfoil">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={GoodsItemPassportCounterfoilFieldMeta.UBLExtensions}
-          />
+    [
+      GoodsItemPassportCounterfoilField.ID,
+      { meta: GoodsItemPassportCounterfoilFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={GoodsItemPassportCounterfoilField.ID}
+          meta={GoodsItemPassportCounterfoilFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={GoodsItemPassportCounterfoilFieldMeta.ID}
-          />
+    [
+      GoodsItemPassportCounterfoilField.GoodsItemPassportID,
+      { meta: GoodsItemPassportCounterfoilFieldMeta.GoodsItemPassportID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={GoodsItemPassportCounterfoilField.GoodsItemPassportID}
+          meta={GoodsItemPassportCounterfoilFieldMeta.GoodsItemPassportID}
+          fieldConfig={fieldConfig}
+          identifier={value?.GoodsItemPassportID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Goods Item Passport Identifier"
-            value={value.GoodsItemPassportID?.[0]}
-            meta={GoodsItemPassportCounterfoilFieldMeta.GoodsItemPassportID}
-          />
+    [
+      GoodsItemPassportCounterfoilField.FinalReexportationDate,
+      { meta: GoodsItemPassportCounterfoilFieldMeta.FinalReexportationDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={GoodsItemPassportCounterfoilField.FinalReexportationDate}
+          meta={GoodsItemPassportCounterfoilFieldMeta.FinalReexportationDate}
+          fieldConfig={fieldConfig}
+          date={value?.FinalReexportationDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Final Reexportation Date"
-            value={value.FinalReexportationDate?.[0]}
-            meta={GoodsItemPassportCounterfoilFieldMeta.FinalReexportationDate}
-          />
+    [
+      GoodsItemPassportCounterfoilField.Note,
+      { meta: GoodsItemPassportCounterfoilFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={GoodsItemPassportCounterfoilField.Note}
+          meta={GoodsItemPassportCounterfoilFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={GoodsItemPassportCounterfoilFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={GoodsItemPassportCounterfoilFieldMeta.Note}
-              />
-            }
-          />
+    [
+      GoodsItemPassportCounterfoilField.CustomsOfficeLocation,
+      { meta: GoodsItemPassportCounterfoilFieldMeta.CustomsOfficeLocation,
+        template: ({value, renderContext, fieldConfig}) => <LocationDisplay
+          key={GoodsItemPassportCounterfoilField.CustomsOfficeLocation}
+          meta={GoodsItemPassportCounterfoilFieldMeta.CustomsOfficeLocation}
+          fieldConfig={fieldConfig}
+          location={value?.CustomsOfficeLocation}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <LocationDisplay
-            label="Customs Office Location"
-            value={value.CustomsOfficeLocation?.[0]}
-            meta={GoodsItemPassportCounterfoilFieldMeta.CustomsOfficeLocation}
-          />
+    [
+      GoodsItemPassportCounterfoilField.GoodsItem,
+      { meta: GoodsItemPassportCounterfoilFieldMeta.GoodsItem,
+        template: ({value, renderContext, fieldConfig}) => <GoodsItemDisplay
+          key={GoodsItemPassportCounterfoilField.GoodsItem}
+          meta={GoodsItemPassportCounterfoilFieldMeta.GoodsItem}
+          fieldConfig={fieldConfig}
+          goodsItem={value?.GoodsItem}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <GoodsItemDisplay
-            label="Goods Item"
-            value={value.GoodsItem?.[0]}
-            meta={GoodsItemPassportCounterfoilFieldMeta.GoodsItem}
-          />
+    [
+      GoodsItemPassportCounterfoilField.ExportationDocumentReference,
+      { meta: GoodsItemPassportCounterfoilFieldMeta.ExportationDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={GoodsItemPassportCounterfoilField.ExportationDocumentReference}
+          meta={GoodsItemPassportCounterfoilFieldMeta.ExportationDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.ExportationDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentReference ubl-ExportationDocumentReference"
-            label="Exportation Document Reference"
-            items={value.ExportationDocumentReference}
-            meta={GoodsItemPassportCounterfoilFieldMeta.ExportationDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Exportation Document Reference"
-                value={itemValue}
-                meta={GoodsItemPassportCounterfoilFieldMeta.ExportationDocumentReference}
-              />
-            }
-          />
+    [
+      GoodsItemPassportCounterfoilField.ImportationDocumentReference,
+      { meta: GoodsItemPassportCounterfoilFieldMeta.ImportationDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={GoodsItemPassportCounterfoilField.ImportationDocumentReference}
+          meta={GoodsItemPassportCounterfoilFieldMeta.ImportationDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.ImportationDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentReference ubl-ImportationDocumentReference"
-            label="Importation Document Reference"
-            items={value.ImportationDocumentReference}
-            meta={GoodsItemPassportCounterfoilFieldMeta.ImportationDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Importation Document Reference"
-                value={itemValue}
-                meta={GoodsItemPassportCounterfoilFieldMeta.ImportationDocumentReference}
-              />
-            }
-          />
+    [
+      GoodsItemPassportCounterfoilField.ReexportationDocumentReference,
+      { meta: GoodsItemPassportCounterfoilFieldMeta.ReexportationDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={GoodsItemPassportCounterfoilField.ReexportationDocumentReference}
+          meta={GoodsItemPassportCounterfoilFieldMeta.ReexportationDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.ReexportationDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentReference ubl-ReexportationDocumentReference"
-            label="Reexportation Document Reference"
-            items={value.ReexportationDocumentReference}
-            meta={GoodsItemPassportCounterfoilFieldMeta.ReexportationDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Reexportation Document Reference"
-                value={itemValue}
-                meta={GoodsItemPassportCounterfoilFieldMeta.ReexportationDocumentReference}
-              />
-            }
-          />
+    [
+      GoodsItemPassportCounterfoilField.ReimportationDocumentReference,
+      { meta: GoodsItemPassportCounterfoilFieldMeta.ReimportationDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={GoodsItemPassportCounterfoilField.ReimportationDocumentReference}
+          meta={GoodsItemPassportCounterfoilFieldMeta.ReimportationDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.ReimportationDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentReference ubl-ReimportationDocumentReference"
-            label="Reimportation Document Reference"
-            items={value.ReimportationDocumentReference}
-            meta={GoodsItemPassportCounterfoilFieldMeta.ReimportationDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Reimportation Document Reference"
-                value={itemValue}
-                meta={GoodsItemPassportCounterfoilFieldMeta.ReimportationDocumentReference}
-              />
-            }
-          />
+    [
+      GoodsItemPassportCounterfoilField.VoucherDocumentReference,
+      { meta: GoodsItemPassportCounterfoilFieldMeta.VoucherDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={GoodsItemPassportCounterfoilField.VoucherDocumentReference}
+          meta={GoodsItemPassportCounterfoilFieldMeta.VoucherDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.VoucherDocumentReference}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentReference ubl-VoucherDocumentReference"
-            label="Voucher Document Reference"
-            items={value.VoucherDocumentReference}
-            meta={GoodsItemPassportCounterfoilFieldMeta.VoucherDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Voucher Document Reference"
-                value={itemValue}
-                meta={GoodsItemPassportCounterfoilFieldMeta.VoucherDocumentReference}
-              />
-            }
-          />
-        </div>
-    </div>
+export function GoodsItemPassportCounterfoilDisplay<TFieldMeta>({ meta, fieldConfig, goodsItemPassportCounterfoil, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    GoodsItemPassportCounterfoilTypeName,
+    meta,
+    fieldConfig,
+    goodsItemPassportCounterfoil,
+    renderContext,
+    GoodsItemPassportCounterfoilSubElementsMap,
   )
 }

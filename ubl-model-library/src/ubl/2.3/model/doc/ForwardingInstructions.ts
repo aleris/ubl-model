@@ -12,7 +12,6 @@ import { Signature } from '../cac/Signature'
 import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A document issued to a forwarder, giving instructions regarding the action to be taken for the forwarding of goods
  * described therein. Forwarding Instructions is used by any party who gives instructions for the transportation

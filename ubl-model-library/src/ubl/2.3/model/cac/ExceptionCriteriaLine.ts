@@ -6,7 +6,6 @@ import { Period } from './Period'
 import { Quantity } from '../cbc/Quantity'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to define a line in an ExceptionCriteria document that specifies a threshold for forecast variance, product
  * activity, or performance history, the exceeding of which should trigger an exception message.

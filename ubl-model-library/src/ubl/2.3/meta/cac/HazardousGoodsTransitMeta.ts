@@ -1,4 +1,8 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { TemperatureType } from './TemperatureMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum HazardousGoodsTransitField {
   UBLExtensions = 'UBLExtensions',
@@ -14,11 +18,11 @@ export enum HazardousGoodsTransitField {
 export const HazardousGoodsTransitFieldMetaUBLExtensions = new FieldMeta<HazardousGoodsTransitField>(
   HazardousGoodsTransitField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -27,10 +31,10 @@ export const HazardousGoodsTransitFieldMetaTransportEmergencyCardCode = new Fiel
   HazardousGoodsTransitField.TransportEmergencyCardCode,
   'TransportEmergencyCardCode',
   'Transport Emergency Card Code',
-  'Code',
+  CodeType.name,
   'An identifier for a transport emergency card describing the actions to be taken in an emergency in transporting the hazardous goods. It may be the identity number of a hazardous emergency response plan assigned by the appropriate authority.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'TREM card',
   undefined
 )
@@ -39,10 +43,10 @@ export const HazardousGoodsTransitFieldMetaPackingCriteriaCode = new FieldMeta<H
   HazardousGoodsTransitField.PackingCriteriaCode,
   'PackingCriteriaCode',
   'Packing Criteria Code',
-  'Code',
+  CodeType.name,
   'A code signifying the packaging requirement for transportation of the hazardous goods as assigned by IATA, IMDB, ADR, RID etc.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Packing Group',
   undefined
 )
@@ -51,10 +55,10 @@ export const HazardousGoodsTransitFieldMetaHazardousRegulationCode = new FieldMe
   HazardousGoodsTransitField.HazardousRegulationCode,
   'HazardousRegulationCode',
   'Hazardous Regulation Code',
-  'Code',
+  CodeType.name,
   'A code signifying the set of legal regulations governing the transportation of the hazardous goods.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -63,10 +67,10 @@ export const HazardousGoodsTransitFieldMetaInhalationToxicityZoneCode = new Fiel
   HazardousGoodsTransitField.InhalationToxicityZoneCode,
   'InhalationToxicityZoneCode',
   'Inhalation Toxicity Zone Code',
-  'Code',
+  CodeType.name,
   'A code signifying the Inhalation Toxicity Hazard Zone for the hazardous goods, as defined by the US Department of Transportation.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -75,10 +79,10 @@ export const HazardousGoodsTransitFieldMetaTransportAuthorizationCode = new Fiel
   HazardousGoodsTransitField.TransportAuthorizationCode,
   'TransportAuthorizationCode',
   'Transport Authorization Code',
-  'Code',
+  CodeType.name,
   'A code signifying authorization for the transportation of hazardous cargo.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Permission for Transport',
   undefined
 )
@@ -87,10 +91,10 @@ export const HazardousGoodsTransitFieldMetaMaximumTemperature = new FieldMeta<Ha
   HazardousGoodsTransitField.MaximumTemperature,
   'MaximumTemperature',
   'Maximum Temperature',
-  'Temperature',
+  TemperatureType.name,
   'The maximum temperature at which the hazardous goods can safely be transported.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -99,10 +103,10 @@ export const HazardousGoodsTransitFieldMetaMinimumTemperature = new FieldMeta<Ha
   HazardousGoodsTransitField.MinimumTemperature,
   'MinimumTemperature',
   'Minimum Temperature',
-  'Temperature',
+  TemperatureType.name,
   'The minimum temperature at which the hazardous goods can safely be transported.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -128,3 +132,11 @@ export const HazardousGoodsTransitFieldMap = new Map([
   [HazardousGoodsTransitField.MaximumTemperature, HazardousGoodsTransitFieldMetaMaximumTemperature],
   [HazardousGoodsTransitField.MinimumTemperature, HazardousGoodsTransitFieldMetaMinimumTemperature]
 ])
+
+export const HazardousGoodsTransitType: Type<HazardousGoodsTransitField> = {
+  name: 'HazardousGoodsTransit',
+  label: 'Hazardous Goods Transit',
+  module: TypeModule.cac,
+  definition: 'A class to describe hazardous goods in transit.',
+  fields: HazardousGoodsTransitFieldMap,
+}

@@ -1,183 +1,219 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { QualifyingParty } from  '../../model/cac/QualifyingParty'
-import { QualifyingPartyFieldMeta } from  '../../meta/cac/QualifyingPartyMeta'
-import CapabilityDisplay from './CapabilityDisplay'
-import { Capability } from '../../model/cac/Capability'
-import ClassificationSchemeDisplay from './ClassificationSchemeDisplay'
-import { ClassificationScheme } from '../../model/cac/ClassificationScheme'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import CompletedTaskDisplay from './CompletedTaskDisplay'
-import { CompletedTask } from '../../model/cac/CompletedTask'
-import DeclarationDisplay from './DeclarationDisplay'
-import { Declaration } from '../../model/cac/Declaration'
-import EconomicOperatorRoleDisplay from './EconomicOperatorRoleDisplay'
-import { EconomicOperatorRole } from '../../model/cac/EconomicOperatorRole'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { QualifyingPartyField, QualifyingPartyFieldMeta, QualifyingPartyTypeName } from  '../../meta/cac/QualifyingPartyMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CapabilityDisplay } from './CapabilityDisplay'
+import { ClassificationSchemeDisplay } from './ClassificationSchemeDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { CompletedTaskDisplay } from './CompletedTaskDisplay'
+import { DeclarationDisplay } from './DeclarationDisplay'
+import { EconomicOperatorRoleDisplay } from './EconomicOperatorRoleDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: QualifyingParty | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<QualifyingParty, void>
+  qualifyingParty: QualifyingParty[] | undefined
+  renderContext: RenderContext
 }
 
-export default function QualifyingPartyDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const QualifyingPartySubElementsMap: SubElementsTemplatesMap<QualifyingPartyField, QualifyingParty, void> = new Map([
+    [
+      QualifyingPartyField.UBLExtensions,
+      { meta: QualifyingPartyFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={QualifyingPartyField.UBLExtensions}
+          meta={QualifyingPartyFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-QualifyingParty">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={QualifyingPartyFieldMeta.UBLExtensions}
-          />
+    [
+      QualifyingPartyField.ParticipationPercent,
+      { meta: QualifyingPartyFieldMeta.ParticipationPercent,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={QualifyingPartyField.ParticipationPercent}
+          meta={QualifyingPartyFieldMeta.ParticipationPercent}
+          fieldConfig={fieldConfig}
+          numeric={value?.ParticipationPercent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Participation"
-            value={value.ParticipationPercent?.[0]}
-            meta={QualifyingPartyFieldMeta.ParticipationPercent}
-          />
+    [
+      QualifyingPartyField.PersonalSituation,
+      { meta: QualifyingPartyFieldMeta.PersonalSituation,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={QualifyingPartyField.PersonalSituation}
+          meta={QualifyingPartyFieldMeta.PersonalSituation}
+          fieldConfig={fieldConfig}
+          text={value?.PersonalSituation}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-PersonalSituation"
-            label="Personal Situation"
-            items={value.PersonalSituation}
-            meta={QualifyingPartyFieldMeta.PersonalSituation} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Personal Situation"
-                value={itemValue}
-                meta={QualifyingPartyFieldMeta.PersonalSituation}
-              />
-            }
-          />
+    [
+      QualifyingPartyField.OperatingYearsQuantity,
+      { meta: QualifyingPartyFieldMeta.OperatingYearsQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={QualifyingPartyField.OperatingYearsQuantity}
+          meta={QualifyingPartyFieldMeta.OperatingYearsQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.OperatingYearsQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Operating Years"
-            value={value.OperatingYearsQuantity?.[0]}
-            meta={QualifyingPartyFieldMeta.OperatingYearsQuantity}
-          />
+    [
+      QualifyingPartyField.EmployeeQuantity,
+      { meta: QualifyingPartyFieldMeta.EmployeeQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={QualifyingPartyField.EmployeeQuantity}
+          meta={QualifyingPartyFieldMeta.EmployeeQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.EmployeeQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Employee"
-            value={value.EmployeeQuantity?.[0]}
-            meta={QualifyingPartyFieldMeta.EmployeeQuantity}
-          />
+    [
+      QualifyingPartyField.BusinessClassificationEvidenceID,
+      { meta: QualifyingPartyFieldMeta.BusinessClassificationEvidenceID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={QualifyingPartyField.BusinessClassificationEvidenceID}
+          meta={QualifyingPartyFieldMeta.BusinessClassificationEvidenceID}
+          fieldConfig={fieldConfig}
+          identifier={value?.BusinessClassificationEvidenceID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Business Classification Evidence"
-            value={value.BusinessClassificationEvidenceID?.[0]}
-            meta={QualifyingPartyFieldMeta.BusinessClassificationEvidenceID}
-          />
+    [
+      QualifyingPartyField.BusinessIdentityEvidenceID,
+      { meta: QualifyingPartyFieldMeta.BusinessIdentityEvidenceID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={QualifyingPartyField.BusinessIdentityEvidenceID}
+          meta={QualifyingPartyFieldMeta.BusinessIdentityEvidenceID}
+          fieldConfig={fieldConfig}
+          identifier={value?.BusinessIdentityEvidenceID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Business Identity Evidence"
-            value={value.BusinessIdentityEvidenceID?.[0]}
-            meta={QualifyingPartyFieldMeta.BusinessIdentityEvidenceID}
-          />
+    [
+      QualifyingPartyField.TendererRoleCode,
+      { meta: QualifyingPartyFieldMeta.TendererRoleCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={QualifyingPartyField.TendererRoleCode}
+          meta={QualifyingPartyFieldMeta.TendererRoleCode}
+          fieldConfig={fieldConfig}
+          code={value?.TendererRoleCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Tenderer Role Code"
-            value={value.TendererRoleCode?.[0]}
-            meta={QualifyingPartyFieldMeta.TendererRoleCode}
-          />
+    [
+      QualifyingPartyField.BusinessClassificationScheme,
+      { meta: QualifyingPartyFieldMeta.BusinessClassificationScheme,
+        template: ({value, renderContext, fieldConfig}) => <ClassificationSchemeDisplay
+          key={QualifyingPartyField.BusinessClassificationScheme}
+          meta={QualifyingPartyFieldMeta.BusinessClassificationScheme}
+          fieldConfig={fieldConfig}
+          classificationScheme={value?.BusinessClassificationScheme}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ClassificationSchemeDisplay
-            label="Business Classification Scheme"
-            value={value.BusinessClassificationScheme?.[0]}
-            meta={QualifyingPartyFieldMeta.BusinessClassificationScheme}
-          />
+    [
+      QualifyingPartyField.TechnicalCapability,
+      { meta: QualifyingPartyFieldMeta.TechnicalCapability,
+        template: ({value, renderContext, fieldConfig}) => <CapabilityDisplay
+          key={QualifyingPartyField.TechnicalCapability}
+          meta={QualifyingPartyFieldMeta.TechnicalCapability}
+          fieldConfig={fieldConfig}
+          capability={value?.TechnicalCapability}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Capability ubl-TechnicalCapability"
-            label="Technical Capability"
-            items={value.TechnicalCapability}
-            meta={QualifyingPartyFieldMeta.TechnicalCapability} 
-            itemDisplay={ (itemValue: Capability, key: string | number) =>
-              <CapabilityDisplay
-                key={key}
-                label="Technical Capability"
-                value={itemValue}
-                meta={QualifyingPartyFieldMeta.TechnicalCapability}
-              />
-            }
-          />
+    [
+      QualifyingPartyField.FinancialCapability,
+      { meta: QualifyingPartyFieldMeta.FinancialCapability,
+        template: ({value, renderContext, fieldConfig}) => <CapabilityDisplay
+          key={QualifyingPartyField.FinancialCapability}
+          meta={QualifyingPartyFieldMeta.FinancialCapability}
+          fieldConfig={fieldConfig}
+          capability={value?.FinancialCapability}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Capability ubl-FinancialCapability"
-            label="Financial Capability"
-            items={value.FinancialCapability}
-            meta={QualifyingPartyFieldMeta.FinancialCapability} 
-            itemDisplay={ (itemValue: Capability, key: string | number) =>
-              <CapabilityDisplay
-                key={key}
-                label="Financial Capability"
-                value={itemValue}
-                meta={QualifyingPartyFieldMeta.FinancialCapability}
-              />
-            }
-          />
+    [
+      QualifyingPartyField.CompletedTask,
+      { meta: QualifyingPartyFieldMeta.CompletedTask,
+        template: ({value, renderContext, fieldConfig}) => <CompletedTaskDisplay
+          key={QualifyingPartyField.CompletedTask}
+          meta={QualifyingPartyFieldMeta.CompletedTask}
+          fieldConfig={fieldConfig}
+          completedTask={value?.CompletedTask}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-CompletedTask"
-            label="Completed Task"
-            items={value.CompletedTask}
-            meta={QualifyingPartyFieldMeta.CompletedTask} 
-            itemDisplay={ (itemValue: CompletedTask, key: string | number) =>
-              <CompletedTaskDisplay
-                key={key}
-                label="Completed Task"
-                value={itemValue}
-                meta={QualifyingPartyFieldMeta.CompletedTask}
-              />
-            }
-          />
+    [
+      QualifyingPartyField.Declaration,
+      { meta: QualifyingPartyFieldMeta.Declaration,
+        template: ({value, renderContext, fieldConfig}) => <DeclarationDisplay
+          key={QualifyingPartyField.Declaration}
+          meta={QualifyingPartyFieldMeta.Declaration}
+          fieldConfig={fieldConfig}
+          declaration={value?.Declaration}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Declaration"
-            label="Declaration"
-            items={value.Declaration}
-            meta={QualifyingPartyFieldMeta.Declaration} 
-            itemDisplay={ (itemValue: Declaration, key: string | number) =>
-              <DeclarationDisplay
-                key={key}
-                label="Declaration"
-                value={itemValue}
-                meta={QualifyingPartyFieldMeta.Declaration}
-              />
-            }
-          />
+    [
+      QualifyingPartyField.Party,
+      { meta: QualifyingPartyFieldMeta.Party,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={QualifyingPartyField.Party}
+          meta={QualifyingPartyFieldMeta.Party}
+          fieldConfig={fieldConfig}
+          party={value?.Party}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Party"
-            value={value.Party?.[0]}
-            meta={QualifyingPartyFieldMeta.Party}
-          />
+    [
+      QualifyingPartyField.EconomicOperatorRole,
+      { meta: QualifyingPartyFieldMeta.EconomicOperatorRole,
+        template: ({value, renderContext, fieldConfig}) => <EconomicOperatorRoleDisplay
+          key={QualifyingPartyField.EconomicOperatorRole}
+          meta={QualifyingPartyFieldMeta.EconomicOperatorRole}
+          fieldConfig={fieldConfig}
+          economicOperatorRole={value?.EconomicOperatorRole}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <EconomicOperatorRoleDisplay
-            label="Economic Operator Role"
-            value={value.EconomicOperatorRole?.[0]}
-            meta={QualifyingPartyFieldMeta.EconomicOperatorRole}
-          />
-        </div>
-    </div>
+export function QualifyingPartyDisplay<TFieldMeta>({ meta, fieldConfig, qualifyingParty, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    QualifyingPartyTypeName,
+    meta,
+    fieldConfig,
+    qualifyingParty,
+    renderContext,
+    QualifyingPartySubElementsMap,
   )
 }

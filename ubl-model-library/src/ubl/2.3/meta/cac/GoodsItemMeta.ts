@@ -1,4 +1,25 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AddressType } from './AddressMeta'
+import { AllowanceChargeType } from './AllowanceChargeMeta'
+import { AmountType } from '../cbc/AmountMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { DeliveryType } from './DeliveryMeta'
+import { DespatchType } from './DespatchMeta'
+import { DimensionType } from './DimensionMeta'
+import { DocumentReferenceType } from './DocumentReferenceMeta'
+import { GoodsItemContainerType } from './GoodsItemContainerMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { InvoiceLineType } from './InvoiceLineMeta'
+import { ItemType } from './ItemMeta'
+import { MeasureType } from '../cbc/MeasureMeta'
+import { PackageType } from './PackageMeta'
+import { PickupType } from './PickupMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { TemperatureType } from './TemperatureMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum GoodsItemField {
   UBLExtensions = 'UBLExtensions',
@@ -47,11 +68,11 @@ export enum GoodsItemField {
 export const GoodsItemFieldMetaUBLExtensions = new FieldMeta<GoodsItemField>(
   GoodsItemField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -60,10 +81,10 @@ export const GoodsItemFieldMetaID = new FieldMeta<GoodsItemField>(
   GoodsItemField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this goods item.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -72,10 +93,10 @@ export const GoodsItemFieldMetaSequenceNumberID = new FieldMeta<GoodsItemField>(
   GoodsItemField.SequenceNumberID,
   'SequenceNumberID',
   'Sequence Number',
-  'Identifier',
+  IdentifierType.name,
   'A sequence number differentiating a specific goods item within a consignment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -84,10 +105,10 @@ export const GoodsItemFieldMetaDescription = new FieldMeta<GoodsItemField>(
   GoodsItemField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing this goods item to identify it for customs, statistical, or transport purposes.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   'Description of goods (WCO ID 137)',
   undefined
 )
@@ -96,10 +117,10 @@ export const GoodsItemFieldMetaHazardousRiskIndicator = new FieldMeta<GoodsItemF
   GoodsItemField.HazardousRiskIndicator,
   'HazardousRiskIndicator',
   'Hazardous Risk Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indication that the transported goods item is subject to an international regulation concerning the carriage of dangerous goods (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'default is negative'
 )
@@ -108,10 +129,10 @@ export const GoodsItemFieldMetaDeclaredCustomsValueAmount = new FieldMeta<GoodsI
   GoodsItemField.DeclaredCustomsValueAmount,
   'DeclaredCustomsValueAmount',
   'Declared Customs Value',
-  'Amount',
+  AmountType.name,
   'The total declared value for customs purposes of the goods item.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'For Customs Value (WCO ID 108)',
   undefined
 )
@@ -120,10 +141,10 @@ export const GoodsItemFieldMetaDeclaredForCarriageValueAmount = new FieldMeta<Go
   GoodsItemField.DeclaredForCarriageValueAmount,
   'DeclaredForCarriageValueAmount',
   'Declared For Carriage Value',
-  'Amount',
+  AmountType.name,
   'The value of this goods item, declared by the shipper or his agent solely for the purpose of varying the carrier\'s level of liability from that provided in the contract of carriage, in case of loss or damage to goods or delayed delivery.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Interest in delivery, declared value for carriage',
   undefined
 )
@@ -132,10 +153,10 @@ export const GoodsItemFieldMetaDeclaredStatisticsValueAmount = new FieldMeta<Goo
   GoodsItemField.DeclaredStatisticsValueAmount,
   'DeclaredStatisticsValueAmount',
   'Declared Statistics Value',
-  'Amount',
+  AmountType.name,
   'The total declared value of all the goods items in the same consignment with this goods item that have the same statistical heading.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Statistical Value (WCO ID 114)',
   undefined
 )
@@ -144,10 +165,10 @@ export const GoodsItemFieldMetaFreeOnBoardValueAmount = new FieldMeta<GoodsItemF
   GoodsItemField.FreeOnBoardValueAmount,
   'FreeOnBoardValueAmount',
   'Free On Board Value',
-  'Amount',
+  AmountType.name,
   'The monetary amount that has to be or has been paid as calculated under the applicable trade delivery.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'FOB Value',
   undefined
 )
@@ -156,10 +177,10 @@ export const GoodsItemFieldMetaInsuranceValueAmount = new FieldMeta<GoodsItemFie
   GoodsItemField.InsuranceValueAmount,
   'InsuranceValueAmount',
   'Insurance Value',
-  'Amount',
+  AmountType.name,
   'The amount covered by insurance for this goods item.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Value Insured',
   undefined
 )
@@ -168,10 +189,10 @@ export const GoodsItemFieldMetaValueAmount = new FieldMeta<GoodsItemField>(
   GoodsItemField.ValueAmount,
   'ValueAmount',
   'Value',
-  'Amount',
+  AmountType.name,
   'The amount on which a duty, tax, or fee will be assessed.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -180,10 +201,10 @@ export const GoodsItemFieldMetaGrossWeightMeasure = new FieldMeta<GoodsItemField
   GoodsItemField.GrossWeightMeasure,
   'GrossWeightMeasure',
   'Gross Weight',
-  'Measure',
+  MeasureType.name,
   'The weight of this goods item, including packing and packaging but excluding the carrier\'s equipment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Actual Gross Weight',
   undefined
 )
@@ -192,10 +213,10 @@ export const GoodsItemFieldMetaNetWeightMeasure = new FieldMeta<GoodsItemField>(
   GoodsItemField.NetWeightMeasure,
   'NetWeightMeasure',
   'Net Weight',
-  'Measure',
+  MeasureType.name,
   'The weight of this goods item, excluding packing but including packaging that normally accompanies the goods.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -204,10 +225,10 @@ export const GoodsItemFieldMetaNetNetWeightMeasure = new FieldMeta<GoodsItemFiel
   GoodsItemField.NetNetWeightMeasure,
   'NetNetWeightMeasure',
   'Net Net Weight',
-  'Measure',
+  MeasureType.name,
   'The total weight of this goods item, excluding all packing and packaging.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Customs Weight (WCO ID 128)',
   undefined
 )
@@ -216,10 +237,10 @@ export const GoodsItemFieldMetaChargeableWeightMeasure = new FieldMeta<GoodsItem
   GoodsItemField.ChargeableWeightMeasure,
   'ChargeableWeightMeasure',
   'Chargeable Weight',
-  'Measure',
+  MeasureType.name,
   'The weight on which a charge is to be based.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -228,10 +249,10 @@ export const GoodsItemFieldMetaGrossVolumeMeasure = new FieldMeta<GoodsItemField
   GoodsItemField.GrossVolumeMeasure,
   'GrossVolumeMeasure',
   'Gross Volume',
-  'Measure',
+  MeasureType.name,
   'The volume of this goods item, normally calculated by multiplying its maximum length, width, and height.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Volume, Gross Measurement Cube (GMC), Cube (WCO ID 134)',
   undefined
 )
@@ -240,10 +261,10 @@ export const GoodsItemFieldMetaNetVolumeMeasure = new FieldMeta<GoodsItemField>(
   GoodsItemField.NetVolumeMeasure,
   'NetVolumeMeasure',
   'Net Volume',
-  'Measure',
+  MeasureType.name,
   'The volume contained by a goods item, excluding the volume of any packaging material.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -252,10 +273,10 @@ export const GoodsItemFieldMetaQuantity = new FieldMeta<GoodsItemField>(
   GoodsItemField.Quantity,
   'Quantity',
   'Quantity',
-  'Quantity',
+  QuantityType.name,
   'The number of units making up this goods item.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -264,10 +285,10 @@ export const GoodsItemFieldMetaPreferenceCriterionCode = new FieldMeta<GoodsItem
   GoodsItemField.PreferenceCriterionCode,
   'PreferenceCriterionCode',
   'Preference Criterion Code',
-  'Code',
+  CodeType.name,
   'A code signifying the treatment preference for this goods item according to international trading agreements.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Preference Criterion is used in the following manner in the paper CO of another country (e.g.): A - The good is wholly obtained or produced entirely in the territory of one or more of the NAFTA countries as reference in Article 415. Note: The purchase of a good in the territory does not necessarily render it wholly obtained or produced . If the good is an agricultural good, see also criterion F and Annex 703.2. (Reference: Article 401(a), 415). B - ... C - ... D - ... E - ... F - The good is an originating agricultural good under preference criterion A,B, or C above and is not subjected to quantitative restriction in the importing NAFTA country because.... Thus, the column Preference Criterion will indicate either A, B, C,...'
 )
@@ -276,10 +297,10 @@ export const GoodsItemFieldMetaRequiredCustomsID = new FieldMeta<GoodsItemField>
   GoodsItemField.RequiredCustomsID,
   'RequiredCustomsID',
   'Required Customs Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for a set of tariff codes required to specify a type of goods for customs, transport, statistical, or other regulatory purposes.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Tariff code extensions (WCO ID 255)',
   undefined
 )
@@ -288,10 +309,10 @@ export const GoodsItemFieldMetaCustomsStatusCode = new FieldMeta<GoodsItemField>
   GoodsItemField.CustomsStatusCode,
   'CustomsStatusCode',
   'Customs Status Code',
-  'Code',
+  CodeType.name,
   'A code assigned by customs to signify the status of this goods item.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Customs status of goods (WCO ID 094)',
   undefined
 )
@@ -300,10 +321,10 @@ export const GoodsItemFieldMetaCustomsTariffQuantity = new FieldMeta<GoodsItemFi
   GoodsItemField.CustomsTariffQuantity,
   'CustomsTariffQuantity',
   'Customs Tariff Quantity',
-  'Quantity',
+  QuantityType.name,
   'Quantity of the units in this goods item as required by customs for tariff, statistical, or fiscal purposes.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -312,10 +333,10 @@ export const GoodsItemFieldMetaCustomsImportClassifiedIndicator = new FieldMeta<
   GoodsItemField.CustomsImportClassifiedIndicator,
   'CustomsImportClassifiedIndicator',
   'Customs Import Classified Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indicator that this goods item has been classified for import by customs (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -324,10 +345,10 @@ export const GoodsItemFieldMetaChargeableQuantity = new FieldMeta<GoodsItemField
   GoodsItemField.ChargeableQuantity,
   'ChargeableQuantity',
   'Chargeable Quantity',
-  'Quantity',
+  QuantityType.name,
   'The number of units in the goods item to which charges apply.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -336,10 +357,10 @@ export const GoodsItemFieldMetaReturnableQuantity = new FieldMeta<GoodsItemField
   GoodsItemField.ReturnableQuantity,
   'ReturnableQuantity',
   'Returnable Quantity',
-  'Quantity',
+  QuantityType.name,
   'The number of units in the goods item that may be returned.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -348,10 +369,10 @@ export const GoodsItemFieldMetaTraceID = new FieldMeta<GoodsItemField>(
   GoodsItemField.TraceID,
   'TraceID',
   'Trace Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for use in tracing this goods item, such as the EPC number used in RFID.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -360,10 +381,10 @@ export const GoodsItemFieldMetaItem = new FieldMeta<GoodsItemField>(
   GoodsItemField.Item,
   'Item',
   'Item',
-  'Item',
+  ItemType.name,
   'Product information relating to a goods item.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -372,10 +393,10 @@ export const GoodsItemFieldMetaGoodsItemContainer = new FieldMeta<GoodsItemField
   GoodsItemField.GoodsItemContainer,
   'GoodsItemContainer',
   'Goods Item Container',
-  'GoodsItemContainer',
+  GoodsItemContainerType.name,
   'The transporting of a goods item in a unit of transport equipment (e.g., container).',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -384,10 +405,10 @@ export const GoodsItemFieldMetaFreightAllowanceCharge = new FieldMeta<GoodsItemF
   GoodsItemField.FreightAllowanceCharge,
   'FreightAllowanceCharge',
   'Freight Allowance Charge',
-  'AllowanceCharge',
+  AllowanceChargeType.name,
   'A cost incurred by the shipper in moving goods, by whatever means, from one place to another under the terms of the contract of carriage. In addition to transport costs, this may include such elements as packing, documentation, loading, unloading, and insurance to the extent that they relate to the freight costs.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   'Freight Costs',
   undefined
 )
@@ -396,10 +417,10 @@ export const GoodsItemFieldMetaInvoiceLine = new FieldMeta<GoodsItemField>(
   GoodsItemField.InvoiceLine,
   'InvoiceLine',
   'Invoice Line',
-  'InvoiceLine',
+  InvoiceLineType.name,
   'Information about an invoice line relating to this goods item.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -408,10 +429,10 @@ export const GoodsItemFieldMetaTemperature = new FieldMeta<GoodsItemField>(
   GoodsItemField.Temperature,
   'Temperature',
   'Temperature',
-  'Temperature',
+  TemperatureType.name,
   'The temperature of the goods item.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   'maximum, storage, minimum'
 )
@@ -420,10 +441,10 @@ export const GoodsItemFieldMetaContainedGoodsItem = new FieldMeta<GoodsItemField
   GoodsItemField.ContainedGoodsItem,
   'ContainedGoodsItem',
   'Contained Goods Item',
-  'GoodsItem',
+  GoodsItemType.name,
   'A goods item contained in this goods item.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -432,10 +453,10 @@ export const GoodsItemFieldMetaOriginAddress = new FieldMeta<GoodsItemField>(
   GoodsItemField.OriginAddress,
   'OriginAddress',
   'Origin Address',
-  'Address',
+  AddressType.name,
   'The region in which the goods have been produced or manufactured, according to criteria laid down for the purposes of application of the customs tariff, or of quantitative restrictions, or of any other measure related to trade.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   'Region of origin (WCO ID 066)',
   undefined
 )
@@ -444,10 +465,10 @@ export const GoodsItemFieldMetaDelivery = new FieldMeta<GoodsItemField>(
   GoodsItemField.Delivery,
   'Delivery',
   'Delivery',
-  'Delivery',
+  DeliveryType.name,
   'The delivery of this goods item.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -456,10 +477,10 @@ export const GoodsItemFieldMetaPickup = new FieldMeta<GoodsItemField>(
   GoodsItemField.Pickup,
   'Pickup',
   'Pickup',
-  'Pickup',
+  PickupType.name,
   'The pickup of this goods item.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -468,10 +489,10 @@ export const GoodsItemFieldMetaDespatch = new FieldMeta<GoodsItemField>(
   GoodsItemField.Despatch,
   'Despatch',
   'Despatch',
-  'Despatch',
+  DespatchType.name,
   'The despatch of this goods item.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -480,10 +501,10 @@ export const GoodsItemFieldMetaMeasurementDimension = new FieldMeta<GoodsItemFie
   GoodsItemField.MeasurementDimension,
   'MeasurementDimension',
   'Measurement Dimension',
-  'Dimension',
+  DimensionType.name,
   'A measurable dimension (length, mass, weight, or volume) of this goods item.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -492,10 +513,10 @@ export const GoodsItemFieldMetaContainingPackage = new FieldMeta<GoodsItemField>
   GoodsItemField.ContainingPackage,
   'ContainingPackage',
   'Containing Package',
-  'Package',
+  PackageType.name,
   'A package containing this goods item.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -504,10 +525,10 @@ export const GoodsItemFieldMetaShipmentDocumentReference = new FieldMeta<GoodsIt
   GoodsItemField.ShipmentDocumentReference,
   'ShipmentDocumentReference',
   'Shipment Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a shipping document associated with this goods item.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -516,10 +537,10 @@ export const GoodsItemFieldMetaMinimumTemperature = new FieldMeta<GoodsItemField
   GoodsItemField.MinimumTemperature,
   'MinimumTemperature',
   'Minimum Temperature',
-  'Temperature',
+  TemperatureType.name,
   'Information about minimum temperature.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -528,10 +549,10 @@ export const GoodsItemFieldMetaMaximumTemperature = new FieldMeta<GoodsItemField
   GoodsItemField.MaximumTemperature,
   'MaximumTemperature',
   'Maximum Temperature',
-  'Temperature',
+  TemperatureType.name,
   'Information about maximum temperature.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -623,3 +644,11 @@ export const GoodsItemFieldMap = new Map([
   [GoodsItemField.MinimumTemperature, GoodsItemFieldMetaMinimumTemperature],
   [GoodsItemField.MaximumTemperature, GoodsItemFieldMetaMaximumTemperature]
 ])
+
+export const GoodsItemType: Type<GoodsItemField> = {
+  name: 'GoodsItem',
+  label: 'Goods Item',
+  module: TypeModule.cac,
+  definition: 'A class to describe a separately identifiable quantity of goods of a single product type.',
+  fields: GoodsItemFieldMap,
+}

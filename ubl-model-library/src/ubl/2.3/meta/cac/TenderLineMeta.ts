@@ -1,4 +1,19 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { DocumentReferenceType } from './DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { ItemType } from './ItemMeta'
+import { ItemLocationQuantityType } from './ItemLocationQuantityMeta'
+import { LineReferenceType } from './LineReferenceMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { PartyType } from './PartyMeta'
+import { PeriodType } from './PeriodMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { RelatedItemType } from './RelatedItemMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum TenderLineField {
   UBLExtensions = 'UBLExtensions',
@@ -29,11 +44,11 @@ export enum TenderLineField {
 export const TenderLineFieldMetaUBLExtensions = new FieldMeta<TenderLineField>(
   TenderLineField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -42,10 +57,10 @@ export const TenderLineFieldMetaID = new FieldMeta<TenderLineField>(
   TenderLineField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this tender line.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -54,10 +69,10 @@ export const TenderLineFieldMetaNote = new FieldMeta<TenderLineField>(
   TenderLineField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -66,10 +81,10 @@ export const TenderLineFieldMetaQuantity = new FieldMeta<TenderLineField>(
   TenderLineField.Quantity,
   'Quantity',
   'Quantity',
-  'Quantity',
+  QuantityType.name,
   'The quantity of the item quoted in this tender line.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -78,10 +93,10 @@ export const TenderLineFieldMetaLineExtensionAmount = new FieldMeta<TenderLineFi
   TenderLineField.LineExtensionAmount,
   'LineExtensionAmount',
   'Line Extension Amount',
-  'Amount',
+  AmountType.name,
   'The total amount for this tender line, including allowance charges but net of taxes.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -90,10 +105,10 @@ export const TenderLineFieldMetaTaxInclusiveLineExtensionAmount = new FieldMeta<
   TenderLineField.TaxInclusiveLineExtensionAmount,
   'TaxInclusiveLineExtensionAmount',
   'Tax Inclusive Line Extension Amount',
-  'Amount',
+  AmountType.name,
   'The total amount for this tender line, including all allowances, charges and taxes.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -102,10 +117,10 @@ export const TenderLineFieldMetaTotalTaxAmount = new FieldMeta<TenderLineField>(
   TenderLineField.TotalTaxAmount,
   'TotalTaxAmount',
   'Total Tax Amount',
-  'Amount',
+  AmountType.name,
   'The total tax amount for this tender line.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -114,10 +129,10 @@ export const TenderLineFieldMetaOrderableUnit = new FieldMeta<TenderLineField>(
   TenderLineField.OrderableUnit,
   'OrderableUnit',
   'Orderable Unit',
-  'Text',
+  TextType.name,
   'Text describing a unit in which the item described in this tender line can be ordered.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -126,10 +141,10 @@ export const TenderLineFieldMetaContentUnitQuantity = new FieldMeta<TenderLineFi
   TenderLineField.ContentUnitQuantity,
   'ContentUnitQuantity',
   'Content Unit',
-  'Quantity',
+  QuantityType.name,
   'The unit of measure and quantity of the orderable unit.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'If order unit measure identifier is each , then content unit quantity is 1 .'
 )
@@ -138,10 +153,10 @@ export const TenderLineFieldMetaOrderQuantityIncrementNumeric = new FieldMeta<Te
   TenderLineField.OrderQuantityIncrementNumeric,
   'OrderQuantityIncrementNumeric',
   'Order Quantity Increment',
-  'Numeric',
+  NumericType.name,
   'The number of items that can set the order quantity increments.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -150,10 +165,10 @@ export const TenderLineFieldMetaMinimumOrderQuantity = new FieldMeta<TenderLineF
   TenderLineField.MinimumOrderQuantity,
   'MinimumOrderQuantity',
   'Minimum Order Quantity',
-  'Quantity',
+  QuantityType.name,
   'The minimum number of items described in this tender line that can be ordered.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '10 boxes'
 )
@@ -162,10 +177,10 @@ export const TenderLineFieldMetaMaximumOrderQuantity = new FieldMeta<TenderLineF
   TenderLineField.MaximumOrderQuantity,
   'MaximumOrderQuantity',
   'Maximum Order Quantity',
-  'Quantity',
+  QuantityType.name,
   'The maximum number of items described in this tender line that can be ordered.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '1 tonne'
 )
@@ -174,10 +189,10 @@ export const TenderLineFieldMetaWarrantyInformation = new FieldMeta<TenderLineFi
   TenderLineField.WarrantyInformation,
   'WarrantyInformation',
   'Warranty Information',
-  'Text',
+  TextType.name,
   'Text about a warranty (provided by WarrantyParty) for the good or service described in this tender line.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   'Unless specified otherwise and in addition to any rights the Customer may have under statute, Dell warrants to the Customer that Dell branded Products (excluding third party products and software), will be free from defects in materials and workmanship affecting normal use for a period of one year from invoice date ( Standard Warranty ).'
 )
@@ -186,10 +201,10 @@ export const TenderLineFieldMetaPackLevelCode = new FieldMeta<TenderLineField>(
   TenderLineField.PackLevelCode,
   'PackLevelCode',
   'Pack Level Code',
-  'Code',
+  CodeType.name,
   'A mutually agreed code signifying the level of packaging associated with the item described in this tender line.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Consumer Unit, Trading Unit',
   'level 2 , Group 4'
 )
@@ -198,10 +213,10 @@ export const TenderLineFieldMetaDocumentReference = new FieldMeta<TenderLineFiel
   TenderLineField.DocumentReference,
   'DocumentReference',
   'Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a document associated with this tender line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -210,10 +225,10 @@ export const TenderLineFieldMetaItem = new FieldMeta<TenderLineField>(
   TenderLineField.Item,
   'Item',
   'Item',
-  'Item',
+  ItemType.name,
   'The item associated with this tender line.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -222,10 +237,10 @@ export const TenderLineFieldMetaOfferedItemLocationQuantity = new FieldMeta<Tend
   TenderLineField.OfferedItemLocationQuantity,
   'OfferedItemLocationQuantity',
   'Offered Item Location Quantity',
-  'ItemLocationQuantity',
+  ItemLocationQuantityType.name,
   'A set of location-specific properties (e.g., price, quantity, lead time) associated with the item described in this tender line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -234,10 +249,10 @@ export const TenderLineFieldMetaReplacementRelatedItem = new FieldMeta<TenderLin
   TenderLineField.ReplacementRelatedItem,
   'ReplacementRelatedItem',
   'Replacement Related Item',
-  'RelatedItem',
+  RelatedItemType.name,
   'A catalogue item that may be a replacement for the item described in this tender line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -246,10 +261,10 @@ export const TenderLineFieldMetaWarrantyParty = new FieldMeta<TenderLineField>(
   TenderLineField.WarrantyParty,
   'WarrantyParty',
   'Warranty Party',
-  'Party',
+  PartyType.name,
   'The party responsible for any warranty described in this tender line.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -258,10 +273,10 @@ export const TenderLineFieldMetaWarrantyValidityPeriod = new FieldMeta<TenderLin
   TenderLineField.WarrantyValidityPeriod,
   'WarrantyValidityPeriod',
   'Warranty Validity Period',
-  'Period',
+  PeriodType.name,
   'The period for which a warranty associated with the item described in this tender line is valid.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -270,10 +285,10 @@ export const TenderLineFieldMetaSubTenderLine = new FieldMeta<TenderLineField>(
   TenderLineField.SubTenderLine,
   'SubTenderLine',
   'Sub Tender Line',
-  'TenderLine',
+  TenderLineType.name,
   'An association to a Sub Tender Line',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -282,10 +297,10 @@ export const TenderLineFieldMetaCallForTendersLineReference = new FieldMeta<Tend
   TenderLineField.CallForTendersLineReference,
   'CallForTendersLineReference',
   'Call For Tenders Line Reference',
-  'LineReference',
+  LineReferenceType.name,
   'Reference to a Line on a Call For Tenders document.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -294,10 +309,10 @@ export const TenderLineFieldMetaCallForTendersDocumentReference = new FieldMeta<
   TenderLineField.CallForTendersDocumentReference,
   'CallForTendersDocumentReference',
   'Call For Tenders Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A class defining references to a Call For Tenders document.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -353,3 +368,11 @@ export const TenderLineFieldMap = new Map([
   [TenderLineField.CallForTendersLineReference, TenderLineFieldMetaCallForTendersLineReference],
   [TenderLineField.CallForTendersDocumentReference, TenderLineFieldMetaCallForTendersDocumentReference]
 ])
+
+export const TenderLineType: Type<TenderLineField> = {
+  name: 'TenderLine',
+  label: 'Tender Line',
+  module: TypeModule.cac,
+  definition: 'A class to define a line in a Tender.',
+  fields: TenderLineFieldMap,
+}

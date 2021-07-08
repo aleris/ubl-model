@@ -1,4 +1,8 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ClauseField {
   UBLExtensions = 'UBLExtensions',
@@ -9,11 +13,11 @@ export enum ClauseField {
 export const ClauseFieldMetaUBLExtensions = new FieldMeta<ClauseField>(
   ClauseField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -22,10 +26,10 @@ export const ClauseFieldMetaID = new FieldMeta<ClauseField>(
   ClauseField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this clause.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -34,10 +38,10 @@ export const ClauseFieldMetaContent = new FieldMeta<ClauseField>(
   ClauseField.Content,
   'Content',
   'Content',
-  'Text',
+  TextType.name,
   'The text of this clause.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -53,3 +57,11 @@ export const ClauseFieldMap = new Map([
   [ClauseField.ID, ClauseFieldMetaID],
   [ClauseField.Content, ClauseFieldMetaContent]
 ])
+
+export const ClauseType: Type<ClauseField> = {
+  name: 'Clause',
+  label: 'Clause',
+  module: TypeModule.cac,
+  definition: 'A class to define a clause (a distinct article or provision) in a contract, treaty, will, or other formal or legal written document requiring compliance.',
+  fields: ClauseFieldMap,
+}

@@ -1,57 +1,66 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Clause } from  '../../model/cac/Clause'
-import { ClauseFieldMeta } from  '../../meta/cac/ClauseMeta'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ClauseField, ClauseFieldMeta, ClauseTypeName } from  '../../meta/cac/ClauseMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: Clause | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<Clause, void>
+  clause: Clause[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ClauseDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ClauseSubElementsMap: SubElementsTemplatesMap<ClauseField, Clause, void> = new Map([
+    [
+      ClauseField.UBLExtensions,
+      { meta: ClauseFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ClauseField.UBLExtensions}
+          meta={ClauseFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-Clause">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ClauseFieldMeta.UBLExtensions}
-          />
+    [
+      ClauseField.ID,
+      { meta: ClauseFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ClauseField.ID}
+          meta={ClauseFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={ClauseFieldMeta.ID}
-          />
+    [
+      ClauseField.Content,
+      { meta: ClauseFieldMeta.Content,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ClauseField.Content}
+          meta={ClauseFieldMeta.Content}
+          fieldConfig={fieldConfig}
+          text={value?.Content}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Content"
-            label="Content"
-            items={value.Content}
-            meta={ClauseFieldMeta.Content} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Content"
-                value={itemValue}
-                meta={ClauseFieldMeta.Content}
-              />
-            }
-          />
-        </div>
-    </div>
+export function ClauseDisplay<TFieldMeta>({ meta, fieldConfig, clause, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ClauseTypeName,
+    meta,
+    fieldConfig,
+    clause,
+    renderContext,
+    ClauseSubElementsMap,
   )
 }

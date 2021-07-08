@@ -1,110 +1,151 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Contact } from  '../../model/cac/Contact'
-import { ContactFieldMeta } from  '../../meta/cac/ContactMeta'
-import CommunicationDisplay from './CommunicationDisplay'
-import { Communication } from '../../model/cac/Communication'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ContactField, ContactFieldMeta, ContactTypeName } from  '../../meta/cac/ContactMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CommunicationDisplay } from './CommunicationDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: Contact | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<Contact, void>
+  contact: Contact[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ContactDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ContactSubElementsMap: SubElementsTemplatesMap<ContactField, Contact, void> = new Map([
+    [
+      ContactField.UBLExtensions,
+      { meta: ContactFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ContactField.UBLExtensions}
+          meta={ContactFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-Contact">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ContactFieldMeta.UBLExtensions}
-          />
+    [
+      ContactField.ID,
+      { meta: ContactFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ContactField.ID}
+          meta={ContactFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={ContactFieldMeta.ID}
-          />
+    [
+      ContactField.Name,
+      { meta: ContactFieldMeta.Name,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ContactField.Name}
+          meta={ContactFieldMeta.Name}
+          fieldConfig={fieldConfig}
+          text={value?.Name}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Name"
-            value={value.Name?.[0]}
-            meta={ContactFieldMeta.Name}
-          />
+    [
+      ContactField.JobTitle,
+      { meta: ContactFieldMeta.JobTitle,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ContactField.JobTitle}
+          meta={ContactFieldMeta.JobTitle}
+          fieldConfig={fieldConfig}
+          text={value?.JobTitle}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Job Title"
-            value={value.JobTitle?.[0]}
-            meta={ContactFieldMeta.JobTitle}
-          />
+    [
+      ContactField.Department,
+      { meta: ContactFieldMeta.Department,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ContactField.Department}
+          meta={ContactFieldMeta.Department}
+          fieldConfig={fieldConfig}
+          text={value?.Department}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Department"
-            value={value.Department?.[0]}
-            meta={ContactFieldMeta.Department}
-          />
+    [
+      ContactField.Telephone,
+      { meta: ContactFieldMeta.Telephone,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ContactField.Telephone}
+          meta={ContactFieldMeta.Telephone}
+          fieldConfig={fieldConfig}
+          text={value?.Telephone}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Telephone"
-            value={value.Telephone?.[0]}
-            meta={ContactFieldMeta.Telephone}
-          />
+    [
+      ContactField.Telefax,
+      { meta: ContactFieldMeta.Telefax,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ContactField.Telefax}
+          meta={ContactFieldMeta.Telefax}
+          fieldConfig={fieldConfig}
+          text={value?.Telefax}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Telefax"
-            value={value.Telefax?.[0]}
-            meta={ContactFieldMeta.Telefax}
-          />
+    [
+      ContactField.ElectronicMail,
+      { meta: ContactFieldMeta.ElectronicMail,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ContactField.ElectronicMail}
+          meta={ContactFieldMeta.ElectronicMail}
+          fieldConfig={fieldConfig}
+          text={value?.ElectronicMail}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Electronic Mail"
-            value={value.ElectronicMail?.[0]}
-            meta={ContactFieldMeta.ElectronicMail}
-          />
+    [
+      ContactField.Note,
+      { meta: ContactFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ContactField.Note}
+          meta={ContactFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={ContactFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={ContactFieldMeta.Note}
-              />
-            }
-          />
+    [
+      ContactField.OtherCommunication,
+      { meta: ContactFieldMeta.OtherCommunication,
+        template: ({value, renderContext, fieldConfig}) => <CommunicationDisplay
+          key={ContactField.OtherCommunication}
+          meta={ContactFieldMeta.OtherCommunication}
+          fieldConfig={fieldConfig}
+          communication={value?.OtherCommunication}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Communication ubl-OtherCommunication"
-            label="Other Communication"
-            items={value.OtherCommunication}
-            meta={ContactFieldMeta.OtherCommunication} 
-            itemDisplay={ (itemValue: Communication, key: string | number) =>
-              <CommunicationDisplay
-                key={key}
-                label="Other Communication"
-                value={itemValue}
-                meta={ContactFieldMeta.OtherCommunication}
-              />
-            }
-          />
-        </div>
-    </div>
+export function ContactDisplay<TFieldMeta>({ meta, fieldConfig, contact, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ContactTypeName,
+    meta,
+    fieldConfig,
+    contact,
+    renderContext,
+    ContactSubElementsMap,
   )
 }

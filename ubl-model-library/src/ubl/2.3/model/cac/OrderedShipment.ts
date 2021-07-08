@@ -1,7 +1,6 @@
 import { Package } from './Package'
 import { Shipment } from './Shipment'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe an ordered shipment.
  */

@@ -1,4 +1,9 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { MeasureType } from '../cbc/MeasureMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum DimensionField {
   UBLExtensions = 'UBLExtensions',
@@ -12,11 +17,11 @@ export enum DimensionField {
 export const DimensionFieldMetaUBLExtensions = new FieldMeta<DimensionField>(
   DimensionField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -25,10 +30,10 @@ export const DimensionFieldMetaAttributeID = new FieldMeta<DimensionField>(
   DimensionField.AttributeID,
   'AttributeID',
   'Attribute Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the attribute to which the measure applies.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -37,10 +42,10 @@ export const DimensionFieldMetaMeasure = new FieldMeta<DimensionField>(
   DimensionField.Measure,
   'Measure',
   'Measure',
-  'Measure',
+  MeasureType.name,
   'The measurement value.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -49,10 +54,10 @@ export const DimensionFieldMetaDescription = new FieldMeta<DimensionField>(
   DimensionField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing the measurement attribute.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -61,10 +66,10 @@ export const DimensionFieldMetaMinimumMeasure = new FieldMeta<DimensionField>(
   DimensionField.MinimumMeasure,
   'MinimumMeasure',
   'Minimum Measure',
-  'Measure',
+  MeasureType.name,
   'The minimum value in a range of measurement of this dimension.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -73,10 +78,10 @@ export const DimensionFieldMetaMaximumMeasure = new FieldMeta<DimensionField>(
   DimensionField.MaximumMeasure,
   'MaximumMeasure',
   'Maximum Measure',
-  'Measure',
+  MeasureType.name,
   'The maximum value in a range of measurement of this dimension.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -98,3 +103,11 @@ export const DimensionFieldMap = new Map([
   [DimensionField.MinimumMeasure, DimensionFieldMetaMinimumMeasure],
   [DimensionField.MaximumMeasure, DimensionFieldMetaMaximumMeasure]
 ])
+
+export const DimensionType: Type<DimensionField> = {
+  name: 'Dimension',
+  label: 'Dimension',
+  module: TypeModule.cac,
+  definition: 'A class to define a measurable dimension (length, mass, weight, volume, or area) of an item.',
+  fields: DimensionFieldMap,
+}

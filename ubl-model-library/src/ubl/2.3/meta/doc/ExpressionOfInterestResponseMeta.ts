@@ -1,4 +1,18 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { ContractingPartyType } from '../cac/ContractingPartyMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { EconomicOperatorPartyType } from '../cac/EconomicOperatorPartyMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { ProcurementProjectType } from '../cac/ProcurementProjectMeta'
+import { ProcurementProjectLotReferenceType } from '../cac/ProcurementProjectLotReferenceMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ExpressionOfInterestResponseField {
   UBLExtensions = 'UBLExtensions',
@@ -26,11 +40,11 @@ export enum ExpressionOfInterestResponseField {
 export const ExpressionOfInterestResponseFieldMetaUBLExtensions = new FieldMeta<ExpressionOfInterestResponseField>(
   ExpressionOfInterestResponseField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -39,10 +53,10 @@ export const ExpressionOfInterestResponseFieldMetaUBLVersionID = new FieldMeta<E
   ExpressionOfInterestResponseField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'The earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -51,10 +65,10 @@ export const ExpressionOfInterestResponseFieldMetaCustomizationID = new FieldMet
   ExpressionOfInterestResponseField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -63,10 +77,10 @@ export const ExpressionOfInterestResponseFieldMetaProfileID = new FieldMeta<Expr
   ExpressionOfInterestResponseField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -75,10 +89,10 @@ export const ExpressionOfInterestResponseFieldMetaProfileExecutionID = new Field
   ExpressionOfInterestResponseField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -87,10 +101,10 @@ export const ExpressionOfInterestResponseFieldMetaID = new FieldMeta<ExpressionO
   ExpressionOfInterestResponseField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -99,10 +113,10 @@ export const ExpressionOfInterestResponseFieldMetaCopyIndicator = new FieldMeta<
   ExpressionOfInterestResponseField.CopyIndicator,
   'CopyIndicator',
   'Copy Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this document is a copy (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -111,10 +125,10 @@ export const ExpressionOfInterestResponseFieldMetaUUID = new FieldMeta<Expressio
   ExpressionOfInterestResponseField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -123,10 +137,10 @@ export const ExpressionOfInterestResponseFieldMetaContractFolderID = new FieldMe
   ExpressionOfInterestResponseField.ContractFolderID,
   'ContractFolderID',
   'Contract Folder Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier, assigned by the sender, for the process file (i.e., record) to which this document belongs.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -135,10 +149,10 @@ export const ExpressionOfInterestResponseFieldMetaIssueDate = new FieldMeta<Expr
   ExpressionOfInterestResponseField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -147,10 +161,10 @@ export const ExpressionOfInterestResponseFieldMetaIssueTime = new FieldMeta<Expr
   ExpressionOfInterestResponseField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -159,10 +173,10 @@ export const ExpressionOfInterestResponseFieldMetaContractName = new FieldMeta<E
   ExpressionOfInterestResponseField.ContractName,
   'ContractName',
   'Contract Name',
-  'Text',
+  TextType.name,
   'Short title of a contract associated with this Expression of Interest.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -171,10 +185,10 @@ export const ExpressionOfInterestResponseFieldMetaTenderLanguageLocaleCode = new
   ExpressionOfInterestResponseField.TenderLanguageLocaleCode,
   'TenderLanguageLocaleCode',
   'Tender Language Locale Code',
-  'Code',
+  CodeType.name,
   'A code signifying the language required for the tender.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -183,10 +197,10 @@ export const ExpressionOfInterestResponseFieldMetaNote = new FieldMeta<Expressio
   ExpressionOfInterestResponseField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -195,10 +209,10 @@ export const ExpressionOfInterestResponseFieldMetaExpressionOfInterestDocumentRe
   ExpressionOfInterestResponseField.ExpressionOfInterestDocumentReference,
   'ExpressionOfInterestDocumentReference',
   'Expression Of Interest Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to the expression of interest document associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -207,10 +221,10 @@ export const ExpressionOfInterestResponseFieldMetaSignature = new FieldMeta<Expr
   ExpressionOfInterestResponseField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -219,10 +233,10 @@ export const ExpressionOfInterestResponseFieldMetaEconomicOperatorParty = new Fi
   ExpressionOfInterestResponseField.EconomicOperatorParty,
   'EconomicOperatorParty',
   'Economic Operator Party',
-  'EconomicOperatorParty',
+  EconomicOperatorPartyType.name,
   'The economic operator that issued the expression of interest and is receiving the confirmation.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -231,10 +245,10 @@ export const ExpressionOfInterestResponseFieldMetaContractingParty = new FieldMe
   ExpressionOfInterestResponseField.ContractingParty,
   'ContractingParty',
   'Contracting Party',
-  'ContractingParty',
+  ContractingPartyType.name,
   'The contracting party or parties in case of joint procurement.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -243,10 +257,10 @@ export const ExpressionOfInterestResponseFieldMetaProcurementProject = new Field
   ExpressionOfInterestResponseField.ProcurementProject,
   'ProcurementProject',
   'Procurement Project',
-  'ProcurementProject',
+  ProcurementProjectType.name,
   'An overall definition of this procurement project.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -255,10 +269,10 @@ export const ExpressionOfInterestResponseFieldMetaProcurementProjectLotReference
   ExpressionOfInterestResponseField.ProcurementProjectLotReference,
   'ProcurementProjectLotReference',
   'Procurement Project Lot Reference',
-  'ProcurementProjectLotReference',
+  ProcurementProjectLotReferenceType.name,
   'One of the procurement project lots into which this contract can be split.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -308,3 +322,11 @@ export const ExpressionOfInterestResponseFieldMap = new Map([
   [ExpressionOfInterestResponseField.ProcurementProject, ExpressionOfInterestResponseFieldMetaProcurementProject],
   [ExpressionOfInterestResponseField.ProcurementProjectLotReference, ExpressionOfInterestResponseFieldMetaProcurementProjectLotReference]
 ])
+
+export const ExpressionOfInterestResponseType: Type<ExpressionOfInterestResponseField> = {
+  name: 'ExpressionOfInterestResponse',
+  label: 'Expression Of Interest Response',
+  module: TypeModule.doc,
+  definition: 'An expression of interest confirmation issued by a Contracting Party in reply to an expression of interest. The purpose of this document is to inform the Economic Operator he has been registered as an interested party.',
+  fields: ExpressionOfInterestResponseFieldMap,
+}

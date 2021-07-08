@@ -1,125 +1,190 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TransportSchedule } from  '../../model/cac/TransportSchedule'
-import { TransportScheduleFieldMeta } from  '../../meta/cac/TransportScheduleMeta'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import LocationDisplay from './LocationDisplay'
-import { Location } from '../../model/cac/Location'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import TransportEventDisplay from './TransportEventDisplay'
-import { TransportEvent } from '../../model/cac/TransportEvent'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { TransportScheduleField, TransportScheduleFieldMeta, TransportScheduleTypeName } from  '../../meta/cac/TransportScheduleMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { LocationDisplay } from './LocationDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { TransportEventDisplay } from './TransportEventDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: TransportSchedule | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<TransportSchedule, void>
+  transportSchedule: TransportSchedule[] | undefined
+  renderContext: RenderContext
 }
 
-export default function TransportScheduleDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const TransportScheduleSubElementsMap: SubElementsTemplatesMap<TransportScheduleField, TransportSchedule, void> = new Map([
+    [
+      TransportScheduleField.UBLExtensions,
+      { meta: TransportScheduleFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={TransportScheduleField.UBLExtensions}
+          meta={TransportScheduleFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-TransportSchedule">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={TransportScheduleFieldMeta.UBLExtensions}
-          />
+    [
+      TransportScheduleField.SequenceNumeric,
+      { meta: TransportScheduleFieldMeta.SequenceNumeric,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={TransportScheduleField.SequenceNumeric}
+          meta={TransportScheduleFieldMeta.SequenceNumeric}
+          fieldConfig={fieldConfig}
+          numeric={value?.SequenceNumeric}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Sequence"
-            value={value.SequenceNumeric?.[0]}
-            meta={TransportScheduleFieldMeta.SequenceNumeric}
-          />
+    [
+      TransportScheduleField.ReferenceDate,
+      { meta: TransportScheduleFieldMeta.ReferenceDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={TransportScheduleField.ReferenceDate}
+          meta={TransportScheduleFieldMeta.ReferenceDate}
+          fieldConfig={fieldConfig}
+          date={value?.ReferenceDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Reference Date"
-            value={value.ReferenceDate?.[0]}
-            meta={TransportScheduleFieldMeta.ReferenceDate}
-          />
+    [
+      TransportScheduleField.ReferenceTime,
+      { meta: TransportScheduleFieldMeta.ReferenceTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={TransportScheduleField.ReferenceTime}
+          meta={TransportScheduleFieldMeta.ReferenceTime}
+          fieldConfig={fieldConfig}
+          time={value?.ReferenceTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Reference Time"
-            value={value.ReferenceTime?.[0]}
-            meta={TransportScheduleFieldMeta.ReferenceTime}
-          />
+    [
+      TransportScheduleField.ReliabilityPercent,
+      { meta: TransportScheduleFieldMeta.ReliabilityPercent,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={TransportScheduleField.ReliabilityPercent}
+          meta={TransportScheduleFieldMeta.ReliabilityPercent}
+          fieldConfig={fieldConfig}
+          numeric={value?.ReliabilityPercent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Reliability Percent"
-            value={value.ReliabilityPercent?.[0]}
-            meta={TransportScheduleFieldMeta.ReliabilityPercent}
-          />
+    [
+      TransportScheduleField.Remarks,
+      { meta: TransportScheduleFieldMeta.Remarks,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TransportScheduleField.Remarks}
+          meta={TransportScheduleFieldMeta.Remarks}
+          fieldConfig={fieldConfig}
+          text={value?.Remarks}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Remarks"
-            label="Remarks"
-            items={value.Remarks}
-            meta={TransportScheduleFieldMeta.Remarks} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Remarks"
-                value={itemValue}
-                meta={TransportScheduleFieldMeta.Remarks}
-              />
-            }
-          />
+    [
+      TransportScheduleField.StatusLocation,
+      { meta: TransportScheduleFieldMeta.StatusLocation,
+        template: ({value, renderContext, fieldConfig}) => <LocationDisplay
+          key={TransportScheduleField.StatusLocation}
+          meta={TransportScheduleFieldMeta.StatusLocation}
+          fieldConfig={fieldConfig}
+          location={value?.StatusLocation}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <LocationDisplay
-            label="Status Location"
-            value={value.StatusLocation?.[0]}
-            meta={TransportScheduleFieldMeta.StatusLocation}
-          />
+    [
+      TransportScheduleField.ActualArrivalTransportEvent,
+      { meta: TransportScheduleFieldMeta.ActualArrivalTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={TransportScheduleField.ActualArrivalTransportEvent}
+          meta={TransportScheduleFieldMeta.ActualArrivalTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.ActualArrivalTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TransportEventDisplay
-            label="Actual Arrival Transport Event"
-            value={value.ActualArrivalTransportEvent?.[0]}
-            meta={TransportScheduleFieldMeta.ActualArrivalTransportEvent}
-          />
+    [
+      TransportScheduleField.ActualDepartureTransportEvent,
+      { meta: TransportScheduleFieldMeta.ActualDepartureTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={TransportScheduleField.ActualDepartureTransportEvent}
+          meta={TransportScheduleFieldMeta.ActualDepartureTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.ActualDepartureTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TransportEventDisplay
-            label="Actual Departure Transport Event"
-            value={value.ActualDepartureTransportEvent?.[0]}
-            meta={TransportScheduleFieldMeta.ActualDepartureTransportEvent}
-          />
+    [
+      TransportScheduleField.EstimatedDepartureTransportEvent,
+      { meta: TransportScheduleFieldMeta.EstimatedDepartureTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={TransportScheduleField.EstimatedDepartureTransportEvent}
+          meta={TransportScheduleFieldMeta.EstimatedDepartureTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.EstimatedDepartureTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TransportEventDisplay
-            label="Estimated Departure Transport Event"
-            value={value.EstimatedDepartureTransportEvent?.[0]}
-            meta={TransportScheduleFieldMeta.EstimatedDepartureTransportEvent}
-          />
+    [
+      TransportScheduleField.EstimatedArrivalTransportEvent,
+      { meta: TransportScheduleFieldMeta.EstimatedArrivalTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={TransportScheduleField.EstimatedArrivalTransportEvent}
+          meta={TransportScheduleFieldMeta.EstimatedArrivalTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.EstimatedArrivalTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TransportEventDisplay
-            label="Estimated Arrival Transport Event"
-            value={value.EstimatedArrivalTransportEvent?.[0]}
-            meta={TransportScheduleFieldMeta.EstimatedArrivalTransportEvent}
-          />
+    [
+      TransportScheduleField.PlannedDepartureTransportEvent,
+      { meta: TransportScheduleFieldMeta.PlannedDepartureTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={TransportScheduleField.PlannedDepartureTransportEvent}
+          meta={TransportScheduleFieldMeta.PlannedDepartureTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.PlannedDepartureTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TransportEventDisplay
-            label="Planned Departure Transport Event"
-            value={value.PlannedDepartureTransportEvent?.[0]}
-            meta={TransportScheduleFieldMeta.PlannedDepartureTransportEvent}
-          />
+    [
+      TransportScheduleField.PlannedArrivalTransportEvent,
+      { meta: TransportScheduleFieldMeta.PlannedArrivalTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={TransportScheduleField.PlannedArrivalTransportEvent}
+          meta={TransportScheduleFieldMeta.PlannedArrivalTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.PlannedArrivalTransportEvent}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <TransportEventDisplay
-            label="Planned Arrival Transport Event"
-            value={value.PlannedArrivalTransportEvent?.[0]}
-            meta={TransportScheduleFieldMeta.PlannedArrivalTransportEvent}
-          />
-        </div>
-    </div>
+export function TransportScheduleDisplay<TFieldMeta>({ meta, fieldConfig, transportSchedule, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    TransportScheduleTypeName,
+    meta,
+    fieldConfig,
+    transportSchedule,
+    renderContext,
+    TransportScheduleSubElementsMap,
   )
 }

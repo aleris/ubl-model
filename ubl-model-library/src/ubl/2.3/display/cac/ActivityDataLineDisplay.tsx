@@ -1,103 +1,143 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ActivityDataLine } from  '../../model/cac/ActivityDataLine'
-import { ActivityDataLineFieldMeta } from  '../../meta/cac/ActivityDataLineMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import CustomerPartyDisplay from './CustomerPartyDisplay'
-import { CustomerParty } from '../../model/cac/CustomerParty'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import LocationDisplay from './LocationDisplay'
-import { Location } from '../../model/cac/Location'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import SalesItemDisplay from './SalesItemDisplay'
-import { SalesItem } from '../../model/cac/SalesItem'
-import SupplierPartyDisplay from './SupplierPartyDisplay'
-import { SupplierParty } from '../../model/cac/SupplierParty'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ActivityDataLineField, ActivityDataLineFieldMeta, ActivityDataLineTypeName } from  '../../meta/cac/ActivityDataLineMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { CustomerPartyDisplay } from './CustomerPartyDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { LocationDisplay } from './LocationDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { SalesItemDisplay } from './SalesItemDisplay'
+import { SupplierPartyDisplay } from './SupplierPartyDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ActivityDataLine | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ActivityDataLine, void>
+  activityDataLine: ActivityDataLine[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ActivityDataLineDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ActivityDataLineSubElementsMap: SubElementsTemplatesMap<ActivityDataLineField, ActivityDataLine, void> = new Map([
+    [
+      ActivityDataLineField.UBLExtensions,
+      { meta: ActivityDataLineFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ActivityDataLineField.UBLExtensions}
+          meta={ActivityDataLineFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ActivityDataLine">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ActivityDataLineFieldMeta.UBLExtensions}
-          />
+    [
+      ActivityDataLineField.ID,
+      { meta: ActivityDataLineFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ActivityDataLineField.ID}
+          meta={ActivityDataLineFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={ActivityDataLineFieldMeta.ID}
-          />
+    [
+      ActivityDataLineField.SupplyChainActivityTypeCode,
+      { meta: ActivityDataLineFieldMeta.SupplyChainActivityTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ActivityDataLineField.SupplyChainActivityTypeCode}
+          meta={ActivityDataLineFieldMeta.SupplyChainActivityTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.SupplyChainActivityTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Supply Chain Activity Type Code"
-            value={value.SupplyChainActivityTypeCode?.[0]}
-            meta={ActivityDataLineFieldMeta.SupplyChainActivityTypeCode}
-          />
+    [
+      ActivityDataLineField.BuyerCustomerParty,
+      { meta: ActivityDataLineFieldMeta.BuyerCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={ActivityDataLineField.BuyerCustomerParty}
+          meta={ActivityDataLineFieldMeta.BuyerCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.BuyerCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomerPartyDisplay
-            label="Buyer Customer Party"
-            value={value.BuyerCustomerParty?.[0]}
-            meta={ActivityDataLineFieldMeta.BuyerCustomerParty}
-          />
+    [
+      ActivityDataLineField.SellerSupplierParty,
+      { meta: ActivityDataLineFieldMeta.SellerSupplierParty,
+        template: ({value, renderContext, fieldConfig}) => <SupplierPartyDisplay
+          key={ActivityDataLineField.SellerSupplierParty}
+          meta={ActivityDataLineFieldMeta.SellerSupplierParty}
+          fieldConfig={fieldConfig}
+          supplierParty={value?.SellerSupplierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <SupplierPartyDisplay
-            label="Seller Supplier Party"
-            value={value.SellerSupplierParty?.[0]}
-            meta={ActivityDataLineFieldMeta.SellerSupplierParty}
-          />
+    [
+      ActivityDataLineField.ActivityPeriod,
+      { meta: ActivityDataLineFieldMeta.ActivityPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={ActivityDataLineField.ActivityPeriod}
+          meta={ActivityDataLineFieldMeta.ActivityPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.ActivityPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Activity Period"
-            value={value.ActivityPeriod?.[0]}
-            meta={ActivityDataLineFieldMeta.ActivityPeriod}
-          />
+    [
+      ActivityDataLineField.ActivityOriginLocation,
+      { meta: ActivityDataLineFieldMeta.ActivityOriginLocation,
+        template: ({value, renderContext, fieldConfig}) => <LocationDisplay
+          key={ActivityDataLineField.ActivityOriginLocation}
+          meta={ActivityDataLineFieldMeta.ActivityOriginLocation}
+          fieldConfig={fieldConfig}
+          location={value?.ActivityOriginLocation}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <LocationDisplay
-            label="Activity Origin Location"
-            value={value.ActivityOriginLocation?.[0]}
-            meta={ActivityDataLineFieldMeta.ActivityOriginLocation}
-          />
+    [
+      ActivityDataLineField.ActivityFinalLocation,
+      { meta: ActivityDataLineFieldMeta.ActivityFinalLocation,
+        template: ({value, renderContext, fieldConfig}) => <LocationDisplay
+          key={ActivityDataLineField.ActivityFinalLocation}
+          meta={ActivityDataLineFieldMeta.ActivityFinalLocation}
+          fieldConfig={fieldConfig}
+          location={value?.ActivityFinalLocation}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <LocationDisplay
-            label="Activity Final Location"
-            value={value.ActivityFinalLocation?.[0]}
-            meta={ActivityDataLineFieldMeta.ActivityFinalLocation}
-          />
+    [
+      ActivityDataLineField.SalesItem,
+      { meta: ActivityDataLineFieldMeta.SalesItem,
+        template: ({value, renderContext, fieldConfig}) => <SalesItemDisplay
+          key={ActivityDataLineField.SalesItem}
+          meta={ActivityDataLineFieldMeta.SalesItem}
+          fieldConfig={fieldConfig}
+          salesItem={value?.SalesItem}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-SalesItem"
-            label="Sales Item"
-            items={value.SalesItem}
-            meta={ActivityDataLineFieldMeta.SalesItem} 
-            itemDisplay={ (itemValue: SalesItem, key: string | number) =>
-              <SalesItemDisplay
-                key={key}
-                label="Sales Item"
-                value={itemValue}
-                meta={ActivityDataLineFieldMeta.SalesItem}
-              />
-            }
-          />
-        </div>
-    </div>
+export function ActivityDataLineDisplay<TFieldMeta>({ meta, fieldConfig, activityDataLine, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ActivityDataLineTypeName,
+    meta,
+    fieldConfig,
+    activityDataLine,
+    renderContext,
+    ActivityDataLineSubElementsMap,
   )
 }

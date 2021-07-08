@@ -1,4 +1,24 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { BillingReferenceType } from '../cac/BillingReferenceMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { CustomerPartyType } from '../cac/CustomerPartyMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { PaymentMeansType } from '../cac/PaymentMeansMeta'
+import { PeriodType } from '../cac/PeriodMeta'
+import { RemittanceAdviceLineType } from '../cac/RemittanceAdviceLineMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { SupplierPartyType } from '../cac/SupplierPartyMeta'
+import { TaxTotalType } from '../cac/TaxTotalMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum RemittanceAdviceField {
   UBLExtensions = 'UBLExtensions',
@@ -35,11 +55,11 @@ export enum RemittanceAdviceField {
 export const RemittanceAdviceFieldMetaUBLExtensions = new FieldMeta<RemittanceAdviceField>(
   RemittanceAdviceField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -48,10 +68,10 @@ export const RemittanceAdviceFieldMetaUBLVersionID = new FieldMeta<RemittanceAdv
   RemittanceAdviceField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.0.5'
 )
@@ -60,10 +80,10 @@ export const RemittanceAdviceFieldMetaCustomizationID = new FieldMeta<Remittance
   RemittanceAdviceField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -72,10 +92,10 @@ export const RemittanceAdviceFieldMetaProfileID = new FieldMeta<RemittanceAdvice
   RemittanceAdviceField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BasicProcurementProcess'
 )
@@ -84,10 +104,10 @@ export const RemittanceAdviceFieldMetaProfileExecutionID = new FieldMeta<Remitta
   RemittanceAdviceField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BPP-1001'
 )
@@ -96,10 +116,10 @@ export const RemittanceAdviceFieldMetaID = new FieldMeta<RemittanceAdviceField>(
   RemittanceAdviceField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -108,10 +128,10 @@ export const RemittanceAdviceFieldMetaCopyIndicator = new FieldMeta<RemittanceAd
   RemittanceAdviceField.CopyIndicator,
   'CopyIndicator',
   'Copy Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this document is a copy (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -120,10 +140,10 @@ export const RemittanceAdviceFieldMetaUUID = new FieldMeta<RemittanceAdviceField
   RemittanceAdviceField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -132,10 +152,10 @@ export const RemittanceAdviceFieldMetaIssueDate = new FieldMeta<RemittanceAdvice
   RemittanceAdviceField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -144,10 +164,10 @@ export const RemittanceAdviceFieldMetaIssueTime = new FieldMeta<RemittanceAdvice
   RemittanceAdviceField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -156,10 +176,10 @@ export const RemittanceAdviceFieldMetaNote = new FieldMeta<RemittanceAdviceField
   RemittanceAdviceField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -168,10 +188,10 @@ export const RemittanceAdviceFieldMetaDocumentCurrencyCode = new FieldMeta<Remit
   RemittanceAdviceField.DocumentCurrencyCode,
   'DocumentCurrencyCode',
   'Document Currency Code',
-  'Code',
+  CodeType.name,
   'A code signifying the default currency for this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -180,10 +200,10 @@ export const RemittanceAdviceFieldMetaTotalDebitAmount = new FieldMeta<Remittanc
   RemittanceAdviceField.TotalDebitAmount,
   'TotalDebitAmount',
   'Total Debit Amount',
-  'Amount',
+  AmountType.name,
   'The totals of all debit amounts for the Remittance Advice.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -192,10 +212,10 @@ export const RemittanceAdviceFieldMetaTotalCreditAmount = new FieldMeta<Remittan
   RemittanceAdviceField.TotalCreditAmount,
   'TotalCreditAmount',
   'Total Credit Amount',
-  'Amount',
+  AmountType.name,
   'The totals of all credit amounts for the Remittance Advice.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -204,10 +224,10 @@ export const RemittanceAdviceFieldMetaTotalPaymentAmount = new FieldMeta<Remitta
   RemittanceAdviceField.TotalPaymentAmount,
   'TotalPaymentAmount',
   'Total Payment Amount',
-  'Amount',
+  AmountType.name,
   'The total payable amount for the Remittance Advice (must be positive).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -216,10 +236,10 @@ export const RemittanceAdviceFieldMetaPaymentOrderReference = new FieldMeta<Remi
   RemittanceAdviceField.PaymentOrderReference,
   'PaymentOrderReference',
   'Payment Order Reference',
-  'Text',
+  TextType.name,
   'An internal reference to the order for payment from the payer to the payer\'s bank.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -228,10 +248,10 @@ export const RemittanceAdviceFieldMetaPayerReference = new FieldMeta<RemittanceA
   RemittanceAdviceField.PayerReference,
   'PayerReference',
   'Payer Reference',
-  'Text',
+  TextType.name,
   'An internal reference to the payer\'s order for payment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -240,10 +260,10 @@ export const RemittanceAdviceFieldMetaInvoicingPartyReference = new FieldMeta<Re
   RemittanceAdviceField.InvoicingPartyReference,
   'InvoicingPartyReference',
   'Invoicing Party Reference',
-  'Text',
+  TextType.name,
   'An internal reference to the order for payment by the invoicing party. This may have been requested of the payer by the payee to accompany the payer\'s remittance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -252,10 +272,10 @@ export const RemittanceAdviceFieldMetaLineCountNumeric = new FieldMeta<Remittanc
   RemittanceAdviceField.LineCountNumeric,
   'LineCountNumeric',
   'Line Count',
-  'Numeric',
+  NumericType.name,
   'The number of Remittance Advice Lines in the document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -264,10 +284,10 @@ export const RemittanceAdviceFieldMetaInvoicePeriod = new FieldMeta<RemittanceAd
   RemittanceAdviceField.InvoicePeriod,
   'InvoicePeriod',
   'Invoice Period',
-  'Period',
+  PeriodType.name,
   'A period (rather than a specific invoice) associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -276,10 +296,10 @@ export const RemittanceAdviceFieldMetaBillingReference = new FieldMeta<Remittanc
   RemittanceAdviceField.BillingReference,
   'BillingReference',
   'Billing Reference',
-  'BillingReference',
+  BillingReferenceType.name,
   'A reference to a billing document associated with this document.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -288,10 +308,10 @@ export const RemittanceAdviceFieldMetaAdditionalDocumentReference = new FieldMet
   RemittanceAdviceField.AdditionalDocumentReference,
   'AdditionalDocumentReference',
   'Additional Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to an additional document associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -300,10 +320,10 @@ export const RemittanceAdviceFieldMetaSignature = new FieldMeta<RemittanceAdvice
   RemittanceAdviceField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -312,10 +332,10 @@ export const RemittanceAdviceFieldMetaAccountingCustomerParty = new FieldMeta<Re
   RemittanceAdviceField.AccountingCustomerParty,
   'AccountingCustomerParty',
   'Accounting Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The accounting customer party.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -324,10 +344,10 @@ export const RemittanceAdviceFieldMetaAccountingSupplierParty = new FieldMeta<Re
   RemittanceAdviceField.AccountingSupplierParty,
   'AccountingSupplierParty',
   'Accounting Supplier Party',
-  'SupplierParty',
+  SupplierPartyType.name,
   'The accounting supplier party.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -336,10 +356,10 @@ export const RemittanceAdviceFieldMetaPayeeParty = new FieldMeta<RemittanceAdvic
   RemittanceAdviceField.PayeeParty,
   'PayeeParty',
   'Payee Party',
-  'Party',
+  PartyType.name,
   'The payee.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -348,10 +368,10 @@ export const RemittanceAdviceFieldMetaPaymentMeans = new FieldMeta<RemittanceAdv
   RemittanceAdviceField.PaymentMeans,
   'PaymentMeans',
   'Payment Means',
-  'PaymentMeans',
+  PaymentMeansType.name,
   'Expected means of payment.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -360,10 +380,10 @@ export const RemittanceAdviceFieldMetaTaxTotal = new FieldMeta<RemittanceAdviceF
   RemittanceAdviceField.TaxTotal,
   'TaxTotal',
   'Tax Total',
-  'TaxTotal',
+  TaxTotalType.name,
   'The total amount of a specific type of tax.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -372,10 +392,10 @@ export const RemittanceAdviceFieldMetaRemittanceAdviceLine = new FieldMeta<Remit
   RemittanceAdviceField.RemittanceAdviceLine,
   'RemittanceAdviceLine',
   'Remittance Advice Line',
-  'RemittanceAdviceLine',
+  RemittanceAdviceLineType.name,
   'A line specifying a balance.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -443,3 +463,11 @@ export const RemittanceAdviceFieldMap = new Map([
   [RemittanceAdviceField.TaxTotal, RemittanceAdviceFieldMetaTaxTotal],
   [RemittanceAdviceField.RemittanceAdviceLine, RemittanceAdviceFieldMetaRemittanceAdviceLine]
 ])
+
+export const RemittanceAdviceType: Type<RemittanceAdviceField> = {
+  name: 'RemittanceAdvice',
+  label: 'Remittance Advice',
+  module: TypeModule.doc,
+  definition: 'A document that specifies details of an actual payment.',
+  fields: RemittanceAdviceFieldMap,
+}

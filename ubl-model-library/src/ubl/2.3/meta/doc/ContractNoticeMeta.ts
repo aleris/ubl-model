@@ -1,4 +1,22 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { ContractingPartyType } from '../cac/ContractingPartyMeta'
+import { CustomerPartyType } from '../cac/CustomerPartyMeta'
+import { DateType } from '../cbc/DateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { LanguageType } from '../cac/LanguageMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { PeriodType } from '../cac/PeriodMeta'
+import { ProcurementProjectType } from '../cac/ProcurementProjectMeta'
+import { ProcurementProjectLotType } from '../cac/ProcurementProjectLotMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { TenderingProcessType } from '../cac/TenderingProcessMeta'
+import { TenderingTermsType } from '../cac/TenderingTermsMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ContractNoticeField {
   UBLExtensions = 'UBLExtensions',
@@ -34,11 +52,11 @@ export enum ContractNoticeField {
 export const ContractNoticeFieldMetaUBLExtensions = new FieldMeta<ContractNoticeField>(
   ContractNoticeField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -47,10 +65,10 @@ export const ContractNoticeFieldMetaUBLVersionID = new FieldMeta<ContractNoticeF
   ContractNoticeField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -59,10 +77,10 @@ export const ContractNoticeFieldMetaCustomizationID = new FieldMeta<ContractNoti
   ContractNoticeField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -71,10 +89,10 @@ export const ContractNoticeFieldMetaProfileID = new FieldMeta<ContractNoticeFiel
   ContractNoticeField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -83,10 +101,10 @@ export const ContractNoticeFieldMetaProfileExecutionID = new FieldMeta<ContractN
   ContractNoticeField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -95,10 +113,10 @@ export const ContractNoticeFieldMetaID = new FieldMeta<ContractNoticeField>(
   ContractNoticeField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -107,10 +125,10 @@ export const ContractNoticeFieldMetaCopyIndicator = new FieldMeta<ContractNotice
   ContractNoticeField.CopyIndicator,
   'CopyIndicator',
   'Copy Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this document is a copy (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -119,10 +137,10 @@ export const ContractNoticeFieldMetaUUID = new FieldMeta<ContractNoticeField>(
   ContractNoticeField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -131,10 +149,10 @@ export const ContractNoticeFieldMetaContractFolderID = new FieldMeta<ContractNot
   ContractNoticeField.ContractFolderID,
   'ContractFolderID',
   'Contract Folder Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier, assigned by the sender, for the process file (i.e., record) to which this document belongs.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -143,10 +161,10 @@ export const ContractNoticeFieldMetaIssueDate = new FieldMeta<ContractNoticeFiel
   ContractNoticeField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -155,10 +173,10 @@ export const ContractNoticeFieldMetaIssueTime = new FieldMeta<ContractNoticeFiel
   ContractNoticeField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -167,10 +185,10 @@ export const ContractNoticeFieldMetaNote = new FieldMeta<ContractNoticeField>(
   ContractNoticeField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -179,10 +197,10 @@ export const ContractNoticeFieldMetaVersionID = new FieldMeta<ContractNoticeFiel
   ContractNoticeField.VersionID,
   'VersionID',
   'Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier of the current version of the Contract Notice.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -191,10 +209,10 @@ export const ContractNoticeFieldMetaPreviousVersionID = new FieldMeta<ContractNo
   ContractNoticeField.PreviousVersionID,
   'PreviousVersionID',
   'Previous Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier of the previous version of the Contract Notice which is superceded by this version.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -203,10 +221,10 @@ export const ContractNoticeFieldMetaRequestedPublicationDate = new FieldMeta<Con
   ContractNoticeField.RequestedPublicationDate,
   'RequestedPublicationDate',
   'Requested Publication Date',
-  'Date',
+  DateType.name,
   'The requested publication date for this Contract Notice.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -215,10 +233,10 @@ export const ContractNoticeFieldMetaRegulatoryDomain = new FieldMeta<ContractNot
   ContractNoticeField.RegulatoryDomain,
   'RegulatoryDomain',
   'Regulatory Domain',
-  'Text',
+  TextType.name,
   'Information about the law that defines the regulatory domain.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -227,10 +245,10 @@ export const ContractNoticeFieldMetaNoticeTypeCode = new FieldMeta<ContractNotic
   ContractNoticeField.NoticeTypeCode,
   'NoticeTypeCode',
   'Notice Type Code',
-  'Code',
+  CodeType.name,
   'The type of notice (PIN, Qualification, Reduce time...)',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -239,10 +257,10 @@ export const ContractNoticeFieldMetaNoticeLanguageCode = new FieldMeta<ContractN
   ContractNoticeField.NoticeLanguageCode,
   'NoticeLanguageCode',
   'Notice Language Code',
-  'Code',
+  CodeType.name,
   'The language used for this contract notice.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -251,10 +269,10 @@ export const ContractNoticeFieldMetaAdditionalNoticeLanguage = new FieldMeta<Con
   ContractNoticeField.AdditionalNoticeLanguage,
   'AdditionalNoticeLanguage',
   'Additional Notice Language',
-  'Language',
+  LanguageType.name,
   'An additional official language used in this contract notice.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -263,10 +281,10 @@ export const ContractNoticeFieldMetaFrequencyPeriod = new FieldMeta<ContractNoti
   ContractNoticeField.FrequencyPeriod,
   'FrequencyPeriod',
   'Frequency Period',
-  'Period',
+  PeriodType.name,
   'The estimated frequency of future notices.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -275,10 +293,10 @@ export const ContractNoticeFieldMetaSignature = new FieldMeta<ContractNoticeFiel
   ContractNoticeField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -287,10 +305,10 @@ export const ContractNoticeFieldMetaContractingParty = new FieldMeta<ContractNot
   ContractNoticeField.ContractingParty,
   'ContractingParty',
   'Contracting Party',
-  'ContractingParty',
+  ContractingPartyType.name,
   'The contracting party or parties in case of joint procurement.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -299,10 +317,10 @@ export const ContractNoticeFieldMetaOriginatorCustomerParty = new FieldMeta<Cont
   ContractNoticeField.OriginatorCustomerParty,
   'OriginatorCustomerParty',
   'Originator Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'A party who originally requested the tender.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -311,10 +329,10 @@ export const ContractNoticeFieldMetaReceiverParty = new FieldMeta<ContractNotice
   ContractNoticeField.ReceiverParty,
   'ReceiverParty',
   'Receiver Party',
-  'Party',
+  PartyType.name,
   'The party receiving this document.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -323,10 +341,10 @@ export const ContractNoticeFieldMetaTenderingTerms = new FieldMeta<ContractNotic
   ContractNoticeField.TenderingTerms,
   'TenderingTerms',
   'Tendering Terms',
-  'TenderingTerms',
+  TenderingTermsType.name,
   'The tendering terms associated with this tendering process.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -335,10 +353,10 @@ export const ContractNoticeFieldMetaTenderingProcess = new FieldMeta<ContractNot
   ContractNoticeField.TenderingProcess,
   'TenderingProcess',
   'Tendering Process',
-  'TenderingProcess',
+  TenderingProcessType.name,
   'A description of the tendering process itself.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -347,10 +365,10 @@ export const ContractNoticeFieldMetaProcurementProject = new FieldMeta<ContractN
   ContractNoticeField.ProcurementProject,
   'ProcurementProject',
   'Procurement Project',
-  'ProcurementProject',
+  ProcurementProjectType.name,
   'An overall definition of this procurement project.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -359,10 +377,10 @@ export const ContractNoticeFieldMetaProcurementProjectLot = new FieldMeta<Contra
   ContractNoticeField.ProcurementProjectLot,
   'ProcurementProjectLot',
   'Procurement Project Lot',
-  'ProcurementProjectLot',
+  ProcurementProjectLotType.name,
   'One of the procurement project lots into which this contract can be split.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -428,3 +446,11 @@ export const ContractNoticeFieldMap = new Map([
   [ContractNoticeField.ProcurementProject, ContractNoticeFieldMetaProcurementProject],
   [ContractNoticeField.ProcurementProjectLot, ContractNoticeFieldMetaProcurementProjectLot]
 ])
+
+export const ContractNoticeType: Type<ContractNoticeField> = {
+  name: 'ContractNotice',
+  label: 'Contract Notice',
+  module: TypeModule.doc,
+  definition: 'A document used by a Contracting party to announce a project to buy goods, services, or works.',
+  fields: ContractNoticeFieldMap,
+}

@@ -1,152 +1,226 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { DigitalCapability } from  '../../model/doc/DigitalCapability'
-import { DigitalCapabilityFieldMeta } from  '../../meta/doc/DigitalCapabilityMeta'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DigitalProcessDisplay from '../cac/DigitalProcessDisplay'
-import { DigitalProcess } from '../../model/cac/DigitalProcess'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { DigitalCapabilityField, DigitalCapabilityFieldMeta, DigitalCapabilityTypeName } from  '../../meta/doc/DigitalCapabilityMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DigitalProcessDisplay } from '../cac/DigitalProcessDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: DigitalCapability | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<DigitalCapability, void>
+  digitalCapability: DigitalCapability[] | undefined
+  renderContext: RenderContext
 }
 
-export default function DigitalCapabilityDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const DigitalCapabilitySubElementsMap: SubElementsTemplatesMap<DigitalCapabilityField, DigitalCapability, void> = new Map([
+    [
+      DigitalCapabilityField.UBLExtensions,
+      { meta: DigitalCapabilityFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={DigitalCapabilityField.UBLExtensions}
+          meta={DigitalCapabilityFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-DigitalCapability">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={DigitalCapabilityFieldMeta.UBLExtensions}
-          />
+    [
+      DigitalCapabilityField.UBLVersionID,
+      { meta: DigitalCapabilityFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DigitalCapabilityField.UBLVersionID}
+          meta={DigitalCapabilityFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={DigitalCapabilityFieldMeta.UBLVersionID}
-          />
+    [
+      DigitalCapabilityField.CustomizationID,
+      { meta: DigitalCapabilityFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DigitalCapabilityField.CustomizationID}
+          meta={DigitalCapabilityFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={DigitalCapabilityFieldMeta.CustomizationID}
-          />
+    [
+      DigitalCapabilityField.ProfileID,
+      { meta: DigitalCapabilityFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DigitalCapabilityField.ProfileID}
+          meta={DigitalCapabilityFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={DigitalCapabilityFieldMeta.ProfileID}
-          />
+    [
+      DigitalCapabilityField.ProfileExecutionID,
+      { meta: DigitalCapabilityFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DigitalCapabilityField.ProfileExecutionID}
+          meta={DigitalCapabilityFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={DigitalCapabilityFieldMeta.ProfileExecutionID}
-          />
+    [
+      DigitalCapabilityField.ID,
+      { meta: DigitalCapabilityFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DigitalCapabilityField.ID}
+          meta={DigitalCapabilityFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={DigitalCapabilityFieldMeta.ID}
-          />
+    [
+      DigitalCapabilityField.UUID,
+      { meta: DigitalCapabilityFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DigitalCapabilityField.UUID}
+          meta={DigitalCapabilityFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={DigitalCapabilityFieldMeta.UUID}
-          />
+    [
+      DigitalCapabilityField.IssueDate,
+      { meta: DigitalCapabilityFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={DigitalCapabilityField.IssueDate}
+          meta={DigitalCapabilityFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={DigitalCapabilityFieldMeta.IssueDate}
-          />
+    [
+      DigitalCapabilityField.IssueTime,
+      { meta: DigitalCapabilityFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={DigitalCapabilityField.IssueTime}
+          meta={DigitalCapabilityFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={DigitalCapabilityFieldMeta.IssueTime}
-          />
+    [
+      DigitalCapabilityField.VersionID,
+      { meta: DigitalCapabilityFieldMeta.VersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DigitalCapabilityField.VersionID}
+          meta={DigitalCapabilityFieldMeta.VersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.VersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Version Identifier"
-            value={value.VersionID?.[0]}
-            meta={DigitalCapabilityFieldMeta.VersionID}
-          />
+    [
+      DigitalCapabilityField.PreviousVersionID,
+      { meta: DigitalCapabilityFieldMeta.PreviousVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DigitalCapabilityField.PreviousVersionID}
+          meta={DigitalCapabilityFieldMeta.PreviousVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.PreviousVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Previous Version Identifier"
-            value={value.PreviousVersionID?.[0]}
-            meta={DigitalCapabilityFieldMeta.PreviousVersionID}
-          />
+    [
+      DigitalCapabilityField.Signature,
+      { meta: DigitalCapabilityFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={DigitalCapabilityField.Signature}
+          meta={DigitalCapabilityFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={DigitalCapabilityFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={DigitalCapabilityFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      DigitalCapabilityField.SenderParty,
+      { meta: DigitalCapabilityFieldMeta.SenderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={DigitalCapabilityField.SenderParty}
+          meta={DigitalCapabilityFieldMeta.SenderParty}
+          fieldConfig={fieldConfig}
+          party={value?.SenderParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Sender Party"
-            value={value.SenderParty?.[0]}
-            meta={DigitalCapabilityFieldMeta.SenderParty}
-          />
+    [
+      DigitalCapabilityField.ReceiverParty,
+      { meta: DigitalCapabilityFieldMeta.ReceiverParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={DigitalCapabilityField.ReceiverParty}
+          meta={DigitalCapabilityFieldMeta.ReceiverParty}
+          fieldConfig={fieldConfig}
+          party={value?.ReceiverParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Receiver Party"
-            value={value.ReceiverParty?.[0]}
-            meta={DigitalCapabilityFieldMeta.ReceiverParty}
-          />
+    [
+      DigitalCapabilityField.BusinessParty,
+      { meta: DigitalCapabilityFieldMeta.BusinessParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={DigitalCapabilityField.BusinessParty}
+          meta={DigitalCapabilityFieldMeta.BusinessParty}
+          fieldConfig={fieldConfig}
+          party={value?.BusinessParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Business Party"
-            value={value.BusinessParty?.[0]}
-            meta={DigitalCapabilityFieldMeta.BusinessParty}
-          />
+    [
+      DigitalCapabilityField.DigitalProcess,
+      { meta: DigitalCapabilityFieldMeta.DigitalProcess,
+        template: ({value, renderContext, fieldConfig}) => <DigitalProcessDisplay
+          key={DigitalCapabilityField.DigitalProcess}
+          meta={DigitalCapabilityFieldMeta.DigitalProcess}
+          fieldConfig={fieldConfig}
+          digitalProcess={value?.DigitalProcess}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DigitalProcess"
-            label="Digital Process"
-            items={value.DigitalProcess}
-            meta={DigitalCapabilityFieldMeta.DigitalProcess} 
-            itemDisplay={ (itemValue: DigitalProcess, key: string | number) =>
-              <DigitalProcessDisplay
-                key={key}
-                label="Digital Process"
-                value={itemValue}
-                meta={DigitalCapabilityFieldMeta.DigitalProcess}
-              />
-            }
-          />
-        </div>
-    </div>
+export function DigitalCapabilityDisplay<TFieldMeta>({ meta, fieldConfig, digitalCapability, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    DigitalCapabilityTypeName,
+    meta,
+    fieldConfig,
+    digitalCapability,
+    renderContext,
+    DigitalCapabilitySubElementsMap,
   )
 }

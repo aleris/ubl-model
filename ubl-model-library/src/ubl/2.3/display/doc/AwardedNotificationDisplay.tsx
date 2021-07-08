@@ -1,220 +1,278 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { AwardedNotification } from  '../../model/doc/AwardedNotification'
-import { AwardedNotificationFieldMeta } from  '../../meta/doc/AwardedNotificationMeta'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import FinancialGuaranteeDisplay from '../cac/FinancialGuaranteeDisplay'
-import { FinancialGuarantee } from '../../model/cac/FinancialGuarantee'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import TenderResultDisplay from '../cac/TenderResultDisplay'
-import { TenderResult } from '../../model/cac/TenderResult'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { AwardedNotificationField, AwardedNotificationFieldMeta, AwardedNotificationTypeName } from  '../../meta/doc/AwardedNotificationMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { FinancialGuaranteeDisplay } from '../cac/FinancialGuaranteeDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { TenderResultDisplay } from '../cac/TenderResultDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: AwardedNotification | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<AwardedNotification, void>
+  awardedNotification: AwardedNotification[] | undefined
+  renderContext: RenderContext
 }
 
-export default function AwardedNotificationDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const AwardedNotificationSubElementsMap: SubElementsTemplatesMap<AwardedNotificationField, AwardedNotification, void> = new Map([
+    [
+      AwardedNotificationField.UBLExtensions,
+      { meta: AwardedNotificationFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={AwardedNotificationField.UBLExtensions}
+          meta={AwardedNotificationFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-AwardedNotification">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={AwardedNotificationFieldMeta.UBLExtensions}
-          />
+    [
+      AwardedNotificationField.UBLVersionID,
+      { meta: AwardedNotificationFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={AwardedNotificationField.UBLVersionID}
+          meta={AwardedNotificationFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={AwardedNotificationFieldMeta.UBLVersionID}
-          />
+    [
+      AwardedNotificationField.CustomizationID,
+      { meta: AwardedNotificationFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={AwardedNotificationField.CustomizationID}
+          meta={AwardedNotificationFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={AwardedNotificationFieldMeta.CustomizationID}
-          />
+    [
+      AwardedNotificationField.ProfileID,
+      { meta: AwardedNotificationFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={AwardedNotificationField.ProfileID}
+          meta={AwardedNotificationFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={AwardedNotificationFieldMeta.ProfileID}
-          />
+    [
+      AwardedNotificationField.ProfileExecutionID,
+      { meta: AwardedNotificationFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={AwardedNotificationField.ProfileExecutionID}
+          meta={AwardedNotificationFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={AwardedNotificationFieldMeta.ProfileExecutionID}
-          />
+    [
+      AwardedNotificationField.ID,
+      { meta: AwardedNotificationFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={AwardedNotificationField.ID}
+          meta={AwardedNotificationFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={AwardedNotificationFieldMeta.ID}
-          />
+    [
+      AwardedNotificationField.CopyIndicator,
+      { meta: AwardedNotificationFieldMeta.CopyIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={AwardedNotificationField.CopyIndicator}
+          meta={AwardedNotificationFieldMeta.CopyIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.CopyIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Copy Indicator"
-            value={value.CopyIndicator?.[0]}
-            meta={AwardedNotificationFieldMeta.CopyIndicator}
-          />
+    [
+      AwardedNotificationField.UUID,
+      { meta: AwardedNotificationFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={AwardedNotificationField.UUID}
+          meta={AwardedNotificationFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={AwardedNotificationFieldMeta.UUID}
-          />
+    [
+      AwardedNotificationField.ContractFolderID,
+      { meta: AwardedNotificationFieldMeta.ContractFolderID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={AwardedNotificationField.ContractFolderID}
+          meta={AwardedNotificationFieldMeta.ContractFolderID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ContractFolderID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Contract Folder Identifier"
-            value={value.ContractFolderID?.[0]}
-            meta={AwardedNotificationFieldMeta.ContractFolderID}
-          />
+    [
+      AwardedNotificationField.IssueDate,
+      { meta: AwardedNotificationFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={AwardedNotificationField.IssueDate}
+          meta={AwardedNotificationFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={AwardedNotificationFieldMeta.IssueDate}
-          />
+    [
+      AwardedNotificationField.IssueTime,
+      { meta: AwardedNotificationFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={AwardedNotificationField.IssueTime}
+          meta={AwardedNotificationFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={AwardedNotificationFieldMeta.IssueTime}
-          />
+    [
+      AwardedNotificationField.ContractName,
+      { meta: AwardedNotificationFieldMeta.ContractName,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={AwardedNotificationField.ContractName}
+          meta={AwardedNotificationFieldMeta.ContractName}
+          fieldConfig={fieldConfig}
+          text={value?.ContractName}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-ContractName"
-            label="Contract Name"
-            items={value.ContractName}
-            meta={AwardedNotificationFieldMeta.ContractName} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Contract Name"
-                value={itemValue}
-                meta={AwardedNotificationFieldMeta.ContractName}
-              />
-            }
-          />
+    [
+      AwardedNotificationField.Note,
+      { meta: AwardedNotificationFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={AwardedNotificationField.Note}
+          meta={AwardedNotificationFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={AwardedNotificationFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={AwardedNotificationFieldMeta.Note}
-              />
-            }
-          />
+    [
+      AwardedNotificationField.SenderParty,
+      { meta: AwardedNotificationFieldMeta.SenderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={AwardedNotificationField.SenderParty}
+          meta={AwardedNotificationFieldMeta.SenderParty}
+          fieldConfig={fieldConfig}
+          party={value?.SenderParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Sender Party"
-            value={value.SenderParty?.[0]}
-            meta={AwardedNotificationFieldMeta.SenderParty}
-          />
+    [
+      AwardedNotificationField.ReceiverParty,
+      { meta: AwardedNotificationFieldMeta.ReceiverParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={AwardedNotificationField.ReceiverParty}
+          meta={AwardedNotificationFieldMeta.ReceiverParty}
+          fieldConfig={fieldConfig}
+          party={value?.ReceiverParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Receiver Party"
-            value={value.ReceiverParty?.[0]}
-            meta={AwardedNotificationFieldMeta.ReceiverParty}
-          />
+    [
+      AwardedNotificationField.MinutesDocumentReference,
+      { meta: AwardedNotificationFieldMeta.MinutesDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={AwardedNotificationField.MinutesDocumentReference}
+          meta={AwardedNotificationFieldMeta.MinutesDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.MinutesDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DocumentReferenceDisplay
-            label="Minutes Document Reference"
-            value={value.MinutesDocumentReference?.[0]}
-            meta={AwardedNotificationFieldMeta.MinutesDocumentReference}
-          />
+    [
+      AwardedNotificationField.AdditionalDocumentReference,
+      { meta: AwardedNotificationFieldMeta.AdditionalDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={AwardedNotificationField.AdditionalDocumentReference}
+          meta={AwardedNotificationFieldMeta.AdditionalDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.AdditionalDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-AdditionalDocumentReference"
-            label="Additional Document Reference"
-            items={value.AdditionalDocumentReference}
-            meta={AwardedNotificationFieldMeta.AdditionalDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Additional Document Reference"
-                value={itemValue}
-                meta={AwardedNotificationFieldMeta.AdditionalDocumentReference}
-              />
-            }
-          />
+    [
+      AwardedNotificationField.TenderResult,
+      { meta: AwardedNotificationFieldMeta.TenderResult,
+        template: ({value, renderContext, fieldConfig}) => <TenderResultDisplay
+          key={AwardedNotificationField.TenderResult}
+          meta={AwardedNotificationFieldMeta.TenderResult}
+          fieldConfig={fieldConfig}
+          tenderResult={value?.TenderResult}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-TenderResult"
-            label="Tender Result"
-            items={value.TenderResult}
-            meta={AwardedNotificationFieldMeta.TenderResult} 
-            itemDisplay={ (itemValue: TenderResult, key: string | number) =>
-              <TenderResultDisplay
-                key={key}
-                label="Tender Result"
-                value={itemValue}
-                meta={AwardedNotificationFieldMeta.TenderResult}
-              />
-            }
-          />
+    [
+      AwardedNotificationField.FinalFinancialGuarantee,
+      { meta: AwardedNotificationFieldMeta.FinalFinancialGuarantee,
+        template: ({value, renderContext, fieldConfig}) => <FinancialGuaranteeDisplay
+          key={AwardedNotificationField.FinalFinancialGuarantee}
+          meta={AwardedNotificationFieldMeta.FinalFinancialGuarantee}
+          fieldConfig={fieldConfig}
+          financialGuarantee={value?.FinalFinancialGuarantee}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-FinancialGuarantee ubl-FinalFinancialGuarantee"
-            label="Final Financial Guarantee"
-            items={value.FinalFinancialGuarantee}
-            meta={AwardedNotificationFieldMeta.FinalFinancialGuarantee} 
-            itemDisplay={ (itemValue: FinancialGuarantee, key: string | number) =>
-              <FinancialGuaranteeDisplay
-                key={key}
-                label="Final Financial Guarantee"
-                value={itemValue}
-                meta={AwardedNotificationFieldMeta.FinalFinancialGuarantee}
-              />
-            }
-          />
+    [
+      AwardedNotificationField.Signature,
+      { meta: AwardedNotificationFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={AwardedNotificationField.Signature}
+          meta={AwardedNotificationFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={AwardedNotificationFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={AwardedNotificationFieldMeta.Signature}
-              />
-            }
-          />
-        </div>
-    </div>
+export function AwardedNotificationDisplay<TFieldMeta>({ meta, fieldConfig, awardedNotification, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    AwardedNotificationTypeName,
+    meta,
+    fieldConfig,
+    awardedNotification,
+    renderContext,
+    AwardedNotificationSubElementsMap,
   )
 }

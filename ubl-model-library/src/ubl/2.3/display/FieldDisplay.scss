@@ -1,0 +1,15 @@
+.Field {
+
+  &.Horizontal {
+    display: flex;
+    align-items: center;
+
+    &>.FieldLabel {
+      width: 100pt;
+    }
+  }
+
+  &.Vertical {
+    margin-bottom: 8pt;
+  }
+}

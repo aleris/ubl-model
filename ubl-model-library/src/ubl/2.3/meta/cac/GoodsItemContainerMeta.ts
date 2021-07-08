@@ -1,4 +1,9 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { TransportEquipmentType } from './TransportEquipmentMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum GoodsItemContainerField {
   UBLExtensions = 'UBLExtensions',
@@ -10,11 +15,11 @@ export enum GoodsItemContainerField {
 export const GoodsItemContainerFieldMetaUBLExtensions = new FieldMeta<GoodsItemContainerField>(
   GoodsItemContainerField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -23,10 +28,10 @@ export const GoodsItemContainerFieldMetaID = new FieldMeta<GoodsItemContainerFie
   GoodsItemContainerField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this goods item container.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -35,10 +40,10 @@ export const GoodsItemContainerFieldMetaQuantity = new FieldMeta<GoodsItemContai
   GoodsItemContainerField.Quantity,
   'Quantity',
   'Quantity',
-  'Quantity',
+  QuantityType.name,
   'The number of goods items loaded into or onto one piece of transport equipment as a total consignment or part of a consignment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Number of packages stuffed',
   undefined
 )
@@ -47,10 +52,10 @@ export const GoodsItemContainerFieldMetaTransportEquipment = new FieldMeta<Goods
   GoodsItemContainerField.TransportEquipment,
   'TransportEquipment',
   'Transport Equipment',
-  'TransportEquipment',
+  TransportEquipmentType.name,
   'A piece of transport equipment used to contain a single goods item.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -68,3 +73,11 @@ export const GoodsItemContainerFieldMap = new Map([
   [GoodsItemContainerField.Quantity, GoodsItemContainerFieldMetaQuantity],
   [GoodsItemContainerField.TransportEquipment, GoodsItemContainerFieldMetaTransportEquipment]
 ])
+
+export const GoodsItemContainerType: Type<GoodsItemContainerField> = {
+  name: 'GoodsItemContainer',
+  label: 'Goods Item Container',
+  module: TypeModule.cac,
+  definition: 'A class defining how goods items are split across transport equipment.',
+  fields: GoodsItemContainerFieldMap,
+}

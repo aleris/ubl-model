@@ -1,4 +1,32 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { AppealTermsType } from './AppealTermsMeta'
+import { AwardingTermsType } from './AwardingTermsMeta'
+import { BudgetAccountLineType } from './BudgetAccountLineMeta'
+import { ClauseType } from './ClauseMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { ContractExecutionRequirementType } from './ContractExecutionRequirementMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from './DocumentReferenceMeta'
+import { EconomicOperatorShortListType } from './EconomicOperatorShortListMeta'
+import { FinancialGuaranteeType } from './FinancialGuaranteeMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { LanguageType } from './LanguageMeta'
+import { LotDistributionType } from './LotDistributionMeta'
+import { PartyType } from './PartyMeta'
+import { PaymentTermsType } from './PaymentTermsMeta'
+import { PeriodType } from './PeriodMeta'
+import { PostAwardProcessType } from './PostAwardProcessMeta'
+import { PrizeType } from './PrizeMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { SecurityClearanceTermType } from './SecurityClearanceTermMeta'
+import { SubcontractTermsType } from './SubcontractTermsMeta'
+import { TendererQualificationRequestType } from './TendererQualificationRequestMeta'
+import { TenderPreparationType } from './TenderPreparationMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum TenderingTermsField {
   UBLExtensions = 'UBLExtensions',
@@ -62,11 +90,11 @@ export enum TenderingTermsField {
 export const TenderingTermsFieldMetaUBLExtensions = new FieldMeta<TenderingTermsField>(
   TenderingTermsField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -75,10 +103,10 @@ export const TenderingTermsFieldMetaAwardingMethodTypeCode = new FieldMeta<Tende
   TenderingTermsField.AwardingMethodTypeCode,
   'AwardingMethodTypeCode',
   'Awarding Method Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the awarding method in a tendering process (e.g., a method favoring the tender with the lowest price or the tender that is most economically advantageous).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Price, Multiple criteria'
 )
@@ -87,10 +115,10 @@ export const TenderingTermsFieldMetaPriceEvaluationCode = new FieldMeta<Tenderin
   TenderingTermsField.PriceEvaluationCode,
   'PriceEvaluationCode',
   'Price Evaluation Code',
-  'Code',
+  CodeType.name,
   'Textual description of the legal form required for potential tenderers.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Unit prices, global price'
 )
@@ -99,10 +127,10 @@ export const TenderingTermsFieldMetaMaximumVariantQuantity = new FieldMeta<Tende
   TenderingTermsField.MaximumVariantQuantity,
   'MaximumVariantQuantity',
   'Maximum Variant Quantity',
-  'Quantity',
+  QuantityType.name,
   'Maximum number of variants the tenderer is allowed to present for this tendering project.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -111,10 +139,10 @@ export const TenderingTermsFieldMetaVariantConstraintIndicator = new FieldMeta<T
   TenderingTermsField.VariantConstraintIndicator,
   'VariantConstraintIndicator',
   'Variant Constraint',
-  'Indicator',
+  IndicatorType.name,
   'An indicator that variants are allowed and unconstrained in number (true) or not allowed (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -123,10 +151,10 @@ export const TenderingTermsFieldMetaAcceptedVariantsDescription = new FieldMeta<
   TenderingTermsField.AcceptedVariantsDescription,
   'AcceptedVariantsDescription',
   'Accepted Variants Description',
-  'Text',
+  TextType.name,
   'Text specifying the things for which variants are accepted.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -135,10 +163,10 @@ export const TenderingTermsFieldMetaPriceRevisionFormulaDescription = new FieldM
   TenderingTermsField.PriceRevisionFormulaDescription,
   'PriceRevisionFormulaDescription',
   'Price Revision Formula Description',
-  'Text',
+  TextType.name,
   'Text describing the formula for price revision.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -147,10 +175,10 @@ export const TenderingTermsFieldMetaFundingProgramCode = new FieldMeta<Tendering
   TenderingTermsField.FundingProgramCode,
   'FundingProgramCode',
   'Funding Program Code',
-  'Code',
+  CodeType.name,
   'The program that funds the tendering process (e.g., "National", "European"), expressed as a code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -159,10 +187,10 @@ export const TenderingTermsFieldMetaFundingProgram = new FieldMeta<TenderingTerm
   TenderingTermsField.FundingProgram,
   'FundingProgram',
   'Funding Program',
-  'Text',
+  TextType.name,
   'The program that funds the tendering process (e.g., EU 6th Framework Program) expressed as text.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -171,10 +199,10 @@ export const TenderingTermsFieldMetaMaximumAdvertisementAmount = new FieldMeta<T
   TenderingTermsField.MaximumAdvertisementAmount,
   'MaximumAdvertisementAmount',
   'Maximum Advertisement',
-  'Amount',
+  AmountType.name,
   'The maximum advertised monetary value of the tendering process.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -183,10 +211,10 @@ export const TenderingTermsFieldMetaNote = new FieldMeta<TenderingTermsField>(
   TenderingTermsField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -195,10 +223,10 @@ export const TenderingTermsFieldMetaPaymentFrequencyCode = new FieldMeta<Tenderi
   TenderingTermsField.PaymentFrequencyCode,
   'PaymentFrequencyCode',
   'Payment Frequency Code',
-  'Code',
+  CodeType.name,
   'A code signifying the frequency of payment in the contract associated with the tendering process.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -207,10 +235,10 @@ export const TenderingTermsFieldMetaEconomicOperatorRegistryURI = new FieldMeta<
   TenderingTermsField.EconomicOperatorRegistryURI,
   'EconomicOperatorRegistryURI',
   'Economic Operator Registry URI',
-  'Identifier',
+  IdentifierType.name,
   'The Uniform Resource Identifier (URI) of an electronic registry of economic operators.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Web site',
   undefined
 )
@@ -219,10 +247,10 @@ export const TenderingTermsFieldMetaRequiredCurriculaIndicator = new FieldMeta<T
   TenderingTermsField.RequiredCurriculaIndicator,
   'RequiredCurriculaIndicator',
   'Required Curricula',
-  'Indicator',
+  IndicatorType.name,
   'An indicator that tenderers are required to provide a curriculum vitae for each participant in the project (true) or are not so required (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -231,10 +259,10 @@ export const TenderingTermsFieldMetaRequiredCurriculaCode = new FieldMeta<Tender
   TenderingTermsField.RequiredCurriculaCode,
   'RequiredCurriculaCode',
   'Required Curricula',
-  'Code',
+  CodeType.name,
   'A code signifying the conditions applying for tenderers to provide a curriculum vitae.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -243,10 +271,10 @@ export const TenderingTermsFieldMetaOtherConditionsIndicator = new FieldMeta<Ten
   TenderingTermsField.OtherConditionsIndicator,
   'OtherConditionsIndicator',
   'Other Conditions',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether other conditions exist (true) or not (false). If the indicator is true, the description may be provided.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -255,10 +283,10 @@ export const TenderingTermsFieldMetaRecurringProcurementIndicator = new FieldMet
   TenderingTermsField.RecurringProcurementIndicator,
   'RecurringProcurementIndicator',
   'Recurring Procurement',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether the procurement is recurring (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -267,10 +295,10 @@ export const TenderingTermsFieldMetaRecurringProcurementDescription = new FieldM
   TenderingTermsField.RecurringProcurementDescription,
   'RecurringProcurementDescription',
   'Recurring Procurement Description',
-  'Text',
+  TextType.name,
   'Any additional information about recurrence (e.g. estimated timing).',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -279,10 +307,10 @@ export const TenderingTermsFieldMetaEstimatedTimingFurtherPublication = new Fiel
   TenderingTermsField.EstimatedTimingFurtherPublication,
   'EstimatedTimingFurtherPublication',
   'Estimated Timing Further Publication',
-  'Text',
+  TextType.name,
   'The description of the estimated timing for further notices to be published.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -291,10 +319,10 @@ export const TenderingTermsFieldMetaAdditionalConditions = new FieldMeta<Tenderi
   TenderingTermsField.AdditionalConditions,
   'AdditionalConditions',
   'Additional Conditions',
-  'Text',
+  TextType.name,
   'Other existing conditions.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -303,10 +331,10 @@ export const TenderingTermsFieldMetaLatestSecurityClearanceDate = new FieldMeta<
   TenderingTermsField.LatestSecurityClearanceDate,
   'LatestSecurityClearanceDate',
   'Latest Security Clearance Date',
-  'Date',
+  DateType.name,
   'The end date until which the candidates can obtain the necessary level of security clearance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -315,10 +343,10 @@ export const TenderingTermsFieldMetaDocumentationFeeAmount = new FieldMeta<Tende
   TenderingTermsField.DocumentationFeeAmount,
   'DocumentationFeeAmount',
   'Documentation Fee Amount',
-  'Amount',
+  AmountType.name,
   'The amount to be paid to obtain the contract documents and additional documentation.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -327,10 +355,10 @@ export const TenderingTermsFieldMetaMultipleTendersCode = new FieldMeta<Tenderin
   TenderingTermsField.MultipleTendersCode,
   'MultipleTendersCode',
   'Multiple Tenders',
-  'Code',
+  CodeType.name,
   'A code signifying whether a tenderer is allowed to submit multiple tenders.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -339,10 +367,10 @@ export const TenderingTermsFieldMetaVariantConstraintCode = new FieldMeta<Tender
   TenderingTermsField.VariantConstraintCode,
   'VariantConstraintCode',
   'Variant Constraint',
-  'Code',
+  CodeType.name,
   'A code signifying the modalities for a tenderer to submit variants of tenders.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -351,10 +379,10 @@ export const TenderingTermsFieldMetaPenaltyClause = new FieldMeta<TenderingTerms
   TenderingTermsField.PenaltyClause,
   'PenaltyClause',
   'Penalty Clause',
-  'Clause',
+  ClauseType.name,
   'The penalty clauses',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -363,10 +391,10 @@ export const TenderingTermsFieldMetaRequiredFinancialGuarantee = new FieldMeta<T
   TenderingTermsField.RequiredFinancialGuarantee,
   'RequiredFinancialGuarantee',
   'Required Financial Guarantee',
-  'FinancialGuarantee',
+  FinancialGuaranteeType.name,
   'A financial guarantee of a tenderer or bid submitter\'s actual entry into a contract in the event that it is the successful bidder.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -375,10 +403,10 @@ export const TenderingTermsFieldMetaProcurementLegislationDocumentReference = ne
   TenderingTermsField.ProcurementLegislationDocumentReference,
   'ProcurementLegislationDocumentReference',
   'Procurement Legislation Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a document providing references to procurement legislation applicable to the tendering process.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -387,10 +415,10 @@ export const TenderingTermsFieldMetaFiscalLegislationDocumentReference = new Fie
   TenderingTermsField.FiscalLegislationDocumentReference,
   'FiscalLegislationDocumentReference',
   'Fiscal Legislation Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a document providing references to fiscal legislation applicable to the tendering process.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -399,10 +427,10 @@ export const TenderingTermsFieldMetaEnvironmentalLegislationDocumentReference = 
   TenderingTermsField.EnvironmentalLegislationDocumentReference,
   'EnvironmentalLegislationDocumentReference',
   'Environmental Legislation Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a document providing references to environmental legislation applicable to the tendering process.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -411,10 +439,10 @@ export const TenderingTermsFieldMetaEmploymentLegislationDocumentReference = new
   TenderingTermsField.EmploymentLegislationDocumentReference,
   'EmploymentLegislationDocumentReference',
   'Employment Legislation Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a document providing references to employment legislation applicable to the tendering process.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -423,10 +451,10 @@ export const TenderingTermsFieldMetaContractualDocumentReference = new FieldMeta
   TenderingTermsField.ContractualDocumentReference,
   'ContractualDocumentReference',
   'Contractual Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a document that will become part of the awarded contract.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -435,10 +463,10 @@ export const TenderingTermsFieldMetaCallForTendersDocumentReference = new FieldM
   TenderingTermsField.CallForTendersDocumentReference,
   'CallForTendersDocumentReference',
   'Call For Tenders Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to the Call for Tender associated with these tendering terms.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -447,10 +475,10 @@ export const TenderingTermsFieldMetaWarrantyValidityPeriod = new FieldMeta<Tende
   TenderingTermsField.WarrantyValidityPeriod,
   'WarrantyValidityPeriod',
   'Warranty Validity Period',
-  'Period',
+  PeriodType.name,
   'The period during which a warranty for work, service, or goods associated with these tendering terms is valid.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -459,10 +487,10 @@ export const TenderingTermsFieldMetaPaymentTerms = new FieldMeta<TenderingTermsF
   TenderingTermsField.PaymentTerms,
   'PaymentTerms',
   'Payment Terms',
-  'PaymentTerms',
+  PaymentTermsType.name,
   'A specification of payment terms associated with the tendering process.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -471,10 +499,10 @@ export const TenderingTermsFieldMetaTendererQualificationRequest = new FieldMeta
   TenderingTermsField.TendererQualificationRequest,
   'TendererQualificationRequest',
   'Tenderer Qualification Request',
-  'TendererQualificationRequest',
+  TendererQualificationRequestType.name,
   'Required set of qualifications for a tenderer in this tendering process.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -483,10 +511,10 @@ export const TenderingTermsFieldMetaAllowedSubcontractTerms = new FieldMeta<Tend
   TenderingTermsField.AllowedSubcontractTerms,
   'AllowedSubcontractTerms',
   'Allowed Subcontract Terms',
-  'SubcontractTerms',
+  SubcontractTermsType.name,
   'Subcontract terms for the tendering process.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -495,10 +523,10 @@ export const TenderingTermsFieldMetaTenderPreparation = new FieldMeta<TenderingT
   TenderingTermsField.TenderPreparation,
   'TenderPreparation',
   'Tender Preparation',
-  'TenderPreparation',
+  TenderPreparationType.name,
   'Directions for preparing a tender for the+D2057 tendering process.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   'Curricula required, Experience required, ....'
 )
@@ -507,10 +535,10 @@ export const TenderingTermsFieldMetaContractExecutionRequirement = new FieldMeta
   TenderingTermsField.ContractExecutionRequirement,
   'ContractExecutionRequirement',
   'Contract Execution Requirement',
-  'ContractExecutionRequirement',
+  ContractExecutionRequirementType.name,
   'A requirement relating to execution of the contract that will be awarded as a result of the tendering process.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -519,10 +547,10 @@ export const TenderingTermsFieldMetaAwardingTerms = new FieldMeta<TenderingTerms
   TenderingTermsField.AwardingTerms,
   'AwardingTerms',
   'Awarding Terms',
-  'AwardingTerms',
+  AwardingTermsType.name,
   'The terms in the tendering process for awarding the contract for a project.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -531,10 +559,10 @@ export const TenderingTermsFieldMetaAdditionalInformationParty = new FieldMeta<T
   TenderingTermsField.AdditionalInformationParty,
   'AdditionalInformationParty',
   'Additional Information Party',
-  'Party',
+  PartyType.name,
   'A party that has additional information about the tendering process.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -543,10 +571,10 @@ export const TenderingTermsFieldMetaDocumentProviderParty = new FieldMeta<Tender
   TenderingTermsField.DocumentProviderParty,
   'DocumentProviderParty',
   'Document Provider Party',
-  'Party',
+  PartyType.name,
   'The party that has the contract documents for the tendering process.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -555,10 +583,10 @@ export const TenderingTermsFieldMetaTenderRecipientParty = new FieldMeta<Tenderi
   TenderingTermsField.TenderRecipientParty,
   'TenderRecipientParty',
   'Tender Recipient Party',
-  'Party',
+  PartyType.name,
   'The party to which tenders should be presented.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -567,10 +595,10 @@ export const TenderingTermsFieldMetaContractResponsibleParty = new FieldMeta<Ten
   TenderingTermsField.ContractResponsibleParty,
   'ContractResponsibleParty',
   'Contract Responsible Party',
-  'Party',
+  PartyType.name,
   'The party responsible for the execution of the contract.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -579,10 +607,10 @@ export const TenderingTermsFieldMetaTenderEvaluationParty = new FieldMeta<Tender
   TenderingTermsField.TenderEvaluationParty,
   'TenderEvaluationParty',
   'Tender Evaluation Party',
-  'Party',
+  PartyType.name,
   'A party in the contracting authority responsible for evaluating tenders received.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -591,10 +619,10 @@ export const TenderingTermsFieldMetaQualificationRequestRecipientParty = new Fie
   TenderingTermsField.QualificationRequestRecipientParty,
   'QualificationRequestRecipientParty',
   'Qualification Request Recipient Party',
-  'Party',
+  PartyType.name,
   'A party in the contracting authority responsible for receiving qualification requests.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -603,10 +631,10 @@ export const TenderingTermsFieldMetaTenderValidityPeriod = new FieldMeta<Tenderi
   TenderingTermsField.TenderValidityPeriod,
   'TenderValidityPeriod',
   'Tender Validity Period',
-  'Period',
+  PeriodType.name,
   'The period during which tenders submitted for this tendering process must remain valid.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -615,10 +643,10 @@ export const TenderingTermsFieldMetaContractAcceptancePeriod = new FieldMeta<Ten
   TenderingTermsField.ContractAcceptancePeriod,
   'ContractAcceptancePeriod',
   'Contract Acceptance Period',
-  'Period',
+  PeriodType.name,
   'The period of time during which the contracting authority may accept a contract.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -627,10 +655,10 @@ export const TenderingTermsFieldMetaAppealTerms = new FieldMeta<TenderingTermsFi
   TenderingTermsField.AppealTerms,
   'AppealTerms',
   'Appeal Terms',
-  'AppealTerms',
+  AppealTermsType.name,
   'Information about the terms to present for an appeal against a tender award.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -639,10 +667,10 @@ export const TenderingTermsFieldMetaLanguage = new FieldMeta<TenderingTermsField
   TenderingTermsField.Language,
   'Language',
   'Language',
-  'Language',
+  LanguageType.name,
   'One of the default languages specified for the tendering process.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -651,10 +679,10 @@ export const TenderingTermsFieldMetaBudgetAccountLine = new FieldMeta<TenderingT
   TenderingTermsField.BudgetAccountLine,
   'BudgetAccountLine',
   'Budget Account Line',
-  'BudgetAccountLine',
+  BudgetAccountLineType.name,
   'A budget account line associated with the tendering process.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -663,10 +691,10 @@ export const TenderingTermsFieldMetaReplacedNoticeDocumentReference = new FieldM
   TenderingTermsField.ReplacedNoticeDocumentReference,
   'ReplacedNoticeDocumentReference',
   'Replaced Notice Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A class defining a reference to the notice that is being replaced.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -675,10 +703,10 @@ export const TenderingTermsFieldMetaLotDistribution = new FieldMeta<TenderingTer
   TenderingTermsField.LotDistribution,
   'LotDistribution',
   'Lot Distribution',
-  'LotDistribution',
+  LotDistributionType.name,
   'List of specific ways to tender to the lots of the procurement project.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -687,10 +715,10 @@ export const TenderingTermsFieldMetaPostAwardProcess = new FieldMeta<TenderingTe
   TenderingTermsField.PostAwardProcess,
   'PostAwardProcess',
   'Post Award Process',
-  'PostAwardProcess',
+  PostAwardProcessType.name,
   'Information about the post-award process.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -699,10 +727,10 @@ export const TenderingTermsFieldMetaEconomicOperatorShortList = new FieldMeta<Te
   TenderingTermsField.EconomicOperatorShortList,
   'EconomicOperatorShortList',
   'Economic Operator Short List',
-  'EconomicOperatorShortList',
+  EconomicOperatorShortListType.name,
   'A set of criteria used to create a short list of candidates.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -711,10 +739,10 @@ export const TenderingTermsFieldMetaPrize = new FieldMeta<TenderingTermsField>(
   TenderingTermsField.Prize,
   'Prize',
   'Prize',
-  'Prize',
+  PrizeType.name,
   'Information about the value amount that will be offered to the winner depending on his rank.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   'In a design context , 1st place EUR 10 000 , 2nd place EUR 5000'
 )
@@ -723,10 +751,10 @@ export const TenderingTermsFieldMetaSecurityClearanceTerm = new FieldMeta<Tender
   TenderingTermsField.SecurityClearanceTerm,
   'SecurityClearanceTerm',
   'Security Clearance Term',
-  'SecurityClearanceTerm',
+  SecurityClearanceTermType.name,
   'Information about the terms to present for a security clearance.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -848,3 +876,11 @@ export const TenderingTermsFieldMap = new Map([
   [TenderingTermsField.Prize, TenderingTermsFieldMetaPrize],
   [TenderingTermsField.SecurityClearanceTerm, TenderingTermsFieldMetaSecurityClearanceTerm]
 ])
+
+export const TenderingTermsType: Type<TenderingTermsField> = {
+  name: 'TenderingTerms',
+  label: 'Tendering Terms',
+  module: TypeModule.cac,
+  definition: 'A class to describe tendering terms for a tendering process.',
+  fields: TenderingTermsFieldMap,
+}

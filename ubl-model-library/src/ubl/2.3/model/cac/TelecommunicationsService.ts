@@ -12,7 +12,6 @@ import { TaxTotal } from './TaxTotal'
 import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a telecommunications service (e.g., a telephone call or a video on demand service).
  */

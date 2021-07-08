@@ -1,4 +1,18 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { ContactType } from './ContactMeta'
+import { DateType } from '../cbc/DateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { LocationType } from './LocationMeta'
+import { PeriodType } from './PeriodMeta'
+import { ShipmentType } from './ShipmentMeta'
+import { SignatureType } from './SignatureMeta'
+import { StatusType } from './StatusMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum TransportEventField {
   UBLExtensions = 'UBLExtensions',
@@ -19,11 +33,11 @@ export enum TransportEventField {
 export const TransportEventFieldMetaUBLExtensions = new FieldMeta<TransportEventField>(
   TransportEventField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -32,10 +46,10 @@ export const TransportEventFieldMetaIdentificationID = new FieldMeta<TransportEv
   TransportEventField.IdentificationID,
   'IdentificationID',
   'Identification',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this transport event within an agreed event identification scheme.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -44,10 +58,10 @@ export const TransportEventFieldMetaOccurrenceDate = new FieldMeta<TransportEven
   TransportEventField.OccurrenceDate,
   'OccurrenceDate',
   'Occurrence Date',
-  'Date',
+  DateType.name,
   'The date of this transport event.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -56,10 +70,10 @@ export const TransportEventFieldMetaOccurrenceTime = new FieldMeta<TransportEven
   TransportEventField.OccurrenceTime,
   'OccurrenceTime',
   'Occurrence Time',
-  'Time',
+  TimeType.name,
   'The time of this transport event.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -68,10 +82,10 @@ export const TransportEventFieldMetaTransportEventTypeCode = new FieldMeta<Trans
   TransportEventField.TransportEventTypeCode,
   'TransportEventTypeCode',
   'Transport Event Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of this transport event.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -80,10 +94,10 @@ export const TransportEventFieldMetaDescription = new FieldMeta<TransportEventFi
   TransportEventField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing this transport event.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -92,10 +106,10 @@ export const TransportEventFieldMetaCompletionIndicator = new FieldMeta<Transpor
   TransportEventField.CompletionIndicator,
   'CompletionIndicator',
   'Completion Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indicator that this transport event has been completed (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -104,10 +118,10 @@ export const TransportEventFieldMetaReportedShipment = new FieldMeta<TransportEv
   TransportEventField.ReportedShipment,
   'ReportedShipment',
   'Reported Shipment',
-  'Shipment',
+  ShipmentType.name,
   'The shipment involved in this transport event.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -116,10 +130,10 @@ export const TransportEventFieldMetaCurrentStatus = new FieldMeta<TransportEvent
   TransportEventField.CurrentStatus,
   'CurrentStatus',
   'Current Status',
-  'Status',
+  StatusType.name,
   'The current status of this transport event.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -128,10 +142,10 @@ export const TransportEventFieldMetaContact = new FieldMeta<TransportEventField>
   TransportEventField.Contact,
   'Contact',
   'Contact',
-  'Contact',
+  ContactType.name,
   'A contact associated with this transport event.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -140,10 +154,10 @@ export const TransportEventFieldMetaLocation = new FieldMeta<TransportEventField
   TransportEventField.Location,
   'Location',
   'Location',
-  'Location',
+  LocationType.name,
   'The location associated with this transport event.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -152,10 +166,10 @@ export const TransportEventFieldMetaSignature = new FieldMeta<TransportEventFiel
   TransportEventField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature that can be used to sign for an entry or an exit at a transport location (e.g., port terminal).',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -164,10 +178,10 @@ export const TransportEventFieldMetaPeriod = new FieldMeta<TransportEventField>(
   TransportEventField.Period,
   'Period',
   'Period',
-  'Period',
+  PeriodType.name,
   'A period of time associated with this transport event.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -203,3 +217,11 @@ export const TransportEventFieldMap = new Map([
   [TransportEventField.Signature, TransportEventFieldMetaSignature],
   [TransportEventField.Period, TransportEventFieldMetaPeriod]
 ])
+
+export const TransportEventType: Type<TransportEventField> = {
+  name: 'TransportEvent',
+  label: 'Transport Event',
+  module: TypeModule.cac,
+  definition: 'A class to describe a significant occurrence or happening related to the transportation of goods.',
+  fields: TransportEventFieldMap,
+}

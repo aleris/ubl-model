@@ -1,4 +1,14 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { CommodityClassificationType } from './CommodityClassificationMeta'
+import { EvidenceSuppliedType } from './EvidenceSuppliedMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { PeriodType } from './PeriodMeta'
+import { ProcurementProjectLotReferenceType } from './ProcurementProjectLotReferenceMeta'
+import { ResponseValueType } from './ResponseValueMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum TenderingCriterionResponseField {
   UBLExtensions = 'UBLExtensions',
@@ -17,11 +27,11 @@ export enum TenderingCriterionResponseField {
 export const TenderingCriterionResponseFieldMetaUBLExtensions = new FieldMeta<TenderingCriterionResponseField>(
   TenderingCriterionResponseField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -30,10 +40,10 @@ export const TenderingCriterionResponseFieldMetaID = new FieldMeta<TenderingCrit
   TenderingCriterionResponseField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this criterion property response.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -42,10 +52,10 @@ export const TenderingCriterionResponseFieldMetaName = new FieldMeta<TenderingCr
   TenderingCriterionResponseField.Name,
   'Name',
   'Name',
-  'Text',
+  TextType.name,
   'The name of the criterion property response',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -54,10 +64,10 @@ export const TenderingCriterionResponseFieldMetaDescription = new FieldMeta<Tend
   TenderingCriterionResponseField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'A description of the criterion response',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -66,10 +76,10 @@ export const TenderingCriterionResponseFieldMetaValidatedCriterionPropertyID = n
   TenderingCriterionResponseField.ValidatedCriterionPropertyID,
   'ValidatedCriterionPropertyID',
   'Validated Criterion Property Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this item of criterion support.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -78,10 +88,10 @@ export const TenderingCriterionResponseFieldMetaConfidentialityLevelCode = new F
   TenderingCriterionResponseField.ConfidentialityLevelCode,
   'ConfidentialityLevelCode',
   'Confidentiality Level Code',
-  'Code',
+  CodeType.name,
   'A code specifying the confidentiality level of the response to this criterion.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -90,10 +100,10 @@ export const TenderingCriterionResponseFieldMetaResponseValue = new FieldMeta<Te
   TenderingCriterionResponseField.ResponseValue,
   'ResponseValue',
   'Response Value',
-  'ResponseValue',
+  ResponseValueType.name,
   'The criterion requirement property values.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -102,10 +112,10 @@ export const TenderingCriterionResponseFieldMetaApplicablePeriod = new FieldMeta
   TenderingCriterionResponseField.ApplicablePeriod,
   'ApplicablePeriod',
   'Applicable Period',
-  'Period',
+  PeriodType.name,
   'The period to which this criterion property response applies.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -114,10 +124,10 @@ export const TenderingCriterionResponseFieldMetaEvidenceSupplied = new FieldMeta
   TenderingCriterionResponseField.EvidenceSupplied,
   'EvidenceSupplied',
   'Evidence Supplied',
-  'EvidenceSupplied',
+  EvidenceSuppliedType.name,
   'A reference to the evidence supporting this criterion property response.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -126,10 +136,10 @@ export const TenderingCriterionResponseFieldMetaProcurementProjectLotReference =
   TenderingCriterionResponseField.ProcurementProjectLotReference,
   'ProcurementProjectLotReference',
   'Procurement Project Lot Reference',
-  'ProcurementProjectLotReference',
+  ProcurementProjectLotReferenceType.name,
   'One or more lots to which the criterion response applies',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -138,10 +148,10 @@ export const TenderingCriterionResponseFieldMetaCommodityClassification = new Fi
   TenderingCriterionResponseField.CommodityClassification,
   'CommodityClassification',
   'Commodity Classification',
-  'CommodityClassification',
+  CommodityClassificationType.name,
   'One or more classification to which this criterion response applies',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -173,3 +183,11 @@ export const TenderingCriterionResponseFieldMap = new Map([
   [TenderingCriterionResponseField.ProcurementProjectLotReference, TenderingCriterionResponseFieldMetaProcurementProjectLotReference],
   [TenderingCriterionResponseField.CommodityClassification, TenderingCriterionResponseFieldMetaCommodityClassification]
 ])
+
+export const TenderingCriterionResponseType: Type<TenderingCriterionResponseField> = {
+  name: 'TenderingCriterionResponse',
+  label: 'Tendering Criterion Response',
+  module: TypeModule.cac,
+  definition: 'A class to describe a response to a criterion property.',
+  fields: TenderingCriterionResponseFieldMap,
+}

@@ -1,6 +1,5 @@
 import { Identifier } from '../cbc/Identifier'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class defining details about a train wagon used as a means of transport.
  */

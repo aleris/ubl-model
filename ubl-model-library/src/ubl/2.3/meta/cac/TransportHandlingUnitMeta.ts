@@ -1,4 +1,24 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { CustomsDeclarationType } from './CustomsDeclarationMeta'
+import { DespatchLineType } from './DespatchLineMeta'
+import { DimensionType } from './DimensionMeta'
+import { DocumentReferenceType } from './DocumentReferenceMeta'
+import { GoodsItemType } from './GoodsItemMeta'
+import { HazardousGoodsTransitType } from './HazardousGoodsTransitMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { PackageType } from './PackageMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { ReceiptLineType } from './ReceiptLineMeta'
+import { ShipmentType } from './ShipmentMeta'
+import { StatusType } from './StatusMeta'
+import { TemperatureType } from './TemperatureMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TransportEquipmentType } from './TransportEquipmentMeta'
+import { TransportMeansType } from './TransportMeansMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum TransportHandlingUnitField {
   UBLExtensions = 'UBLExtensions',
@@ -34,11 +54,11 @@ export enum TransportHandlingUnitField {
 export const TransportHandlingUnitFieldMetaUBLExtensions = new FieldMeta<TransportHandlingUnitField>(
   TransportHandlingUnitField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -47,10 +67,10 @@ export const TransportHandlingUnitFieldMetaID = new FieldMeta<TransportHandlingU
   TransportHandlingUnitField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this transport handling unit.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -59,10 +79,10 @@ export const TransportHandlingUnitFieldMetaTransportHandlingUnitTypeCode = new F
   TransportHandlingUnitField.TransportHandlingUnitTypeCode,
   'TransportHandlingUnitTypeCode',
   'Transport Handling Unit Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of this transport handling unit.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -71,10 +91,10 @@ export const TransportHandlingUnitFieldMetaHandlingCode = new FieldMeta<Transpor
   TransportHandlingUnitField.HandlingCode,
   'HandlingCode',
   'Handling Code',
-  'Code',
+  CodeType.name,
   'The handling required for this transport handling unit, expressed as a code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Special Handling',
   undefined
 )
@@ -83,10 +103,10 @@ export const TransportHandlingUnitFieldMetaHandlingInstructions = new FieldMeta<
   TransportHandlingUnitField.HandlingInstructions,
   'HandlingInstructions',
   'Handling Instructions',
-  'Text',
+  TextType.name,
   'The handling required for this transport handling unit, expressed as text.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -95,10 +115,10 @@ export const TransportHandlingUnitFieldMetaHazardousRiskIndicator = new FieldMet
   TransportHandlingUnitField.HazardousRiskIndicator,
   'HazardousRiskIndicator',
   'Hazardous Risk Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indicator that the materials contained in this transport handling unit are subject to an international regulation concerning the carriage of dangerous goods (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Default is negative'
 )
@@ -107,10 +127,10 @@ export const TransportHandlingUnitFieldMetaTotalGoodsItemQuantity = new FieldMet
   TransportHandlingUnitField.TotalGoodsItemQuantity,
   'TotalGoodsItemQuantity',
   'Total Goods Item Quantity',
-  'Quantity',
+  QuantityType.name,
   'The total number of goods items in this transport handling unit.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -119,10 +139,10 @@ export const TransportHandlingUnitFieldMetaTotalPackageQuantity = new FieldMeta<
   TransportHandlingUnitField.TotalPackageQuantity,
   'TotalPackageQuantity',
   'Total Package Quantity',
-  'Quantity',
+  QuantityType.name,
   'The total number of packages in this transport handling unit.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -131,10 +151,10 @@ export const TransportHandlingUnitFieldMetaDamageRemarks = new FieldMeta<Transpo
   TransportHandlingUnitField.DamageRemarks,
   'DamageRemarks',
   'Damage Remarks',
-  'Text',
+  TextType.name,
   'Text describing damage associated with this transport handling unit.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -143,10 +163,10 @@ export const TransportHandlingUnitFieldMetaShippingMarks = new FieldMeta<Transpo
   TransportHandlingUnitField.ShippingMarks,
   'ShippingMarks',
   'Shipping Marks',
-  'Text',
+  TextType.name,
   'Text describing the marks and numbers on this transport handling unit.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   'Marks and Numbers, Shipping Marks',
   undefined
 )
@@ -155,10 +175,10 @@ export const TransportHandlingUnitFieldMetaTraceID = new FieldMeta<TransportHand
   TransportHandlingUnitField.TraceID,
   'TraceID',
   'Trace Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for use in tracing this transport handling unit, such as the EPC number used in RFID.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -167,10 +187,10 @@ export const TransportHandlingUnitFieldMetaHandlingUnitDespatchLine = new FieldM
   TransportHandlingUnitField.HandlingUnitDespatchLine,
   'HandlingUnitDespatchLine',
   'Handling Unit Despatch Line',
-  'DespatchLine',
+  DespatchLineType.name,
   'A despatch line associated with this transport handling unit.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -179,10 +199,10 @@ export const TransportHandlingUnitFieldMetaActualPackage = new FieldMeta<Transpo
   TransportHandlingUnitField.ActualPackage,
   'ActualPackage',
   'Actual Package',
-  'Package',
+  PackageType.name,
   'A package contained in this transport handling unit.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -191,10 +211,10 @@ export const TransportHandlingUnitFieldMetaReceivedHandlingUnitReceiptLine = new
   TransportHandlingUnitField.ReceivedHandlingUnitReceiptLine,
   'ReceivedHandlingUnitReceiptLine',
   'Received Handling Unit Receipt Line',
-  'ReceiptLine',
+  ReceiptLineType.name,
   'A receipt line associated with this transport handling unit.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -203,10 +223,10 @@ export const TransportHandlingUnitFieldMetaTransportEquipment = new FieldMeta<Tr
   TransportHandlingUnitField.TransportEquipment,
   'TransportEquipment',
   'Transport Equipment',
-  'TransportEquipment',
+  TransportEquipmentType.name,
   'A piece of transport equipment associated with this transport handling unit.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -215,10 +235,10 @@ export const TransportHandlingUnitFieldMetaTransportMeans = new FieldMeta<Transp
   TransportHandlingUnitField.TransportMeans,
   'TransportMeans',
   'Transport Means',
-  'TransportMeans',
+  TransportMeansType.name,
   'A means of transport associated with this transport handling unit.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -227,10 +247,10 @@ export const TransportHandlingUnitFieldMetaHazardousGoodsTransit = new FieldMeta
   TransportHandlingUnitField.HazardousGoodsTransit,
   'HazardousGoodsTransit',
   'Hazardous Goods Transit',
-  'HazardousGoodsTransit',
+  HazardousGoodsTransitType.name,
   'Transit-related information regarding a type of hazardous goods contained in this transport handling unit.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -239,10 +259,10 @@ export const TransportHandlingUnitFieldMetaMeasurementDimension = new FieldMeta<
   TransportHandlingUnitField.MeasurementDimension,
   'MeasurementDimension',
   'Measurement Dimension',
-  'Dimension',
+  DimensionType.name,
   'A measurable dimension (length, mass, weight, or volume) of this transport handling unit.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -251,10 +271,10 @@ export const TransportHandlingUnitFieldMetaMinimumTemperature = new FieldMeta<Tr
   TransportHandlingUnitField.MinimumTemperature,
   'MinimumTemperature',
   'Minimum Temperature',
-  'Temperature',
+  TemperatureType.name,
   'The minimum required operating temperature of this transport handling unit.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -263,10 +283,10 @@ export const TransportHandlingUnitFieldMetaMaximumTemperature = new FieldMeta<Tr
   TransportHandlingUnitField.MaximumTemperature,
   'MaximumTemperature',
   'Maximum Temperature',
-  'Temperature',
+  TemperatureType.name,
   'The maximum allowable operating temperature of this transport handling unit.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -275,10 +295,10 @@ export const TransportHandlingUnitFieldMetaGoodsItem = new FieldMeta<TransportHa
   TransportHandlingUnitField.GoodsItem,
   'GoodsItem',
   'Goods Item',
-  'GoodsItem',
+  GoodsItemType.name,
   'A goods item contained in this transport handling unit.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -287,10 +307,10 @@ export const TransportHandlingUnitFieldMetaFloorSpaceMeasurementDimension = new 
   TransportHandlingUnitField.FloorSpaceMeasurementDimension,
   'FloorSpaceMeasurementDimension',
   'Floor Space Measurement Dimension',
-  'Dimension',
+  DimensionType.name,
   'The floor space measurement dimension associated with this transport handling unit.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -299,10 +319,10 @@ export const TransportHandlingUnitFieldMetaPalletSpaceMeasurementDimension = new
   TransportHandlingUnitField.PalletSpaceMeasurementDimension,
   'PalletSpaceMeasurementDimension',
   'Pallet Space Measurement Dimension',
-  'Dimension',
+  DimensionType.name,
   'The pallet space measurement dimension associated to this transport handling unit.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -311,10 +331,10 @@ export const TransportHandlingUnitFieldMetaShipmentDocumentReference = new Field
   TransportHandlingUnitField.ShipmentDocumentReference,
   'ShipmentDocumentReference',
   'Shipment Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a shipping document associated with this transport handling unit.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -323,10 +343,10 @@ export const TransportHandlingUnitFieldMetaStatus = new FieldMeta<TransportHandl
   TransportHandlingUnitField.Status,
   'Status',
   'Status',
-  'Status',
+  StatusType.name,
   'The status of this transport handling unit.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -335,10 +355,10 @@ export const TransportHandlingUnitFieldMetaCustomsDeclaration = new FieldMeta<Tr
   TransportHandlingUnitField.CustomsDeclaration,
   'CustomsDeclaration',
   'Customs Declaration',
-  'CustomsDeclaration',
+  CustomsDeclarationType.name,
   'Describes identifiers or references relating to customs procedures.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -347,10 +367,10 @@ export const TransportHandlingUnitFieldMetaReferencedShipment = new FieldMeta<Tr
   TransportHandlingUnitField.ReferencedShipment,
   'ReferencedShipment',
   'Referenced Shipment',
-  'Shipment',
+  ShipmentType.name,
   'A shipment associated with this transport handling unit.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -359,10 +379,10 @@ export const TransportHandlingUnitFieldMetaPackage = new FieldMeta<TransportHand
   TransportHandlingUnitField.Package,
   'Package',
   'Package',
-  'Package',
+  PackageType.name,
   'A package contained in this transport handling unit.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -428,3 +448,11 @@ export const TransportHandlingUnitFieldMap = new Map([
   [TransportHandlingUnitField.ReferencedShipment, TransportHandlingUnitFieldMetaReferencedShipment],
   [TransportHandlingUnitField.Package, TransportHandlingUnitFieldMetaPackage]
 ])
+
+export const TransportHandlingUnitType: Type<TransportHandlingUnitField> = {
+  name: 'TransportHandlingUnit',
+  label: 'Transport Handling Unit',
+  module: TypeModule.cac,
+  definition: 'A class to describe a uniquely identifiable unit consisting of one or more packages, goods items, or pieces of transport equipment.',
+  fields: TransportHandlingUnitFieldMap,
+}

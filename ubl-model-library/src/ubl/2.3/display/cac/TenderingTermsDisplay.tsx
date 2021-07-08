@@ -1,594 +1,726 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TenderingTerms } from  '../../model/cac/TenderingTerms'
-import { TenderingTermsFieldMeta } from  '../../meta/cac/TenderingTermsMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import AppealTermsDisplay from './AppealTermsDisplay'
-import { AppealTerms } from '../../model/cac/AppealTerms'
-import AwardingTermsDisplay from './AwardingTermsDisplay'
-import { AwardingTerms } from '../../model/cac/AwardingTerms'
-import BudgetAccountLineDisplay from './BudgetAccountLineDisplay'
-import { BudgetAccountLine } from '../../model/cac/BudgetAccountLine'
-import ClauseDisplay from './ClauseDisplay'
-import { Clause } from '../../model/cac/Clause'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import ContractExecutionRequirementDisplay from './ContractExecutionRequirementDisplay'
-import { ContractExecutionRequirement } from '../../model/cac/ContractExecutionRequirement'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentReferenceDisplay from './DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import EconomicOperatorShortListDisplay from './EconomicOperatorShortListDisplay'
-import { EconomicOperatorShortList } from '../../model/cac/EconomicOperatorShortList'
-import FinancialGuaranteeDisplay from './FinancialGuaranteeDisplay'
-import { FinancialGuarantee } from '../../model/cac/FinancialGuarantee'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import LanguageDisplay from './LanguageDisplay'
-import { Language } from '../../model/cac/Language'
-import LotDistributionDisplay from './LotDistributionDisplay'
-import { LotDistribution } from '../../model/cac/LotDistribution'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PaymentTermsDisplay from './PaymentTermsDisplay'
-import { PaymentTerms } from '../../model/cac/PaymentTerms'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import PostAwardProcessDisplay from './PostAwardProcessDisplay'
-import { PostAwardProcess } from '../../model/cac/PostAwardProcess'
-import PrizeDisplay from './PrizeDisplay'
-import { Prize } from '../../model/cac/Prize'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import SecurityClearanceTermDisplay from './SecurityClearanceTermDisplay'
-import { SecurityClearanceTerm } from '../../model/cac/SecurityClearanceTerm'
-import SubcontractTermsDisplay from './SubcontractTermsDisplay'
-import { SubcontractTerms } from '../../model/cac/SubcontractTerms'
-import TendererQualificationRequestDisplay from './TendererQualificationRequestDisplay'
-import { TendererQualificationRequest } from '../../model/cac/TendererQualificationRequest'
-import TenderPreparationDisplay from './TenderPreparationDisplay'
-import { TenderPreparation } from '../../model/cac/TenderPreparation'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { TenderingTermsField, TenderingTermsFieldMeta, TenderingTermsTypeName } from  '../../meta/cac/TenderingTermsMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { AppealTermsDisplay } from './AppealTermsDisplay'
+import { AwardingTermsDisplay } from './AwardingTermsDisplay'
+import { BudgetAccountLineDisplay } from './BudgetAccountLineDisplay'
+import { ClauseDisplay } from './ClauseDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { ContractExecutionRequirementDisplay } from './ContractExecutionRequirementDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentReferenceDisplay } from './DocumentReferenceDisplay'
+import { EconomicOperatorShortListDisplay } from './EconomicOperatorShortListDisplay'
+import { FinancialGuaranteeDisplay } from './FinancialGuaranteeDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { LanguageDisplay } from './LanguageDisplay'
+import { LotDistributionDisplay } from './LotDistributionDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { PaymentTermsDisplay } from './PaymentTermsDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { PostAwardProcessDisplay } from './PostAwardProcessDisplay'
+import { PrizeDisplay } from './PrizeDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { SecurityClearanceTermDisplay } from './SecurityClearanceTermDisplay'
+import { SubcontractTermsDisplay } from './SubcontractTermsDisplay'
+import { TendererQualificationRequestDisplay } from './TendererQualificationRequestDisplay'
+import { TenderPreparationDisplay } from './TenderPreparationDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: TenderingTerms | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<TenderingTerms, void>
+  tenderingTerms: TenderingTerms[] | undefined
+  renderContext: RenderContext
 }
 
-export default function TenderingTermsDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const TenderingTermsSubElementsMap: SubElementsTemplatesMap<TenderingTermsField, TenderingTerms, void> = new Map([
+    [
+      TenderingTermsField.UBLExtensions,
+      { meta: TenderingTermsFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={TenderingTermsField.UBLExtensions}
+          meta={TenderingTermsFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-TenderingTerms">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={TenderingTermsFieldMeta.UBLExtensions}
-          />
+    [
+      TenderingTermsField.AwardingMethodTypeCode,
+      { meta: TenderingTermsFieldMeta.AwardingMethodTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TenderingTermsField.AwardingMethodTypeCode}
+          meta={TenderingTermsFieldMeta.AwardingMethodTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.AwardingMethodTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Awarding Method Type Code"
-            value={value.AwardingMethodTypeCode?.[0]}
-            meta={TenderingTermsFieldMeta.AwardingMethodTypeCode}
-          />
+    [
+      TenderingTermsField.PriceEvaluationCode,
+      { meta: TenderingTermsFieldMeta.PriceEvaluationCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TenderingTermsField.PriceEvaluationCode}
+          meta={TenderingTermsFieldMeta.PriceEvaluationCode}
+          fieldConfig={fieldConfig}
+          code={value?.PriceEvaluationCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Price Evaluation Code"
-            value={value.PriceEvaluationCode?.[0]}
-            meta={TenderingTermsFieldMeta.PriceEvaluationCode}
-          />
+    [
+      TenderingTermsField.MaximumVariantQuantity,
+      { meta: TenderingTermsFieldMeta.MaximumVariantQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={TenderingTermsField.MaximumVariantQuantity}
+          meta={TenderingTermsFieldMeta.MaximumVariantQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.MaximumVariantQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Maximum Variant Quantity"
-            value={value.MaximumVariantQuantity?.[0]}
-            meta={TenderingTermsFieldMeta.MaximumVariantQuantity}
-          />
+    [
+      TenderingTermsField.VariantConstraintIndicator,
+      { meta: TenderingTermsFieldMeta.VariantConstraintIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={TenderingTermsField.VariantConstraintIndicator}
+          meta={TenderingTermsFieldMeta.VariantConstraintIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.VariantConstraintIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Variant Constraint"
-            value={value.VariantConstraintIndicator?.[0]}
-            meta={TenderingTermsFieldMeta.VariantConstraintIndicator}
-          />
+    [
+      TenderingTermsField.AcceptedVariantsDescription,
+      { meta: TenderingTermsFieldMeta.AcceptedVariantsDescription,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TenderingTermsField.AcceptedVariantsDescription}
+          meta={TenderingTermsFieldMeta.AcceptedVariantsDescription}
+          fieldConfig={fieldConfig}
+          text={value?.AcceptedVariantsDescription}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-AcceptedVariantsDescription"
-            label="Accepted Variants Description"
-            items={value.AcceptedVariantsDescription}
-            meta={TenderingTermsFieldMeta.AcceptedVariantsDescription} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Accepted Variants Description"
-                value={itemValue}
-                meta={TenderingTermsFieldMeta.AcceptedVariantsDescription}
-              />
-            }
-          />
+    [
+      TenderingTermsField.PriceRevisionFormulaDescription,
+      { meta: TenderingTermsFieldMeta.PriceRevisionFormulaDescription,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TenderingTermsField.PriceRevisionFormulaDescription}
+          meta={TenderingTermsFieldMeta.PriceRevisionFormulaDescription}
+          fieldConfig={fieldConfig}
+          text={value?.PriceRevisionFormulaDescription}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-PriceRevisionFormulaDescription"
-            label="Price Revision Formula Description"
-            items={value.PriceRevisionFormulaDescription}
-            meta={TenderingTermsFieldMeta.PriceRevisionFormulaDescription} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Price Revision Formula Description"
-                value={itemValue}
-                meta={TenderingTermsFieldMeta.PriceRevisionFormulaDescription}
-              />
-            }
-          />
+    [
+      TenderingTermsField.FundingProgramCode,
+      { meta: TenderingTermsFieldMeta.FundingProgramCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TenderingTermsField.FundingProgramCode}
+          meta={TenderingTermsFieldMeta.FundingProgramCode}
+          fieldConfig={fieldConfig}
+          code={value?.FundingProgramCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Funding Program Code"
-            value={value.FundingProgramCode?.[0]}
-            meta={TenderingTermsFieldMeta.FundingProgramCode}
-          />
+    [
+      TenderingTermsField.FundingProgram,
+      { meta: TenderingTermsFieldMeta.FundingProgram,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TenderingTermsField.FundingProgram}
+          meta={TenderingTermsFieldMeta.FundingProgram}
+          fieldConfig={fieldConfig}
+          text={value?.FundingProgram}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-FundingProgram"
-            label="Funding Program"
-            items={value.FundingProgram}
-            meta={TenderingTermsFieldMeta.FundingProgram} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Funding Program"
-                value={itemValue}
-                meta={TenderingTermsFieldMeta.FundingProgram}
-              />
-            }
-          />
+    [
+      TenderingTermsField.MaximumAdvertisementAmount,
+      { meta: TenderingTermsFieldMeta.MaximumAdvertisementAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={TenderingTermsField.MaximumAdvertisementAmount}
+          meta={TenderingTermsFieldMeta.MaximumAdvertisementAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.MaximumAdvertisementAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Maximum Advertisement"
-            value={value.MaximumAdvertisementAmount?.[0]}
-            meta={TenderingTermsFieldMeta.MaximumAdvertisementAmount}
-          />
+    [
+      TenderingTermsField.Note,
+      { meta: TenderingTermsFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TenderingTermsField.Note}
+          meta={TenderingTermsFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={TenderingTermsFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={TenderingTermsFieldMeta.Note}
-              />
-            }
-          />
+    [
+      TenderingTermsField.PaymentFrequencyCode,
+      { meta: TenderingTermsFieldMeta.PaymentFrequencyCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TenderingTermsField.PaymentFrequencyCode}
+          meta={TenderingTermsFieldMeta.PaymentFrequencyCode}
+          fieldConfig={fieldConfig}
+          code={value?.PaymentFrequencyCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Payment Frequency Code"
-            value={value.PaymentFrequencyCode?.[0]}
-            meta={TenderingTermsFieldMeta.PaymentFrequencyCode}
-          />
+    [
+      TenderingTermsField.EconomicOperatorRegistryURI,
+      { meta: TenderingTermsFieldMeta.EconomicOperatorRegistryURI,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TenderingTermsField.EconomicOperatorRegistryURI}
+          meta={TenderingTermsFieldMeta.EconomicOperatorRegistryURI}
+          fieldConfig={fieldConfig}
+          identifier={value?.EconomicOperatorRegistryURI}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Economic Operator Registry URI"
-            value={value.EconomicOperatorRegistryURI?.[0]}
-            meta={TenderingTermsFieldMeta.EconomicOperatorRegistryURI}
-          />
+    [
+      TenderingTermsField.RequiredCurriculaIndicator,
+      { meta: TenderingTermsFieldMeta.RequiredCurriculaIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={TenderingTermsField.RequiredCurriculaIndicator}
+          meta={TenderingTermsFieldMeta.RequiredCurriculaIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.RequiredCurriculaIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Required Curricula"
-            value={value.RequiredCurriculaIndicator?.[0]}
-            meta={TenderingTermsFieldMeta.RequiredCurriculaIndicator}
-          />
+    [
+      TenderingTermsField.RequiredCurriculaCode,
+      { meta: TenderingTermsFieldMeta.RequiredCurriculaCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TenderingTermsField.RequiredCurriculaCode}
+          meta={TenderingTermsFieldMeta.RequiredCurriculaCode}
+          fieldConfig={fieldConfig}
+          code={value?.RequiredCurriculaCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Required Curricula"
-            value={value.RequiredCurriculaCode?.[0]}
-            meta={TenderingTermsFieldMeta.RequiredCurriculaCode}
-          />
+    [
+      TenderingTermsField.OtherConditionsIndicator,
+      { meta: TenderingTermsFieldMeta.OtherConditionsIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={TenderingTermsField.OtherConditionsIndicator}
+          meta={TenderingTermsFieldMeta.OtherConditionsIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.OtherConditionsIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Other Conditions"
-            value={value.OtherConditionsIndicator?.[0]}
-            meta={TenderingTermsFieldMeta.OtherConditionsIndicator}
-          />
+    [
+      TenderingTermsField.RecurringProcurementIndicator,
+      { meta: TenderingTermsFieldMeta.RecurringProcurementIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={TenderingTermsField.RecurringProcurementIndicator}
+          meta={TenderingTermsFieldMeta.RecurringProcurementIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.RecurringProcurementIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Recurring Procurement"
-            value={value.RecurringProcurementIndicator?.[0]}
-            meta={TenderingTermsFieldMeta.RecurringProcurementIndicator}
-          />
+    [
+      TenderingTermsField.RecurringProcurementDescription,
+      { meta: TenderingTermsFieldMeta.RecurringProcurementDescription,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TenderingTermsField.RecurringProcurementDescription}
+          meta={TenderingTermsFieldMeta.RecurringProcurementDescription}
+          fieldConfig={fieldConfig}
+          text={value?.RecurringProcurementDescription}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-RecurringProcurementDescription"
-            label="Recurring Procurement Description"
-            items={value.RecurringProcurementDescription}
-            meta={TenderingTermsFieldMeta.RecurringProcurementDescription} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Recurring Procurement Description"
-                value={itemValue}
-                meta={TenderingTermsFieldMeta.RecurringProcurementDescription}
-              />
-            }
-          />
+    [
+      TenderingTermsField.EstimatedTimingFurtherPublication,
+      { meta: TenderingTermsFieldMeta.EstimatedTimingFurtherPublication,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TenderingTermsField.EstimatedTimingFurtherPublication}
+          meta={TenderingTermsFieldMeta.EstimatedTimingFurtherPublication}
+          fieldConfig={fieldConfig}
+          text={value?.EstimatedTimingFurtherPublication}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-EstimatedTimingFurtherPublication"
-            label="Estimated Timing Further Publication"
-            items={value.EstimatedTimingFurtherPublication}
-            meta={TenderingTermsFieldMeta.EstimatedTimingFurtherPublication} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Estimated Timing Further Publication"
-                value={itemValue}
-                meta={TenderingTermsFieldMeta.EstimatedTimingFurtherPublication}
-              />
-            }
-          />
+    [
+      TenderingTermsField.AdditionalConditions,
+      { meta: TenderingTermsFieldMeta.AdditionalConditions,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TenderingTermsField.AdditionalConditions}
+          meta={TenderingTermsFieldMeta.AdditionalConditions}
+          fieldConfig={fieldConfig}
+          text={value?.AdditionalConditions}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-AdditionalConditions"
-            label="Additional Conditions"
-            items={value.AdditionalConditions}
-            meta={TenderingTermsFieldMeta.AdditionalConditions} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Additional Conditions"
-                value={itemValue}
-                meta={TenderingTermsFieldMeta.AdditionalConditions}
-              />
-            }
-          />
+    [
+      TenderingTermsField.LatestSecurityClearanceDate,
+      { meta: TenderingTermsFieldMeta.LatestSecurityClearanceDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={TenderingTermsField.LatestSecurityClearanceDate}
+          meta={TenderingTermsFieldMeta.LatestSecurityClearanceDate}
+          fieldConfig={fieldConfig}
+          date={value?.LatestSecurityClearanceDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Latest Security Clearance Date"
-            value={value.LatestSecurityClearanceDate?.[0]}
-            meta={TenderingTermsFieldMeta.LatestSecurityClearanceDate}
-          />
+    [
+      TenderingTermsField.DocumentationFeeAmount,
+      { meta: TenderingTermsFieldMeta.DocumentationFeeAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={TenderingTermsField.DocumentationFeeAmount}
+          meta={TenderingTermsFieldMeta.DocumentationFeeAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.DocumentationFeeAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Documentation Fee Amount"
-            value={value.DocumentationFeeAmount?.[0]}
-            meta={TenderingTermsFieldMeta.DocumentationFeeAmount}
-          />
+    [
+      TenderingTermsField.MultipleTendersCode,
+      { meta: TenderingTermsFieldMeta.MultipleTendersCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TenderingTermsField.MultipleTendersCode}
+          meta={TenderingTermsFieldMeta.MultipleTendersCode}
+          fieldConfig={fieldConfig}
+          code={value?.MultipleTendersCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Multiple Tenders"
-            value={value.MultipleTendersCode?.[0]}
-            meta={TenderingTermsFieldMeta.MultipleTendersCode}
-          />
+    [
+      TenderingTermsField.VariantConstraintCode,
+      { meta: TenderingTermsFieldMeta.VariantConstraintCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TenderingTermsField.VariantConstraintCode}
+          meta={TenderingTermsFieldMeta.VariantConstraintCode}
+          fieldConfig={fieldConfig}
+          code={value?.VariantConstraintCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Variant Constraint"
-            value={value.VariantConstraintCode?.[0]}
-            meta={TenderingTermsFieldMeta.VariantConstraintCode}
-          />
+    [
+      TenderingTermsField.PenaltyClause,
+      { meta: TenderingTermsFieldMeta.PenaltyClause,
+        template: ({value, renderContext, fieldConfig}) => <ClauseDisplay
+          key={TenderingTermsField.PenaltyClause}
+          meta={TenderingTermsFieldMeta.PenaltyClause}
+          fieldConfig={fieldConfig}
+          clause={value?.PenaltyClause}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Clause ubl-PenaltyClause"
-            label="Penalty Clause"
-            items={value.PenaltyClause}
-            meta={TenderingTermsFieldMeta.PenaltyClause} 
-            itemDisplay={ (itemValue: Clause, key: string | number) =>
-              <ClauseDisplay
-                key={key}
-                label="Penalty Clause"
-                value={itemValue}
-                meta={TenderingTermsFieldMeta.PenaltyClause}
-              />
-            }
-          />
+    [
+      TenderingTermsField.RequiredFinancialGuarantee,
+      { meta: TenderingTermsFieldMeta.RequiredFinancialGuarantee,
+        template: ({value, renderContext, fieldConfig}) => <FinancialGuaranteeDisplay
+          key={TenderingTermsField.RequiredFinancialGuarantee}
+          meta={TenderingTermsFieldMeta.RequiredFinancialGuarantee}
+          fieldConfig={fieldConfig}
+          financialGuarantee={value?.RequiredFinancialGuarantee}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-FinancialGuarantee ubl-RequiredFinancialGuarantee"
-            label="Required Financial Guarantee"
-            items={value.RequiredFinancialGuarantee}
-            meta={TenderingTermsFieldMeta.RequiredFinancialGuarantee} 
-            itemDisplay={ (itemValue: FinancialGuarantee, key: string | number) =>
-              <FinancialGuaranteeDisplay
-                key={key}
-                label="Required Financial Guarantee"
-                value={itemValue}
-                meta={TenderingTermsFieldMeta.RequiredFinancialGuarantee}
-              />
-            }
-          />
+    [
+      TenderingTermsField.ProcurementLegislationDocumentReference,
+      { meta: TenderingTermsFieldMeta.ProcurementLegislationDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={TenderingTermsField.ProcurementLegislationDocumentReference}
+          meta={TenderingTermsFieldMeta.ProcurementLegislationDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.ProcurementLegislationDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DocumentReferenceDisplay
-            label="Procurement Legislation Document Reference"
-            value={value.ProcurementLegislationDocumentReference?.[0]}
-            meta={TenderingTermsFieldMeta.ProcurementLegislationDocumentReference}
-          />
+    [
+      TenderingTermsField.FiscalLegislationDocumentReference,
+      { meta: TenderingTermsFieldMeta.FiscalLegislationDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={TenderingTermsField.FiscalLegislationDocumentReference}
+          meta={TenderingTermsFieldMeta.FiscalLegislationDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.FiscalLegislationDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DocumentReferenceDisplay
-            label="Fiscal Legislation Document Reference"
-            value={value.FiscalLegislationDocumentReference?.[0]}
-            meta={TenderingTermsFieldMeta.FiscalLegislationDocumentReference}
-          />
+    [
+      TenderingTermsField.EnvironmentalLegislationDocumentReference,
+      { meta: TenderingTermsFieldMeta.EnvironmentalLegislationDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={TenderingTermsField.EnvironmentalLegislationDocumentReference}
+          meta={TenderingTermsFieldMeta.EnvironmentalLegislationDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.EnvironmentalLegislationDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DocumentReferenceDisplay
-            label="Environmental Legislation Document Reference"
-            value={value.EnvironmentalLegislationDocumentReference?.[0]}
-            meta={TenderingTermsFieldMeta.EnvironmentalLegislationDocumentReference}
-          />
+    [
+      TenderingTermsField.EmploymentLegislationDocumentReference,
+      { meta: TenderingTermsFieldMeta.EmploymentLegislationDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={TenderingTermsField.EmploymentLegislationDocumentReference}
+          meta={TenderingTermsFieldMeta.EmploymentLegislationDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.EmploymentLegislationDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DocumentReferenceDisplay
-            label="Employment Legislation Document Reference"
-            value={value.EmploymentLegislationDocumentReference?.[0]}
-            meta={TenderingTermsFieldMeta.EmploymentLegislationDocumentReference}
-          />
+    [
+      TenderingTermsField.ContractualDocumentReference,
+      { meta: TenderingTermsFieldMeta.ContractualDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={TenderingTermsField.ContractualDocumentReference}
+          meta={TenderingTermsFieldMeta.ContractualDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.ContractualDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentReference ubl-ContractualDocumentReference"
-            label="Contractual Document Reference"
-            items={value.ContractualDocumentReference}
-            meta={TenderingTermsFieldMeta.ContractualDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Contractual Document Reference"
-                value={itemValue}
-                meta={TenderingTermsFieldMeta.ContractualDocumentReference}
-              />
-            }
-          />
+    [
+      TenderingTermsField.CallForTendersDocumentReference,
+      { meta: TenderingTermsFieldMeta.CallForTendersDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={TenderingTermsField.CallForTendersDocumentReference}
+          meta={TenderingTermsFieldMeta.CallForTendersDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.CallForTendersDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DocumentReferenceDisplay
-            label="Call For Tenders Document Reference"
-            value={value.CallForTendersDocumentReference?.[0]}
-            meta={TenderingTermsFieldMeta.CallForTendersDocumentReference}
-          />
+    [
+      TenderingTermsField.WarrantyValidityPeriod,
+      { meta: TenderingTermsFieldMeta.WarrantyValidityPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={TenderingTermsField.WarrantyValidityPeriod}
+          meta={TenderingTermsFieldMeta.WarrantyValidityPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.WarrantyValidityPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Warranty Validity Period"
-            value={value.WarrantyValidityPeriod?.[0]}
-            meta={TenderingTermsFieldMeta.WarrantyValidityPeriod}
-          />
+    [
+      TenderingTermsField.PaymentTerms,
+      { meta: TenderingTermsFieldMeta.PaymentTerms,
+        template: ({value, renderContext, fieldConfig}) => <PaymentTermsDisplay
+          key={TenderingTermsField.PaymentTerms}
+          meta={TenderingTermsFieldMeta.PaymentTerms}
+          fieldConfig={fieldConfig}
+          paymentTerms={value?.PaymentTerms}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-PaymentTerms"
-            label="Payment Terms"
-            items={value.PaymentTerms}
-            meta={TenderingTermsFieldMeta.PaymentTerms} 
-            itemDisplay={ (itemValue: PaymentTerms, key: string | number) =>
-              <PaymentTermsDisplay
-                key={key}
-                label="Payment Terms"
-                value={itemValue}
-                meta={TenderingTermsFieldMeta.PaymentTerms}
-              />
-            }
-          />
+    [
+      TenderingTermsField.TendererQualificationRequest,
+      { meta: TenderingTermsFieldMeta.TendererQualificationRequest,
+        template: ({value, renderContext, fieldConfig}) => <TendererQualificationRequestDisplay
+          key={TenderingTermsField.TendererQualificationRequest}
+          meta={TenderingTermsFieldMeta.TendererQualificationRequest}
+          fieldConfig={fieldConfig}
+          tendererQualificationRequest={value?.TendererQualificationRequest}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TendererQualificationRequest"
-            label="Tenderer Qualification Request"
-            items={value.TendererQualificationRequest}
-            meta={TenderingTermsFieldMeta.TendererQualificationRequest} 
-            itemDisplay={ (itemValue: TendererQualificationRequest, key: string | number) =>
-              <TendererQualificationRequestDisplay
-                key={key}
-                label="Tenderer Qualification Request"
-                value={itemValue}
-                meta={TenderingTermsFieldMeta.TendererQualificationRequest}
-              />
-            }
-          />
+    [
+      TenderingTermsField.AllowedSubcontractTerms,
+      { meta: TenderingTermsFieldMeta.AllowedSubcontractTerms,
+        template: ({value, renderContext, fieldConfig}) => <SubcontractTermsDisplay
+          key={TenderingTermsField.AllowedSubcontractTerms}
+          meta={TenderingTermsFieldMeta.AllowedSubcontractTerms}
+          fieldConfig={fieldConfig}
+          subcontractTerms={value?.AllowedSubcontractTerms}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-SubcontractTerms ubl-AllowedSubcontractTerms"
-            label="Allowed Subcontract Terms"
-            items={value.AllowedSubcontractTerms}
-            meta={TenderingTermsFieldMeta.AllowedSubcontractTerms} 
-            itemDisplay={ (itemValue: SubcontractTerms, key: string | number) =>
-              <SubcontractTermsDisplay
-                key={key}
-                label="Allowed Subcontract Terms"
-                value={itemValue}
-                meta={TenderingTermsFieldMeta.AllowedSubcontractTerms}
-              />
-            }
-          />
+    [
+      TenderingTermsField.TenderPreparation,
+      { meta: TenderingTermsFieldMeta.TenderPreparation,
+        template: ({value, renderContext, fieldConfig}) => <TenderPreparationDisplay
+          key={TenderingTermsField.TenderPreparation}
+          meta={TenderingTermsFieldMeta.TenderPreparation}
+          fieldConfig={fieldConfig}
+          tenderPreparation={value?.TenderPreparation}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TenderPreparation"
-            label="Tender Preparation"
-            items={value.TenderPreparation}
-            meta={TenderingTermsFieldMeta.TenderPreparation} 
-            itemDisplay={ (itemValue: TenderPreparation, key: string | number) =>
-              <TenderPreparationDisplay
-                key={key}
-                label="Tender Preparation"
-                value={itemValue}
-                meta={TenderingTermsFieldMeta.TenderPreparation}
-              />
-            }
-          />
+    [
+      TenderingTermsField.ContractExecutionRequirement,
+      { meta: TenderingTermsFieldMeta.ContractExecutionRequirement,
+        template: ({value, renderContext, fieldConfig}) => <ContractExecutionRequirementDisplay
+          key={TenderingTermsField.ContractExecutionRequirement}
+          meta={TenderingTermsFieldMeta.ContractExecutionRequirement}
+          fieldConfig={fieldConfig}
+          contractExecutionRequirement={value?.ContractExecutionRequirement}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-ContractExecutionRequirement"
-            label="Contract Execution Requirement"
-            items={value.ContractExecutionRequirement}
-            meta={TenderingTermsFieldMeta.ContractExecutionRequirement} 
-            itemDisplay={ (itemValue: ContractExecutionRequirement, key: string | number) =>
-              <ContractExecutionRequirementDisplay
-                key={key}
-                label="Contract Execution Requirement"
-                value={itemValue}
-                meta={TenderingTermsFieldMeta.ContractExecutionRequirement}
-              />
-            }
-          />
+    [
+      TenderingTermsField.AwardingTerms,
+      { meta: TenderingTermsFieldMeta.AwardingTerms,
+        template: ({value, renderContext, fieldConfig}) => <AwardingTermsDisplay
+          key={TenderingTermsField.AwardingTerms}
+          meta={TenderingTermsFieldMeta.AwardingTerms}
+          fieldConfig={fieldConfig}
+          awardingTerms={value?.AwardingTerms}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AwardingTermsDisplay
-            label="Awarding Terms"
-            value={value.AwardingTerms?.[0]}
-            meta={TenderingTermsFieldMeta.AwardingTerms}
-          />
+    [
+      TenderingTermsField.AdditionalInformationParty,
+      { meta: TenderingTermsFieldMeta.AdditionalInformationParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={TenderingTermsField.AdditionalInformationParty}
+          meta={TenderingTermsFieldMeta.AdditionalInformationParty}
+          fieldConfig={fieldConfig}
+          party={value?.AdditionalInformationParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Additional Information Party"
-            value={value.AdditionalInformationParty?.[0]}
-            meta={TenderingTermsFieldMeta.AdditionalInformationParty}
-          />
+    [
+      TenderingTermsField.DocumentProviderParty,
+      { meta: TenderingTermsFieldMeta.DocumentProviderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={TenderingTermsField.DocumentProviderParty}
+          meta={TenderingTermsFieldMeta.DocumentProviderParty}
+          fieldConfig={fieldConfig}
+          party={value?.DocumentProviderParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Document Provider Party"
-            value={value.DocumentProviderParty?.[0]}
-            meta={TenderingTermsFieldMeta.DocumentProviderParty}
-          />
+    [
+      TenderingTermsField.TenderRecipientParty,
+      { meta: TenderingTermsFieldMeta.TenderRecipientParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={TenderingTermsField.TenderRecipientParty}
+          meta={TenderingTermsFieldMeta.TenderRecipientParty}
+          fieldConfig={fieldConfig}
+          party={value?.TenderRecipientParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Tender Recipient Party"
-            value={value.TenderRecipientParty?.[0]}
-            meta={TenderingTermsFieldMeta.TenderRecipientParty}
-          />
+    [
+      TenderingTermsField.ContractResponsibleParty,
+      { meta: TenderingTermsFieldMeta.ContractResponsibleParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={TenderingTermsField.ContractResponsibleParty}
+          meta={TenderingTermsFieldMeta.ContractResponsibleParty}
+          fieldConfig={fieldConfig}
+          party={value?.ContractResponsibleParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Contract Responsible Party"
-            value={value.ContractResponsibleParty?.[0]}
-            meta={TenderingTermsFieldMeta.ContractResponsibleParty}
-          />
+    [
+      TenderingTermsField.TenderEvaluationParty,
+      { meta: TenderingTermsFieldMeta.TenderEvaluationParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={TenderingTermsField.TenderEvaluationParty}
+          meta={TenderingTermsFieldMeta.TenderEvaluationParty}
+          fieldConfig={fieldConfig}
+          party={value?.TenderEvaluationParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Party ubl-TenderEvaluationParty"
-            label="Tender Evaluation Party"
-            items={value.TenderEvaluationParty}
-            meta={TenderingTermsFieldMeta.TenderEvaluationParty} 
-            itemDisplay={ (itemValue: Party, key: string | number) =>
-              <PartyDisplay
-                key={key}
-                label="Tender Evaluation Party"
-                value={itemValue}
-                meta={TenderingTermsFieldMeta.TenderEvaluationParty}
-              />
-            }
-          />
+    [
+      TenderingTermsField.QualificationRequestRecipientParty,
+      { meta: TenderingTermsFieldMeta.QualificationRequestRecipientParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={TenderingTermsField.QualificationRequestRecipientParty}
+          meta={TenderingTermsFieldMeta.QualificationRequestRecipientParty}
+          fieldConfig={fieldConfig}
+          party={value?.QualificationRequestRecipientParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Qualification Request Recipient Party"
-            value={value.QualificationRequestRecipientParty?.[0]}
-            meta={TenderingTermsFieldMeta.QualificationRequestRecipientParty}
-          />
+    [
+      TenderingTermsField.TenderValidityPeriod,
+      { meta: TenderingTermsFieldMeta.TenderValidityPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={TenderingTermsField.TenderValidityPeriod}
+          meta={TenderingTermsFieldMeta.TenderValidityPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.TenderValidityPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Tender Validity Period"
-            value={value.TenderValidityPeriod?.[0]}
-            meta={TenderingTermsFieldMeta.TenderValidityPeriod}
-          />
+    [
+      TenderingTermsField.ContractAcceptancePeriod,
+      { meta: TenderingTermsFieldMeta.ContractAcceptancePeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={TenderingTermsField.ContractAcceptancePeriod}
+          meta={TenderingTermsFieldMeta.ContractAcceptancePeriod}
+          fieldConfig={fieldConfig}
+          period={value?.ContractAcceptancePeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Contract Acceptance Period"
-            value={value.ContractAcceptancePeriod?.[0]}
-            meta={TenderingTermsFieldMeta.ContractAcceptancePeriod}
-          />
+    [
+      TenderingTermsField.AppealTerms,
+      { meta: TenderingTermsFieldMeta.AppealTerms,
+        template: ({value, renderContext, fieldConfig}) => <AppealTermsDisplay
+          key={TenderingTermsField.AppealTerms}
+          meta={TenderingTermsFieldMeta.AppealTerms}
+          fieldConfig={fieldConfig}
+          appealTerms={value?.AppealTerms}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AppealTermsDisplay
-            label="Appeal Terms"
-            value={value.AppealTerms?.[0]}
-            meta={TenderingTermsFieldMeta.AppealTerms}
-          />
+    [
+      TenderingTermsField.Language,
+      { meta: TenderingTermsFieldMeta.Language,
+        template: ({value, renderContext, fieldConfig}) => <LanguageDisplay
+          key={TenderingTermsField.Language}
+          meta={TenderingTermsFieldMeta.Language}
+          fieldConfig={fieldConfig}
+          language={value?.Language}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Language"
-            label="Language"
-            items={value.Language}
-            meta={TenderingTermsFieldMeta.Language} 
-            itemDisplay={ (itemValue: Language, key: string | number) =>
-              <LanguageDisplay
-                key={key}
-                label="Language"
-                value={itemValue}
-                meta={TenderingTermsFieldMeta.Language}
-              />
-            }
-          />
+    [
+      TenderingTermsField.BudgetAccountLine,
+      { meta: TenderingTermsFieldMeta.BudgetAccountLine,
+        template: ({value, renderContext, fieldConfig}) => <BudgetAccountLineDisplay
+          key={TenderingTermsField.BudgetAccountLine}
+          meta={TenderingTermsFieldMeta.BudgetAccountLine}
+          fieldConfig={fieldConfig}
+          budgetAccountLine={value?.BudgetAccountLine}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-BudgetAccountLine"
-            label="Budget Account Line"
-            items={value.BudgetAccountLine}
-            meta={TenderingTermsFieldMeta.BudgetAccountLine} 
-            itemDisplay={ (itemValue: BudgetAccountLine, key: string | number) =>
-              <BudgetAccountLineDisplay
-                key={key}
-                label="Budget Account Line"
-                value={itemValue}
-                meta={TenderingTermsFieldMeta.BudgetAccountLine}
-              />
-            }
-          />
+    [
+      TenderingTermsField.ReplacedNoticeDocumentReference,
+      { meta: TenderingTermsFieldMeta.ReplacedNoticeDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={TenderingTermsField.ReplacedNoticeDocumentReference}
+          meta={TenderingTermsFieldMeta.ReplacedNoticeDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.ReplacedNoticeDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DocumentReferenceDisplay
-            label="Replaced Notice Document Reference"
-            value={value.ReplacedNoticeDocumentReference?.[0]}
-            meta={TenderingTermsFieldMeta.ReplacedNoticeDocumentReference}
-          />
+    [
+      TenderingTermsField.LotDistribution,
+      { meta: TenderingTermsFieldMeta.LotDistribution,
+        template: ({value, renderContext, fieldConfig}) => <LotDistributionDisplay
+          key={TenderingTermsField.LotDistribution}
+          meta={TenderingTermsFieldMeta.LotDistribution}
+          fieldConfig={fieldConfig}
+          lotDistribution={value?.LotDistribution}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <LotDistributionDisplay
-            label="Lot Distribution"
-            value={value.LotDistribution?.[0]}
-            meta={TenderingTermsFieldMeta.LotDistribution}
-          />
+    [
+      TenderingTermsField.PostAwardProcess,
+      { meta: TenderingTermsFieldMeta.PostAwardProcess,
+        template: ({value, renderContext, fieldConfig}) => <PostAwardProcessDisplay
+          key={TenderingTermsField.PostAwardProcess}
+          meta={TenderingTermsFieldMeta.PostAwardProcess}
+          fieldConfig={fieldConfig}
+          postAwardProcess={value?.PostAwardProcess}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PostAwardProcessDisplay
-            label="Post Award Process"
-            value={value.PostAwardProcess?.[0]}
-            meta={TenderingTermsFieldMeta.PostAwardProcess}
-          />
+    [
+      TenderingTermsField.EconomicOperatorShortList,
+      { meta: TenderingTermsFieldMeta.EconomicOperatorShortList,
+        template: ({value, renderContext, fieldConfig}) => <EconomicOperatorShortListDisplay
+          key={TenderingTermsField.EconomicOperatorShortList}
+          meta={TenderingTermsFieldMeta.EconomicOperatorShortList}
+          fieldConfig={fieldConfig}
+          economicOperatorShortList={value?.EconomicOperatorShortList}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <EconomicOperatorShortListDisplay
-            label="Economic Operator Short List"
-            value={value.EconomicOperatorShortList?.[0]}
-            meta={TenderingTermsFieldMeta.EconomicOperatorShortList}
-          />
+    [
+      TenderingTermsField.Prize,
+      { meta: TenderingTermsFieldMeta.Prize,
+        template: ({value, renderContext, fieldConfig}) => <PrizeDisplay
+          key={TenderingTermsField.Prize}
+          meta={TenderingTermsFieldMeta.Prize}
+          fieldConfig={fieldConfig}
+          prize={value?.Prize}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Prize"
-            label="Prize"
-            items={value.Prize}
-            meta={TenderingTermsFieldMeta.Prize} 
-            itemDisplay={ (itemValue: Prize, key: string | number) =>
-              <PrizeDisplay
-                key={key}
-                label="Prize"
-                value={itemValue}
-                meta={TenderingTermsFieldMeta.Prize}
-              />
-            }
-          />
+    [
+      TenderingTermsField.SecurityClearanceTerm,
+      { meta: TenderingTermsFieldMeta.SecurityClearanceTerm,
+        template: ({value, renderContext, fieldConfig}) => <SecurityClearanceTermDisplay
+          key={TenderingTermsField.SecurityClearanceTerm}
+          meta={TenderingTermsFieldMeta.SecurityClearanceTerm}
+          fieldConfig={fieldConfig}
+          securityClearanceTerm={value?.SecurityClearanceTerm}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-SecurityClearanceTerm"
-            label="Security Clearance Term"
-            items={value.SecurityClearanceTerm}
-            meta={TenderingTermsFieldMeta.SecurityClearanceTerm} 
-            itemDisplay={ (itemValue: SecurityClearanceTerm, key: string | number) =>
-              <SecurityClearanceTermDisplay
-                key={key}
-                label="Security Clearance Term"
-                value={itemValue}
-                meta={TenderingTermsFieldMeta.SecurityClearanceTerm}
-              />
-            }
-          />
-        </div>
-    </div>
+export function TenderingTermsDisplay<TFieldMeta>({ meta, fieldConfig, tenderingTerms, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    TenderingTermsTypeName,
+    meta,
+    fieldConfig,
+    tenderingTerms,
+    renderContext,
+    TenderingTermsSubElementsMap,
   )
 }

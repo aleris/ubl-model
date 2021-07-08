@@ -16,7 +16,6 @@ import { RelatedItem } from './RelatedItem'
 import { SupplierParty } from './SupplierParty'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to define a line in a Catalogue describing a purchasable item.
  */

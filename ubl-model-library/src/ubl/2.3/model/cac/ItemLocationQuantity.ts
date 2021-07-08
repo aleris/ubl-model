@@ -10,7 +10,6 @@ import { Quantity } from '../cbc/Quantity'
 import { TaxCategory } from './TaxCategory'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class for information about pricing structure, lead time, and location associated with an item.
  */

@@ -1,4 +1,9 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { ExtensionContentType } from './ExtensionContentMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { TextType } from '../cbc/TextMeta'
 
 export enum UBLExtensionField {
   ID = 'ID',
@@ -16,11 +21,11 @@ export enum UBLExtensionField {
 export const UBLExtensionFieldMetaID = new FieldMeta<UBLExtensionField>(
   UBLExtensionField.ID,
   'ID',
-  'undefined',
-  'Identifier',
+  'ID',
+  IdentifierType.name,
   'An identifier for the Extension assigned by the creator of the extension.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -28,11 +33,11 @@ export const UBLExtensionFieldMetaID = new FieldMeta<UBLExtensionField>(
 export const UBLExtensionFieldMetaName = new FieldMeta<UBLExtensionField>(
   UBLExtensionField.Name,
   'Name',
-  'undefined',
-  'Text',
+  'Name',
+  TextType.name,
   'A name for the Extension assigned by the creator of the extension.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -40,11 +45,11 @@ export const UBLExtensionFieldMetaName = new FieldMeta<UBLExtensionField>(
 export const UBLExtensionFieldMetaExtensionAgencyID = new FieldMeta<UBLExtensionField>(
   UBLExtensionField.ExtensionAgencyID,
   'ExtensionAgencyID',
-  'undefined',
-  'Identifier',
+  'ExtensionAgencyID',
+  IdentifierType.name,
   'An agency that maintains one or more Extensions.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -52,11 +57,11 @@ export const UBLExtensionFieldMetaExtensionAgencyID = new FieldMeta<UBLExtension
 export const UBLExtensionFieldMetaExtensionAgencyName = new FieldMeta<UBLExtensionField>(
   UBLExtensionField.ExtensionAgencyName,
   'ExtensionAgencyName',
-  'undefined',
-  'Text',
+  'ExtensionAgencyName',
+  TextType.name,
   'The name of the agency that maintains the Extension.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -64,11 +69,11 @@ export const UBLExtensionFieldMetaExtensionAgencyName = new FieldMeta<UBLExtensi
 export const UBLExtensionFieldMetaExtensionVersionID = new FieldMeta<UBLExtensionField>(
   UBLExtensionField.ExtensionVersionID,
   'ExtensionVersionID',
-  'undefined',
-  'Identifier',
+  'ExtensionVersionID',
+  IdentifierType.name,
   'The version of the Extension.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -76,11 +81,11 @@ export const UBLExtensionFieldMetaExtensionVersionID = new FieldMeta<UBLExtensio
 export const UBLExtensionFieldMetaExtensionAgencyURI = new FieldMeta<UBLExtensionField>(
   UBLExtensionField.ExtensionAgencyURI,
   'ExtensionAgencyURI',
-  'undefined',
-  'Identifier',
+  'ExtensionAgencyURI',
+  IdentifierType.name,
   'A URI for the Agency that maintains the Extension.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -88,11 +93,11 @@ export const UBLExtensionFieldMetaExtensionAgencyURI = new FieldMeta<UBLExtensio
 export const UBLExtensionFieldMetaExtensionURI = new FieldMeta<UBLExtensionField>(
   UBLExtensionField.ExtensionURI,
   'ExtensionURI',
-  'undefined',
-  'Identifier',
+  'ExtensionURI',
+  IdentifierType.name,
   'A URI for the Extension.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -100,11 +105,11 @@ export const UBLExtensionFieldMetaExtensionURI = new FieldMeta<UBLExtensionField
 export const UBLExtensionFieldMetaExtensionReasonCode = new FieldMeta<UBLExtensionField>(
   UBLExtensionField.ExtensionReasonCode,
   'ExtensionReasonCode',
-  'undefined',
-  'Code',
+  'ExtensionReasonCode',
+  CodeType.name,
   'A code for reason the Extension is being included.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -112,11 +117,11 @@ export const UBLExtensionFieldMetaExtensionReasonCode = new FieldMeta<UBLExtensi
 export const UBLExtensionFieldMetaExtensionReason = new FieldMeta<UBLExtensionField>(
   UBLExtensionField.ExtensionReason,
   'ExtensionReason',
-  'undefined',
-  'Text',
+  'ExtensionReason',
+  TextType.name,
   'A description of the reason for the Extension.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -124,11 +129,11 @@ export const UBLExtensionFieldMetaExtensionReason = new FieldMeta<UBLExtensionFi
 export const UBLExtensionFieldMetaExtensionContent = new FieldMeta<UBLExtensionField>(
   UBLExtensionField.ExtensionContent,
   'ExtensionContent',
-  'undefined',
   'ExtensionContent',
+  ExtensionContentType.name,
   'The definition of the extension content.',
-  '1..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -158,3 +163,11 @@ export const UBLExtensionFieldMap = new Map([
   [UBLExtensionField.ExtensionReason, UBLExtensionFieldMetaExtensionReason],
   [UBLExtensionField.ExtensionContent, UBLExtensionFieldMetaExtensionContent]
 ])
+
+export const UBLExtensionType: Type<UBLExtensionField> = {
+  name: 'UBLExtension',
+  label: 'undefined',
+  module: TypeModule.ext,
+  definition: 'A single extension for private use.',
+  fields: UBLExtensionFieldMap,
+}

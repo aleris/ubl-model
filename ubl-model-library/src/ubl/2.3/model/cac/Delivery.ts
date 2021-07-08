@@ -11,7 +11,6 @@ import { Quantity } from '../cbc/Quantity'
 import { Shipment } from './Shipment'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a delivery.
  */

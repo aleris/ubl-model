@@ -1,148 +1,206 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TransportMeans } from  '../../model/cac/TransportMeans'
-import { TransportMeansFieldMeta } from  '../../meta/cac/TransportMeansMeta'
-import AirTransportDisplay from './AirTransportDisplay'
-import { AirTransport } from '../../model/cac/AirTransport'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DimensionDisplay from './DimensionDisplay'
-import { Dimension } from '../../model/cac/Dimension'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import MaritimeTransportDisplay from './MaritimeTransportDisplay'
-import { MaritimeTransport } from '../../model/cac/MaritimeTransport'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import RailTransportDisplay from './RailTransportDisplay'
-import { RailTransport } from '../../model/cac/RailTransport'
-import RoadTransportDisplay from './RoadTransportDisplay'
-import { RoadTransport } from '../../model/cac/RoadTransport'
-import StowageDisplay from './StowageDisplay'
-import { Stowage } from '../../model/cac/Stowage'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { TransportMeansField, TransportMeansFieldMeta, TransportMeansTypeName } from  '../../meta/cac/TransportMeansMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AirTransportDisplay } from './AirTransportDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DimensionDisplay } from './DimensionDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { MaritimeTransportDisplay } from './MaritimeTransportDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { RailTransportDisplay } from './RailTransportDisplay'
+import { RoadTransportDisplay } from './RoadTransportDisplay'
+import { StowageDisplay } from './StowageDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: TransportMeans | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<TransportMeans, void>
+  transportMeans: TransportMeans[] | undefined
+  renderContext: RenderContext
 }
 
-export default function TransportMeansDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const TransportMeansSubElementsMap: SubElementsTemplatesMap<TransportMeansField, TransportMeans, void> = new Map([
+    [
+      TransportMeansField.UBLExtensions,
+      { meta: TransportMeansFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={TransportMeansField.UBLExtensions}
+          meta={TransportMeansFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-TransportMeans">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={TransportMeansFieldMeta.UBLExtensions}
-          />
+    [
+      TransportMeansField.JourneyID,
+      { meta: TransportMeansFieldMeta.JourneyID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TransportMeansField.JourneyID}
+          meta={TransportMeansFieldMeta.JourneyID}
+          fieldConfig={fieldConfig}
+          identifier={value?.JourneyID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Journey Identifier"
-            value={value.JourneyID?.[0]}
-            meta={TransportMeansFieldMeta.JourneyID}
-          />
+    [
+      TransportMeansField.RegistrationNationalityID,
+      { meta: TransportMeansFieldMeta.RegistrationNationalityID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TransportMeansField.RegistrationNationalityID}
+          meta={TransportMeansFieldMeta.RegistrationNationalityID}
+          fieldConfig={fieldConfig}
+          identifier={value?.RegistrationNationalityID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Registration Nationality Identifier"
-            value={value.RegistrationNationalityID?.[0]}
-            meta={TransportMeansFieldMeta.RegistrationNationalityID}
-          />
+    [
+      TransportMeansField.RegistrationNationality,
+      { meta: TransportMeansFieldMeta.RegistrationNationality,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TransportMeansField.RegistrationNationality}
+          meta={TransportMeansFieldMeta.RegistrationNationality}
+          fieldConfig={fieldConfig}
+          text={value?.RegistrationNationality}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-RegistrationNationality"
-            label="Registration Nationality"
-            items={value.RegistrationNationality}
-            meta={TransportMeansFieldMeta.RegistrationNationality} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Registration Nationality"
-                value={itemValue}
-                meta={TransportMeansFieldMeta.RegistrationNationality}
-              />
-            }
-          />
+    [
+      TransportMeansField.DirectionCode,
+      { meta: TransportMeansFieldMeta.DirectionCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TransportMeansField.DirectionCode}
+          meta={TransportMeansFieldMeta.DirectionCode}
+          fieldConfig={fieldConfig}
+          code={value?.DirectionCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Direction Code"
-            value={value.DirectionCode?.[0]}
-            meta={TransportMeansFieldMeta.DirectionCode}
-          />
+    [
+      TransportMeansField.TransportMeansTypeCode,
+      { meta: TransportMeansFieldMeta.TransportMeansTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TransportMeansField.TransportMeansTypeCode}
+          meta={TransportMeansFieldMeta.TransportMeansTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.TransportMeansTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Transport Means Type Code"
-            value={value.TransportMeansTypeCode?.[0]}
-            meta={TransportMeansFieldMeta.TransportMeansTypeCode}
-          />
+    [
+      TransportMeansField.TradeServiceCode,
+      { meta: TransportMeansFieldMeta.TradeServiceCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TransportMeansField.TradeServiceCode}
+          meta={TransportMeansFieldMeta.TradeServiceCode}
+          fieldConfig={fieldConfig}
+          code={value?.TradeServiceCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Trade Service Code"
-            value={value.TradeServiceCode?.[0]}
-            meta={TransportMeansFieldMeta.TradeServiceCode}
-          />
+    [
+      TransportMeansField.Stowage,
+      { meta: TransportMeansFieldMeta.Stowage,
+        template: ({value, renderContext, fieldConfig}) => <StowageDisplay
+          key={TransportMeansField.Stowage}
+          meta={TransportMeansFieldMeta.Stowage}
+          fieldConfig={fieldConfig}
+          stowage={value?.Stowage}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <StowageDisplay
-            label="Stowage"
-            value={value.Stowage?.[0]}
-            meta={TransportMeansFieldMeta.Stowage}
-          />
+    [
+      TransportMeansField.AirTransport,
+      { meta: TransportMeansFieldMeta.AirTransport,
+        template: ({value, renderContext, fieldConfig}) => <AirTransportDisplay
+          key={TransportMeansField.AirTransport}
+          meta={TransportMeansFieldMeta.AirTransport}
+          fieldConfig={fieldConfig}
+          airTransport={value?.AirTransport}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AirTransportDisplay
-            label="Air Transport"
-            value={value.AirTransport?.[0]}
-            meta={TransportMeansFieldMeta.AirTransport}
-          />
+    [
+      TransportMeansField.RoadTransport,
+      { meta: TransportMeansFieldMeta.RoadTransport,
+        template: ({value, renderContext, fieldConfig}) => <RoadTransportDisplay
+          key={TransportMeansField.RoadTransport}
+          meta={TransportMeansFieldMeta.RoadTransport}
+          fieldConfig={fieldConfig}
+          roadTransport={value?.RoadTransport}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <RoadTransportDisplay
-            label="Road Transport"
-            value={value.RoadTransport?.[0]}
-            meta={TransportMeansFieldMeta.RoadTransport}
-          />
+    [
+      TransportMeansField.RailTransport,
+      { meta: TransportMeansFieldMeta.RailTransport,
+        template: ({value, renderContext, fieldConfig}) => <RailTransportDisplay
+          key={TransportMeansField.RailTransport}
+          meta={TransportMeansFieldMeta.RailTransport}
+          fieldConfig={fieldConfig}
+          railTransport={value?.RailTransport}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <RailTransportDisplay
-            label="Rail Transport"
-            value={value.RailTransport?.[0]}
-            meta={TransportMeansFieldMeta.RailTransport}
-          />
+    [
+      TransportMeansField.MaritimeTransport,
+      { meta: TransportMeansFieldMeta.MaritimeTransport,
+        template: ({value, renderContext, fieldConfig}) => <MaritimeTransportDisplay
+          key={TransportMeansField.MaritimeTransport}
+          meta={TransportMeansFieldMeta.MaritimeTransport}
+          fieldConfig={fieldConfig}
+          maritimeTransport={value?.MaritimeTransport}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MaritimeTransportDisplay
-            label="Maritime Transport"
-            value={value.MaritimeTransport?.[0]}
-            meta={TransportMeansFieldMeta.MaritimeTransport}
-          />
+    [
+      TransportMeansField.OwnerParty,
+      { meta: TransportMeansFieldMeta.OwnerParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={TransportMeansField.OwnerParty}
+          meta={TransportMeansFieldMeta.OwnerParty}
+          fieldConfig={fieldConfig}
+          party={value?.OwnerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Owner Party"
-            value={value.OwnerParty?.[0]}
-            meta={TransportMeansFieldMeta.OwnerParty}
-          />
+    [
+      TransportMeansField.MeasurementDimension,
+      { meta: TransportMeansFieldMeta.MeasurementDimension,
+        template: ({value, renderContext, fieldConfig}) => <DimensionDisplay
+          key={TransportMeansField.MeasurementDimension}
+          meta={TransportMeansFieldMeta.MeasurementDimension}
+          fieldConfig={fieldConfig}
+          dimension={value?.MeasurementDimension}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Dimension ubl-MeasurementDimension"
-            label="Measurement Dimension"
-            items={value.MeasurementDimension}
-            meta={TransportMeansFieldMeta.MeasurementDimension} 
-            itemDisplay={ (itemValue: Dimension, key: string | number) =>
-              <DimensionDisplay
-                key={key}
-                label="Measurement Dimension"
-                value={itemValue}
-                meta={TransportMeansFieldMeta.MeasurementDimension}
-              />
-            }
-          />
-        </div>
-    </div>
+export function TransportMeansDisplay<TFieldMeta>({ meta, fieldConfig, transportMeans, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    TransportMeansTypeName,
+    meta,
+    fieldConfig,
+    transportMeans,
+    renderContext,
+    TransportMeansSubElementsMap,
   )
 }

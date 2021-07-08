@@ -1,165 +1,228 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { DocumentStatus } from  '../../model/doc/DocumentStatus'
-import { DocumentStatusFieldMeta } from  '../../meta/doc/DocumentStatusMeta'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentResponseDisplay from '../cac/DocumentResponseDisplay'
-import { DocumentResponse } from '../../model/cac/DocumentResponse'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { DocumentStatusField, DocumentStatusFieldMeta, DocumentStatusTypeName } from  '../../meta/doc/DocumentStatusMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentResponseDisplay } from '../cac/DocumentResponseDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: DocumentStatus | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<DocumentStatus, void>
+  documentStatus: DocumentStatus[] | undefined
+  renderContext: RenderContext
 }
 
-export default function DocumentStatusDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const DocumentStatusSubElementsMap: SubElementsTemplatesMap<DocumentStatusField, DocumentStatus, void> = new Map([
+    [
+      DocumentStatusField.UBLExtensions,
+      { meta: DocumentStatusFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={DocumentStatusField.UBLExtensions}
+          meta={DocumentStatusFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-DocumentStatus">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={DocumentStatusFieldMeta.UBLExtensions}
-          />
+    [
+      DocumentStatusField.UBLVersionID,
+      { meta: DocumentStatusFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DocumentStatusField.UBLVersionID}
+          meta={DocumentStatusFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={DocumentStatusFieldMeta.UBLVersionID}
-          />
+    [
+      DocumentStatusField.CustomizationID,
+      { meta: DocumentStatusFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DocumentStatusField.CustomizationID}
+          meta={DocumentStatusFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={DocumentStatusFieldMeta.CustomizationID}
-          />
+    [
+      DocumentStatusField.ProfileID,
+      { meta: DocumentStatusFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DocumentStatusField.ProfileID}
+          meta={DocumentStatusFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={DocumentStatusFieldMeta.ProfileID}
-          />
+    [
+      DocumentStatusField.ProfileExecutionID,
+      { meta: DocumentStatusFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DocumentStatusField.ProfileExecutionID}
+          meta={DocumentStatusFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={DocumentStatusFieldMeta.ProfileExecutionID}
-          />
+    [
+      DocumentStatusField.ID,
+      { meta: DocumentStatusFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DocumentStatusField.ID}
+          meta={DocumentStatusFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={DocumentStatusFieldMeta.ID}
-          />
+    [
+      DocumentStatusField.CopyIndicator,
+      { meta: DocumentStatusFieldMeta.CopyIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={DocumentStatusField.CopyIndicator}
+          meta={DocumentStatusFieldMeta.CopyIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.CopyIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Copy Indicator"
-            value={value.CopyIndicator?.[0]}
-            meta={DocumentStatusFieldMeta.CopyIndicator}
-          />
+    [
+      DocumentStatusField.UUID,
+      { meta: DocumentStatusFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DocumentStatusField.UUID}
+          meta={DocumentStatusFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={DocumentStatusFieldMeta.UUID}
-          />
+    [
+      DocumentStatusField.IssueDate,
+      { meta: DocumentStatusFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={DocumentStatusField.IssueDate}
+          meta={DocumentStatusFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={DocumentStatusFieldMeta.IssueDate}
-          />
+    [
+      DocumentStatusField.IssueTime,
+      { meta: DocumentStatusFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={DocumentStatusField.IssueTime}
+          meta={DocumentStatusFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={DocumentStatusFieldMeta.IssueTime}
-          />
+    [
+      DocumentStatusField.Note,
+      { meta: DocumentStatusFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={DocumentStatusField.Note}
+          meta={DocumentStatusFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={DocumentStatusFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={DocumentStatusFieldMeta.Note}
-              />
-            }
-          />
+    [
+      DocumentStatusField.Signature,
+      { meta: DocumentStatusFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={DocumentStatusField.Signature}
+          meta={DocumentStatusFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={DocumentStatusFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={DocumentStatusFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      DocumentStatusField.SenderParty,
+      { meta: DocumentStatusFieldMeta.SenderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={DocumentStatusField.SenderParty}
+          meta={DocumentStatusFieldMeta.SenderParty}
+          fieldConfig={fieldConfig}
+          party={value?.SenderParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Sender Party"
-            value={value.SenderParty?.[0]}
-            meta={DocumentStatusFieldMeta.SenderParty}
-          />
+    [
+      DocumentStatusField.ReceiverParty,
+      { meta: DocumentStatusFieldMeta.ReceiverParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={DocumentStatusField.ReceiverParty}
+          meta={DocumentStatusFieldMeta.ReceiverParty}
+          fieldConfig={fieldConfig}
+          party={value?.ReceiverParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Receiver Party"
-            value={value.ReceiverParty?.[0]}
-            meta={DocumentStatusFieldMeta.ReceiverParty}
-          />
+    [
+      DocumentStatusField.DocumentResponse,
+      { meta: DocumentStatusFieldMeta.DocumentResponse,
+        template: ({value, renderContext, fieldConfig}) => <DocumentResponseDisplay
+          key={DocumentStatusField.DocumentResponse}
+          meta={DocumentStatusFieldMeta.DocumentResponse}
+          fieldConfig={fieldConfig}
+          documentResponse={value?.DocumentResponse}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DocumentResponseDisplay
-            label="Document Response"
-            value={value.DocumentResponse?.[0]}
-            meta={DocumentStatusFieldMeta.DocumentResponse}
-          />
+    [
+      DocumentStatusField.AdditionalDocumentResponse,
+      { meta: DocumentStatusFieldMeta.AdditionalDocumentResponse,
+        template: ({value, renderContext, fieldConfig}) => <DocumentResponseDisplay
+          key={DocumentStatusField.AdditionalDocumentResponse}
+          meta={DocumentStatusFieldMeta.AdditionalDocumentResponse}
+          fieldConfig={fieldConfig}
+          documentResponse={value?.AdditionalDocumentResponse}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentResponse ubl-AdditionalDocumentResponse"
-            label="Additional Document Response"
-            items={value.AdditionalDocumentResponse}
-            meta={DocumentStatusFieldMeta.AdditionalDocumentResponse} 
-            itemDisplay={ (itemValue: DocumentResponse, key: string | number) =>
-              <DocumentResponseDisplay
-                key={key}
-                label="Additional Document Response"
-                value={itemValue}
-                meta={DocumentStatusFieldMeta.AdditionalDocumentResponse}
-              />
-            }
-          />
-        </div>
-    </div>
+export function DocumentStatusDisplay<TFieldMeta>({ meta, fieldConfig, documentStatus, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    DocumentStatusTypeName,
+    meta,
+    fieldConfig,
+    documentStatus,
+    renderContext,
+    DocumentStatusSubElementsMap,
   )
 }

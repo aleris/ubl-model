@@ -1,4 +1,22 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { ContractingPartyType } from '../cac/ContractingPartyMeta'
+import { CustomerPartyType } from '../cac/CustomerPartyMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { LanguageType } from '../cac/LanguageMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { ProcurementProjectType } from '../cac/ProcurementProjectMeta'
+import { ProcurementProjectLotType } from '../cac/ProcurementProjectLotMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { TenderingProcessType } from '../cac/TenderingProcessMeta'
+import { TenderingTermsType } from '../cac/TenderingTermsMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum PriorInformationNoticeField {
   UBLExtensions = 'UBLExtensions',
@@ -35,11 +53,11 @@ export enum PriorInformationNoticeField {
 export const PriorInformationNoticeFieldMetaUBLExtensions = new FieldMeta<PriorInformationNoticeField>(
   PriorInformationNoticeField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -48,10 +66,10 @@ export const PriorInformationNoticeFieldMetaUBLVersionID = new FieldMeta<PriorIn
   PriorInformationNoticeField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -60,10 +78,10 @@ export const PriorInformationNoticeFieldMetaCustomizationID = new FieldMeta<Prio
   PriorInformationNoticeField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -72,10 +90,10 @@ export const PriorInformationNoticeFieldMetaProfileID = new FieldMeta<PriorInfor
   PriorInformationNoticeField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -84,10 +102,10 @@ export const PriorInformationNoticeFieldMetaProfileExecutionID = new FieldMeta<P
   PriorInformationNoticeField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -96,10 +114,10 @@ export const PriorInformationNoticeFieldMetaID = new FieldMeta<PriorInformationN
   PriorInformationNoticeField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -108,10 +126,10 @@ export const PriorInformationNoticeFieldMetaCopyIndicator = new FieldMeta<PriorI
   PriorInformationNoticeField.CopyIndicator,
   'CopyIndicator',
   'Copy Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this document is a copy (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -120,10 +138,10 @@ export const PriorInformationNoticeFieldMetaUUID = new FieldMeta<PriorInformatio
   PriorInformationNoticeField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -132,10 +150,10 @@ export const PriorInformationNoticeFieldMetaContractFolderID = new FieldMeta<Pri
   PriorInformationNoticeField.ContractFolderID,
   'ContractFolderID',
   'Contract Folder Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier, assigned by the sender, for the process file (i.e., record) to which this document belongs.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -144,10 +162,10 @@ export const PriorInformationNoticeFieldMetaIssueDate = new FieldMeta<PriorInfor
   PriorInformationNoticeField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -156,10 +174,10 @@ export const PriorInformationNoticeFieldMetaIssueTime = new FieldMeta<PriorInfor
   PriorInformationNoticeField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -168,10 +186,10 @@ export const PriorInformationNoticeFieldMetaNote = new FieldMeta<PriorInformatio
   PriorInformationNoticeField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -180,10 +198,10 @@ export const PriorInformationNoticeFieldMetaVersionID = new FieldMeta<PriorInfor
   PriorInformationNoticeField.VersionID,
   'VersionID',
   'Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier of the current version of the Prior Information Notice.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -192,10 +210,10 @@ export const PriorInformationNoticeFieldMetaPreviousVersionID = new FieldMeta<Pr
   PriorInformationNoticeField.PreviousVersionID,
   'PreviousVersionID',
   'Previous Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier of the previous version of the Prior Information Notice which is superceded by this version.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -204,10 +222,10 @@ export const PriorInformationNoticeFieldMetaRequestedPublicationDate = new Field
   PriorInformationNoticeField.RequestedPublicationDate,
   'RequestedPublicationDate',
   'Requested Publication Date',
-  'Date',
+  DateType.name,
   'The requested publication date for this Prior Information Notice.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -216,10 +234,10 @@ export const PriorInformationNoticeFieldMetaPlannedDate = new FieldMeta<PriorInf
   PriorInformationNoticeField.PlannedDate,
   'PlannedDate',
   'Planned Date',
-  'Date',
+  DateType.name,
   'The date planned by the Contracting Party for publication of the contract notice.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -228,10 +246,10 @@ export const PriorInformationNoticeFieldMetaRegulatoryDomain = new FieldMeta<Pri
   PriorInformationNoticeField.RegulatoryDomain,
   'RegulatoryDomain',
   'Regulatory Domain',
-  'Text',
+  TextType.name,
   'Information about the law that defines the regulatory domain.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -240,10 +258,10 @@ export const PriorInformationNoticeFieldMetaNoticeTypeCode = new FieldMeta<Prior
   PriorInformationNoticeField.NoticeTypeCode,
   'NoticeTypeCode',
   'Notice Type Code',
-  'Code',
+  CodeType.name,
   'The type of notice (PIN, Qualification, Reduce time...)',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -252,10 +270,10 @@ export const PriorInformationNoticeFieldMetaNoticeLanguageCode = new FieldMeta<P
   PriorInformationNoticeField.NoticeLanguageCode,
   'NoticeLanguageCode',
   'Notice Language Code',
-  'Code',
+  CodeType.name,
   'The language used for this prior information notice.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -264,10 +282,10 @@ export const PriorInformationNoticeFieldMetaAdditionalNoticeLanguage = new Field
   PriorInformationNoticeField.AdditionalNoticeLanguage,
   'AdditionalNoticeLanguage',
   'Additional Notice Language',
-  'Language',
+  LanguageType.name,
   'An additional official language used for this prior information notice.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -276,10 +294,10 @@ export const PriorInformationNoticeFieldMetaDocumentReference = new FieldMeta<Pr
   PriorInformationNoticeField.DocumentReference,
   'DocumentReference',
   'Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to another document associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -288,10 +306,10 @@ export const PriorInformationNoticeFieldMetaSignature = new FieldMeta<PriorInfor
   PriorInformationNoticeField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -300,10 +318,10 @@ export const PriorInformationNoticeFieldMetaContractingParty = new FieldMeta<Pri
   PriorInformationNoticeField.ContractingParty,
   'ContractingParty',
   'Contracting Party',
-  'ContractingParty',
+  ContractingPartyType.name,
   'The contracting party or parties in case of joint procurement.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -312,10 +330,10 @@ export const PriorInformationNoticeFieldMetaOriginatorCustomerParty = new FieldM
   PriorInformationNoticeField.OriginatorCustomerParty,
   'OriginatorCustomerParty',
   'Originator Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'A party who originated the tendering process.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -324,10 +342,10 @@ export const PriorInformationNoticeFieldMetaReceiverParty = new FieldMeta<PriorI
   PriorInformationNoticeField.ReceiverParty,
   'ReceiverParty',
   'Receiver Party',
-  'Party',
+  PartyType.name,
   'The party receiving this document.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -336,10 +354,10 @@ export const PriorInformationNoticeFieldMetaTenderingTerms = new FieldMeta<Prior
   PriorInformationNoticeField.TenderingTerms,
   'TenderingTerms',
   'Tendering Terms',
-  'TenderingTerms',
+  TenderingTermsType.name,
   'The tendering terms associated with this tendering process.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -348,10 +366,10 @@ export const PriorInformationNoticeFieldMetaTenderingProcess = new FieldMeta<Pri
   PriorInformationNoticeField.TenderingProcess,
   'TenderingProcess',
   'Tendering Process',
-  'TenderingProcess',
+  TenderingProcessType.name,
   'A description of the tendering process itself.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -360,10 +378,10 @@ export const PriorInformationNoticeFieldMetaProcurementProject = new FieldMeta<P
   PriorInformationNoticeField.ProcurementProject,
   'ProcurementProject',
   'Procurement Project',
-  'ProcurementProject',
+  ProcurementProjectType.name,
   'An overall definition of this procurement project.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -372,10 +390,10 @@ export const PriorInformationNoticeFieldMetaProcurementProjectLot = new FieldMet
   PriorInformationNoticeField.ProcurementProjectLot,
   'ProcurementProjectLot',
   'Procurement Project Lot',
-  'ProcurementProjectLot',
+  ProcurementProjectLotType.name,
   'One of the procurement project lots into which this contract can be split.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -443,3 +461,11 @@ export const PriorInformationNoticeFieldMap = new Map([
   [PriorInformationNoticeField.ProcurementProject, PriorInformationNoticeFieldMetaProcurementProject],
   [PriorInformationNoticeField.ProcurementProjectLot, PriorInformationNoticeFieldMetaProcurementProjectLot]
 ])
+
+export const PriorInformationNoticeType: Type<PriorInformationNoticeField> = {
+  name: 'PriorInformationNotice',
+  label: 'Prior Information Notice',
+  module: TypeModule.doc,
+  definition: 'A document used by a contracting party to declare the intention to buy goods, services, or works during a specified period.',
+  fields: PriorInformationNoticeFieldMap,
+}

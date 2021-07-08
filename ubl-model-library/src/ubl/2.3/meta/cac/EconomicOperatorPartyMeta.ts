@@ -1,4 +1,9 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { EconomicOperatorRoleType } from './EconomicOperatorRoleMeta'
+import { PartyType } from './PartyMeta'
+import { QualifyingPartyType } from './QualifyingPartyMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum EconomicOperatorPartyField {
   UBLExtensions = 'UBLExtensions',
@@ -10,11 +15,11 @@ export enum EconomicOperatorPartyField {
 export const EconomicOperatorPartyFieldMetaUBLExtensions = new FieldMeta<EconomicOperatorPartyField>(
   EconomicOperatorPartyField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -23,10 +28,10 @@ export const EconomicOperatorPartyFieldMetaQualifyingParty = new FieldMeta<Econo
   EconomicOperatorPartyField.QualifyingParty,
   'QualifyingParty',
   'Qualifying Party',
-  'QualifyingParty',
+  QualifyingPartyType.name,
   'The party qualifying this economic operator.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -35,10 +40,10 @@ export const EconomicOperatorPartyFieldMetaEconomicOperatorRole = new FieldMeta<
   EconomicOperatorPartyField.EconomicOperatorRole,
   'EconomicOperatorRole',
   'Economic Operator Role',
-  'EconomicOperatorRole',
+  EconomicOperatorRoleType.name,
   'The role of the party in a tender consortium.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -47,10 +52,10 @@ export const EconomicOperatorPartyFieldMetaParty = new FieldMeta<EconomicOperato
   EconomicOperatorPartyField.Party,
   'Party',
   'Party',
-  'Party',
+  PartyType.name,
   'The party information about the economic operator in a tender.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -68,3 +73,11 @@ export const EconomicOperatorPartyFieldMap = new Map([
   [EconomicOperatorPartyField.EconomicOperatorRole, EconomicOperatorPartyFieldMetaEconomicOperatorRole],
   [EconomicOperatorPartyField.Party, EconomicOperatorPartyFieldMetaParty]
 ])
+
+export const EconomicOperatorPartyType: Type<EconomicOperatorPartyField> = {
+  name: 'EconomicOperatorParty',
+  label: 'Economic Operator Party',
+  module: TypeModule.cac,
+  definition: 'A class to describe a potential contractor, supplier and service provider responding to a tender.',
+  fields: EconomicOperatorPartyFieldMap,
+}

@@ -1,4 +1,10 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum AwardingCriterionResponseField {
   UBLExtensions = 'UBLExtensions',
@@ -14,11 +20,11 @@ export enum AwardingCriterionResponseField {
 export const AwardingCriterionResponseFieldMetaUBLExtensions = new FieldMeta<AwardingCriterionResponseField>(
   AwardingCriterionResponseField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -27,10 +33,10 @@ export const AwardingCriterionResponseFieldMetaID = new FieldMeta<AwardingCriter
   AwardingCriterionResponseField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identification of this awarding criterion response.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -39,10 +45,10 @@ export const AwardingCriterionResponseFieldMetaAwardingCriterionID = new FieldMe
   AwardingCriterionResponseField.AwardingCriterionID,
   'AwardingCriterionID',
   'Awarding Criterion Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifer of the awarding criterion being referred to.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -51,10 +57,10 @@ export const AwardingCriterionResponseFieldMetaAwardingCriterionDescription = ne
   AwardingCriterionResponseField.AwardingCriterionDescription,
   'AwardingCriterionDescription',
   'Awarding Criterion Description',
-  'Text',
+  TextType.name,
   'Describes the awarding criterion.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -63,10 +69,10 @@ export const AwardingCriterionResponseFieldMetaDescription = new FieldMeta<Award
   AwardingCriterionResponseField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Describes the awarding criterion response.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -75,10 +81,10 @@ export const AwardingCriterionResponseFieldMetaQuantity = new FieldMeta<Awarding
   AwardingCriterionResponseField.Quantity,
   'Quantity',
   'Quantity',
-  'Quantity',
+  QuantityType.name,
   'Specifies the quantity tendered for this awarding criterion.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -87,10 +93,10 @@ export const AwardingCriterionResponseFieldMetaAmount = new FieldMeta<AwardingCr
   AwardingCriterionResponseField.Amount,
   'Amount',
   'Amount',
-  'Amount',
+  AmountType.name,
   'Specifies the monetary amount tendered for this awarding criterion.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -99,10 +105,10 @@ export const AwardingCriterionResponseFieldMetaSubordinateAwardingCriterionRespo
   AwardingCriterionResponseField.SubordinateAwardingCriterionResponse,
   'SubordinateAwardingCriterionResponse',
   'Subordinate Awarding Criterion Response',
-  'AwardingCriterionResponse',
+  AwardingCriterionResponseType.name,
   'Defines responses to any subsidiary awarding criterion.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -128,3 +134,11 @@ export const AwardingCriterionResponseFieldMap = new Map([
   [AwardingCriterionResponseField.Amount, AwardingCriterionResponseFieldMetaAmount],
   [AwardingCriterionResponseField.SubordinateAwardingCriterionResponse, AwardingCriterionResponseFieldMetaSubordinateAwardingCriterionResponse]
 ])
+
+export const AwardingCriterionResponseType: Type<AwardingCriterionResponseField> = {
+  name: 'AwardingCriterionResponse',
+  label: 'Awarding Criterion Response',
+  module: TypeModule.cac,
+  definition: 'Defines the response for an awarding criterion from the tendering party.',
+  fields: AwardingCriterionResponseFieldMap,
+}

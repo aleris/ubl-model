@@ -1,257 +1,355 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { RetailEvent } from  '../../model/doc/RetailEvent'
-import { RetailEventFieldMeta } from  '../../meta/doc/RetailEventMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import CustomerPartyDisplay from '../cac/CustomerPartyDisplay'
-import { CustomerParty } from '../../model/cac/CustomerParty'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import EventCommentDisplay from '../cac/EventCommentDisplay'
-import { EventComment } from '../../model/cac/EventComment'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import MiscellaneousEventDisplay from '../cac/MiscellaneousEventDisplay'
-import { MiscellaneousEvent } from '../../model/cac/MiscellaneousEvent'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PeriodDisplay from '../cac/PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import PromotionalEventDisplay from '../cac/PromotionalEventDisplay'
-import { PromotionalEvent } from '../../model/cac/PromotionalEvent'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import SupplierPartyDisplay from '../cac/SupplierPartyDisplay'
-import { SupplierParty } from '../../model/cac/SupplierParty'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { RetailEventField, RetailEventFieldMeta, RetailEventTypeName } from  '../../meta/doc/RetailEventMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { CustomerPartyDisplay } from '../cac/CustomerPartyDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { EventCommentDisplay } from '../cac/EventCommentDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { MiscellaneousEventDisplay } from '../cac/MiscellaneousEventDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { PeriodDisplay } from '../cac/PeriodDisplay'
+import { PromotionalEventDisplay } from '../cac/PromotionalEventDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { SupplierPartyDisplay } from '../cac/SupplierPartyDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: RetailEvent | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<RetailEvent, void>
+  retailEvent: RetailEvent[] | undefined
+  renderContext: RenderContext
 }
 
-export default function RetailEventDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const RetailEventSubElementsMap: SubElementsTemplatesMap<RetailEventField, RetailEvent, void> = new Map([
+    [
+      RetailEventField.UBLExtensions,
+      { meta: RetailEventFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={RetailEventField.UBLExtensions}
+          meta={RetailEventFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-RetailEvent">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={RetailEventFieldMeta.UBLExtensions}
-          />
+    [
+      RetailEventField.UBLVersionID,
+      { meta: RetailEventFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={RetailEventField.UBLVersionID}
+          meta={RetailEventFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={RetailEventFieldMeta.UBLVersionID}
-          />
+    [
+      RetailEventField.CustomizationID,
+      { meta: RetailEventFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={RetailEventField.CustomizationID}
+          meta={RetailEventFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={RetailEventFieldMeta.CustomizationID}
-          />
+    [
+      RetailEventField.ProfileID,
+      { meta: RetailEventFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={RetailEventField.ProfileID}
+          meta={RetailEventFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={RetailEventFieldMeta.ProfileID}
-          />
+    [
+      RetailEventField.ProfileExecutionID,
+      { meta: RetailEventFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={RetailEventField.ProfileExecutionID}
+          meta={RetailEventFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={RetailEventFieldMeta.ProfileExecutionID}
-          />
+    [
+      RetailEventField.ID,
+      { meta: RetailEventFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={RetailEventField.ID}
+          meta={RetailEventFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={RetailEventFieldMeta.ID}
-          />
+    [
+      RetailEventField.CopyIndicator,
+      { meta: RetailEventFieldMeta.CopyIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={RetailEventField.CopyIndicator}
+          meta={RetailEventFieldMeta.CopyIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.CopyIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Copy Indicator"
-            value={value.CopyIndicator?.[0]}
-            meta={RetailEventFieldMeta.CopyIndicator}
-          />
+    [
+      RetailEventField.UUID,
+      { meta: RetailEventFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={RetailEventField.UUID}
+          meta={RetailEventFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={RetailEventFieldMeta.UUID}
-          />
+    [
+      RetailEventField.IssueDate,
+      { meta: RetailEventFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={RetailEventField.IssueDate}
+          meta={RetailEventFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={RetailEventFieldMeta.IssueDate}
-          />
+    [
+      RetailEventField.IssueTime,
+      { meta: RetailEventFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={RetailEventField.IssueTime}
+          meta={RetailEventFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={RetailEventFieldMeta.IssueTime}
-          />
+    [
+      RetailEventField.Note,
+      { meta: RetailEventFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={RetailEventField.Note}
+          meta={RetailEventFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={RetailEventFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={RetailEventFieldMeta.Note}
-              />
-            }
-          />
+    [
+      RetailEventField.RetailEventName,
+      { meta: RetailEventFieldMeta.RetailEventName,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={RetailEventField.RetailEventName}
+          meta={RetailEventFieldMeta.RetailEventName}
+          fieldConfig={fieldConfig}
+          text={value?.RetailEventName}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Retail Event Name"
-            value={value.RetailEventName?.[0]}
-            meta={RetailEventFieldMeta.RetailEventName}
-          />
+    [
+      RetailEventField.RetailEventStatusCode,
+      { meta: RetailEventFieldMeta.RetailEventStatusCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={RetailEventField.RetailEventStatusCode}
+          meta={RetailEventFieldMeta.RetailEventStatusCode}
+          fieldConfig={fieldConfig}
+          code={value?.RetailEventStatusCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Retail Event Status Code"
-            value={value.RetailEventStatusCode?.[0]}
-            meta={RetailEventFieldMeta.RetailEventStatusCode}
-          />
+    [
+      RetailEventField.SellerEventID,
+      { meta: RetailEventFieldMeta.SellerEventID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={RetailEventField.SellerEventID}
+          meta={RetailEventFieldMeta.SellerEventID}
+          fieldConfig={fieldConfig}
+          identifier={value?.SellerEventID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Seller Event Identifier"
-            value={value.SellerEventID?.[0]}
-            meta={RetailEventFieldMeta.SellerEventID}
-          />
+    [
+      RetailEventField.BuyerEventID,
+      { meta: RetailEventFieldMeta.BuyerEventID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={RetailEventField.BuyerEventID}
+          meta={RetailEventFieldMeta.BuyerEventID}
+          fieldConfig={fieldConfig}
+          identifier={value?.BuyerEventID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Buyer Event Identifier"
-            value={value.BuyerEventID?.[0]}
-            meta={RetailEventFieldMeta.BuyerEventID}
-          />
+    [
+      RetailEventField.Description,
+      { meta: RetailEventFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={RetailEventField.Description}
+          meta={RetailEventFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={RetailEventFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={RetailEventFieldMeta.Description}
-              />
-            }
-          />
+    [
+      RetailEventField.Period,
+      { meta: RetailEventFieldMeta.Period,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={RetailEventField.Period}
+          meta={RetailEventFieldMeta.Period}
+          fieldConfig={fieldConfig}
+          period={value?.Period}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Period"
-            value={value.Period?.[0]}
-            meta={RetailEventFieldMeta.Period}
-          />
+    [
+      RetailEventField.OriginalDocumentReference,
+      { meta: RetailEventFieldMeta.OriginalDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={RetailEventField.OriginalDocumentReference}
+          meta={RetailEventFieldMeta.OriginalDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.OriginalDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-OriginalDocumentReference"
-            label="Original Document Reference"
-            items={value.OriginalDocumentReference}
-            meta={RetailEventFieldMeta.OriginalDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Original Document Reference"
-                value={itemValue}
-                meta={RetailEventFieldMeta.OriginalDocumentReference}
-              />
-            }
-          />
+    [
+      RetailEventField.Signature,
+      { meta: RetailEventFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={RetailEventField.Signature}
+          meta={RetailEventFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={RetailEventFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={RetailEventFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      RetailEventField.SenderParty,
+      { meta: RetailEventFieldMeta.SenderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={RetailEventField.SenderParty}
+          meta={RetailEventFieldMeta.SenderParty}
+          fieldConfig={fieldConfig}
+          party={value?.SenderParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Sender Party"
-            value={value.SenderParty?.[0]}
-            meta={RetailEventFieldMeta.SenderParty}
-          />
+    [
+      RetailEventField.ReceiverParty,
+      { meta: RetailEventFieldMeta.ReceiverParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={RetailEventField.ReceiverParty}
+          meta={RetailEventFieldMeta.ReceiverParty}
+          fieldConfig={fieldConfig}
+          party={value?.ReceiverParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Receiver Party"
-            value={value.ReceiverParty?.[0]}
-            meta={RetailEventFieldMeta.ReceiverParty}
-          />
+    [
+      RetailEventField.BuyerCustomerParty,
+      { meta: RetailEventFieldMeta.BuyerCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={RetailEventField.BuyerCustomerParty}
+          meta={RetailEventFieldMeta.BuyerCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.BuyerCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomerPartyDisplay
-            label="Buyer Customer Party"
-            value={value.BuyerCustomerParty?.[0]}
-            meta={RetailEventFieldMeta.BuyerCustomerParty}
-          />
+    [
+      RetailEventField.SellerSupplierParty,
+      { meta: RetailEventFieldMeta.SellerSupplierParty,
+        template: ({value, renderContext, fieldConfig}) => <SupplierPartyDisplay
+          key={RetailEventField.SellerSupplierParty}
+          meta={RetailEventFieldMeta.SellerSupplierParty}
+          fieldConfig={fieldConfig}
+          supplierParty={value?.SellerSupplierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <SupplierPartyDisplay
-            label="Seller Supplier Party"
-            value={value.SellerSupplierParty?.[0]}
-            meta={RetailEventFieldMeta.SellerSupplierParty}
-          />
+    [
+      RetailEventField.EventComment,
+      { meta: RetailEventFieldMeta.EventComment,
+        template: ({value, renderContext, fieldConfig}) => <EventCommentDisplay
+          key={RetailEventField.EventComment}
+          meta={RetailEventFieldMeta.EventComment}
+          fieldConfig={fieldConfig}
+          eventComment={value?.EventComment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-EventComment"
-            label="Event Comment"
-            items={value.EventComment}
-            meta={RetailEventFieldMeta.EventComment} 
-            itemDisplay={ (itemValue: EventComment, key: string | number) =>
-              <EventCommentDisplay
-                key={key}
-                label="Event Comment"
-                value={itemValue}
-                meta={RetailEventFieldMeta.EventComment}
-              />
-            }
-          />
+    [
+      RetailEventField.PromotionalEvent,
+      { meta: RetailEventFieldMeta.PromotionalEvent,
+        template: ({value, renderContext, fieldConfig}) => <PromotionalEventDisplay
+          key={RetailEventField.PromotionalEvent}
+          meta={RetailEventFieldMeta.PromotionalEvent}
+          fieldConfig={fieldConfig}
+          promotionalEvent={value?.PromotionalEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PromotionalEventDisplay
-            label="Promotional Event"
-            value={value.PromotionalEvent?.[0]}
-            meta={RetailEventFieldMeta.PromotionalEvent}
-          />
+    [
+      RetailEventField.MiscellaneousEvent,
+      { meta: RetailEventFieldMeta.MiscellaneousEvent,
+        template: ({value, renderContext, fieldConfig}) => <MiscellaneousEventDisplay
+          key={RetailEventField.MiscellaneousEvent}
+          meta={RetailEventFieldMeta.MiscellaneousEvent}
+          fieldConfig={fieldConfig}
+          miscellaneousEvent={value?.MiscellaneousEvent}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <MiscellaneousEventDisplay
-            label="Miscellaneous Event"
-            value={value.MiscellaneousEvent?.[0]}
-            meta={RetailEventFieldMeta.MiscellaneousEvent}
-          />
-        </div>
-    </div>
+export function RetailEventDisplay<TFieldMeta>({ meta, fieldConfig, retailEvent, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    RetailEventTypeName,
+    meta,
+    fieldConfig,
+    retailEvent,
+    renderContext,
+    RetailEventSubElementsMap,
   )
 }

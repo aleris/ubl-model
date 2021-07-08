@@ -1,4 +1,8 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum EconomicOperatorRoleField {
   UBLExtensions = 'UBLExtensions',
@@ -9,11 +13,11 @@ export enum EconomicOperatorRoleField {
 export const EconomicOperatorRoleFieldMetaUBLExtensions = new FieldMeta<EconomicOperatorRoleField>(
   EconomicOperatorRoleField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -22,10 +26,10 @@ export const EconomicOperatorRoleFieldMetaRoleCode = new FieldMeta<EconomicOpera
   EconomicOperatorRoleField.RoleCode,
   'RoleCode',
   'Role Code',
-  'Code',
+  CodeType.name,
   'A code specifying the role of the party.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -34,10 +38,10 @@ export const EconomicOperatorRoleFieldMetaRoleDescription = new FieldMeta<Econom
   EconomicOperatorRoleField.RoleDescription,
   'RoleDescription',
   'Role Description',
-  'Text',
+  TextType.name,
   'A textual description of the party role.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -53,3 +57,11 @@ export const EconomicOperatorRoleFieldMap = new Map([
   [EconomicOperatorRoleField.RoleCode, EconomicOperatorRoleFieldMetaRoleCode],
   [EconomicOperatorRoleField.RoleDescription, EconomicOperatorRoleFieldMetaRoleDescription]
 ])
+
+export const EconomicOperatorRoleType: Type<EconomicOperatorRoleField> = {
+  name: 'EconomicOperatorRole',
+  label: 'Economic Operator Role',
+  module: TypeModule.cac,
+  definition: 'A class to describe the tenderer contracting role.',
+  fields: EconomicOperatorRoleFieldMap,
+}

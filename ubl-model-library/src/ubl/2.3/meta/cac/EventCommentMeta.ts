@@ -1,4 +1,9 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { DateType } from '../cbc/DateMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum EventCommentField {
   UBLExtensions = 'UBLExtensions',
@@ -10,11 +15,11 @@ export enum EventCommentField {
 export const EventCommentFieldMetaUBLExtensions = new FieldMeta<EventCommentField>(
   EventCommentField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -23,10 +28,10 @@ export const EventCommentFieldMetaComment = new FieldMeta<EventCommentField>(
   EventCommentField.Comment,
   'Comment',
   'Comment',
-  'Text',
+  TextType.name,
   'Text commenting on the event.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -35,10 +40,10 @@ export const EventCommentFieldMetaIssueDate = new FieldMeta<EventCommentField>(
   EventCommentField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date on which this comment was made.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -47,10 +52,10 @@ export const EventCommentFieldMetaIssueTime = new FieldMeta<EventCommentField>(
   EventCommentField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time at which this comment was made.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -68,3 +73,11 @@ export const EventCommentFieldMap = new Map([
   [EventCommentField.IssueDate, EventCommentFieldMetaIssueDate],
   [EventCommentField.IssueTime, EventCommentFieldMetaIssueTime]
 ])
+
+export const EventCommentType: Type<EventCommentField> = {
+  name: 'EventComment',
+  label: 'Event Comment',
+  module: TypeModule.cac,
+  definition: 'A class to define comments about a retail event.',
+  fields: EventCommentFieldMap,
+}

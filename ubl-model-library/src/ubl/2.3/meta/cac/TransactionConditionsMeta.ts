@@ -1,4 +1,10 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { DocumentReferenceType } from './DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum TransactionConditionsField {
   UBLExtensions = 'UBLExtensions',
@@ -11,11 +17,11 @@ export enum TransactionConditionsField {
 export const TransactionConditionsFieldMetaUBLExtensions = new FieldMeta<TransactionConditionsField>(
   TransactionConditionsField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -24,10 +30,10 @@ export const TransactionConditionsFieldMetaID = new FieldMeta<TransactionConditi
   TransactionConditionsField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for conditions of the transaction, typically purchase/sales conditions.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -36,10 +42,10 @@ export const TransactionConditionsFieldMetaActionCode = new FieldMeta<Transactio
   TransactionConditionsField.ActionCode,
   'ActionCode',
   'Action Code',
-  'Code',
+  CodeType.name,
   'A code signifying a type of action relating to sales or payment conditions.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -48,10 +54,10 @@ export const TransactionConditionsFieldMetaDescription = new FieldMeta<Transacti
   TransactionConditionsField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing the transaction conditions.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -60,10 +66,10 @@ export const TransactionConditionsFieldMetaDocumentReference = new FieldMeta<Tra
   TransactionConditionsField.DocumentReference,
   'DocumentReference',
   'Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A document associated with these transaction conditions.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -83,3 +89,11 @@ export const TransactionConditionsFieldMap = new Map([
   [TransactionConditionsField.Description, TransactionConditionsFieldMetaDescription],
   [TransactionConditionsField.DocumentReference, TransactionConditionsFieldMetaDocumentReference]
 ])
+
+export const TransactionConditionsType: Type<TransactionConditionsField> = {
+  name: 'TransactionConditions',
+  label: 'Transaction Conditions',
+  module: TypeModule.cac,
+  definition: 'A class to describe purchasing, sales, or payment conditions.',
+  fields: TransactionConditionsFieldMap,
+}

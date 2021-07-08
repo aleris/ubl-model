@@ -1,4 +1,18 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { ContractType } from './ContractMeta'
+import { DateType } from '../cbc/DateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { PeriodType } from './PeriodMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { SubcontractTermsType } from './SubcontractTermsMeta'
+import { TenderedProjectType } from './TenderedProjectMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
+import { WinningPartyType } from './WinningPartyMeta'
 
 export enum TenderResultField {
   UBLExtensions = 'UBLExtensions',
@@ -24,11 +38,11 @@ export enum TenderResultField {
 export const TenderResultFieldMetaUBLExtensions = new FieldMeta<TenderResultField>(
   TenderResultField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -37,10 +51,10 @@ export const TenderResultFieldMetaAwardID = new FieldMeta<TenderResultField>(
   TenderResultField.AwardID,
   'AwardID',
   'Award Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this tender result.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -49,10 +63,10 @@ export const TenderResultFieldMetaTenderResultCode = new FieldMeta<TenderResultF
   TenderResultField.TenderResultCode,
   'TenderResultCode',
   'Tender Result Code',
-  'Code',
+  CodeType.name,
   'A code signifying the result of the tendering process.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -61,10 +75,10 @@ export const TenderResultFieldMetaDescription = new FieldMeta<TenderResultField>
   TenderResultField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing the result of the tendering process.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -73,10 +87,10 @@ export const TenderResultFieldMetaAdvertisementAmount = new FieldMeta<TenderResu
   TenderResultField.AdvertisementAmount,
   'AdvertisementAmount',
   'Advertisement',
-  'Amount',
+  AmountType.name,
   'The monetary value of the advertisement for this tendering process.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -85,10 +99,10 @@ export const TenderResultFieldMetaAwardDate = new FieldMeta<TenderResultField>(
   TenderResultField.AwardDate,
   'AwardDate',
   'Award Date',
-  'Date',
+  DateType.name,
   'The date on which this result was formalized.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -97,10 +111,10 @@ export const TenderResultFieldMetaAwardTime = new FieldMeta<TenderResultField>(
   TenderResultField.AwardTime,
   'AwardTime',
   'Award Time',
-  'Time',
+  TimeType.name,
   'The time at which this result was formalized.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -109,10 +123,10 @@ export const TenderResultFieldMetaReceivedTenderQuantity = new FieldMeta<TenderR
   TenderResultField.ReceivedTenderQuantity,
   'ReceivedTenderQuantity',
   'Received Tender Quantity',
-  'Quantity',
+  QuantityType.name,
   'The total number of tenders received in this tendering process.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -121,10 +135,10 @@ export const TenderResultFieldMetaLowerTenderAmount = new FieldMeta<TenderResult
   TenderResultField.LowerTenderAmount,
   'LowerTenderAmount',
   'Lower Tender Amount',
-  'Amount',
+  AmountType.name,
   'The least expensive tender received in the tendering process.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -133,10 +147,10 @@ export const TenderResultFieldMetaHigherTenderAmount = new FieldMeta<TenderResul
   TenderResultField.HigherTenderAmount,
   'HigherTenderAmount',
   'Higher Tender Amount',
-  'Amount',
+  AmountType.name,
   'The most expensive tender received in this tendering process.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -145,10 +159,10 @@ export const TenderResultFieldMetaStartDate = new FieldMeta<TenderResultField>(
   TenderResultField.StartDate,
   'StartDate',
   'Start Date',
-  'Date',
+  DateType.name,
   'The date on which the awarded contract begins.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -157,10 +171,10 @@ export const TenderResultFieldMetaReceivedElectronicTenderQuantity = new FieldMe
   TenderResultField.ReceivedElectronicTenderQuantity,
   'ReceivedElectronicTenderQuantity',
   'Received Electronic Tender Quantity',
-  'Quantity',
+  QuantityType.name,
   'The number of electronic tenders received.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -169,10 +183,10 @@ export const TenderResultFieldMetaReceivedForeignTenderQuantity = new FieldMeta<
   TenderResultField.ReceivedForeignTenderQuantity,
   'ReceivedForeignTenderQuantity',
   'Received Foreign Tender Quantity',
-  'Quantity',
+  QuantityType.name,
   'The number of foreing tenders received.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -181,10 +195,10 @@ export const TenderResultFieldMetaContract = new FieldMeta<TenderResultField>(
   TenderResultField.Contract,
   'Contract',
   'Contract',
-  'Contract',
+  ContractType.name,
   'A contract governing this tender result.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -193,10 +207,10 @@ export const TenderResultFieldMetaAwardedTenderedProject = new FieldMeta<TenderR
   TenderResultField.AwardedTenderedProject,
   'AwardedTenderedProject',
   'Awarded Tendered Project',
-  'TenderedProject',
+  TenderedProjectType.name,
   'The awarded tendered project associated with this tender result.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -205,10 +219,10 @@ export const TenderResultFieldMetaContractFormalizationPeriod = new FieldMeta<Te
   TenderResultField.ContractFormalizationPeriod,
   'ContractFormalizationPeriod',
   'Contract Formalization Period',
-  'Period',
+  PeriodType.name,
   'The period during which a contract associated with the awarded project is to be formalized.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -217,10 +231,10 @@ export const TenderResultFieldMetaSubcontractTerms = new FieldMeta<TenderResultF
   TenderResultField.SubcontractTerms,
   'SubcontractTerms',
   'Subcontract Terms',
-  'SubcontractTerms',
+  SubcontractTermsType.name,
   'Subcontract terms for this tender result.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -229,10 +243,10 @@ export const TenderResultFieldMetaWinningParty = new FieldMeta<TenderResultField
   TenderResultField.WinningParty,
   'WinningParty',
   'Winning Party',
-  'WinningParty',
+  WinningPartyType.name,
   'A party that is identified as the awarded by a tender result.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -278,3 +292,11 @@ export const TenderResultFieldMap = new Map([
   [TenderResultField.SubcontractTerms, TenderResultFieldMetaSubcontractTerms],
   [TenderResultField.WinningParty, TenderResultFieldMetaWinningParty]
 ])
+
+export const TenderResultType: Type<TenderResultField> = {
+  name: 'TenderResult',
+  label: 'Tender Result',
+  module: TypeModule.cac,
+  definition: 'A class to describe the awarding of a tender in a tendering process.',
+  fields: TenderResultFieldMap,
+}

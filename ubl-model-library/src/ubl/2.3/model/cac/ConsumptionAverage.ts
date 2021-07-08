@@ -1,7 +1,6 @@
 import { Amount } from '../cbc/Amount'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to define an average consumption as a monetary amount.
  */

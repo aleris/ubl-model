@@ -1,56 +1,79 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { DependentPriceReference } from  '../../model/cac/DependentPriceReference'
-import { DependentPriceReferenceFieldMeta } from  '../../meta/cac/DependentPriceReferenceMeta'
-import AddressDisplay from './AddressDisplay'
-import { Address } from '../../model/cac/Address'
-import LineReferenceDisplay from './LineReferenceDisplay'
-import { LineReference } from '../../model/cac/LineReference'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { DependentPriceReferenceField, DependentPriceReferenceFieldMeta, DependentPriceReferenceTypeName } from  '../../meta/cac/DependentPriceReferenceMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AddressDisplay } from './AddressDisplay'
+import { LineReferenceDisplay } from './LineReferenceDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: DependentPriceReference | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<DependentPriceReference, void>
+  dependentPriceReference: DependentPriceReference[] | undefined
+  renderContext: RenderContext
 }
 
-export default function DependentPriceReferenceDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const DependentPriceReferenceSubElementsMap: SubElementsTemplatesMap<DependentPriceReferenceField, DependentPriceReference, void> = new Map([
+    [
+      DependentPriceReferenceField.UBLExtensions,
+      { meta: DependentPriceReferenceFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={DependentPriceReferenceField.UBLExtensions}
+          meta={DependentPriceReferenceFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-DependentPriceReference">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={DependentPriceReferenceFieldMeta.UBLExtensions}
-          />
+    [
+      DependentPriceReferenceField.Percent,
+      { meta: DependentPriceReferenceFieldMeta.Percent,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={DependentPriceReferenceField.Percent}
+          meta={DependentPriceReferenceFieldMeta.Percent}
+          fieldConfig={fieldConfig}
+          numeric={value?.Percent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Percent"
-            value={value.Percent?.[0]}
-            meta={DependentPriceReferenceFieldMeta.Percent}
-          />
+    [
+      DependentPriceReferenceField.LocationAddress,
+      { meta: DependentPriceReferenceFieldMeta.LocationAddress,
+        template: ({value, renderContext, fieldConfig}) => <AddressDisplay
+          key={DependentPriceReferenceField.LocationAddress}
+          meta={DependentPriceReferenceFieldMeta.LocationAddress}
+          fieldConfig={fieldConfig}
+          address={value?.LocationAddress}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AddressDisplay
-            label="Location Address"
-            value={value.LocationAddress?.[0]}
-            meta={DependentPriceReferenceFieldMeta.LocationAddress}
-          />
+    [
+      DependentPriceReferenceField.DependentLineReference,
+      { meta: DependentPriceReferenceFieldMeta.DependentLineReference,
+        template: ({value, renderContext, fieldConfig}) => <LineReferenceDisplay
+          key={DependentPriceReferenceField.DependentLineReference}
+          meta={DependentPriceReferenceFieldMeta.DependentLineReference}
+          fieldConfig={fieldConfig}
+          lineReference={value?.DependentLineReference}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <LineReferenceDisplay
-            label="Dependent Line Reference"
-            value={value.DependentLineReference?.[0]}
-            meta={DependentPriceReferenceFieldMeta.DependentLineReference}
-          />
-        </div>
-    </div>
+export function DependentPriceReferenceDisplay<TFieldMeta>({ meta, fieldConfig, dependentPriceReference, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    DependentPriceReferenceTypeName,
+    meta,
+    fieldConfig,
+    dependentPriceReference,
+    renderContext,
+    DependentPriceReferenceSubElementsMap,
   )
 }

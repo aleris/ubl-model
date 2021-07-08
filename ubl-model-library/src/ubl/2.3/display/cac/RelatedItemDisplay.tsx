@@ -1,65 +1,79 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { RelatedItem } from  '../../model/cac/RelatedItem'
-import { RelatedItemFieldMeta } from  '../../meta/cac/RelatedItemMeta'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { RelatedItemField, RelatedItemFieldMeta, RelatedItemTypeName } from  '../../meta/cac/RelatedItemMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: RelatedItem | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<RelatedItem, void>
+  relatedItem: RelatedItem[] | undefined
+  renderContext: RenderContext
 }
 
-export default function RelatedItemDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const RelatedItemSubElementsMap: SubElementsTemplatesMap<RelatedItemField, RelatedItem, void> = new Map([
+    [
+      RelatedItemField.UBLExtensions,
+      { meta: RelatedItemFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={RelatedItemField.UBLExtensions}
+          meta={RelatedItemFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-RelatedItem">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={RelatedItemFieldMeta.UBLExtensions}
-          />
+    [
+      RelatedItemField.ID,
+      { meta: RelatedItemFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={RelatedItemField.ID}
+          meta={RelatedItemFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={RelatedItemFieldMeta.ID}
-          />
+    [
+      RelatedItemField.Quantity,
+      { meta: RelatedItemFieldMeta.Quantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={RelatedItemField.Quantity}
+          meta={RelatedItemFieldMeta.Quantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.Quantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Quantity"
-            value={value.Quantity?.[0]}
-            meta={RelatedItemFieldMeta.Quantity}
-          />
+    [
+      RelatedItemField.Description,
+      { meta: RelatedItemFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={RelatedItemField.Description}
+          meta={RelatedItemFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={RelatedItemFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={RelatedItemFieldMeta.Description}
-              />
-            }
-          />
-        </div>
-    </div>
+export function RelatedItemDisplay<TFieldMeta>({ meta, fieldConfig, relatedItem, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    RelatedItemTypeName,
+    meta,
+    fieldConfig,
+    relatedItem,
+    renderContext,
+    RelatedItemSubElementsMap,
   )
 }

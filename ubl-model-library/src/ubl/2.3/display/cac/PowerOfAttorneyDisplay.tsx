@@ -1,119 +1,142 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { PowerOfAttorney } from  '../../model/cac/PowerOfAttorney'
-import { PowerOfAttorneyFieldMeta } from  '../../meta/cac/PowerOfAttorneyMeta'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentReferenceDisplay from './DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { PowerOfAttorneyField, PowerOfAttorneyFieldMeta, PowerOfAttorneyTypeName } from  '../../meta/cac/PowerOfAttorneyMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentReferenceDisplay } from './DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: PowerOfAttorney | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<PowerOfAttorney, void>
+  powerOfAttorney: PowerOfAttorney[] | undefined
+  renderContext: RenderContext
 }
 
-export default function PowerOfAttorneyDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const PowerOfAttorneySubElementsMap: SubElementsTemplatesMap<PowerOfAttorneyField, PowerOfAttorney, void> = new Map([
+    [
+      PowerOfAttorneyField.UBLExtensions,
+      { meta: PowerOfAttorneyFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={PowerOfAttorneyField.UBLExtensions}
+          meta={PowerOfAttorneyFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-PowerOfAttorney">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={PowerOfAttorneyFieldMeta.UBLExtensions}
-          />
+    [
+      PowerOfAttorneyField.ID,
+      { meta: PowerOfAttorneyFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PowerOfAttorneyField.ID}
+          meta={PowerOfAttorneyFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={PowerOfAttorneyFieldMeta.ID}
-          />
+    [
+      PowerOfAttorneyField.IssueDate,
+      { meta: PowerOfAttorneyFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={PowerOfAttorneyField.IssueDate}
+          meta={PowerOfAttorneyFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={PowerOfAttorneyFieldMeta.IssueDate}
-          />
+    [
+      PowerOfAttorneyField.IssueTime,
+      { meta: PowerOfAttorneyFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={PowerOfAttorneyField.IssueTime}
+          meta={PowerOfAttorneyFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={PowerOfAttorneyFieldMeta.IssueTime}
-          />
+    [
+      PowerOfAttorneyField.Description,
+      { meta: PowerOfAttorneyFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={PowerOfAttorneyField.Description}
+          meta={PowerOfAttorneyFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={PowerOfAttorneyFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={PowerOfAttorneyFieldMeta.Description}
-              />
-            }
-          />
+    [
+      PowerOfAttorneyField.NotaryParty,
+      { meta: PowerOfAttorneyFieldMeta.NotaryParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={PowerOfAttorneyField.NotaryParty}
+          meta={PowerOfAttorneyFieldMeta.NotaryParty}
+          fieldConfig={fieldConfig}
+          party={value?.NotaryParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Notary Party"
-            value={value.NotaryParty?.[0]}
-            meta={PowerOfAttorneyFieldMeta.NotaryParty}
-          />
+    [
+      PowerOfAttorneyField.AgentParty,
+      { meta: PowerOfAttorneyFieldMeta.AgentParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={PowerOfAttorneyField.AgentParty}
+          meta={PowerOfAttorneyFieldMeta.AgentParty}
+          fieldConfig={fieldConfig}
+          party={value?.AgentParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Agent Party"
-            value={value.AgentParty?.[0]}
-            meta={PowerOfAttorneyFieldMeta.AgentParty}
-          />
+    [
+      PowerOfAttorneyField.WitnessParty,
+      { meta: PowerOfAttorneyFieldMeta.WitnessParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={PowerOfAttorneyField.WitnessParty}
+          meta={PowerOfAttorneyFieldMeta.WitnessParty}
+          fieldConfig={fieldConfig}
+          party={value?.WitnessParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Party ubl-WitnessParty"
-            label="Witness Party"
-            items={value.WitnessParty}
-            meta={PowerOfAttorneyFieldMeta.WitnessParty} 
-            itemDisplay={ (itemValue: Party, key: string | number) =>
-              <PartyDisplay
-                key={key}
-                label="Witness Party"
-                value={itemValue}
-                meta={PowerOfAttorneyFieldMeta.WitnessParty}
-              />
-            }
-          />
+    [
+      PowerOfAttorneyField.MandateDocumentReference,
+      { meta: PowerOfAttorneyFieldMeta.MandateDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={PowerOfAttorneyField.MandateDocumentReference}
+          meta={PowerOfAttorneyFieldMeta.MandateDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.MandateDocumentReference}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentReference ubl-MandateDocumentReference"
-            label="Mandate Document Reference"
-            items={value.MandateDocumentReference}
-            meta={PowerOfAttorneyFieldMeta.MandateDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Mandate Document Reference"
-                value={itemValue}
-                meta={PowerOfAttorneyFieldMeta.MandateDocumentReference}
-              />
-            }
-          />
-        </div>
-    </div>
+export function PowerOfAttorneyDisplay<TFieldMeta>({ meta, fieldConfig, powerOfAttorney, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    PowerOfAttorneyTypeName,
+    meta,
+    fieldConfig,
+    powerOfAttorney,
+    renderContext,
+    PowerOfAttorneySubElementsMap,
   )
 }

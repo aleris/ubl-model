@@ -1,127 +1,191 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { CustomsDeclaration } from  '../../model/cac/CustomsDeclaration'
-import { CustomsDeclarationFieldMeta } from  '../../meta/cac/CustomsDeclarationMeta'
-import AddressDisplay from './AddressDisplay'
-import { Address } from '../../model/cac/Address'
-import DocumentReferenceDisplay from './DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import LocationDisplay from './LocationDisplay'
-import { Location } from '../../model/cac/Location'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import ShipmentDisplay from './ShipmentDisplay'
-import { Shipment } from '../../model/cac/Shipment'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { CustomsDeclarationField, CustomsDeclarationFieldMeta, CustomsDeclarationTypeName } from  '../../meta/cac/CustomsDeclarationMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AddressDisplay } from './AddressDisplay'
+import { DocumentReferenceDisplay } from './DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { LocationDisplay } from './LocationDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { ShipmentDisplay } from './ShipmentDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: CustomsDeclaration | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<CustomsDeclaration, void>
+  customsDeclaration: CustomsDeclaration[] | undefined
+  renderContext: RenderContext
 }
 
-export default function CustomsDeclarationDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const CustomsDeclarationSubElementsMap: SubElementsTemplatesMap<CustomsDeclarationField, CustomsDeclaration, void> = new Map([
+    [
+      CustomsDeclarationField.UBLExtensions,
+      { meta: CustomsDeclarationFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={CustomsDeclarationField.UBLExtensions}
+          meta={CustomsDeclarationFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-CustomsDeclaration">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={CustomsDeclarationFieldMeta.UBLExtensions}
-          />
+    [
+      CustomsDeclarationField.ID,
+      { meta: CustomsDeclarationFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CustomsDeclarationField.ID}
+          meta={CustomsDeclarationFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={CustomsDeclarationFieldMeta.ID}
-          />
+    [
+      CustomsDeclarationField.ValidityPeriod,
+      { meta: CustomsDeclarationFieldMeta.ValidityPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={CustomsDeclarationField.ValidityPeriod}
+          meta={CustomsDeclarationFieldMeta.ValidityPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.ValidityPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Validity Period"
-            value={value.ValidityPeriod?.[0]}
-            meta={CustomsDeclarationFieldMeta.ValidityPeriod}
-          />
+    [
+      CustomsDeclarationField.ApplicableTerritoryAddress,
+      { meta: CustomsDeclarationFieldMeta.ApplicableTerritoryAddress,
+        template: ({value, renderContext, fieldConfig}) => <AddressDisplay
+          key={CustomsDeclarationField.ApplicableTerritoryAddress}
+          meta={CustomsDeclarationFieldMeta.ApplicableTerritoryAddress}
+          fieldConfig={fieldConfig}
+          address={value?.ApplicableTerritoryAddress}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AddressDisplay
-            label="Applicable Territory Address"
-            value={value.ApplicableTerritoryAddress?.[0]}
-            meta={CustomsDeclarationFieldMeta.ApplicableTerritoryAddress}
-          />
+    [
+      CustomsDeclarationField.Shipment,
+      { meta: CustomsDeclarationFieldMeta.Shipment,
+        template: ({value, renderContext, fieldConfig}) => <ShipmentDisplay
+          key={CustomsDeclarationField.Shipment}
+          meta={CustomsDeclarationFieldMeta.Shipment}
+          fieldConfig={fieldConfig}
+          shipment={value?.Shipment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ShipmentDisplay
-            label="Shipment"
-            value={value.Shipment?.[0]}
-            meta={CustomsDeclarationFieldMeta.Shipment}
-          />
+    [
+      CustomsDeclarationField.CustomsExitOfficeLocation,
+      { meta: CustomsDeclarationFieldMeta.CustomsExitOfficeLocation,
+        template: ({value, renderContext, fieldConfig}) => <LocationDisplay
+          key={CustomsDeclarationField.CustomsExitOfficeLocation}
+          meta={CustomsDeclarationFieldMeta.CustomsExitOfficeLocation}
+          fieldConfig={fieldConfig}
+          location={value?.CustomsExitOfficeLocation}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <LocationDisplay
-            label="Customs Exit Office Location"
-            value={value.CustomsExitOfficeLocation?.[0]}
-            meta={CustomsDeclarationFieldMeta.CustomsExitOfficeLocation}
-          />
+    [
+      CustomsDeclarationField.IssuerParty,
+      { meta: CustomsDeclarationFieldMeta.IssuerParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={CustomsDeclarationField.IssuerParty}
+          meta={CustomsDeclarationFieldMeta.IssuerParty}
+          fieldConfig={fieldConfig}
+          party={value?.IssuerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Issuer Party"
-            value={value.IssuerParty?.[0]}
-            meta={CustomsDeclarationFieldMeta.IssuerParty}
-          />
+    [
+      CustomsDeclarationField.ConsignorParty,
+      { meta: CustomsDeclarationFieldMeta.ConsignorParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={CustomsDeclarationField.ConsignorParty}
+          meta={CustomsDeclarationFieldMeta.ConsignorParty}
+          fieldConfig={fieldConfig}
+          party={value?.ConsignorParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Consignor Party"
-            value={value.ConsignorParty?.[0]}
-            meta={CustomsDeclarationFieldMeta.ConsignorParty}
-          />
+    [
+      CustomsDeclarationField.ConsigneeParty,
+      { meta: CustomsDeclarationFieldMeta.ConsigneeParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={CustomsDeclarationField.ConsigneeParty}
+          meta={CustomsDeclarationFieldMeta.ConsigneeParty}
+          fieldConfig={fieldConfig}
+          party={value?.ConsigneeParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Consignee Party"
-            value={value.ConsigneeParty?.[0]}
-            meta={CustomsDeclarationFieldMeta.ConsigneeParty}
-          />
+    [
+      CustomsDeclarationField.FreightForwarderParty,
+      { meta: CustomsDeclarationFieldMeta.FreightForwarderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={CustomsDeclarationField.FreightForwarderParty}
+          meta={CustomsDeclarationFieldMeta.FreightForwarderParty}
+          fieldConfig={fieldConfig}
+          party={value?.FreightForwarderParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Freight Forwarder Party"
-            value={value.FreightForwarderParty?.[0]}
-            meta={CustomsDeclarationFieldMeta.FreightForwarderParty}
-          />
+    [
+      CustomsDeclarationField.CustomsParty,
+      { meta: CustomsDeclarationFieldMeta.CustomsParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={CustomsDeclarationField.CustomsParty}
+          meta={CustomsDeclarationFieldMeta.CustomsParty}
+          fieldConfig={fieldConfig}
+          party={value?.CustomsParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Customs Party"
-            value={value.CustomsParty?.[0]}
-            meta={CustomsDeclarationFieldMeta.CustomsParty}
-          />
+    [
+      CustomsDeclarationField.PreviousCustomsDeclaration,
+      { meta: CustomsDeclarationFieldMeta.PreviousCustomsDeclaration,
+        template: ({value, renderContext, fieldConfig}) => <CustomsDeclarationDisplay
+          key={CustomsDeclarationField.PreviousCustomsDeclaration}
+          meta={CustomsDeclarationFieldMeta.PreviousCustomsDeclaration}
+          fieldConfig={fieldConfig}
+          customsDeclaration={value?.PreviousCustomsDeclaration}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomsDeclarationDisplay
-            label="Previous Customs Declaration"
-            value={value.PreviousCustomsDeclaration?.[0]}
-            meta={CustomsDeclarationFieldMeta.PreviousCustomsDeclaration}
-          />
+    [
+      CustomsDeclarationField.AdditionalDocumentReference,
+      { meta: CustomsDeclarationFieldMeta.AdditionalDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={CustomsDeclarationField.AdditionalDocumentReference}
+          meta={CustomsDeclarationFieldMeta.AdditionalDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.AdditionalDocumentReference}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentReference ubl-AdditionalDocumentReference"
-            label="Additional Document Reference"
-            items={value.AdditionalDocumentReference}
-            meta={CustomsDeclarationFieldMeta.AdditionalDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Additional Document Reference"
-                value={itemValue}
-                meta={CustomsDeclarationFieldMeta.AdditionalDocumentReference}
-              />
-            }
-          />
-        </div>
-    </div>
+export function CustomsDeclarationDisplay<TFieldMeta>({ meta, fieldConfig, customsDeclaration, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    CustomsDeclarationTypeName,
+    meta,
+    fieldConfig,
+    customsDeclaration,
+    renderContext,
+    CustomsDeclarationSubElementsMap,
   )
 }

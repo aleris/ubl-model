@@ -1,4 +1,21 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CatalogueItemSpecificationUpdateLineType } from '../cac/CatalogueItemSpecificationUpdateLineMeta'
+import { CatalogueReferenceType } from '../cac/CatalogueReferenceMeta'
+import { ContractType } from '../cac/ContractMeta'
+import { CustomerPartyType } from '../cac/CustomerPartyMeta'
+import { DateType } from '../cbc/DateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { LanguageType } from '../cac/LanguageMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { PeriodType } from '../cac/PeriodMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { SupplierPartyType } from '../cac/SupplierPartyMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { TradingTermsType } from '../cac/TradingTermsMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum CatalogueItemSpecificationUpdateField {
   UBLExtensions = 'UBLExtensions',
@@ -33,11 +50,11 @@ export enum CatalogueItemSpecificationUpdateField {
 export const CatalogueItemSpecificationUpdateFieldMetaUBLExtensions = new FieldMeta<CatalogueItemSpecificationUpdateField>(
   CatalogueItemSpecificationUpdateField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -46,10 +63,10 @@ export const CatalogueItemSpecificationUpdateFieldMetaUBLVersionID = new FieldMe
   CatalogueItemSpecificationUpdateField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.0.5'
 )
@@ -58,10 +75,10 @@ export const CatalogueItemSpecificationUpdateFieldMetaCustomizationID = new Fiel
   CatalogueItemSpecificationUpdateField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -70,10 +87,10 @@ export const CatalogueItemSpecificationUpdateFieldMetaProfileID = new FieldMeta<
   CatalogueItemSpecificationUpdateField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the subset of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BasicProcurementProcess'
 )
@@ -82,10 +99,10 @@ export const CatalogueItemSpecificationUpdateFieldMetaProfileExecutionID = new F
   CatalogueItemSpecificationUpdateField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -94,10 +111,10 @@ export const CatalogueItemSpecificationUpdateFieldMetaID = new FieldMeta<Catalog
   CatalogueItemSpecificationUpdateField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -106,10 +123,10 @@ export const CatalogueItemSpecificationUpdateFieldMetaUUID = new FieldMeta<Catal
   CatalogueItemSpecificationUpdateField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -118,10 +135,10 @@ export const CatalogueItemSpecificationUpdateFieldMetaName = new FieldMeta<Catal
   CatalogueItemSpecificationUpdateField.Name,
   'Name',
   'Name',
-  'Text',
+  TextType.name,
   'Text, assigned by the sender, that identifies this document to business users.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'electrical goods - new energy ratings.'
 )
@@ -130,10 +147,10 @@ export const CatalogueItemSpecificationUpdateFieldMetaIssueDate = new FieldMeta<
   CatalogueItemSpecificationUpdateField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -142,10 +159,10 @@ export const CatalogueItemSpecificationUpdateFieldMetaIssueTime = new FieldMeta<
   CatalogueItemSpecificationUpdateField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -154,10 +171,10 @@ export const CatalogueItemSpecificationUpdateFieldMetaRevisionDate = new FieldMe
   CatalogueItemSpecificationUpdateField.RevisionDate,
   'RevisionDate',
   'Revision Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the seller, on which the Catalogue was revised.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -166,10 +183,10 @@ export const CatalogueItemSpecificationUpdateFieldMetaRevisionTime = new FieldMe
   CatalogueItemSpecificationUpdateField.RevisionTime,
   'RevisionTime',
   'Revision Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the seller, at which the Catalogue was revised.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -178,10 +195,10 @@ export const CatalogueItemSpecificationUpdateFieldMetaNote = new FieldMeta<Catal
   CatalogueItemSpecificationUpdateField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -190,10 +207,10 @@ export const CatalogueItemSpecificationUpdateFieldMetaDescription = new FieldMet
   CatalogueItemSpecificationUpdateField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Textual description of the document instance.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   'ratings based on new environmental standards for EU'
 )
@@ -202,10 +219,10 @@ export const CatalogueItemSpecificationUpdateFieldMetaVersionID = new FieldMeta<
   CatalogueItemSpecificationUpdateField.VersionID,
   'VersionID',
   'Version',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the current version of the Catalogue.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '1.1'
 )
@@ -214,10 +231,10 @@ export const CatalogueItemSpecificationUpdateFieldMetaLineCountNumeric = new Fie
   CatalogueItemSpecificationUpdateField.LineCountNumeric,
   'LineCountNumeric',
   'Line Count',
-  'Numeric',
+  NumericType.name,
   'The number of Catalogue Item Specification Update Lines in this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -226,10 +243,10 @@ export const CatalogueItemSpecificationUpdateFieldMetaValidityPeriod = new Field
   CatalogueItemSpecificationUpdateField.ValidityPeriod,
   'ValidityPeriod',
   'Validity Period',
-  'Period',
+  PeriodType.name,
   'A period, assigned by the seller, during which the information in the Catalogue Revision is effective. This may be given as start and end dates or as a duration.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -238,10 +255,10 @@ export const CatalogueItemSpecificationUpdateFieldMetaRelatedCatalogueReference 
   CatalogueItemSpecificationUpdateField.RelatedCatalogueReference,
   'RelatedCatalogueReference',
   'Related Catalogue Reference',
-  'CatalogueReference',
+  CatalogueReferenceType.name,
   'A reference to the Catalogue being updated.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -250,10 +267,10 @@ export const CatalogueItemSpecificationUpdateFieldMetaReferencedContract = new F
   CatalogueItemSpecificationUpdateField.ReferencedContract,
   'ReferencedContract',
   'Referenced Contract',
-  'Contract',
+  ContractType.name,
   'A contract or framework agreement with which the Catalogue is associated.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -262,10 +279,10 @@ export const CatalogueItemSpecificationUpdateFieldMetaSignature = new FieldMeta<
   CatalogueItemSpecificationUpdateField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -274,10 +291,10 @@ export const CatalogueItemSpecificationUpdateFieldMetaProviderParty = new FieldM
   CatalogueItemSpecificationUpdateField.ProviderParty,
   'ProviderParty',
   'Provider Party',
-  'Party',
+  PartyType.name,
   'The party sending the Catalogue Item Specification Update.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -286,10 +303,10 @@ export const CatalogueItemSpecificationUpdateFieldMetaReceiverParty = new FieldM
   CatalogueItemSpecificationUpdateField.ReceiverParty,
   'ReceiverParty',
   'Receiver Party',
-  'Party',
+  PartyType.name,
   'The party receiving the Catalogue Item Specification Update.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -298,10 +315,10 @@ export const CatalogueItemSpecificationUpdateFieldMetaSellerSupplierParty = new 
   CatalogueItemSpecificationUpdateField.SellerSupplierParty,
   'SellerSupplierParty',
   'Seller Supplier Party',
-  'SupplierParty',
+  SupplierPartyType.name,
   'The seller.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -310,10 +327,10 @@ export const CatalogueItemSpecificationUpdateFieldMetaContractorCustomerParty = 
   CatalogueItemSpecificationUpdateField.ContractorCustomerParty,
   'ContractorCustomerParty',
   'Contractor Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The customer party responsible for the contracts with which the Catalogue is associated.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -322,10 +339,10 @@ export const CatalogueItemSpecificationUpdateFieldMetaTradingTerms = new FieldMe
   CatalogueItemSpecificationUpdateField.TradingTerms,
   'TradingTerms',
   'Trading Terms',
-  'TradingTerms',
+  TradingTermsType.name,
   'The trading terms associated with the Catalogue.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -334,10 +351,10 @@ export const CatalogueItemSpecificationUpdateFieldMetaDefaultLanguage = new Fiel
   CatalogueItemSpecificationUpdateField.DefaultLanguage,
   'DefaultLanguage',
   'Default Language',
-  'Language',
+  LanguageType.name,
   'The default language for the item specifications.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -346,10 +363,10 @@ export const CatalogueItemSpecificationUpdateFieldMetaCatalogueItemSpecification
   CatalogueItemSpecificationUpdateField.CatalogueItemSpecificationUpdateLine,
   'CatalogueItemSpecificationUpdateLine',
   'Catalogue Item Specification Update Line',
-  'CatalogueItemSpecificationUpdateLine',
+  CatalogueItemSpecificationUpdateLineType.name,
   'One or more lines in the Catalogue Item Specification Update, each line updating a specific catalogue item.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -413,3 +430,11 @@ export const CatalogueItemSpecificationUpdateFieldMap = new Map([
   [CatalogueItemSpecificationUpdateField.DefaultLanguage, CatalogueItemSpecificationUpdateFieldMetaDefaultLanguage],
   [CatalogueItemSpecificationUpdateField.CatalogueItemSpecificationUpdateLine, CatalogueItemSpecificationUpdateFieldMetaCatalogueItemSpecificationUpdateLine]
 ])
+
+export const CatalogueItemSpecificationUpdateType: Type<CatalogueItemSpecificationUpdateField> = {
+  name: 'CatalogueItemSpecificationUpdate',
+  label: 'Catalogue Item Specification Update',
+  module: TypeModule.doc,
+  definition: 'A document used to update information (e.g., technical descriptions and properties) about Items in an existing Catalogue.',
+  fields: CatalogueItemSpecificationUpdateFieldMap,
+}

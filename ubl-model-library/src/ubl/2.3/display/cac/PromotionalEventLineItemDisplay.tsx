@@ -1,48 +1,66 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { PromotionalEventLineItem } from  '../../model/cac/PromotionalEventLineItem'
-import { PromotionalEventLineItemFieldMeta } from  '../../meta/cac/PromotionalEventLineItemMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import EventLineItemDisplay from './EventLineItemDisplay'
-import { EventLineItem } from '../../model/cac/EventLineItem'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { PromotionalEventLineItemField, PromotionalEventLineItemFieldMeta, PromotionalEventLineItemTypeName } from  '../../meta/cac/PromotionalEventLineItemMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { EventLineItemDisplay } from './EventLineItemDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: PromotionalEventLineItem | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<PromotionalEventLineItem, void>
+  promotionalEventLineItem: PromotionalEventLineItem[] | undefined
+  renderContext: RenderContext
 }
 
-export default function PromotionalEventLineItemDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const PromotionalEventLineItemSubElementsMap: SubElementsTemplatesMap<PromotionalEventLineItemField, PromotionalEventLineItem, void> = new Map([
+    [
+      PromotionalEventLineItemField.UBLExtensions,
+      { meta: PromotionalEventLineItemFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={PromotionalEventLineItemField.UBLExtensions}
+          meta={PromotionalEventLineItemFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-PromotionalEventLineItem">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={PromotionalEventLineItemFieldMeta.UBLExtensions}
-          />
+    [
+      PromotionalEventLineItemField.Amount,
+      { meta: PromotionalEventLineItemFieldMeta.Amount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={PromotionalEventLineItemField.Amount}
+          meta={PromotionalEventLineItemFieldMeta.Amount}
+          fieldConfig={fieldConfig}
+          amount={value?.Amount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Amount"
-            value={value.Amount?.[0]}
-            meta={PromotionalEventLineItemFieldMeta.Amount}
-          />
+    [
+      PromotionalEventLineItemField.EventLineItem,
+      { meta: PromotionalEventLineItemFieldMeta.EventLineItem,
+        template: ({value, renderContext, fieldConfig}) => <EventLineItemDisplay
+          key={PromotionalEventLineItemField.EventLineItem}
+          meta={PromotionalEventLineItemFieldMeta.EventLineItem}
+          fieldConfig={fieldConfig}
+          eventLineItem={value?.EventLineItem}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <EventLineItemDisplay
-            label="Event Line Item"
-            value={value.EventLineItem?.[0]}
-            meta={PromotionalEventLineItemFieldMeta.EventLineItem}
-          />
-        </div>
-    </div>
+export function PromotionalEventLineItemDisplay<TFieldMeta>({ meta, fieldConfig, promotionalEventLineItem, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    PromotionalEventLineItemTypeName,
+    meta,
+    fieldConfig,
+    promotionalEventLineItem,
+    renderContext,
+    PromotionalEventLineItemSubElementsMap,
   )
 }

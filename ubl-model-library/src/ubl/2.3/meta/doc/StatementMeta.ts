@@ -1,4 +1,25 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AllowanceChargeType } from '../cac/AllowanceChargeMeta'
+import { AmountType } from '../cbc/AmountMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { CustomerPartyType } from '../cac/CustomerPartyMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { PaymentMeansType } from '../cac/PaymentMeansMeta'
+import { PaymentTermsType } from '../cac/PaymentTermsMeta'
+import { PeriodType } from '../cac/PeriodMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { StatementLineType } from '../cac/StatementLineMeta'
+import { SupplierPartyType } from '../cac/SupplierPartyMeta'
+import { TaxTotalType } from '../cac/TaxTotalMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum StatementField {
   UBLExtensions = 'UBLExtensions',
@@ -37,11 +58,11 @@ export enum StatementField {
 export const StatementFieldMetaUBLExtensions = new FieldMeta<StatementField>(
   StatementField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -50,10 +71,10 @@ export const StatementFieldMetaUBLVersionID = new FieldMeta<StatementField>(
   StatementField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.0.5'
 )
@@ -62,10 +83,10 @@ export const StatementFieldMetaCustomizationID = new FieldMeta<StatementField>(
   StatementField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -74,10 +95,10 @@ export const StatementFieldMetaProfileID = new FieldMeta<StatementField>(
   StatementField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BasicProcurementProcess'
 )
@@ -86,10 +107,10 @@ export const StatementFieldMetaProfileExecutionID = new FieldMeta<StatementField
   StatementField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BPP-1001'
 )
@@ -98,10 +119,10 @@ export const StatementFieldMetaID = new FieldMeta<StatementField>(
   StatementField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -110,10 +131,10 @@ export const StatementFieldMetaCopyIndicator = new FieldMeta<StatementField>(
   StatementField.CopyIndicator,
   'CopyIndicator',
   'Copy Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this document is a copy (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -122,10 +143,10 @@ export const StatementFieldMetaUUID = new FieldMeta<StatementField>(
   StatementField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -134,10 +155,10 @@ export const StatementFieldMetaIssueDate = new FieldMeta<StatementField>(
   StatementField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -146,10 +167,10 @@ export const StatementFieldMetaIssueTime = new FieldMeta<StatementField>(
   StatementField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -158,10 +179,10 @@ export const StatementFieldMetaNote = new FieldMeta<StatementField>(
   StatementField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -170,10 +191,10 @@ export const StatementFieldMetaDocumentCurrencyCode = new FieldMeta<StatementFie
   StatementField.DocumentCurrencyCode,
   'DocumentCurrencyCode',
   'Document Currency Code',
-  'Code',
+  CodeType.name,
   'The default currency for the Statement.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -182,10 +203,10 @@ export const StatementFieldMetaTotalDebitAmount = new FieldMeta<StatementField>(
   StatementField.TotalDebitAmount,
   'TotalDebitAmount',
   'Total Debit Amount',
-  'Amount',
+  AmountType.name,
   'The total of all debit amounts for the Statement.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -194,10 +215,10 @@ export const StatementFieldMetaTotalCreditAmount = new FieldMeta<StatementField>
   StatementField.TotalCreditAmount,
   'TotalCreditAmount',
   'Total Credit Amount',
-  'Amount',
+  AmountType.name,
   'The total of all credit amounts for the Statement.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -206,10 +227,10 @@ export const StatementFieldMetaTotalBalanceAmount = new FieldMeta<StatementField
   StatementField.TotalBalanceAmount,
   'TotalBalanceAmount',
   'Total Balance Amount',
-  'Amount',
+  AmountType.name,
   'The total amount for the Statement.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -218,10 +239,10 @@ export const StatementFieldMetaLineCountNumeric = new FieldMeta<StatementField>(
   StatementField.LineCountNumeric,
   'LineCountNumeric',
   'Line Count',
-  'Numeric',
+  NumericType.name,
   'The number of Statement Lines in the Statement.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -230,10 +251,10 @@ export const StatementFieldMetaStatementTypeCode = new FieldMeta<StatementField>
   StatementField.StatementTypeCode,
   'StatementTypeCode',
   'Statement Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of the Statement.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -242,10 +263,10 @@ export const StatementFieldMetaStatementPeriod = new FieldMeta<StatementField>(
   StatementField.StatementPeriod,
   'StatementPeriod',
   'Statement Period',
-  'Period',
+  PeriodType.name,
   'A period to which the Statement applies.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -254,10 +275,10 @@ export const StatementFieldMetaAdditionalDocumentReference = new FieldMeta<State
   StatementField.AdditionalDocumentReference,
   'AdditionalDocumentReference',
   'Additional Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to an additional document associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -266,10 +287,10 @@ export const StatementFieldMetaSignature = new FieldMeta<StatementField>(
   StatementField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -278,10 +299,10 @@ export const StatementFieldMetaAccountingSupplierParty = new FieldMeta<Statement
   StatementField.AccountingSupplierParty,
   'AccountingSupplierParty',
   'Accounting Supplier Party',
-  'SupplierParty',
+  SupplierPartyType.name,
   'The accounting supplier party.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -290,10 +311,10 @@ export const StatementFieldMetaAccountingCustomerParty = new FieldMeta<Statement
   StatementField.AccountingCustomerParty,
   'AccountingCustomerParty',
   'Accounting Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The accounting customer party.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -302,10 +323,10 @@ export const StatementFieldMetaBuyerCustomerParty = new FieldMeta<StatementField
   StatementField.BuyerCustomerParty,
   'BuyerCustomerParty',
   'Buyer Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The buyer.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -314,10 +335,10 @@ export const StatementFieldMetaSellerSupplierParty = new FieldMeta<StatementFiel
   StatementField.SellerSupplierParty,
   'SellerSupplierParty',
   'Seller Supplier Party',
-  'SupplierParty',
+  SupplierPartyType.name,
   'The seller.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -326,10 +347,10 @@ export const StatementFieldMetaOriginatorCustomerParty = new FieldMeta<Statement
   StatementField.OriginatorCustomerParty,
   'OriginatorCustomerParty',
   'Originator Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The originator.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -338,10 +359,10 @@ export const StatementFieldMetaPayeeParty = new FieldMeta<StatementField>(
   StatementField.PayeeParty,
   'PayeeParty',
   'Payee Party',
-  'Party',
+  PartyType.name,
   'The payee.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -350,10 +371,10 @@ export const StatementFieldMetaPaymentMeans = new FieldMeta<StatementField>(
   StatementField.PaymentMeans,
   'PaymentMeans',
   'Payment Means',
-  'PaymentMeans',
+  PaymentMeansType.name,
   'Expected means of payment.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -362,10 +383,10 @@ export const StatementFieldMetaPaymentTerms = new FieldMeta<StatementField>(
   StatementField.PaymentTerms,
   'PaymentTerms',
   'Payment Terms',
-  'PaymentTerms',
+  PaymentTermsType.name,
   'A set of payment terms associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -374,10 +395,10 @@ export const StatementFieldMetaAllowanceCharge = new FieldMeta<StatementField>(
   StatementField.AllowanceCharge,
   'AllowanceCharge',
   'Allowance Charge',
-  'AllowanceCharge',
+  AllowanceChargeType.name,
   'A discount or charge that applies to a price component.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -386,10 +407,10 @@ export const StatementFieldMetaTaxTotal = new FieldMeta<StatementField>(
   StatementField.TaxTotal,
   'TaxTotal',
   'Tax Total',
-  'TaxTotal',
+  TaxTotalType.name,
   'The total amount of a specific type of tax.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -398,10 +419,10 @@ export const StatementFieldMetaStatementLine = new FieldMeta<StatementField>(
   StatementField.StatementLine,
   'StatementLine',
   'Statement Line',
-  'StatementLine',
+  StatementLineType.name,
   'A Statement Line.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -473,3 +494,11 @@ export const StatementFieldMap = new Map([
   [StatementField.TaxTotal, StatementFieldMetaTaxTotal],
   [StatementField.StatementLine, StatementFieldMetaStatementLine]
 ])
+
+export const StatementType: Type<StatementField> = {
+  name: 'Statement',
+  label: 'Statement',
+  module: TypeModule.doc,
+  definition: 'A document used to report the status of orders, billing, and payment. This document is a statement of account, not a summary invoice.',
+  fields: StatementFieldMap,
+}

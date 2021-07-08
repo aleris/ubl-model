@@ -1,4 +1,10 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CustomerPartyType } from './CustomerPartyMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { ItemType } from './ItemMeta'
+import { SupplierPartyType } from './SupplierPartyMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum CatalogueItemSpecificationUpdateLineField {
   UBLExtensions = 'UBLExtensions',
@@ -11,11 +17,11 @@ export enum CatalogueItemSpecificationUpdateLineField {
 export const CatalogueItemSpecificationUpdateLineFieldMetaUBLExtensions = new FieldMeta<CatalogueItemSpecificationUpdateLineField>(
   CatalogueItemSpecificationUpdateLineField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -24,10 +30,10 @@ export const CatalogueItemSpecificationUpdateLineFieldMetaID = new FieldMeta<Cat
   CatalogueItemSpecificationUpdateLineField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the line to be updated in a catalogue.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   '1'
 )
@@ -36,10 +42,10 @@ export const CatalogueItemSpecificationUpdateLineFieldMetaContractorCustomerPart
   CatalogueItemSpecificationUpdateLineField.ContractorCustomerParty,
   'ContractorCustomerParty',
   'Contractor Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The customer responsible for the contract associated with the catalogue item.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -48,10 +54,10 @@ export const CatalogueItemSpecificationUpdateLineFieldMetaSellerSupplierParty = 
   CatalogueItemSpecificationUpdateLineField.SellerSupplierParty,
   'SellerSupplierParty',
   'Seller Supplier Party',
-  'SupplierParty',
+  SupplierPartyType.name,
   'The seller/supplier responsible for the contract associated with the catalogue item.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -60,10 +66,10 @@ export const CatalogueItemSpecificationUpdateLineFieldMetaItem = new FieldMeta<C
   CatalogueItemSpecificationUpdateLineField.Item,
   'Item',
   'Item',
-  'Item',
+  ItemType.name,
   'The catalogue item to be updated.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -83,3 +89,11 @@ export const CatalogueItemSpecificationUpdateLineFieldMap = new Map([
   [CatalogueItemSpecificationUpdateLineField.SellerSupplierParty, CatalogueItemSpecificationUpdateLineFieldMetaSellerSupplierParty],
   [CatalogueItemSpecificationUpdateLineField.Item, CatalogueItemSpecificationUpdateLineFieldMetaItem]
 ])
+
+export const CatalogueItemSpecificationUpdateLineType: Type<CatalogueItemSpecificationUpdateLineField> = {
+  name: 'CatalogueItemSpecificationUpdateLine',
+  label: 'Catalogue Item Specification Update Line',
+  module: TypeModule.cac,
+  definition: 'A class to define a line describing the transaction that updates the specification of an item in a catalogue.',
+  fields: CatalogueItemSpecificationUpdateLineFieldMap,
+}

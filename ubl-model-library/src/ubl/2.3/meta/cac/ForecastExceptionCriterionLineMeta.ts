@@ -1,4 +1,8 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ForecastExceptionCriterionLineField {
   UBLExtensions = 'UBLExtensions',
@@ -12,11 +16,11 @@ export enum ForecastExceptionCriterionLineField {
 export const ForecastExceptionCriterionLineFieldMetaUBLExtensions = new FieldMeta<ForecastExceptionCriterionLineField>(
   ForecastExceptionCriterionLineField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -25,10 +29,10 @@ export const ForecastExceptionCriterionLineFieldMetaForecastPurposeCode = new Fi
   ForecastExceptionCriterionLineField.ForecastPurposeCode,
   'ForecastPurposeCode',
   'Forecast Purpose Code',
-  'Code',
+  CodeType.name,
   'A description of the purpose for the forecast that is assigned to each forecast data item exception criterion.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -37,10 +41,10 @@ export const ForecastExceptionCriterionLineFieldMetaForecastTypeCode = new Field
   ForecastExceptionCriterionLineField.ForecastTypeCode,
   'ForecastTypeCode',
   'Forecast Type Code',
-  'Code',
+  CodeType.name,
   'A description of a Forecast selected from a list.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -49,10 +53,10 @@ export const ForecastExceptionCriterionLineFieldMetaComparisonDataSourceCode = n
   ForecastExceptionCriterionLineField.ComparisonDataSourceCode,
   'ComparisonDataSourceCode',
   'Comparison Data Source Code',
-  'Code',
+  CodeType.name,
   'If it is a forecast comparison exception, this value indicates the other source of information.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -61,10 +65,10 @@ export const ForecastExceptionCriterionLineFieldMetaDataSourceCode = new FieldMe
   ForecastExceptionCriterionLineField.DataSourceCode,
   'DataSourceCode',
   'Data Source Code',
-  'Code',
+  CodeType.name,
   'Indication of the partner who provides the information.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -73,10 +77,10 @@ export const ForecastExceptionCriterionLineFieldMetaTimeDeltaDaysQuantity = new 
   ForecastExceptionCriterionLineField.TimeDeltaDaysQuantity,
   'TimeDeltaDaysQuantity',
   'Time Delta Days Quantity',
-  'Quantity',
+  QuantityType.name,
   'Time basis in days for the Exception.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -98,3 +102,11 @@ export const ForecastExceptionCriterionLineFieldMap = new Map([
   [ForecastExceptionCriterionLineField.DataSourceCode, ForecastExceptionCriterionLineFieldMetaDataSourceCode],
   [ForecastExceptionCriterionLineField.TimeDeltaDaysQuantity, ForecastExceptionCriterionLineFieldMetaTimeDeltaDaysQuantity]
 ])
+
+export const ForecastExceptionCriterionLineType: Type<ForecastExceptionCriterionLineField> = {
+  name: 'ForecastExceptionCriterionLine',
+  label: 'Forecast Exception Criterion Line',
+  module: TypeModule.cac,
+  definition: 'Establishes the criterion for one of the three types of exceptions. This class provides criteria for the kind of forecast exception, the identification of the purpose of the forecast, the source of data and the time basis criterion for the exception.',
+  fields: ForecastExceptionCriterionLineFieldMap,
+}

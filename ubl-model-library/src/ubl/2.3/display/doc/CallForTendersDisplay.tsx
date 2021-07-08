@@ -1,294 +1,378 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { CallForTenders } from  '../../model/doc/CallForTenders'
-import { CallForTendersFieldMeta } from  '../../meta/doc/CallForTendersMeta'
-import ContractingPartyDisplay from '../cac/ContractingPartyDisplay'
-import { ContractingParty } from '../../model/cac/ContractingParty'
-import CustomerPartyDisplay from '../cac/CustomerPartyDisplay'
-import { CustomerParty } from '../../model/cac/CustomerParty'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import ProcurementProjectDisplay from '../cac/ProcurementProjectDisplay'
-import { ProcurementProject } from '../../model/cac/ProcurementProject'
-import ProcurementProjectLotDisplay from '../cac/ProcurementProjectLotDisplay'
-import { ProcurementProjectLot } from '../../model/cac/ProcurementProjectLot'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import TenderingProcessDisplay from '../cac/TenderingProcessDisplay'
-import { TenderingProcess } from '../../model/cac/TenderingProcess'
-import TenderingTermsDisplay from '../cac/TenderingTermsDisplay'
-import { TenderingTerms } from '../../model/cac/TenderingTerms'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { CallForTendersField, CallForTendersFieldMeta, CallForTendersTypeName } from  '../../meta/doc/CallForTendersMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { ContractingPartyDisplay } from '../cac/ContractingPartyDisplay'
+import { CustomerPartyDisplay } from '../cac/CustomerPartyDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { ProcurementProjectDisplay } from '../cac/ProcurementProjectDisplay'
+import { ProcurementProjectLotDisplay } from '../cac/ProcurementProjectLotDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { TenderingProcessDisplay } from '../cac/TenderingProcessDisplay'
+import { TenderingTermsDisplay } from '../cac/TenderingTermsDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: CallForTenders | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<CallForTenders, void>
+  callForTenders: CallForTenders[] | undefined
+  renderContext: RenderContext
 }
 
-export default function CallForTendersDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const CallForTendersSubElementsMap: SubElementsTemplatesMap<CallForTendersField, CallForTenders, void> = new Map([
+    [
+      CallForTendersField.UBLExtensions,
+      { meta: CallForTendersFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={CallForTendersField.UBLExtensions}
+          meta={CallForTendersFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-CallForTenders">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={CallForTendersFieldMeta.UBLExtensions}
-          />
+    [
+      CallForTendersField.UBLVersionID,
+      { meta: CallForTendersFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CallForTendersField.UBLVersionID}
+          meta={CallForTendersFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={CallForTendersFieldMeta.UBLVersionID}
-          />
+    [
+      CallForTendersField.CustomizationID,
+      { meta: CallForTendersFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CallForTendersField.CustomizationID}
+          meta={CallForTendersFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={CallForTendersFieldMeta.CustomizationID}
-          />
+    [
+      CallForTendersField.ProfileID,
+      { meta: CallForTendersFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CallForTendersField.ProfileID}
+          meta={CallForTendersFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={CallForTendersFieldMeta.ProfileID}
-          />
+    [
+      CallForTendersField.ProfileExecutionID,
+      { meta: CallForTendersFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CallForTendersField.ProfileExecutionID}
+          meta={CallForTendersFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={CallForTendersFieldMeta.ProfileExecutionID}
-          />
+    [
+      CallForTendersField.ID,
+      { meta: CallForTendersFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CallForTendersField.ID}
+          meta={CallForTendersFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={CallForTendersFieldMeta.ID}
-          />
+    [
+      CallForTendersField.CopyIndicator,
+      { meta: CallForTendersFieldMeta.CopyIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={CallForTendersField.CopyIndicator}
+          meta={CallForTendersFieldMeta.CopyIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.CopyIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Copy Indicator"
-            value={value.CopyIndicator?.[0]}
-            meta={CallForTendersFieldMeta.CopyIndicator}
-          />
+    [
+      CallForTendersField.UUID,
+      { meta: CallForTendersFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CallForTendersField.UUID}
+          meta={CallForTendersFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={CallForTendersFieldMeta.UUID}
-          />
+    [
+      CallForTendersField.ContractFolderID,
+      { meta: CallForTendersFieldMeta.ContractFolderID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CallForTendersField.ContractFolderID}
+          meta={CallForTendersFieldMeta.ContractFolderID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ContractFolderID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Contract Folder Identifier"
-            value={value.ContractFolderID?.[0]}
-            meta={CallForTendersFieldMeta.ContractFolderID}
-          />
+    [
+      CallForTendersField.ApprovalDate,
+      { meta: CallForTendersFieldMeta.ApprovalDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={CallForTendersField.ApprovalDate}
+          meta={CallForTendersFieldMeta.ApprovalDate}
+          fieldConfig={fieldConfig}
+          date={value?.ApprovalDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Approval Date"
-            value={value.ApprovalDate?.[0]}
-            meta={CallForTendersFieldMeta.ApprovalDate}
-          />
+    [
+      CallForTendersField.IssueDate,
+      { meta: CallForTendersFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={CallForTendersField.IssueDate}
+          meta={CallForTendersFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={CallForTendersFieldMeta.IssueDate}
-          />
+    [
+      CallForTendersField.IssueTime,
+      { meta: CallForTendersFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={CallForTendersField.IssueTime}
+          meta={CallForTendersFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={CallForTendersFieldMeta.IssueTime}
-          />
+    [
+      CallForTendersField.Note,
+      { meta: CallForTendersFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={CallForTendersField.Note}
+          meta={CallForTendersFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={CallForTendersFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={CallForTendersFieldMeta.Note}
-              />
-            }
-          />
+    [
+      CallForTendersField.VersionID,
+      { meta: CallForTendersFieldMeta.VersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CallForTendersField.VersionID}
+          meta={CallForTendersFieldMeta.VersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.VersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Version"
-            value={value.VersionID?.[0]}
-            meta={CallForTendersFieldMeta.VersionID}
-          />
+    [
+      CallForTendersField.PreviousVersionID,
+      { meta: CallForTendersFieldMeta.PreviousVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CallForTendersField.PreviousVersionID}
+          meta={CallForTendersFieldMeta.PreviousVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.PreviousVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Previous Version"
-            value={value.PreviousVersionID?.[0]}
-            meta={CallForTendersFieldMeta.PreviousVersionID}
-          />
+    [
+      CallForTendersField.LegalDocumentReference,
+      { meta: CallForTendersFieldMeta.LegalDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={CallForTendersField.LegalDocumentReference}
+          meta={CallForTendersFieldMeta.LegalDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.LegalDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DocumentReferenceDisplay
-            label="Legal Document Reference"
-            value={value.LegalDocumentReference?.[0]}
-            meta={CallForTendersFieldMeta.LegalDocumentReference}
-          />
+    [
+      CallForTendersField.TechnicalDocumentReference,
+      { meta: CallForTendersFieldMeta.TechnicalDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={CallForTendersField.TechnicalDocumentReference}
+          meta={CallForTendersFieldMeta.TechnicalDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.TechnicalDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DocumentReferenceDisplay
-            label="Technical Document Reference"
-            value={value.TechnicalDocumentReference?.[0]}
-            meta={CallForTendersFieldMeta.TechnicalDocumentReference}
-          />
+    [
+      CallForTendersField.RequiredDocumentReference,
+      { meta: CallForTendersFieldMeta.RequiredDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={CallForTendersField.RequiredDocumentReference}
+          meta={CallForTendersFieldMeta.RequiredDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.RequiredDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-RequiredDocumentReference"
-            label="Required Document Reference"
-            items={value.RequiredDocumentReference}
-            meta={CallForTendersFieldMeta.RequiredDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Required Document Reference"
-                value={itemValue}
-                meta={CallForTendersFieldMeta.RequiredDocumentReference}
-              />
-            }
-          />
+    [
+      CallForTendersField.ProvidedDocumentReference,
+      { meta: CallForTendersFieldMeta.ProvidedDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={CallForTendersField.ProvidedDocumentReference}
+          meta={CallForTendersFieldMeta.ProvidedDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.ProvidedDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-ProvidedDocumentReference"
-            label="Provided Document Reference"
-            items={value.ProvidedDocumentReference}
-            meta={CallForTendersFieldMeta.ProvidedDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Provided Document Reference"
-                value={itemValue}
-                meta={CallForTendersFieldMeta.ProvidedDocumentReference}
-              />
-            }
-          />
+    [
+      CallForTendersField.AdditionalDocumentReference,
+      { meta: CallForTendersFieldMeta.AdditionalDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={CallForTendersField.AdditionalDocumentReference}
+          meta={CallForTendersFieldMeta.AdditionalDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.AdditionalDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-AdditionalDocumentReference"
-            label="Additional Document Reference"
-            items={value.AdditionalDocumentReference}
-            meta={CallForTendersFieldMeta.AdditionalDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Additional Document Reference"
-                value={itemValue}
-                meta={CallForTendersFieldMeta.AdditionalDocumentReference}
-              />
-            }
-          />
+    [
+      CallForTendersField.Signature,
+      { meta: CallForTendersFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={CallForTendersField.Signature}
+          meta={CallForTendersFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={CallForTendersFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={CallForTendersFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      CallForTendersField.ContractingParty,
+      { meta: CallForTendersFieldMeta.ContractingParty,
+        template: ({value, renderContext, fieldConfig}) => <ContractingPartyDisplay
+          key={CallForTendersField.ContractingParty}
+          meta={CallForTendersFieldMeta.ContractingParty}
+          fieldConfig={fieldConfig}
+          contractingParty={value?.ContractingParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-ContractingParty"
-            label="Contracting Party"
-            items={value.ContractingParty}
-            meta={CallForTendersFieldMeta.ContractingParty} 
-            itemDisplay={ (itemValue: ContractingParty, key: string | number) =>
-              <ContractingPartyDisplay
-                key={key}
-                label="Contracting Party"
-                value={itemValue}
-                meta={CallForTendersFieldMeta.ContractingParty}
-              />
-            }
-          />
+    [
+      CallForTendersField.OriginatorCustomerParty,
+      { meta: CallForTendersFieldMeta.OriginatorCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={CallForTendersField.OriginatorCustomerParty}
+          meta={CallForTendersFieldMeta.OriginatorCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.OriginatorCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-CustomerParty ubl-OriginatorCustomerParty"
-            label="Originator Customer Party"
-            items={value.OriginatorCustomerParty}
-            meta={CallForTendersFieldMeta.OriginatorCustomerParty} 
-            itemDisplay={ (itemValue: CustomerParty, key: string | number) =>
-              <CustomerPartyDisplay
-                key={key}
-                label="Originator Customer Party"
-                value={itemValue}
-                meta={CallForTendersFieldMeta.OriginatorCustomerParty}
-              />
-            }
-          />
+    [
+      CallForTendersField.ReceiverParty,
+      { meta: CallForTendersFieldMeta.ReceiverParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={CallForTendersField.ReceiverParty}
+          meta={CallForTendersFieldMeta.ReceiverParty}
+          fieldConfig={fieldConfig}
+          party={value?.ReceiverParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Receiver Party"
-            value={value.ReceiverParty?.[0]}
-            meta={CallForTendersFieldMeta.ReceiverParty}
-          />
+    [
+      CallForTendersField.TenderingTerms,
+      { meta: CallForTendersFieldMeta.TenderingTerms,
+        template: ({value, renderContext, fieldConfig}) => <TenderingTermsDisplay
+          key={CallForTendersField.TenderingTerms}
+          meta={CallForTendersFieldMeta.TenderingTerms}
+          fieldConfig={fieldConfig}
+          tenderingTerms={value?.TenderingTerms}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TenderingTermsDisplay
-            label="Tendering Terms"
-            value={value.TenderingTerms?.[0]}
-            meta={CallForTendersFieldMeta.TenderingTerms}
-          />
+    [
+      CallForTendersField.TenderingProcess,
+      { meta: CallForTendersFieldMeta.TenderingProcess,
+        template: ({value, renderContext, fieldConfig}) => <TenderingProcessDisplay
+          key={CallForTendersField.TenderingProcess}
+          meta={CallForTendersFieldMeta.TenderingProcess}
+          fieldConfig={fieldConfig}
+          tenderingProcess={value?.TenderingProcess}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TenderingProcessDisplay
-            label="Tendering Process"
-            value={value.TenderingProcess?.[0]}
-            meta={CallForTendersFieldMeta.TenderingProcess}
-          />
+    [
+      CallForTendersField.ProcurementProject,
+      { meta: CallForTendersFieldMeta.ProcurementProject,
+        template: ({value, renderContext, fieldConfig}) => <ProcurementProjectDisplay
+          key={CallForTendersField.ProcurementProject}
+          meta={CallForTendersFieldMeta.ProcurementProject}
+          fieldConfig={fieldConfig}
+          procurementProject={value?.ProcurementProject}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ProcurementProjectDisplay
-            label="Procurement Project"
-            value={value.ProcurementProject?.[0]}
-            meta={CallForTendersFieldMeta.ProcurementProject}
-          />
+    [
+      CallForTendersField.ProcurementProjectLot,
+      { meta: CallForTendersFieldMeta.ProcurementProjectLot,
+        template: ({value, renderContext, fieldConfig}) => <ProcurementProjectLotDisplay
+          key={CallForTendersField.ProcurementProjectLot}
+          meta={CallForTendersFieldMeta.ProcurementProjectLot}
+          fieldConfig={fieldConfig}
+          procurementProjectLot={value?.ProcurementProjectLot}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-ProcurementProjectLot"
-            label="Procurement Project Lot"
-            items={value.ProcurementProjectLot}
-            meta={CallForTendersFieldMeta.ProcurementProjectLot} 
-            itemDisplay={ (itemValue: ProcurementProjectLot, key: string | number) =>
-              <ProcurementProjectLotDisplay
-                key={key}
-                label="Procurement Project Lot"
-                value={itemValue}
-                meta={CallForTendersFieldMeta.ProcurementProjectLot}
-              />
-            }
-          />
-        </div>
-    </div>
+export function CallForTendersDisplay<TFieldMeta>({ meta, fieldConfig, callForTenders, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    CallForTendersTypeName,
+    meta,
+    fieldConfig,
+    callForTenders,
+    renderContext,
+    CallForTendersSubElementsMap,
   )
 }

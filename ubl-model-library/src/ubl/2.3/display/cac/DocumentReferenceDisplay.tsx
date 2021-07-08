@@ -1,178 +1,266 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { DocumentReference } from  '../../model/cac/DocumentReference'
-import { DocumentReferenceFieldMeta } from  '../../meta/cac/DocumentReferenceMeta'
-import AttachmentDisplay from './AttachmentDisplay'
-import { Attachment } from '../../model/cac/Attachment'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import ResultOfVerificationDisplay from './ResultOfVerificationDisplay'
-import { ResultOfVerification } from '../../model/cac/ResultOfVerification'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { DocumentReferenceField, DocumentReferenceFieldMeta, DocumentReferenceTypeName } from  '../../meta/cac/DocumentReferenceMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AttachmentDisplay } from './AttachmentDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { ResultOfVerificationDisplay } from './ResultOfVerificationDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: DocumentReference | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<DocumentReference, void>
+  documentReference: DocumentReference[] | undefined
+  renderContext: RenderContext
 }
 
-export default function DocumentReferenceDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const DocumentReferenceSubElementsMap: SubElementsTemplatesMap<DocumentReferenceField, DocumentReference, void> = new Map([
+    [
+      DocumentReferenceField.UBLExtensions,
+      { meta: DocumentReferenceFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={DocumentReferenceField.UBLExtensions}
+          meta={DocumentReferenceFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-DocumentReference">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={DocumentReferenceFieldMeta.UBLExtensions}
-          />
+    [
+      DocumentReferenceField.ID,
+      { meta: DocumentReferenceFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DocumentReferenceField.ID}
+          meta={DocumentReferenceFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={DocumentReferenceFieldMeta.ID}
-          />
+    [
+      DocumentReferenceField.CopyIndicator,
+      { meta: DocumentReferenceFieldMeta.CopyIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={DocumentReferenceField.CopyIndicator}
+          meta={DocumentReferenceFieldMeta.CopyIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.CopyIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Copy Indicator"
-            value={value.CopyIndicator?.[0]}
-            meta={DocumentReferenceFieldMeta.CopyIndicator}
-          />
+    [
+      DocumentReferenceField.UUID,
+      { meta: DocumentReferenceFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DocumentReferenceField.UUID}
+          meta={DocumentReferenceFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={DocumentReferenceFieldMeta.UUID}
-          />
+    [
+      DocumentReferenceField.IssueDate,
+      { meta: DocumentReferenceFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={DocumentReferenceField.IssueDate}
+          meta={DocumentReferenceFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={DocumentReferenceFieldMeta.IssueDate}
-          />
+    [
+      DocumentReferenceField.IssueTime,
+      { meta: DocumentReferenceFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={DocumentReferenceField.IssueTime}
+          meta={DocumentReferenceFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={DocumentReferenceFieldMeta.IssueTime}
-          />
+    [
+      DocumentReferenceField.DocumentTypeCode,
+      { meta: DocumentReferenceFieldMeta.DocumentTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={DocumentReferenceField.DocumentTypeCode}
+          meta={DocumentReferenceFieldMeta.DocumentTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.DocumentTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Document Type Code"
-            value={value.DocumentTypeCode?.[0]}
-            meta={DocumentReferenceFieldMeta.DocumentTypeCode}
-          />
+    [
+      DocumentReferenceField.DocumentType,
+      { meta: DocumentReferenceFieldMeta.DocumentType,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={DocumentReferenceField.DocumentType}
+          meta={DocumentReferenceFieldMeta.DocumentType}
+          fieldConfig={fieldConfig}
+          text={value?.DocumentType}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Document Type"
-            value={value.DocumentType?.[0]}
-            meta={DocumentReferenceFieldMeta.DocumentType}
-          />
+    [
+      DocumentReferenceField.XPath,
+      { meta: DocumentReferenceFieldMeta.XPath,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={DocumentReferenceField.XPath}
+          meta={DocumentReferenceFieldMeta.XPath}
+          fieldConfig={fieldConfig}
+          text={value?.XPath}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-XPath"
-            label="XPath"
-            items={value.XPath}
-            meta={DocumentReferenceFieldMeta.XPath} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="XPath"
-                value={itemValue}
-                meta={DocumentReferenceFieldMeta.XPath}
-              />
-            }
-          />
+    [
+      DocumentReferenceField.ReferencedDocumentInternalAddress,
+      { meta: DocumentReferenceFieldMeta.ReferencedDocumentInternalAddress,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={DocumentReferenceField.ReferencedDocumentInternalAddress}
+          meta={DocumentReferenceFieldMeta.ReferencedDocumentInternalAddress}
+          fieldConfig={fieldConfig}
+          text={value?.ReferencedDocumentInternalAddress}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Referenced Document Internal Address"
-            value={value.ReferencedDocumentInternalAddress?.[0]}
-            meta={DocumentReferenceFieldMeta.ReferencedDocumentInternalAddress}
-          />
+    [
+      DocumentReferenceField.LanguageID,
+      { meta: DocumentReferenceFieldMeta.LanguageID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DocumentReferenceField.LanguageID}
+          meta={DocumentReferenceFieldMeta.LanguageID}
+          fieldConfig={fieldConfig}
+          identifier={value?.LanguageID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Language"
-            value={value.LanguageID?.[0]}
-            meta={DocumentReferenceFieldMeta.LanguageID}
-          />
+    [
+      DocumentReferenceField.LocaleCode,
+      { meta: DocumentReferenceFieldMeta.LocaleCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={DocumentReferenceField.LocaleCode}
+          meta={DocumentReferenceFieldMeta.LocaleCode}
+          fieldConfig={fieldConfig}
+          code={value?.LocaleCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Locale Code"
-            value={value.LocaleCode?.[0]}
-            meta={DocumentReferenceFieldMeta.LocaleCode}
-          />
+    [
+      DocumentReferenceField.VersionID,
+      { meta: DocumentReferenceFieldMeta.VersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DocumentReferenceField.VersionID}
+          meta={DocumentReferenceFieldMeta.VersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.VersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Version"
-            value={value.VersionID?.[0]}
-            meta={DocumentReferenceFieldMeta.VersionID}
-          />
+    [
+      DocumentReferenceField.DocumentStatusCode,
+      { meta: DocumentReferenceFieldMeta.DocumentStatusCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={DocumentReferenceField.DocumentStatusCode}
+          meta={DocumentReferenceFieldMeta.DocumentStatusCode}
+          fieldConfig={fieldConfig}
+          code={value?.DocumentStatusCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Document Status Code"
-            value={value.DocumentStatusCode?.[0]}
-            meta={DocumentReferenceFieldMeta.DocumentStatusCode}
-          />
+    [
+      DocumentReferenceField.DocumentDescription,
+      { meta: DocumentReferenceFieldMeta.DocumentDescription,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={DocumentReferenceField.DocumentDescription}
+          meta={DocumentReferenceFieldMeta.DocumentDescription}
+          fieldConfig={fieldConfig}
+          text={value?.DocumentDescription}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-DocumentDescription"
-            label="Document Description"
-            items={value.DocumentDescription}
-            meta={DocumentReferenceFieldMeta.DocumentDescription} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Document Description"
-                value={itemValue}
-                meta={DocumentReferenceFieldMeta.DocumentDescription}
-              />
-            }
-          />
+    [
+      DocumentReferenceField.Attachment,
+      { meta: DocumentReferenceFieldMeta.Attachment,
+        template: ({value, renderContext, fieldConfig}) => <AttachmentDisplay
+          key={DocumentReferenceField.Attachment}
+          meta={DocumentReferenceFieldMeta.Attachment}
+          fieldConfig={fieldConfig}
+          attachment={value?.Attachment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AttachmentDisplay
-            label="Attachment"
-            value={value.Attachment?.[0]}
-            meta={DocumentReferenceFieldMeta.Attachment}
-          />
+    [
+      DocumentReferenceField.ValidityPeriod,
+      { meta: DocumentReferenceFieldMeta.ValidityPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={DocumentReferenceField.ValidityPeriod}
+          meta={DocumentReferenceFieldMeta.ValidityPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.ValidityPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Validity Period"
-            value={value.ValidityPeriod?.[0]}
-            meta={DocumentReferenceFieldMeta.ValidityPeriod}
-          />
+    [
+      DocumentReferenceField.IssuerParty,
+      { meta: DocumentReferenceFieldMeta.IssuerParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={DocumentReferenceField.IssuerParty}
+          meta={DocumentReferenceFieldMeta.IssuerParty}
+          fieldConfig={fieldConfig}
+          party={value?.IssuerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Issuer Party"
-            value={value.IssuerParty?.[0]}
-            meta={DocumentReferenceFieldMeta.IssuerParty}
-          />
+    [
+      DocumentReferenceField.ResultOfVerification,
+      { meta: DocumentReferenceFieldMeta.ResultOfVerification,
+        template: ({value, renderContext, fieldConfig}) => <ResultOfVerificationDisplay
+          key={DocumentReferenceField.ResultOfVerification}
+          meta={DocumentReferenceFieldMeta.ResultOfVerification}
+          fieldConfig={fieldConfig}
+          resultOfVerification={value?.ResultOfVerification}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ResultOfVerificationDisplay
-            label="Result Of Verification"
-            value={value.ResultOfVerification?.[0]}
-            meta={DocumentReferenceFieldMeta.ResultOfVerification}
-          />
-        </div>
-    </div>
+export function DocumentReferenceDisplay<TFieldMeta>({ meta, fieldConfig, documentReference, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    DocumentReferenceTypeName,
+    meta,
+    fieldConfig,
+    documentReference,
+    renderContext,
+    DocumentReferenceSubElementsMap,
   )
 }

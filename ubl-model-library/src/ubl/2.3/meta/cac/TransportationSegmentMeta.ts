@@ -1,4 +1,12 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { ConsignmentType } from './ConsignmentMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { PartyType } from './PartyMeta'
+import { ShipmentStageType } from './ShipmentStageMeta'
+import { TransportationServiceType } from './TransportationServiceMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum TransportationSegmentField {
   UBLExtensions = 'UBLExtensions',
@@ -13,11 +21,11 @@ export enum TransportationSegmentField {
 export const TransportationSegmentFieldMetaUBLExtensions = new FieldMeta<TransportationSegmentField>(
   TransportationSegmentField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -26,10 +34,10 @@ export const TransportationSegmentFieldMetaSequenceNumeric = new FieldMeta<Trans
   TransportationSegmentField.SequenceNumeric,
   'SequenceNumeric',
   'Sequence',
-  'Numeric',
+  NumericType.name,
   'A number indicating the order of this segment in the sequence of transportation segments making up a transportation service.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   '1, 2, 3, 4, etc.'
 )
@@ -38,10 +46,10 @@ export const TransportationSegmentFieldMetaTransportExecutionPlanReferenceID = n
   TransportationSegmentField.TransportExecutionPlanReferenceID,
   'TransportExecutionPlanReferenceID',
   'Transport Execution Plan Reference',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the transport execution plan governing this transportation segment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -50,10 +58,10 @@ export const TransportationSegmentFieldMetaTransportationService = new FieldMeta
   TransportationSegmentField.TransportationService,
   'TransportationService',
   'Transportation Service',
-  'TransportationService',
+  TransportationServiceType.name,
   'The transportation service used in this transportation segment.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -62,10 +70,10 @@ export const TransportationSegmentFieldMetaTransportServiceProviderParty = new F
   TransportationSegmentField.TransportServiceProviderParty,
   'TransportServiceProviderParty',
   'Transport Service Provider Party',
-  'Party',
+  PartyType.name,
   'The transport service provider responsible for carrying out transportation services in this transportation segment.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -74,10 +82,10 @@ export const TransportationSegmentFieldMetaReferencedConsignment = new FieldMeta
   TransportationSegmentField.ReferencedConsignment,
   'ReferencedConsignment',
   'Referenced Consignment',
-  'Consignment',
+  ConsignmentType.name,
   'A consignment referenced in this transportation segment. Such a consignment may have different identifiers than the consignment identifiers being used in the transportation service agreed between the transport user and the transport service provider.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -86,10 +94,10 @@ export const TransportationSegmentFieldMetaShipmentStage = new FieldMeta<Transpo
   TransportationSegmentField.ShipmentStage,
   'ShipmentStage',
   'Shipment Stage',
-  'ShipmentStage',
+  ShipmentStageType.name,
   'The shipment stage associated with this transportation segment.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -113,3 +121,11 @@ export const TransportationSegmentFieldMap = new Map([
   [TransportationSegmentField.ReferencedConsignment, TransportationSegmentFieldMetaReferencedConsignment],
   [TransportationSegmentField.ShipmentStage, TransportationSegmentFieldMetaShipmentStage]
 ])
+
+export const TransportationSegmentType: Type<TransportationSegmentField> = {
+  name: 'TransportationSegment',
+  label: 'Transportation Segment',
+  module: TypeModule.cac,
+  definition: 'A class to describe one segment or leg in a transportation service.',
+  fields: TransportationSegmentFieldMap,
+}

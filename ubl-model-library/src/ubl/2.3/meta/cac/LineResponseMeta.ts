@@ -1,4 +1,8 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { LineReferenceType } from './LineReferenceMeta'
+import { ResponseType } from './ResponseMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum LineResponseField {
   UBLExtensions = 'UBLExtensions',
@@ -9,11 +13,11 @@ export enum LineResponseField {
 export const LineResponseFieldMetaUBLExtensions = new FieldMeta<LineResponseField>(
   LineResponseField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -22,10 +26,10 @@ export const LineResponseFieldMetaLineReference = new FieldMeta<LineResponseFiel
   LineResponseField.LineReference,
   'LineReference',
   'Line Reference',
-  'LineReference',
+  LineReferenceType.name,
   'A reference to the line being responded to.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -34,10 +38,10 @@ export const LineResponseFieldMetaResponse = new FieldMeta<LineResponseField>(
   LineResponseField.Response,
   'Response',
   'Response',
-  'Response',
+  ResponseType.name,
   'A response to the referenced line.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -53,3 +57,11 @@ export const LineResponseFieldMap = new Map([
   [LineResponseField.LineReference, LineResponseFieldMetaLineReference],
   [LineResponseField.Response, LineResponseFieldMetaResponse]
 ])
+
+export const LineResponseType: Type<LineResponseField> = {
+  name: 'LineResponse',
+  label: 'Line Response',
+  module: TypeModule.cac,
+  definition: 'A class to describe responses to a line in a document.',
+  fields: LineResponseFieldMap,
+}

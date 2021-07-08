@@ -1,40 +1,53 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { CreditAccount } from  '../../model/cac/CreditAccount'
-import { CreditAccountFieldMeta } from  '../../meta/cac/CreditAccountMeta'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { CreditAccountField, CreditAccountFieldMeta, CreditAccountTypeName } from  '../../meta/cac/CreditAccountMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: CreditAccount | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<CreditAccount, void>
+  creditAccount: CreditAccount[] | undefined
+  renderContext: RenderContext
 }
 
-export default function CreditAccountDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const CreditAccountSubElementsMap: SubElementsTemplatesMap<CreditAccountField, CreditAccount, void> = new Map([
+    [
+      CreditAccountField.UBLExtensions,
+      { meta: CreditAccountFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={CreditAccountField.UBLExtensions}
+          meta={CreditAccountFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-CreditAccount">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={CreditAccountFieldMeta.UBLExtensions}
-          />
+    [
+      CreditAccountField.AccountID,
+      { meta: CreditAccountFieldMeta.AccountID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CreditAccountField.AccountID}
+          meta={CreditAccountFieldMeta.AccountID}
+          fieldConfig={fieldConfig}
+          identifier={value?.AccountID}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <IdentifierDisplay
-            label="Account Identifier"
-            value={value.AccountID?.[0]}
-            meta={CreditAccountFieldMeta.AccountID}
-          />
-        </div>
-    </div>
+export function CreditAccountDisplay<TFieldMeta>({ meta, fieldConfig, creditAccount, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    CreditAccountTypeName,
+    meta,
+    fieldConfig,
+    creditAccount,
+    renderContext,
+    CreditAccountSubElementsMap,
   )
 }

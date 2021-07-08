@@ -1,199 +1,254 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TenderStatusRequest } from  '../../model/doc/TenderStatusRequest'
-import { TenderStatusRequestFieldMeta } from  '../../meta/doc/TenderStatusRequestMeta'
-import ContractingPartyDisplay from '../cac/ContractingPartyDisplay'
-import { ContractingParty } from '../../model/cac/ContractingParty'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import EconomicOperatorPartyDisplay from '../cac/EconomicOperatorPartyDisplay'
-import { EconomicOperatorParty } from '../../model/cac/EconomicOperatorParty'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import ProcurementProjectDisplay from '../cac/ProcurementProjectDisplay'
-import { ProcurementProject } from '../../model/cac/ProcurementProject'
-import ProcurementProjectLotDisplay from '../cac/ProcurementProjectLotDisplay'
-import { ProcurementProjectLot } from '../../model/cac/ProcurementProjectLot'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { TenderStatusRequestField, TenderStatusRequestFieldMeta, TenderStatusRequestTypeName } from  '../../meta/doc/TenderStatusRequestMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { ContractingPartyDisplay } from '../cac/ContractingPartyDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { EconomicOperatorPartyDisplay } from '../cac/EconomicOperatorPartyDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { ProcurementProjectDisplay } from '../cac/ProcurementProjectDisplay'
+import { ProcurementProjectLotDisplay } from '../cac/ProcurementProjectLotDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: TenderStatusRequest | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<TenderStatusRequest, void>
+  tenderStatusRequest: TenderStatusRequest[] | undefined
+  renderContext: RenderContext
 }
 
-export default function TenderStatusRequestDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const TenderStatusRequestSubElementsMap: SubElementsTemplatesMap<TenderStatusRequestField, TenderStatusRequest, void> = new Map([
+    [
+      TenderStatusRequestField.UBLExtensions,
+      { meta: TenderStatusRequestFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={TenderStatusRequestField.UBLExtensions}
+          meta={TenderStatusRequestFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-TenderStatusRequest">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={TenderStatusRequestFieldMeta.UBLExtensions}
-          />
+    [
+      TenderStatusRequestField.UBLVersionID,
+      { meta: TenderStatusRequestFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TenderStatusRequestField.UBLVersionID}
+          meta={TenderStatusRequestFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={TenderStatusRequestFieldMeta.UBLVersionID}
-          />
+    [
+      TenderStatusRequestField.CustomizationID,
+      { meta: TenderStatusRequestFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TenderStatusRequestField.CustomizationID}
+          meta={TenderStatusRequestFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={TenderStatusRequestFieldMeta.CustomizationID}
-          />
+    [
+      TenderStatusRequestField.ProfileID,
+      { meta: TenderStatusRequestFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TenderStatusRequestField.ProfileID}
+          meta={TenderStatusRequestFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={TenderStatusRequestFieldMeta.ProfileID}
-          />
+    [
+      TenderStatusRequestField.ProfileExecutionID,
+      { meta: TenderStatusRequestFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TenderStatusRequestField.ProfileExecutionID}
+          meta={TenderStatusRequestFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={TenderStatusRequestFieldMeta.ProfileExecutionID}
-          />
+    [
+      TenderStatusRequestField.ID,
+      { meta: TenderStatusRequestFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TenderStatusRequestField.ID}
+          meta={TenderStatusRequestFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={TenderStatusRequestFieldMeta.ID}
-          />
+    [
+      TenderStatusRequestField.CopyIndicator,
+      { meta: TenderStatusRequestFieldMeta.CopyIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={TenderStatusRequestField.CopyIndicator}
+          meta={TenderStatusRequestFieldMeta.CopyIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.CopyIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Copy Indicator"
-            value={value.CopyIndicator?.[0]}
-            meta={TenderStatusRequestFieldMeta.CopyIndicator}
-          />
+    [
+      TenderStatusRequestField.UUID,
+      { meta: TenderStatusRequestFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TenderStatusRequestField.UUID}
+          meta={TenderStatusRequestFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={TenderStatusRequestFieldMeta.UUID}
-          />
+    [
+      TenderStatusRequestField.ContractFolderID,
+      { meta: TenderStatusRequestFieldMeta.ContractFolderID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TenderStatusRequestField.ContractFolderID}
+          meta={TenderStatusRequestFieldMeta.ContractFolderID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ContractFolderID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Contract Folder Identifier"
-            value={value.ContractFolderID?.[0]}
-            meta={TenderStatusRequestFieldMeta.ContractFolderID}
-          />
+    [
+      TenderStatusRequestField.IssueDate,
+      { meta: TenderStatusRequestFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={TenderStatusRequestField.IssueDate}
+          meta={TenderStatusRequestFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={TenderStatusRequestFieldMeta.IssueDate}
-          />
+    [
+      TenderStatusRequestField.IssueTime,
+      { meta: TenderStatusRequestFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={TenderStatusRequestField.IssueTime}
+          meta={TenderStatusRequestFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={TenderStatusRequestFieldMeta.IssueTime}
-          />
+    [
+      TenderStatusRequestField.ContractName,
+      { meta: TenderStatusRequestFieldMeta.ContractName,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TenderStatusRequestField.ContractName}
+          meta={TenderStatusRequestFieldMeta.ContractName}
+          fieldConfig={fieldConfig}
+          text={value?.ContractName}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-ContractName"
-            label="Contract Name"
-            items={value.ContractName}
-            meta={TenderStatusRequestFieldMeta.ContractName} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Contract Name"
-                value={itemValue}
-                meta={TenderStatusRequestFieldMeta.ContractName}
-              />
-            }
-          />
+    [
+      TenderStatusRequestField.Note,
+      { meta: TenderStatusRequestFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TenderStatusRequestField.Note}
+          meta={TenderStatusRequestFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={TenderStatusRequestFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={TenderStatusRequestFieldMeta.Note}
-              />
-            }
-          />
+    [
+      TenderStatusRequestField.Signature,
+      { meta: TenderStatusRequestFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={TenderStatusRequestField.Signature}
+          meta={TenderStatusRequestFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={TenderStatusRequestFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={TenderStatusRequestFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      TenderStatusRequestField.ContractingParty,
+      { meta: TenderStatusRequestFieldMeta.ContractingParty,
+        template: ({value, renderContext, fieldConfig}) => <ContractingPartyDisplay
+          key={TenderStatusRequestField.ContractingParty}
+          meta={TenderStatusRequestFieldMeta.ContractingParty}
+          fieldConfig={fieldConfig}
+          contractingParty={value?.ContractingParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-ContractingParty"
-            label="Contracting Party"
-            items={value.ContractingParty}
-            meta={TenderStatusRequestFieldMeta.ContractingParty} 
-            itemDisplay={ (itemValue: ContractingParty, key: string | number) =>
-              <ContractingPartyDisplay
-                key={key}
-                label="Contracting Party"
-                value={itemValue}
-                meta={TenderStatusRequestFieldMeta.ContractingParty}
-              />
-            }
-          />
+    [
+      TenderStatusRequestField.EconomicOperatorParty,
+      { meta: TenderStatusRequestFieldMeta.EconomicOperatorParty,
+        template: ({value, renderContext, fieldConfig}) => <EconomicOperatorPartyDisplay
+          key={TenderStatusRequestField.EconomicOperatorParty}
+          meta={TenderStatusRequestFieldMeta.EconomicOperatorParty}
+          fieldConfig={fieldConfig}
+          economicOperatorParty={value?.EconomicOperatorParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <EconomicOperatorPartyDisplay
-            label="Economic Operator Party"
-            value={value.EconomicOperatorParty?.[0]}
-            meta={TenderStatusRequestFieldMeta.EconomicOperatorParty}
-          />
+    [
+      TenderStatusRequestField.ProcurementProject,
+      { meta: TenderStatusRequestFieldMeta.ProcurementProject,
+        template: ({value, renderContext, fieldConfig}) => <ProcurementProjectDisplay
+          key={TenderStatusRequestField.ProcurementProject}
+          meta={TenderStatusRequestFieldMeta.ProcurementProject}
+          fieldConfig={fieldConfig}
+          procurementProject={value?.ProcurementProject}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ProcurementProjectDisplay
-            label="Procurement Project"
-            value={value.ProcurementProject?.[0]}
-            meta={TenderStatusRequestFieldMeta.ProcurementProject}
-          />
+    [
+      TenderStatusRequestField.ProcurementProjectLot,
+      { meta: TenderStatusRequestFieldMeta.ProcurementProjectLot,
+        template: ({value, renderContext, fieldConfig}) => <ProcurementProjectLotDisplay
+          key={TenderStatusRequestField.ProcurementProjectLot}
+          meta={TenderStatusRequestFieldMeta.ProcurementProjectLot}
+          fieldConfig={fieldConfig}
+          procurementProjectLot={value?.ProcurementProjectLot}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-ProcurementProjectLot"
-            label="Procurement Project Lot"
-            items={value.ProcurementProjectLot}
-            meta={TenderStatusRequestFieldMeta.ProcurementProjectLot} 
-            itemDisplay={ (itemValue: ProcurementProjectLot, key: string | number) =>
-              <ProcurementProjectLotDisplay
-                key={key}
-                label="Procurement Project Lot"
-                value={itemValue}
-                meta={TenderStatusRequestFieldMeta.ProcurementProjectLot}
-              />
-            }
-          />
-        </div>
-    </div>
+export function TenderStatusRequestDisplay<TFieldMeta>({ meta, fieldConfig, tenderStatusRequest, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    TenderStatusRequestTypeName,
+    meta,
+    fieldConfig,
+    tenderStatusRequest,
+    renderContext,
+    TenderStatusRequestSubElementsMap,
   )
 }

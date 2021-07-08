@@ -1,4 +1,11 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { DateType } from '../cbc/DateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { PartyType } from './PartyMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ImmobilizedSecurityField {
   UBLExtensions = 'UBLExtensions',
@@ -14,11 +21,11 @@ export enum ImmobilizedSecurityField {
 export const ImmobilizedSecurityFieldMetaUBLExtensions = new FieldMeta<ImmobilizedSecurityField>(
   ImmobilizedSecurityField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -27,10 +34,10 @@ export const ImmobilizedSecurityFieldMetaImmobilizationCertificateID = new Field
   ImmobilizedSecurityField.ImmobilizationCertificateID,
   'ImmobilizationCertificateID',
   'Immobilization Certificate Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the certificate of this immobilized security.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -39,10 +46,10 @@ export const ImmobilizedSecurityFieldMetaSecurityID = new FieldMeta<ImmobilizedS
   ImmobilizedSecurityField.SecurityID,
   'SecurityID',
   'Security Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the security being immobilized.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -51,10 +58,10 @@ export const ImmobilizedSecurityFieldMetaIssueDate = new FieldMeta<ImmobilizedSe
   ImmobilizedSecurityField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date on which this immobilized security was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -63,10 +70,10 @@ export const ImmobilizedSecurityFieldMetaFaceValueAmount = new FieldMeta<Immobil
   ImmobilizedSecurityField.FaceValueAmount,
   'FaceValueAmount',
   'Face Value',
-  'Amount',
+  AmountType.name,
   'The value of the security on the day it was immobilized.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -75,10 +82,10 @@ export const ImmobilizedSecurityFieldMetaMarketValueAmount = new FieldMeta<Immob
   ImmobilizedSecurityField.MarketValueAmount,
   'MarketValueAmount',
   'Market Value',
-  'Amount',
+  AmountType.name,
   'The current market value of the immobilized security.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -87,10 +94,10 @@ export const ImmobilizedSecurityFieldMetaSharesNumberQuantity = new FieldMeta<Im
   ImmobilizedSecurityField.SharesNumberQuantity,
   'SharesNumberQuantity',
   'Shares Number',
-  'Quantity',
+  QuantityType.name,
   'The number of shares immobilized.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -99,10 +106,10 @@ export const ImmobilizedSecurityFieldMetaIssuerParty = new FieldMeta<Immobilized
   ImmobilizedSecurityField.IssuerParty,
   'IssuerParty',
   'Issuer Party',
-  'Party',
+  PartyType.name,
   'The party issuing the immobilized security certificate.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -128,3 +135,11 @@ export const ImmobilizedSecurityFieldMap = new Map([
   [ImmobilizedSecurityField.SharesNumberQuantity, ImmobilizedSecurityFieldMetaSharesNumberQuantity],
   [ImmobilizedSecurityField.IssuerParty, ImmobilizedSecurityFieldMetaIssuerParty]
 ])
+
+export const ImmobilizedSecurityType: Type<ImmobilizedSecurityField> = {
+  name: 'ImmobilizedSecurity',
+  label: 'Immobilized Security',
+  module: TypeModule.cac,
+  definition: 'A class to describe an immobilized security to be used as a guarantee.',
+  fields: ImmobilizedSecurityFieldMap,
+}

@@ -8,7 +8,6 @@ import { TaxCategory } from './TaxCategory'
 import { TaxTotal } from './TaxTotal'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe information about a charge or discount as applied to a price component.
  */

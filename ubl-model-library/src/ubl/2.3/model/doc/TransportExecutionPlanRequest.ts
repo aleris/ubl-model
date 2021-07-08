@@ -14,7 +14,6 @@ import { Time } from '../cbc/Time'
 import { TransportationService } from '../cac/TransportationService'
 import { TransportExecutionTerms } from '../cac/TransportExecutionTerms'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A document sent by a transport user to request a transport service from a transport service provider.
  */

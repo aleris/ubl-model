@@ -3,7 +3,6 @@ import { LineResponse } from './LineResponse'
 import { Party } from './Party'
 import { Response } from './Response'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe an application-level response to a document.
  */

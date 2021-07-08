@@ -1,72 +1,78 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ContractExecutionRequirement } from  '../../model/cac/ContractExecutionRequirement'
-import { ContractExecutionRequirementFieldMeta } from  '../../meta/cac/ContractExecutionRequirementMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ContractExecutionRequirementField, ContractExecutionRequirementFieldMeta, ContractExecutionRequirementTypeName } from  '../../meta/cac/ContractExecutionRequirementMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ContractExecutionRequirement | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ContractExecutionRequirement, void>
+  contractExecutionRequirement: ContractExecutionRequirement[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ContractExecutionRequirementDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ContractExecutionRequirementSubElementsMap: SubElementsTemplatesMap<ContractExecutionRequirementField, ContractExecutionRequirement, void> = new Map([
+    [
+      ContractExecutionRequirementField.UBLExtensions,
+      { meta: ContractExecutionRequirementFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ContractExecutionRequirementField.UBLExtensions}
+          meta={ContractExecutionRequirementFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ContractExecutionRequirement">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ContractExecutionRequirementFieldMeta.UBLExtensions}
-          />
+    [
+      ContractExecutionRequirementField.Name,
+      { meta: ContractExecutionRequirementFieldMeta.Name,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ContractExecutionRequirementField.Name}
+          meta={ContractExecutionRequirementFieldMeta.Name}
+          fieldConfig={fieldConfig}
+          text={value?.Name}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Name"
-            label="Name"
-            items={value.Name}
-            meta={ContractExecutionRequirementFieldMeta.Name} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Name"
-                value={itemValue}
-                meta={ContractExecutionRequirementFieldMeta.Name}
-              />
-            }
-          />
+    [
+      ContractExecutionRequirementField.ExecutionRequirementCode,
+      { meta: ContractExecutionRequirementFieldMeta.ExecutionRequirementCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ContractExecutionRequirementField.ExecutionRequirementCode}
+          meta={ContractExecutionRequirementFieldMeta.ExecutionRequirementCode}
+          fieldConfig={fieldConfig}
+          code={value?.ExecutionRequirementCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Execution Requirement Code"
-            value={value.ExecutionRequirementCode?.[0]}
-            meta={ContractExecutionRequirementFieldMeta.ExecutionRequirementCode}
-          />
+    [
+      ContractExecutionRequirementField.Description,
+      { meta: ContractExecutionRequirementFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ContractExecutionRequirementField.Description}
+          meta={ContractExecutionRequirementFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={ContractExecutionRequirementFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={ContractExecutionRequirementFieldMeta.Description}
-              />
-            }
-          />
-        </div>
-    </div>
+export function ContractExecutionRequirementDisplay<TFieldMeta>({ meta, fieldConfig, contractExecutionRequirement, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ContractExecutionRequirementTypeName,
+    meta,
+    fieldConfig,
+    contractExecutionRequirement,
+    renderContext,
+    ContractExecutionRequirementSubElementsMap,
   )
 }

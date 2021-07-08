@@ -1,161 +1,190 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Location } from  '../../model/cac/Location'
-import { LocationFieldMeta } from  '../../meta/cac/LocationMeta'
-import AddressDisplay from './AddressDisplay'
-import { Address } from '../../model/cac/Address'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import LocationCoordinateDisplay from './LocationCoordinateDisplay'
-import { LocationCoordinate } from '../../model/cac/LocationCoordinate'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { LocationField, LocationFieldMeta, LocationTypeName } from  '../../meta/cac/LocationMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AddressDisplay } from './AddressDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { LocationCoordinateDisplay } from './LocationCoordinateDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: Location | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<Location, void>
+  location: Location[] | undefined
+  renderContext: RenderContext
 }
 
-export default function LocationDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const LocationSubElementsMap: SubElementsTemplatesMap<LocationField, Location, void> = new Map([
+    [
+      LocationField.UBLExtensions,
+      { meta: LocationFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={LocationField.UBLExtensions}
+          meta={LocationFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-Location">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={LocationFieldMeta.UBLExtensions}
-          />
+    [
+      LocationField.ID,
+      { meta: LocationFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={LocationField.ID}
+          meta={LocationFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={LocationFieldMeta.ID}
-          />
+    [
+      LocationField.Description,
+      { meta: LocationFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={LocationField.Description}
+          meta={LocationFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={LocationFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={LocationFieldMeta.Description}
-              />
-            }
-          />
+    [
+      LocationField.Conditions,
+      { meta: LocationFieldMeta.Conditions,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={LocationField.Conditions}
+          meta={LocationFieldMeta.Conditions}
+          fieldConfig={fieldConfig}
+          text={value?.Conditions}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Conditions"
-            label="Conditions"
-            items={value.Conditions}
-            meta={LocationFieldMeta.Conditions} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Conditions"
-                value={itemValue}
-                meta={LocationFieldMeta.Conditions}
-              />
-            }
-          />
+    [
+      LocationField.CountrySubentity,
+      { meta: LocationFieldMeta.CountrySubentity,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={LocationField.CountrySubentity}
+          meta={LocationFieldMeta.CountrySubentity}
+          fieldConfig={fieldConfig}
+          text={value?.CountrySubentity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Country Subentity"
-            value={value.CountrySubentity?.[0]}
-            meta={LocationFieldMeta.CountrySubentity}
-          />
+    [
+      LocationField.CountrySubentityCode,
+      { meta: LocationFieldMeta.CountrySubentityCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={LocationField.CountrySubentityCode}
+          meta={LocationFieldMeta.CountrySubentityCode}
+          fieldConfig={fieldConfig}
+          code={value?.CountrySubentityCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Country Subentity Code"
-            value={value.CountrySubentityCode?.[0]}
-            meta={LocationFieldMeta.CountrySubentityCode}
-          />
+    [
+      LocationField.LocationTypeCode,
+      { meta: LocationFieldMeta.LocationTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={LocationField.LocationTypeCode}
+          meta={LocationFieldMeta.LocationTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.LocationTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Location Type Code"
-            value={value.LocationTypeCode?.[0]}
-            meta={LocationFieldMeta.LocationTypeCode}
-          />
+    [
+      LocationField.InformationURI,
+      { meta: LocationFieldMeta.InformationURI,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={LocationField.InformationURI}
+          meta={LocationFieldMeta.InformationURI}
+          fieldConfig={fieldConfig}
+          identifier={value?.InformationURI}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Information URI"
-            value={value.InformationURI?.[0]}
-            meta={LocationFieldMeta.InformationURI}
-          />
+    [
+      LocationField.Name,
+      { meta: LocationFieldMeta.Name,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={LocationField.Name}
+          meta={LocationFieldMeta.Name}
+          fieldConfig={fieldConfig}
+          text={value?.Name}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Name"
-            value={value.Name?.[0]}
-            meta={LocationFieldMeta.Name}
-          />
+    [
+      LocationField.ValidityPeriod,
+      { meta: LocationFieldMeta.ValidityPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={LocationField.ValidityPeriod}
+          meta={LocationFieldMeta.ValidityPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.ValidityPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Period ubl-ValidityPeriod"
-            label="Validity Period"
-            items={value.ValidityPeriod}
-            meta={LocationFieldMeta.ValidityPeriod} 
-            itemDisplay={ (itemValue: Period, key: string | number) =>
-              <PeriodDisplay
-                key={key}
-                label="Validity Period"
-                value={itemValue}
-                meta={LocationFieldMeta.ValidityPeriod}
-              />
-            }
-          />
+    [
+      LocationField.Address,
+      { meta: LocationFieldMeta.Address,
+        template: ({value, renderContext, fieldConfig}) => <AddressDisplay
+          key={LocationField.Address}
+          meta={LocationFieldMeta.Address}
+          fieldConfig={fieldConfig}
+          address={value?.Address}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AddressDisplay
-            label="Address"
-            value={value.Address?.[0]}
-            meta={LocationFieldMeta.Address}
-          />
+    [
+      LocationField.SubsidiaryLocation,
+      { meta: LocationFieldMeta.SubsidiaryLocation,
+        template: ({value, renderContext, fieldConfig}) => <LocationDisplay
+          key={LocationField.SubsidiaryLocation}
+          meta={LocationFieldMeta.SubsidiaryLocation}
+          fieldConfig={fieldConfig}
+          location={value?.SubsidiaryLocation}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Location ubl-SubsidiaryLocation"
-            label="Subsidiary Location"
-            items={value.SubsidiaryLocation}
-            meta={LocationFieldMeta.SubsidiaryLocation} 
-            itemDisplay={ (itemValue: Location, key: string | number) =>
-              <LocationDisplay
-                key={key}
-                label="Subsidiary Location"
-                value={itemValue}
-                meta={LocationFieldMeta.SubsidiaryLocation}
-              />
-            }
-          />
+    [
+      LocationField.LocationCoordinate,
+      { meta: LocationFieldMeta.LocationCoordinate,
+        template: ({value, renderContext, fieldConfig}) => <LocationCoordinateDisplay
+          key={LocationField.LocationCoordinate}
+          meta={LocationFieldMeta.LocationCoordinate}
+          fieldConfig={fieldConfig}
+          locationCoordinate={value?.LocationCoordinate}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-LocationCoordinate"
-            label="Location Coordinate"
-            items={value.LocationCoordinate}
-            meta={LocationFieldMeta.LocationCoordinate} 
-            itemDisplay={ (itemValue: LocationCoordinate, key: string | number) =>
-              <LocationCoordinateDisplay
-                key={key}
-                label="Location Coordinate"
-                value={itemValue}
-                meta={LocationFieldMeta.LocationCoordinate}
-              />
-            }
-          />
-        </div>
-    </div>
+export function LocationDisplay<TFieldMeta>({ meta, fieldConfig, location, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    LocationTypeName,
+    meta,
+    fieldConfig,
+    location,
+    renderContext,
+    LocationSubElementsMap,
   )
 }

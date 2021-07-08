@@ -1,4 +1,11 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { DeliveryTermsType } from './DeliveryTermsMeta'
+import { EnvironmentalEmissionType } from './EnvironmentalEmissionMeta'
+import { NotificationRequirementType } from './NotificationRequirementMeta'
+import { PaymentTermsType } from './PaymentTermsMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum TransportExecutionTermsField {
   UBLExtensions = 'UBLExtensions',
@@ -18,11 +25,11 @@ export enum TransportExecutionTermsField {
 export const TransportExecutionTermsFieldMetaUBLExtensions = new FieldMeta<TransportExecutionTermsField>(
   TransportExecutionTermsField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -31,10 +38,10 @@ export const TransportExecutionTermsFieldMetaTransportUserSpecialTerms = new Fie
   TransportExecutionTermsField.TransportUserSpecialTerms,
   'TransportUserSpecialTerms',
   'Transport User Special Terms',
-  'Text',
+  TextType.name,
   'Text describing special terms specified by the transport user.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -43,10 +50,10 @@ export const TransportExecutionTermsFieldMetaTransportServiceProviderSpecialTerm
   TransportExecutionTermsField.TransportServiceProviderSpecialTerms,
   'TransportServiceProviderSpecialTerms',
   'Transport Service Provider Special Terms',
-  'Text',
+  TextType.name,
   'Text describing special terms specified by the transport service provider.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -55,10 +62,10 @@ export const TransportExecutionTermsFieldMetaChangeConditions = new FieldMeta<Tr
   TransportExecutionTermsField.ChangeConditions,
   'ChangeConditions',
   'Change Conditions',
-  'Text',
+  TextType.name,
   'Text describing conditions applying to a change of these transport execution terms.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -67,10 +74,10 @@ export const TransportExecutionTermsFieldMetaPaymentTerms = new FieldMeta<Transp
   TransportExecutionTermsField.PaymentTerms,
   'PaymentTerms',
   'Payment Terms',
-  'PaymentTerms',
+  PaymentTermsType.name,
   'Payment terms associated with the transportation service.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -79,10 +86,10 @@ export const TransportExecutionTermsFieldMetaDeliveryTerms = new FieldMeta<Trans
   TransportExecutionTermsField.DeliveryTerms,
   'DeliveryTerms',
   'Delivery Terms',
-  'DeliveryTerms',
+  DeliveryTermsType.name,
   'Delivery terms (e.g., Incoterms) associated with the transportation service.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -91,10 +98,10 @@ export const TransportExecutionTermsFieldMetaBonusPaymentTerms = new FieldMeta<T
   TransportExecutionTermsField.BonusPaymentTerms,
   'BonusPaymentTerms',
   'Bonus Payment Terms',
-  'PaymentTerms',
+  PaymentTermsType.name,
   'Terms relating to payment of applicable bonuses associated with the transport service.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -103,10 +110,10 @@ export const TransportExecutionTermsFieldMetaCommissionPaymentTerms = new FieldM
   TransportExecutionTermsField.CommissionPaymentTerms,
   'CommissionPaymentTerms',
   'Commission Payment Terms',
-  'PaymentTerms',
+  PaymentTermsType.name,
   'Terms of payment applying to a commission specified in the transport execution plan.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -115,10 +122,10 @@ export const TransportExecutionTermsFieldMetaPenaltyPaymentTerms = new FieldMeta
   TransportExecutionTermsField.PenaltyPaymentTerms,
   'PenaltyPaymentTerms',
   'Penalty Payment Terms',
-  'PaymentTerms',
+  PaymentTermsType.name,
   'Terms of payment applying to a penalty specified in the transport execution plan.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -127,10 +134,10 @@ export const TransportExecutionTermsFieldMetaEnvironmentalEmission = new FieldMe
   TransportExecutionTermsField.EnvironmentalEmission,
   'EnvironmentalEmission',
   'Environmental Emission',
-  'EnvironmentalEmission',
+  EnvironmentalEmissionType.name,
   'An environmental emission resulting from the transportation service.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -139,10 +146,10 @@ export const TransportExecutionTermsFieldMetaNotificationRequirement = new Field
   TransportExecutionTermsField.NotificationRequirement,
   'NotificationRequirement',
   'Notification Requirement',
-  'NotificationRequirement',
+  NotificationRequirementType.name,
   'A notification requirement related to the transportation service; e.g., a requirement that the transport user should be notified when goods are ready for pickup.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -151,10 +158,10 @@ export const TransportExecutionTermsFieldMetaServiceChargePaymentTerms = new Fie
   TransportExecutionTermsField.ServiceChargePaymentTerms,
   'ServiceChargePaymentTerms',
   'Service Charge Payment Terms',
-  'PaymentTerms',
+  PaymentTermsType.name,
   'Payment terms for the service charge associated with the transport service.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -188,3 +195,11 @@ export const TransportExecutionTermsFieldMap = new Map([
   [TransportExecutionTermsField.NotificationRequirement, TransportExecutionTermsFieldMetaNotificationRequirement],
   [TransportExecutionTermsField.ServiceChargePaymentTerms, TransportExecutionTermsFieldMetaServiceChargePaymentTerms]
 ])
+
+export const TransportExecutionTermsType: Type<TransportExecutionTermsField> = {
+  name: 'TransportExecutionTerms',
+  label: 'Transport Execution Terms',
+  module: TypeModule.cac,
+  definition: 'A class to describe terms applying to a transport execution plan.',
+  fields: TransportExecutionTermsFieldMap,
+}

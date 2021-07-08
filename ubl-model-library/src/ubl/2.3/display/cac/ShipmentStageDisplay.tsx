@@ -1,525 +1,786 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ShipmentStage } from  '../../model/cac/ShipmentStage'
-import { ShipmentStageFieldMeta } from  '../../meta/cac/ShipmentStageMeta'
-import AllowanceChargeDisplay from './AllowanceChargeDisplay'
-import { AllowanceCharge } from '../../model/cac/AllowanceCharge'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import LocationDisplay from './LocationDisplay'
-import { Location } from '../../model/cac/Location'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import PersonDisplay from './PersonDisplay'
-import { Person } from '../../model/cac/Person'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import TransportEventDisplay from './TransportEventDisplay'
-import { TransportEvent } from '../../model/cac/TransportEvent'
-import TransportMeansDisplay from './TransportMeansDisplay'
-import { TransportMeans } from '../../model/cac/TransportMeans'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ShipmentStageField, ShipmentStageFieldMeta, ShipmentStageTypeName } from  '../../meta/cac/ShipmentStageMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AllowanceChargeDisplay } from './AllowanceChargeDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { LocationDisplay } from './LocationDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { PersonDisplay } from './PersonDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { TransportEventDisplay } from './TransportEventDisplay'
+import { TransportMeansDisplay } from './TransportMeansDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ShipmentStage | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ShipmentStage, void>
+  shipmentStage: ShipmentStage[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ShipmentStageDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ShipmentStageSubElementsMap: SubElementsTemplatesMap<ShipmentStageField, ShipmentStage, void> = new Map([
+    [
+      ShipmentStageField.UBLExtensions,
+      { meta: ShipmentStageFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ShipmentStageField.UBLExtensions}
+          meta={ShipmentStageFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ShipmentStage">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ShipmentStageFieldMeta.UBLExtensions}
-          />
+    [
+      ShipmentStageField.ID,
+      { meta: ShipmentStageFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ShipmentStageField.ID}
+          meta={ShipmentStageFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={ShipmentStageFieldMeta.ID}
-          />
+    [
+      ShipmentStageField.TransportModeCode,
+      { meta: ShipmentStageFieldMeta.TransportModeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ShipmentStageField.TransportModeCode}
+          meta={ShipmentStageFieldMeta.TransportModeCode}
+          fieldConfig={fieldConfig}
+          code={value?.TransportModeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Transport Mode Code"
-            value={value.TransportModeCode?.[0]}
-            meta={ShipmentStageFieldMeta.TransportModeCode}
-          />
+    [
+      ShipmentStageField.TransportMeansTypeCode,
+      { meta: ShipmentStageFieldMeta.TransportMeansTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ShipmentStageField.TransportMeansTypeCode}
+          meta={ShipmentStageFieldMeta.TransportMeansTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.TransportMeansTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Transport Means Type Code"
-            value={value.TransportMeansTypeCode?.[0]}
-            meta={ShipmentStageFieldMeta.TransportMeansTypeCode}
-          />
+    [
+      ShipmentStageField.TransitDirectionCode,
+      { meta: ShipmentStageFieldMeta.TransitDirectionCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ShipmentStageField.TransitDirectionCode}
+          meta={ShipmentStageFieldMeta.TransitDirectionCode}
+          fieldConfig={fieldConfig}
+          code={value?.TransitDirectionCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Transit Direction Code"
-            value={value.TransitDirectionCode?.[0]}
-            meta={ShipmentStageFieldMeta.TransitDirectionCode}
-          />
+    [
+      ShipmentStageField.PreCarriageIndicator,
+      { meta: ShipmentStageFieldMeta.PreCarriageIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ShipmentStageField.PreCarriageIndicator}
+          meta={ShipmentStageFieldMeta.PreCarriageIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.PreCarriageIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Pre Carriage Indicator"
-            value={value.PreCarriageIndicator?.[0]}
-            meta={ShipmentStageFieldMeta.PreCarriageIndicator}
-          />
+    [
+      ShipmentStageField.OnCarriageIndicator,
+      { meta: ShipmentStageFieldMeta.OnCarriageIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ShipmentStageField.OnCarriageIndicator}
+          meta={ShipmentStageFieldMeta.OnCarriageIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.OnCarriageIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="On Carriage Indicator"
-            value={value.OnCarriageIndicator?.[0]}
-            meta={ShipmentStageFieldMeta.OnCarriageIndicator}
-          />
+    [
+      ShipmentStageField.EstimatedDeliveryDate,
+      { meta: ShipmentStageFieldMeta.EstimatedDeliveryDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={ShipmentStageField.EstimatedDeliveryDate}
+          meta={ShipmentStageFieldMeta.EstimatedDeliveryDate}
+          fieldConfig={fieldConfig}
+          date={value?.EstimatedDeliveryDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Estimated Delivery Date"
-            value={value.EstimatedDeliveryDate?.[0]}
-            meta={ShipmentStageFieldMeta.EstimatedDeliveryDate}
-          />
+    [
+      ShipmentStageField.EstimatedDeliveryTime,
+      { meta: ShipmentStageFieldMeta.EstimatedDeliveryTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={ShipmentStageField.EstimatedDeliveryTime}
+          meta={ShipmentStageFieldMeta.EstimatedDeliveryTime}
+          fieldConfig={fieldConfig}
+          time={value?.EstimatedDeliveryTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Estimated Delivery Time"
-            value={value.EstimatedDeliveryTime?.[0]}
-            meta={ShipmentStageFieldMeta.EstimatedDeliveryTime}
-          />
+    [
+      ShipmentStageField.RequiredDeliveryDate,
+      { meta: ShipmentStageFieldMeta.RequiredDeliveryDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={ShipmentStageField.RequiredDeliveryDate}
+          meta={ShipmentStageFieldMeta.RequiredDeliveryDate}
+          fieldConfig={fieldConfig}
+          date={value?.RequiredDeliveryDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Required Delivery Date"
-            value={value.RequiredDeliveryDate?.[0]}
-            meta={ShipmentStageFieldMeta.RequiredDeliveryDate}
-          />
+    [
+      ShipmentStageField.RequiredDeliveryTime,
+      { meta: ShipmentStageFieldMeta.RequiredDeliveryTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={ShipmentStageField.RequiredDeliveryTime}
+          meta={ShipmentStageFieldMeta.RequiredDeliveryTime}
+          fieldConfig={fieldConfig}
+          time={value?.RequiredDeliveryTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Required Delivery Time"
-            value={value.RequiredDeliveryTime?.[0]}
-            meta={ShipmentStageFieldMeta.RequiredDeliveryTime}
-          />
+    [
+      ShipmentStageField.LoadingSequenceID,
+      { meta: ShipmentStageFieldMeta.LoadingSequenceID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ShipmentStageField.LoadingSequenceID}
+          meta={ShipmentStageFieldMeta.LoadingSequenceID}
+          fieldConfig={fieldConfig}
+          identifier={value?.LoadingSequenceID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Loading Sequence Identifier"
-            value={value.LoadingSequenceID?.[0]}
-            meta={ShipmentStageFieldMeta.LoadingSequenceID}
-          />
+    [
+      ShipmentStageField.SuccessiveSequenceID,
+      { meta: ShipmentStageFieldMeta.SuccessiveSequenceID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ShipmentStageField.SuccessiveSequenceID}
+          meta={ShipmentStageFieldMeta.SuccessiveSequenceID}
+          fieldConfig={fieldConfig}
+          identifier={value?.SuccessiveSequenceID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Successive Sequence Identifier"
-            value={value.SuccessiveSequenceID?.[0]}
-            meta={ShipmentStageFieldMeta.SuccessiveSequenceID}
-          />
+    [
+      ShipmentStageField.Instructions,
+      { meta: ShipmentStageFieldMeta.Instructions,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ShipmentStageField.Instructions}
+          meta={ShipmentStageFieldMeta.Instructions}
+          fieldConfig={fieldConfig}
+          text={value?.Instructions}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Instructions"
-            label="Instructions"
-            items={value.Instructions}
-            meta={ShipmentStageFieldMeta.Instructions} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Instructions"
-                value={itemValue}
-                meta={ShipmentStageFieldMeta.Instructions}
-              />
-            }
-          />
+    [
+      ShipmentStageField.DemurrageInstructions,
+      { meta: ShipmentStageFieldMeta.DemurrageInstructions,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ShipmentStageField.DemurrageInstructions}
+          meta={ShipmentStageFieldMeta.DemurrageInstructions}
+          fieldConfig={fieldConfig}
+          text={value?.DemurrageInstructions}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-DemurrageInstructions"
-            label="Demurrage Instructions"
-            items={value.DemurrageInstructions}
-            meta={ShipmentStageFieldMeta.DemurrageInstructions} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Demurrage Instructions"
-                value={itemValue}
-                meta={ShipmentStageFieldMeta.DemurrageInstructions}
-              />
-            }
-          />
+    [
+      ShipmentStageField.CrewQuantity,
+      { meta: ShipmentStageFieldMeta.CrewQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={ShipmentStageField.CrewQuantity}
+          meta={ShipmentStageFieldMeta.CrewQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.CrewQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Crew Quantity"
-            value={value.CrewQuantity?.[0]}
-            meta={ShipmentStageFieldMeta.CrewQuantity}
-          />
+    [
+      ShipmentStageField.PassengerQuantity,
+      { meta: ShipmentStageFieldMeta.PassengerQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={ShipmentStageField.PassengerQuantity}
+          meta={ShipmentStageFieldMeta.PassengerQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.PassengerQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Passenger Quantity"
-            value={value.PassengerQuantity?.[0]}
-            meta={ShipmentStageFieldMeta.PassengerQuantity}
-          />
+    [
+      ShipmentStageField.TransitPeriod,
+      { meta: ShipmentStageFieldMeta.TransitPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={ShipmentStageField.TransitPeriod}
+          meta={ShipmentStageFieldMeta.TransitPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.TransitPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Transit Period"
-            value={value.TransitPeriod?.[0]}
-            meta={ShipmentStageFieldMeta.TransitPeriod}
-          />
+    [
+      ShipmentStageField.CarrierParty,
+      { meta: ShipmentStageFieldMeta.CarrierParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ShipmentStageField.CarrierParty}
+          meta={ShipmentStageFieldMeta.CarrierParty}
+          fieldConfig={fieldConfig}
+          party={value?.CarrierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Party ubl-CarrierParty"
-            label="Carrier Party"
-            items={value.CarrierParty}
-            meta={ShipmentStageFieldMeta.CarrierParty} 
-            itemDisplay={ (itemValue: Party, key: string | number) =>
-              <PartyDisplay
-                key={key}
-                label="Carrier Party"
-                value={itemValue}
-                meta={ShipmentStageFieldMeta.CarrierParty}
-              />
-            }
-          />
+    [
+      ShipmentStageField.TransportMeans,
+      { meta: ShipmentStageFieldMeta.TransportMeans,
+        template: ({value, renderContext, fieldConfig}) => <TransportMeansDisplay
+          key={ShipmentStageField.TransportMeans}
+          meta={ShipmentStageFieldMeta.TransportMeans}
+          fieldConfig={fieldConfig}
+          transportMeans={value?.TransportMeans}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TransportMeansDisplay
-            label="Transport Means"
-            value={value.TransportMeans?.[0]}
-            meta={ShipmentStageFieldMeta.TransportMeans}
-          />
+    [
+      ShipmentStageField.LoadingPortLocation,
+      { meta: ShipmentStageFieldMeta.LoadingPortLocation,
+        template: ({value, renderContext, fieldConfig}) => <LocationDisplay
+          key={ShipmentStageField.LoadingPortLocation}
+          meta={ShipmentStageFieldMeta.LoadingPortLocation}
+          fieldConfig={fieldConfig}
+          location={value?.LoadingPortLocation}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <LocationDisplay
-            label="Loading Port Location"
-            value={value.LoadingPortLocation?.[0]}
-            meta={ShipmentStageFieldMeta.LoadingPortLocation}
-          />
+    [
+      ShipmentStageField.UnloadingPortLocation,
+      { meta: ShipmentStageFieldMeta.UnloadingPortLocation,
+        template: ({value, renderContext, fieldConfig}) => <LocationDisplay
+          key={ShipmentStageField.UnloadingPortLocation}
+          meta={ShipmentStageFieldMeta.UnloadingPortLocation}
+          fieldConfig={fieldConfig}
+          location={value?.UnloadingPortLocation}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <LocationDisplay
-            label="Unloading Port Location"
-            value={value.UnloadingPortLocation?.[0]}
-            meta={ShipmentStageFieldMeta.UnloadingPortLocation}
-          />
+    [
+      ShipmentStageField.TransshipPortLocation,
+      { meta: ShipmentStageFieldMeta.TransshipPortLocation,
+        template: ({value, renderContext, fieldConfig}) => <LocationDisplay
+          key={ShipmentStageField.TransshipPortLocation}
+          meta={ShipmentStageFieldMeta.TransshipPortLocation}
+          fieldConfig={fieldConfig}
+          location={value?.TransshipPortLocation}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <LocationDisplay
-            label="Transship Port Location"
-            value={value.TransshipPortLocation?.[0]}
-            meta={ShipmentStageFieldMeta.TransshipPortLocation}
-          />
+    [
+      ShipmentStageField.LoadingTransportEvent,
+      { meta: ShipmentStageFieldMeta.LoadingTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={ShipmentStageField.LoadingTransportEvent}
+          meta={ShipmentStageFieldMeta.LoadingTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.LoadingTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TransportEventDisplay
-            label="Loading Transport Event"
-            value={value.LoadingTransportEvent?.[0]}
-            meta={ShipmentStageFieldMeta.LoadingTransportEvent}
-          />
+    [
+      ShipmentStageField.ExaminationTransportEvent,
+      { meta: ShipmentStageFieldMeta.ExaminationTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={ShipmentStageField.ExaminationTransportEvent}
+          meta={ShipmentStageFieldMeta.ExaminationTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.ExaminationTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TransportEventDisplay
-            label="Examination Transport Event"
-            value={value.ExaminationTransportEvent?.[0]}
-            meta={ShipmentStageFieldMeta.ExaminationTransportEvent}
-          />
+    [
+      ShipmentStageField.AvailabilityTransportEvent,
+      { meta: ShipmentStageFieldMeta.AvailabilityTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={ShipmentStageField.AvailabilityTransportEvent}
+          meta={ShipmentStageFieldMeta.AvailabilityTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.AvailabilityTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TransportEventDisplay
-            label="Availability Transport Event"
-            value={value.AvailabilityTransportEvent?.[0]}
-            meta={ShipmentStageFieldMeta.AvailabilityTransportEvent}
-          />
+    [
+      ShipmentStageField.ExportationTransportEvent,
+      { meta: ShipmentStageFieldMeta.ExportationTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={ShipmentStageField.ExportationTransportEvent}
+          meta={ShipmentStageFieldMeta.ExportationTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.ExportationTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TransportEventDisplay
-            label="Exportation Transport Event"
-            value={value.ExportationTransportEvent?.[0]}
-            meta={ShipmentStageFieldMeta.ExportationTransportEvent}
-          />
+    [
+      ShipmentStageField.DischargeTransportEvent,
+      { meta: ShipmentStageFieldMeta.DischargeTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={ShipmentStageField.DischargeTransportEvent}
+          meta={ShipmentStageFieldMeta.DischargeTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.DischargeTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TransportEventDisplay
-            label="Discharge Transport Event"
-            value={value.DischargeTransportEvent?.[0]}
-            meta={ShipmentStageFieldMeta.DischargeTransportEvent}
-          />
+    [
+      ShipmentStageField.WarehousingTransportEvent,
+      { meta: ShipmentStageFieldMeta.WarehousingTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={ShipmentStageField.WarehousingTransportEvent}
+          meta={ShipmentStageFieldMeta.WarehousingTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.WarehousingTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TransportEventDisplay
-            label="Warehousing Transport Event"
-            value={value.WarehousingTransportEvent?.[0]}
-            meta={ShipmentStageFieldMeta.WarehousingTransportEvent}
-          />
+    [
+      ShipmentStageField.TakeoverTransportEvent,
+      { meta: ShipmentStageFieldMeta.TakeoverTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={ShipmentStageField.TakeoverTransportEvent}
+          meta={ShipmentStageFieldMeta.TakeoverTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.TakeoverTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TransportEventDisplay
-            label="Takeover Transport Event"
-            value={value.TakeoverTransportEvent?.[0]}
-            meta={ShipmentStageFieldMeta.TakeoverTransportEvent}
-          />
+    [
+      ShipmentStageField.OptionalTakeoverTransportEvent,
+      { meta: ShipmentStageFieldMeta.OptionalTakeoverTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={ShipmentStageField.OptionalTakeoverTransportEvent}
+          meta={ShipmentStageFieldMeta.OptionalTakeoverTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.OptionalTakeoverTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TransportEventDisplay
-            label="Optional Takeover Transport Event"
-            value={value.OptionalTakeoverTransportEvent?.[0]}
-            meta={ShipmentStageFieldMeta.OptionalTakeoverTransportEvent}
-          />
+    [
+      ShipmentStageField.DropoffTransportEvent,
+      { meta: ShipmentStageFieldMeta.DropoffTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={ShipmentStageField.DropoffTransportEvent}
+          meta={ShipmentStageFieldMeta.DropoffTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.DropoffTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TransportEventDisplay
-            label="Dropoff Transport Event"
-            value={value.DropoffTransportEvent?.[0]}
-            meta={ShipmentStageFieldMeta.DropoffTransportEvent}
-          />
+    [
+      ShipmentStageField.ActualPickupTransportEvent,
+      { meta: ShipmentStageFieldMeta.ActualPickupTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={ShipmentStageField.ActualPickupTransportEvent}
+          meta={ShipmentStageFieldMeta.ActualPickupTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.ActualPickupTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TransportEventDisplay
-            label="Actual Pickup Transport Event"
-            value={value.ActualPickupTransportEvent?.[0]}
-            meta={ShipmentStageFieldMeta.ActualPickupTransportEvent}
-          />
+    [
+      ShipmentStageField.DeliveryTransportEvent,
+      { meta: ShipmentStageFieldMeta.DeliveryTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={ShipmentStageField.DeliveryTransportEvent}
+          meta={ShipmentStageFieldMeta.DeliveryTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.DeliveryTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TransportEventDisplay
-            label="Delivery Transport Event"
-            value={value.DeliveryTransportEvent?.[0]}
-            meta={ShipmentStageFieldMeta.DeliveryTransportEvent}
-          />
+    [
+      ShipmentStageField.ReceiptTransportEvent,
+      { meta: ShipmentStageFieldMeta.ReceiptTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={ShipmentStageField.ReceiptTransportEvent}
+          meta={ShipmentStageFieldMeta.ReceiptTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.ReceiptTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TransportEventDisplay
-            label="Receipt Transport Event"
-            value={value.ReceiptTransportEvent?.[0]}
-            meta={ShipmentStageFieldMeta.ReceiptTransportEvent}
-          />
+    [
+      ShipmentStageField.StorageTransportEvent,
+      { meta: ShipmentStageFieldMeta.StorageTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={ShipmentStageField.StorageTransportEvent}
+          meta={ShipmentStageFieldMeta.StorageTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.StorageTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TransportEventDisplay
-            label="Storage Transport Event"
-            value={value.StorageTransportEvent?.[0]}
-            meta={ShipmentStageFieldMeta.StorageTransportEvent}
-          />
+    [
+      ShipmentStageField.AcceptanceTransportEvent,
+      { meta: ShipmentStageFieldMeta.AcceptanceTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={ShipmentStageField.AcceptanceTransportEvent}
+          meta={ShipmentStageFieldMeta.AcceptanceTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.AcceptanceTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TransportEventDisplay
-            label="Acceptance Transport Event"
-            value={value.AcceptanceTransportEvent?.[0]}
-            meta={ShipmentStageFieldMeta.AcceptanceTransportEvent}
-          />
+    [
+      ShipmentStageField.TerminalOperatorParty,
+      { meta: ShipmentStageFieldMeta.TerminalOperatorParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ShipmentStageField.TerminalOperatorParty}
+          meta={ShipmentStageFieldMeta.TerminalOperatorParty}
+          fieldConfig={fieldConfig}
+          party={value?.TerminalOperatorParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Terminal Operator Party"
-            value={value.TerminalOperatorParty?.[0]}
-            meta={ShipmentStageFieldMeta.TerminalOperatorParty}
-          />
+    [
+      ShipmentStageField.CustomsAgentParty,
+      { meta: ShipmentStageFieldMeta.CustomsAgentParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ShipmentStageField.CustomsAgentParty}
+          meta={ShipmentStageFieldMeta.CustomsAgentParty}
+          fieldConfig={fieldConfig}
+          party={value?.CustomsAgentParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Customs Agent Party"
-            value={value.CustomsAgentParty?.[0]}
-            meta={ShipmentStageFieldMeta.CustomsAgentParty}
-          />
+    [
+      ShipmentStageField.EstimatedTransitPeriod,
+      { meta: ShipmentStageFieldMeta.EstimatedTransitPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={ShipmentStageField.EstimatedTransitPeriod}
+          meta={ShipmentStageFieldMeta.EstimatedTransitPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.EstimatedTransitPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Estimated Transit Period"
-            value={value.EstimatedTransitPeriod?.[0]}
-            meta={ShipmentStageFieldMeta.EstimatedTransitPeriod}
-          />
+    [
+      ShipmentStageField.FreightAllowanceCharge,
+      { meta: ShipmentStageFieldMeta.FreightAllowanceCharge,
+        template: ({value, renderContext, fieldConfig}) => <AllowanceChargeDisplay
+          key={ShipmentStageField.FreightAllowanceCharge}
+          meta={ShipmentStageFieldMeta.FreightAllowanceCharge}
+          fieldConfig={fieldConfig}
+          allowanceCharge={value?.FreightAllowanceCharge}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-AllowanceCharge ubl-FreightAllowanceCharge"
-            label="Freight Allowance Charge"
-            items={value.FreightAllowanceCharge}
-            meta={ShipmentStageFieldMeta.FreightAllowanceCharge} 
-            itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-              <AllowanceChargeDisplay
-                key={key}
-                label="Freight Allowance Charge"
-                value={itemValue}
-                meta={ShipmentStageFieldMeta.FreightAllowanceCharge}
-              />
-            }
-          />
+    [
+      ShipmentStageField.FreightChargeLocation,
+      { meta: ShipmentStageFieldMeta.FreightChargeLocation,
+        template: ({value, renderContext, fieldConfig}) => <LocationDisplay
+          key={ShipmentStageField.FreightChargeLocation}
+          meta={ShipmentStageFieldMeta.FreightChargeLocation}
+          fieldConfig={fieldConfig}
+          location={value?.FreightChargeLocation}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <LocationDisplay
-            label="Freight Charge Location"
-            value={value.FreightChargeLocation?.[0]}
-            meta={ShipmentStageFieldMeta.FreightChargeLocation}
-          />
+    [
+      ShipmentStageField.DetentionTransportEvent,
+      { meta: ShipmentStageFieldMeta.DetentionTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={ShipmentStageField.DetentionTransportEvent}
+          meta={ShipmentStageFieldMeta.DetentionTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.DetentionTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TransportEvent ubl-DetentionTransportEvent"
-            label="Detention Transport Event"
-            items={value.DetentionTransportEvent}
-            meta={ShipmentStageFieldMeta.DetentionTransportEvent} 
-            itemDisplay={ (itemValue: TransportEvent, key: string | number) =>
-              <TransportEventDisplay
-                key={key}
-                label="Detention Transport Event"
-                value={itemValue}
-                meta={ShipmentStageFieldMeta.DetentionTransportEvent}
-              />
-            }
-          />
+    [
+      ShipmentStageField.RequestedDepartureTransportEvent,
+      { meta: ShipmentStageFieldMeta.RequestedDepartureTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={ShipmentStageField.RequestedDepartureTransportEvent}
+          meta={ShipmentStageFieldMeta.RequestedDepartureTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.RequestedDepartureTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TransportEventDisplay
-            label="Requested Departure Transport Event"
-            value={value.RequestedDepartureTransportEvent?.[0]}
-            meta={ShipmentStageFieldMeta.RequestedDepartureTransportEvent}
-          />
+    [
+      ShipmentStageField.RequestedArrivalTransportEvent,
+      { meta: ShipmentStageFieldMeta.RequestedArrivalTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={ShipmentStageField.RequestedArrivalTransportEvent}
+          meta={ShipmentStageFieldMeta.RequestedArrivalTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.RequestedArrivalTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TransportEventDisplay
-            label="Requested Arrival Transport Event"
-            value={value.RequestedArrivalTransportEvent?.[0]}
-            meta={ShipmentStageFieldMeta.RequestedArrivalTransportEvent}
-          />
+    [
+      ShipmentStageField.RequestedWaypointTransportEvent,
+      { meta: ShipmentStageFieldMeta.RequestedWaypointTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={ShipmentStageField.RequestedWaypointTransportEvent}
+          meta={ShipmentStageFieldMeta.RequestedWaypointTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.RequestedWaypointTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TransportEvent ubl-RequestedWaypointTransportEvent"
-            label="Requested Waypoint Transport Event"
-            items={value.RequestedWaypointTransportEvent}
-            meta={ShipmentStageFieldMeta.RequestedWaypointTransportEvent} 
-            itemDisplay={ (itemValue: TransportEvent, key: string | number) =>
-              <TransportEventDisplay
-                key={key}
-                label="Requested Waypoint Transport Event"
-                value={itemValue}
-                meta={ShipmentStageFieldMeta.RequestedWaypointTransportEvent}
-              />
-            }
-          />
+    [
+      ShipmentStageField.PlannedDepartureTransportEvent,
+      { meta: ShipmentStageFieldMeta.PlannedDepartureTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={ShipmentStageField.PlannedDepartureTransportEvent}
+          meta={ShipmentStageFieldMeta.PlannedDepartureTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.PlannedDepartureTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TransportEventDisplay
-            label="Planned Departure Transport Event"
-            value={value.PlannedDepartureTransportEvent?.[0]}
-            meta={ShipmentStageFieldMeta.PlannedDepartureTransportEvent}
-          />
+    [
+      ShipmentStageField.PlannedArrivalTransportEvent,
+      { meta: ShipmentStageFieldMeta.PlannedArrivalTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={ShipmentStageField.PlannedArrivalTransportEvent}
+          meta={ShipmentStageFieldMeta.PlannedArrivalTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.PlannedArrivalTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TransportEventDisplay
-            label="Planned Arrival Transport Event"
-            value={value.PlannedArrivalTransportEvent?.[0]}
-            meta={ShipmentStageFieldMeta.PlannedArrivalTransportEvent}
-          />
+    [
+      ShipmentStageField.PlannedWaypointTransportEvent,
+      { meta: ShipmentStageFieldMeta.PlannedWaypointTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={ShipmentStageField.PlannedWaypointTransportEvent}
+          meta={ShipmentStageFieldMeta.PlannedWaypointTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.PlannedWaypointTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TransportEvent ubl-PlannedWaypointTransportEvent"
-            label="Planned Waypoint Transport Event"
-            items={value.PlannedWaypointTransportEvent}
-            meta={ShipmentStageFieldMeta.PlannedWaypointTransportEvent} 
-            itemDisplay={ (itemValue: TransportEvent, key: string | number) =>
-              <TransportEventDisplay
-                key={key}
-                label="Planned Waypoint Transport Event"
-                value={itemValue}
-                meta={ShipmentStageFieldMeta.PlannedWaypointTransportEvent}
-              />
-            }
-          />
+    [
+      ShipmentStageField.ActualDepartureTransportEvent,
+      { meta: ShipmentStageFieldMeta.ActualDepartureTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={ShipmentStageField.ActualDepartureTransportEvent}
+          meta={ShipmentStageFieldMeta.ActualDepartureTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.ActualDepartureTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TransportEventDisplay
-            label="Actual Departure Transport Event"
-            value={value.ActualDepartureTransportEvent?.[0]}
-            meta={ShipmentStageFieldMeta.ActualDepartureTransportEvent}
-          />
+    [
+      ShipmentStageField.ActualWaypointTransportEvent,
+      { meta: ShipmentStageFieldMeta.ActualWaypointTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={ShipmentStageField.ActualWaypointTransportEvent}
+          meta={ShipmentStageFieldMeta.ActualWaypointTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.ActualWaypointTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TransportEventDisplay
-            label="Actual Waypoint Transport Event"
-            value={value.ActualWaypointTransportEvent?.[0]}
-            meta={ShipmentStageFieldMeta.ActualWaypointTransportEvent}
-          />
+    [
+      ShipmentStageField.ActualArrivalTransportEvent,
+      { meta: ShipmentStageFieldMeta.ActualArrivalTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={ShipmentStageField.ActualArrivalTransportEvent}
+          meta={ShipmentStageFieldMeta.ActualArrivalTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.ActualArrivalTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TransportEventDisplay
-            label="Actual Arrival Transport Event"
-            value={value.ActualArrivalTransportEvent?.[0]}
-            meta={ShipmentStageFieldMeta.ActualArrivalTransportEvent}
-          />
+    [
+      ShipmentStageField.TransportEvent,
+      { meta: ShipmentStageFieldMeta.TransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={ShipmentStageField.TransportEvent}
+          meta={ShipmentStageFieldMeta.TransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.TransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TransportEvent"
-            label="Transport Event"
-            items={value.TransportEvent}
-            meta={ShipmentStageFieldMeta.TransportEvent} 
-            itemDisplay={ (itemValue: TransportEvent, key: string | number) =>
-              <TransportEventDisplay
-                key={key}
-                label="Transport Event"
-                value={itemValue}
-                meta={ShipmentStageFieldMeta.TransportEvent}
-              />
-            }
-          />
+    [
+      ShipmentStageField.EstimatedDepartureTransportEvent,
+      { meta: ShipmentStageFieldMeta.EstimatedDepartureTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={ShipmentStageField.EstimatedDepartureTransportEvent}
+          meta={ShipmentStageFieldMeta.EstimatedDepartureTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.EstimatedDepartureTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TransportEventDisplay
-            label="Estimated Departure Transport Event"
-            value={value.EstimatedDepartureTransportEvent?.[0]}
-            meta={ShipmentStageFieldMeta.EstimatedDepartureTransportEvent}
-          />
+    [
+      ShipmentStageField.EstimatedArrivalTransportEvent,
+      { meta: ShipmentStageFieldMeta.EstimatedArrivalTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={ShipmentStageField.EstimatedArrivalTransportEvent}
+          meta={ShipmentStageFieldMeta.EstimatedArrivalTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.EstimatedArrivalTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TransportEventDisplay
-            label="Estimated Arrival Transport Event"
-            value={value.EstimatedArrivalTransportEvent?.[0]}
-            meta={ShipmentStageFieldMeta.EstimatedArrivalTransportEvent}
-          />
+    [
+      ShipmentStageField.PassengerPerson,
+      { meta: ShipmentStageFieldMeta.PassengerPerson,
+        template: ({value, renderContext, fieldConfig}) => <PersonDisplay
+          key={ShipmentStageField.PassengerPerson}
+          meta={ShipmentStageFieldMeta.PassengerPerson}
+          fieldConfig={fieldConfig}
+          person={value?.PassengerPerson}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Person ubl-PassengerPerson"
-            label="Passenger Person"
-            items={value.PassengerPerson}
-            meta={ShipmentStageFieldMeta.PassengerPerson} 
-            itemDisplay={ (itemValue: Person, key: string | number) =>
-              <PersonDisplay
-                key={key}
-                label="Passenger Person"
-                value={itemValue}
-                meta={ShipmentStageFieldMeta.PassengerPerson}
-              />
-            }
-          />
+    [
+      ShipmentStageField.DriverPerson,
+      { meta: ShipmentStageFieldMeta.DriverPerson,
+        template: ({value, renderContext, fieldConfig}) => <PersonDisplay
+          key={ShipmentStageField.DriverPerson}
+          meta={ShipmentStageFieldMeta.DriverPerson}
+          fieldConfig={fieldConfig}
+          person={value?.DriverPerson}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Person ubl-DriverPerson"
-            label="Driver Person"
-            items={value.DriverPerson}
-            meta={ShipmentStageFieldMeta.DriverPerson} 
-            itemDisplay={ (itemValue: Person, key: string | number) =>
-              <PersonDisplay
-                key={key}
-                label="Driver Person"
-                value={itemValue}
-                meta={ShipmentStageFieldMeta.DriverPerson}
-              />
-            }
-          />
+    [
+      ShipmentStageField.ReportingPerson,
+      { meta: ShipmentStageFieldMeta.ReportingPerson,
+        template: ({value, renderContext, fieldConfig}) => <PersonDisplay
+          key={ShipmentStageField.ReportingPerson}
+          meta={ShipmentStageFieldMeta.ReportingPerson}
+          fieldConfig={fieldConfig}
+          person={value?.ReportingPerson}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PersonDisplay
-            label="Reporting Person"
-            value={value.ReportingPerson?.[0]}
-            meta={ShipmentStageFieldMeta.ReportingPerson}
-          />
+    [
+      ShipmentStageField.CrewMemberPerson,
+      { meta: ShipmentStageFieldMeta.CrewMemberPerson,
+        template: ({value, renderContext, fieldConfig}) => <PersonDisplay
+          key={ShipmentStageField.CrewMemberPerson}
+          meta={ShipmentStageFieldMeta.CrewMemberPerson}
+          fieldConfig={fieldConfig}
+          person={value?.CrewMemberPerson}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Person ubl-CrewMemberPerson"
-            label="Crew Member Person"
-            items={value.CrewMemberPerson}
-            meta={ShipmentStageFieldMeta.CrewMemberPerson} 
-            itemDisplay={ (itemValue: Person, key: string | number) =>
-              <PersonDisplay
-                key={key}
-                label="Crew Member Person"
-                value={itemValue}
-                meta={ShipmentStageFieldMeta.CrewMemberPerson}
-              />
-            }
-          />
+    [
+      ShipmentStageField.SecurityOfficerPerson,
+      { meta: ShipmentStageFieldMeta.SecurityOfficerPerson,
+        template: ({value, renderContext, fieldConfig}) => <PersonDisplay
+          key={ShipmentStageField.SecurityOfficerPerson}
+          meta={ShipmentStageFieldMeta.SecurityOfficerPerson}
+          fieldConfig={fieldConfig}
+          person={value?.SecurityOfficerPerson}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PersonDisplay
-            label="Security Officer Person"
-            value={value.SecurityOfficerPerson?.[0]}
-            meta={ShipmentStageFieldMeta.SecurityOfficerPerson}
-          />
+    [
+      ShipmentStageField.MasterPerson,
+      { meta: ShipmentStageFieldMeta.MasterPerson,
+        template: ({value, renderContext, fieldConfig}) => <PersonDisplay
+          key={ShipmentStageField.MasterPerson}
+          meta={ShipmentStageFieldMeta.MasterPerson}
+          fieldConfig={fieldConfig}
+          person={value?.MasterPerson}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PersonDisplay
-            label="Master Person"
-            value={value.MasterPerson?.[0]}
-            meta={ShipmentStageFieldMeta.MasterPerson}
-          />
+    [
+      ShipmentStageField.ShipsSurgeonPerson,
+      { meta: ShipmentStageFieldMeta.ShipsSurgeonPerson,
+        template: ({value, renderContext, fieldConfig}) => <PersonDisplay
+          key={ShipmentStageField.ShipsSurgeonPerson}
+          meta={ShipmentStageFieldMeta.ShipsSurgeonPerson}
+          fieldConfig={fieldConfig}
+          person={value?.ShipsSurgeonPerson}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <PersonDisplay
-            label="Ships Surgeon Person"
-            value={value.ShipsSurgeonPerson?.[0]}
-            meta={ShipmentStageFieldMeta.ShipsSurgeonPerson}
-          />
-        </div>
-    </div>
+export function ShipmentStageDisplay<TFieldMeta>({ meta, fieldConfig, shipmentStage, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ShipmentStageTypeName,
+    meta,
+    fieldConfig,
+    shipmentStage,
+    renderContext,
+    ShipmentStageSubElementsMap,
   )
 }

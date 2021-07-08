@@ -1,57 +1,66 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { OrderedShipment } from  '../../model/cac/OrderedShipment'
-import { OrderedShipmentFieldMeta } from  '../../meta/cac/OrderedShipmentMeta'
-import PackageDisplay from './PackageDisplay'
-import { Package } from '../../model/cac/Package'
-import ShipmentDisplay from './ShipmentDisplay'
-import { Shipment } from '../../model/cac/Shipment'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { OrderedShipmentField, OrderedShipmentFieldMeta, OrderedShipmentTypeName } from  '../../meta/cac/OrderedShipmentMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { PackageDisplay } from './PackageDisplay'
+import { ShipmentDisplay } from './ShipmentDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: OrderedShipment | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<OrderedShipment, void>
+  orderedShipment: OrderedShipment[] | undefined
+  renderContext: RenderContext
 }
 
-export default function OrderedShipmentDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const OrderedShipmentSubElementsMap: SubElementsTemplatesMap<OrderedShipmentField, OrderedShipment, void> = new Map([
+    [
+      OrderedShipmentField.UBLExtensions,
+      { meta: OrderedShipmentFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={OrderedShipmentField.UBLExtensions}
+          meta={OrderedShipmentFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-OrderedShipment">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={OrderedShipmentFieldMeta.UBLExtensions}
-          />
+    [
+      OrderedShipmentField.Shipment,
+      { meta: OrderedShipmentFieldMeta.Shipment,
+        template: ({value, renderContext, fieldConfig}) => <ShipmentDisplay
+          key={OrderedShipmentField.Shipment}
+          meta={OrderedShipmentFieldMeta.Shipment}
+          fieldConfig={fieldConfig}
+          shipment={value?.Shipment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ShipmentDisplay
-            label="Shipment"
-            value={value.Shipment?.[0]}
-            meta={OrderedShipmentFieldMeta.Shipment}
-          />
+    [
+      OrderedShipmentField.Package,
+      { meta: OrderedShipmentFieldMeta.Package,
+        template: ({value, renderContext, fieldConfig}) => <PackageDisplay
+          key={OrderedShipmentField.Package}
+          meta={OrderedShipmentFieldMeta.Package}
+          fieldConfig={fieldConfig}
+          packageValue={value?.Package}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Package"
-            label="Package"
-            items={value.Package}
-            meta={OrderedShipmentFieldMeta.Package} 
-            itemDisplay={ (itemValue: Package, key: string | number) =>
-              <PackageDisplay
-                key={key}
-                label="Package"
-                value={itemValue}
-                meta={OrderedShipmentFieldMeta.Package}
-              />
-            }
-          />
-        </div>
-    </div>
+export function OrderedShipmentDisplay<TFieldMeta>({ meta, fieldConfig, orderedShipment, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    OrderedShipmentTypeName,
+    meta,
+    fieldConfig,
+    orderedShipment,
+    renderContext,
+    OrderedShipmentSubElementsMap,
   )
 }

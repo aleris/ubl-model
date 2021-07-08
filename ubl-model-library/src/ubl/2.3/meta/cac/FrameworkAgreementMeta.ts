@@ -1,4 +1,11 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { PeriodType } from './PeriodMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { TenderRequirementType } from './TenderRequirementMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum FrameworkAgreementField {
   UBLExtensions = 'UBLExtensions',
@@ -15,11 +22,11 @@ export enum FrameworkAgreementField {
 export const FrameworkAgreementFieldMetaUBLExtensions = new FieldMeta<FrameworkAgreementField>(
   FrameworkAgreementField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -28,10 +35,10 @@ export const FrameworkAgreementFieldMetaExpectedOperatorQuantity = new FieldMeta
   FrameworkAgreementField.ExpectedOperatorQuantity,
   'ExpectedOperatorQuantity',
   'Expected Operator',
-  'Quantity',
+  QuantityType.name,
   'The number of economic operators expected to participate in this framework agreement.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -40,10 +47,10 @@ export const FrameworkAgreementFieldMetaMaximumOperatorQuantity = new FieldMeta<
   FrameworkAgreementField.MaximumOperatorQuantity,
   'MaximumOperatorQuantity',
   'Maximum Operator',
-  'Quantity',
+  QuantityType.name,
   'The maximum number of economic operators allowed to participate in this framework agreement.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -52,10 +59,10 @@ export const FrameworkAgreementFieldMetaJustification = new FieldMeta<FrameworkA
   FrameworkAgreementField.Justification,
   'Justification',
   'Justification',
-  'Text',
+  TextType.name,
   'Text describing the justification for this framework agreement.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -64,10 +71,10 @@ export const FrameworkAgreementFieldMetaFrequency = new FieldMeta<FrameworkAgree
   FrameworkAgreementField.Frequency,
   'Frequency',
   'Frequency',
-  'Text',
+  TextType.name,
   'Text describing the frequency with which subsequent contracts will be awarded.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -76,10 +83,10 @@ export const FrameworkAgreementFieldMetaEstimatedMaximumValueAmount = new FieldM
   FrameworkAgreementField.EstimatedMaximumValueAmount,
   'EstimatedMaximumValueAmount',
   'Estimated Maximum Value',
-  'Amount',
+  AmountType.name,
   'The estimated value which will be spent within a framework agreement over its whole duration, including options and renewals.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -88,10 +95,10 @@ export const FrameworkAgreementFieldMetaMaximumValueAmount = new FieldMeta<Frame
   FrameworkAgreementField.MaximumValueAmount,
   'MaximumValueAmount',
   'Maximum Value',
-  'Amount',
+  AmountType.name,
   'The maximum Value which can be spent within a framework agreement over its whole duration, including options and renewals.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -100,10 +107,10 @@ export const FrameworkAgreementFieldMetaDurationPeriod = new FieldMeta<Framework
   FrameworkAgreementField.DurationPeriod,
   'DurationPeriod',
   'Duration Period',
-  'Period',
+  PeriodType.name,
   'The period during which this framework agreement applies.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -112,10 +119,10 @@ export const FrameworkAgreementFieldMetaSubsequentProcessTenderRequirement = new
   FrameworkAgreementField.SubsequentProcessTenderRequirement,
   'SubsequentProcessTenderRequirement',
   'Subsequent Process Tender Requirement',
-  'TenderRequirement',
+  TenderRequirementType.name,
   'A tender requirement intended for consumption by downstream tendering processes derived from the establishment of this framework agreement.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   'Curricula required'
 )
@@ -143,3 +150,11 @@ export const FrameworkAgreementFieldMap = new Map([
   [FrameworkAgreementField.DurationPeriod, FrameworkAgreementFieldMetaDurationPeriod],
   [FrameworkAgreementField.SubsequentProcessTenderRequirement, FrameworkAgreementFieldMetaSubsequentProcessTenderRequirement]
 ])
+
+export const FrameworkAgreementType: Type<FrameworkAgreementField> = {
+  name: 'FrameworkAgreement',
+  label: 'Framework Agreement',
+  module: TypeModule.cac,
+  definition: 'A class to describe a tendering framework agreement.',
+  fields: FrameworkAgreementFieldMap,
+}

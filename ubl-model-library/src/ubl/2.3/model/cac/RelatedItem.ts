@@ -2,7 +2,6 @@ import { Identifier } from '../cbc/Identifier'
 import { Quantity } from '../cbc/Quantity'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe the relationship to an item different from the item associated with the item line in which
  * RelatedItem is used.

@@ -1,66 +1,102 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ForecastExceptionCriterionLine } from  '../../model/cac/ForecastExceptionCriterionLine'
-import { ForecastExceptionCriterionLineFieldMeta } from  '../../meta/cac/ForecastExceptionCriterionLineMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ForecastExceptionCriterionLineField, ForecastExceptionCriterionLineFieldMeta, ForecastExceptionCriterionLineTypeName } from  '../../meta/cac/ForecastExceptionCriterionLineMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ForecastExceptionCriterionLine | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ForecastExceptionCriterionLine, void>
+  forecastExceptionCriterionLine: ForecastExceptionCriterionLine[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ForecastExceptionCriterionLineDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ForecastExceptionCriterionLineSubElementsMap: SubElementsTemplatesMap<ForecastExceptionCriterionLineField, ForecastExceptionCriterionLine, void> = new Map([
+    [
+      ForecastExceptionCriterionLineField.UBLExtensions,
+      { meta: ForecastExceptionCriterionLineFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ForecastExceptionCriterionLineField.UBLExtensions}
+          meta={ForecastExceptionCriterionLineFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ForecastExceptionCriterionLine">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ForecastExceptionCriterionLineFieldMeta.UBLExtensions}
-          />
+    [
+      ForecastExceptionCriterionLineField.ForecastPurposeCode,
+      { meta: ForecastExceptionCriterionLineFieldMeta.ForecastPurposeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ForecastExceptionCriterionLineField.ForecastPurposeCode}
+          meta={ForecastExceptionCriterionLineFieldMeta.ForecastPurposeCode}
+          fieldConfig={fieldConfig}
+          code={value?.ForecastPurposeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Forecast Purpose Code"
-            value={value.ForecastPurposeCode?.[0]}
-            meta={ForecastExceptionCriterionLineFieldMeta.ForecastPurposeCode}
-          />
+    [
+      ForecastExceptionCriterionLineField.ForecastTypeCode,
+      { meta: ForecastExceptionCriterionLineFieldMeta.ForecastTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ForecastExceptionCriterionLineField.ForecastTypeCode}
+          meta={ForecastExceptionCriterionLineFieldMeta.ForecastTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.ForecastTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Forecast Type Code"
-            value={value.ForecastTypeCode?.[0]}
-            meta={ForecastExceptionCriterionLineFieldMeta.ForecastTypeCode}
-          />
+    [
+      ForecastExceptionCriterionLineField.ComparisonDataSourceCode,
+      { meta: ForecastExceptionCriterionLineFieldMeta.ComparisonDataSourceCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ForecastExceptionCriterionLineField.ComparisonDataSourceCode}
+          meta={ForecastExceptionCriterionLineFieldMeta.ComparisonDataSourceCode}
+          fieldConfig={fieldConfig}
+          code={value?.ComparisonDataSourceCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Comparison Data Source Code"
-            value={value.ComparisonDataSourceCode?.[0]}
-            meta={ForecastExceptionCriterionLineFieldMeta.ComparisonDataSourceCode}
-          />
+    [
+      ForecastExceptionCriterionLineField.DataSourceCode,
+      { meta: ForecastExceptionCriterionLineFieldMeta.DataSourceCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ForecastExceptionCriterionLineField.DataSourceCode}
+          meta={ForecastExceptionCriterionLineFieldMeta.DataSourceCode}
+          fieldConfig={fieldConfig}
+          code={value?.DataSourceCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Data Source Code"
-            value={value.DataSourceCode?.[0]}
-            meta={ForecastExceptionCriterionLineFieldMeta.DataSourceCode}
-          />
+    [
+      ForecastExceptionCriterionLineField.TimeDeltaDaysQuantity,
+      { meta: ForecastExceptionCriterionLineFieldMeta.TimeDeltaDaysQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={ForecastExceptionCriterionLineField.TimeDeltaDaysQuantity}
+          meta={ForecastExceptionCriterionLineFieldMeta.TimeDeltaDaysQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.TimeDeltaDaysQuantity}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <QuantityDisplay
-            label="Time Delta Days Quantity"
-            value={value.TimeDeltaDaysQuantity?.[0]}
-            meta={ForecastExceptionCriterionLineFieldMeta.TimeDeltaDaysQuantity}
-          />
-        </div>
-    </div>
+export function ForecastExceptionCriterionLineDisplay<TFieldMeta>({ meta, fieldConfig, forecastExceptionCriterionLine, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ForecastExceptionCriterionLineTypeName,
+    meta,
+    fieldConfig,
+    forecastExceptionCriterionLine,
+    renderContext,
+    ForecastExceptionCriterionLineSubElementsMap,
   )
 }

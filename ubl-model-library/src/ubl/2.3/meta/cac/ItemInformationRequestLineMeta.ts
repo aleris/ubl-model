@@ -1,4 +1,9 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { PeriodType } from './PeriodMeta'
+import { SalesItemType } from './SalesItemMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ItemInformationRequestLineField {
   UBLExtensions = 'UBLExtensions',
@@ -13,11 +18,11 @@ export enum ItemInformationRequestLineField {
 export const ItemInformationRequestLineFieldMetaUBLExtensions = new FieldMeta<ItemInformationRequestLineField>(
   ItemInformationRequestLineField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -26,10 +31,10 @@ export const ItemInformationRequestLineFieldMetaTimeFrequencyCode = new FieldMet
   ItemInformationRequestLineField.TimeFrequencyCode,
   'TimeFrequencyCode',
   'Time Frequency Code',
-  'Code',
+  CodeType.name,
   'A code signifying the frequency with which item information should be sent to the requester.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -38,10 +43,10 @@ export const ItemInformationRequestLineFieldMetaSupplyChainActivityTypeCode = ne
   ItemInformationRequestLineField.SupplyChainActivityTypeCode,
   'SupplyChainActivityTypeCode',
   'Supply Chain Activity Type Code',
-  'Code',
+  CodeType.name,
   'A code used to identify the type of supply chain activity about which information request is issued. Examples: CANCELED_ORDERS EMERGENCY_ORDERS ON_HAND ORDERS',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -50,10 +55,10 @@ export const ItemInformationRequestLineFieldMetaForecastTypeCode = new FieldMeta
   ItemInformationRequestLineField.ForecastTypeCode,
   'ForecastTypeCode',
   'Forecast Type Code',
-  'Code',
+  CodeType.name,
   'The information request can be either about supply chain activity or about forecasts or about performance metrics, so it should be optional',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -62,10 +67,10 @@ export const ItemInformationRequestLineFieldMetaPerformanceMetricTypeCode = new 
   ItemInformationRequestLineField.PerformanceMetricTypeCode,
   'PerformanceMetricTypeCode',
   'Performance Metric Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying a measure of performance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -74,10 +79,10 @@ export const ItemInformationRequestLineFieldMetaPeriod = new FieldMeta<ItemInfor
   ItemInformationRequestLineField.Period,
   'Period',
   'Period',
-  'Period',
+  PeriodType.name,
   'A period for which this information is requested.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -86,10 +91,10 @@ export const ItemInformationRequestLineFieldMetaSalesItem = new FieldMeta<ItemIn
   ItemInformationRequestLineField.SalesItem,
   'SalesItem',
   'Sales Item',
-  'SalesItem',
+  SalesItemType.name,
   'Sales information for the item to which this line applies.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -113,3 +118,11 @@ export const ItemInformationRequestLineFieldMap = new Map([
   [ItemInformationRequestLineField.Period, ItemInformationRequestLineFieldMetaPeriod],
   [ItemInformationRequestLineField.SalesItem, ItemInformationRequestLineFieldMetaSalesItem]
 ])
+
+export const ItemInformationRequestLineType: Type<ItemInformationRequestLineField> = {
+  name: 'ItemInformationRequestLine',
+  label: 'Item Information Request Line',
+  module: TypeModule.cac,
+  definition: 'A class to define a line in an Item Information Request asking a trading partner for item information.',
+  fields: ItemInformationRequestLineFieldMap,
+}

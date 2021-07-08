@@ -1,100 +1,128 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ItemIdentification } from  '../../model/cac/ItemIdentification'
-import { ItemIdentificationFieldMeta } from  '../../meta/cac/ItemIdentificationMeta'
-import DimensionDisplay from './DimensionDisplay'
-import { Dimension } from '../../model/cac/Dimension'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PhysicalAttributeDisplay from './PhysicalAttributeDisplay'
-import { PhysicalAttribute } from '../../model/cac/PhysicalAttribute'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ItemIdentificationField, ItemIdentificationFieldMeta, ItemIdentificationTypeName } from  '../../meta/cac/ItemIdentificationMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { DimensionDisplay } from './DimensionDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { PhysicalAttributeDisplay } from './PhysicalAttributeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ItemIdentification | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ItemIdentification, void>
+  itemIdentification: ItemIdentification[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ItemIdentificationDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ItemIdentificationSubElementsMap: SubElementsTemplatesMap<ItemIdentificationField, ItemIdentification, void> = new Map([
+    [
+      ItemIdentificationField.UBLExtensions,
+      { meta: ItemIdentificationFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ItemIdentificationField.UBLExtensions}
+          meta={ItemIdentificationFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ItemIdentification">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ItemIdentificationFieldMeta.UBLExtensions}
-          />
+    [
+      ItemIdentificationField.ID,
+      { meta: ItemIdentificationFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ItemIdentificationField.ID}
+          meta={ItemIdentificationFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={ItemIdentificationFieldMeta.ID}
-          />
+    [
+      ItemIdentificationField.ExtendedID,
+      { meta: ItemIdentificationFieldMeta.ExtendedID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ItemIdentificationField.ExtendedID}
+          meta={ItemIdentificationFieldMeta.ExtendedID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ExtendedID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Extended Identifier"
-            value={value.ExtendedID?.[0]}
-            meta={ItemIdentificationFieldMeta.ExtendedID}
-          />
+    [
+      ItemIdentificationField.BarcodeSymbologyID,
+      { meta: ItemIdentificationFieldMeta.BarcodeSymbologyID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ItemIdentificationField.BarcodeSymbologyID}
+          meta={ItemIdentificationFieldMeta.BarcodeSymbologyID}
+          fieldConfig={fieldConfig}
+          identifier={value?.BarcodeSymbologyID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Barcode Symbology Identifier"
-            value={value.BarcodeSymbologyID?.[0]}
-            meta={ItemIdentificationFieldMeta.BarcodeSymbologyID}
-          />
+    [
+      ItemIdentificationField.IssuerScopeID,
+      { meta: ItemIdentificationFieldMeta.IssuerScopeID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ItemIdentificationField.IssuerScopeID}
+          meta={ItemIdentificationFieldMeta.IssuerScopeID}
+          fieldConfig={fieldConfig}
+          identifier={value?.IssuerScopeID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Issuer Scope Identifier"
-            value={value.IssuerScopeID?.[0]}
-            meta={ItemIdentificationFieldMeta.IssuerScopeID}
-          />
+    [
+      ItemIdentificationField.PhysicalAttribute,
+      { meta: ItemIdentificationFieldMeta.PhysicalAttribute,
+        template: ({value, renderContext, fieldConfig}) => <PhysicalAttributeDisplay
+          key={ItemIdentificationField.PhysicalAttribute}
+          meta={ItemIdentificationFieldMeta.PhysicalAttribute}
+          fieldConfig={fieldConfig}
+          physicalAttribute={value?.PhysicalAttribute}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-PhysicalAttribute"
-            label="Physical Attribute"
-            items={value.PhysicalAttribute}
-            meta={ItemIdentificationFieldMeta.PhysicalAttribute} 
-            itemDisplay={ (itemValue: PhysicalAttribute, key: string | number) =>
-              <PhysicalAttributeDisplay
-                key={key}
-                label="Physical Attribute"
-                value={itemValue}
-                meta={ItemIdentificationFieldMeta.PhysicalAttribute}
-              />
-            }
-          />
+    [
+      ItemIdentificationField.MeasurementDimension,
+      { meta: ItemIdentificationFieldMeta.MeasurementDimension,
+        template: ({value, renderContext, fieldConfig}) => <DimensionDisplay
+          key={ItemIdentificationField.MeasurementDimension}
+          meta={ItemIdentificationFieldMeta.MeasurementDimension}
+          fieldConfig={fieldConfig}
+          dimension={value?.MeasurementDimension}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Dimension ubl-MeasurementDimension"
-            label="Measurement Dimension"
-            items={value.MeasurementDimension}
-            meta={ItemIdentificationFieldMeta.MeasurementDimension} 
-            itemDisplay={ (itemValue: Dimension, key: string | number) =>
-              <DimensionDisplay
-                key={key}
-                label="Measurement Dimension"
-                value={itemValue}
-                meta={ItemIdentificationFieldMeta.MeasurementDimension}
-              />
-            }
-          />
+    [
+      ItemIdentificationField.IssuerParty,
+      { meta: ItemIdentificationFieldMeta.IssuerParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ItemIdentificationField.IssuerParty}
+          meta={ItemIdentificationFieldMeta.IssuerParty}
+          fieldConfig={fieldConfig}
+          party={value?.IssuerParty}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <PartyDisplay
-            label="Issuer Party"
-            value={value.IssuerParty?.[0]}
-            meta={ItemIdentificationFieldMeta.IssuerParty}
-          />
-        </div>
-    </div>
+export function ItemIdentificationDisplay<TFieldMeta>({ meta, fieldConfig, itemIdentification, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ItemIdentificationTypeName,
+    meta,
+    fieldConfig,
+    itemIdentification,
+    renderContext,
+    ItemIdentificationSubElementsMap,
   )
 }

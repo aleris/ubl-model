@@ -1,4 +1,13 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { MeasureType } from '../cbc/MeasureMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { PeriodType } from './PeriodMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ServiceLevelAgreementField {
   UBLExtensions = 'UBLExtensions',
@@ -25,11 +34,11 @@ export enum ServiceLevelAgreementField {
 export const ServiceLevelAgreementFieldMetaUBLExtensions = new FieldMeta<ServiceLevelAgreementField>(
   ServiceLevelAgreementField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -38,10 +47,10 @@ export const ServiceLevelAgreementFieldMetaID = new FieldMeta<ServiceLevelAgreem
   ServiceLevelAgreementField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this service level agreement.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -50,10 +59,10 @@ export const ServiceLevelAgreementFieldMetaServiceTypeCode = new FieldMeta<Servi
   ServiceLevelAgreementField.ServiceTypeCode,
   'ServiceTypeCode',
   'Service Type Code',
-  'Code',
+  CodeType.name,
   'A specific type of service subject to this service level agreement.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'AP, SMP'
 )
@@ -62,10 +71,10 @@ export const ServiceLevelAgreementFieldMetaServiceType = new FieldMeta<ServiceLe
   ServiceLevelAgreementField.ServiceType,
   'ServiceType',
   'Service Type',
-  'Text',
+  TextType.name,
   'A specific type of service subject to this service level agreement, expressed as text.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -74,10 +83,10 @@ export const ServiceLevelAgreementFieldMetaAvailabilityTimePercent = new FieldMe
   ServiceLevelAgreementField.AvailabilityTimePercent,
   'AvailabilityTimePercent',
   'Availability Time Percent',
-  'Numeric',
+  NumericType.name,
   'The availability percentage (e.g. 98.5% of the time).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Time Service Factor',
   '98.5'
 )
@@ -86,10 +95,10 @@ export const ServiceLevelAgreementFieldMetaMondayAvailabilityIndicator = new Fie
   ServiceLevelAgreementField.MondayAvailabilityIndicator,
   'MondayAvailabilityIndicator',
   'Monday Availability Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this service is available on monday (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -98,10 +107,10 @@ export const ServiceLevelAgreementFieldMetaTuesdayAvailabilityIndicator = new Fi
   ServiceLevelAgreementField.TuesdayAvailabilityIndicator,
   'TuesdayAvailabilityIndicator',
   'Tuesday Availability Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this service is available on tuesday (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -110,10 +119,10 @@ export const ServiceLevelAgreementFieldMetaWednesdayAvailabilityIndicator = new 
   ServiceLevelAgreementField.WednesdayAvailabilityIndicator,
   'WednesdayAvailabilityIndicator',
   'Wednesday Availability Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this service is available on wednesday (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -122,10 +131,10 @@ export const ServiceLevelAgreementFieldMetaThursdayAvailabilityIndicator = new F
   ServiceLevelAgreementField.ThursdayAvailabilityIndicator,
   'ThursdayAvailabilityIndicator',
   'Thursday Availability Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this service is available on thursday (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -134,10 +143,10 @@ export const ServiceLevelAgreementFieldMetaFridayAvailabilityIndicator = new Fie
   ServiceLevelAgreementField.FridayAvailabilityIndicator,
   'FridayAvailabilityIndicator',
   'Friday Availability Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this service is available on friday (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -146,10 +155,10 @@ export const ServiceLevelAgreementFieldMetaSaturdayAvailabilityIndicator = new F
   ServiceLevelAgreementField.SaturdayAvailabilityIndicator,
   'SaturdayAvailabilityIndicator',
   'Saturday Availability Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this service is available on saturday (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -158,10 +167,10 @@ export const ServiceLevelAgreementFieldMetaSundayAvailabilityIndicator = new Fie
   ServiceLevelAgreementField.SundayAvailabilityIndicator,
   'SundayAvailabilityIndicator',
   'Sunday Availability Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this service is available on sunday (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -170,10 +179,10 @@ export const ServiceLevelAgreementFieldMetaMinimumResponseTimeDurationMeasure = 
   ServiceLevelAgreementField.MinimumResponseTimeDurationMeasure,
   'MinimumResponseTimeDurationMeasure',
   'Minimum Response Time Duration',
-  'Measure',
+  MeasureType.name,
   'The response time for aknowledgment (e.g. to send a receipt to a sending Access Point within 300 seconds).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '300'
 )
@@ -182,10 +191,10 @@ export const ServiceLevelAgreementFieldMetaMinimumDownTimeScheduleDurationMeasur
   ServiceLevelAgreementField.MinimumDownTimeScheduleDurationMeasure,
   'MinimumDownTimeScheduleDurationMeasure',
   'Minimum Down Time Schedule Duration',
-  'Measure',
+  MeasureType.name,
   'The minimum down time schedule for programmed maintenance (e.g. scheduled 3 days before).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '3'
 )
@@ -194,10 +203,10 @@ export const ServiceLevelAgreementFieldMetaMaximumIncidentNotificationDurationMe
   ServiceLevelAgreementField.MaximumIncidentNotificationDurationMeasure,
   'MaximumIncidentNotificationDurationMeasure',
   'Maximum Incident Notification Duration',
-  'Measure',
+  MeasureType.name,
   'The maximum length of time between the occurrence of an incident and the issuance of a notification (e.g. within 4 hours).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '4'
 )
@@ -206,10 +215,10 @@ export const ServiceLevelAgreementFieldMetaMaximumDataLossDurationMeasure = new 
   ServiceLevelAgreementField.MaximumDataLossDurationMeasure,
   'MaximumDataLossDurationMeasure',
   'Maximum Data Loss Duration',
-  'Measure',
+  MeasureType.name,
   'The maximum data loss permitted (e.g. last 24 hours).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '24'
 )
@@ -218,10 +227,10 @@ export const ServiceLevelAgreementFieldMetaMeanTimeToRecoverDurationMeasure = ne
   ServiceLevelAgreementField.MeanTimeToRecoverDurationMeasure,
   'MeanTimeToRecoverDurationMeasure',
   'Mean Time To Recover Duration',
-  'Measure',
+  MeasureType.name,
   'The time taken to recover after an outage of service (e.g. 3 hours).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'MTTR',
   '3'
 )
@@ -230,10 +239,10 @@ export const ServiceLevelAgreementFieldMetaServiceAvailabilityPeriod = new Field
   ServiceLevelAgreementField.ServiceAvailabilityPeriod,
   'ServiceAvailabilityPeriod',
   'Service Availability Period',
-  'Period',
+  PeriodType.name,
   'The period for which the service is available.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   'Uptime',
   undefined
 )
@@ -242,10 +251,10 @@ export const ServiceLevelAgreementFieldMetaServiceMaintenancePeriod = new FieldM
   ServiceLevelAgreementField.ServiceMaintenancePeriod,
   'ServiceMaintenancePeriod',
   'Service Maintenance Period',
-  'Period',
+  PeriodType.name,
   'The period of time designated in advance by the technical staff, during which preventive maintenance that could cause disruption of service may be performed.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   'Downtime',
   undefined
 )
@@ -293,3 +302,11 @@ export const ServiceLevelAgreementFieldMap = new Map([
   [ServiceLevelAgreementField.ServiceAvailabilityPeriod, ServiceLevelAgreementFieldMetaServiceAvailabilityPeriod],
   [ServiceLevelAgreementField.ServiceMaintenancePeriod, ServiceLevelAgreementFieldMetaServiceMaintenancePeriod]
 ])
+
+export const ServiceLevelAgreementType: Type<ServiceLevelAgreementField> = {
+  name: 'ServiceLevelAgreement',
+  label: 'Service Level Agreement',
+  module: TypeModule.cac,
+  definition: 'A class to describe a service level agreement which regulates the quality, availability and responsibilities of digital services.',
+  fields: ServiceLevelAgreementFieldMap,
+}

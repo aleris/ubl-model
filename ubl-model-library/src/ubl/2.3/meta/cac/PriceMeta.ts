@@ -1,4 +1,15 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AllowanceChargeType } from './AllowanceChargeMeta'
+import { AmountType } from '../cbc/AmountMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { ExchangeRateType } from './ExchangeRateMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { PeriodType } from './PeriodMeta'
+import { PriceListType } from './PriceListMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum PriceField {
   UBLExtensions = 'UBLExtensions',
@@ -18,11 +29,11 @@ export enum PriceField {
 export const PriceFieldMetaUBLExtensions = new FieldMeta<PriceField>(
   PriceField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -31,10 +42,10 @@ export const PriceFieldMetaPriceAmount = new FieldMeta<PriceField>(
   PriceField.PriceAmount,
   'PriceAmount',
   'Price Amount',
-  'Amount',
+  AmountType.name,
   'The amount of the price.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   'unit price',
   '23.45'
 )
@@ -43,10 +54,10 @@ export const PriceFieldMetaBaseQuantity = new FieldMeta<PriceField>(
   PriceField.BaseQuantity,
   'BaseQuantity',
   'Base Quantity',
-  'Quantity',
+  QuantityType.name,
   'The quantity at which this price applies.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -55,10 +66,10 @@ export const PriceFieldMetaPriceChangeReason = new FieldMeta<PriceField>(
   PriceField.PriceChangeReason,
   'PriceChangeReason',
   'Price Change Reason',
-  'Text',
+  TextType.name,
   'A reason for a price change.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   'Clearance of old stock , New contract applies'
 )
@@ -67,10 +78,10 @@ export const PriceFieldMetaPriceTypeCode = new FieldMeta<PriceField>(
   PriceField.PriceTypeCode,
   'PriceTypeCode',
   'Price Type Code',
-  'Code',
+  CodeType.name,
   'The type of price, expressed as a code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -79,10 +90,10 @@ export const PriceFieldMetaPriceType = new FieldMeta<PriceField>(
   PriceField.PriceType,
   'PriceType',
   'Price Type',
-  'Text',
+  TextType.name,
   'The type of price, expressed as text.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'retail, wholesale, discount, contract'
 )
@@ -91,10 +102,10 @@ export const PriceFieldMetaOrderableUnitFactorRate = new FieldMeta<PriceField>(
   PriceField.OrderableUnitFactorRate,
   'OrderableUnitFactorRate',
   'Orderable Unit Factor',
-  'Numeric',
+  NumericType.name,
   'The factor by which the base price unit can be converted to the orderable unit.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Nails are priced by weight but ordered by quantity. So this would say how many nails per kilo'
 )
@@ -103,10 +114,10 @@ export const PriceFieldMetaValidityPeriod = new FieldMeta<PriceField>(
   PriceField.ValidityPeriod,
   'ValidityPeriod',
   'Validity Period',
-  'Period',
+  PeriodType.name,
   'A period during which this price is valid.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -115,10 +126,10 @@ export const PriceFieldMetaPriceList = new FieldMeta<PriceField>(
   PriceField.PriceList,
   'PriceList',
   'Price List',
-  'PriceList',
+  PriceListType.name,
   'Information about a price list applicable to this price.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -127,10 +138,10 @@ export const PriceFieldMetaAllowanceCharge = new FieldMeta<PriceField>(
   PriceField.AllowanceCharge,
   'AllowanceCharge',
   'Allowance Charge',
-  'AllowanceCharge',
+  AllowanceChargeType.name,
   'An allowance or charge associated with this price.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -139,10 +150,10 @@ export const PriceFieldMetaPricingExchangeRate = new FieldMeta<PriceField>(
   PriceField.PricingExchangeRate,
   'PricingExchangeRate',
   'Pricing Exchange Rate',
-  'ExchangeRate',
+  ExchangeRateType.name,
   'The exchange rate applicable to this price, if it differs from the exchange rate applicable to the document as a whole.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -151,10 +162,10 @@ export const PriceFieldMetaAlternativeCurrencyPrice = new FieldMeta<PriceField>(
   PriceField.AlternativeCurrencyPrice,
   'AlternativeCurrencyPrice',
   'Alternative Currency Price',
-  'Price',
+  PriceType.name,
   'The price expressed in an alternative currency',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -188,3 +199,11 @@ export const PriceFieldMap = new Map([
   [PriceField.PricingExchangeRate, PriceFieldMetaPricingExchangeRate],
   [PriceField.AlternativeCurrencyPrice, PriceFieldMetaAlternativeCurrencyPrice]
 ])
+
+export const PriceType: Type<PriceField> = {
+  name: 'Price',
+  label: 'Price',
+  module: TypeModule.cac,
+  definition: 'A class to describe a price, expressed in a data structure containing multiple properties (compare with UnstructuredPrice).',
+  fields: PriceFieldMap,
+}

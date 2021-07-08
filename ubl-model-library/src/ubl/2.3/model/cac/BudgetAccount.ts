@@ -2,7 +2,6 @@ import { ClassificationScheme } from './ClassificationScheme'
 import { Identifier } from '../cbc/Identifier'
 import { Numeric } from '../cbc/Numeric'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to define a budget account.
  */

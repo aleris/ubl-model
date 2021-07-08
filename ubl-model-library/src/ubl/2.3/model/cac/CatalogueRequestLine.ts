@@ -4,7 +4,6 @@ import { ItemLocationQuantity } from './ItemLocationQuantity'
 import { Period } from './Period'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to define a line describing a request for a catalogue line.
  */

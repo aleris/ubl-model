@@ -1,4 +1,17 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { BinaryObjectType } from '../cbc/BinaryObjectMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { DateType } from '../cbc/DateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { MeasureType } from '../cbc/MeasureMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ResponseValueField {
   UBLExtensions = 'UBLExtensions',
@@ -21,11 +34,11 @@ export enum ResponseValueField {
 export const ResponseValueFieldMetaUBLExtensions = new FieldMeta<ResponseValueField>(
   ResponseValueField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -34,10 +47,10 @@ export const ResponseValueFieldMetaID = new FieldMeta<ResponseValueField>(
   ResponseValueField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier to refer to the criterion requirement response value.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -46,10 +59,10 @@ export const ResponseValueFieldMetaDescription = new FieldMeta<ResponseValueFiel
   ResponseValueField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'A description of the response value to the criterion requirement.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -58,10 +71,10 @@ export const ResponseValueFieldMetaResponse = new FieldMeta<ResponseValueField>(
   ResponseValueField.Response,
   'Response',
   'Response Text',
-  'Text',
+  TextType.name,
   'A text or name used as a reply to the criterion requirement.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -70,10 +83,10 @@ export const ResponseValueFieldMetaResponseAmount = new FieldMeta<ResponseValueF
   ResponseValueField.ResponseAmount,
   'ResponseAmount',
   'Response Amount',
-  'Amount',
+  AmountType.name,
   'An amount used as a reply to the criterion requirement.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -82,10 +95,10 @@ export const ResponseValueFieldMetaResponseBinaryObject = new FieldMeta<Response
   ResponseValueField.ResponseBinaryObject,
   'ResponseBinaryObject',
   'Response Binary Object',
-  'BinaryObject',
+  BinaryObjectType.name,
   'A binary graphic, picture, sound or video object used as a reply to the criterion requirement.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -94,10 +107,10 @@ export const ResponseValueFieldMetaResponseCode = new FieldMeta<ResponseValueFie
   ResponseValueField.ResponseCode,
   'ResponseCode',
   'Response Code',
-  'Code',
+  CodeType.name,
   'A code used as a reply to the criterion requirement.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -106,10 +119,10 @@ export const ResponseValueFieldMetaResponseDate = new FieldMeta<ResponseValueFie
   ResponseValueField.ResponseDate,
   'ResponseDate',
   'Response Date',
-  'Date',
+  DateType.name,
   'A date used as a reply to the criterion requirement.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -118,10 +131,10 @@ export const ResponseValueFieldMetaResponseID = new FieldMeta<ResponseValueField
   ResponseValueField.ResponseID,
   'ResponseID',
   'Response Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier used as a reply to the criterion requirement.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -130,10 +143,10 @@ export const ResponseValueFieldMetaResponseIndicator = new FieldMeta<ResponseVal
   ResponseValueField.ResponseIndicator,
   'ResponseIndicator',
   'Response Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indicator used as a reply to the criterion requirement.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -142,10 +155,10 @@ export const ResponseValueFieldMetaResponseMeasure = new FieldMeta<ResponseValue
   ResponseValueField.ResponseMeasure,
   'ResponseMeasure',
   'Response Measure',
-  'Measure',
+  MeasureType.name,
   'A measure used as a reply to the criterion requirement.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -154,10 +167,10 @@ export const ResponseValueFieldMetaResponseNumeric = new FieldMeta<ResponseValue
   ResponseValueField.ResponseNumeric,
   'ResponseNumeric',
   'Response Numeric',
-  'Numeric',
+  NumericType.name,
   'A number, rate or percent used as a reply to the criterion requirement.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -166,10 +179,10 @@ export const ResponseValueFieldMetaResponseQuantity = new FieldMeta<ResponseValu
   ResponseValueField.ResponseQuantity,
   'ResponseQuantity',
   'Response Quantity',
-  'Quantity',
+  QuantityType.name,
   'A quantity used as a reply to the criterion requirement.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -178,10 +191,10 @@ export const ResponseValueFieldMetaResponseTime = new FieldMeta<ResponseValueFie
   ResponseValueField.ResponseTime,
   'ResponseTime',
   'Response Time',
-  'Time',
+  TimeType.name,
   'A time used as a reply to the criterion requirement.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -190,10 +203,10 @@ export const ResponseValueFieldMetaResponseURI = new FieldMeta<ResponseValueFiel
   ResponseValueField.ResponseURI,
   'ResponseURI',
   'Response URI',
-  'Identifier',
+  IdentifierType.name,
   'A URI value used as a reply to the criterion requirement.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -233,3 +246,11 @@ export const ResponseValueFieldMap = new Map([
   [ResponseValueField.ResponseTime, ResponseValueFieldMetaResponseTime],
   [ResponseValueField.ResponseURI, ResponseValueFieldMetaResponseURI]
 ])
+
+export const ResponseValueType: Type<ResponseValueField> = {
+  name: 'ResponseValue',
+  label: 'Response Value',
+  module: TypeModule.cac,
+  definition: 'A class to describe the criterion requirement response value.',
+  fields: ResponseValueFieldMap,
+}

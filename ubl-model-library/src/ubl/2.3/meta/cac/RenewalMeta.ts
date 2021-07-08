@@ -1,4 +1,8 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { PeriodType } from './PeriodMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum RenewalField {
   UBLExtensions = 'UBLExtensions',
@@ -9,11 +13,11 @@ export enum RenewalField {
 export const RenewalFieldMetaUBLExtensions = new FieldMeta<RenewalField>(
   RenewalField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -22,10 +26,10 @@ export const RenewalFieldMetaAmount = new FieldMeta<RenewalField>(
   RenewalField.Amount,
   'Amount',
   'Amount',
-  'Amount',
+  AmountType.name,
   'The monetary amount of this renewal.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -34,10 +38,10 @@ export const RenewalFieldMetaPeriod = new FieldMeta<RenewalField>(
   RenewalField.Period,
   'Period',
   'Period',
-  'Period',
+  PeriodType.name,
   'The period for which the arrangement is now valid',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -53,3 +57,11 @@ export const RenewalFieldMap = new Map([
   [RenewalField.Amount, RenewalFieldMetaAmount],
   [RenewalField.Period, RenewalFieldMetaPeriod]
 ])
+
+export const RenewalType: Type<RenewalField> = {
+  name: 'Renewal',
+  label: 'Renewal',
+  module: TypeModule.cac,
+  definition: 'A class to describe the renewal of a commercial arrangement, such as a contract or licence fee.',
+  fields: RenewalFieldMap,
+}

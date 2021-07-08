@@ -11,8 +11,8 @@ export class ModelTypeGenerator implements TypeCodeGenerator<AggregateType> {
       return []
   }
 
-  asCodeString(aggregateType: AggregateType) {
-    const imports = this.getImports(aggregateType)
+  asCodeFiles(aggregateType: AggregateType) {
+    const imports = this.aggregateFieldModelCodeGenerator.getImports(aggregateType)
     const code = `${imports}/**${
       formatComment(' * ', aggregateType.documentation.definition)
     }
@@ -24,31 +24,10 @@ ${aggregateType
       .join('\n\n')}
 }
 `
-    return {
+    return [{
       dirPath: `model/${aggregateType.module}`,
       fileName: `${aggregateType.typeName}.ts`,
       content: code
-    }
-  }
-
-  private getImports(aggregateType: AggregateType) {
-    const importFields = this.getImportFields(aggregateType)
-    const imports = importFields.length == 0
-      ? ''
-      : `${
-      importFields
-        .map(field => this.aggregateFieldModelCodeGenerator.asImportString(aggregateType, field))
-        .join('\n')}\n\n`
-    return imports
-  }
-
-  private getImportFields(aggregateType: AggregateType) {
-    const withoutSelf = aggregateType.fields.filter(field => field.resolvedType.name !== aggregateType.typeName)
-    const withTypeKey = withoutSelf.map(field => ({ type: field.resolvedType.name, field }))
-    const sorted = withTypeKey.sort(
-      (a, b) => a.type.localeCompare(b.type)
-    )
-    const unique = new Map(sorted.map(fieldWithType => [fieldWithType.type, fieldWithType.field]))
-    return Array.from(unique.values())
+    }]
   }
 }

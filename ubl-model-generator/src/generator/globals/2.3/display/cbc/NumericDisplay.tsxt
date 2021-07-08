@@ -1,18 +1,25 @@
 import React from 'react'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Numeric } from '../../model/cbc/Numeric'
-import FieldDisplay from '../FieldDisplay'
+import { FieldConfig } from '../FieldConfig'
+import { FieldDisplay } from '../FieldDisplay'
 
 type Props = {
-  label: string
-  value: Numeric | undefined
+  className: string
+  label?: string
+  numeric: Numeric | undefined
   meta: FieldMeta<any>
+  fieldConfig?: FieldConfig
 }
 
-export default function NumericDisplay({ label, value, meta }: Props) {
-  if (value === undefined) {
+export function NumericDisplay({ className, label, numeric, meta, fieldConfig }: Props) {
+  if (numeric === undefined) {
     return null
   }
-  const stringValue = `${value._}`
-  return <div className="ubl-cbc ubl-Numeric"><FieldDisplay label={label} value={stringValue} /></div>
+  const stringValue = `${numeric._}`
+  return (
+    <div className={className}>
+      <FieldDisplay label={label} value={stringValue} config={fieldConfig} />
+    </div>
+  )
 }

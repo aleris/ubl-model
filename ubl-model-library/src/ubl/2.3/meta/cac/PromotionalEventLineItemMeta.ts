@@ -1,4 +1,8 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { EventLineItemType } from './EventLineItemMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum PromotionalEventLineItemField {
   UBLExtensions = 'UBLExtensions',
@@ -9,11 +13,11 @@ export enum PromotionalEventLineItemField {
 export const PromotionalEventLineItemFieldMetaUBLExtensions = new FieldMeta<PromotionalEventLineItemField>(
   PromotionalEventLineItemField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -22,10 +26,10 @@ export const PromotionalEventLineItemFieldMetaAmount = new FieldMeta<Promotional
   PromotionalEventLineItemField.Amount,
   'Amount',
   'Amount',
-  'Amount',
+  AmountType.name,
   'The amount associated with this promotional event line item.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -34,10 +38,10 @@ export const PromotionalEventLineItemFieldMetaEventLineItem = new FieldMeta<Prom
   PromotionalEventLineItemField.EventLineItem,
   'EventLineItem',
   'Event Line Item',
-  'EventLineItem',
+  EventLineItemType.name,
   'A line item describing the expected impacts associated with this promotional event for a specific product at a specific location.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -53,3 +57,11 @@ export const PromotionalEventLineItemFieldMap = new Map([
   [PromotionalEventLineItemField.Amount, PromotionalEventLineItemFieldMetaAmount],
   [PromotionalEventLineItemField.EventLineItem, PromotionalEventLineItemFieldMetaEventLineItem]
 ])
+
+export const PromotionalEventLineItemType: Type<PromotionalEventLineItemField> = {
+  name: 'PromotionalEventLineItem',
+  label: 'Promotional Event Line Item',
+  module: TypeModule.cac,
+  definition: 'A class to describe a line item associated with a promotional event.',
+  fields: PromotionalEventLineItemFieldMap,
+}

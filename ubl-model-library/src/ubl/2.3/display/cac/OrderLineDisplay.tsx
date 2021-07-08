@@ -1,158 +1,166 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { OrderLine } from  '../../model/cac/OrderLine'
-import { OrderLineFieldMeta } from  '../../meta/cac/OrderLineMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DocumentReferenceDisplay from './DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import LineItemDisplay from './LineItemDisplay'
-import { LineItem } from '../../model/cac/LineItem'
-import LineReferenceDisplay from './LineReferenceDisplay'
-import { LineReference } from '../../model/cac/LineReference'
-import OrderLineReferenceDisplay from './OrderLineReferenceDisplay'
-import { OrderLineReference } from '../../model/cac/OrderLineReference'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { OrderLineField, OrderLineFieldMeta, OrderLineTypeName } from  '../../meta/cac/OrderLineMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DocumentReferenceDisplay } from './DocumentReferenceDisplay'
+import { LineItemDisplay } from './LineItemDisplay'
+import { LineReferenceDisplay } from './LineReferenceDisplay'
+import { OrderLineReferenceDisplay } from './OrderLineReferenceDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: OrderLine | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<OrderLine, void>
+  orderLine: OrderLine[] | undefined
+  renderContext: RenderContext
 }
 
-export default function OrderLineDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const OrderLineSubElementsMap: SubElementsTemplatesMap<OrderLineField, OrderLine, void> = new Map([
+    [
+      OrderLineField.UBLExtensions,
+      { meta: OrderLineFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={OrderLineField.UBLExtensions}
+          meta={OrderLineFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-OrderLine">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={OrderLineFieldMeta.UBLExtensions}
-          />
+    [
+      OrderLineField.SubstitutionStatusCode,
+      { meta: OrderLineFieldMeta.SubstitutionStatusCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={OrderLineField.SubstitutionStatusCode}
+          meta={OrderLineFieldMeta.SubstitutionStatusCode}
+          fieldConfig={fieldConfig}
+          code={value?.SubstitutionStatusCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Substitution Status Code"
-            value={value.SubstitutionStatusCode?.[0]}
-            meta={OrderLineFieldMeta.SubstitutionStatusCode}
-          />
+    [
+      OrderLineField.Note,
+      { meta: OrderLineFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={OrderLineField.Note}
+          meta={OrderLineFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={OrderLineFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={OrderLineFieldMeta.Note}
-              />
-            }
-          />
+    [
+      OrderLineField.LineItem,
+      { meta: OrderLineFieldMeta.LineItem,
+        template: ({value, renderContext, fieldConfig}) => <LineItemDisplay
+          key={OrderLineField.LineItem}
+          meta={OrderLineFieldMeta.LineItem}
+          fieldConfig={fieldConfig}
+          lineItem={value?.LineItem}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <LineItemDisplay
-            label="Line Item"
-            value={value.LineItem?.[0]}
-            meta={OrderLineFieldMeta.LineItem}
-          />
+    [
+      OrderLineField.SellerProposedSubstituteLineItem,
+      { meta: OrderLineFieldMeta.SellerProposedSubstituteLineItem,
+        template: ({value, renderContext, fieldConfig}) => <LineItemDisplay
+          key={OrderLineField.SellerProposedSubstituteLineItem}
+          meta={OrderLineFieldMeta.SellerProposedSubstituteLineItem}
+          fieldConfig={fieldConfig}
+          lineItem={value?.SellerProposedSubstituteLineItem}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-LineItem ubl-SellerProposedSubstituteLineItem"
-            label="Seller Proposed Substitute Line Item"
-            items={value.SellerProposedSubstituteLineItem}
-            meta={OrderLineFieldMeta.SellerProposedSubstituteLineItem} 
-            itemDisplay={ (itemValue: LineItem, key: string | number) =>
-              <LineItemDisplay
-                key={key}
-                label="Seller Proposed Substitute Line Item"
-                value={itemValue}
-                meta={OrderLineFieldMeta.SellerProposedSubstituteLineItem}
-              />
-            }
-          />
+    [
+      OrderLineField.SellerSubstitutedLineItem,
+      { meta: OrderLineFieldMeta.SellerSubstitutedLineItem,
+        template: ({value, renderContext, fieldConfig}) => <LineItemDisplay
+          key={OrderLineField.SellerSubstitutedLineItem}
+          meta={OrderLineFieldMeta.SellerSubstitutedLineItem}
+          fieldConfig={fieldConfig}
+          lineItem={value?.SellerSubstitutedLineItem}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-LineItem ubl-SellerSubstitutedLineItem"
-            label="Seller Substituted Line Item"
-            items={value.SellerSubstitutedLineItem}
-            meta={OrderLineFieldMeta.SellerSubstitutedLineItem} 
-            itemDisplay={ (itemValue: LineItem, key: string | number) =>
-              <LineItemDisplay
-                key={key}
-                label="Seller Substituted Line Item"
-                value={itemValue}
-                meta={OrderLineFieldMeta.SellerSubstitutedLineItem}
-              />
-            }
-          />
+    [
+      OrderLineField.BuyerProposedSubstituteLineItem,
+      { meta: OrderLineFieldMeta.BuyerProposedSubstituteLineItem,
+        template: ({value, renderContext, fieldConfig}) => <LineItemDisplay
+          key={OrderLineField.BuyerProposedSubstituteLineItem}
+          meta={OrderLineFieldMeta.BuyerProposedSubstituteLineItem}
+          fieldConfig={fieldConfig}
+          lineItem={value?.BuyerProposedSubstituteLineItem}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-LineItem ubl-BuyerProposedSubstituteLineItem"
-            label="Buyer Proposed Substitute Line Item"
-            items={value.BuyerProposedSubstituteLineItem}
-            meta={OrderLineFieldMeta.BuyerProposedSubstituteLineItem} 
-            itemDisplay={ (itemValue: LineItem, key: string | number) =>
-              <LineItemDisplay
-                key={key}
-                label="Buyer Proposed Substitute Line Item"
-                value={itemValue}
-                meta={OrderLineFieldMeta.BuyerProposedSubstituteLineItem}
-              />
-            }
-          />
+    [
+      OrderLineField.CatalogueLineReference,
+      { meta: OrderLineFieldMeta.CatalogueLineReference,
+        template: ({value, renderContext, fieldConfig}) => <LineReferenceDisplay
+          key={OrderLineField.CatalogueLineReference}
+          meta={OrderLineFieldMeta.CatalogueLineReference}
+          fieldConfig={fieldConfig}
+          lineReference={value?.CatalogueLineReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <LineReferenceDisplay
-            label="Catalogue Line Reference"
-            value={value.CatalogueLineReference?.[0]}
-            meta={OrderLineFieldMeta.CatalogueLineReference}
-          />
+    [
+      OrderLineField.QuotationLineReference,
+      { meta: OrderLineFieldMeta.QuotationLineReference,
+        template: ({value, renderContext, fieldConfig}) => <LineReferenceDisplay
+          key={OrderLineField.QuotationLineReference}
+          meta={OrderLineFieldMeta.QuotationLineReference}
+          fieldConfig={fieldConfig}
+          lineReference={value?.QuotationLineReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <LineReferenceDisplay
-            label="Quotation Line Reference"
-            value={value.QuotationLineReference?.[0]}
-            meta={OrderLineFieldMeta.QuotationLineReference}
-          />
+    [
+      OrderLineField.OrderLineReference,
+      { meta: OrderLineFieldMeta.OrderLineReference,
+        template: ({value, renderContext, fieldConfig}) => <OrderLineReferenceDisplay
+          key={OrderLineField.OrderLineReference}
+          meta={OrderLineFieldMeta.OrderLineReference}
+          fieldConfig={fieldConfig}
+          orderLineReference={value?.OrderLineReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-OrderLineReference"
-            label="Order Line Reference"
-            items={value.OrderLineReference}
-            meta={OrderLineFieldMeta.OrderLineReference} 
-            itemDisplay={ (itemValue: OrderLineReference, key: string | number) =>
-              <OrderLineReferenceDisplay
-                key={key}
-                label="Order Line Reference"
-                value={itemValue}
-                meta={OrderLineFieldMeta.OrderLineReference}
-              />
-            }
-          />
+    [
+      OrderLineField.DocumentReference,
+      { meta: OrderLineFieldMeta.DocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={OrderLineField.DocumentReference}
+          meta={OrderLineFieldMeta.DocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.DocumentReference}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentReference"
-            label="Document Reference"
-            items={value.DocumentReference}
-            meta={OrderLineFieldMeta.DocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Document Reference"
-                value={itemValue}
-                meta={OrderLineFieldMeta.DocumentReference}
-              />
-            }
-          />
-        </div>
-    </div>
+export function OrderLineDisplay<TFieldMeta>({ meta, fieldConfig, orderLine, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    OrderLineTypeName,
+    meta,
+    fieldConfig,
+    orderLine,
+    renderContext,
+    OrderLineSubElementsMap,
   )
 }

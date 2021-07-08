@@ -1,131 +1,157 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { SubscriberConsumption } from  '../../model/cac/SubscriberConsumption'
-import { SubscriberConsumptionFieldMeta } from  '../../meta/cac/SubscriberConsumptionMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import ConsumptionDisplay from './ConsumptionDisplay'
-import { Consumption } from '../../model/cac/Consumption'
-import ConsumptionPointDisplay from './ConsumptionPointDisplay'
-import { ConsumptionPoint } from '../../model/cac/ConsumptionPoint'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import OnAccountPaymentDisplay from './OnAccountPaymentDisplay'
-import { OnAccountPayment } from '../../model/cac/OnAccountPayment'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import SupplierConsumptionDisplay from './SupplierConsumptionDisplay'
-import { SupplierConsumption } from '../../model/cac/SupplierConsumption'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { SubscriberConsumptionField, SubscriberConsumptionFieldMeta, SubscriberConsumptionTypeName } from  '../../meta/cac/SubscriberConsumptionMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { ConsumptionDisplay } from './ConsumptionDisplay'
+import { ConsumptionPointDisplay } from './ConsumptionPointDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { OnAccountPaymentDisplay } from './OnAccountPaymentDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { SupplierConsumptionDisplay } from './SupplierConsumptionDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: SubscriberConsumption | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<SubscriberConsumption, void>
+  subscriberConsumption: SubscriberConsumption[] | undefined
+  renderContext: RenderContext
 }
 
-export default function SubscriberConsumptionDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const SubscriberConsumptionSubElementsMap: SubElementsTemplatesMap<SubscriberConsumptionField, SubscriberConsumption, void> = new Map([
+    [
+      SubscriberConsumptionField.UBLExtensions,
+      { meta: SubscriberConsumptionFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={SubscriberConsumptionField.UBLExtensions}
+          meta={SubscriberConsumptionFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-SubscriberConsumption">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={SubscriberConsumptionFieldMeta.UBLExtensions}
-          />
+    [
+      SubscriberConsumptionField.ConsumptionID,
+      { meta: SubscriberConsumptionFieldMeta.ConsumptionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={SubscriberConsumptionField.ConsumptionID}
+          meta={SubscriberConsumptionFieldMeta.ConsumptionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ConsumptionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Consumption Identifier"
-            value={value.ConsumptionID?.[0]}
-            meta={SubscriberConsumptionFieldMeta.ConsumptionID}
-          />
+    [
+      SubscriberConsumptionField.SpecificationTypeCode,
+      { meta: SubscriberConsumptionFieldMeta.SpecificationTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={SubscriberConsumptionField.SpecificationTypeCode}
+          meta={SubscriberConsumptionFieldMeta.SpecificationTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.SpecificationTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Specification Type Code"
-            value={value.SpecificationTypeCode?.[0]}
-            meta={SubscriberConsumptionFieldMeta.SpecificationTypeCode}
-          />
+    [
+      SubscriberConsumptionField.Note,
+      { meta: SubscriberConsumptionFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={SubscriberConsumptionField.Note}
+          meta={SubscriberConsumptionFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={SubscriberConsumptionFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={SubscriberConsumptionFieldMeta.Note}
-              />
-            }
-          />
+    [
+      SubscriberConsumptionField.TotalMeteredQuantity,
+      { meta: SubscriberConsumptionFieldMeta.TotalMeteredQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={SubscriberConsumptionField.TotalMeteredQuantity}
+          meta={SubscriberConsumptionFieldMeta.TotalMeteredQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.TotalMeteredQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Total Metered Quantity"
-            value={value.TotalMeteredQuantity?.[0]}
-            meta={SubscriberConsumptionFieldMeta.TotalMeteredQuantity}
-          />
+    [
+      SubscriberConsumptionField.SubscriberParty,
+      { meta: SubscriberConsumptionFieldMeta.SubscriberParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={SubscriberConsumptionField.SubscriberParty}
+          meta={SubscriberConsumptionFieldMeta.SubscriberParty}
+          fieldConfig={fieldConfig}
+          party={value?.SubscriberParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Subscriber Party"
-            value={value.SubscriberParty?.[0]}
-            meta={SubscriberConsumptionFieldMeta.SubscriberParty}
-          />
+    [
+      SubscriberConsumptionField.UtilityConsumptionPoint,
+      { meta: SubscriberConsumptionFieldMeta.UtilityConsumptionPoint,
+        template: ({value, renderContext, fieldConfig}) => <ConsumptionPointDisplay
+          key={SubscriberConsumptionField.UtilityConsumptionPoint}
+          meta={SubscriberConsumptionFieldMeta.UtilityConsumptionPoint}
+          fieldConfig={fieldConfig}
+          consumptionPoint={value?.UtilityConsumptionPoint}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ConsumptionPointDisplay
-            label="Utility Consumption Point"
-            value={value.UtilityConsumptionPoint?.[0]}
-            meta={SubscriberConsumptionFieldMeta.UtilityConsumptionPoint}
-          />
+    [
+      SubscriberConsumptionField.OnAccountPayment,
+      { meta: SubscriberConsumptionFieldMeta.OnAccountPayment,
+        template: ({value, renderContext, fieldConfig}) => <OnAccountPaymentDisplay
+          key={SubscriberConsumptionField.OnAccountPayment}
+          meta={SubscriberConsumptionFieldMeta.OnAccountPayment}
+          fieldConfig={fieldConfig}
+          onAccountPayment={value?.OnAccountPayment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-OnAccountPayment"
-            label="On Account Payment"
-            items={value.OnAccountPayment}
-            meta={SubscriberConsumptionFieldMeta.OnAccountPayment} 
-            itemDisplay={ (itemValue: OnAccountPayment, key: string | number) =>
-              <OnAccountPaymentDisplay
-                key={key}
-                label="On Account Payment"
-                value={itemValue}
-                meta={SubscriberConsumptionFieldMeta.OnAccountPayment}
-              />
-            }
-          />
+    [
+      SubscriberConsumptionField.Consumption,
+      { meta: SubscriberConsumptionFieldMeta.Consumption,
+        template: ({value, renderContext, fieldConfig}) => <ConsumptionDisplay
+          key={SubscriberConsumptionField.Consumption}
+          meta={SubscriberConsumptionFieldMeta.Consumption}
+          fieldConfig={fieldConfig}
+          consumption={value?.Consumption}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ConsumptionDisplay
-            label="Consumption"
-            value={value.Consumption?.[0]}
-            meta={SubscriberConsumptionFieldMeta.Consumption}
-          />
+    [
+      SubscriberConsumptionField.SupplierConsumption,
+      { meta: SubscriberConsumptionFieldMeta.SupplierConsumption,
+        template: ({value, renderContext, fieldConfig}) => <SupplierConsumptionDisplay
+          key={SubscriberConsumptionField.SupplierConsumption}
+          meta={SubscriberConsumptionFieldMeta.SupplierConsumption}
+          fieldConfig={fieldConfig}
+          supplierConsumption={value?.SupplierConsumption}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-SupplierConsumption"
-            label="Supplier Consumption"
-            items={value.SupplierConsumption}
-            meta={SubscriberConsumptionFieldMeta.SupplierConsumption} 
-            itemDisplay={ (itemValue: SupplierConsumption, key: string | number) =>
-              <SupplierConsumptionDisplay
-                key={key}
-                label="Supplier Consumption"
-                value={itemValue}
-                meta={SubscriberConsumptionFieldMeta.SupplierConsumption}
-              />
-            }
-          />
-        </div>
-    </div>
+export function SubscriberConsumptionDisplay<TFieldMeta>({ meta, fieldConfig, subscriberConsumption, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    SubscriberConsumptionTypeName,
+    meta,
+    fieldConfig,
+    subscriberConsumption,
+    renderContext,
+    SubscriberConsumptionSubElementsMap,
   )
 }

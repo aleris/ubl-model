@@ -3,7 +3,6 @@ import { Identifier } from '../cbc/Identifier'
 import { Quantity } from '../cbc/Quantity'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * Defines the response for an awarding criterion from the tendering party.
  */

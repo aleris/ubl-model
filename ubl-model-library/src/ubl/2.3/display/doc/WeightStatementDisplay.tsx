@@ -1,151 +1,239 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { WeightStatement } from  '../../model/doc/WeightStatement'
-import { WeightStatementFieldMeta } from  '../../meta/doc/WeightStatementMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import ShipmentDisplay from '../cac/ShipmentDisplay'
-import { Shipment } from '../../model/cac/Shipment'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { WeightStatementField, WeightStatementFieldMeta, WeightStatementTypeName } from  '../../meta/doc/WeightStatementMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { ShipmentDisplay } from '../cac/ShipmentDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: WeightStatement | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<WeightStatement, void>
+  weightStatement: WeightStatement[] | undefined
+  renderContext: RenderContext
 }
 
-export default function WeightStatementDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const WeightStatementSubElementsMap: SubElementsTemplatesMap<WeightStatementField, WeightStatement, void> = new Map([
+    [
+      WeightStatementField.UBLExtensions,
+      { meta: WeightStatementFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={WeightStatementField.UBLExtensions}
+          meta={WeightStatementFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-WeightStatement">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={WeightStatementFieldMeta.UBLExtensions}
-          />
+    [
+      WeightStatementField.UBLVersionID,
+      { meta: WeightStatementFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={WeightStatementField.UBLVersionID}
+          meta={WeightStatementFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={WeightStatementFieldMeta.UBLVersionID}
-          />
+    [
+      WeightStatementField.CustomizationID,
+      { meta: WeightStatementFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={WeightStatementField.CustomizationID}
+          meta={WeightStatementFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={WeightStatementFieldMeta.CustomizationID}
-          />
+    [
+      WeightStatementField.ProfileID,
+      { meta: WeightStatementFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={WeightStatementField.ProfileID}
+          meta={WeightStatementFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={WeightStatementFieldMeta.ProfileID}
-          />
+    [
+      WeightStatementField.ProfileExecutionID,
+      { meta: WeightStatementFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={WeightStatementField.ProfileExecutionID}
+          meta={WeightStatementFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={WeightStatementFieldMeta.ProfileExecutionID}
-          />
+    [
+      WeightStatementField.ID,
+      { meta: WeightStatementFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={WeightStatementField.ID}
+          meta={WeightStatementFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={WeightStatementFieldMeta.ID}
-          />
+    [
+      WeightStatementField.UUID,
+      { meta: WeightStatementFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={WeightStatementField.UUID}
+          meta={WeightStatementFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={WeightStatementFieldMeta.UUID}
-          />
+    [
+      WeightStatementField.IssueDate,
+      { meta: WeightStatementFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={WeightStatementField.IssueDate}
+          meta={WeightStatementFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={WeightStatementFieldMeta.IssueDate}
-          />
+    [
+      WeightStatementField.IssueTime,
+      { meta: WeightStatementFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={WeightStatementField.IssueTime}
+          meta={WeightStatementFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={WeightStatementFieldMeta.IssueTime}
-          />
+    [
+      WeightStatementField.WeightStatementTypeCode,
+      { meta: WeightStatementFieldMeta.WeightStatementTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={WeightStatementField.WeightStatementTypeCode}
+          meta={WeightStatementFieldMeta.WeightStatementTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.WeightStatementTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Weight Statement Type Code"
-            value={value.WeightStatementTypeCode?.[0]}
-            meta={WeightStatementFieldMeta.WeightStatementTypeCode}
-          />
+    [
+      WeightStatementField.Signature,
+      { meta: WeightStatementFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={WeightStatementField.Signature}
+          meta={WeightStatementFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={WeightStatementFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={WeightStatementFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      WeightStatementField.SenderParty,
+      { meta: WeightStatementFieldMeta.SenderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={WeightStatementField.SenderParty}
+          meta={WeightStatementFieldMeta.SenderParty}
+          fieldConfig={fieldConfig}
+          party={value?.SenderParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Sender Party"
-            value={value.SenderParty?.[0]}
-            meta={WeightStatementFieldMeta.SenderParty}
-          />
+    [
+      WeightStatementField.ReceiverParty,
+      { meta: WeightStatementFieldMeta.ReceiverParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={WeightStatementField.ReceiverParty}
+          meta={WeightStatementFieldMeta.ReceiverParty}
+          fieldConfig={fieldConfig}
+          party={value?.ReceiverParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Receiver Party"
-            value={value.ReceiverParty?.[0]}
-            meta={WeightStatementFieldMeta.ReceiverParty}
-          />
+    [
+      WeightStatementField.WeighingParty,
+      { meta: WeightStatementFieldMeta.WeighingParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={WeightStatementField.WeighingParty}
+          meta={WeightStatementFieldMeta.WeighingParty}
+          fieldConfig={fieldConfig}
+          party={value?.WeighingParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Weighing Party"
-            value={value.WeighingParty?.[0]}
-            meta={WeightStatementFieldMeta.WeighingParty}
-          />
+    [
+      WeightStatementField.ShipperParty,
+      { meta: WeightStatementFieldMeta.ShipperParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={WeightStatementField.ShipperParty}
+          meta={WeightStatementFieldMeta.ShipperParty}
+          fieldConfig={fieldConfig}
+          party={value?.ShipperParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Shipper Party"
-            value={value.ShipperParty?.[0]}
-            meta={WeightStatementFieldMeta.ShipperParty}
-          />
+    [
+      WeightStatementField.ResponsibleParty,
+      { meta: WeightStatementFieldMeta.ResponsibleParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={WeightStatementField.ResponsibleParty}
+          meta={WeightStatementFieldMeta.ResponsibleParty}
+          fieldConfig={fieldConfig}
+          party={value?.ResponsibleParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Responsible Party"
-            value={value.ResponsibleParty?.[0]}
-            meta={WeightStatementFieldMeta.ResponsibleParty}
-          />
+    [
+      WeightStatementField.Shipment,
+      { meta: WeightStatementFieldMeta.Shipment,
+        template: ({value, renderContext, fieldConfig}) => <ShipmentDisplay
+          key={WeightStatementField.Shipment}
+          meta={WeightStatementFieldMeta.Shipment}
+          fieldConfig={fieldConfig}
+          shipment={value?.Shipment}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ShipmentDisplay
-            label="Shipment"
-            value={value.Shipment?.[0]}
-            meta={WeightStatementFieldMeta.Shipment}
-          />
-        </div>
-    </div>
+export function WeightStatementDisplay<TFieldMeta>({ meta, fieldConfig, weightStatement, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    WeightStatementTypeName,
+    meta,
+    fieldConfig,
+    weightStatement,
+    renderContext,
+    WeightStatementSubElementsMap,
   )
 }

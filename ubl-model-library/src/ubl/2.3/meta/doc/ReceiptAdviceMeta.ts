@@ -1,4 +1,20 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { CustomerPartyType } from '../cac/CustomerPartyMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { OrderReferenceType } from '../cac/OrderReferenceMeta'
+import { ReceiptLineType } from '../cac/ReceiptLineMeta'
+import { ShipmentType } from '../cac/ShipmentMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { SupplierPartyType } from '../cac/SupplierPartyMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ReceiptAdviceField {
   UBLExtensions = 'UBLExtensions',
@@ -30,11 +46,11 @@ export enum ReceiptAdviceField {
 export const ReceiptAdviceFieldMetaUBLExtensions = new FieldMeta<ReceiptAdviceField>(
   ReceiptAdviceField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -43,10 +59,10 @@ export const ReceiptAdviceFieldMetaUBLVersionID = new FieldMeta<ReceiptAdviceFie
   ReceiptAdviceField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.0.5'
 )
@@ -55,10 +71,10 @@ export const ReceiptAdviceFieldMetaCustomizationID = new FieldMeta<ReceiptAdvice
   ReceiptAdviceField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -67,10 +83,10 @@ export const ReceiptAdviceFieldMetaProfileID = new FieldMeta<ReceiptAdviceField>
   ReceiptAdviceField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the subset of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BasicProcurementProcess'
 )
@@ -79,10 +95,10 @@ export const ReceiptAdviceFieldMetaProfileExecutionID = new FieldMeta<ReceiptAdv
   ReceiptAdviceField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -91,10 +107,10 @@ export const ReceiptAdviceFieldMetaID = new FieldMeta<ReceiptAdviceField>(
   ReceiptAdviceField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -103,10 +119,10 @@ export const ReceiptAdviceFieldMetaCopyIndicator = new FieldMeta<ReceiptAdviceFi
   ReceiptAdviceField.CopyIndicator,
   'CopyIndicator',
   'Copy Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this document is a copy (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -115,10 +131,10 @@ export const ReceiptAdviceFieldMetaUUID = new FieldMeta<ReceiptAdviceField>(
   ReceiptAdviceField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -127,10 +143,10 @@ export const ReceiptAdviceFieldMetaIssueDate = new FieldMeta<ReceiptAdviceField>
   ReceiptAdviceField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -139,10 +155,10 @@ export const ReceiptAdviceFieldMetaIssueTime = new FieldMeta<ReceiptAdviceField>
   ReceiptAdviceField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -151,10 +167,10 @@ export const ReceiptAdviceFieldMetaDocumentStatusCode = new FieldMeta<ReceiptAdv
   ReceiptAdviceField.DocumentStatusCode,
   'DocumentStatusCode',
   'Document Status Code',
-  'Code',
+  CodeType.name,
   'A code signifying the status of the Receipt Advice with respect to its original state. This code may be used if the document precedes the event and is subsequently found to be incorrect and in need of cancellation or revision.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -163,10 +179,10 @@ export const ReceiptAdviceFieldMetaReceiptAdviceTypeCode = new FieldMeta<Receipt
   ReceiptAdviceField.ReceiptAdviceTypeCode,
   'ReceiptAdviceTypeCode',
   'Receipt Advice Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of the Receipt Advice.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -175,10 +191,10 @@ export const ReceiptAdviceFieldMetaNote = new FieldMeta<ReceiptAdviceField>(
   ReceiptAdviceField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -187,10 +203,10 @@ export const ReceiptAdviceFieldMetaLineCountNumeric = new FieldMeta<ReceiptAdvic
   ReceiptAdviceField.LineCountNumeric,
   'LineCountNumeric',
   'Line Count',
-  'Numeric',
+  NumericType.name,
   'The number of Receipt Lines in this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -199,10 +215,10 @@ export const ReceiptAdviceFieldMetaOrderReference = new FieldMeta<ReceiptAdviceF
   ReceiptAdviceField.OrderReference,
   'OrderReference',
   'Order Reference',
-  'OrderReference',
+  OrderReferenceType.name,
   'A reference to an Order associated with this Receipt Advice.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -211,10 +227,10 @@ export const ReceiptAdviceFieldMetaDespatchDocumentReference = new FieldMeta<Rec
   ReceiptAdviceField.DespatchDocumentReference,
   'DespatchDocumentReference',
   'Despatch Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a Despatch Advice associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -223,10 +239,10 @@ export const ReceiptAdviceFieldMetaAdditionalDocumentReference = new FieldMeta<R
   ReceiptAdviceField.AdditionalDocumentReference,
   'AdditionalDocumentReference',
   'Additional Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to an additional document associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -235,10 +251,10 @@ export const ReceiptAdviceFieldMetaSignature = new FieldMeta<ReceiptAdviceField>
   ReceiptAdviceField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -247,10 +263,10 @@ export const ReceiptAdviceFieldMetaDeliveryCustomerParty = new FieldMeta<Receipt
   ReceiptAdviceField.DeliveryCustomerParty,
   'DeliveryCustomerParty',
   'Delivery Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The customer party.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -259,10 +275,10 @@ export const ReceiptAdviceFieldMetaDespatchSupplierParty = new FieldMeta<Receipt
   ReceiptAdviceField.DespatchSupplierParty,
   'DespatchSupplierParty',
   'Despatch Supplier Party',
-  'SupplierParty',
+  SupplierPartyType.name,
   'The supplier party.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -271,10 +287,10 @@ export const ReceiptAdviceFieldMetaBuyerCustomerParty = new FieldMeta<ReceiptAdv
   ReceiptAdviceField.BuyerCustomerParty,
   'BuyerCustomerParty',
   'Buyer Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The buyer.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -283,10 +299,10 @@ export const ReceiptAdviceFieldMetaSellerSupplierParty = new FieldMeta<ReceiptAd
   ReceiptAdviceField.SellerSupplierParty,
   'SellerSupplierParty',
   'Seller Supplier Party',
-  'SupplierParty',
+  SupplierPartyType.name,
   'The seller.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -295,10 +311,10 @@ export const ReceiptAdviceFieldMetaShipment = new FieldMeta<ReceiptAdviceField>(
   ReceiptAdviceField.Shipment,
   'Shipment',
   'Shipment',
-  'Shipment',
+  ShipmentType.name,
   'Details about the Shipment.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -307,10 +323,10 @@ export const ReceiptAdviceFieldMetaReceiptLine = new FieldMeta<ReceiptAdviceFiel
   ReceiptAdviceField.ReceiptLine,
   'ReceiptLine',
   'Receipt Line',
-  'ReceiptLine',
+  ReceiptLineType.name,
   'A line detailing a kind of item received.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -368,3 +384,11 @@ export const ReceiptAdviceFieldMap = new Map([
   [ReceiptAdviceField.Shipment, ReceiptAdviceFieldMetaShipment],
   [ReceiptAdviceField.ReceiptLine, ReceiptAdviceFieldMetaReceiptLine]
 ])
+
+export const ReceiptAdviceType: Type<ReceiptAdviceField> = {
+  name: 'ReceiptAdvice',
+  label: 'Receipt Advice',
+  module: TypeModule.doc,
+  definition: 'A document used to describe the receipt of goods and services.',
+  fields: ReceiptAdviceFieldMap,
+}

@@ -1,378 +1,411 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { CreditNoteLine } from  '../../model/cac/CreditNoteLine'
-import { CreditNoteLineFieldMeta } from  '../../meta/cac/CreditNoteLineMeta'
-import AllowanceChargeDisplay from './AllowanceChargeDisplay'
-import { AllowanceCharge } from '../../model/cac/AllowanceCharge'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import BillingReferenceDisplay from './BillingReferenceDisplay'
-import { BillingReference } from '../../model/cac/BillingReference'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DeliveryDisplay from './DeliveryDisplay'
-import { Delivery } from '../../model/cac/Delivery'
-import DeliveryTermsDisplay from './DeliveryTermsDisplay'
-import { DeliveryTerms } from '../../model/cac/DeliveryTerms'
-import DocumentReferenceDisplay from './DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import ItemDisplay from './ItemDisplay'
-import { Item } from '../../model/cac/Item'
-import LineReferenceDisplay from './LineReferenceDisplay'
-import { LineReference } from '../../model/cac/LineReference'
-import OrderLineReferenceDisplay from './OrderLineReferenceDisplay'
-import { OrderLineReference } from '../../model/cac/OrderLineReference'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PaymentTermsDisplay from './PaymentTermsDisplay'
-import { PaymentTerms } from '../../model/cac/PaymentTerms'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import PriceDisplay from './PriceDisplay'
-import { Price } from '../../model/cac/Price'
-import PriceExtensionDisplay from './PriceExtensionDisplay'
-import { PriceExtension } from '../../model/cac/PriceExtension'
-import PricingReferenceDisplay from './PricingReferenceDisplay'
-import { PricingReference } from '../../model/cac/PricingReference'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import ResponseDisplay from './ResponseDisplay'
-import { Response } from '../../model/cac/Response'
-import TaxTotalDisplay from './TaxTotalDisplay'
-import { TaxTotal } from '../../model/cac/TaxTotal'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { CreditNoteLineField, CreditNoteLineFieldMeta, CreditNoteLineTypeName } from  '../../meta/cac/CreditNoteLineMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AllowanceChargeDisplay } from './AllowanceChargeDisplay'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { BillingReferenceDisplay } from './BillingReferenceDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DeliveryDisplay } from './DeliveryDisplay'
+import { DeliveryTermsDisplay } from './DeliveryTermsDisplay'
+import { DocumentReferenceDisplay } from './DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { ItemDisplay } from './ItemDisplay'
+import { LineReferenceDisplay } from './LineReferenceDisplay'
+import { OrderLineReferenceDisplay } from './OrderLineReferenceDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { PaymentTermsDisplay } from './PaymentTermsDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { PriceDisplay } from './PriceDisplay'
+import { PriceExtensionDisplay } from './PriceExtensionDisplay'
+import { PricingReferenceDisplay } from './PricingReferenceDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { ResponseDisplay } from './ResponseDisplay'
+import { TaxTotalDisplay } from './TaxTotalDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: CreditNoteLine | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<CreditNoteLine, void>
+  creditNoteLine: CreditNoteLine[] | undefined
+  renderContext: RenderContext
 }
 
-export default function CreditNoteLineDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const CreditNoteLineSubElementsMap: SubElementsTemplatesMap<CreditNoteLineField, CreditNoteLine, void> = new Map([
+    [
+      CreditNoteLineField.UBLExtensions,
+      { meta: CreditNoteLineFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={CreditNoteLineField.UBLExtensions}
+          meta={CreditNoteLineFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-CreditNoteLine">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={CreditNoteLineFieldMeta.UBLExtensions}
-          />
+    [
+      CreditNoteLineField.ID,
+      { meta: CreditNoteLineFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CreditNoteLineField.ID}
+          meta={CreditNoteLineFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={CreditNoteLineFieldMeta.ID}
-          />
+    [
+      CreditNoteLineField.UUID,
+      { meta: CreditNoteLineFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CreditNoteLineField.UUID}
+          meta={CreditNoteLineFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={CreditNoteLineFieldMeta.UUID}
-          />
+    [
+      CreditNoteLineField.Note,
+      { meta: CreditNoteLineFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={CreditNoteLineField.Note}
+          meta={CreditNoteLineFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={CreditNoteLineFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={CreditNoteLineFieldMeta.Note}
-              />
-            }
-          />
+    [
+      CreditNoteLineField.CreditedQuantity,
+      { meta: CreditNoteLineFieldMeta.CreditedQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={CreditNoteLineField.CreditedQuantity}
+          meta={CreditNoteLineFieldMeta.CreditedQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.CreditedQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Credited Quantity"
-            value={value.CreditedQuantity?.[0]}
-            meta={CreditNoteLineFieldMeta.CreditedQuantity}
-          />
+    [
+      CreditNoteLineField.LineExtensionAmount,
+      { meta: CreditNoteLineFieldMeta.LineExtensionAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={CreditNoteLineField.LineExtensionAmount}
+          meta={CreditNoteLineFieldMeta.LineExtensionAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.LineExtensionAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Line Extension Amount"
-            value={value.LineExtensionAmount?.[0]}
-            meta={CreditNoteLineFieldMeta.LineExtensionAmount}
-          />
+    [
+      CreditNoteLineField.TaxInclusiveLineExtensionAmount,
+      { meta: CreditNoteLineFieldMeta.TaxInclusiveLineExtensionAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={CreditNoteLineField.TaxInclusiveLineExtensionAmount}
+          meta={CreditNoteLineFieldMeta.TaxInclusiveLineExtensionAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.TaxInclusiveLineExtensionAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Tax Inclusive Line Extension Amount"
-            value={value.TaxInclusiveLineExtensionAmount?.[0]}
-            meta={CreditNoteLineFieldMeta.TaxInclusiveLineExtensionAmount}
-          />
+    [
+      CreditNoteLineField.TaxPointDate,
+      { meta: CreditNoteLineFieldMeta.TaxPointDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={CreditNoteLineField.TaxPointDate}
+          meta={CreditNoteLineFieldMeta.TaxPointDate}
+          fieldConfig={fieldConfig}
+          date={value?.TaxPointDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Tax Point Date"
-            value={value.TaxPointDate?.[0]}
-            meta={CreditNoteLineFieldMeta.TaxPointDate}
-          />
+    [
+      CreditNoteLineField.AccountingCostCode,
+      { meta: CreditNoteLineFieldMeta.AccountingCostCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={CreditNoteLineField.AccountingCostCode}
+          meta={CreditNoteLineFieldMeta.AccountingCostCode}
+          fieldConfig={fieldConfig}
+          code={value?.AccountingCostCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Accounting Cost Code"
-            value={value.AccountingCostCode?.[0]}
-            meta={CreditNoteLineFieldMeta.AccountingCostCode}
-          />
+    [
+      CreditNoteLineField.AccountingCost,
+      { meta: CreditNoteLineFieldMeta.AccountingCost,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={CreditNoteLineField.AccountingCost}
+          meta={CreditNoteLineFieldMeta.AccountingCost}
+          fieldConfig={fieldConfig}
+          text={value?.AccountingCost}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Accounting Cost"
-            value={value.AccountingCost?.[0]}
-            meta={CreditNoteLineFieldMeta.AccountingCost}
-          />
+    [
+      CreditNoteLineField.PaymentPurposeCode,
+      { meta: CreditNoteLineFieldMeta.PaymentPurposeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={CreditNoteLineField.PaymentPurposeCode}
+          meta={CreditNoteLineFieldMeta.PaymentPurposeCode}
+          fieldConfig={fieldConfig}
+          code={value?.PaymentPurposeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Payment Purpose Code"
-            value={value.PaymentPurposeCode?.[0]}
-            meta={CreditNoteLineFieldMeta.PaymentPurposeCode}
-          />
+    [
+      CreditNoteLineField.FreeOfChargeIndicator,
+      { meta: CreditNoteLineFieldMeta.FreeOfChargeIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={CreditNoteLineField.FreeOfChargeIndicator}
+          meta={CreditNoteLineFieldMeta.FreeOfChargeIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.FreeOfChargeIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Free Of Charge Indicator"
-            value={value.FreeOfChargeIndicator?.[0]}
-            meta={CreditNoteLineFieldMeta.FreeOfChargeIndicator}
-          />
+    [
+      CreditNoteLineField.InvoicePeriod,
+      { meta: CreditNoteLineFieldMeta.InvoicePeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={CreditNoteLineField.InvoicePeriod}
+          meta={CreditNoteLineFieldMeta.InvoicePeriod}
+          fieldConfig={fieldConfig}
+          period={value?.InvoicePeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Period ubl-InvoicePeriod"
-            label="Invoice Period"
-            items={value.InvoicePeriod}
-            meta={CreditNoteLineFieldMeta.InvoicePeriod} 
-            itemDisplay={ (itemValue: Period, key: string | number) =>
-              <PeriodDisplay
-                key={key}
-                label="Invoice Period"
-                value={itemValue}
-                meta={CreditNoteLineFieldMeta.InvoicePeriod}
-              />
-            }
-          />
+    [
+      CreditNoteLineField.OrderLineReference,
+      { meta: CreditNoteLineFieldMeta.OrderLineReference,
+        template: ({value, renderContext, fieldConfig}) => <OrderLineReferenceDisplay
+          key={CreditNoteLineField.OrderLineReference}
+          meta={CreditNoteLineFieldMeta.OrderLineReference}
+          fieldConfig={fieldConfig}
+          orderLineReference={value?.OrderLineReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-OrderLineReference"
-            label="Order Line Reference"
-            items={value.OrderLineReference}
-            meta={CreditNoteLineFieldMeta.OrderLineReference} 
-            itemDisplay={ (itemValue: OrderLineReference, key: string | number) =>
-              <OrderLineReferenceDisplay
-                key={key}
-                label="Order Line Reference"
-                value={itemValue}
-                meta={CreditNoteLineFieldMeta.OrderLineReference}
-              />
-            }
-          />
+    [
+      CreditNoteLineField.DiscrepancyResponse,
+      { meta: CreditNoteLineFieldMeta.DiscrepancyResponse,
+        template: ({value, renderContext, fieldConfig}) => <ResponseDisplay
+          key={CreditNoteLineField.DiscrepancyResponse}
+          meta={CreditNoteLineFieldMeta.DiscrepancyResponse}
+          fieldConfig={fieldConfig}
+          response={value?.DiscrepancyResponse}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Response ubl-DiscrepancyResponse"
-            label="Discrepancy Response"
-            items={value.DiscrepancyResponse}
-            meta={CreditNoteLineFieldMeta.DiscrepancyResponse} 
-            itemDisplay={ (itemValue: Response, key: string | number) =>
-              <ResponseDisplay
-                key={key}
-                label="Discrepancy Response"
-                value={itemValue}
-                meta={CreditNoteLineFieldMeta.DiscrepancyResponse}
-              />
-            }
-          />
+    [
+      CreditNoteLineField.DespatchLineReference,
+      { meta: CreditNoteLineFieldMeta.DespatchLineReference,
+        template: ({value, renderContext, fieldConfig}) => <LineReferenceDisplay
+          key={CreditNoteLineField.DespatchLineReference}
+          meta={CreditNoteLineFieldMeta.DespatchLineReference}
+          fieldConfig={fieldConfig}
+          lineReference={value?.DespatchLineReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-LineReference ubl-DespatchLineReference"
-            label="Despatch Line Reference"
-            items={value.DespatchLineReference}
-            meta={CreditNoteLineFieldMeta.DespatchLineReference} 
-            itemDisplay={ (itemValue: LineReference, key: string | number) =>
-              <LineReferenceDisplay
-                key={key}
-                label="Despatch Line Reference"
-                value={itemValue}
-                meta={CreditNoteLineFieldMeta.DespatchLineReference}
-              />
-            }
-          />
+    [
+      CreditNoteLineField.ReceiptLineReference,
+      { meta: CreditNoteLineFieldMeta.ReceiptLineReference,
+        template: ({value, renderContext, fieldConfig}) => <LineReferenceDisplay
+          key={CreditNoteLineField.ReceiptLineReference}
+          meta={CreditNoteLineFieldMeta.ReceiptLineReference}
+          fieldConfig={fieldConfig}
+          lineReference={value?.ReceiptLineReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-LineReference ubl-ReceiptLineReference"
-            label="Receipt Line Reference"
-            items={value.ReceiptLineReference}
-            meta={CreditNoteLineFieldMeta.ReceiptLineReference} 
-            itemDisplay={ (itemValue: LineReference, key: string | number) =>
-              <LineReferenceDisplay
-                key={key}
-                label="Receipt Line Reference"
-                value={itemValue}
-                meta={CreditNoteLineFieldMeta.ReceiptLineReference}
-              />
-            }
-          />
+    [
+      CreditNoteLineField.BillingReference,
+      { meta: CreditNoteLineFieldMeta.BillingReference,
+        template: ({value, renderContext, fieldConfig}) => <BillingReferenceDisplay
+          key={CreditNoteLineField.BillingReference}
+          meta={CreditNoteLineFieldMeta.BillingReference}
+          fieldConfig={fieldConfig}
+          billingReference={value?.BillingReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-BillingReference"
-            label="Billing Reference"
-            items={value.BillingReference}
-            meta={CreditNoteLineFieldMeta.BillingReference} 
-            itemDisplay={ (itemValue: BillingReference, key: string | number) =>
-              <BillingReferenceDisplay
-                key={key}
-                label="Billing Reference"
-                value={itemValue}
-                meta={CreditNoteLineFieldMeta.BillingReference}
-              />
-            }
-          />
+    [
+      CreditNoteLineField.DocumentReference,
+      { meta: CreditNoteLineFieldMeta.DocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={CreditNoteLineField.DocumentReference}
+          meta={CreditNoteLineFieldMeta.DocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.DocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentReference"
-            label="Document Reference"
-            items={value.DocumentReference}
-            meta={CreditNoteLineFieldMeta.DocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Document Reference"
-                value={itemValue}
-                meta={CreditNoteLineFieldMeta.DocumentReference}
-              />
-            }
-          />
+    [
+      CreditNoteLineField.PricingReference,
+      { meta: CreditNoteLineFieldMeta.PricingReference,
+        template: ({value, renderContext, fieldConfig}) => <PricingReferenceDisplay
+          key={CreditNoteLineField.PricingReference}
+          meta={CreditNoteLineFieldMeta.PricingReference}
+          fieldConfig={fieldConfig}
+          pricingReference={value?.PricingReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PricingReferenceDisplay
-            label="Pricing Reference"
-            value={value.PricingReference?.[0]}
-            meta={CreditNoteLineFieldMeta.PricingReference}
-          />
+    [
+      CreditNoteLineField.OriginatorParty,
+      { meta: CreditNoteLineFieldMeta.OriginatorParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={CreditNoteLineField.OriginatorParty}
+          meta={CreditNoteLineFieldMeta.OriginatorParty}
+          fieldConfig={fieldConfig}
+          party={value?.OriginatorParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Originator Party"
-            value={value.OriginatorParty?.[0]}
-            meta={CreditNoteLineFieldMeta.OriginatorParty}
-          />
+    [
+      CreditNoteLineField.Delivery,
+      { meta: CreditNoteLineFieldMeta.Delivery,
+        template: ({value, renderContext, fieldConfig}) => <DeliveryDisplay
+          key={CreditNoteLineField.Delivery}
+          meta={CreditNoteLineFieldMeta.Delivery}
+          fieldConfig={fieldConfig}
+          delivery={value?.Delivery}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Delivery"
-            label="Delivery"
-            items={value.Delivery}
-            meta={CreditNoteLineFieldMeta.Delivery} 
-            itemDisplay={ (itemValue: Delivery, key: string | number) =>
-              <DeliveryDisplay
-                key={key}
-                label="Delivery"
-                value={itemValue}
-                meta={CreditNoteLineFieldMeta.Delivery}
-              />
-            }
-          />
+    [
+      CreditNoteLineField.PaymentTerms,
+      { meta: CreditNoteLineFieldMeta.PaymentTerms,
+        template: ({value, renderContext, fieldConfig}) => <PaymentTermsDisplay
+          key={CreditNoteLineField.PaymentTerms}
+          meta={CreditNoteLineFieldMeta.PaymentTerms}
+          fieldConfig={fieldConfig}
+          paymentTerms={value?.PaymentTerms}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-PaymentTerms"
-            label="Payment Terms"
-            items={value.PaymentTerms}
-            meta={CreditNoteLineFieldMeta.PaymentTerms} 
-            itemDisplay={ (itemValue: PaymentTerms, key: string | number) =>
-              <PaymentTermsDisplay
-                key={key}
-                label="Payment Terms"
-                value={itemValue}
-                meta={CreditNoteLineFieldMeta.PaymentTerms}
-              />
-            }
-          />
+    [
+      CreditNoteLineField.TaxTotal,
+      { meta: CreditNoteLineFieldMeta.TaxTotal,
+        template: ({value, renderContext, fieldConfig}) => <TaxTotalDisplay
+          key={CreditNoteLineField.TaxTotal}
+          meta={CreditNoteLineFieldMeta.TaxTotal}
+          fieldConfig={fieldConfig}
+          taxTotal={value?.TaxTotal}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TaxTotal"
-            label="Tax Total"
-            items={value.TaxTotal}
-            meta={CreditNoteLineFieldMeta.TaxTotal} 
-            itemDisplay={ (itemValue: TaxTotal, key: string | number) =>
-              <TaxTotalDisplay
-                key={key}
-                label="Tax Total"
-                value={itemValue}
-                meta={CreditNoteLineFieldMeta.TaxTotal}
-              />
-            }
-          />
+    [
+      CreditNoteLineField.AllowanceCharge,
+      { meta: CreditNoteLineFieldMeta.AllowanceCharge,
+        template: ({value, renderContext, fieldConfig}) => <AllowanceChargeDisplay
+          key={CreditNoteLineField.AllowanceCharge}
+          meta={CreditNoteLineFieldMeta.AllowanceCharge}
+          fieldConfig={fieldConfig}
+          allowanceCharge={value?.AllowanceCharge}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-AllowanceCharge"
-            label="Allowance Charge"
-            items={value.AllowanceCharge}
-            meta={CreditNoteLineFieldMeta.AllowanceCharge} 
-            itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-              <AllowanceChargeDisplay
-                key={key}
-                label="Allowance Charge"
-                value={itemValue}
-                meta={CreditNoteLineFieldMeta.AllowanceCharge}
-              />
-            }
-          />
+    [
+      CreditNoteLineField.Item,
+      { meta: CreditNoteLineFieldMeta.Item,
+        template: ({value, renderContext, fieldConfig}) => <ItemDisplay
+          key={CreditNoteLineField.Item}
+          meta={CreditNoteLineFieldMeta.Item}
+          fieldConfig={fieldConfig}
+          item={value?.Item}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ItemDisplay
-            label="Item"
-            value={value.Item?.[0]}
-            meta={CreditNoteLineFieldMeta.Item}
-          />
+    [
+      CreditNoteLineField.Price,
+      { meta: CreditNoteLineFieldMeta.Price,
+        template: ({value, renderContext, fieldConfig}) => <PriceDisplay
+          key={CreditNoteLineField.Price}
+          meta={CreditNoteLineFieldMeta.Price}
+          fieldConfig={fieldConfig}
+          price={value?.Price}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PriceDisplay
-            label="Price"
-            value={value.Price?.[0]}
-            meta={CreditNoteLineFieldMeta.Price}
-          />
+    [
+      CreditNoteLineField.DeliveryTerms,
+      { meta: CreditNoteLineFieldMeta.DeliveryTerms,
+        template: ({value, renderContext, fieldConfig}) => <DeliveryTermsDisplay
+          key={CreditNoteLineField.DeliveryTerms}
+          meta={CreditNoteLineFieldMeta.DeliveryTerms}
+          fieldConfig={fieldConfig}
+          deliveryTerms={value?.DeliveryTerms}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DeliveryTerms"
-            label="Delivery Terms"
-            items={value.DeliveryTerms}
-            meta={CreditNoteLineFieldMeta.DeliveryTerms} 
-            itemDisplay={ (itemValue: DeliveryTerms, key: string | number) =>
-              <DeliveryTermsDisplay
-                key={key}
-                label="Delivery Terms"
-                value={itemValue}
-                meta={CreditNoteLineFieldMeta.DeliveryTerms}
-              />
-            }
-          />
+    [
+      CreditNoteLineField.SubCreditNoteLine,
+      { meta: CreditNoteLineFieldMeta.SubCreditNoteLine,
+        template: ({value, renderContext, fieldConfig}) => <CreditNoteLineDisplay
+          key={CreditNoteLineField.SubCreditNoteLine}
+          meta={CreditNoteLineFieldMeta.SubCreditNoteLine}
+          fieldConfig={fieldConfig}
+          creditNoteLine={value?.SubCreditNoteLine}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-CreditNoteLine ubl-SubCreditNoteLine"
-            label="Sub Credit Note Line"
-            items={value.SubCreditNoteLine}
-            meta={CreditNoteLineFieldMeta.SubCreditNoteLine} 
-            itemDisplay={ (itemValue: CreditNoteLine, key: string | number) =>
-              <CreditNoteLineDisplay
-                key={key}
-                label="Sub Credit Note Line"
-                value={itemValue}
-                meta={CreditNoteLineFieldMeta.SubCreditNoteLine}
-              />
-            }
-          />
+    [
+      CreditNoteLineField.ItemPriceExtension,
+      { meta: CreditNoteLineFieldMeta.ItemPriceExtension,
+        template: ({value, renderContext, fieldConfig}) => <PriceExtensionDisplay
+          key={CreditNoteLineField.ItemPriceExtension}
+          meta={CreditNoteLineFieldMeta.ItemPriceExtension}
+          fieldConfig={fieldConfig}
+          priceExtension={value?.ItemPriceExtension}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <PriceExtensionDisplay
-            label="Item Price Extension"
-            value={value.ItemPriceExtension?.[0]}
-            meta={CreditNoteLineFieldMeta.ItemPriceExtension}
-          />
-        </div>
-    </div>
+export function CreditNoteLineDisplay<TFieldMeta>({ meta, fieldConfig, creditNoteLine, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    CreditNoteLineTypeName,
+    meta,
+    fieldConfig,
+    creditNoteLine,
+    renderContext,
+    CreditNoteLineSubElementsMap,
   )
 }

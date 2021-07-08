@@ -10,7 +10,6 @@ import { Party } from '../cac/Party'
 import { Signature } from '../cac/Signature'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A document used to support business parties agreeing on a set of digital processes, terms and conditions to ensure
  * interoperability.

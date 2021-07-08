@@ -1,4 +1,9 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { OrderReferenceType } from './OrderReferenceMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum OrderLineReferenceField {
   UBLExtensions = 'UBLExtensions',
@@ -12,11 +17,11 @@ export enum OrderLineReferenceField {
 export const OrderLineReferenceFieldMetaUBLExtensions = new FieldMeta<OrderLineReferenceField>(
   OrderLineReferenceField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -25,10 +30,10 @@ export const OrderLineReferenceFieldMetaLineID = new FieldMeta<OrderLineReferenc
   OrderLineReferenceField.LineID,
   'LineID',
   'Line Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the referenced order line, assigned by the buyer.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -37,10 +42,10 @@ export const OrderLineReferenceFieldMetaSalesOrderLineID = new FieldMeta<OrderLi
   OrderLineReferenceField.SalesOrderLineID,
   'SalesOrderLineID',
   'Sales Order Line Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the referenced order line, assigned by the seller.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -49,10 +54,10 @@ export const OrderLineReferenceFieldMetaUUID = new FieldMeta<OrderLineReferenceF
   OrderLineReferenceField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for this order line reference.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -61,10 +66,10 @@ export const OrderLineReferenceFieldMetaLineStatusCode = new FieldMeta<OrderLine
   OrderLineReferenceField.LineStatusCode,
   'LineStatusCode',
   'Line Status Code',
-  'Code',
+  CodeType.name,
   'A code signifying the status of the referenced order line with respect to its original state.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -73,10 +78,10 @@ export const OrderLineReferenceFieldMetaOrderReference = new FieldMeta<OrderLine
   OrderLineReferenceField.OrderReference,
   'OrderReference',
   'Order Reference',
-  'OrderReference',
+  OrderReferenceType.name,
   'A reference to the Order containing the referenced order line.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -98,3 +103,11 @@ export const OrderLineReferenceFieldMap = new Map([
   [OrderLineReferenceField.LineStatusCode, OrderLineReferenceFieldMetaLineStatusCode],
   [OrderLineReferenceField.OrderReference, OrderLineReferenceFieldMetaOrderReference]
 ])
+
+export const OrderLineReferenceType: Type<OrderLineReferenceField> = {
+  name: 'OrderLineReference',
+  label: 'Order Line Reference',
+  module: TypeModule.cac,
+  definition: 'A class to define a reference to an order line.',
+  fields: OrderLineReferenceFieldMap,
+}

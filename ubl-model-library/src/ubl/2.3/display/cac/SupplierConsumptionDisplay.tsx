@@ -1,96 +1,117 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { SupplierConsumption } from  '../../model/cac/SupplierConsumption'
-import { SupplierConsumptionFieldMeta } from  '../../meta/cac/SupplierConsumptionMeta'
-import ConsumptionDisplay from './ConsumptionDisplay'
-import { Consumption } from '../../model/cac/Consumption'
-import ConsumptionLineDisplay from './ConsumptionLineDisplay'
-import { ConsumptionLine } from '../../model/cac/ConsumptionLine'
-import ContractDisplay from './ContractDisplay'
-import { Contract } from '../../model/cac/Contract'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { SupplierConsumptionField, SupplierConsumptionFieldMeta, SupplierConsumptionTypeName } from  '../../meta/cac/SupplierConsumptionMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { ConsumptionDisplay } from './ConsumptionDisplay'
+import { ConsumptionLineDisplay } from './ConsumptionLineDisplay'
+import { ContractDisplay } from './ContractDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: SupplierConsumption | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<SupplierConsumption, void>
+  supplierConsumption: SupplierConsumption[] | undefined
+  renderContext: RenderContext
 }
 
-export default function SupplierConsumptionDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const SupplierConsumptionSubElementsMap: SubElementsTemplatesMap<SupplierConsumptionField, SupplierConsumption, void> = new Map([
+    [
+      SupplierConsumptionField.UBLExtensions,
+      { meta: SupplierConsumptionFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={SupplierConsumptionField.UBLExtensions}
+          meta={SupplierConsumptionFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-SupplierConsumption">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={SupplierConsumptionFieldMeta.UBLExtensions}
-          />
+    [
+      SupplierConsumptionField.Description,
+      { meta: SupplierConsumptionFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={SupplierConsumptionField.Description}
+          meta={SupplierConsumptionFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={SupplierConsumptionFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={SupplierConsumptionFieldMeta.Description}
-              />
-            }
-          />
+    [
+      SupplierConsumptionField.UtilitySupplierParty,
+      { meta: SupplierConsumptionFieldMeta.UtilitySupplierParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={SupplierConsumptionField.UtilitySupplierParty}
+          meta={SupplierConsumptionFieldMeta.UtilitySupplierParty}
+          fieldConfig={fieldConfig}
+          party={value?.UtilitySupplierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Utility Supplier Party"
-            value={value.UtilitySupplierParty?.[0]}
-            meta={SupplierConsumptionFieldMeta.UtilitySupplierParty}
-          />
+    [
+      SupplierConsumptionField.UtilityCustomerParty,
+      { meta: SupplierConsumptionFieldMeta.UtilityCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={SupplierConsumptionField.UtilityCustomerParty}
+          meta={SupplierConsumptionFieldMeta.UtilityCustomerParty}
+          fieldConfig={fieldConfig}
+          party={value?.UtilityCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Utility Customer Party"
-            value={value.UtilityCustomerParty?.[0]}
-            meta={SupplierConsumptionFieldMeta.UtilityCustomerParty}
-          />
+    [
+      SupplierConsumptionField.Consumption,
+      { meta: SupplierConsumptionFieldMeta.Consumption,
+        template: ({value, renderContext, fieldConfig}) => <ConsumptionDisplay
+          key={SupplierConsumptionField.Consumption}
+          meta={SupplierConsumptionFieldMeta.Consumption}
+          fieldConfig={fieldConfig}
+          consumption={value?.Consumption}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ConsumptionDisplay
-            label="Consumption"
-            value={value.Consumption?.[0]}
-            meta={SupplierConsumptionFieldMeta.Consumption}
-          />
+    [
+      SupplierConsumptionField.Contract,
+      { meta: SupplierConsumptionFieldMeta.Contract,
+        template: ({value, renderContext, fieldConfig}) => <ContractDisplay
+          key={SupplierConsumptionField.Contract}
+          meta={SupplierConsumptionFieldMeta.Contract}
+          fieldConfig={fieldConfig}
+          contract={value?.Contract}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ContractDisplay
-            label="Contract"
-            value={value.Contract?.[0]}
-            meta={SupplierConsumptionFieldMeta.Contract}
-          />
+    [
+      SupplierConsumptionField.ConsumptionLine,
+      { meta: SupplierConsumptionFieldMeta.ConsumptionLine,
+        template: ({value, renderContext, fieldConfig}) => <ConsumptionLineDisplay
+          key={SupplierConsumptionField.ConsumptionLine}
+          meta={SupplierConsumptionFieldMeta.ConsumptionLine}
+          fieldConfig={fieldConfig}
+          consumptionLine={value?.ConsumptionLine}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-ConsumptionLine"
-            label="Consumption Line"
-            items={value.ConsumptionLine}
-            meta={SupplierConsumptionFieldMeta.ConsumptionLine} 
-            itemDisplay={ (itemValue: ConsumptionLine, key: string | number) =>
-              <ConsumptionLineDisplay
-                key={key}
-                label="Consumption Line"
-                value={itemValue}
-                meta={SupplierConsumptionFieldMeta.ConsumptionLine}
-              />
-            }
-          />
-        </div>
-    </div>
+export function SupplierConsumptionDisplay<TFieldMeta>({ meta, fieldConfig, supplierConsumption, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    SupplierConsumptionTypeName,
+    meta,
+    fieldConfig,
+    supplierConsumption,
+    renderContext,
+    SupplierConsumptionSubElementsMap,
   )
 }

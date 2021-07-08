@@ -1,4 +1,12 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AddressLineType } from './AddressLineMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { CountryType } from './CountryMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { LocationCoordinateType } from './LocationCoordinateMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum AddressField {
   UBLExtensions = 'UBLExtensions',
@@ -35,11 +43,11 @@ export enum AddressField {
 export const AddressFieldMetaUBLExtensions = new FieldMeta<AddressField>(
   AddressField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -48,10 +56,10 @@ export const AddressFieldMetaID = new FieldMeta<AddressField>(
   AddressField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this address within an agreed scheme of address identifiers.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'DetailsKey',
   undefined
 )
@@ -60,10 +68,10 @@ export const AddressFieldMetaAddressTypeCode = new FieldMeta<AddressField>(
   AddressField.AddressTypeCode,
   'AddressTypeCode',
   'Address Type Code',
-  'Code',
+  CodeType.name,
   'A mutually agreed code signifying the type of this address.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -72,10 +80,10 @@ export const AddressFieldMetaAddressFormatCode = new FieldMeta<AddressField>(
   AddressField.AddressFormatCode,
   'AddressFormatCode',
   'Address Format Code',
-  'Code',
+  CodeType.name,
   'A mutually agreed code signifying the format of this address.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -84,10 +92,10 @@ export const AddressFieldMetaPostbox = new FieldMeta<AddressField>(
   AddressField.Postbox,
   'Postbox',
   'Postbox',
-  'Text',
+  TextType.name,
   'A post office box number registered for postal delivery by a postal service provider.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'PostBox, PO Box',
   '123'
 )
@@ -96,10 +104,10 @@ export const AddressFieldMetaFloor = new FieldMeta<AddressField>(
   AddressField.Floor,
   'Floor',
   'Floor',
-  'Text',
+  TextType.name,
   'An identifiable floor of a building.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'SubPremiseNumber',
   '30'
 )
@@ -108,10 +116,10 @@ export const AddressFieldMetaRoom = new FieldMeta<AddressField>(
   AddressField.Room,
   'Room',
   'Room',
-  'Text',
+  TextType.name,
   'An identifiable room, suite, or apartment of a building.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'SubPremiseNumber',
   'Reception'
 )
@@ -120,10 +128,10 @@ export const AddressFieldMetaStreetName = new FieldMeta<AddressField>(
   AddressField.StreetName,
   'StreetName',
   'Street Name',
-  'Text',
+  TextType.name,
   'The name of the street, road, avenue, way, etc. to which the number of the building is attached.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Thoroughfare',
   'Kwun Tong Road'
 )
@@ -132,10 +140,10 @@ export const AddressFieldMetaAdditionalStreetName = new FieldMeta<AddressField>(
   AddressField.AdditionalStreetName,
   'AdditionalStreetName',
   'Additional Street Name',
-  'Text',
+  TextType.name,
   'An additional street name used to further clarify the address.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Thoroughfare',
   'Cnr Aberdeen Road'
 )
@@ -144,10 +152,10 @@ export const AddressFieldMetaBlockName = new FieldMeta<AddressField>(
   AddressField.BlockName,
   'BlockName',
   'Block Name',
-  'Text',
+  TextType.name,
   'The name of the block (an area surrounded by streets and usually containing several buildings) in which this address is located.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Seabird'
 )
@@ -156,10 +164,10 @@ export const AddressFieldMetaBuildingName = new FieldMeta<AddressField>(
   AddressField.BuildingName,
   'BuildingName',
   'Building Name',
-  'Text',
+  TextType.name,
   'The name of a building.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'BuildingName',
   'Plot 421'
 )
@@ -168,10 +176,10 @@ export const AddressFieldMetaBuildingNumber = new FieldMeta<AddressField>(
   AddressField.BuildingNumber,
   'BuildingNumber',
   'Building Number',
-  'Text',
+  TextType.name,
   'The number of a building within the street.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'PremiseNumber',
   '388'
 )
@@ -180,10 +188,10 @@ export const AddressFieldMetaDescription = new FieldMeta<AddressField>(
   AddressField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing this address for clarification or specificity',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -192,10 +200,10 @@ export const AddressFieldMetaInhouseMail = new FieldMeta<AddressField>(
   AddressField.InhouseMail,
   'InhouseMail',
   'Inhouse Mail',
-  'Text',
+  TextType.name,
   'The specific identifable location within a building where mail is delivered.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'MailStop',
   undefined
 )
@@ -204,10 +212,10 @@ export const AddressFieldMetaDepartment = new FieldMeta<AddressField>(
   AddressField.Department,
   'Department',
   'Department',
-  'Text',
+  TextType.name,
   'The department of the addressee.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Department',
   'Accounts Payable'
 )
@@ -216,10 +224,10 @@ export const AddressFieldMetaMarkAttention = new FieldMeta<AddressField>(
   AddressField.MarkAttention,
   'MarkAttention',
   'Mark Attention',
-  'Text',
+  TextType.name,
   'The name, expressed as text, of a person or department in an organization to whose attention incoming mail is directed; corresponds to the printed forms "for the attention of", "FAO", and ATTN:".',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -228,10 +236,10 @@ export const AddressFieldMetaMarkCare = new FieldMeta<AddressField>(
   AddressField.MarkCare,
   'MarkCare',
   'Mark Care',
-  'Text',
+  TextType.name,
   'The name, expressed as text, of a person or organization at this address into whose care incoming mail is entrusted; corresponds to the printed forms "care of" and "c/o".',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -240,10 +248,10 @@ export const AddressFieldMetaPlotIdentification = new FieldMeta<AddressField>(
   AddressField.PlotIdentification,
   'PlotIdentification',
   'Plot Identification',
-  'Text',
+  TextType.name,
   'An identifier (e.g., a parcel number) for the piece of land associated with this address.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -252,10 +260,10 @@ export const AddressFieldMetaCitySubdivisionName = new FieldMeta<AddressField>(
   AddressField.CitySubdivisionName,
   'CitySubdivisionName',
   'City Subdivision Name',
-  'Text',
+  TextType.name,
   'The name of the subdivision of a city, town, or village in which this address is located, such as the name of its district or borough.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -264,10 +272,10 @@ export const AddressFieldMetaCityName = new FieldMeta<AddressField>(
   AddressField.CityName,
   'CityName',
   'City Name',
-  'Text',
+  TextType.name,
   'The name of a city, town, or village.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'LocalityName',
   'Hong Kong'
 )
@@ -276,10 +284,10 @@ export const AddressFieldMetaPostalZone = new FieldMeta<AddressField>(
   AddressField.PostalZone,
   'PostalZone',
   'Postal Zone',
-  'Text',
+  TextType.name,
   'The postal identifier for this address according to the relevant national postal service, such as a ZIP code or Post Code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'PostalCodeNumber',
   'SW11 4EW 2500 GG'
 )
@@ -288,10 +296,10 @@ export const AddressFieldMetaCountrySubentity = new FieldMeta<AddressField>(
   AddressField.CountrySubentity,
   'CountrySubentity',
   'Country Subentity',
-  'Text',
+  TextType.name,
   'The political or administrative division of a country in which this address is located, such as the name of its county, province, or state, expressed as text.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'AdministrativeArea, State, Country, Shire, Canton',
   'Florida , Tamilnadu'
 )
@@ -300,10 +308,10 @@ export const AddressFieldMetaCountrySubentityCode = new FieldMeta<AddressField>(
   AddressField.CountrySubentityCode,
   'CountrySubentityCode',
   'Country Subentity Code',
-  'Code',
+  CodeType.name,
   'The political or administrative division of a country in which this address is located, such as a county, province, or state, expressed as a code (typically nationally agreed).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'AdministrativeAreaCode, State Code',
   undefined
 )
@@ -312,10 +320,10 @@ export const AddressFieldMetaRegion = new FieldMeta<AddressField>(
   AddressField.Region,
   'Region',
   'Region',
-  'Text',
+  TextType.name,
   'The recognized geographic or economic region or group of countries in which this address is located.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'LocalityName, Economic Zone',
   'European Union'
 )
@@ -324,10 +332,10 @@ export const AddressFieldMetaDistrict = new FieldMeta<AddressField>(
   AddressField.District,
   'District',
   'District',
-  'Text',
+  TextType.name,
   'The district or geographical division of a country or region in which this address is located.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'LocalityName, Area',
   'East Coast'
 )
@@ -336,10 +344,10 @@ export const AddressFieldMetaTimezoneOffset = new FieldMeta<AddressField>(
   AddressField.TimezoneOffset,
   'TimezoneOffset',
   'Timezone Offset',
-  'Text',
+  TextType.name,
   'The time zone in which this address is located (as an offset from Universal Coordinated Time (UTC)) at the time of exchange.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '+8:00 -3:00'
 )
@@ -348,10 +356,10 @@ export const AddressFieldMetaAddressLine = new FieldMeta<AddressField>(
   AddressField.AddressLine,
   'AddressLine',
   'Address Line',
-  'AddressLine',
+  AddressLineType.name,
   'An unstructured address line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -360,10 +368,10 @@ export const AddressFieldMetaCountry = new FieldMeta<AddressField>(
   AddressField.Country,
   'Country',
   'Country',
-  'Country',
+  CountryType.name,
   'The country in which this address is situated.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -372,10 +380,10 @@ export const AddressFieldMetaLocationCoordinate = new FieldMeta<AddressField>(
   AddressField.LocationCoordinate,
   'LocationCoordinate',
   'Location Coordinate',
-  'LocationCoordinate',
+  LocationCoordinateType.name,
   'The geographical coordinates of this address.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -443,3 +451,11 @@ export const AddressFieldMap = new Map([
   [AddressField.Country, AddressFieldMetaCountry],
   [AddressField.LocationCoordinate, AddressFieldMetaLocationCoordinate]
 ])
+
+export const AddressType: Type<AddressField> = {
+  name: 'Address',
+  label: 'Address',
+  module: TypeModule.cac,
+  definition: 'A class to define common information related to an address.',
+  fields: AddressFieldMap,
+}

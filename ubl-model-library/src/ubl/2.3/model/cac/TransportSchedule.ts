@@ -5,7 +5,6 @@ import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { TransportEvent } from './TransportEvent'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * Describes the location and schedule relating to a transport means.
  */

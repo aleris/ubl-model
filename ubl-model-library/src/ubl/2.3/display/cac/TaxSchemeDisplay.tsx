@@ -1,79 +1,104 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TaxScheme } from  '../../model/cac/TaxScheme'
-import { TaxSchemeFieldMeta } from  '../../meta/cac/TaxSchemeMeta'
-import AddressDisplay from './AddressDisplay'
-import { Address } from '../../model/cac/Address'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { TaxSchemeField, TaxSchemeFieldMeta, TaxSchemeTypeName } from  '../../meta/cac/TaxSchemeMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AddressDisplay } from './AddressDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: TaxScheme | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<TaxScheme, void>
+  taxScheme: TaxScheme[] | undefined
+  renderContext: RenderContext
 }
 
-export default function TaxSchemeDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const TaxSchemeSubElementsMap: SubElementsTemplatesMap<TaxSchemeField, TaxScheme, void> = new Map([
+    [
+      TaxSchemeField.UBLExtensions,
+      { meta: TaxSchemeFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={TaxSchemeField.UBLExtensions}
+          meta={TaxSchemeFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-TaxScheme">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={TaxSchemeFieldMeta.UBLExtensions}
-          />
+    [
+      TaxSchemeField.ID,
+      { meta: TaxSchemeFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TaxSchemeField.ID}
+          meta={TaxSchemeFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={TaxSchemeFieldMeta.ID}
-          />
+    [
+      TaxSchemeField.Name,
+      { meta: TaxSchemeFieldMeta.Name,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TaxSchemeField.Name}
+          meta={TaxSchemeFieldMeta.Name}
+          fieldConfig={fieldConfig}
+          text={value?.Name}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Name"
-            value={value.Name?.[0]}
-            meta={TaxSchemeFieldMeta.Name}
-          />
+    [
+      TaxSchemeField.TaxTypeCode,
+      { meta: TaxSchemeFieldMeta.TaxTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TaxSchemeField.TaxTypeCode}
+          meta={TaxSchemeFieldMeta.TaxTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.TaxTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Tax Type Code"
-            value={value.TaxTypeCode?.[0]}
-            meta={TaxSchemeFieldMeta.TaxTypeCode}
-          />
+    [
+      TaxSchemeField.CurrencyCode,
+      { meta: TaxSchemeFieldMeta.CurrencyCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TaxSchemeField.CurrencyCode}
+          meta={TaxSchemeFieldMeta.CurrencyCode}
+          fieldConfig={fieldConfig}
+          code={value?.CurrencyCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Currency Code"
-            value={value.CurrencyCode?.[0]}
-            meta={TaxSchemeFieldMeta.CurrencyCode}
-          />
+    [
+      TaxSchemeField.JurisdictionRegionAddress,
+      { meta: TaxSchemeFieldMeta.JurisdictionRegionAddress,
+        template: ({value, renderContext, fieldConfig}) => <AddressDisplay
+          key={TaxSchemeField.JurisdictionRegionAddress}
+          meta={TaxSchemeFieldMeta.JurisdictionRegionAddress}
+          fieldConfig={fieldConfig}
+          address={value?.JurisdictionRegionAddress}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Address ubl-JurisdictionRegionAddress"
-            label="Jurisdiction Region Address"
-            items={value.JurisdictionRegionAddress}
-            meta={TaxSchemeFieldMeta.JurisdictionRegionAddress} 
-            itemDisplay={ (itemValue: Address, key: string | number) =>
-              <AddressDisplay
-                key={key}
-                label="Jurisdiction Region Address"
-                value={itemValue}
-                meta={TaxSchemeFieldMeta.JurisdictionRegionAddress}
-              />
-            }
-          />
-        </div>
-    </div>
+export function TaxSchemeDisplay<TFieldMeta>({ meta, fieldConfig, taxScheme, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    TaxSchemeTypeName,
+    meta,
+    fieldConfig,
+    taxScheme,
+    renderContext,
+    TaxSchemeSubElementsMap,
   )
 }

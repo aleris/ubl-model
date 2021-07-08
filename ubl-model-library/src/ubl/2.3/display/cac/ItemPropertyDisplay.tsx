@@ -1,176 +1,229 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ItemProperty } from  '../../model/cac/ItemProperty'
-import { ItemPropertyFieldMeta } from  '../../meta/cac/ItemPropertyMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DimensionDisplay from './DimensionDisplay'
-import { Dimension } from '../../model/cac/Dimension'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import ItemPropertyGroupDisplay from './ItemPropertyGroupDisplay'
-import { ItemPropertyGroup } from '../../model/cac/ItemPropertyGroup'
-import ItemPropertyRangeDisplay from './ItemPropertyRangeDisplay'
-import { ItemPropertyRange } from '../../model/cac/ItemPropertyRange'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import PropertyIdentificationDisplay from './PropertyIdentificationDisplay'
-import { PropertyIdentification } from '../../model/cac/PropertyIdentification'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ItemPropertyField, ItemPropertyFieldMeta, ItemPropertyTypeName } from  '../../meta/cac/ItemPropertyMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DimensionDisplay } from './DimensionDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { ItemPropertyGroupDisplay } from './ItemPropertyGroupDisplay'
+import { ItemPropertyRangeDisplay } from './ItemPropertyRangeDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { PropertyIdentificationDisplay } from './PropertyIdentificationDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ItemProperty | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ItemProperty, void>
+  itemProperty: ItemProperty[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ItemPropertyDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ItemPropertySubElementsMap: SubElementsTemplatesMap<ItemPropertyField, ItemProperty, void> = new Map([
+    [
+      ItemPropertyField.UBLExtensions,
+      { meta: ItemPropertyFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ItemPropertyField.UBLExtensions}
+          meta={ItemPropertyFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ItemProperty">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ItemPropertyFieldMeta.UBLExtensions}
-          />
+    [
+      ItemPropertyField.ID,
+      { meta: ItemPropertyFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ItemPropertyField.ID}
+          meta={ItemPropertyFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={ItemPropertyFieldMeta.ID}
-          />
+    [
+      ItemPropertyField.Name,
+      { meta: ItemPropertyFieldMeta.Name,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ItemPropertyField.Name}
+          meta={ItemPropertyFieldMeta.Name}
+          fieldConfig={fieldConfig}
+          text={value?.Name}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Name"
-            value={value.Name?.[0]}
-            meta={ItemPropertyFieldMeta.Name}
-          />
+    [
+      ItemPropertyField.NameCode,
+      { meta: ItemPropertyFieldMeta.NameCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ItemPropertyField.NameCode}
+          meta={ItemPropertyFieldMeta.NameCode}
+          fieldConfig={fieldConfig}
+          code={value?.NameCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Name Code"
-            value={value.NameCode?.[0]}
-            meta={ItemPropertyFieldMeta.NameCode}
-          />
+    [
+      ItemPropertyField.TestMethod,
+      { meta: ItemPropertyFieldMeta.TestMethod,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ItemPropertyField.TestMethod}
+          meta={ItemPropertyFieldMeta.TestMethod}
+          fieldConfig={fieldConfig}
+          text={value?.TestMethod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Test Method"
-            value={value.TestMethod?.[0]}
-            meta={ItemPropertyFieldMeta.TestMethod}
-          />
+    [
+      ItemPropertyField.Value,
+      { meta: ItemPropertyFieldMeta.Value,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ItemPropertyField.Value}
+          meta={ItemPropertyFieldMeta.Value}
+          fieldConfig={fieldConfig}
+          text={value?.Value}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Value"
-            value={value.Value?.[0]}
-            meta={ItemPropertyFieldMeta.Value}
-          />
+    [
+      ItemPropertyField.ValueQuantity,
+      { meta: ItemPropertyFieldMeta.ValueQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={ItemPropertyField.ValueQuantity}
+          meta={ItemPropertyFieldMeta.ValueQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.ValueQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Value Quantity"
-            value={value.ValueQuantity?.[0]}
-            meta={ItemPropertyFieldMeta.ValueQuantity}
-          />
+    [
+      ItemPropertyField.ValueQualifier,
+      { meta: ItemPropertyFieldMeta.ValueQualifier,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ItemPropertyField.ValueQualifier}
+          meta={ItemPropertyFieldMeta.ValueQualifier}
+          fieldConfig={fieldConfig}
+          text={value?.ValueQualifier}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-ValueQualifier"
-            label="Value Qualifier"
-            items={value.ValueQualifier}
-            meta={ItemPropertyFieldMeta.ValueQualifier} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Value Qualifier"
-                value={itemValue}
-                meta={ItemPropertyFieldMeta.ValueQualifier}
-              />
-            }
-          />
+    [
+      ItemPropertyField.ImportanceCode,
+      { meta: ItemPropertyFieldMeta.ImportanceCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ItemPropertyField.ImportanceCode}
+          meta={ItemPropertyFieldMeta.ImportanceCode}
+          fieldConfig={fieldConfig}
+          code={value?.ImportanceCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Importance Code"
-            value={value.ImportanceCode?.[0]}
-            meta={ItemPropertyFieldMeta.ImportanceCode}
-          />
+    [
+      ItemPropertyField.ListValue,
+      { meta: ItemPropertyFieldMeta.ListValue,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ItemPropertyField.ListValue}
+          meta={ItemPropertyFieldMeta.ListValue}
+          fieldConfig={fieldConfig}
+          text={value?.ListValue}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-ListValue"
-            label="List Value"
-            items={value.ListValue}
-            meta={ItemPropertyFieldMeta.ListValue} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="List Value"
-                value={itemValue}
-                meta={ItemPropertyFieldMeta.ListValue}
-              />
-            }
-          />
+    [
+      ItemPropertyField.UsabilityPeriod,
+      { meta: ItemPropertyFieldMeta.UsabilityPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={ItemPropertyField.UsabilityPeriod}
+          meta={ItemPropertyFieldMeta.UsabilityPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.UsabilityPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Usability Period"
-            value={value.UsabilityPeriod?.[0]}
-            meta={ItemPropertyFieldMeta.UsabilityPeriod}
-          />
+    [
+      ItemPropertyField.ItemPropertyGroup,
+      { meta: ItemPropertyFieldMeta.ItemPropertyGroup,
+        template: ({value, renderContext, fieldConfig}) => <ItemPropertyGroupDisplay
+          key={ItemPropertyField.ItemPropertyGroup}
+          meta={ItemPropertyFieldMeta.ItemPropertyGroup}
+          fieldConfig={fieldConfig}
+          itemPropertyGroup={value?.ItemPropertyGroup}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-ItemPropertyGroup"
-            label="Item Property Group"
-            items={value.ItemPropertyGroup}
-            meta={ItemPropertyFieldMeta.ItemPropertyGroup} 
-            itemDisplay={ (itemValue: ItemPropertyGroup, key: string | number) =>
-              <ItemPropertyGroupDisplay
-                key={key}
-                label="Item Property Group"
-                value={itemValue}
-                meta={ItemPropertyFieldMeta.ItemPropertyGroup}
-              />
-            }
-          />
+    [
+      ItemPropertyField.RangeDimension,
+      { meta: ItemPropertyFieldMeta.RangeDimension,
+        template: ({value, renderContext, fieldConfig}) => <DimensionDisplay
+          key={ItemPropertyField.RangeDimension}
+          meta={ItemPropertyFieldMeta.RangeDimension}
+          fieldConfig={fieldConfig}
+          dimension={value?.RangeDimension}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DimensionDisplay
-            label="Range Dimension"
-            value={value.RangeDimension?.[0]}
-            meta={ItemPropertyFieldMeta.RangeDimension}
-          />
+    [
+      ItemPropertyField.ItemPropertyRange,
+      { meta: ItemPropertyFieldMeta.ItemPropertyRange,
+        template: ({value, renderContext, fieldConfig}) => <ItemPropertyRangeDisplay
+          key={ItemPropertyField.ItemPropertyRange}
+          meta={ItemPropertyFieldMeta.ItemPropertyRange}
+          fieldConfig={fieldConfig}
+          itemPropertyRange={value?.ItemPropertyRange}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ItemPropertyRangeDisplay
-            label="Item Property Range"
-            value={value.ItemPropertyRange?.[0]}
-            meta={ItemPropertyFieldMeta.ItemPropertyRange}
-          />
+    [
+      ItemPropertyField.StandardPropertyIdentification,
+      { meta: ItemPropertyFieldMeta.StandardPropertyIdentification,
+        template: ({value, renderContext, fieldConfig}) => <PropertyIdentificationDisplay
+          key={ItemPropertyField.StandardPropertyIdentification}
+          meta={ItemPropertyFieldMeta.StandardPropertyIdentification}
+          fieldConfig={fieldConfig}
+          propertyIdentification={value?.StandardPropertyIdentification}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PropertyIdentificationDisplay
-            label="Standard Property Identification"
-            value={value.StandardPropertyIdentification?.[0]}
-            meta={ItemPropertyFieldMeta.StandardPropertyIdentification}
-          />
+    [
+      ItemPropertyField.SubItemProperty,
+      { meta: ItemPropertyFieldMeta.SubItemProperty,
+        template: ({value, renderContext, fieldConfig}) => <ItemPropertyDisplay
+          key={ItemPropertyField.SubItemProperty}
+          meta={ItemPropertyFieldMeta.SubItemProperty}
+          fieldConfig={fieldConfig}
+          itemProperty={value?.SubItemProperty}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-ItemProperty ubl-SubItemProperty"
-            label="Sub Item Property"
-            items={value.SubItemProperty}
-            meta={ItemPropertyFieldMeta.SubItemProperty} 
-            itemDisplay={ (itemValue: ItemProperty, key: string | number) =>
-              <ItemPropertyDisplay
-                key={key}
-                label="Sub Item Property"
-                value={itemValue}
-                meta={ItemPropertyFieldMeta.SubItemProperty}
-              />
-            }
-          />
-        </div>
-    </div>
+export function ItemPropertyDisplay<TFieldMeta>({ meta, fieldConfig, itemProperty, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ItemPropertyTypeName,
+    meta,
+    fieldConfig,
+    itemProperty,
+    renderContext,
+    ItemPropertySubElementsMap,
   )
 }

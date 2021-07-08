@@ -1,4 +1,21 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { ContractingPartyType } from '../cac/ContractingPartyMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { EconomicOperatorPartyType } from '../cac/EconomicOperatorPartyMeta'
+import { EvidenceType } from '../cac/EvidenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { ProcurementProjectType } from '../cac/ProcurementProjectMeta'
+import { ProcurementProjectLotType } from '../cac/ProcurementProjectLotMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { TenderingCriterionType } from '../cac/TenderingCriterionMeta'
+import { TenderingCriterionResponseType } from '../cac/TenderingCriterionResponseMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum QualificationApplicationResponseField {
   UBLExtensions = 'UBLExtensions',
@@ -35,11 +52,11 @@ export enum QualificationApplicationResponseField {
 export const QualificationApplicationResponseFieldMetaUBLExtensions = new FieldMeta<QualificationApplicationResponseField>(
   QualificationApplicationResponseField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -48,10 +65,10 @@ export const QualificationApplicationResponseFieldMetaUBLVersionID = new FieldMe
   QualificationApplicationResponseField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.0.5'
 )
@@ -60,10 +77,10 @@ export const QualificationApplicationResponseFieldMetaCustomizationID = new Fiel
   QualificationApplicationResponseField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -72,10 +89,10 @@ export const QualificationApplicationResponseFieldMetaProfileID = new FieldMeta<
   QualificationApplicationResponseField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BasicProcurementProcess'
 )
@@ -84,10 +101,10 @@ export const QualificationApplicationResponseFieldMetaProfileExecutionID = new F
   QualificationApplicationResponseField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BPP-1001'
 )
@@ -96,10 +113,10 @@ export const QualificationApplicationResponseFieldMetaID = new FieldMeta<Qualifi
   QualificationApplicationResponseField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -108,10 +125,10 @@ export const QualificationApplicationResponseFieldMetaCopyIndicator = new FieldM
   QualificationApplicationResponseField.CopyIndicator,
   'CopyIndicator',
   'Copy Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this document is a copy (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -120,10 +137,10 @@ export const QualificationApplicationResponseFieldMetaUUID = new FieldMeta<Quali
   QualificationApplicationResponseField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -132,10 +149,10 @@ export const QualificationApplicationResponseFieldMetaContractFolderID = new Fie
   QualificationApplicationResponseField.ContractFolderID,
   'ContractFolderID',
   'Contract Folder Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier, assigned by the sender, for the process file (i.e., record) to which this document belongs.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -144,10 +161,10 @@ export const QualificationApplicationResponseFieldMetaContractName = new FieldMe
   QualificationApplicationResponseField.ContractName,
   'ContractName',
   'Contract Name',
-  'Text',
+  TextType.name,
   'Short title of a contract associated with this Tender.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -156,10 +173,10 @@ export const QualificationApplicationResponseFieldMetaIssueDate = new FieldMeta<
   QualificationApplicationResponseField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -168,10 +185,10 @@ export const QualificationApplicationResponseFieldMetaIssueTime = new FieldMeta<
   QualificationApplicationResponseField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -180,10 +197,10 @@ export const QualificationApplicationResponseFieldMetaEconomicOperatorGroupName 
   QualificationApplicationResponseField.EconomicOperatorGroupName,
   'EconomicOperatorGroupName',
   'Economic Operator Group Name',
-  'Text',
+  TextType.name,
   'Economic Operator Group Name associated with this Qualification.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -192,10 +209,10 @@ export const QualificationApplicationResponseFieldMetaVersionID = new FieldMeta<
   QualificationApplicationResponseField.VersionID,
   'VersionID',
   'Version',
-  'Identifier',
+  IdentifierType.name,
   'Indicates the current version of the Qualification Application Response.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '1.1'
 )
@@ -204,10 +221,10 @@ export const QualificationApplicationResponseFieldMetaPreviousVersionID = new Fi
   QualificationApplicationResponseField.PreviousVersionID,
   'PreviousVersionID',
   'Previous Version',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the previous version of the Qualification Application Response which is superceded by this version.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '1.0'
 )
@@ -216,10 +233,10 @@ export const QualificationApplicationResponseFieldMetaProcedureCode = new FieldM
   QualificationApplicationResponseField.ProcedureCode,
   'ProcedureCode',
   'Procedure Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of this tendering procedure.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Open, Restricted, Negotiated'
 )
@@ -228,10 +245,10 @@ export const QualificationApplicationResponseFieldMetaQualificationApplicationTy
   QualificationApplicationResponseField.QualificationApplicationTypeCode,
   'QualificationApplicationTypeCode',
   'Qualification Application Type Code',
-  'Code',
+  CodeType.name,
   'A code specifying the type of the Qualification Application.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '"Regulated", "Self-contained"'
 )
@@ -240,10 +257,10 @@ export const QualificationApplicationResponseFieldMetaWeightScoringMethodologyNo
   QualificationApplicationResponseField.WeightScoringMethodologyNote,
   'WeightScoringMethodologyNote',
   'Weight Scoring Methodology Note',
-  'Text',
+  TextType.name,
   'Free-form text to describe Weight Scoring Methodology.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -252,10 +269,10 @@ export const QualificationApplicationResponseFieldMetaWeightingTypeCode = new Fi
   QualificationApplicationResponseField.WeightingTypeCode,
   'WeightingTypeCode',
   'Weighting Type Code',
-  'Code',
+  CodeType.name,
   'A code specifying the Weighting type',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '"Regulated", "Self-contained"'
 )
@@ -264,10 +281,10 @@ export const QualificationApplicationResponseFieldMetaNote = new FieldMeta<Quali
   QualificationApplicationResponseField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -276,10 +293,10 @@ export const QualificationApplicationResponseFieldMetaContractingParty = new Fie
   QualificationApplicationResponseField.ContractingParty,
   'ContractingParty',
   'Contracting Party',
-  'ContractingParty',
+  ContractingPartyType.name,
   'The contracting party.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -288,10 +305,10 @@ export const QualificationApplicationResponseFieldMetaEconomicOperatorParty = ne
   QualificationApplicationResponseField.EconomicOperatorParty,
   'EconomicOperatorParty',
   'Economic Operator Party',
-  'EconomicOperatorParty',
+  EconomicOperatorPartyType.name,
   'The Economic Operator issuing the Qualification Application Response.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -300,10 +317,10 @@ export const QualificationApplicationResponseFieldMetaProcurementProject = new F
   QualificationApplicationResponseField.ProcurementProject,
   'ProcurementProject',
   'Procurement Project',
-  'ProcurementProject',
+  ProcurementProjectType.name,
   'An overall definition of this procurement project.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -312,10 +329,10 @@ export const QualificationApplicationResponseFieldMetaProcurementProjectLot = ne
   QualificationApplicationResponseField.ProcurementProjectLot,
   'ProcurementProjectLot',
   'Procurement Project Lot',
-  'ProcurementProjectLot',
+  ProcurementProjectLotType.name,
   'One of the procurement project lots into which this contract can be split.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -324,10 +341,10 @@ export const QualificationApplicationResponseFieldMetaTenderingCriterion = new F
   QualificationApplicationResponseField.TenderingCriterion,
   'TenderingCriterion',
   'Tendering Criterion',
-  'TenderingCriterion',
+  TenderingCriterionType.name,
   'The criterion as described in the Qualification Application Request.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -336,10 +353,10 @@ export const QualificationApplicationResponseFieldMetaTenderingCriterionResponse
   QualificationApplicationResponseField.TenderingCriterionResponse,
   'TenderingCriterionResponse',
   'Tendering Criterion Response',
-  'TenderingCriterionResponse',
+  TenderingCriterionResponseType.name,
   'Each criterion requirement response.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -348,10 +365,10 @@ export const QualificationApplicationResponseFieldMetaAdditionalDocumentReferenc
   QualificationApplicationResponseField.AdditionalDocumentReference,
   'AdditionalDocumentReference',
   'Additional Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to an additional document associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -360,10 +377,10 @@ export const QualificationApplicationResponseFieldMetaEvidence = new FieldMeta<Q
   QualificationApplicationResponseField.Evidence,
   'Evidence',
   'Evidence',
-  'Evidence',
+  EvidenceType.name,
   'The evidence supporting this criterion requirement response.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -372,10 +389,10 @@ export const QualificationApplicationResponseFieldMetaSignature = new FieldMeta<
   QualificationApplicationResponseField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -443,3 +460,11 @@ export const QualificationApplicationResponseFieldMap = new Map([
   [QualificationApplicationResponseField.Evidence, QualificationApplicationResponseFieldMetaEvidence],
   [QualificationApplicationResponseField.Signature, QualificationApplicationResponseFieldMetaSignature]
 ])
+
+export const QualificationApplicationResponseType: Type<QualificationApplicationResponseField> = {
+  name: 'QualificationApplicationResponse',
+  label: 'Qualification Application Response',
+  module: TypeModule.doc,
+  definition: 'A document issued by a procurement organization to notify an economic operator whether it has been admitted to or excluded from the tendering process.',
+  fields: QualificationApplicationResponseFieldMap,
+}

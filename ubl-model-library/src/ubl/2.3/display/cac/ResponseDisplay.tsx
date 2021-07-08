@@ -1,98 +1,118 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Response } from  '../../model/cac/Response'
-import { ResponseFieldMeta } from  '../../meta/cac/ResponseMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import StatusDisplay from './StatusDisplay'
-import { Status } from '../../model/cac/Status'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ResponseField, ResponseFieldMeta, ResponseTypeName } from  '../../meta/cac/ResponseMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { StatusDisplay } from './StatusDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: Response | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<Response, void>
+  response: Response[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ResponseDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ResponseSubElementsMap: SubElementsTemplatesMap<ResponseField, Response, void> = new Map([
+    [
+      ResponseField.UBLExtensions,
+      { meta: ResponseFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ResponseField.UBLExtensions}
+          meta={ResponseFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-Response">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ResponseFieldMeta.UBLExtensions}
-          />
+    [
+      ResponseField.ReferenceID,
+      { meta: ResponseFieldMeta.ReferenceID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ResponseField.ReferenceID}
+          meta={ResponseFieldMeta.ReferenceID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ReferenceID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Reference"
-            value={value.ReferenceID?.[0]}
-            meta={ResponseFieldMeta.ReferenceID}
-          />
+    [
+      ResponseField.ResponseCode,
+      { meta: ResponseFieldMeta.ResponseCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ResponseField.ResponseCode}
+          meta={ResponseFieldMeta.ResponseCode}
+          fieldConfig={fieldConfig}
+          code={value?.ResponseCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Response Code"
-            value={value.ResponseCode?.[0]}
-            meta={ResponseFieldMeta.ResponseCode}
-          />
+    [
+      ResponseField.Description,
+      { meta: ResponseFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ResponseField.Description}
+          meta={ResponseFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={ResponseFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={ResponseFieldMeta.Description}
-              />
-            }
-          />
+    [
+      ResponseField.EffectiveDate,
+      { meta: ResponseFieldMeta.EffectiveDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={ResponseField.EffectiveDate}
+          meta={ResponseFieldMeta.EffectiveDate}
+          fieldConfig={fieldConfig}
+          date={value?.EffectiveDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Effective Date"
-            value={value.EffectiveDate?.[0]}
-            meta={ResponseFieldMeta.EffectiveDate}
-          />
+    [
+      ResponseField.EffectiveTime,
+      { meta: ResponseFieldMeta.EffectiveTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={ResponseField.EffectiveTime}
+          meta={ResponseFieldMeta.EffectiveTime}
+          fieldConfig={fieldConfig}
+          time={value?.EffectiveTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Effective Time"
-            value={value.EffectiveTime?.[0]}
-            meta={ResponseFieldMeta.EffectiveTime}
-          />
+    [
+      ResponseField.Status,
+      { meta: ResponseFieldMeta.Status,
+        template: ({value, renderContext, fieldConfig}) => <StatusDisplay
+          key={ResponseField.Status}
+          meta={ResponseFieldMeta.Status}
+          fieldConfig={fieldConfig}
+          status={value?.Status}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Status"
-            label="Status"
-            items={value.Status}
-            meta={ResponseFieldMeta.Status} 
-            itemDisplay={ (itemValue: Status, key: string | number) =>
-              <StatusDisplay
-                key={key}
-                label="Status"
-                value={itemValue}
-                meta={ResponseFieldMeta.Status}
-              />
-            }
-          />
-        </div>
-    </div>
+export function ResponseDisplay<TFieldMeta>({ meta, fieldConfig, response, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ResponseTypeName,
+    meta,
+    fieldConfig,
+    response,
+    renderContext,
+    ResponseSubElementsMap,
   )
 }

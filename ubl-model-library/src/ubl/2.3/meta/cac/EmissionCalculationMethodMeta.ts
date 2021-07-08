@@ -1,4 +1,8 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { LocationType } from './LocationMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum EmissionCalculationMethodField {
   UBLExtensions = 'UBLExtensions',
@@ -11,11 +15,11 @@ export enum EmissionCalculationMethodField {
 export const EmissionCalculationMethodFieldMetaUBLExtensions = new FieldMeta<EmissionCalculationMethodField>(
   EmissionCalculationMethodField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -24,10 +28,10 @@ export const EmissionCalculationMethodFieldMetaCalculationMethodCode = new Field
   EmissionCalculationMethodField.CalculationMethodCode,
   'CalculationMethodCode',
   'Calculation Method Code',
-  'Code',
+  CodeType.name,
   'A code signifying the method used to calculate the emission.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -36,10 +40,10 @@ export const EmissionCalculationMethodFieldMetaFullnessIndicationCode = new Fiel
   EmissionCalculationMethodField.FullnessIndicationCode,
   'FullnessIndicationCode',
   'Fullness Indication Code',
-  'Code',
+  CodeType.name,
   'A code signifying whether a piece of transport equipment is full, partially full, or empty. This indication is used as a parameter when calculating the environmental emission.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -48,10 +52,10 @@ export const EmissionCalculationMethodFieldMetaMeasurementFromLocation = new Fie
   EmissionCalculationMethodField.MeasurementFromLocation,
   'MeasurementFromLocation',
   'Measurement From Location',
-  'Location',
+  LocationType.name,
   'A start location from which an environmental emission is calculated.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -60,10 +64,10 @@ export const EmissionCalculationMethodFieldMetaMeasurementToLocation = new Field
   EmissionCalculationMethodField.MeasurementToLocation,
   'MeasurementToLocation',
   'Measurement To Location',
-  'Location',
+  LocationType.name,
   'An end location to which an environmental emission is calculated.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -83,3 +87,11 @@ export const EmissionCalculationMethodFieldMap = new Map([
   [EmissionCalculationMethodField.MeasurementFromLocation, EmissionCalculationMethodFieldMetaMeasurementFromLocation],
   [EmissionCalculationMethodField.MeasurementToLocation, EmissionCalculationMethodFieldMetaMeasurementToLocation]
 ])
+
+export const EmissionCalculationMethodType: Type<EmissionCalculationMethodField> = {
+  name: 'EmissionCalculationMethod',
+  label: 'Emission Calculation Method',
+  module: TypeModule.cac,
+  definition: 'A class to define how an environmental emission is calculated.',
+  fields: EmissionCalculationMethodFieldMap,
+}

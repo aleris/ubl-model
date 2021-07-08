@@ -1,7 +1,6 @@
 import { Amount } from '../cbc/Amount'
 import { Quantity } from '../cbc/Quantity'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to provide information about price and quantity of an item for use in price comparisons based on price,
  * quantity, or measurements.

@@ -1,6 +1,5 @@
 import { Code } from '../cbc/Code'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to define a set of codes that describes a retail tactic.
  */

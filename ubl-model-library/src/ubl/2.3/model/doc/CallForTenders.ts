@@ -13,7 +13,6 @@ import { TenderingTerms } from '../cac/TenderingTerms'
 import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A document used by a Contracting Party to define a procurement project to buy goods, services, or works during a
  * specified period.

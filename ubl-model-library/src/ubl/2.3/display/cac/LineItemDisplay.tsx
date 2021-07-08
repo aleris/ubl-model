@@ -1,338 +1,454 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { LineItem } from  '../../model/cac/LineItem'
-import { LineItemFieldMeta } from  '../../meta/cac/LineItemMeta'
-import AllowanceChargeDisplay from './AllowanceChargeDisplay'
-import { AllowanceCharge } from '../../model/cac/AllowanceCharge'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DeliveryDisplay from './DeliveryDisplay'
-import { Delivery } from '../../model/cac/Delivery'
-import DeliveryTermsDisplay from './DeliveryTermsDisplay'
-import { DeliveryTerms } from '../../model/cac/DeliveryTerms'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import ItemDisplay from './ItemDisplay'
-import { Item } from '../../model/cac/Item'
-import LineReferenceDisplay from './LineReferenceDisplay'
-import { LineReference } from '../../model/cac/LineReference'
-import OrderedShipmentDisplay from './OrderedShipmentDisplay'
-import { OrderedShipment } from '../../model/cac/OrderedShipment'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import PriceDisplay from './PriceDisplay'
-import { Price } from '../../model/cac/Price'
-import PriceExtensionDisplay from './PriceExtensionDisplay'
-import { PriceExtension } from '../../model/cac/PriceExtension'
-import PricingReferenceDisplay from './PricingReferenceDisplay'
-import { PricingReference } from '../../model/cac/PricingReference'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import TaxTotalDisplay from './TaxTotalDisplay'
-import { TaxTotal } from '../../model/cac/TaxTotal'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { LineItemField, LineItemFieldMeta, LineItemTypeName } from  '../../meta/cac/LineItemMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AllowanceChargeDisplay } from './AllowanceChargeDisplay'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DeliveryDisplay } from './DeliveryDisplay'
+import { DeliveryTermsDisplay } from './DeliveryTermsDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { ItemDisplay } from './ItemDisplay'
+import { LineReferenceDisplay } from './LineReferenceDisplay'
+import { OrderedShipmentDisplay } from './OrderedShipmentDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { PriceDisplay } from './PriceDisplay'
+import { PriceExtensionDisplay } from './PriceExtensionDisplay'
+import { PricingReferenceDisplay } from './PricingReferenceDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { TaxTotalDisplay } from './TaxTotalDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: LineItem | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<LineItem, void>
+  lineItem: LineItem[] | undefined
+  renderContext: RenderContext
 }
 
-export default function LineItemDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const LineItemSubElementsMap: SubElementsTemplatesMap<LineItemField, LineItem, void> = new Map([
+    [
+      LineItemField.UBLExtensions,
+      { meta: LineItemFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={LineItemField.UBLExtensions}
+          meta={LineItemFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-LineItem">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={LineItemFieldMeta.UBLExtensions}
-          />
+    [
+      LineItemField.ID,
+      { meta: LineItemFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={LineItemField.ID}
+          meta={LineItemFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={LineItemFieldMeta.ID}
-          />
+    [
+      LineItemField.SalesOrderID,
+      { meta: LineItemFieldMeta.SalesOrderID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={LineItemField.SalesOrderID}
+          meta={LineItemFieldMeta.SalesOrderID}
+          fieldConfig={fieldConfig}
+          identifier={value?.SalesOrderID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Sales Order Identifier"
-            value={value.SalesOrderID?.[0]}
-            meta={LineItemFieldMeta.SalesOrderID}
-          />
+    [
+      LineItemField.UUID,
+      { meta: LineItemFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={LineItemField.UUID}
+          meta={LineItemFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={LineItemFieldMeta.UUID}
-          />
+    [
+      LineItemField.Note,
+      { meta: LineItemFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={LineItemField.Note}
+          meta={LineItemFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={LineItemFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={LineItemFieldMeta.Note}
-              />
-            }
-          />
+    [
+      LineItemField.LineStatusCode,
+      { meta: LineItemFieldMeta.LineStatusCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={LineItemField.LineStatusCode}
+          meta={LineItemFieldMeta.LineStatusCode}
+          fieldConfig={fieldConfig}
+          code={value?.LineStatusCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Line Status Code"
-            value={value.LineStatusCode?.[0]}
-            meta={LineItemFieldMeta.LineStatusCode}
-          />
+    [
+      LineItemField.Quantity,
+      { meta: LineItemFieldMeta.Quantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={LineItemField.Quantity}
+          meta={LineItemFieldMeta.Quantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.Quantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Quantity"
-            value={value.Quantity?.[0]}
-            meta={LineItemFieldMeta.Quantity}
-          />
+    [
+      LineItemField.LineExtensionAmount,
+      { meta: LineItemFieldMeta.LineExtensionAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={LineItemField.LineExtensionAmount}
+          meta={LineItemFieldMeta.LineExtensionAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.LineExtensionAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Line Extension Amount"
-            value={value.LineExtensionAmount?.[0]}
-            meta={LineItemFieldMeta.LineExtensionAmount}
-          />
+    [
+      LineItemField.TaxInclusiveLineExtensionAmount,
+      { meta: LineItemFieldMeta.TaxInclusiveLineExtensionAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={LineItemField.TaxInclusiveLineExtensionAmount}
+          meta={LineItemFieldMeta.TaxInclusiveLineExtensionAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.TaxInclusiveLineExtensionAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Tax Inclusive Line Extension Amount"
-            value={value.TaxInclusiveLineExtensionAmount?.[0]}
-            meta={LineItemFieldMeta.TaxInclusiveLineExtensionAmount}
-          />
+    [
+      LineItemField.TotalTaxAmount,
+      { meta: LineItemFieldMeta.TotalTaxAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={LineItemField.TotalTaxAmount}
+          meta={LineItemFieldMeta.TotalTaxAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.TotalTaxAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Total Tax Amount"
-            value={value.TotalTaxAmount?.[0]}
-            meta={LineItemFieldMeta.TotalTaxAmount}
-          />
+    [
+      LineItemField.MinimumQuantity,
+      { meta: LineItemFieldMeta.MinimumQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={LineItemField.MinimumQuantity}
+          meta={LineItemFieldMeta.MinimumQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.MinimumQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Minimum Quantity"
-            value={value.MinimumQuantity?.[0]}
-            meta={LineItemFieldMeta.MinimumQuantity}
-          />
+    [
+      LineItemField.MaximumQuantity,
+      { meta: LineItemFieldMeta.MaximumQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={LineItemField.MaximumQuantity}
+          meta={LineItemFieldMeta.MaximumQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.MaximumQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Maximum Quantity"
-            value={value.MaximumQuantity?.[0]}
-            meta={LineItemFieldMeta.MaximumQuantity}
-          />
+    [
+      LineItemField.MinimumBackorderQuantity,
+      { meta: LineItemFieldMeta.MinimumBackorderQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={LineItemField.MinimumBackorderQuantity}
+          meta={LineItemFieldMeta.MinimumBackorderQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.MinimumBackorderQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Minimum Backorder"
-            value={value.MinimumBackorderQuantity?.[0]}
-            meta={LineItemFieldMeta.MinimumBackorderQuantity}
-          />
+    [
+      LineItemField.MaximumBackorderQuantity,
+      { meta: LineItemFieldMeta.MaximumBackorderQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={LineItemField.MaximumBackorderQuantity}
+          meta={LineItemFieldMeta.MaximumBackorderQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.MaximumBackorderQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Maximum Backorder"
-            value={value.MaximumBackorderQuantity?.[0]}
-            meta={LineItemFieldMeta.MaximumBackorderQuantity}
-          />
+    [
+      LineItemField.InspectionMethodCode,
+      { meta: LineItemFieldMeta.InspectionMethodCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={LineItemField.InspectionMethodCode}
+          meta={LineItemFieldMeta.InspectionMethodCode}
+          fieldConfig={fieldConfig}
+          code={value?.InspectionMethodCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Inspection Method Code"
-            value={value.InspectionMethodCode?.[0]}
-            meta={LineItemFieldMeta.InspectionMethodCode}
-          />
+    [
+      LineItemField.PartialDeliveryIndicator,
+      { meta: LineItemFieldMeta.PartialDeliveryIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={LineItemField.PartialDeliveryIndicator}
+          meta={LineItemFieldMeta.PartialDeliveryIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.PartialDeliveryIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Partial Delivery Indicator"
-            value={value.PartialDeliveryIndicator?.[0]}
-            meta={LineItemFieldMeta.PartialDeliveryIndicator}
-          />
+    [
+      LineItemField.BackOrderAllowedIndicator,
+      { meta: LineItemFieldMeta.BackOrderAllowedIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={LineItemField.BackOrderAllowedIndicator}
+          meta={LineItemFieldMeta.BackOrderAllowedIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.BackOrderAllowedIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Back Order Allowed Indicator"
-            value={value.BackOrderAllowedIndicator?.[0]}
-            meta={LineItemFieldMeta.BackOrderAllowedIndicator}
-          />
+    [
+      LineItemField.AccountingCostCode,
+      { meta: LineItemFieldMeta.AccountingCostCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={LineItemField.AccountingCostCode}
+          meta={LineItemFieldMeta.AccountingCostCode}
+          fieldConfig={fieldConfig}
+          code={value?.AccountingCostCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Accounting Cost Code"
-            value={value.AccountingCostCode?.[0]}
-            meta={LineItemFieldMeta.AccountingCostCode}
-          />
+    [
+      LineItemField.AccountingCost,
+      { meta: LineItemFieldMeta.AccountingCost,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={LineItemField.AccountingCost}
+          meta={LineItemFieldMeta.AccountingCost}
+          fieldConfig={fieldConfig}
+          text={value?.AccountingCost}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Accounting Cost"
-            value={value.AccountingCost?.[0]}
-            meta={LineItemFieldMeta.AccountingCost}
-          />
+    [
+      LineItemField.WarrantyInformation,
+      { meta: LineItemFieldMeta.WarrantyInformation,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={LineItemField.WarrantyInformation}
+          meta={LineItemFieldMeta.WarrantyInformation}
+          fieldConfig={fieldConfig}
+          text={value?.WarrantyInformation}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-WarrantyInformation"
-            label="Warranty Information"
-            items={value.WarrantyInformation}
-            meta={LineItemFieldMeta.WarrantyInformation} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Warranty Information"
-                value={itemValue}
-                meta={LineItemFieldMeta.WarrantyInformation}
-              />
-            }
-          />
+    [
+      LineItemField.Delivery,
+      { meta: LineItemFieldMeta.Delivery,
+        template: ({value, renderContext, fieldConfig}) => <DeliveryDisplay
+          key={LineItemField.Delivery}
+          meta={LineItemFieldMeta.Delivery}
+          fieldConfig={fieldConfig}
+          delivery={value?.Delivery}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Delivery"
-            label="Delivery"
-            items={value.Delivery}
-            meta={LineItemFieldMeta.Delivery} 
-            itemDisplay={ (itemValue: Delivery, key: string | number) =>
-              <DeliveryDisplay
-                key={key}
-                label="Delivery"
-                value={itemValue}
-                meta={LineItemFieldMeta.Delivery}
-              />
-            }
-          />
+    [
+      LineItemField.DeliveryTerms,
+      { meta: LineItemFieldMeta.DeliveryTerms,
+        template: ({value, renderContext, fieldConfig}) => <DeliveryTermsDisplay
+          key={LineItemField.DeliveryTerms}
+          meta={LineItemFieldMeta.DeliveryTerms}
+          fieldConfig={fieldConfig}
+          deliveryTerms={value?.DeliveryTerms}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DeliveryTermsDisplay
-            label="Delivery Terms"
-            value={value.DeliveryTerms?.[0]}
-            meta={LineItemFieldMeta.DeliveryTerms}
-          />
+    [
+      LineItemField.OriginatorParty,
+      { meta: LineItemFieldMeta.OriginatorParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={LineItemField.OriginatorParty}
+          meta={LineItemFieldMeta.OriginatorParty}
+          fieldConfig={fieldConfig}
+          party={value?.OriginatorParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Originator Party"
-            value={value.OriginatorParty?.[0]}
-            meta={LineItemFieldMeta.OriginatorParty}
-          />
+    [
+      LineItemField.OrderedShipment,
+      { meta: LineItemFieldMeta.OrderedShipment,
+        template: ({value, renderContext, fieldConfig}) => <OrderedShipmentDisplay
+          key={LineItemField.OrderedShipment}
+          meta={LineItemFieldMeta.OrderedShipment}
+          fieldConfig={fieldConfig}
+          orderedShipment={value?.OrderedShipment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-OrderedShipment"
-            label="Ordered Shipment"
-            items={value.OrderedShipment}
-            meta={LineItemFieldMeta.OrderedShipment} 
-            itemDisplay={ (itemValue: OrderedShipment, key: string | number) =>
-              <OrderedShipmentDisplay
-                key={key}
-                label="Ordered Shipment"
-                value={itemValue}
-                meta={LineItemFieldMeta.OrderedShipment}
-              />
-            }
-          />
+    [
+      LineItemField.PricingReference,
+      { meta: LineItemFieldMeta.PricingReference,
+        template: ({value, renderContext, fieldConfig}) => <PricingReferenceDisplay
+          key={LineItemField.PricingReference}
+          meta={LineItemFieldMeta.PricingReference}
+          fieldConfig={fieldConfig}
+          pricingReference={value?.PricingReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PricingReferenceDisplay
-            label="Pricing Reference"
-            value={value.PricingReference?.[0]}
-            meta={LineItemFieldMeta.PricingReference}
-          />
+    [
+      LineItemField.AllowanceCharge,
+      { meta: LineItemFieldMeta.AllowanceCharge,
+        template: ({value, renderContext, fieldConfig}) => <AllowanceChargeDisplay
+          key={LineItemField.AllowanceCharge}
+          meta={LineItemFieldMeta.AllowanceCharge}
+          fieldConfig={fieldConfig}
+          allowanceCharge={value?.AllowanceCharge}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-AllowanceCharge"
-            label="Allowance Charge"
-            items={value.AllowanceCharge}
-            meta={LineItemFieldMeta.AllowanceCharge} 
-            itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-              <AllowanceChargeDisplay
-                key={key}
-                label="Allowance Charge"
-                value={itemValue}
-                meta={LineItemFieldMeta.AllowanceCharge}
-              />
-            }
-          />
+    [
+      LineItemField.Price,
+      { meta: LineItemFieldMeta.Price,
+        template: ({value, renderContext, fieldConfig}) => <PriceDisplay
+          key={LineItemField.Price}
+          meta={LineItemFieldMeta.Price}
+          fieldConfig={fieldConfig}
+          price={value?.Price}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PriceDisplay
-            label="Price"
-            value={value.Price?.[0]}
-            meta={LineItemFieldMeta.Price}
-          />
+    [
+      LineItemField.Item,
+      { meta: LineItemFieldMeta.Item,
+        template: ({value, renderContext, fieldConfig}) => <ItemDisplay
+          key={LineItemField.Item}
+          meta={LineItemFieldMeta.Item}
+          fieldConfig={fieldConfig}
+          item={value?.Item}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ItemDisplay
-            label="Item"
-            value={value.Item?.[0]}
-            meta={LineItemFieldMeta.Item}
-          />
+    [
+      LineItemField.SubLineItem,
+      { meta: LineItemFieldMeta.SubLineItem,
+        template: ({value, renderContext, fieldConfig}) => <LineItemDisplay
+          key={LineItemField.SubLineItem}
+          meta={LineItemFieldMeta.SubLineItem}
+          fieldConfig={fieldConfig}
+          lineItem={value?.SubLineItem}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-LineItem ubl-SubLineItem"
-            label="Sub Line Item"
-            items={value.SubLineItem}
-            meta={LineItemFieldMeta.SubLineItem} 
-            itemDisplay={ (itemValue: LineItem, key: string | number) =>
-              <LineItemDisplay
-                key={key}
-                label="Sub Line Item"
-                value={itemValue}
-                meta={LineItemFieldMeta.SubLineItem}
-              />
-            }
-          />
+    [
+      LineItemField.WarrantyValidityPeriod,
+      { meta: LineItemFieldMeta.WarrantyValidityPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={LineItemField.WarrantyValidityPeriod}
+          meta={LineItemFieldMeta.WarrantyValidityPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.WarrantyValidityPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Warranty Validity Period"
-            value={value.WarrantyValidityPeriod?.[0]}
-            meta={LineItemFieldMeta.WarrantyValidityPeriod}
-          />
+    [
+      LineItemField.WarrantyParty,
+      { meta: LineItemFieldMeta.WarrantyParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={LineItemField.WarrantyParty}
+          meta={LineItemFieldMeta.WarrantyParty}
+          fieldConfig={fieldConfig}
+          party={value?.WarrantyParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Warranty Party"
-            value={value.WarrantyParty?.[0]}
-            meta={LineItemFieldMeta.WarrantyParty}
-          />
+    [
+      LineItemField.TaxTotal,
+      { meta: LineItemFieldMeta.TaxTotal,
+        template: ({value, renderContext, fieldConfig}) => <TaxTotalDisplay
+          key={LineItemField.TaxTotal}
+          meta={LineItemFieldMeta.TaxTotal}
+          fieldConfig={fieldConfig}
+          taxTotal={value?.TaxTotal}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TaxTotal"
-            label="Tax Total"
-            items={value.TaxTotal}
-            meta={LineItemFieldMeta.TaxTotal} 
-            itemDisplay={ (itemValue: TaxTotal, key: string | number) =>
-              <TaxTotalDisplay
-                key={key}
-                label="Tax Total"
-                value={itemValue}
-                meta={LineItemFieldMeta.TaxTotal}
-              />
-            }
-          />
+    [
+      LineItemField.ItemPriceExtension,
+      { meta: LineItemFieldMeta.ItemPriceExtension,
+        template: ({value, renderContext, fieldConfig}) => <PriceExtensionDisplay
+          key={LineItemField.ItemPriceExtension}
+          meta={LineItemFieldMeta.ItemPriceExtension}
+          fieldConfig={fieldConfig}
+          priceExtension={value?.ItemPriceExtension}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PriceExtensionDisplay
-            label="Item Price Extension"
-            value={value.ItemPriceExtension?.[0]}
-            meta={LineItemFieldMeta.ItemPriceExtension}
-          />
+    [
+      LineItemField.LineReference,
+      { meta: LineItemFieldMeta.LineReference,
+        template: ({value, renderContext, fieldConfig}) => <LineReferenceDisplay
+          key={LineItemField.LineReference}
+          meta={LineItemFieldMeta.LineReference}
+          fieldConfig={fieldConfig}
+          lineReference={value?.LineReference}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-LineReference"
-            label="Line Reference"
-            items={value.LineReference}
-            meta={LineItemFieldMeta.LineReference} 
-            itemDisplay={ (itemValue: LineReference, key: string | number) =>
-              <LineReferenceDisplay
-                key={key}
-                label="Line Reference"
-                value={itemValue}
-                meta={LineItemFieldMeta.LineReference}
-              />
-            }
-          />
-        </div>
-    </div>
+export function LineItemDisplay<TFieldMeta>({ meta, fieldConfig, lineItem, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    LineItemTypeName,
+    meta,
+    fieldConfig,
+    lineItem,
+    renderContext,
+    LineItemSubElementsMap,
   )
 }

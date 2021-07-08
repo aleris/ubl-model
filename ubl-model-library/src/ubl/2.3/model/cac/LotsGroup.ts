@@ -1,7 +1,6 @@
 import { Identifier } from '../cbc/Identifier'
 import { ProcurementProjectLot } from './ProcurementProjectLot'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class for defining set of lots.
  */

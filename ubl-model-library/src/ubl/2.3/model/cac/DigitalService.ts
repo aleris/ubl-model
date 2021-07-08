@@ -3,7 +3,6 @@ import { DocumentMetadata } from './DocumentMetadata'
 import { DocumentReference } from './DocumentReference'
 import { Identifier } from '../cbc/Identifier'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a specific digital trade service supported by an organization for either sending or receiving
  * business documents on different formats (e.g. UBL, ISO20022, EDIFACT, ...).

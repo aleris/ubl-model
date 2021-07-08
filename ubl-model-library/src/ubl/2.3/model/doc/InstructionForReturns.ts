@@ -11,7 +11,6 @@ import { SupplierParty } from '../cac/SupplierParty'
 import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A document used to initiate a return of goods. The producer is requesting the return of products that are not selling
  * well, either to use in other places or to free up rack or shelf space.

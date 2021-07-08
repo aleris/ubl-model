@@ -3,7 +3,6 @@ import { Identifier } from '../cbc/Identifier'
 import { Indicator } from '../cbc/Indicator'
 import { MessageDelivery } from './MessageDelivery'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a delivery channel.
  */

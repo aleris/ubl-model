@@ -1,4 +1,9 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { EvidenceType } from './EvidenceMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum TendererRequirementField {
   UBLExtensions = 'UBLExtensions',
@@ -12,11 +17,11 @@ export enum TendererRequirementField {
 export const TendererRequirementFieldMetaUBLExtensions = new FieldMeta<TendererRequirementField>(
   TendererRequirementField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -25,10 +30,10 @@ export const TendererRequirementFieldMetaName = new FieldMeta<TendererRequiremen
   TendererRequirementField.Name,
   'Name',
   'Name',
-  'Text',
+  TextType.name,
   'A name of this tenderer requirement.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -37,10 +42,10 @@ export const TendererRequirementFieldMetaTendererRequirementTypeCode = new Field
   TendererRequirementField.TendererRequirementTypeCode,
   'TendererRequirementTypeCode',
   'Tenderer Requirement Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying this requirement.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -49,10 +54,10 @@ export const TendererRequirementFieldMetaDescription = new FieldMeta<TendererReq
   TendererRequirementField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing this requirement.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -61,10 +66,10 @@ export const TendererRequirementFieldMetaLegalReference = new FieldMeta<Tenderer
   TendererRequirementField.LegalReference,
   'LegalReference',
   'Legal Reference',
-  'Text',
+  TextType.name,
   'The legal reference of the exclusion criterion.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Art. 45 2 b'
 )
@@ -73,10 +78,10 @@ export const TendererRequirementFieldMetaSuggestedEvidence = new FieldMeta<Tende
   TendererRequirementField.SuggestedEvidence,
   'SuggestedEvidence',
   'Suggested Evidence',
-  'Evidence',
+  EvidenceType.name,
   'An item of evidence that should be submitted to satisfy this requirement.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -98,3 +103,11 @@ export const TendererRequirementFieldMap = new Map([
   [TendererRequirementField.LegalReference, TendererRequirementFieldMetaLegalReference],
   [TendererRequirementField.SuggestedEvidence, TendererRequirementFieldMetaSuggestedEvidence]
 ])
+
+export const TendererRequirementType: Type<TendererRequirementField> = {
+  name: 'TendererRequirement',
+  label: 'Tenderer Requirement',
+  module: TypeModule.cac,
+  definition: 'A class to describe an action or statement required of an economic operator participating in a tendering process.',
+  fields: TendererRequirementFieldMap,
+}

@@ -1,4 +1,8 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum CommunicationField {
   UBLExtensions = 'UBLExtensions',
@@ -10,11 +14,11 @@ export enum CommunicationField {
 export const CommunicationFieldMetaUBLExtensions = new FieldMeta<CommunicationField>(
   CommunicationField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -23,10 +27,10 @@ export const CommunicationFieldMetaChannelCode = new FieldMeta<CommunicationFiel
   CommunicationField.ChannelCode,
   'ChannelCode',
   'Channel Code',
-  'Code',
+  CodeType.name,
   'The method of communication, expressed as a code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Phone Fax Email'
 )
@@ -35,10 +39,10 @@ export const CommunicationFieldMetaChannel = new FieldMeta<CommunicationField>(
   CommunicationField.Channel,
   'Channel',
   'Channel',
-  'Text',
+  TextType.name,
   'The method of communication, expressed as text.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Skype'
 )
@@ -47,10 +51,10 @@ export const CommunicationFieldMetaValue = new FieldMeta<CommunicationField>(
   CommunicationField.Value,
   'Value',
   'Value',
-  'Text',
+  TextType.name,
   'An identifying value (phone number, email address, etc.) for this channel of communication',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '+44 1 2345 6789 president@whitehouse.com'
 )
@@ -68,3 +72,11 @@ export const CommunicationFieldMap = new Map([
   [CommunicationField.Channel, CommunicationFieldMetaChannel],
   [CommunicationField.Value, CommunicationFieldMetaValue]
 ])
+
+export const CommunicationType: Type<CommunicationField> = {
+  name: 'Communication',
+  label: 'Communication',
+  module: TypeModule.cac,
+  definition: 'A class to describe a means of communication.',
+  fields: CommunicationFieldMap,
+}

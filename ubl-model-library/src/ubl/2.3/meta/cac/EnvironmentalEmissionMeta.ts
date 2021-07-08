@@ -1,4 +1,10 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { EmissionCalculationMethodType } from './EmissionCalculationMethodMeta'
+import { MeasureType } from '../cbc/MeasureMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum EnvironmentalEmissionField {
   UBLExtensions = 'UBLExtensions',
@@ -11,11 +17,11 @@ export enum EnvironmentalEmissionField {
 export const EnvironmentalEmissionFieldMetaUBLExtensions = new FieldMeta<EnvironmentalEmissionField>(
   EnvironmentalEmissionField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -24,10 +30,10 @@ export const EnvironmentalEmissionFieldMetaEnvironmentalEmissionTypeCode = new F
   EnvironmentalEmissionField.EnvironmentalEmissionTypeCode,
   'EnvironmentalEmissionTypeCode',
   'Environmental Emission Type Code',
-  'Code',
+  CodeType.name,
   'A code specifying the type of environmental emission.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -36,10 +42,10 @@ export const EnvironmentalEmissionFieldMetaValueMeasure = new FieldMeta<Environm
   EnvironmentalEmissionField.ValueMeasure,
   'ValueMeasure',
   'Value',
-  'Measure',
+  MeasureType.name,
   'A value measurement for the environmental emission.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -48,10 +54,10 @@ export const EnvironmentalEmissionFieldMetaDescription = new FieldMeta<Environme
   EnvironmentalEmissionField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing this environmental emission.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -60,10 +66,10 @@ export const EnvironmentalEmissionFieldMetaEmissionCalculationMethod = new Field
   EnvironmentalEmissionField.EmissionCalculationMethod,
   'EmissionCalculationMethod',
   'Emission Calculation Method',
-  'EmissionCalculationMethod',
+  EmissionCalculationMethodType.name,
   'A method used to calculate the amount of this emission.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -83,3 +89,11 @@ export const EnvironmentalEmissionFieldMap = new Map([
   [EnvironmentalEmissionField.Description, EnvironmentalEmissionFieldMetaDescription],
   [EnvironmentalEmissionField.EmissionCalculationMethod, EnvironmentalEmissionFieldMetaEmissionCalculationMethod]
 ])
+
+export const EnvironmentalEmissionType: Type<EnvironmentalEmissionField> = {
+  name: 'EnvironmentalEmission',
+  label: 'Environmental Emission',
+  module: TypeModule.cac,
+  definition: 'A class to describe an environmental emission.',
+  fields: EnvironmentalEmissionFieldMap,
+}

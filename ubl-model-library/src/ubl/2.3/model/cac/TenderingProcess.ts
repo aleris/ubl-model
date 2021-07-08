@@ -11,7 +11,6 @@ import { Period } from './Period'
 import { ProcessJustification } from './ProcessJustification'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe the process of a formal offer and response to execute work or supply goods at a stated price.
  */

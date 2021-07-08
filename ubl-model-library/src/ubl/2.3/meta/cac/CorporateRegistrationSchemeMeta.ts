@@ -1,4 +1,10 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AddressType } from './AddressMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum CorporateRegistrationSchemeField {
   UBLExtensions = 'UBLExtensions',
@@ -11,11 +17,11 @@ export enum CorporateRegistrationSchemeField {
 export const CorporateRegistrationSchemeFieldMetaUBLExtensions = new FieldMeta<CorporateRegistrationSchemeField>(
   CorporateRegistrationSchemeField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -24,10 +30,10 @@ export const CorporateRegistrationSchemeFieldMetaID = new FieldMeta<CorporateReg
   CorporateRegistrationSchemeField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this registration scheme.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'ASIC in Australia'
 )
@@ -36,10 +42,10 @@ export const CorporateRegistrationSchemeFieldMetaName = new FieldMeta<CorporateR
   CorporateRegistrationSchemeField.Name,
   'Name',
   'Name',
-  'Text',
+  TextType.name,
   'The name of this registration scheme.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Australian Securities and Investment Commission in Australia'
 )
@@ -48,10 +54,10 @@ export const CorporateRegistrationSchemeFieldMetaCorporateRegistrationTypeCode =
   CorporateRegistrationSchemeField.CorporateRegistrationTypeCode,
   'CorporateRegistrationTypeCode',
   'Corporate Registration Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of this registration scheme.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'ACN'
 )
@@ -60,10 +66,10 @@ export const CorporateRegistrationSchemeFieldMetaJurisdictionRegionAddress = new
   CorporateRegistrationSchemeField.JurisdictionRegionAddress,
   'JurisdictionRegionAddress',
   'Jurisdiction Region Address',
-  'Address',
+  AddressType.name,
   'A geographic area in which this registration scheme applies.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   'England , Wales'
 )
@@ -83,3 +89,11 @@ export const CorporateRegistrationSchemeFieldMap = new Map([
   [CorporateRegistrationSchemeField.CorporateRegistrationTypeCode, CorporateRegistrationSchemeFieldMetaCorporateRegistrationTypeCode],
   [CorporateRegistrationSchemeField.JurisdictionRegionAddress, CorporateRegistrationSchemeFieldMetaJurisdictionRegionAddress]
 ])
+
+export const CorporateRegistrationSchemeType: Type<CorporateRegistrationSchemeField> = {
+  name: 'CorporateRegistrationScheme',
+  label: 'Corporate Registration Scheme',
+  module: TypeModule.cac,
+  definition: 'A class to describe a scheme for corporate registration.',
+  fields: CorporateRegistrationSchemeFieldMap,
+}

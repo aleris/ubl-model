@@ -1,92 +1,151 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { UBLExtension } from  '../../model/ext/UBLExtension'
-import { UBLExtensionFieldMeta } from  '../../meta/ext/UBLExtensionMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import ExtensionContentDisplay from './ExtensionContentDisplay'
-import { ExtensionContent } from '../../model/ext/ExtensionContent'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
+import { UBLExtensionField, UBLExtensionFieldMeta, UBLExtensionTypeName } from  '../../meta/ext/UBLExtensionMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { ExtensionContentDisplay } from './ExtensionContentDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
 
-type Props<T> = {
-  label: string
-  value: UBLExtension | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<UBLExtension, void>
+  ublExtension: UBLExtension[] | undefined
+  renderContext: RenderContext
 }
 
-export default function UBLExtensionDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const UBLExtensionSubElementsMap: SubElementsTemplatesMap<UBLExtensionField, UBLExtension, void> = new Map([
+    [
+      UBLExtensionField.ID,
+      { meta: UBLExtensionFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={UBLExtensionField.ID}
+          meta={UBLExtensionFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-ext ubl-UBLExtension">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <IdentifierDisplay
-            label="undefined"
-            value={value.ID?.[0]}
-            meta={UBLExtensionFieldMeta.ID}
-          />
+    [
+      UBLExtensionField.Name,
+      { meta: UBLExtensionFieldMeta.Name,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={UBLExtensionField.Name}
+          meta={UBLExtensionFieldMeta.Name}
+          fieldConfig={fieldConfig}
+          text={value?.Name}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="undefined"
-            value={value.Name?.[0]}
-            meta={UBLExtensionFieldMeta.Name}
-          />
+    [
+      UBLExtensionField.ExtensionAgencyID,
+      { meta: UBLExtensionFieldMeta.ExtensionAgencyID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={UBLExtensionField.ExtensionAgencyID}
+          meta={UBLExtensionFieldMeta.ExtensionAgencyID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ExtensionAgencyID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="undefined"
-            value={value.ExtensionAgencyID?.[0]}
-            meta={UBLExtensionFieldMeta.ExtensionAgencyID}
-          />
+    [
+      UBLExtensionField.ExtensionAgencyName,
+      { meta: UBLExtensionFieldMeta.ExtensionAgencyName,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={UBLExtensionField.ExtensionAgencyName}
+          meta={UBLExtensionFieldMeta.ExtensionAgencyName}
+          fieldConfig={fieldConfig}
+          text={value?.ExtensionAgencyName}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="undefined"
-            value={value.ExtensionAgencyName?.[0]}
-            meta={UBLExtensionFieldMeta.ExtensionAgencyName}
-          />
+    [
+      UBLExtensionField.ExtensionVersionID,
+      { meta: UBLExtensionFieldMeta.ExtensionVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={UBLExtensionField.ExtensionVersionID}
+          meta={UBLExtensionFieldMeta.ExtensionVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ExtensionVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="undefined"
-            value={value.ExtensionVersionID?.[0]}
-            meta={UBLExtensionFieldMeta.ExtensionVersionID}
-          />
+    [
+      UBLExtensionField.ExtensionAgencyURI,
+      { meta: UBLExtensionFieldMeta.ExtensionAgencyURI,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={UBLExtensionField.ExtensionAgencyURI}
+          meta={UBLExtensionFieldMeta.ExtensionAgencyURI}
+          fieldConfig={fieldConfig}
+          identifier={value?.ExtensionAgencyURI}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="undefined"
-            value={value.ExtensionAgencyURI?.[0]}
-            meta={UBLExtensionFieldMeta.ExtensionAgencyURI}
-          />
+    [
+      UBLExtensionField.ExtensionURI,
+      { meta: UBLExtensionFieldMeta.ExtensionURI,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={UBLExtensionField.ExtensionURI}
+          meta={UBLExtensionFieldMeta.ExtensionURI}
+          fieldConfig={fieldConfig}
+          identifier={value?.ExtensionURI}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="undefined"
-            value={value.ExtensionURI?.[0]}
-            meta={UBLExtensionFieldMeta.ExtensionURI}
-          />
+    [
+      UBLExtensionField.ExtensionReasonCode,
+      { meta: UBLExtensionFieldMeta.ExtensionReasonCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={UBLExtensionField.ExtensionReasonCode}
+          meta={UBLExtensionFieldMeta.ExtensionReasonCode}
+          fieldConfig={fieldConfig}
+          code={value?.ExtensionReasonCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="undefined"
-            value={value.ExtensionReasonCode?.[0]}
-            meta={UBLExtensionFieldMeta.ExtensionReasonCode}
-          />
+    [
+      UBLExtensionField.ExtensionReason,
+      { meta: UBLExtensionFieldMeta.ExtensionReason,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={UBLExtensionField.ExtensionReason}
+          meta={UBLExtensionFieldMeta.ExtensionReason}
+          fieldConfig={fieldConfig}
+          text={value?.ExtensionReason}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="undefined"
-            value={value.ExtensionReason?.[0]}
-            meta={UBLExtensionFieldMeta.ExtensionReason}
-          />
+    [
+      UBLExtensionField.ExtensionContent,
+      { meta: UBLExtensionFieldMeta.ExtensionContent,
+        template: ({value, renderContext, fieldConfig}) => <ExtensionContentDisplay
+          key={UBLExtensionField.ExtensionContent}
+          meta={UBLExtensionFieldMeta.ExtensionContent}
+          fieldConfig={fieldConfig}
+          extensionContent={value?.ExtensionContent}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ExtensionContentDisplay
-            label="undefined"
-            value={value.ExtensionContent?.[0]}
-            meta={UBLExtensionFieldMeta.ExtensionContent}
-          />
-        </div>
-    </div>
+export function UBLExtensionDisplay<TFieldMeta>({ meta, fieldConfig, ublExtension, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    UBLExtensionTypeName,
+    meta,
+    fieldConfig,
+    ublExtension,
+    renderContext,
+    UBLExtensionSubElementsMap,
   )
 }

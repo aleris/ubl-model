@@ -1,54 +1,78 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Regulation } from  '../../model/cac/Regulation'
-import { RegulationFieldMeta } from  '../../meta/cac/RegulationMeta'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { RegulationField, RegulationFieldMeta, RegulationTypeName } from  '../../meta/cac/RegulationMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: Regulation | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<Regulation, void>
+  regulation: Regulation[] | undefined
+  renderContext: RenderContext
 }
 
-export default function RegulationDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const RegulationSubElementsMap: SubElementsTemplatesMap<RegulationField, Regulation, void> = new Map([
+    [
+      RegulationField.UBLExtensions,
+      { meta: RegulationFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={RegulationField.UBLExtensions}
+          meta={RegulationFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-Regulation">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={RegulationFieldMeta.UBLExtensions}
-          />
+    [
+      RegulationField.Name,
+      { meta: RegulationFieldMeta.Name,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={RegulationField.Name}
+          meta={RegulationFieldMeta.Name}
+          fieldConfig={fieldConfig}
+          text={value?.Name}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Name"
-            value={value.Name?.[0]}
-            meta={RegulationFieldMeta.Name}
-          />
+    [
+      RegulationField.LegalReference,
+      { meta: RegulationFieldMeta.LegalReference,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={RegulationField.LegalReference}
+          meta={RegulationFieldMeta.LegalReference}
+          fieldConfig={fieldConfig}
+          text={value?.LegalReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Legal Reference"
-            value={value.LegalReference?.[0]}
-            meta={RegulationFieldMeta.LegalReference}
-          />
+    [
+      RegulationField.OntologyURI,
+      { meta: RegulationFieldMeta.OntologyURI,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={RegulationField.OntologyURI}
+          meta={RegulationFieldMeta.OntologyURI}
+          fieldConfig={fieldConfig}
+          identifier={value?.OntologyURI}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <IdentifierDisplay
-            label="Ontology URI"
-            value={value.OntologyURI?.[0]}
-            meta={RegulationFieldMeta.OntologyURI}
-          />
-        </div>
-    </div>
+export function RegulationDisplay<TFieldMeta>({ meta, fieldConfig, regulation, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    RegulationTypeName,
+    meta,
+    fieldConfig,
+    regulation,
+    renderContext,
+    RegulationSubElementsMap,
   )
 }

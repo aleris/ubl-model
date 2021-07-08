@@ -1,526 +1,692 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { OrderResponse } from  '../../model/doc/OrderResponse'
-import { OrderResponseFieldMeta } from  '../../meta/doc/OrderResponseMeta'
-import AllowanceChargeDisplay from '../cac/AllowanceChargeDisplay'
-import { AllowanceCharge } from '../../model/cac/AllowanceCharge'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import ContractDisplay from '../cac/ContractDisplay'
-import { Contract } from '../../model/cac/Contract'
-import CountryDisplay from '../cac/CountryDisplay'
-import { Country } from '../../model/cac/Country'
-import CustomerPartyDisplay from '../cac/CustomerPartyDisplay'
-import { CustomerParty } from '../../model/cac/CustomerParty'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DeliveryDisplay from '../cac/DeliveryDisplay'
-import { Delivery } from '../../model/cac/Delivery'
-import DeliveryTermsDisplay from '../cac/DeliveryTermsDisplay'
-import { DeliveryTerms } from '../../model/cac/DeliveryTerms'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import ExchangeRateDisplay from '../cac/ExchangeRateDisplay'
-import { ExchangeRate } from '../../model/cac/ExchangeRate'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import MeasureDisplay from '../cbc/MeasureDisplay'
-import { Measure } from '../../model/cbc/Measure'
-import MonetaryTotalDisplay from '../cac/MonetaryTotalDisplay'
-import { MonetaryTotal } from '../../model/cac/MonetaryTotal'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import OrderLineDisplay from '../cac/OrderLineDisplay'
-import { OrderLine } from '../../model/cac/OrderLine'
-import OrderReferenceDisplay from '../cac/OrderReferenceDisplay'
-import { OrderReference } from '../../model/cac/OrderReference'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PaymentMeansDisplay from '../cac/PaymentMeansDisplay'
-import { PaymentMeans } from '../../model/cac/PaymentMeans'
-import PaymentTermsDisplay from '../cac/PaymentTermsDisplay'
-import { PaymentTerms } from '../../model/cac/PaymentTerms'
-import PeriodDisplay from '../cac/PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import SupplierPartyDisplay from '../cac/SupplierPartyDisplay'
-import { SupplierParty } from '../../model/cac/SupplierParty'
-import TaxTotalDisplay from '../cac/TaxTotalDisplay'
-import { TaxTotal } from '../../model/cac/TaxTotal'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import TransactionConditionsDisplay from '../cac/TransactionConditionsDisplay'
-import { TransactionConditions } from '../../model/cac/TransactionConditions'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { OrderResponseField, OrderResponseFieldMeta, OrderResponseTypeName } from  '../../meta/doc/OrderResponseMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AllowanceChargeDisplay } from '../cac/AllowanceChargeDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { ContractDisplay } from '../cac/ContractDisplay'
+import { CountryDisplay } from '../cac/CountryDisplay'
+import { CustomerPartyDisplay } from '../cac/CustomerPartyDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DeliveryDisplay } from '../cac/DeliveryDisplay'
+import { DeliveryTermsDisplay } from '../cac/DeliveryTermsDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { ExchangeRateDisplay } from '../cac/ExchangeRateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { MeasureDisplay } from '../cbc/MeasureDisplay'
+import { MonetaryTotalDisplay } from '../cac/MonetaryTotalDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { OrderLineDisplay } from '../cac/OrderLineDisplay'
+import { OrderReferenceDisplay } from '../cac/OrderReferenceDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { PaymentMeansDisplay } from '../cac/PaymentMeansDisplay'
+import { PaymentTermsDisplay } from '../cac/PaymentTermsDisplay'
+import { PeriodDisplay } from '../cac/PeriodDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { SupplierPartyDisplay } from '../cac/SupplierPartyDisplay'
+import { TaxTotalDisplay } from '../cac/TaxTotalDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { TransactionConditionsDisplay } from '../cac/TransactionConditionsDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: OrderResponse | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<OrderResponse, void>
+  orderResponse: OrderResponse[] | undefined
+  renderContext: RenderContext
 }
 
-export default function OrderResponseDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const OrderResponseSubElementsMap: SubElementsTemplatesMap<OrderResponseField, OrderResponse, void> = new Map([
+    [
+      OrderResponseField.UBLExtensions,
+      { meta: OrderResponseFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={OrderResponseField.UBLExtensions}
+          meta={OrderResponseFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-OrderResponse">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={OrderResponseFieldMeta.UBLExtensions}
-          />
+    [
+      OrderResponseField.UBLVersionID,
+      { meta: OrderResponseFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={OrderResponseField.UBLVersionID}
+          meta={OrderResponseFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={OrderResponseFieldMeta.UBLVersionID}
-          />
+    [
+      OrderResponseField.CustomizationID,
+      { meta: OrderResponseFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={OrderResponseField.CustomizationID}
+          meta={OrderResponseFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={OrderResponseFieldMeta.CustomizationID}
-          />
+    [
+      OrderResponseField.ProfileID,
+      { meta: OrderResponseFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={OrderResponseField.ProfileID}
+          meta={OrderResponseFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={OrderResponseFieldMeta.ProfileID}
-          />
+    [
+      OrderResponseField.ProfileExecutionID,
+      { meta: OrderResponseFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={OrderResponseField.ProfileExecutionID}
+          meta={OrderResponseFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={OrderResponseFieldMeta.ProfileExecutionID}
-          />
+    [
+      OrderResponseField.ID,
+      { meta: OrderResponseFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={OrderResponseField.ID}
+          meta={OrderResponseFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={OrderResponseFieldMeta.ID}
-          />
+    [
+      OrderResponseField.SalesOrderID,
+      { meta: OrderResponseFieldMeta.SalesOrderID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={OrderResponseField.SalesOrderID}
+          meta={OrderResponseFieldMeta.SalesOrderID}
+          fieldConfig={fieldConfig}
+          identifier={value?.SalesOrderID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Sales Order Identifier"
-            value={value.SalesOrderID?.[0]}
-            meta={OrderResponseFieldMeta.SalesOrderID}
-          />
+    [
+      OrderResponseField.CopyIndicator,
+      { meta: OrderResponseFieldMeta.CopyIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={OrderResponseField.CopyIndicator}
+          meta={OrderResponseFieldMeta.CopyIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.CopyIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Copy Indicator"
-            value={value.CopyIndicator?.[0]}
-            meta={OrderResponseFieldMeta.CopyIndicator}
-          />
+    [
+      OrderResponseField.UUID,
+      { meta: OrderResponseFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={OrderResponseField.UUID}
+          meta={OrderResponseFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={OrderResponseFieldMeta.UUID}
-          />
+    [
+      OrderResponseField.IssueDate,
+      { meta: OrderResponseFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={OrderResponseField.IssueDate}
+          meta={OrderResponseFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={OrderResponseFieldMeta.IssueDate}
-          />
+    [
+      OrderResponseField.IssueTime,
+      { meta: OrderResponseFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={OrderResponseField.IssueTime}
+          meta={OrderResponseFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={OrderResponseFieldMeta.IssueTime}
-          />
+    [
+      OrderResponseField.OrderResponseCode,
+      { meta: OrderResponseFieldMeta.OrderResponseCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={OrderResponseField.OrderResponseCode}
+          meta={OrderResponseFieldMeta.OrderResponseCode}
+          fieldConfig={fieldConfig}
+          code={value?.OrderResponseCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Order Response Code"
-            value={value.OrderResponseCode?.[0]}
-            meta={OrderResponseFieldMeta.OrderResponseCode}
-          />
+    [
+      OrderResponseField.Note,
+      { meta: OrderResponseFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={OrderResponseField.Note}
+          meta={OrderResponseFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={OrderResponseFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={OrderResponseFieldMeta.Note}
-              />
-            }
-          />
+    [
+      OrderResponseField.DocumentCurrencyCode,
+      { meta: OrderResponseFieldMeta.DocumentCurrencyCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={OrderResponseField.DocumentCurrencyCode}
+          meta={OrderResponseFieldMeta.DocumentCurrencyCode}
+          fieldConfig={fieldConfig}
+          code={value?.DocumentCurrencyCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Document Currency Code"
-            value={value.DocumentCurrencyCode?.[0]}
-            meta={OrderResponseFieldMeta.DocumentCurrencyCode}
-          />
+    [
+      OrderResponseField.PricingCurrencyCode,
+      { meta: OrderResponseFieldMeta.PricingCurrencyCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={OrderResponseField.PricingCurrencyCode}
+          meta={OrderResponseFieldMeta.PricingCurrencyCode}
+          fieldConfig={fieldConfig}
+          code={value?.PricingCurrencyCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Pricing Currency Code"
-            value={value.PricingCurrencyCode?.[0]}
-            meta={OrderResponseFieldMeta.PricingCurrencyCode}
-          />
+    [
+      OrderResponseField.TaxCurrencyCode,
+      { meta: OrderResponseFieldMeta.TaxCurrencyCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={OrderResponseField.TaxCurrencyCode}
+          meta={OrderResponseFieldMeta.TaxCurrencyCode}
+          fieldConfig={fieldConfig}
+          code={value?.TaxCurrencyCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Tax Currency Code"
-            value={value.TaxCurrencyCode?.[0]}
-            meta={OrderResponseFieldMeta.TaxCurrencyCode}
-          />
+    [
+      OrderResponseField.TotalPackagesQuantity,
+      { meta: OrderResponseFieldMeta.TotalPackagesQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={OrderResponseField.TotalPackagesQuantity}
+          meta={OrderResponseFieldMeta.TotalPackagesQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.TotalPackagesQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Total Packages Quantity"
-            value={value.TotalPackagesQuantity?.[0]}
-            meta={OrderResponseFieldMeta.TotalPackagesQuantity}
-          />
+    [
+      OrderResponseField.GrossWeightMeasure,
+      { meta: OrderResponseFieldMeta.GrossWeightMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={OrderResponseField.GrossWeightMeasure}
+          meta={OrderResponseFieldMeta.GrossWeightMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.GrossWeightMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Gross Weight"
-            value={value.GrossWeightMeasure?.[0]}
-            meta={OrderResponseFieldMeta.GrossWeightMeasure}
-          />
+    [
+      OrderResponseField.NetWeightMeasure,
+      { meta: OrderResponseFieldMeta.NetWeightMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={OrderResponseField.NetWeightMeasure}
+          meta={OrderResponseFieldMeta.NetWeightMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.NetWeightMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Net Weight"
-            value={value.NetWeightMeasure?.[0]}
-            meta={OrderResponseFieldMeta.NetWeightMeasure}
-          />
+    [
+      OrderResponseField.NetNetWeightMeasure,
+      { meta: OrderResponseFieldMeta.NetNetWeightMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={OrderResponseField.NetNetWeightMeasure}
+          meta={OrderResponseFieldMeta.NetNetWeightMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.NetNetWeightMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Net Net Weight"
-            value={value.NetNetWeightMeasure?.[0]}
-            meta={OrderResponseFieldMeta.NetNetWeightMeasure}
-          />
+    [
+      OrderResponseField.GrossVolumeMeasure,
+      { meta: OrderResponseFieldMeta.GrossVolumeMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={OrderResponseField.GrossVolumeMeasure}
+          meta={OrderResponseFieldMeta.GrossVolumeMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.GrossVolumeMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Gross Volume"
-            value={value.GrossVolumeMeasure?.[0]}
-            meta={OrderResponseFieldMeta.GrossVolumeMeasure}
-          />
+    [
+      OrderResponseField.NetVolumeMeasure,
+      { meta: OrderResponseFieldMeta.NetVolumeMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={OrderResponseField.NetVolumeMeasure}
+          meta={OrderResponseFieldMeta.NetVolumeMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.NetVolumeMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Net Volume"
-            value={value.NetVolumeMeasure?.[0]}
-            meta={OrderResponseFieldMeta.NetVolumeMeasure}
-          />
+    [
+      OrderResponseField.CustomerReference,
+      { meta: OrderResponseFieldMeta.CustomerReference,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={OrderResponseField.CustomerReference}
+          meta={OrderResponseFieldMeta.CustomerReference}
+          fieldConfig={fieldConfig}
+          text={value?.CustomerReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Customer Reference"
-            value={value.CustomerReference?.[0]}
-            meta={OrderResponseFieldMeta.CustomerReference}
-          />
+    [
+      OrderResponseField.AccountingCostCode,
+      { meta: OrderResponseFieldMeta.AccountingCostCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={OrderResponseField.AccountingCostCode}
+          meta={OrderResponseFieldMeta.AccountingCostCode}
+          fieldConfig={fieldConfig}
+          code={value?.AccountingCostCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Accounting Cost Code"
-            value={value.AccountingCostCode?.[0]}
-            meta={OrderResponseFieldMeta.AccountingCostCode}
-          />
+    [
+      OrderResponseField.AccountingCost,
+      { meta: OrderResponseFieldMeta.AccountingCost,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={OrderResponseField.AccountingCost}
+          meta={OrderResponseFieldMeta.AccountingCost}
+          fieldConfig={fieldConfig}
+          text={value?.AccountingCost}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Accounting Cost"
-            value={value.AccountingCost?.[0]}
-            meta={OrderResponseFieldMeta.AccountingCost}
-          />
+    [
+      OrderResponseField.LineCountNumeric,
+      { meta: OrderResponseFieldMeta.LineCountNumeric,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={OrderResponseField.LineCountNumeric}
+          meta={OrderResponseFieldMeta.LineCountNumeric}
+          fieldConfig={fieldConfig}
+          numeric={value?.LineCountNumeric}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Line Count"
-            value={value.LineCountNumeric?.[0]}
-            meta={OrderResponseFieldMeta.LineCountNumeric}
-          />
+    [
+      OrderResponseField.ValidityPeriod,
+      { meta: OrderResponseFieldMeta.ValidityPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={OrderResponseField.ValidityPeriod}
+          meta={OrderResponseFieldMeta.ValidityPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.ValidityPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Period ubl-ValidityPeriod"
-            label="Validity Period"
-            items={value.ValidityPeriod}
-            meta={OrderResponseFieldMeta.ValidityPeriod} 
-            itemDisplay={ (itemValue: Period, key: string | number) =>
-              <PeriodDisplay
-                key={key}
-                label="Validity Period"
-                value={itemValue}
-                meta={OrderResponseFieldMeta.ValidityPeriod}
-              />
-            }
-          />
+    [
+      OrderResponseField.OrderReference,
+      { meta: OrderResponseFieldMeta.OrderReference,
+        template: ({value, renderContext, fieldConfig}) => <OrderReferenceDisplay
+          key={OrderResponseField.OrderReference}
+          meta={OrderResponseFieldMeta.OrderReference}
+          fieldConfig={fieldConfig}
+          orderReference={value?.OrderReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-OrderReference"
-            label="Order Reference"
-            items={value.OrderReference}
-            meta={OrderResponseFieldMeta.OrderReference} 
-            itemDisplay={ (itemValue: OrderReference, key: string | number) =>
-              <OrderReferenceDisplay
-                key={key}
-                label="Order Reference"
-                value={itemValue}
-                meta={OrderResponseFieldMeta.OrderReference}
-              />
-            }
-          />
+    [
+      OrderResponseField.OrderDocumentReference,
+      { meta: OrderResponseFieldMeta.OrderDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={OrderResponseField.OrderDocumentReference}
+          meta={OrderResponseFieldMeta.OrderDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.OrderDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-OrderDocumentReference"
-            label="Order Document Reference"
-            items={value.OrderDocumentReference}
-            meta={OrderResponseFieldMeta.OrderDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Order Document Reference"
-                value={itemValue}
-                meta={OrderResponseFieldMeta.OrderDocumentReference}
-              />
-            }
-          />
+    [
+      OrderResponseField.OrderChangeDocumentReference,
+      { meta: OrderResponseFieldMeta.OrderChangeDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={OrderResponseField.OrderChangeDocumentReference}
+          meta={OrderResponseFieldMeta.OrderChangeDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.OrderChangeDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-OrderChangeDocumentReference"
-            label="Order Change Document Reference"
-            items={value.OrderChangeDocumentReference}
-            meta={OrderResponseFieldMeta.OrderChangeDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Order Change Document Reference"
-                value={itemValue}
-                meta={OrderResponseFieldMeta.OrderChangeDocumentReference}
-              />
-            }
-          />
+    [
+      OrderResponseField.OriginatorDocumentReference,
+      { meta: OrderResponseFieldMeta.OriginatorDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={OrderResponseField.OriginatorDocumentReference}
+          meta={OrderResponseFieldMeta.OriginatorDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.OriginatorDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DocumentReferenceDisplay
-            label="Originator Document Reference"
-            value={value.OriginatorDocumentReference?.[0]}
-            meta={OrderResponseFieldMeta.OriginatorDocumentReference}
-          />
+    [
+      OrderResponseField.AdditionalDocumentReference,
+      { meta: OrderResponseFieldMeta.AdditionalDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={OrderResponseField.AdditionalDocumentReference}
+          meta={OrderResponseFieldMeta.AdditionalDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.AdditionalDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-AdditionalDocumentReference"
-            label="Additional Document Reference"
-            items={value.AdditionalDocumentReference}
-            meta={OrderResponseFieldMeta.AdditionalDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Additional Document Reference"
-                value={itemValue}
-                meta={OrderResponseFieldMeta.AdditionalDocumentReference}
-              />
-            }
-          />
+    [
+      OrderResponseField.Contract,
+      { meta: OrderResponseFieldMeta.Contract,
+        template: ({value, renderContext, fieldConfig}) => <ContractDisplay
+          key={OrderResponseField.Contract}
+          meta={OrderResponseFieldMeta.Contract}
+          fieldConfig={fieldConfig}
+          contract={value?.Contract}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Contract"
-            label="Contract"
-            items={value.Contract}
-            meta={OrderResponseFieldMeta.Contract} 
-            itemDisplay={ (itemValue: Contract, key: string | number) =>
-              <ContractDisplay
-                key={key}
-                label="Contract"
-                value={itemValue}
-                meta={OrderResponseFieldMeta.Contract}
-              />
-            }
-          />
+    [
+      OrderResponseField.Signature,
+      { meta: OrderResponseFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={OrderResponseField.Signature}
+          meta={OrderResponseFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={OrderResponseFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={OrderResponseFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      OrderResponseField.SellerSupplierParty,
+      { meta: OrderResponseFieldMeta.SellerSupplierParty,
+        template: ({value, renderContext, fieldConfig}) => <SupplierPartyDisplay
+          key={OrderResponseField.SellerSupplierParty}
+          meta={OrderResponseFieldMeta.SellerSupplierParty}
+          fieldConfig={fieldConfig}
+          supplierParty={value?.SellerSupplierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <SupplierPartyDisplay
-            label="Seller Supplier Party"
-            value={value.SellerSupplierParty?.[0]}
-            meta={OrderResponseFieldMeta.SellerSupplierParty}
-          />
+    [
+      OrderResponseField.BuyerCustomerParty,
+      { meta: OrderResponseFieldMeta.BuyerCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={OrderResponseField.BuyerCustomerParty}
+          meta={OrderResponseFieldMeta.BuyerCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.BuyerCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomerPartyDisplay
-            label="Buyer Customer Party"
-            value={value.BuyerCustomerParty?.[0]}
-            meta={OrderResponseFieldMeta.BuyerCustomerParty}
-          />
+    [
+      OrderResponseField.OriginatorCustomerParty,
+      { meta: OrderResponseFieldMeta.OriginatorCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={OrderResponseField.OriginatorCustomerParty}
+          meta={OrderResponseFieldMeta.OriginatorCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.OriginatorCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomerPartyDisplay
-            label="Originator Customer Party"
-            value={value.OriginatorCustomerParty?.[0]}
-            meta={OrderResponseFieldMeta.OriginatorCustomerParty}
-          />
+    [
+      OrderResponseField.FreightForwarderParty,
+      { meta: OrderResponseFieldMeta.FreightForwarderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={OrderResponseField.FreightForwarderParty}
+          meta={OrderResponseFieldMeta.FreightForwarderParty}
+          fieldConfig={fieldConfig}
+          party={value?.FreightForwarderParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Freight Forwarder Party"
-            value={value.FreightForwarderParty?.[0]}
-            meta={OrderResponseFieldMeta.FreightForwarderParty}
-          />
+    [
+      OrderResponseField.AccountingSupplierParty,
+      { meta: OrderResponseFieldMeta.AccountingSupplierParty,
+        template: ({value, renderContext, fieldConfig}) => <SupplierPartyDisplay
+          key={OrderResponseField.AccountingSupplierParty}
+          meta={OrderResponseFieldMeta.AccountingSupplierParty}
+          fieldConfig={fieldConfig}
+          supplierParty={value?.AccountingSupplierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <SupplierPartyDisplay
-            label="Accounting Supplier Party"
-            value={value.AccountingSupplierParty?.[0]}
-            meta={OrderResponseFieldMeta.AccountingSupplierParty}
-          />
+    [
+      OrderResponseField.AccountingCustomerParty,
+      { meta: OrderResponseFieldMeta.AccountingCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={OrderResponseField.AccountingCustomerParty}
+          meta={OrderResponseFieldMeta.AccountingCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.AccountingCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomerPartyDisplay
-            label="Accounting Customer Party"
-            value={value.AccountingCustomerParty?.[0]}
-            meta={OrderResponseFieldMeta.AccountingCustomerParty}
-          />
+    [
+      OrderResponseField.Delivery,
+      { meta: OrderResponseFieldMeta.Delivery,
+        template: ({value, renderContext, fieldConfig}) => <DeliveryDisplay
+          key={OrderResponseField.Delivery}
+          meta={OrderResponseFieldMeta.Delivery}
+          fieldConfig={fieldConfig}
+          delivery={value?.Delivery}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Delivery"
-            label="Delivery"
-            items={value.Delivery}
-            meta={OrderResponseFieldMeta.Delivery} 
-            itemDisplay={ (itemValue: Delivery, key: string | number) =>
-              <DeliveryDisplay
-                key={key}
-                label="Delivery"
-                value={itemValue}
-                meta={OrderResponseFieldMeta.Delivery}
-              />
-            }
-          />
+    [
+      OrderResponseField.DeliveryTerms,
+      { meta: OrderResponseFieldMeta.DeliveryTerms,
+        template: ({value, renderContext, fieldConfig}) => <DeliveryTermsDisplay
+          key={OrderResponseField.DeliveryTerms}
+          meta={OrderResponseFieldMeta.DeliveryTerms}
+          fieldConfig={fieldConfig}
+          deliveryTerms={value?.DeliveryTerms}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DeliveryTermsDisplay
-            label="Delivery Terms"
-            value={value.DeliveryTerms?.[0]}
-            meta={OrderResponseFieldMeta.DeliveryTerms}
-          />
+    [
+      OrderResponseField.PaymentMeans,
+      { meta: OrderResponseFieldMeta.PaymentMeans,
+        template: ({value, renderContext, fieldConfig}) => <PaymentMeansDisplay
+          key={OrderResponseField.PaymentMeans}
+          meta={OrderResponseFieldMeta.PaymentMeans}
+          fieldConfig={fieldConfig}
+          paymentMeans={value?.PaymentMeans}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-PaymentMeans"
-            label="Payment Means"
-            items={value.PaymentMeans}
-            meta={OrderResponseFieldMeta.PaymentMeans} 
-            itemDisplay={ (itemValue: PaymentMeans, key: string | number) =>
-              <PaymentMeansDisplay
-                key={key}
-                label="Payment Means"
-                value={itemValue}
-                meta={OrderResponseFieldMeta.PaymentMeans}
-              />
-            }
-          />
+    [
+      OrderResponseField.PaymentTerms,
+      { meta: OrderResponseFieldMeta.PaymentTerms,
+        template: ({value, renderContext, fieldConfig}) => <PaymentTermsDisplay
+          key={OrderResponseField.PaymentTerms}
+          meta={OrderResponseFieldMeta.PaymentTerms}
+          fieldConfig={fieldConfig}
+          paymentTerms={value?.PaymentTerms}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-PaymentTerms"
-            label="Payment Terms"
-            items={value.PaymentTerms}
-            meta={OrderResponseFieldMeta.PaymentTerms} 
-            itemDisplay={ (itemValue: PaymentTerms, key: string | number) =>
-              <PaymentTermsDisplay
-                key={key}
-                label="Payment Terms"
-                value={itemValue}
-                meta={OrderResponseFieldMeta.PaymentTerms}
-              />
-            }
-          />
+    [
+      OrderResponseField.AllowanceCharge,
+      { meta: OrderResponseFieldMeta.AllowanceCharge,
+        template: ({value, renderContext, fieldConfig}) => <AllowanceChargeDisplay
+          key={OrderResponseField.AllowanceCharge}
+          meta={OrderResponseFieldMeta.AllowanceCharge}
+          fieldConfig={fieldConfig}
+          allowanceCharge={value?.AllowanceCharge}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-AllowanceCharge"
-            label="Allowance Charge"
-            items={value.AllowanceCharge}
-            meta={OrderResponseFieldMeta.AllowanceCharge} 
-            itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-              <AllowanceChargeDisplay
-                key={key}
-                label="Allowance Charge"
-                value={itemValue}
-                meta={OrderResponseFieldMeta.AllowanceCharge}
-              />
-            }
-          />
+    [
+      OrderResponseField.TransactionConditions,
+      { meta: OrderResponseFieldMeta.TransactionConditions,
+        template: ({value, renderContext, fieldConfig}) => <TransactionConditionsDisplay
+          key={OrderResponseField.TransactionConditions}
+          meta={OrderResponseFieldMeta.TransactionConditions}
+          fieldConfig={fieldConfig}
+          transactionConditions={value?.TransactionConditions}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TransactionConditionsDisplay
-            label="Transaction Conditions"
-            value={value.TransactionConditions?.[0]}
-            meta={OrderResponseFieldMeta.TransactionConditions}
-          />
+    [
+      OrderResponseField.TaxExchangeRate,
+      { meta: OrderResponseFieldMeta.TaxExchangeRate,
+        template: ({value, renderContext, fieldConfig}) => <ExchangeRateDisplay
+          key={OrderResponseField.TaxExchangeRate}
+          meta={OrderResponseFieldMeta.TaxExchangeRate}
+          fieldConfig={fieldConfig}
+          exchangeRate={value?.TaxExchangeRate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ExchangeRateDisplay
-            label="Tax Exchange Rate"
-            value={value.TaxExchangeRate?.[0]}
-            meta={OrderResponseFieldMeta.TaxExchangeRate}
-          />
+    [
+      OrderResponseField.PricingExchangeRate,
+      { meta: OrderResponseFieldMeta.PricingExchangeRate,
+        template: ({value, renderContext, fieldConfig}) => <ExchangeRateDisplay
+          key={OrderResponseField.PricingExchangeRate}
+          meta={OrderResponseFieldMeta.PricingExchangeRate}
+          fieldConfig={fieldConfig}
+          exchangeRate={value?.PricingExchangeRate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ExchangeRateDisplay
-            label="Pricing Exchange Rate"
-            value={value.PricingExchangeRate?.[0]}
-            meta={OrderResponseFieldMeta.PricingExchangeRate}
-          />
+    [
+      OrderResponseField.PaymentExchangeRate,
+      { meta: OrderResponseFieldMeta.PaymentExchangeRate,
+        template: ({value, renderContext, fieldConfig}) => <ExchangeRateDisplay
+          key={OrderResponseField.PaymentExchangeRate}
+          meta={OrderResponseFieldMeta.PaymentExchangeRate}
+          fieldConfig={fieldConfig}
+          exchangeRate={value?.PaymentExchangeRate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ExchangeRateDisplay
-            label="Payment Exchange Rate"
-            value={value.PaymentExchangeRate?.[0]}
-            meta={OrderResponseFieldMeta.PaymentExchangeRate}
-          />
+    [
+      OrderResponseField.DestinationCountry,
+      { meta: OrderResponseFieldMeta.DestinationCountry,
+        template: ({value, renderContext, fieldConfig}) => <CountryDisplay
+          key={OrderResponseField.DestinationCountry}
+          meta={OrderResponseFieldMeta.DestinationCountry}
+          fieldConfig={fieldConfig}
+          country={value?.DestinationCountry}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CountryDisplay
-            label="Destination Country"
-            value={value.DestinationCountry?.[0]}
-            meta={OrderResponseFieldMeta.DestinationCountry}
-          />
+    [
+      OrderResponseField.TaxTotal,
+      { meta: OrderResponseFieldMeta.TaxTotal,
+        template: ({value, renderContext, fieldConfig}) => <TaxTotalDisplay
+          key={OrderResponseField.TaxTotal}
+          meta={OrderResponseFieldMeta.TaxTotal}
+          fieldConfig={fieldConfig}
+          taxTotal={value?.TaxTotal}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-TaxTotal"
-            label="Tax Total"
-            items={value.TaxTotal}
-            meta={OrderResponseFieldMeta.TaxTotal} 
-            itemDisplay={ (itemValue: TaxTotal, key: string | number) =>
-              <TaxTotalDisplay
-                key={key}
-                label="Tax Total"
-                value={itemValue}
-                meta={OrderResponseFieldMeta.TaxTotal}
-              />
-            }
-          />
+    [
+      OrderResponseField.LegalMonetaryTotal,
+      { meta: OrderResponseFieldMeta.LegalMonetaryTotal,
+        template: ({value, renderContext, fieldConfig}) => <MonetaryTotalDisplay
+          key={OrderResponseField.LegalMonetaryTotal}
+          meta={OrderResponseFieldMeta.LegalMonetaryTotal}
+          fieldConfig={fieldConfig}
+          monetaryTotal={value?.LegalMonetaryTotal}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MonetaryTotalDisplay
-            label="Legal Monetary Total"
-            value={value.LegalMonetaryTotal?.[0]}
-            meta={OrderResponseFieldMeta.LegalMonetaryTotal}
-          />
+    [
+      OrderResponseField.OrderLine,
+      { meta: OrderResponseFieldMeta.OrderLine,
+        template: ({value, renderContext, fieldConfig}) => <OrderLineDisplay
+          key={OrderResponseField.OrderLine}
+          meta={OrderResponseFieldMeta.OrderLine}
+          fieldConfig={fieldConfig}
+          orderLine={value?.OrderLine}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-OrderLine"
-            label="Order Line"
-            items={value.OrderLine}
-            meta={OrderResponseFieldMeta.OrderLine} 
-            itemDisplay={ (itemValue: OrderLine, key: string | number) =>
-              <OrderLineDisplay
-                key={key}
-                label="Order Line"
-                value={itemValue}
-                meta={OrderResponseFieldMeta.OrderLine}
-              />
-            }
-          />
-        </div>
-    </div>
+export function OrderResponseDisplay<TFieldMeta>({ meta, fieldConfig, orderResponse, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    OrderResponseTypeName,
+    meta,
+    fieldConfig,
+    orderResponse,
+    renderContext,
+    OrderResponseSubElementsMap,
   )
 }

@@ -2,7 +2,6 @@ import { EconomicOperatorRole } from './EconomicOperatorRole'
 import { Party } from './Party'
 import { QualifyingParty } from './QualifyingParty'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a potential contractor, supplier and service provider responding to a tender.
  */

@@ -1,4 +1,15 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { DimensionType } from './DimensionMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { ItemPropertyGroupType } from './ItemPropertyGroupMeta'
+import { ItemPropertyRangeType } from './ItemPropertyRangeMeta'
+import { PeriodType } from './PeriodMeta'
+import { PropertyIdentificationType } from './PropertyIdentificationMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ItemPropertyField {
   UBLExtensions = 'UBLExtensions',
@@ -22,11 +33,11 @@ export enum ItemPropertyField {
 export const ItemPropertyFieldMetaUBLExtensions = new FieldMeta<ItemPropertyField>(
   ItemPropertyField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -35,10 +46,10 @@ export const ItemPropertyFieldMetaID = new FieldMeta<ItemPropertyField>(
   ItemPropertyField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this property of an item.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -47,10 +58,10 @@ export const ItemPropertyFieldMetaName = new FieldMeta<ItemPropertyField>(
   ItemPropertyField.Name,
   'Name',
   'Name',
-  'Text',
+  TextType.name,
   'The name of this item property.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   'Energy Rating , Collar Size , Fat Content'
 )
@@ -59,10 +70,10 @@ export const ItemPropertyFieldMetaNameCode = new FieldMeta<ItemPropertyField>(
   ItemPropertyField.NameCode,
   'NameCode',
   'Name Code',
-  'Code',
+  CodeType.name,
   'The name of this item property, expressed as a code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -71,10 +82,10 @@ export const ItemPropertyFieldMetaTestMethod = new FieldMeta<ItemPropertyField>(
   ItemPropertyField.TestMethod,
   'TestMethod',
   'Test Method',
-  'Text',
+  TextType.name,
   'The method of testing the value of this item property.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '100 watts , 15 European , 20% +/- 5%'
 )
@@ -83,10 +94,10 @@ export const ItemPropertyFieldMetaValue = new FieldMeta<ItemPropertyField>(
   ItemPropertyField.Value,
   'Value',
   'Value',
-  'Text',
+  TextType.name,
   'The value of this item property, expressed as text.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '100 watts , 15 European , 20% +/- 5%'
 )
@@ -95,10 +106,10 @@ export const ItemPropertyFieldMetaValueQuantity = new FieldMeta<ItemPropertyFiel
   ItemPropertyField.ValueQuantity,
   'ValueQuantity',
   'Value Quantity',
-  'Quantity',
+  QuantityType.name,
   'The value of this item property, expressed as a quantity.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -107,10 +118,10 @@ export const ItemPropertyFieldMetaValueQualifier = new FieldMeta<ItemPropertyFie
   ItemPropertyField.ValueQualifier,
   'ValueQualifier',
   'Value Qualifier',
-  'Text',
+  TextType.name,
   'Text qualifying the value of the property.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -119,10 +130,10 @@ export const ItemPropertyFieldMetaImportanceCode = new FieldMeta<ItemPropertyFie
   ItemPropertyField.ImportanceCode,
   'ImportanceCode',
   'Importance Code',
-  'Code',
+  CodeType.name,
   'A code signifying the importance of this property in using it to describe a related Item.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -131,10 +142,10 @@ export const ItemPropertyFieldMetaListValue = new FieldMeta<ItemPropertyField>(
   ItemPropertyField.ListValue,
   'ListValue',
   'List Value',
-  'Text',
+  TextType.name,
   'The value expressed as a text in case the property is a value in a list. For example, a colour.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -143,10 +154,10 @@ export const ItemPropertyFieldMetaUsabilityPeriod = new FieldMeta<ItemPropertyFi
   ItemPropertyField.UsabilityPeriod,
   'UsabilityPeriod',
   'Usability Period',
-  'Period',
+  PeriodType.name,
   'The period during which this item property is valid.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -155,10 +166,10 @@ export const ItemPropertyFieldMetaItemPropertyGroup = new FieldMeta<ItemProperty
   ItemPropertyField.ItemPropertyGroup,
   'ItemPropertyGroup',
   'Item Property Group',
-  'ItemPropertyGroup',
+  ItemPropertyGroupType.name,
   'A description of the property group to which this item property belongs.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -167,10 +178,10 @@ export const ItemPropertyFieldMetaRangeDimension = new FieldMeta<ItemPropertyFie
   ItemPropertyField.RangeDimension,
   'RangeDimension',
   'Range Dimension',
-  'Dimension',
+  DimensionType.name,
   'The range of values for the dimensions of this property.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -179,10 +190,10 @@ export const ItemPropertyFieldMetaItemPropertyRange = new FieldMeta<ItemProperty
   ItemPropertyField.ItemPropertyRange,
   'ItemPropertyRange',
   'Item Property Range',
-  'ItemPropertyRange',
+  ItemPropertyRangeType.name,
   'A range of values for this item property.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -191,10 +202,10 @@ export const ItemPropertyFieldMetaStandardPropertyIdentification = new FieldMeta
   ItemPropertyField.StandardPropertyIdentification,
   'StandardPropertyIdentification',
   'Standard Property Identification',
-  'PropertyIdentification',
+  PropertyIdentificationType.name,
   'Identifying information for this property, assigned according to a standard system.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -203,10 +214,10 @@ export const ItemPropertyFieldMetaSubItemProperty = new FieldMeta<ItemPropertyFi
   ItemPropertyField.SubItemProperty,
   'SubItemProperty',
   'Sub Item Property',
-  'ItemProperty',
+  ItemPropertyType.name,
   'A property subsidiary to this property.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -248,3 +259,11 @@ export const ItemPropertyFieldMap = new Map([
   [ItemPropertyField.StandardPropertyIdentification, ItemPropertyFieldMetaStandardPropertyIdentification],
   [ItemPropertyField.SubItemProperty, ItemPropertyFieldMetaSubItemProperty]
 ])
+
+export const ItemPropertyType: Type<ItemPropertyField> = {
+  name: 'ItemProperty',
+  label: 'Item Property',
+  module: TypeModule.cac,
+  definition: 'A class to describe a specific property of an item.',
+  fields: ItemPropertyFieldMap,
+}

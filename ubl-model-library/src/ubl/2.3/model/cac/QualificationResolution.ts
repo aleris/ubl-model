@@ -4,7 +4,6 @@ import { ProcurementProjectLot } from './ProcurementProjectLot'
 import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe the acceptance or rejection of an economic operator in a tendering process.
  */

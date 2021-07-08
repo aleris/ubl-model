@@ -1,4 +1,31 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AllowanceChargeType } from '../cac/AllowanceChargeMeta'
+import { BillingReferenceType } from '../cac/BillingReferenceMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { CustomerPartyType } from '../cac/CustomerPartyMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { ExchangeRateType } from '../cac/ExchangeRateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { InvoiceLineType } from '../cac/InvoiceLineMeta'
+import { MonetaryTotalType } from '../cac/MonetaryTotalMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { OrderReferenceType } from '../cac/OrderReferenceMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { PaymentType } from '../cac/PaymentMeta'
+import { PaymentMeansType } from '../cac/PaymentMeansMeta'
+import { PaymentTermsType } from '../cac/PaymentTermsMeta'
+import { PeriodType } from '../cac/PeriodMeta'
+import { ProjectReferenceType } from '../cac/ProjectReferenceMeta'
+import { ShipmentType } from '../cac/ShipmentMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { SupplierPartyType } from '../cac/SupplierPartyMeta'
+import { TaxTotalType } from '../cac/TaxTotalMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum FreightInvoiceField {
   UBLExtensions = 'UBLExtensions',
@@ -55,11 +82,11 @@ export enum FreightInvoiceField {
 export const FreightInvoiceFieldMetaUBLExtensions = new FieldMeta<FreightInvoiceField>(
   FreightInvoiceField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -68,10 +95,10 @@ export const FreightInvoiceFieldMetaUBLVersionID = new FieldMeta<FreightInvoiceF
   FreightInvoiceField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.0.5'
 )
@@ -80,10 +107,10 @@ export const FreightInvoiceFieldMetaCustomizationID = new FieldMeta<FreightInvoi
   FreightInvoiceField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -92,10 +119,10 @@ export const FreightInvoiceFieldMetaProfileID = new FieldMeta<FreightInvoiceFiel
   FreightInvoiceField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BasicProcurementProcess'
 )
@@ -104,10 +131,10 @@ export const FreightInvoiceFieldMetaProfileExecutionID = new FieldMeta<FreightIn
   FreightInvoiceField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BPP-1001'
 )
@@ -116,10 +143,10 @@ export const FreightInvoiceFieldMetaID = new FieldMeta<FreightInvoiceField>(
   FreightInvoiceField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   'Invoice Number',
   undefined
 )
@@ -128,10 +155,10 @@ export const FreightInvoiceFieldMetaCopyIndicator = new FieldMeta<FreightInvoice
   FreightInvoiceField.CopyIndicator,
   'CopyIndicator',
   'Copy Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this document is a copy (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -140,10 +167,10 @@ export const FreightInvoiceFieldMetaUUID = new FieldMeta<FreightInvoiceField>(
   FreightInvoiceField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -152,10 +179,10 @@ export const FreightInvoiceFieldMetaIssueDate = new FieldMeta<FreightInvoiceFiel
   FreightInvoiceField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   'Invoice Date',
   undefined
 )
@@ -164,10 +191,10 @@ export const FreightInvoiceFieldMetaIssueTime = new FieldMeta<FreightInvoiceFiel
   FreightInvoiceField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -176,10 +203,10 @@ export const FreightInvoiceFieldMetaDueDate = new FieldMeta<FreightInvoiceField>
   FreightInvoiceField.DueDate,
   'DueDate',
   'Due Date',
-  'Date',
+  DateType.name,
   'The date on which Invoice is due.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -188,10 +215,10 @@ export const FreightInvoiceFieldMetaInvoiceTypeCode = new FieldMeta<FreightInvoi
   FreightInvoiceField.InvoiceTypeCode,
   'InvoiceTypeCode',
   'Invoice Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of the Freight Invoice.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -200,10 +227,10 @@ export const FreightInvoiceFieldMetaNote = new FieldMeta<FreightInvoiceField>(
   FreightInvoiceField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -212,10 +239,10 @@ export const FreightInvoiceFieldMetaTaxPointDate = new FieldMeta<FreightInvoiceF
   FreightInvoiceField.TaxPointDate,
   'TaxPointDate',
   'Tax Point Date',
-  'Date',
+  DateType.name,
   'The date of the Freight Invoice, used to indicate the point at which tax becomes applicable.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -224,10 +251,10 @@ export const FreightInvoiceFieldMetaDocumentCurrencyCode = new FieldMeta<Freight
   FreightInvoiceField.DocumentCurrencyCode,
   'DocumentCurrencyCode',
   'Document Currency Code',
-  'Code',
+  CodeType.name,
   'A code signifying the default currency for this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -236,10 +263,10 @@ export const FreightInvoiceFieldMetaTaxCurrencyCode = new FieldMeta<FreightInvoi
   FreightInvoiceField.TaxCurrencyCode,
   'TaxCurrencyCode',
   'Tax Currency Code',
-  'Code',
+  CodeType.name,
   'A code signifying the currency used for tax amounts in the Freight Invoice.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -248,10 +275,10 @@ export const FreightInvoiceFieldMetaPricingCurrencyCode = new FieldMeta<FreightI
   FreightInvoiceField.PricingCurrencyCode,
   'PricingCurrencyCode',
   'Pricing Currency Code',
-  'Code',
+  CodeType.name,
   'A code signifying the currency used for prices in the Freight Invoice.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -260,10 +287,10 @@ export const FreightInvoiceFieldMetaPaymentCurrencyCode = new FieldMeta<FreightI
   FreightInvoiceField.PaymentCurrencyCode,
   'PaymentCurrencyCode',
   'Payment Currency Code',
-  'Code',
+  CodeType.name,
   'A code signifying the currency used for payment in the Freight Invoice.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -272,10 +299,10 @@ export const FreightInvoiceFieldMetaPaymentAlternativeCurrencyCode = new FieldMe
   FreightInvoiceField.PaymentAlternativeCurrencyCode,
   'PaymentAlternativeCurrencyCode',
   'Payment Alternative Currency Code',
-  'Code',
+  CodeType.name,
   'A code signifying the alternative currency used for payment in the Freight Invoice.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -284,10 +311,10 @@ export const FreightInvoiceFieldMetaAccountingCostCode = new FieldMeta<FreightIn
   FreightInvoiceField.AccountingCostCode,
   'AccountingCostCode',
   'Accounting Cost Code',
-  'Code',
+  CodeType.name,
   'The buyer\'s accounting code, applied to the Freight Invoice as a whole.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -296,10 +323,10 @@ export const FreightInvoiceFieldMetaAccountingCost = new FieldMeta<FreightInvoic
   FreightInvoiceField.AccountingCost,
   'AccountingCost',
   'Accounting Cost',
-  'Text',
+  TextType.name,
   'The buyer\'s accounting cost centre, applied to the Freight Invoice as a whole, expressed as text.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -308,10 +335,10 @@ export const FreightInvoiceFieldMetaLineCountNumeric = new FieldMeta<FreightInvo
   FreightInvoiceField.LineCountNumeric,
   'LineCountNumeric',
   'Line Count',
-  'Numeric',
+  NumericType.name,
   'The number of Invoice Lines in the document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -320,10 +347,10 @@ export const FreightInvoiceFieldMetaInvoicePeriod = new FieldMeta<FreightInvoice
   FreightInvoiceField.InvoicePeriod,
   'InvoicePeriod',
   'Invoice Period',
-  'Period',
+  PeriodType.name,
   'The time periods to which the Freight Invoice applies.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -332,10 +359,10 @@ export const FreightInvoiceFieldMetaShipment = new FieldMeta<FreightInvoiceField
   FreightInvoiceField.Shipment,
   'Shipment',
   'Shipment',
-  'Shipment',
+  ShipmentType.name,
   'Details about one or more shipments covered by this Freight Invoice.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -344,10 +371,10 @@ export const FreightInvoiceFieldMetaOrderReference = new FieldMeta<FreightInvoic
   FreightInvoiceField.OrderReference,
   'OrderReference',
   'Order Reference',
-  'OrderReference',
+  OrderReferenceType.name,
   'Reference to an Order associated with this Freight Invoice.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -356,10 +383,10 @@ export const FreightInvoiceFieldMetaBillingReference = new FieldMeta<FreightInvo
   FreightInvoiceField.BillingReference,
   'BillingReference',
   'Billing Reference',
-  'BillingReference',
+  BillingReferenceType.name,
   'A reference to a billing document associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -368,10 +395,10 @@ export const FreightInvoiceFieldMetaDespatchDocumentReference = new FieldMeta<Fr
   FreightInvoiceField.DespatchDocumentReference,
   'DespatchDocumentReference',
   'Despatch Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a Despatch Advice associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -380,10 +407,10 @@ export const FreightInvoiceFieldMetaReceiptDocumentReference = new FieldMeta<Fre
   FreightInvoiceField.ReceiptDocumentReference,
   'ReceiptDocumentReference',
   'Receipt Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a Receipt Advice associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -392,10 +419,10 @@ export const FreightInvoiceFieldMetaOriginatorDocumentReference = new FieldMeta<
   FreightInvoiceField.OriginatorDocumentReference,
   'OriginatorDocumentReference',
   'Originator Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to an originator document associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -404,10 +431,10 @@ export const FreightInvoiceFieldMetaContractDocumentReference = new FieldMeta<Fr
   FreightInvoiceField.ContractDocumentReference,
   'ContractDocumentReference',
   'Contract Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a contract associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -416,10 +443,10 @@ export const FreightInvoiceFieldMetaAdditionalDocumentReference = new FieldMeta<
   FreightInvoiceField.AdditionalDocumentReference,
   'AdditionalDocumentReference',
   'Additional Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to an additional document associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -428,10 +455,10 @@ export const FreightInvoiceFieldMetaProjectReference = new FieldMeta<FreightInvo
   FreightInvoiceField.ProjectReference,
   'ProjectReference',
   'Project Reference',
-  'ProjectReference',
+  ProjectReferenceType.name,
   'A reference to a project associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -440,10 +467,10 @@ export const FreightInvoiceFieldMetaSignature = new FieldMeta<FreightInvoiceFiel
   FreightInvoiceField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -452,10 +479,10 @@ export const FreightInvoiceFieldMetaAccountingSupplierParty = new FieldMeta<Frei
   FreightInvoiceField.AccountingSupplierParty,
   'AccountingSupplierParty',
   'Accounting Supplier Party',
-  'SupplierParty',
+  SupplierPartyType.name,
   'The accounting supplier party.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -464,10 +491,10 @@ export const FreightInvoiceFieldMetaAccountingCustomerParty = new FieldMeta<Frei
   FreightInvoiceField.AccountingCustomerParty,
   'AccountingCustomerParty',
   'Accounting Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The accounting customer party.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -476,10 +503,10 @@ export const FreightInvoiceFieldMetaPayeeParty = new FieldMeta<FreightInvoiceFie
   FreightInvoiceField.PayeeParty,
   'PayeeParty',
   'Payee Party',
-  'Party',
+  PartyType.name,
   'The payee.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -488,10 +515,10 @@ export const FreightInvoiceFieldMetaTaxRepresentativeParty = new FieldMeta<Freig
   FreightInvoiceField.TaxRepresentativeParty,
   'TaxRepresentativeParty',
   'Tax Representative Party',
-  'Party',
+  PartyType.name,
   'The tax representative.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -500,10 +527,10 @@ export const FreightInvoiceFieldMetaPaymentMeans = new FieldMeta<FreightInvoiceF
   FreightInvoiceField.PaymentMeans,
   'PaymentMeans',
   'Payment Means',
-  'PaymentMeans',
+  PaymentMeansType.name,
   'Expected means of payment.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -512,10 +539,10 @@ export const FreightInvoiceFieldMetaPaymentTerms = new FieldMeta<FreightInvoiceF
   FreightInvoiceField.PaymentTerms,
   'PaymentTerms',
   'Payment Terms',
-  'PaymentTerms',
+  PaymentTermsType.name,
   'A set of payment terms associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -524,10 +551,10 @@ export const FreightInvoiceFieldMetaPrepaidPayment = new FieldMeta<FreightInvoic
   FreightInvoiceField.PrepaidPayment,
   'PrepaidPayment',
   'Prepaid Payment',
-  'Payment',
+  PaymentType.name,
   'A prepaid payment.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -536,10 +563,10 @@ export const FreightInvoiceFieldMetaAllowanceCharge = new FieldMeta<FreightInvoi
   FreightInvoiceField.AllowanceCharge,
   'AllowanceCharge',
   'Allowance Charge',
-  'AllowanceCharge',
+  AllowanceChargeType.name,
   'A discount or charge that applies to a price component.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -548,10 +575,10 @@ export const FreightInvoiceFieldMetaTaxExchangeRate = new FieldMeta<FreightInvoi
   FreightInvoiceField.TaxExchangeRate,
   'TaxExchangeRate',
   'Tax Exchange Rate',
-  'ExchangeRate',
+  ExchangeRateType.name,
   'The exchange rate between the document currency and the tax currency.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -560,10 +587,10 @@ export const FreightInvoiceFieldMetaPricingExchangeRate = new FieldMeta<FreightI
   FreightInvoiceField.PricingExchangeRate,
   'PricingExchangeRate',
   'Pricing Exchange Rate',
-  'ExchangeRate',
+  ExchangeRateType.name,
   'The exchange rate between the document currency and the pricing currency.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -572,10 +599,10 @@ export const FreightInvoiceFieldMetaPaymentExchangeRate = new FieldMeta<FreightI
   FreightInvoiceField.PaymentExchangeRate,
   'PaymentExchangeRate',
   'Payment Exchange Rate',
-  'ExchangeRate',
+  ExchangeRateType.name,
   'The exchange rate between the document currency and the payment currency.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -584,10 +611,10 @@ export const FreightInvoiceFieldMetaPaymentAlternativeExchangeRate = new FieldMe
   FreightInvoiceField.PaymentAlternativeExchangeRate,
   'PaymentAlternativeExchangeRate',
   'Payment Alternative Exchange Rate',
-  'ExchangeRate',
+  ExchangeRateType.name,
   'The exchange rate between the document currency and the payment alternative currency.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -596,10 +623,10 @@ export const FreightInvoiceFieldMetaTaxTotal = new FieldMeta<FreightInvoiceField
   FreightInvoiceField.TaxTotal,
   'TaxTotal',
   'Tax Total',
-  'TaxTotal',
+  TaxTotalType.name,
   'The total amount of a specific type of tax.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -608,10 +635,10 @@ export const FreightInvoiceFieldMetaWithholdingTaxTotal = new FieldMeta<FreightI
   FreightInvoiceField.WithholdingTaxTotal,
   'WithholdingTaxTotal',
   'Withholding Tax Total',
-  'TaxTotal',
+  TaxTotalType.name,
   'The total withholding tax.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -620,10 +647,10 @@ export const FreightInvoiceFieldMetaLegalMonetaryTotal = new FieldMeta<FreightIn
   FreightInvoiceField.LegalMonetaryTotal,
   'LegalMonetaryTotal',
   'Legal Monetary Total',
-  'MonetaryTotal',
+  MonetaryTotalType.name,
   'The total amount payable on the Freight Invoice, including Allowances, Charges, and Taxes.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -632,10 +659,10 @@ export const FreightInvoiceFieldMetaInvoiceLine = new FieldMeta<FreightInvoiceFi
   FreightInvoiceField.InvoiceLine,
   'InvoiceLine',
   'Invoice Line',
-  'InvoiceLine',
+  InvoiceLineType.name,
   'An Invoice Line.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -743,3 +770,11 @@ export const FreightInvoiceFieldMap = new Map([
   [FreightInvoiceField.LegalMonetaryTotal, FreightInvoiceFieldMetaLegalMonetaryTotal],
   [FreightInvoiceField.InvoiceLine, FreightInvoiceFieldMetaInvoiceLine]
 ])
+
+export const FreightInvoiceType: Type<FreightInvoiceField> = {
+  name: 'FreightInvoice',
+  label: 'Freight Invoice',
+  module: TypeModule.doc,
+  definition: 'A document stating the charges incurred for a logistics service.',
+  fields: FreightInvoiceFieldMap,
+}

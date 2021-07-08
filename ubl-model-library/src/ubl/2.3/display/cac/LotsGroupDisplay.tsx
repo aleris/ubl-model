@@ -1,57 +1,66 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { LotsGroup } from  '../../model/cac/LotsGroup'
-import { LotsGroupFieldMeta } from  '../../meta/cac/LotsGroupMeta'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import ProcurementProjectLotDisplay from './ProcurementProjectLotDisplay'
-import { ProcurementProjectLot } from '../../model/cac/ProcurementProjectLot'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { LotsGroupField, LotsGroupFieldMeta, LotsGroupTypeName } from  '../../meta/cac/LotsGroupMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { ProcurementProjectLotDisplay } from './ProcurementProjectLotDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: LotsGroup | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<LotsGroup, void>
+  lotsGroup: LotsGroup[] | undefined
+  renderContext: RenderContext
 }
 
-export default function LotsGroupDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const LotsGroupSubElementsMap: SubElementsTemplatesMap<LotsGroupField, LotsGroup, void> = new Map([
+    [
+      LotsGroupField.UBLExtensions,
+      { meta: LotsGroupFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={LotsGroupField.UBLExtensions}
+          meta={LotsGroupFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-LotsGroup">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={LotsGroupFieldMeta.UBLExtensions}
-          />
+    [
+      LotsGroupField.LotLotsGroupID,
+      { meta: LotsGroupFieldMeta.LotLotsGroupID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={LotsGroupField.LotLotsGroupID}
+          meta={LotsGroupFieldMeta.LotLotsGroupID}
+          fieldConfig={fieldConfig}
+          identifier={value?.LotLotsGroupID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Lot Lots Group"
-            value={value.LotLotsGroupID?.[0]}
-            meta={LotsGroupFieldMeta.LotLotsGroupID}
-          />
+    [
+      LotsGroupField.ProcurementProjectLot,
+      { meta: LotsGroupFieldMeta.ProcurementProjectLot,
+        template: ({value, renderContext, fieldConfig}) => <ProcurementProjectLotDisplay
+          key={LotsGroupField.ProcurementProjectLot}
+          meta={LotsGroupFieldMeta.ProcurementProjectLot}
+          fieldConfig={fieldConfig}
+          procurementProjectLot={value?.ProcurementProjectLot}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-ProcurementProjectLot"
-            label="Procurement Project Lot"
-            items={value.ProcurementProjectLot}
-            meta={LotsGroupFieldMeta.ProcurementProjectLot} 
-            itemDisplay={ (itemValue: ProcurementProjectLot, key: string | number) =>
-              <ProcurementProjectLotDisplay
-                key={key}
-                label="Procurement Project Lot"
-                value={itemValue}
-                meta={LotsGroupFieldMeta.ProcurementProjectLot}
-              />
-            }
-          />
-        </div>
-    </div>
+export function LotsGroupDisplay<TFieldMeta>({ meta, fieldConfig, lotsGroup, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    LotsGroupTypeName,
+    meta,
+    fieldConfig,
+    lotsGroup,
+    renderContext,
+    LotsGroupSubElementsMap,
   )
 }

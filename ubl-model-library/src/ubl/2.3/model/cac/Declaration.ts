@@ -2,7 +2,6 @@ import { Code } from '../cbc/Code'
 import { EvidenceSupplied } from './EvidenceSupplied'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a declaration by an economic operator of certain characteristics or capabilities in fulfilment of
  * requirements specified in a call for tenders.

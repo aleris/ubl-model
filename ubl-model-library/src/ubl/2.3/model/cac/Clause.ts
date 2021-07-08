@@ -1,7 +1,6 @@
 import { Identifier } from '../cbc/Identifier'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to define a clause (a distinct article or provision) in a contract, treaty, will, or other formal or legal
  * written document requiring compliance.

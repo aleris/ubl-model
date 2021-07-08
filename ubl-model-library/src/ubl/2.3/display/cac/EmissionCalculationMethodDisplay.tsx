@@ -1,60 +1,90 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { EmissionCalculationMethod } from  '../../model/cac/EmissionCalculationMethod'
-import { EmissionCalculationMethodFieldMeta } from  '../../meta/cac/EmissionCalculationMethodMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import LocationDisplay from './LocationDisplay'
-import { Location } from '../../model/cac/Location'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { EmissionCalculationMethodField, EmissionCalculationMethodFieldMeta, EmissionCalculationMethodTypeName } from  '../../meta/cac/EmissionCalculationMethodMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { LocationDisplay } from './LocationDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: EmissionCalculationMethod | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<EmissionCalculationMethod, void>
+  emissionCalculationMethod: EmissionCalculationMethod[] | undefined
+  renderContext: RenderContext
 }
 
-export default function EmissionCalculationMethodDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const EmissionCalculationMethodSubElementsMap: SubElementsTemplatesMap<EmissionCalculationMethodField, EmissionCalculationMethod, void> = new Map([
+    [
+      EmissionCalculationMethodField.UBLExtensions,
+      { meta: EmissionCalculationMethodFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={EmissionCalculationMethodField.UBLExtensions}
+          meta={EmissionCalculationMethodFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-EmissionCalculationMethod">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={EmissionCalculationMethodFieldMeta.UBLExtensions}
-          />
+    [
+      EmissionCalculationMethodField.CalculationMethodCode,
+      { meta: EmissionCalculationMethodFieldMeta.CalculationMethodCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={EmissionCalculationMethodField.CalculationMethodCode}
+          meta={EmissionCalculationMethodFieldMeta.CalculationMethodCode}
+          fieldConfig={fieldConfig}
+          code={value?.CalculationMethodCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Calculation Method Code"
-            value={value.CalculationMethodCode?.[0]}
-            meta={EmissionCalculationMethodFieldMeta.CalculationMethodCode}
-          />
+    [
+      EmissionCalculationMethodField.FullnessIndicationCode,
+      { meta: EmissionCalculationMethodFieldMeta.FullnessIndicationCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={EmissionCalculationMethodField.FullnessIndicationCode}
+          meta={EmissionCalculationMethodFieldMeta.FullnessIndicationCode}
+          fieldConfig={fieldConfig}
+          code={value?.FullnessIndicationCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Fullness Indication Code"
-            value={value.FullnessIndicationCode?.[0]}
-            meta={EmissionCalculationMethodFieldMeta.FullnessIndicationCode}
-          />
+    [
+      EmissionCalculationMethodField.MeasurementFromLocation,
+      { meta: EmissionCalculationMethodFieldMeta.MeasurementFromLocation,
+        template: ({value, renderContext, fieldConfig}) => <LocationDisplay
+          key={EmissionCalculationMethodField.MeasurementFromLocation}
+          meta={EmissionCalculationMethodFieldMeta.MeasurementFromLocation}
+          fieldConfig={fieldConfig}
+          location={value?.MeasurementFromLocation}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <LocationDisplay
-            label="Measurement From Location"
-            value={value.MeasurementFromLocation?.[0]}
-            meta={EmissionCalculationMethodFieldMeta.MeasurementFromLocation}
-          />
+    [
+      EmissionCalculationMethodField.MeasurementToLocation,
+      { meta: EmissionCalculationMethodFieldMeta.MeasurementToLocation,
+        template: ({value, renderContext, fieldConfig}) => <LocationDisplay
+          key={EmissionCalculationMethodField.MeasurementToLocation}
+          meta={EmissionCalculationMethodFieldMeta.MeasurementToLocation}
+          fieldConfig={fieldConfig}
+          location={value?.MeasurementToLocation}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <LocationDisplay
-            label="Measurement To Location"
-            value={value.MeasurementToLocation?.[0]}
-            meta={EmissionCalculationMethodFieldMeta.MeasurementToLocation}
-          />
-        </div>
-    </div>
+export function EmissionCalculationMethodDisplay<TFieldMeta>({ meta, fieldConfig, emissionCalculationMethod, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    EmissionCalculationMethodTypeName,
+    meta,
+    fieldConfig,
+    emissionCalculationMethod,
+    renderContext,
+    EmissionCalculationMethodSubElementsMap,
   )
 }

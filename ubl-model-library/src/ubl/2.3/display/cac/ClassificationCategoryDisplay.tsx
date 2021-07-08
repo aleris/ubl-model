@@ -1,76 +1,89 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ClassificationCategory } from  '../../model/cac/ClassificationCategory'
-import { ClassificationCategoryFieldMeta } from  '../../meta/cac/ClassificationCategoryMeta'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ClassificationCategoryField, ClassificationCategoryFieldMeta, ClassificationCategoryTypeName } from  '../../meta/cac/ClassificationCategoryMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ClassificationCategory | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ClassificationCategory, void>
+  classificationCategory: ClassificationCategory[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ClassificationCategoryDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ClassificationCategorySubElementsMap: SubElementsTemplatesMap<ClassificationCategoryField, ClassificationCategory, void> = new Map([
+    [
+      ClassificationCategoryField.UBLExtensions,
+      { meta: ClassificationCategoryFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ClassificationCategoryField.UBLExtensions}
+          meta={ClassificationCategoryFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ClassificationCategory">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ClassificationCategoryFieldMeta.UBLExtensions}
-          />
+    [
+      ClassificationCategoryField.Name,
+      { meta: ClassificationCategoryFieldMeta.Name,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ClassificationCategoryField.Name}
+          meta={ClassificationCategoryFieldMeta.Name}
+          fieldConfig={fieldConfig}
+          text={value?.Name}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Name"
-            value={value.Name?.[0]}
-            meta={ClassificationCategoryFieldMeta.Name}
-          />
+    [
+      ClassificationCategoryField.CodeValue,
+      { meta: ClassificationCategoryFieldMeta.CodeValue,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ClassificationCategoryField.CodeValue}
+          meta={ClassificationCategoryFieldMeta.CodeValue}
+          fieldConfig={fieldConfig}
+          text={value?.CodeValue}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Code Value"
-            value={value.CodeValue?.[0]}
-            meta={ClassificationCategoryFieldMeta.CodeValue}
-          />
+    [
+      ClassificationCategoryField.Description,
+      { meta: ClassificationCategoryFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ClassificationCategoryField.Description}
+          meta={ClassificationCategoryFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={ClassificationCategoryFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={ClassificationCategoryFieldMeta.Description}
-              />
-            }
-          />
+    [
+      ClassificationCategoryField.CategorizesClassificationCategory,
+      { meta: ClassificationCategoryFieldMeta.CategorizesClassificationCategory,
+        template: ({value, renderContext, fieldConfig}) => <ClassificationCategoryDisplay
+          key={ClassificationCategoryField.CategorizesClassificationCategory}
+          meta={ClassificationCategoryFieldMeta.CategorizesClassificationCategory}
+          fieldConfig={fieldConfig}
+          classificationCategory={value?.CategorizesClassificationCategory}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-ClassificationCategory ubl-CategorizesClassificationCategory"
-            label="Categorizes Classification Category"
-            items={value.CategorizesClassificationCategory}
-            meta={ClassificationCategoryFieldMeta.CategorizesClassificationCategory} 
-            itemDisplay={ (itemValue: ClassificationCategory, key: string | number) =>
-              <ClassificationCategoryDisplay
-                key={key}
-                label="Categorizes Classification Category"
-                value={itemValue}
-                meta={ClassificationCategoryFieldMeta.CategorizesClassificationCategory}
-              />
-            }
-          />
-        </div>
-    </div>
+export function ClassificationCategoryDisplay<TFieldMeta>({ meta, fieldConfig, classificationCategory, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ClassificationCategoryTypeName,
+    meta,
+    fieldConfig,
+    classificationCategory,
+    renderContext,
+    ClassificationCategorySubElementsMap,
   )
 }

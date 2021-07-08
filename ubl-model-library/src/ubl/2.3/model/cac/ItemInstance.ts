@@ -4,7 +4,6 @@ import { ItemProperty } from './ItemProperty'
 import { LotIdentification } from './LotIdentification'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a specific, trackable instance of an item.
  */

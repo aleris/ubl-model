@@ -1,4 +1,8 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { PartyType } from './PartyMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum WinningPartyField {
   UBLExtensions = 'UBLExtensions',
@@ -9,11 +13,11 @@ export enum WinningPartyField {
 export const WinningPartyFieldMetaUBLExtensions = new FieldMeta<WinningPartyField>(
   WinningPartyField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -22,10 +26,10 @@ export const WinningPartyFieldMetaRank = new FieldMeta<WinningPartyField>(
   WinningPartyField.Rank,
   'Rank',
   'Rank',
-  'Text',
+  TextType.name,
   'Indicates the rank obtained in the award.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -34,10 +38,10 @@ export const WinningPartyFieldMetaParty = new FieldMeta<WinningPartyField>(
   WinningPartyField.Party,
   'Party',
   'Party',
-  'Party',
+  PartyType.name,
   'Information about an organization, sub-organization, or individual fulfilling a role in a business process.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -53,3 +57,11 @@ export const WinningPartyFieldMap = new Map([
   [WinningPartyField.Rank, WinningPartyFieldMetaRank],
   [WinningPartyField.Party, WinningPartyFieldMetaParty]
 ])
+
+export const WinningPartyType: Type<WinningPartyField> = {
+  name: 'WinningParty',
+  label: 'Winning Party',
+  module: TypeModule.cac,
+  definition: 'A party that is identified as the awarded by a tender result.',
+  fields: WinningPartyFieldMap,
+}

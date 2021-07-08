@@ -2,7 +2,6 @@ import { Communication } from './Communication'
 import { Identifier } from '../cbc/Identifier'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a contactable person or department in an organization.
  */

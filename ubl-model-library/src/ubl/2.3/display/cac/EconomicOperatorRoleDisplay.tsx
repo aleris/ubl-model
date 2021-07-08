@@ -1,57 +1,66 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { EconomicOperatorRole } from  '../../model/cac/EconomicOperatorRole'
-import { EconomicOperatorRoleFieldMeta } from  '../../meta/cac/EconomicOperatorRoleMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { EconomicOperatorRoleField, EconomicOperatorRoleFieldMeta, EconomicOperatorRoleTypeName } from  '../../meta/cac/EconomicOperatorRoleMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: EconomicOperatorRole | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<EconomicOperatorRole, void>
+  economicOperatorRole: EconomicOperatorRole[] | undefined
+  renderContext: RenderContext
 }
 
-export default function EconomicOperatorRoleDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const EconomicOperatorRoleSubElementsMap: SubElementsTemplatesMap<EconomicOperatorRoleField, EconomicOperatorRole, void> = new Map([
+    [
+      EconomicOperatorRoleField.UBLExtensions,
+      { meta: EconomicOperatorRoleFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={EconomicOperatorRoleField.UBLExtensions}
+          meta={EconomicOperatorRoleFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-EconomicOperatorRole">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={EconomicOperatorRoleFieldMeta.UBLExtensions}
-          />
+    [
+      EconomicOperatorRoleField.RoleCode,
+      { meta: EconomicOperatorRoleFieldMeta.RoleCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={EconomicOperatorRoleField.RoleCode}
+          meta={EconomicOperatorRoleFieldMeta.RoleCode}
+          fieldConfig={fieldConfig}
+          code={value?.RoleCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Role Code"
-            value={value.RoleCode?.[0]}
-            meta={EconomicOperatorRoleFieldMeta.RoleCode}
-          />
+    [
+      EconomicOperatorRoleField.RoleDescription,
+      { meta: EconomicOperatorRoleFieldMeta.RoleDescription,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={EconomicOperatorRoleField.RoleDescription}
+          meta={EconomicOperatorRoleFieldMeta.RoleDescription}
+          fieldConfig={fieldConfig}
+          text={value?.RoleDescription}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-RoleDescription"
-            label="Role Description"
-            items={value.RoleDescription}
-            meta={EconomicOperatorRoleFieldMeta.RoleDescription} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Role Description"
-                value={itemValue}
-                meta={EconomicOperatorRoleFieldMeta.RoleDescription}
-              />
-            }
-          />
-        </div>
-    </div>
+export function EconomicOperatorRoleDisplay<TFieldMeta>({ meta, fieldConfig, economicOperatorRole, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    EconomicOperatorRoleTypeName,
+    meta,
+    fieldConfig,
+    economicOperatorRole,
+    renderContext,
+    EconomicOperatorRoleSubElementsMap,
   )
 }

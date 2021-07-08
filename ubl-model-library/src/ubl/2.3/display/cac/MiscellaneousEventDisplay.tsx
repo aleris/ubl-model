@@ -1,57 +1,66 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { MiscellaneousEvent } from  '../../model/cac/MiscellaneousEvent'
-import { MiscellaneousEventFieldMeta } from  '../../meta/cac/MiscellaneousEventMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import EventLineItemDisplay from './EventLineItemDisplay'
-import { EventLineItem } from '../../model/cac/EventLineItem'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { MiscellaneousEventField, MiscellaneousEventFieldMeta, MiscellaneousEventTypeName } from  '../../meta/cac/MiscellaneousEventMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { EventLineItemDisplay } from './EventLineItemDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: MiscellaneousEvent | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<MiscellaneousEvent, void>
+  miscellaneousEvent: MiscellaneousEvent[] | undefined
+  renderContext: RenderContext
 }
 
-export default function MiscellaneousEventDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const MiscellaneousEventSubElementsMap: SubElementsTemplatesMap<MiscellaneousEventField, MiscellaneousEvent, void> = new Map([
+    [
+      MiscellaneousEventField.UBLExtensions,
+      { meta: MiscellaneousEventFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={MiscellaneousEventField.UBLExtensions}
+          meta={MiscellaneousEventFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-MiscellaneousEvent">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={MiscellaneousEventFieldMeta.UBLExtensions}
-          />
+    [
+      MiscellaneousEventField.MiscellaneousEventTypeCode,
+      { meta: MiscellaneousEventFieldMeta.MiscellaneousEventTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={MiscellaneousEventField.MiscellaneousEventTypeCode}
+          meta={MiscellaneousEventFieldMeta.MiscellaneousEventTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.MiscellaneousEventTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Miscellaneous Event Type Code"
-            value={value.MiscellaneousEventTypeCode?.[0]}
-            meta={MiscellaneousEventFieldMeta.MiscellaneousEventTypeCode}
-          />
+    [
+      MiscellaneousEventField.EventLineItem,
+      { meta: MiscellaneousEventFieldMeta.EventLineItem,
+        template: ({value, renderContext, fieldConfig}) => <EventLineItemDisplay
+          key={MiscellaneousEventField.EventLineItem}
+          meta={MiscellaneousEventFieldMeta.EventLineItem}
+          fieldConfig={fieldConfig}
+          eventLineItem={value?.EventLineItem}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-EventLineItem"
-            label="Event Line Item"
-            items={value.EventLineItem}
-            meta={MiscellaneousEventFieldMeta.EventLineItem} 
-            itemDisplay={ (itemValue: EventLineItem, key: string | number) =>
-              <EventLineItemDisplay
-                key={key}
-                label="Event Line Item"
-                value={itemValue}
-                meta={MiscellaneousEventFieldMeta.EventLineItem}
-              />
-            }
-          />
-        </div>
-    </div>
+export function MiscellaneousEventDisplay<TFieldMeta>({ meta, fieldConfig, miscellaneousEvent, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    MiscellaneousEventTypeName,
+    meta,
+    fieldConfig,
+    miscellaneousEvent,
+    renderContext,
+    MiscellaneousEventSubElementsMap,
   )
 }

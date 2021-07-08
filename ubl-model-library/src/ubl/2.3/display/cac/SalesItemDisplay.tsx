@@ -1,97 +1,104 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { SalesItem } from  '../../model/cac/SalesItem'
-import { SalesItemFieldMeta } from  '../../meta/cac/SalesItemMeta'
-import ActivityPropertyDisplay from './ActivityPropertyDisplay'
-import { ActivityProperty } from '../../model/cac/ActivityProperty'
-import ItemDisplay from './ItemDisplay'
-import { Item } from '../../model/cac/Item'
-import PriceDisplay from './PriceDisplay'
-import { Price } from '../../model/cac/Price'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { SalesItemField, SalesItemFieldMeta, SalesItemTypeName } from  '../../meta/cac/SalesItemMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { ActivityPropertyDisplay } from './ActivityPropertyDisplay'
+import { ItemDisplay } from './ItemDisplay'
+import { PriceDisplay } from './PriceDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: SalesItem | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<SalesItem, void>
+  salesItem: SalesItem[] | undefined
+  renderContext: RenderContext
 }
 
-export default function SalesItemDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const SalesItemSubElementsMap: SubElementsTemplatesMap<SalesItemField, SalesItem, void> = new Map([
+    [
+      SalesItemField.UBLExtensions,
+      { meta: SalesItemFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={SalesItemField.UBLExtensions}
+          meta={SalesItemFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-SalesItem">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={SalesItemFieldMeta.UBLExtensions}
-          />
+    [
+      SalesItemField.Quantity,
+      { meta: SalesItemFieldMeta.Quantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={SalesItemField.Quantity}
+          meta={SalesItemFieldMeta.Quantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.Quantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Quantity"
-            value={value.Quantity?.[0]}
-            meta={SalesItemFieldMeta.Quantity}
-          />
+    [
+      SalesItemField.ActivityProperty,
+      { meta: SalesItemFieldMeta.ActivityProperty,
+        template: ({value, renderContext, fieldConfig}) => <ActivityPropertyDisplay
+          key={SalesItemField.ActivityProperty}
+          meta={SalesItemFieldMeta.ActivityProperty}
+          fieldConfig={fieldConfig}
+          activityProperty={value?.ActivityProperty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-ActivityProperty"
-            label="Activity Property"
-            items={value.ActivityProperty}
-            meta={SalesItemFieldMeta.ActivityProperty} 
-            itemDisplay={ (itemValue: ActivityProperty, key: string | number) =>
-              <ActivityPropertyDisplay
-                key={key}
-                label="Activity Property"
-                value={itemValue}
-                meta={SalesItemFieldMeta.ActivityProperty}
-              />
-            }
-          />
+    [
+      SalesItemField.TaxExclusivePrice,
+      { meta: SalesItemFieldMeta.TaxExclusivePrice,
+        template: ({value, renderContext, fieldConfig}) => <PriceDisplay
+          key={SalesItemField.TaxExclusivePrice}
+          meta={SalesItemFieldMeta.TaxExclusivePrice}
+          fieldConfig={fieldConfig}
+          price={value?.TaxExclusivePrice}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Price ubl-TaxExclusivePrice"
-            label="Tax Exclusive Price"
-            items={value.TaxExclusivePrice}
-            meta={SalesItemFieldMeta.TaxExclusivePrice} 
-            itemDisplay={ (itemValue: Price, key: string | number) =>
-              <PriceDisplay
-                key={key}
-                label="Tax Exclusive Price"
-                value={itemValue}
-                meta={SalesItemFieldMeta.TaxExclusivePrice}
-              />
-            }
-          />
+    [
+      SalesItemField.TaxInclusivePrice,
+      { meta: SalesItemFieldMeta.TaxInclusivePrice,
+        template: ({value, renderContext, fieldConfig}) => <PriceDisplay
+          key={SalesItemField.TaxInclusivePrice}
+          meta={SalesItemFieldMeta.TaxInclusivePrice}
+          fieldConfig={fieldConfig}
+          price={value?.TaxInclusivePrice}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Price ubl-TaxInclusivePrice"
-            label="Tax Inclusive Price"
-            items={value.TaxInclusivePrice}
-            meta={SalesItemFieldMeta.TaxInclusivePrice} 
-            itemDisplay={ (itemValue: Price, key: string | number) =>
-              <PriceDisplay
-                key={key}
-                label="Tax Inclusive Price"
-                value={itemValue}
-                meta={SalesItemFieldMeta.TaxInclusivePrice}
-              />
-            }
-          />
+    [
+      SalesItemField.Item,
+      { meta: SalesItemFieldMeta.Item,
+        template: ({value, renderContext, fieldConfig}) => <ItemDisplay
+          key={SalesItemField.Item}
+          meta={SalesItemFieldMeta.Item}
+          fieldConfig={fieldConfig}
+          item={value?.Item}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ItemDisplay
-            label="Item"
-            value={value.Item?.[0]}
-            meta={SalesItemFieldMeta.Item}
-          />
-        </div>
-    </div>
+export function SalesItemDisplay<TFieldMeta>({ meta, fieldConfig, salesItem, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    SalesItemTypeName,
+    meta,
+    fieldConfig,
+    salesItem,
+    renderContext,
+    SalesItemSubElementsMap,
   )
 }

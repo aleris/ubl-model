@@ -1,4 +1,4 @@
-import { capitalize, extractTypeName, formatComment, uncapitalize } from './type-gen-utils'
+import { capitalize, extractTypeName, formatComment, indent, getPropertyName, uncapitalize } from './type-gen-utils'
 
 describe('type-gen-utils', () => {
   test('extractTypeName', () => {
@@ -46,6 +46,22 @@ describe('type-gen-utils', () => {
 
   test('uncapitalize empty', () => {
     expect(uncapitalize('')).toEqual('')
+  })
+
+  test('propertyName reserved word', () => {
+    expect(getPropertyName('Package')).toEqual('packageValue')
+  })
+
+  test('propertyName', () => {
+    expect(getPropertyName('TestOne')).toEqual('testOne')
+  })
+
+  test('indent', () => {
+    expect(indent(`<div>
+  <span>1</span>
+</div>`, 2)).toEqual(`    <div>
+      <span>1</span>
+    </div>`)
   })
 })
 

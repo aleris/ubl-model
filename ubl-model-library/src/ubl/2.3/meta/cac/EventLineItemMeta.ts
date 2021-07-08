@@ -1,4 +1,10 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { ItemType } from './ItemMeta'
+import { LocationType } from './LocationMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { RetailPlannedImpactType } from './RetailPlannedImpactMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum EventLineItemField {
   UBLExtensions = 'UBLExtensions',
@@ -11,11 +17,11 @@ export enum EventLineItemField {
 export const EventLineItemFieldMetaUBLExtensions = new FieldMeta<EventLineItemField>(
   EventLineItemField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -24,10 +30,10 @@ export const EventLineItemFieldMetaLineNumberNumeric = new FieldMeta<EventLineIt
   EventLineItemField.LineNumberNumeric,
   'LineNumberNumeric',
   'Line Number',
-  'Numeric',
+  NumericType.name,
   'The number of this event line item.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -36,10 +42,10 @@ export const EventLineItemFieldMetaParticipatingLocationsLocation = new FieldMet
   EventLineItemField.ParticipatingLocationsLocation,
   'ParticipatingLocationsLocation',
   'Participating Locations Location',
-  'Location',
+  LocationType.name,
   'The location of the stores involved in the event described in this line item.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -48,10 +54,10 @@ export const EventLineItemFieldMetaRetailPlannedImpact = new FieldMeta<EventLine
   EventLineItemField.RetailPlannedImpact,
   'RetailPlannedImpact',
   'Retail Planned Impact',
-  'RetailPlannedImpact',
+  RetailPlannedImpactType.name,
   'A planned impact of the event described in this line item.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -60,10 +66,10 @@ export const EventLineItemFieldMetaSupplyItem = new FieldMeta<EventLineItemField
   EventLineItemField.SupplyItem,
   'SupplyItem',
   'Supply Item',
-  'Item',
+  ItemType.name,
   'The product with which the event is associated.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -83,3 +89,11 @@ export const EventLineItemFieldMap = new Map([
   [EventLineItemField.RetailPlannedImpact, EventLineItemFieldMetaRetailPlannedImpact],
   [EventLineItemField.SupplyItem, EventLineItemFieldMetaSupplyItem]
 ])
+
+export const EventLineItemType: Type<EventLineItemField> = {
+  name: 'EventLineItem',
+  label: 'Event Line Item',
+  module: TypeModule.cac,
+  definition: 'A class to define a line item describing the expected impacts associated with a retail event involving a specific product at a specific location.',
+  fields: EventLineItemFieldMap,
+}

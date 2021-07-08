@@ -1,112 +1,188 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { CardAccount } from  '../../model/cac/CardAccount'
-import { CardAccountFieldMeta } from  '../../meta/cac/CardAccountMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { CardAccountField, CardAccountFieldMeta, CardAccountTypeName } from  '../../meta/cac/CardAccountMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: CardAccount | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<CardAccount, void>
+  cardAccount: CardAccount[] | undefined
+  renderContext: RenderContext
 }
 
-export default function CardAccountDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const CardAccountSubElementsMap: SubElementsTemplatesMap<CardAccountField, CardAccount, void> = new Map([
+    [
+      CardAccountField.UBLExtensions,
+      { meta: CardAccountFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={CardAccountField.UBLExtensions}
+          meta={CardAccountFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-CardAccount">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={CardAccountFieldMeta.UBLExtensions}
-          />
+    [
+      CardAccountField.PrimaryAccountNumberID,
+      { meta: CardAccountFieldMeta.PrimaryAccountNumberID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CardAccountField.PrimaryAccountNumberID}
+          meta={CardAccountFieldMeta.PrimaryAccountNumberID}
+          fieldConfig={fieldConfig}
+          identifier={value?.PrimaryAccountNumberID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Primary Account Number"
-            value={value.PrimaryAccountNumberID?.[0]}
-            meta={CardAccountFieldMeta.PrimaryAccountNumberID}
-          />
+    [
+      CardAccountField.NetworkID,
+      { meta: CardAccountFieldMeta.NetworkID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CardAccountField.NetworkID}
+          meta={CardAccountFieldMeta.NetworkID}
+          fieldConfig={fieldConfig}
+          identifier={value?.NetworkID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Network"
-            value={value.NetworkID?.[0]}
-            meta={CardAccountFieldMeta.NetworkID}
-          />
+    [
+      CardAccountField.CardTypeCode,
+      { meta: CardAccountFieldMeta.CardTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={CardAccountField.CardTypeCode}
+          meta={CardAccountFieldMeta.CardTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.CardTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Card Type Code"
-            value={value.CardTypeCode?.[0]}
-            meta={CardAccountFieldMeta.CardTypeCode}
-          />
+    [
+      CardAccountField.ValidityStartDate,
+      { meta: CardAccountFieldMeta.ValidityStartDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={CardAccountField.ValidityStartDate}
+          meta={CardAccountFieldMeta.ValidityStartDate}
+          fieldConfig={fieldConfig}
+          date={value?.ValidityStartDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Validity Start Date"
-            value={value.ValidityStartDate?.[0]}
-            meta={CardAccountFieldMeta.ValidityStartDate}
-          />
+    [
+      CardAccountField.ExpiryDate,
+      { meta: CardAccountFieldMeta.ExpiryDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={CardAccountField.ExpiryDate}
+          meta={CardAccountFieldMeta.ExpiryDate}
+          fieldConfig={fieldConfig}
+          date={value?.ExpiryDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Expiry Date"
-            value={value.ExpiryDate?.[0]}
-            meta={CardAccountFieldMeta.ExpiryDate}
-          />
+    [
+      CardAccountField.IssuerID,
+      { meta: CardAccountFieldMeta.IssuerID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CardAccountField.IssuerID}
+          meta={CardAccountFieldMeta.IssuerID}
+          fieldConfig={fieldConfig}
+          identifier={value?.IssuerID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Issuer"
-            value={value.IssuerID?.[0]}
-            meta={CardAccountFieldMeta.IssuerID}
-          />
+    [
+      CardAccountField.IssueNumberID,
+      { meta: CardAccountFieldMeta.IssueNumberID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CardAccountField.IssueNumberID}
+          meta={CardAccountFieldMeta.IssueNumberID}
+          fieldConfig={fieldConfig}
+          identifier={value?.IssueNumberID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Issue Number"
-            value={value.IssueNumberID?.[0]}
-            meta={CardAccountFieldMeta.IssueNumberID}
-          />
+    [
+      CardAccountField.CV2ID,
+      { meta: CardAccountFieldMeta.CV2ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CardAccountField.CV2ID}
+          meta={CardAccountFieldMeta.CV2ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CV2ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="CV2"
-            value={value.CV2ID?.[0]}
-            meta={CardAccountFieldMeta.CV2ID}
-          />
+    [
+      CardAccountField.CardChipCode,
+      { meta: CardAccountFieldMeta.CardChipCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={CardAccountField.CardChipCode}
+          meta={CardAccountFieldMeta.CardChipCode}
+          fieldConfig={fieldConfig}
+          code={value?.CardChipCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Card Chip Code"
-            value={value.CardChipCode?.[0]}
-            meta={CardAccountFieldMeta.CardChipCode}
-          />
+    [
+      CardAccountField.ChipApplicationID,
+      { meta: CardAccountFieldMeta.ChipApplicationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CardAccountField.ChipApplicationID}
+          meta={CardAccountFieldMeta.ChipApplicationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ChipApplicationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Chip Application"
-            value={value.ChipApplicationID?.[0]}
-            meta={CardAccountFieldMeta.ChipApplicationID}
-          />
+    [
+      CardAccountField.HolderName,
+      { meta: CardAccountFieldMeta.HolderName,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={CardAccountField.HolderName}
+          meta={CardAccountFieldMeta.HolderName}
+          fieldConfig={fieldConfig}
+          text={value?.HolderName}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Holder"
-            value={value.HolderName?.[0]}
-            meta={CardAccountFieldMeta.HolderName}
-          />
+    [
+      CardAccountField.RoleCode,
+      { meta: CardAccountFieldMeta.RoleCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={CardAccountField.RoleCode}
+          meta={CardAccountFieldMeta.RoleCode}
+          fieldConfig={fieldConfig}
+          code={value?.RoleCode}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <CodeDisplay
-            label="Role Code"
-            value={value.RoleCode?.[0]}
-            meta={CardAccountFieldMeta.RoleCode}
-          />
-        </div>
-    </div>
+export function CardAccountDisplay<TFieldMeta>({ meta, fieldConfig, cardAccount, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    CardAccountTypeName,
+    meta,
+    fieldConfig,
+    cardAccount,
+    renderContext,
+    CardAccountSubElementsMap,
   )
 }

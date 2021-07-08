@@ -1,105 +1,144 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { InventoryReportLine } from  '../../model/cac/InventoryReportLine'
-import { InventoryReportLineFieldMeta } from  '../../meta/cac/InventoryReportLineMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import ItemDisplay from './ItemDisplay'
-import { Item } from '../../model/cac/Item'
-import LocationDisplay from './LocationDisplay'
-import { Location } from '../../model/cac/Location'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { InventoryReportLineField, InventoryReportLineFieldMeta, InventoryReportLineTypeName } from  '../../meta/cac/InventoryReportLineMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { ItemDisplay } from './ItemDisplay'
+import { LocationDisplay } from './LocationDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: InventoryReportLine | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<InventoryReportLine, void>
+  inventoryReportLine: InventoryReportLine[] | undefined
+  renderContext: RenderContext
 }
 
-export default function InventoryReportLineDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const InventoryReportLineSubElementsMap: SubElementsTemplatesMap<InventoryReportLineField, InventoryReportLine, void> = new Map([
+    [
+      InventoryReportLineField.UBLExtensions,
+      { meta: InventoryReportLineFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={InventoryReportLineField.UBLExtensions}
+          meta={InventoryReportLineFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-InventoryReportLine">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={InventoryReportLineFieldMeta.UBLExtensions}
-          />
+    [
+      InventoryReportLineField.ID,
+      { meta: InventoryReportLineFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={InventoryReportLineField.ID}
+          meta={InventoryReportLineFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={InventoryReportLineFieldMeta.ID}
-          />
+    [
+      InventoryReportLineField.Note,
+      { meta: InventoryReportLineFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={InventoryReportLineField.Note}
+          meta={InventoryReportLineFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={InventoryReportLineFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={InventoryReportLineFieldMeta.Note}
-              />
-            }
-          />
+    [
+      InventoryReportLineField.Quantity,
+      { meta: InventoryReportLineFieldMeta.Quantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={InventoryReportLineField.Quantity}
+          meta={InventoryReportLineFieldMeta.Quantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.Quantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Quantity"
-            value={value.Quantity?.[0]}
-            meta={InventoryReportLineFieldMeta.Quantity}
-          />
+    [
+      InventoryReportLineField.InventoryValueAmount,
+      { meta: InventoryReportLineFieldMeta.InventoryValueAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={InventoryReportLineField.InventoryValueAmount}
+          meta={InventoryReportLineFieldMeta.InventoryValueAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.InventoryValueAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Inventory Value"
-            value={value.InventoryValueAmount?.[0]}
-            meta={InventoryReportLineFieldMeta.InventoryValueAmount}
-          />
+    [
+      InventoryReportLineField.AvailabilityDate,
+      { meta: InventoryReportLineFieldMeta.AvailabilityDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={InventoryReportLineField.AvailabilityDate}
+          meta={InventoryReportLineFieldMeta.AvailabilityDate}
+          fieldConfig={fieldConfig}
+          date={value?.AvailabilityDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Availability Date"
-            value={value.AvailabilityDate?.[0]}
-            meta={InventoryReportLineFieldMeta.AvailabilityDate}
-          />
+    [
+      InventoryReportLineField.AvailabilityStatusCode,
+      { meta: InventoryReportLineFieldMeta.AvailabilityStatusCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={InventoryReportLineField.AvailabilityStatusCode}
+          meta={InventoryReportLineFieldMeta.AvailabilityStatusCode}
+          fieldConfig={fieldConfig}
+          code={value?.AvailabilityStatusCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Availability Status Code"
-            value={value.AvailabilityStatusCode?.[0]}
-            meta={InventoryReportLineFieldMeta.AvailabilityStatusCode}
-          />
+    [
+      InventoryReportLineField.Item,
+      { meta: InventoryReportLineFieldMeta.Item,
+        template: ({value, renderContext, fieldConfig}) => <ItemDisplay
+          key={InventoryReportLineField.Item}
+          meta={InventoryReportLineFieldMeta.Item}
+          fieldConfig={fieldConfig}
+          item={value?.Item}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ItemDisplay
-            label="Item"
-            value={value.Item?.[0]}
-            meta={InventoryReportLineFieldMeta.Item}
-          />
+    [
+      InventoryReportLineField.InventoryLocation,
+      { meta: InventoryReportLineFieldMeta.InventoryLocation,
+        template: ({value, renderContext, fieldConfig}) => <LocationDisplay
+          key={InventoryReportLineField.InventoryLocation}
+          meta={InventoryReportLineFieldMeta.InventoryLocation}
+          fieldConfig={fieldConfig}
+          location={value?.InventoryLocation}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <LocationDisplay
-            label="Inventory Location"
-            value={value.InventoryLocation?.[0]}
-            meta={InventoryReportLineFieldMeta.InventoryLocation}
-          />
-        </div>
-    </div>
+export function InventoryReportLineDisplay<TFieldMeta>({ meta, fieldConfig, inventoryReportLine, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    InventoryReportLineTypeName,
+    meta,
+    fieldConfig,
+    inventoryReportLine,
+    renderContext,
+    InventoryReportLineSubElementsMap,
   )
 }

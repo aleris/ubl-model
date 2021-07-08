@@ -1,4 +1,15 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CertificateOfOriginApplicationType } from '../cac/CertificateOfOriginApplicationMeta'
+import { DateType } from '../cbc/DateMeta'
+import { EndorsementType } from '../cac/EndorsementMeta'
+import { EndorserPartyType } from '../cac/EndorserPartyMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum CertificateOfOriginField {
   UBLExtensions = 'UBLExtensions',
@@ -26,11 +37,11 @@ export enum CertificateOfOriginField {
 export const CertificateOfOriginFieldMetaUBLExtensions = new FieldMeta<CertificateOfOriginField>(
   CertificateOfOriginField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -39,10 +50,10 @@ export const CertificateOfOriginFieldMetaUBLVersionID = new FieldMeta<Certificat
   CertificateOfOriginField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.0.5'
 )
@@ -51,10 +62,10 @@ export const CertificateOfOriginFieldMetaCustomizationID = new FieldMeta<Certifi
   CertificateOfOriginField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -63,10 +74,10 @@ export const CertificateOfOriginFieldMetaProfileID = new FieldMeta<CertificateOf
   CertificateOfOriginField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BasicProcurementProcess'
 )
@@ -75,10 +86,10 @@ export const CertificateOfOriginFieldMetaProfileExecutionID = new FieldMeta<Cert
   CertificateOfOriginField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BPP-1001'
 )
@@ -87,10 +98,10 @@ export const CertificateOfOriginFieldMetaID = new FieldMeta<CertificateOfOriginF
   CertificateOfOriginField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -99,10 +110,10 @@ export const CertificateOfOriginFieldMetaUUID = new FieldMeta<CertificateOfOrigi
   CertificateOfOriginField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -111,10 +122,10 @@ export const CertificateOfOriginFieldMetaIssueDate = new FieldMeta<CertificateOf
   CertificateOfOriginField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -123,10 +134,10 @@ export const CertificateOfOriginFieldMetaIssueTime = new FieldMeta<CertificateOf
   CertificateOfOriginField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -135,10 +146,10 @@ export const CertificateOfOriginFieldMetaDescription = new FieldMeta<Certificate
   CertificateOfOriginField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Textual description of the document instance.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -147,10 +158,10 @@ export const CertificateOfOriginFieldMetaNote = new FieldMeta<CertificateOfOrigi
   CertificateOfOriginField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -159,10 +170,10 @@ export const CertificateOfOriginFieldMetaVersionID = new FieldMeta<CertificateOf
   CertificateOfOriginField.VersionID,
   'VersionID',
   'Version',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the version of this Certificate of Origin.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -171,10 +182,10 @@ export const CertificateOfOriginFieldMetaSignature = new FieldMeta<CertificateOf
   CertificateOfOriginField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -183,10 +194,10 @@ export const CertificateOfOriginFieldMetaExporterParty = new FieldMeta<Certifica
   CertificateOfOriginField.ExporterParty,
   'ExporterParty',
   'Exporter Party',
-  'Party',
+  PartyType.name,
   'The Party who makes the export declaration, or on whose behalf the export declaration is made, and who is the owner of the goods or has similar right of disposal over them at the time when the declaration is accepted.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   'Exporter (WCO ID 41 and 42)',
   undefined
 )
@@ -195,10 +206,10 @@ export const CertificateOfOriginFieldMetaImporterParty = new FieldMeta<Certifica
   CertificateOfOriginField.ImporterParty,
   'ImporterParty',
   'Importer Party',
-  'Party',
+  PartyType.name,
   'The Party who makes an import declaration, or on whose behalf a Customs clearing agent or other authorized person makes an import declaration. This may include a person who has possession of the goods or to whom the goods are consigned.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   'Importer (WCO ID 39 and 40)',
   undefined
 )
@@ -207,10 +218,10 @@ export const CertificateOfOriginFieldMetaEndorserParty = new FieldMeta<Certifica
   CertificateOfOriginField.EndorserParty,
   'EndorserParty',
   'Endorser Party',
-  'EndorserParty',
+  EndorserPartyType.name,
   'The Party providing the endorsement.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -219,10 +230,10 @@ export const CertificateOfOriginFieldMetaCertificateOfOriginApplication = new Fi
   CertificateOfOriginField.CertificateOfOriginApplication,
   'CertificateOfOriginApplication',
   'Certificate Of Origin Application',
-  'CertificateOfOriginApplication',
+  CertificateOfOriginApplicationType.name,
   'Details of the application for a Certificate of Origin.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -231,10 +242,10 @@ export const CertificateOfOriginFieldMetaIssuerEndorsement = new FieldMeta<Certi
   CertificateOfOriginField.IssuerEndorsement,
   'IssuerEndorsement',
   'Issuer Endorsement',
-  'Endorsement',
+  EndorsementType.name,
   'Issuer Endorsement details.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -243,10 +254,10 @@ export const CertificateOfOriginFieldMetaEmbassyEndorsement = new FieldMeta<Cert
   CertificateOfOriginField.EmbassyEndorsement,
   'EmbassyEndorsement',
   'Embassy Endorsement',
-  'Endorsement',
+  EndorsementType.name,
   'Embassy Endorsement details.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -255,10 +266,10 @@ export const CertificateOfOriginFieldMetaInsuranceEndorsement = new FieldMeta<Ce
   CertificateOfOriginField.InsuranceEndorsement,
   'InsuranceEndorsement',
   'Insurance Endorsement',
-  'Endorsement',
+  EndorsementType.name,
   'Insurance Endorsement details.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -308,3 +319,11 @@ export const CertificateOfOriginFieldMap = new Map([
   [CertificateOfOriginField.EmbassyEndorsement, CertificateOfOriginFieldMetaEmbassyEndorsement],
   [CertificateOfOriginField.InsuranceEndorsement, CertificateOfOriginFieldMetaInsuranceEndorsement]
 ])
+
+export const CertificateOfOriginType: Type<CertificateOfOriginField> = {
+  name: 'CertificateOfOrigin',
+  label: 'Certificate Of Origin',
+  module: TypeModule.doc,
+  definition: 'A document that describes the Certificate of Origin.',
+  fields: CertificateOfOriginFieldMap,
+}

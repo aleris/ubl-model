@@ -1,4 +1,16 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AttachmentType } from './AttachmentMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { DateType } from '../cbc/DateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { PartyType } from './PartyMeta'
+import { PeriodType } from './PeriodMeta'
+import { ResultOfVerificationType } from './ResultOfVerificationMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum DocumentReferenceField {
   UBLExtensions = 'UBLExtensions',
@@ -25,11 +37,11 @@ export enum DocumentReferenceField {
 export const DocumentReferenceFieldMetaUBLExtensions = new FieldMeta<DocumentReferenceField>(
   DocumentReferenceField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -38,10 +50,10 @@ export const DocumentReferenceFieldMetaID = new FieldMeta<DocumentReferenceField
   DocumentReferenceField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the referenced document.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   'PO-001 3333-44-123'
 )
@@ -50,10 +62,10 @@ export const DocumentReferenceFieldMetaCopyIndicator = new FieldMeta<DocumentRef
   DocumentReferenceField.CopyIndicator,
   'CopyIndicator',
   'Copy Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indicator that the referenced document is a copy (true) or the original (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -62,10 +74,10 @@ export const DocumentReferenceFieldMetaUUID = new FieldMeta<DocumentReferenceFie
   DocumentReferenceField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for this document reference.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -74,10 +86,10 @@ export const DocumentReferenceFieldMetaIssueDate = new FieldMeta<DocumentReferen
   DocumentReferenceField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender of the referenced document, on which the document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -86,10 +98,10 @@ export const DocumentReferenceFieldMetaIssueTime = new FieldMeta<DocumentReferen
   DocumentReferenceField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender of the referenced document, at which the document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -98,10 +110,10 @@ export const DocumentReferenceFieldMetaDocumentTypeCode = new FieldMeta<Document
   DocumentReferenceField.DocumentTypeCode,
   'DocumentTypeCode',
   'Document Type Code',
-  'Code',
+  CodeType.name,
   'The type of document being referenced, expressed as a code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -110,10 +122,10 @@ export const DocumentReferenceFieldMetaDocumentType = new FieldMeta<DocumentRefe
   DocumentReferenceField.DocumentType,
   'DocumentType',
   'Document Type',
-  'Text',
+  TextType.name,
   'The type of document being referenced, expressed as text.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -122,10 +134,10 @@ export const DocumentReferenceFieldMetaXPath = new FieldMeta<DocumentReferenceFi
   DocumentReferenceField.XPath,
   'XPath',
   'XPath',
-  'Text',
+  TextType.name,
   'An unambiguous location within the bounding document or the document referenced by the parent DocumentReference, expressed as an XPath',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -134,10 +146,10 @@ export const DocumentReferenceFieldMetaReferencedDocumentInternalAddress = new F
   DocumentReferenceField.ReferencedDocumentInternalAddress,
   'ReferencedDocumentInternalAddress',
   'Referenced Document Internal Address',
-  'Text',
+  TextType.name,
   'A pointer to a location within the document being referenced',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -146,10 +158,10 @@ export const DocumentReferenceFieldMetaLanguageID = new FieldMeta<DocumentRefere
   DocumentReferenceField.LanguageID,
   'LanguageID',
   'Language',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the language used in the referenced document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -158,10 +170,10 @@ export const DocumentReferenceFieldMetaLocaleCode = new FieldMeta<DocumentRefere
   DocumentReferenceField.LocaleCode,
   'LocaleCode',
   'Locale Code',
-  'Code',
+  CodeType.name,
   'A code signifying the locale in which the language in the referenced document is used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -170,10 +182,10 @@ export const DocumentReferenceFieldMetaVersionID = new FieldMeta<DocumentReferen
   DocumentReferenceField.VersionID,
   'VersionID',
   'Version',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the current version of the referenced document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '1.1'
 )
@@ -182,10 +194,10 @@ export const DocumentReferenceFieldMetaDocumentStatusCode = new FieldMeta<Docume
   DocumentReferenceField.DocumentStatusCode,
   'DocumentStatusCode',
   'Document Status Code',
-  'Code',
+  CodeType.name,
   'A code signifying the status of the reference document with respect to its original state.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -194,10 +206,10 @@ export const DocumentReferenceFieldMetaDocumentDescription = new FieldMeta<Docum
   DocumentReferenceField.DocumentDescription,
   'DocumentDescription',
   'Document Description',
-  'Text',
+  TextType.name,
   'Text describing the referenced document.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   'stock no longer provided'
 )
@@ -206,10 +218,10 @@ export const DocumentReferenceFieldMetaAttachment = new FieldMeta<DocumentRefere
   DocumentReferenceField.Attachment,
   'Attachment',
   'Attachment',
-  'Attachment',
+  AttachmentType.name,
   'The referenced document as an attachment to the document from which it is referenced.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -218,10 +230,10 @@ export const DocumentReferenceFieldMetaValidityPeriod = new FieldMeta<DocumentRe
   DocumentReferenceField.ValidityPeriod,
   'ValidityPeriod',
   'Validity Period',
-  'Period',
+  PeriodType.name,
   'The period for which this document reference is valid.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -230,10 +242,10 @@ export const DocumentReferenceFieldMetaIssuerParty = new FieldMeta<DocumentRefer
   DocumentReferenceField.IssuerParty,
   'IssuerParty',
   'Issuer Party',
-  'Party',
+  PartyType.name,
   'The party who issued the referenced document.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -242,10 +254,10 @@ export const DocumentReferenceFieldMetaResultOfVerification = new FieldMeta<Docu
   DocumentReferenceField.ResultOfVerification,
   'ResultOfVerification',
   'Result Of Verification',
-  'ResultOfVerification',
+  ResultOfVerificationType.name,
   'The result of an attempt to verify a signature associated with the referenced document.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -293,3 +305,11 @@ export const DocumentReferenceFieldMap = new Map([
   [DocumentReferenceField.IssuerParty, DocumentReferenceFieldMetaIssuerParty],
   [DocumentReferenceField.ResultOfVerification, DocumentReferenceFieldMetaResultOfVerification]
 ])
+
+export const DocumentReferenceType: Type<DocumentReferenceField> = {
+  name: 'DocumentReference',
+  label: 'Document Reference',
+  module: TypeModule.cac,
+  definition: 'A class to define a reference to a document.',
+  fields: DocumentReferenceFieldMap,
+}

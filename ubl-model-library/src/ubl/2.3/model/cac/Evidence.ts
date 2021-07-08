@@ -5,7 +5,6 @@ import { Language } from './Language'
 import { Party } from './Party'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe an item of evidentiary support for representations of capabilities or the ability to meet
  * tendering requirements, which an economic operator must provide for acceptance into a tendering process.

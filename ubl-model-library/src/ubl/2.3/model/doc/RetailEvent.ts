@@ -14,7 +14,6 @@ import { SupplierParty } from '../cac/SupplierParty'
 import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A document used to specify basic information about retail events (such as promotions, product introductions, and
  * community or environmental events) that affect supply or demand.

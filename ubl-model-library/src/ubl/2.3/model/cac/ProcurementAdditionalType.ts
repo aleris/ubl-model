@@ -1,6 +1,5 @@
 import { Code } from '../cbc/Code'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe additional types for a procurement project
  */

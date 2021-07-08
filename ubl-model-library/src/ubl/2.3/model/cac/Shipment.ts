@@ -15,7 +15,6 @@ import { ShipmentStage } from './ShipmentStage'
 import { Text } from '../cbc/Text'
 import { TransportHandlingUnit } from './TransportHandlingUnit'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class defining an identifiable collection of one or more goods items to be transported between the seller party and
  * the buyer party. This information may be defined within a commercial contract. A shipment can be transported in

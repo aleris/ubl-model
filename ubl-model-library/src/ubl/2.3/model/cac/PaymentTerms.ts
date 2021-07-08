@@ -7,7 +7,6 @@ import { Numeric } from '../cbc/Numeric'
 import { Period } from './Period'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a set of payment terms.
  */

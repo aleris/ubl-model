@@ -1,4 +1,16 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { FinancialGuaranteeType } from '../cac/FinancialGuaranteeMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { TenderResultType } from '../cac/TenderResultMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum AwardedNotificationField {
   UBLExtensions = 'UBLExtensions',
@@ -26,11 +38,11 @@ export enum AwardedNotificationField {
 export const AwardedNotificationFieldMetaUBLExtensions = new FieldMeta<AwardedNotificationField>(
   AwardedNotificationField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -39,10 +51,10 @@ export const AwardedNotificationFieldMetaUBLVersionID = new FieldMeta<AwardedNot
   AwardedNotificationField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.0.5'
 )
@@ -51,10 +63,10 @@ export const AwardedNotificationFieldMetaCustomizationID = new FieldMeta<Awarded
   AwardedNotificationField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -63,10 +75,10 @@ export const AwardedNotificationFieldMetaProfileID = new FieldMeta<AwardedNotifi
   AwardedNotificationField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BasicProcurementProcess'
 )
@@ -75,10 +87,10 @@ export const AwardedNotificationFieldMetaProfileExecutionID = new FieldMeta<Awar
   AwardedNotificationField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BPP-1001'
 )
@@ -87,10 +99,10 @@ export const AwardedNotificationFieldMetaID = new FieldMeta<AwardedNotificationF
   AwardedNotificationField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -99,10 +111,10 @@ export const AwardedNotificationFieldMetaCopyIndicator = new FieldMeta<AwardedNo
   AwardedNotificationField.CopyIndicator,
   'CopyIndicator',
   'Copy Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this document is a copy (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -111,10 +123,10 @@ export const AwardedNotificationFieldMetaUUID = new FieldMeta<AwardedNotificatio
   AwardedNotificationField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -123,10 +135,10 @@ export const AwardedNotificationFieldMetaContractFolderID = new FieldMeta<Awarde
   AwardedNotificationField.ContractFolderID,
   'ContractFolderID',
   'Contract Folder Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier, assigned by the sender, for the process file (i.e., record) to which this document belongs.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -135,10 +147,10 @@ export const AwardedNotificationFieldMetaIssueDate = new FieldMeta<AwardedNotifi
   AwardedNotificationField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -147,10 +159,10 @@ export const AwardedNotificationFieldMetaIssueTime = new FieldMeta<AwardedNotifi
   AwardedNotificationField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -159,10 +171,10 @@ export const AwardedNotificationFieldMetaContractName = new FieldMeta<AwardedNot
   AwardedNotificationField.ContractName,
   'ContractName',
   'Contract Name',
-  'Text',
+  TextType.name,
   'The name, expressed as text, of this procurement project.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -171,10 +183,10 @@ export const AwardedNotificationFieldMetaNote = new FieldMeta<AwardedNotificatio
   AwardedNotificationField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -183,10 +195,10 @@ export const AwardedNotificationFieldMetaSenderParty = new FieldMeta<AwardedNoti
   AwardedNotificationField.SenderParty,
   'SenderParty',
   'Sender Party',
-  'Party',
+  PartyType.name,
   'The party sending this document.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -195,10 +207,10 @@ export const AwardedNotificationFieldMetaReceiverParty = new FieldMeta<AwardedNo
   AwardedNotificationField.ReceiverParty,
   'ReceiverParty',
   'Receiver Party',
-  'Party',
+  PartyType.name,
   'The party receiving this document.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -207,10 +219,10 @@ export const AwardedNotificationFieldMetaMinutesDocumentReference = new FieldMet
   AwardedNotificationField.MinutesDocumentReference,
   'MinutesDocumentReference',
   'Minutes Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a set of minutes associated with this award.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -219,10 +231,10 @@ export const AwardedNotificationFieldMetaAdditionalDocumentReference = new Field
   AwardedNotificationField.AdditionalDocumentReference,
   'AdditionalDocumentReference',
   'Additional Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to an additional document associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -231,10 +243,10 @@ export const AwardedNotificationFieldMetaTenderResult = new FieldMeta<AwardedNot
   AwardedNotificationField.TenderResult,
   'TenderResult',
   'Tender Result',
-  'TenderResult',
+  TenderResultType.name,
   'The result of the tendering process reported in this notification.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -243,10 +255,10 @@ export const AwardedNotificationFieldMetaFinalFinancialGuarantee = new FieldMeta
   AwardedNotificationField.FinalFinancialGuarantee,
   'FinalFinancialGuarantee',
   'Final Financial Guarantee',
-  'FinancialGuarantee',
+  FinancialGuaranteeType.name,
   'A bond guarantee by the submitter of a tender or bid, required of the tender winner.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -255,10 +267,10 @@ export const AwardedNotificationFieldMetaSignature = new FieldMeta<AwardedNotifi
   AwardedNotificationField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -308,3 +320,11 @@ export const AwardedNotificationFieldMap = new Map([
   [AwardedNotificationField.FinalFinancialGuarantee, AwardedNotificationFieldMetaFinalFinancialGuarantee],
   [AwardedNotificationField.Signature, AwardedNotificationFieldMetaSignature]
 ])
+
+export const AwardedNotificationType: Type<AwardedNotificationField> = {
+  name: 'AwardedNotification',
+  label: 'Awarded Notification',
+  module: TypeModule.doc,
+  definition: 'The document used to communicate a contract award to the winner.',
+  fields: AwardedNotificationFieldMap,
+}

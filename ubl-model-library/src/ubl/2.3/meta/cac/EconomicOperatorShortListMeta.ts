@@ -1,4 +1,9 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { PartyType } from './PartyMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum EconomicOperatorShortListField {
   UBLExtensions = 'UBLExtensions',
@@ -12,11 +17,11 @@ export enum EconomicOperatorShortListField {
 export const EconomicOperatorShortListFieldMetaUBLExtensions = new FieldMeta<EconomicOperatorShortListField>(
   EconomicOperatorShortListField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -25,10 +30,10 @@ export const EconomicOperatorShortListFieldMetaLimitationDescription = new Field
   EconomicOperatorShortListField.LimitationDescription,
   'LimitationDescription',
   'Limitation Description',
-  'Text',
+  TextType.name,
   'Text describing the criteria used to restrict the number of candidates.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -37,10 +42,10 @@ export const EconomicOperatorShortListFieldMetaExpectedQuantity = new FieldMeta<
   EconomicOperatorShortListField.ExpectedQuantity,
   'ExpectedQuantity',
   'Expected Quantity',
-  'Quantity',
+  QuantityType.name,
   'The number of economic operators expected to be on the short list.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -49,10 +54,10 @@ export const EconomicOperatorShortListFieldMetaMaximumQuantity = new FieldMeta<E
   EconomicOperatorShortListField.MaximumQuantity,
   'MaximumQuantity',
   'Maximum Quantity',
-  'Quantity',
+  QuantityType.name,
   'The maximum number of economic operators on the short list.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -61,10 +66,10 @@ export const EconomicOperatorShortListFieldMetaMinimumQuantity = new FieldMeta<E
   EconomicOperatorShortListField.MinimumQuantity,
   'MinimumQuantity',
   'Minimum Quantity',
-  'Quantity',
+  QuantityType.name,
   'The minimum number of economic operators on the short list.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -73,10 +78,10 @@ export const EconomicOperatorShortListFieldMetaPreSelectedParty = new FieldMeta<
   EconomicOperatorShortListField.PreSelectedParty,
   'PreSelectedParty',
   'Pre Selected Party',
-  'Party',
+  PartyType.name,
   'The parties pre-selected allowed to submit tenders in a negotiated procedure. Negotiated procedure is a type of procedure where the contracting authorities can set the parties to be invited in the procurement project',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -98,3 +103,11 @@ export const EconomicOperatorShortListFieldMap = new Map([
   [EconomicOperatorShortListField.MinimumQuantity, EconomicOperatorShortListFieldMetaMinimumQuantity],
   [EconomicOperatorShortListField.PreSelectedParty, EconomicOperatorShortListFieldMetaPreSelectedParty]
 ])
+
+export const EconomicOperatorShortListType: Type<EconomicOperatorShortListField> = {
+  name: 'EconomicOperatorShortList',
+  label: 'Economic Operator Short List',
+  module: TypeModule.cac,
+  definition: 'A class to provide information about the preselection of a short list of economic operators for consideration as possible candidates in a tendering process.',
+  fields: EconomicOperatorShortListFieldMap,
+}

@@ -1,4 +1,19 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { CustomerPartyType } from '../cac/CustomerPartyMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { ForecastLineType } from '../cac/ForecastLineMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { PeriodType } from '../cac/PeriodMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { SupplierPartyType } from '../cac/SupplierPartyMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ForecastField {
   UBLExtensions = 'UBLExtensions',
@@ -28,11 +43,11 @@ export enum ForecastField {
 export const ForecastFieldMetaUBLExtensions = new FieldMeta<ForecastField>(
   ForecastField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -41,10 +56,10 @@ export const ForecastFieldMetaUBLVersionID = new FieldMeta<ForecastField>(
   ForecastField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.0.5'
 )
@@ -53,10 +68,10 @@ export const ForecastFieldMetaCustomizationID = new FieldMeta<ForecastField>(
   ForecastField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -65,10 +80,10 @@ export const ForecastFieldMetaProfileID = new FieldMeta<ForecastField>(
   ForecastField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BasicProcurementProcess'
 )
@@ -77,10 +92,10 @@ export const ForecastFieldMetaProfileExecutionID = new FieldMeta<ForecastField>(
   ForecastField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BPP-1001'
 )
@@ -89,10 +104,10 @@ export const ForecastFieldMetaID = new FieldMeta<ForecastField>(
   ForecastField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   'Forecast Number',
   undefined
 )
@@ -101,10 +116,10 @@ export const ForecastFieldMetaCopyIndicator = new FieldMeta<ForecastField>(
   ForecastField.CopyIndicator,
   'CopyIndicator',
   'Copy Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this document is a copy (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -113,10 +128,10 @@ export const ForecastFieldMetaUUID = new FieldMeta<ForecastField>(
   ForecastField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -125,10 +140,10 @@ export const ForecastFieldMetaIssueDate = new FieldMeta<ForecastField>(
   ForecastField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   'Forecast Date',
   undefined
 )
@@ -137,10 +152,10 @@ export const ForecastFieldMetaIssueTime = new FieldMeta<ForecastField>(
   ForecastField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -149,10 +164,10 @@ export const ForecastFieldMetaNote = new FieldMeta<ForecastField>(
   ForecastField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -161,10 +176,10 @@ export const ForecastFieldMetaVersionID = new FieldMeta<ForecastField>(
   ForecastField.VersionID,
   'VersionID',
   'Version',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the current version of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -173,10 +188,10 @@ export const ForecastFieldMetaBasedOnConsensusIndicator = new FieldMeta<Forecast
   ForecastField.BasedOnConsensusIndicator,
   'BasedOnConsensusIndicator',
   'Based On Consensus Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether the Forecast is based on consensus (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -185,10 +200,10 @@ export const ForecastFieldMetaForecastPurposeCode = new FieldMeta<ForecastField>
   ForecastField.ForecastPurposeCode,
   'ForecastPurposeCode',
   'Forecast Purpose Code',
-  'Code',
+  CodeType.name,
   'A code signifying the purpose of the Forecast document.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -197,10 +212,10 @@ export const ForecastFieldMetaForecastPeriod = new FieldMeta<ForecastField>(
   ForecastField.ForecastPeriod,
   'ForecastPeriod',
   'Forecast Period',
-  'Period',
+  PeriodType.name,
   'The period to which the Forecast applies.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -209,10 +224,10 @@ export const ForecastFieldMetaAdditionalDocumentReference = new FieldMeta<Foreca
   ForecastField.AdditionalDocumentReference,
   'AdditionalDocumentReference',
   'Additional Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to an additional document associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -221,10 +236,10 @@ export const ForecastFieldMetaSignature = new FieldMeta<ForecastField>(
   ForecastField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -233,10 +248,10 @@ export const ForecastFieldMetaSenderParty = new FieldMeta<ForecastField>(
   ForecastField.SenderParty,
   'SenderParty',
   'Sender Party',
-  'Party',
+  PartyType.name,
   'The party sending this document.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -245,10 +260,10 @@ export const ForecastFieldMetaReceiverParty = new FieldMeta<ForecastField>(
   ForecastField.ReceiverParty,
   'ReceiverParty',
   'Receiver Party',
-  'Party',
+  PartyType.name,
   'The party receiving this document.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -257,10 +272,10 @@ export const ForecastFieldMetaBuyerCustomerParty = new FieldMeta<ForecastField>(
   ForecastField.BuyerCustomerParty,
   'BuyerCustomerParty',
   'Buyer Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The buyer.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -269,10 +284,10 @@ export const ForecastFieldMetaSellerSupplierParty = new FieldMeta<ForecastField>
   ForecastField.SellerSupplierParty,
   'SellerSupplierParty',
   'Seller Supplier Party',
-  'SupplierParty',
+  SupplierPartyType.name,
   'The seller.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -281,10 +296,10 @@ export const ForecastFieldMetaForecastLine = new FieldMeta<ForecastField>(
   ForecastField.ForecastLine,
   'ForecastLine',
   'Forecast Line',
-  'ForecastLine',
+  ForecastLineType.name,
   'A Forecast Line.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -338,3 +353,11 @@ export const ForecastFieldMap = new Map([
   [ForecastField.SellerSupplierParty, ForecastFieldMetaSellerSupplierParty],
   [ForecastField.ForecastLine, ForecastFieldMetaForecastLine]
 ])
+
+export const ForecastType: Type<ForecastField> = {
+  name: 'Forecast',
+  label: 'Forecast',
+  module: TypeModule.doc,
+  definition: 'A document used to forecast sales or orders.',
+  fields: ForecastFieldMap,
+}

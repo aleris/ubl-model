@@ -1,4 +1,10 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
+import { WebSiteAccessType } from './WebSiteAccessMeta'
 
 export enum WebSiteField {
   UBLExtensions = 'UBLExtensions',
@@ -13,11 +19,11 @@ export enum WebSiteField {
 export const WebSiteFieldMetaUBLExtensions = new FieldMeta<WebSiteField>(
   WebSiteField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -26,10 +32,10 @@ export const WebSiteFieldMetaID = new FieldMeta<WebSiteField>(
   WebSiteField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for a specific web site.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'UBL'
 )
@@ -38,10 +44,10 @@ export const WebSiteFieldMetaName = new FieldMeta<WebSiteField>(
   WebSiteField.Name,
   'Name',
   'Name',
-  'Text',
+  TextType.name,
   'The common name of the web site.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'UBL Online Community'
 )
@@ -50,10 +56,10 @@ export const WebSiteFieldMetaDescription = new FieldMeta<WebSiteField>(
   WebSiteField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing the web site.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   'Online community for the Universal Business Language (UBL) OASIS Standard'
 )
@@ -62,10 +68,10 @@ export const WebSiteFieldMetaWebSiteTypeCode = new FieldMeta<WebSiteField>(
   WebSiteField.WebSiteTypeCode,
   'WebSiteTypeCode',
   'Web Site Type Code',
-  'Code',
+  CodeType.name,
   'A code that specifies the type web site.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Satellite, Portal, Operative, Industry, ...'
 )
@@ -74,10 +80,10 @@ export const WebSiteFieldMetaURI = new FieldMeta<WebSiteField>(
   WebSiteField.URI,
   'URI',
   'URI',
-  'Identifier',
+  IdentifierType.name,
   'The Uniform Resource Identifier (URI) of the web site; i.e., its Uniform Resource Locator (URL).',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   'http://ubl.xml.org/'
 )
@@ -86,10 +92,10 @@ export const WebSiteFieldMetaWebSiteAccess = new FieldMeta<WebSiteField>(
   WebSiteField.WebSiteAccess,
   'WebSiteAccess',
   'Web Site Access',
-  'WebSiteAccess',
+  WebSiteAccessType.name,
   'Access information for the website (e.g. guest credentials).',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -113,3 +119,11 @@ export const WebSiteFieldMap = new Map([
   [WebSiteField.URI, WebSiteFieldMetaURI],
   [WebSiteField.WebSiteAccess, WebSiteFieldMetaWebSiteAccess]
 ])
+
+export const WebSiteType: Type<WebSiteField> = {
+  name: 'WebSite',
+  label: 'Web Site',
+  module: TypeModule.cac,
+  definition: 'A class to describe a web site.',
+  fields: WebSiteFieldMap,
+}

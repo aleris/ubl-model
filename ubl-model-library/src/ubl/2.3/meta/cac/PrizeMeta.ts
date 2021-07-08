@@ -1,4 +1,9 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum PrizeField {
   UBLExtensions = 'UBLExtensions',
@@ -10,11 +15,11 @@ export enum PrizeField {
 export const PrizeFieldMetaUBLExtensions = new FieldMeta<PrizeField>(
   PrizeField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -23,10 +28,10 @@ export const PrizeFieldMetaPreviousRankNumberNumeric = new FieldMeta<PrizeField>
   PrizeField.PreviousRankNumberNumeric,
   'PreviousRankNumberNumeric',
   'Previous Rank Number',
-  'Numeric',
+  NumericType.name,
   'The relative position in the competition associated with a prize.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -35,10 +40,10 @@ export const PrizeFieldMetaPreviousCancellationReasonValueAmount = new FieldMeta
   PrizeField.PreviousCancellationReasonValueAmount,
   'PreviousCancellationReasonValueAmount',
   'Previous Cancellation Reason Value',
-  'Amount',
+  AmountType.name,
   'The monetary value amount of a prize.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -47,10 +52,10 @@ export const PrizeFieldMetaPreviousCancellationReasonDescription = new FieldMeta
   PrizeField.PreviousCancellationReasonDescription,
   'PreviousCancellationReasonDescription',
   'Previous Cancellation Reason Description',
-  'Text',
+  TextType.name,
   'Text providing more information about this prize.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -68,3 +73,11 @@ export const PrizeFieldMap = new Map([
   [PrizeField.PreviousCancellationReasonValueAmount, PrizeFieldMetaPreviousCancellationReasonValueAmount],
   [PrizeField.PreviousCancellationReasonDescription, PrizeFieldMetaPreviousCancellationReasonDescription]
 ])
+
+export const PrizeType: Type<PrizeField> = {
+  name: 'Prize',
+  label: 'Prize',
+  module: TypeModule.cac,
+  definition: 'A class to describe something valuable offered or striven for in competition.',
+  fields: PrizeFieldMap,
+}

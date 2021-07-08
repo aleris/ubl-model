@@ -1,6 +1,5 @@
 import { Amount } from '../cbc/Amount'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to define a monetary total.
  */

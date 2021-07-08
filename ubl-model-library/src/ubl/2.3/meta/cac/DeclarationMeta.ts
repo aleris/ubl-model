@@ -1,4 +1,9 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { EvidenceSuppliedType } from './EvidenceSuppliedMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum DeclarationField {
   UBLExtensions = 'UBLExtensions',
@@ -11,11 +16,11 @@ export enum DeclarationField {
 export const DeclarationFieldMetaUBLExtensions = new FieldMeta<DeclarationField>(
   DeclarationField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -24,10 +29,10 @@ export const DeclarationFieldMetaName = new FieldMeta<DeclarationField>(
   DeclarationField.Name,
   'Name',
   'Name',
-  'Text',
+  TextType.name,
   'The name of this declaration.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -36,10 +41,10 @@ export const DeclarationFieldMetaDeclarationTypeCode = new FieldMeta<Declaration
   DeclarationField.DeclarationTypeCode,
   'DeclarationTypeCode',
   'Declaration Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of this declaration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -48,10 +53,10 @@ export const DeclarationFieldMetaDescription = new FieldMeta<DeclarationField>(
   DeclarationField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing this declaration.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -60,10 +65,10 @@ export const DeclarationFieldMetaEvidenceSupplied = new FieldMeta<DeclarationFie
   DeclarationField.EvidenceSupplied,
   'EvidenceSupplied',
   'Evidence Supplied',
-  'EvidenceSupplied',
+  EvidenceSuppliedType.name,
   'The evidence supporting this declaration.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -83,3 +88,11 @@ export const DeclarationFieldMap = new Map([
   [DeclarationField.Description, DeclarationFieldMetaDescription],
   [DeclarationField.EvidenceSupplied, DeclarationFieldMetaEvidenceSupplied]
 ])
+
+export const DeclarationType: Type<DeclarationField> = {
+  name: 'Declaration',
+  label: 'Declaration',
+  module: TypeModule.cac,
+  definition: 'A class to describe a declaration by an economic operator of certain characteristics or capabilities in fulfilment of requirements specified in a call for tenders.',
+  fields: DeclarationFieldMap,
+}

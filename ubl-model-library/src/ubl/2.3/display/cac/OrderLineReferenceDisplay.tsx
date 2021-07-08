@@ -1,68 +1,103 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { OrderLineReference } from  '../../model/cac/OrderLineReference'
-import { OrderLineReferenceFieldMeta } from  '../../meta/cac/OrderLineReferenceMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import OrderReferenceDisplay from './OrderReferenceDisplay'
-import { OrderReference } from '../../model/cac/OrderReference'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { OrderLineReferenceField, OrderLineReferenceFieldMeta, OrderLineReferenceTypeName } from  '../../meta/cac/OrderLineReferenceMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { OrderReferenceDisplay } from './OrderReferenceDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: OrderLineReference | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<OrderLineReference, void>
+  orderLineReference: OrderLineReference[] | undefined
+  renderContext: RenderContext
 }
 
-export default function OrderLineReferenceDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const OrderLineReferenceSubElementsMap: SubElementsTemplatesMap<OrderLineReferenceField, OrderLineReference, void> = new Map([
+    [
+      OrderLineReferenceField.UBLExtensions,
+      { meta: OrderLineReferenceFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={OrderLineReferenceField.UBLExtensions}
+          meta={OrderLineReferenceFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-OrderLineReference">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={OrderLineReferenceFieldMeta.UBLExtensions}
-          />
+    [
+      OrderLineReferenceField.LineID,
+      { meta: OrderLineReferenceFieldMeta.LineID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={OrderLineReferenceField.LineID}
+          meta={OrderLineReferenceFieldMeta.LineID}
+          fieldConfig={fieldConfig}
+          identifier={value?.LineID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Line Identifier"
-            value={value.LineID?.[0]}
-            meta={OrderLineReferenceFieldMeta.LineID}
-          />
+    [
+      OrderLineReferenceField.SalesOrderLineID,
+      { meta: OrderLineReferenceFieldMeta.SalesOrderLineID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={OrderLineReferenceField.SalesOrderLineID}
+          meta={OrderLineReferenceFieldMeta.SalesOrderLineID}
+          fieldConfig={fieldConfig}
+          identifier={value?.SalesOrderLineID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Sales Order Line Identifier"
-            value={value.SalesOrderLineID?.[0]}
-            meta={OrderLineReferenceFieldMeta.SalesOrderLineID}
-          />
+    [
+      OrderLineReferenceField.UUID,
+      { meta: OrderLineReferenceFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={OrderLineReferenceField.UUID}
+          meta={OrderLineReferenceFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={OrderLineReferenceFieldMeta.UUID}
-          />
+    [
+      OrderLineReferenceField.LineStatusCode,
+      { meta: OrderLineReferenceFieldMeta.LineStatusCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={OrderLineReferenceField.LineStatusCode}
+          meta={OrderLineReferenceFieldMeta.LineStatusCode}
+          fieldConfig={fieldConfig}
+          code={value?.LineStatusCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Line Status Code"
-            value={value.LineStatusCode?.[0]}
-            meta={OrderLineReferenceFieldMeta.LineStatusCode}
-          />
+    [
+      OrderLineReferenceField.OrderReference,
+      { meta: OrderLineReferenceFieldMeta.OrderReference,
+        template: ({value, renderContext, fieldConfig}) => <OrderReferenceDisplay
+          key={OrderLineReferenceField.OrderReference}
+          meta={OrderLineReferenceFieldMeta.OrderReference}
+          fieldConfig={fieldConfig}
+          orderReference={value?.OrderReference}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <OrderReferenceDisplay
-            label="Order Reference"
-            value={value.OrderReference?.[0]}
-            meta={OrderLineReferenceFieldMeta.OrderReference}
-          />
-        </div>
-    </div>
+export function OrderLineReferenceDisplay<TFieldMeta>({ meta, fieldConfig, orderLineReference, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    OrderLineReferenceTypeName,
+    meta,
+    fieldConfig,
+    orderLineReference,
+    renderContext,
+    OrderLineReferenceSubElementsMap,
   )
 }

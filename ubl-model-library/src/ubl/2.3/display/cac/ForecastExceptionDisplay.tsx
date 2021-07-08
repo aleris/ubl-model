@@ -1,86 +1,139 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ForecastException } from  '../../model/cac/ForecastException'
-import { ForecastExceptionFieldMeta } from  '../../meta/cac/ForecastExceptionMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ForecastExceptionField, ForecastExceptionFieldMeta, ForecastExceptionTypeName } from  '../../meta/cac/ForecastExceptionMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ForecastException | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ForecastException, void>
+  forecastException: ForecastException[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ForecastExceptionDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ForecastExceptionSubElementsMap: SubElementsTemplatesMap<ForecastExceptionField, ForecastException, void> = new Map([
+    [
+      ForecastExceptionField.UBLExtensions,
+      { meta: ForecastExceptionFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ForecastExceptionField.UBLExtensions}
+          meta={ForecastExceptionFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ForecastException">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ForecastExceptionFieldMeta.UBLExtensions}
-          />
+    [
+      ForecastExceptionField.ForecastPurposeCode,
+      { meta: ForecastExceptionFieldMeta.ForecastPurposeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ForecastExceptionField.ForecastPurposeCode}
+          meta={ForecastExceptionFieldMeta.ForecastPurposeCode}
+          fieldConfig={fieldConfig}
+          code={value?.ForecastPurposeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Forecast Purpose Code"
-            value={value.ForecastPurposeCode?.[0]}
-            meta={ForecastExceptionFieldMeta.ForecastPurposeCode}
-          />
+    [
+      ForecastExceptionField.ForecastTypeCode,
+      { meta: ForecastExceptionFieldMeta.ForecastTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ForecastExceptionField.ForecastTypeCode}
+          meta={ForecastExceptionFieldMeta.ForecastTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.ForecastTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Forecast Type Code"
-            value={value.ForecastTypeCode?.[0]}
-            meta={ForecastExceptionFieldMeta.ForecastTypeCode}
-          />
+    [
+      ForecastExceptionField.IssueDate,
+      { meta: ForecastExceptionFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={ForecastExceptionField.IssueDate}
+          meta={ForecastExceptionFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={ForecastExceptionFieldMeta.IssueDate}
-          />
+    [
+      ForecastExceptionField.IssueTime,
+      { meta: ForecastExceptionFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={ForecastExceptionField.IssueTime}
+          meta={ForecastExceptionFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={ForecastExceptionFieldMeta.IssueTime}
-          />
+    [
+      ForecastExceptionField.DataSourceCode,
+      { meta: ForecastExceptionFieldMeta.DataSourceCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ForecastExceptionField.DataSourceCode}
+          meta={ForecastExceptionFieldMeta.DataSourceCode}
+          fieldConfig={fieldConfig}
+          code={value?.DataSourceCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Data Source Code"
-            value={value.DataSourceCode?.[0]}
-            meta={ForecastExceptionFieldMeta.DataSourceCode}
-          />
+    [
+      ForecastExceptionField.ComparisonDataCode,
+      { meta: ForecastExceptionFieldMeta.ComparisonDataCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ForecastExceptionField.ComparisonDataCode}
+          meta={ForecastExceptionFieldMeta.ComparisonDataCode}
+          fieldConfig={fieldConfig}
+          code={value?.ComparisonDataCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Comparison Data Code"
-            value={value.ComparisonDataCode?.[0]}
-            meta={ForecastExceptionFieldMeta.ComparisonDataCode}
-          />
+    [
+      ForecastExceptionField.ComparisonForecastIssueTime,
+      { meta: ForecastExceptionFieldMeta.ComparisonForecastIssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={ForecastExceptionField.ComparisonForecastIssueTime}
+          meta={ForecastExceptionFieldMeta.ComparisonForecastIssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.ComparisonForecastIssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Comparison Forecast Issue Time"
-            value={value.ComparisonForecastIssueTime?.[0]}
-            meta={ForecastExceptionFieldMeta.ComparisonForecastIssueTime}
-          />
+    [
+      ForecastExceptionField.ComparisonForecastIssueDate,
+      { meta: ForecastExceptionFieldMeta.ComparisonForecastIssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={ForecastExceptionField.ComparisonForecastIssueDate}
+          meta={ForecastExceptionFieldMeta.ComparisonForecastIssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.ComparisonForecastIssueDate}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <DateDisplay
-            label="Comparison Forecast Issue Date"
-            value={value.ComparisonForecastIssueDate?.[0]}
-            meta={ForecastExceptionFieldMeta.ComparisonForecastIssueDate}
-          />
-        </div>
-    </div>
+export function ForecastExceptionDisplay<TFieldMeta>({ meta, fieldConfig, forecastException, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ForecastExceptionTypeName,
+    meta,
+    fieldConfig,
+    forecastException,
+    renderContext,
+    ForecastExceptionSubElementsMap,
   )
 }

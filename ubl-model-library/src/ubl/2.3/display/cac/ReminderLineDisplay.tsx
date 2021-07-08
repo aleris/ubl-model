@@ -1,161 +1,217 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ReminderLine } from  '../../model/cac/ReminderLine'
-import { ReminderLineFieldMeta } from  '../../meta/cac/ReminderLineMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import BillingReferenceDisplay from './BillingReferenceDisplay'
-import { BillingReference } from '../../model/cac/BillingReference'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import ExchangeRateDisplay from './ExchangeRateDisplay'
-import { ExchangeRate } from '../../model/cac/ExchangeRate'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ReminderLineField, ReminderLineFieldMeta, ReminderLineTypeName } from  '../../meta/cac/ReminderLineMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { BillingReferenceDisplay } from './BillingReferenceDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { ExchangeRateDisplay } from './ExchangeRateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ReminderLine | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ReminderLine, void>
+  reminderLine: ReminderLine[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ReminderLineDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ReminderLineSubElementsMap: SubElementsTemplatesMap<ReminderLineField, ReminderLine, void> = new Map([
+    [
+      ReminderLineField.UBLExtensions,
+      { meta: ReminderLineFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ReminderLineField.UBLExtensions}
+          meta={ReminderLineFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ReminderLine">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ReminderLineFieldMeta.UBLExtensions}
-          />
+    [
+      ReminderLineField.ID,
+      { meta: ReminderLineFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ReminderLineField.ID}
+          meta={ReminderLineFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={ReminderLineFieldMeta.ID}
-          />
+    [
+      ReminderLineField.Note,
+      { meta: ReminderLineFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ReminderLineField.Note}
+          meta={ReminderLineFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={ReminderLineFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={ReminderLineFieldMeta.Note}
-              />
-            }
-          />
+    [
+      ReminderLineField.UUID,
+      { meta: ReminderLineFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ReminderLineField.UUID}
+          meta={ReminderLineFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={ReminderLineFieldMeta.UUID}
-          />
+    [
+      ReminderLineField.BalanceBroughtForwardIndicator,
+      { meta: ReminderLineFieldMeta.BalanceBroughtForwardIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ReminderLineField.BalanceBroughtForwardIndicator}
+          meta={ReminderLineFieldMeta.BalanceBroughtForwardIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.BalanceBroughtForwardIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Balance Brought Forward Indicator"
-            value={value.BalanceBroughtForwardIndicator?.[0]}
-            meta={ReminderLineFieldMeta.BalanceBroughtForwardIndicator}
-          />
+    [
+      ReminderLineField.DebitLineAmount,
+      { meta: ReminderLineFieldMeta.DebitLineAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={ReminderLineField.DebitLineAmount}
+          meta={ReminderLineFieldMeta.DebitLineAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.DebitLineAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Debit Line Amount"
-            value={value.DebitLineAmount?.[0]}
-            meta={ReminderLineFieldMeta.DebitLineAmount}
-          />
+    [
+      ReminderLineField.CreditLineAmount,
+      { meta: ReminderLineFieldMeta.CreditLineAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={ReminderLineField.CreditLineAmount}
+          meta={ReminderLineFieldMeta.CreditLineAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.CreditLineAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Credit Line Amount"
-            value={value.CreditLineAmount?.[0]}
-            meta={ReminderLineFieldMeta.CreditLineAmount}
-          />
+    [
+      ReminderLineField.AccountingCostCode,
+      { meta: ReminderLineFieldMeta.AccountingCostCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ReminderLineField.AccountingCostCode}
+          meta={ReminderLineFieldMeta.AccountingCostCode}
+          fieldConfig={fieldConfig}
+          code={value?.AccountingCostCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Accounting Cost Code"
-            value={value.AccountingCostCode?.[0]}
-            meta={ReminderLineFieldMeta.AccountingCostCode}
-          />
+    [
+      ReminderLineField.AccountingCost,
+      { meta: ReminderLineFieldMeta.AccountingCost,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ReminderLineField.AccountingCost}
+          meta={ReminderLineFieldMeta.AccountingCost}
+          fieldConfig={fieldConfig}
+          text={value?.AccountingCost}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Accounting Cost"
-            value={value.AccountingCost?.[0]}
-            meta={ReminderLineFieldMeta.AccountingCost}
-          />
+    [
+      ReminderLineField.PenaltySurchargePercent,
+      { meta: ReminderLineFieldMeta.PenaltySurchargePercent,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={ReminderLineField.PenaltySurchargePercent}
+          meta={ReminderLineFieldMeta.PenaltySurchargePercent}
+          fieldConfig={fieldConfig}
+          numeric={value?.PenaltySurchargePercent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Penalty Surcharge Percent"
-            value={value.PenaltySurchargePercent?.[0]}
-            meta={ReminderLineFieldMeta.PenaltySurchargePercent}
-          />
+    [
+      ReminderLineField.Amount,
+      { meta: ReminderLineFieldMeta.Amount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={ReminderLineField.Amount}
+          meta={ReminderLineFieldMeta.Amount}
+          fieldConfig={fieldConfig}
+          amount={value?.Amount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Amount"
-            value={value.Amount?.[0]}
-            meta={ReminderLineFieldMeta.Amount}
-          />
+    [
+      ReminderLineField.PaymentPurposeCode,
+      { meta: ReminderLineFieldMeta.PaymentPurposeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ReminderLineField.PaymentPurposeCode}
+          meta={ReminderLineFieldMeta.PaymentPurposeCode}
+          fieldConfig={fieldConfig}
+          code={value?.PaymentPurposeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Payment Purpose Code"
-            value={value.PaymentPurposeCode?.[0]}
-            meta={ReminderLineFieldMeta.PaymentPurposeCode}
-          />
+    [
+      ReminderLineField.ReminderPeriod,
+      { meta: ReminderLineFieldMeta.ReminderPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={ReminderLineField.ReminderPeriod}
+          meta={ReminderLineFieldMeta.ReminderPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.ReminderPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Period ubl-ReminderPeriod"
-            label="Reminder Period"
-            items={value.ReminderPeriod}
-            meta={ReminderLineFieldMeta.ReminderPeriod} 
-            itemDisplay={ (itemValue: Period, key: string | number) =>
-              <PeriodDisplay
-                key={key}
-                label="Reminder Period"
-                value={itemValue}
-                meta={ReminderLineFieldMeta.ReminderPeriod}
-              />
-            }
-          />
+    [
+      ReminderLineField.BillingReference,
+      { meta: ReminderLineFieldMeta.BillingReference,
+        template: ({value, renderContext, fieldConfig}) => <BillingReferenceDisplay
+          key={ReminderLineField.BillingReference}
+          meta={ReminderLineFieldMeta.BillingReference}
+          fieldConfig={fieldConfig}
+          billingReference={value?.BillingReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-BillingReference"
-            label="Billing Reference"
-            items={value.BillingReference}
-            meta={ReminderLineFieldMeta.BillingReference} 
-            itemDisplay={ (itemValue: BillingReference, key: string | number) =>
-              <BillingReferenceDisplay
-                key={key}
-                label="Billing Reference"
-                value={itemValue}
-                meta={ReminderLineFieldMeta.BillingReference}
-              />
-            }
-          />
+    [
+      ReminderLineField.ExchangeRate,
+      { meta: ReminderLineFieldMeta.ExchangeRate,
+        template: ({value, renderContext, fieldConfig}) => <ExchangeRateDisplay
+          key={ReminderLineField.ExchangeRate}
+          meta={ReminderLineFieldMeta.ExchangeRate}
+          fieldConfig={fieldConfig}
+          exchangeRate={value?.ExchangeRate}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ExchangeRateDisplay
-            label="Exchange Rate"
-            value={value.ExchangeRate?.[0]}
-            meta={ReminderLineFieldMeta.ExchangeRate}
-          />
-        </div>
-    </div>
+export function ReminderLineDisplay<TFieldMeta>({ meta, fieldConfig, reminderLine, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ReminderLineTypeName,
+    meta,
+    fieldConfig,
+    reminderLine,
+    renderContext,
+    ReminderLineSubElementsMap,
   )
 }

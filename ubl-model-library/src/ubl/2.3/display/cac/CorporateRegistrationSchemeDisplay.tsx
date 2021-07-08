@@ -1,73 +1,92 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { CorporateRegistrationScheme } from  '../../model/cac/CorporateRegistrationScheme'
-import { CorporateRegistrationSchemeFieldMeta } from  '../../meta/cac/CorporateRegistrationSchemeMeta'
-import AddressDisplay from './AddressDisplay'
-import { Address } from '../../model/cac/Address'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { CorporateRegistrationSchemeField, CorporateRegistrationSchemeFieldMeta, CorporateRegistrationSchemeTypeName } from  '../../meta/cac/CorporateRegistrationSchemeMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AddressDisplay } from './AddressDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: CorporateRegistrationScheme | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<CorporateRegistrationScheme, void>
+  corporateRegistrationScheme: CorporateRegistrationScheme[] | undefined
+  renderContext: RenderContext
 }
 
-export default function CorporateRegistrationSchemeDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const CorporateRegistrationSchemeSubElementsMap: SubElementsTemplatesMap<CorporateRegistrationSchemeField, CorporateRegistrationScheme, void> = new Map([
+    [
+      CorporateRegistrationSchemeField.UBLExtensions,
+      { meta: CorporateRegistrationSchemeFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={CorporateRegistrationSchemeField.UBLExtensions}
+          meta={CorporateRegistrationSchemeFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-CorporateRegistrationScheme">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={CorporateRegistrationSchemeFieldMeta.UBLExtensions}
-          />
+    [
+      CorporateRegistrationSchemeField.ID,
+      { meta: CorporateRegistrationSchemeFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CorporateRegistrationSchemeField.ID}
+          meta={CorporateRegistrationSchemeFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={CorporateRegistrationSchemeFieldMeta.ID}
-          />
+    [
+      CorporateRegistrationSchemeField.Name,
+      { meta: CorporateRegistrationSchemeFieldMeta.Name,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={CorporateRegistrationSchemeField.Name}
+          meta={CorporateRegistrationSchemeFieldMeta.Name}
+          fieldConfig={fieldConfig}
+          text={value?.Name}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Name"
-            value={value.Name?.[0]}
-            meta={CorporateRegistrationSchemeFieldMeta.Name}
-          />
+    [
+      CorporateRegistrationSchemeField.CorporateRegistrationTypeCode,
+      { meta: CorporateRegistrationSchemeFieldMeta.CorporateRegistrationTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={CorporateRegistrationSchemeField.CorporateRegistrationTypeCode}
+          meta={CorporateRegistrationSchemeFieldMeta.CorporateRegistrationTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.CorporateRegistrationTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Corporate Registration Type Code"
-            value={value.CorporateRegistrationTypeCode?.[0]}
-            meta={CorporateRegistrationSchemeFieldMeta.CorporateRegistrationTypeCode}
-          />
+    [
+      CorporateRegistrationSchemeField.JurisdictionRegionAddress,
+      { meta: CorporateRegistrationSchemeFieldMeta.JurisdictionRegionAddress,
+        template: ({value, renderContext, fieldConfig}) => <AddressDisplay
+          key={CorporateRegistrationSchemeField.JurisdictionRegionAddress}
+          meta={CorporateRegistrationSchemeFieldMeta.JurisdictionRegionAddress}
+          fieldConfig={fieldConfig}
+          address={value?.JurisdictionRegionAddress}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Address ubl-JurisdictionRegionAddress"
-            label="Jurisdiction Region Address"
-            items={value.JurisdictionRegionAddress}
-            meta={CorporateRegistrationSchemeFieldMeta.JurisdictionRegionAddress} 
-            itemDisplay={ (itemValue: Address, key: string | number) =>
-              <AddressDisplay
-                key={key}
-                label="Jurisdiction Region Address"
-                value={itemValue}
-                meta={CorporateRegistrationSchemeFieldMeta.JurisdictionRegionAddress}
-              />
-            }
-          />
-        </div>
-    </div>
+export function CorporateRegistrationSchemeDisplay<TFieldMeta>({ meta, fieldConfig, corporateRegistrationScheme, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    CorporateRegistrationSchemeTypeName,
+    meta,
+    fieldConfig,
+    corporateRegistrationScheme,
+    renderContext,
+    CorporateRegistrationSchemeSubElementsMap,
   )
 }

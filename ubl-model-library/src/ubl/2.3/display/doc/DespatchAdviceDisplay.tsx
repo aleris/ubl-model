@@ -1,243 +1,330 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { DespatchAdvice } from  '../../model/doc/DespatchAdvice'
-import { DespatchAdviceFieldMeta } from  '../../meta/doc/DespatchAdviceMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import CustomerPartyDisplay from '../cac/CustomerPartyDisplay'
-import { CustomerParty } from '../../model/cac/CustomerParty'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DespatchLineDisplay from '../cac/DespatchLineDisplay'
-import { DespatchLine } from '../../model/cac/DespatchLine'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import OrderReferenceDisplay from '../cac/OrderReferenceDisplay'
-import { OrderReference } from '../../model/cac/OrderReference'
-import ShipmentDisplay from '../cac/ShipmentDisplay'
-import { Shipment } from '../../model/cac/Shipment'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import SupplierPartyDisplay from '../cac/SupplierPartyDisplay'
-import { SupplierParty } from '../../model/cac/SupplierParty'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { DespatchAdviceField, DespatchAdviceFieldMeta, DespatchAdviceTypeName } from  '../../meta/doc/DespatchAdviceMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { CustomerPartyDisplay } from '../cac/CustomerPartyDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DespatchLineDisplay } from '../cac/DespatchLineDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { OrderReferenceDisplay } from '../cac/OrderReferenceDisplay'
+import { ShipmentDisplay } from '../cac/ShipmentDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { SupplierPartyDisplay } from '../cac/SupplierPartyDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: DespatchAdvice | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<DespatchAdvice, void>
+  despatchAdvice: DespatchAdvice[] | undefined
+  renderContext: RenderContext
 }
 
-export default function DespatchAdviceDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const DespatchAdviceSubElementsMap: SubElementsTemplatesMap<DespatchAdviceField, DespatchAdvice, void> = new Map([
+    [
+      DespatchAdviceField.UBLExtensions,
+      { meta: DespatchAdviceFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={DespatchAdviceField.UBLExtensions}
+          meta={DespatchAdviceFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-DespatchAdvice">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={DespatchAdviceFieldMeta.UBLExtensions}
-          />
+    [
+      DespatchAdviceField.UBLVersionID,
+      { meta: DespatchAdviceFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DespatchAdviceField.UBLVersionID}
+          meta={DespatchAdviceFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={DespatchAdviceFieldMeta.UBLVersionID}
-          />
+    [
+      DespatchAdviceField.CustomizationID,
+      { meta: DespatchAdviceFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DespatchAdviceField.CustomizationID}
+          meta={DespatchAdviceFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={DespatchAdviceFieldMeta.CustomizationID}
-          />
+    [
+      DespatchAdviceField.ProfileID,
+      { meta: DespatchAdviceFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DespatchAdviceField.ProfileID}
+          meta={DespatchAdviceFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={DespatchAdviceFieldMeta.ProfileID}
-          />
+    [
+      DespatchAdviceField.ProfileExecutionID,
+      { meta: DespatchAdviceFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DespatchAdviceField.ProfileExecutionID}
+          meta={DespatchAdviceFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={DespatchAdviceFieldMeta.ProfileExecutionID}
-          />
+    [
+      DespatchAdviceField.ID,
+      { meta: DespatchAdviceFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DespatchAdviceField.ID}
+          meta={DespatchAdviceFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={DespatchAdviceFieldMeta.ID}
-          />
+    [
+      DespatchAdviceField.CopyIndicator,
+      { meta: DespatchAdviceFieldMeta.CopyIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={DespatchAdviceField.CopyIndicator}
+          meta={DespatchAdviceFieldMeta.CopyIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.CopyIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Copy Indicator"
-            value={value.CopyIndicator?.[0]}
-            meta={DespatchAdviceFieldMeta.CopyIndicator}
-          />
+    [
+      DespatchAdviceField.UUID,
+      { meta: DespatchAdviceFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DespatchAdviceField.UUID}
+          meta={DespatchAdviceFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={DespatchAdviceFieldMeta.UUID}
-          />
+    [
+      DespatchAdviceField.IssueDate,
+      { meta: DespatchAdviceFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={DespatchAdviceField.IssueDate}
+          meta={DespatchAdviceFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={DespatchAdviceFieldMeta.IssueDate}
-          />
+    [
+      DespatchAdviceField.IssueTime,
+      { meta: DespatchAdviceFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={DespatchAdviceField.IssueTime}
+          meta={DespatchAdviceFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={DespatchAdviceFieldMeta.IssueTime}
-          />
+    [
+      DespatchAdviceField.DocumentStatusCode,
+      { meta: DespatchAdviceFieldMeta.DocumentStatusCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={DespatchAdviceField.DocumentStatusCode}
+          meta={DespatchAdviceFieldMeta.DocumentStatusCode}
+          fieldConfig={fieldConfig}
+          code={value?.DocumentStatusCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Document Status Code"
-            value={value.DocumentStatusCode?.[0]}
-            meta={DespatchAdviceFieldMeta.DocumentStatusCode}
-          />
+    [
+      DespatchAdviceField.DespatchAdviceTypeCode,
+      { meta: DespatchAdviceFieldMeta.DespatchAdviceTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={DespatchAdviceField.DespatchAdviceTypeCode}
+          meta={DespatchAdviceFieldMeta.DespatchAdviceTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.DespatchAdviceTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Despatch Advice Type Code"
-            value={value.DespatchAdviceTypeCode?.[0]}
-            meta={DespatchAdviceFieldMeta.DespatchAdviceTypeCode}
-          />
+    [
+      DespatchAdviceField.Note,
+      { meta: DespatchAdviceFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={DespatchAdviceField.Note}
+          meta={DespatchAdviceFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={DespatchAdviceFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={DespatchAdviceFieldMeta.Note}
-              />
-            }
-          />
+    [
+      DespatchAdviceField.LineCountNumeric,
+      { meta: DespatchAdviceFieldMeta.LineCountNumeric,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={DespatchAdviceField.LineCountNumeric}
+          meta={DespatchAdviceFieldMeta.LineCountNumeric}
+          fieldConfig={fieldConfig}
+          numeric={value?.LineCountNumeric}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Line Count"
-            value={value.LineCountNumeric?.[0]}
-            meta={DespatchAdviceFieldMeta.LineCountNumeric}
-          />
+    [
+      DespatchAdviceField.OrderReference,
+      { meta: DespatchAdviceFieldMeta.OrderReference,
+        template: ({value, renderContext, fieldConfig}) => <OrderReferenceDisplay
+          key={DespatchAdviceField.OrderReference}
+          meta={DespatchAdviceFieldMeta.OrderReference}
+          fieldConfig={fieldConfig}
+          orderReference={value?.OrderReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-OrderReference"
-            label="Order Reference"
-            items={value.OrderReference}
-            meta={DespatchAdviceFieldMeta.OrderReference} 
-            itemDisplay={ (itemValue: OrderReference, key: string | number) =>
-              <OrderReferenceDisplay
-                key={key}
-                label="Order Reference"
-                value={itemValue}
-                meta={DespatchAdviceFieldMeta.OrderReference}
-              />
-            }
-          />
+    [
+      DespatchAdviceField.AdditionalDocumentReference,
+      { meta: DespatchAdviceFieldMeta.AdditionalDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={DespatchAdviceField.AdditionalDocumentReference}
+          meta={DespatchAdviceFieldMeta.AdditionalDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.AdditionalDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-AdditionalDocumentReference"
-            label="Additional Document Reference"
-            items={value.AdditionalDocumentReference}
-            meta={DespatchAdviceFieldMeta.AdditionalDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Additional Document Reference"
-                value={itemValue}
-                meta={DespatchAdviceFieldMeta.AdditionalDocumentReference}
-              />
-            }
-          />
+    [
+      DespatchAdviceField.Signature,
+      { meta: DespatchAdviceFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={DespatchAdviceField.Signature}
+          meta={DespatchAdviceFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={DespatchAdviceFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={DespatchAdviceFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      DespatchAdviceField.DespatchSupplierParty,
+      { meta: DespatchAdviceFieldMeta.DespatchSupplierParty,
+        template: ({value, renderContext, fieldConfig}) => <SupplierPartyDisplay
+          key={DespatchAdviceField.DespatchSupplierParty}
+          meta={DespatchAdviceFieldMeta.DespatchSupplierParty}
+          fieldConfig={fieldConfig}
+          supplierParty={value?.DespatchSupplierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <SupplierPartyDisplay
-            label="Despatch Supplier Party"
-            value={value.DespatchSupplierParty?.[0]}
-            meta={DespatchAdviceFieldMeta.DespatchSupplierParty}
-          />
+    [
+      DespatchAdviceField.DeliveryCustomerParty,
+      { meta: DespatchAdviceFieldMeta.DeliveryCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={DespatchAdviceField.DeliveryCustomerParty}
+          meta={DespatchAdviceFieldMeta.DeliveryCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.DeliveryCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomerPartyDisplay
-            label="Delivery Customer Party"
-            value={value.DeliveryCustomerParty?.[0]}
-            meta={DespatchAdviceFieldMeta.DeliveryCustomerParty}
-          />
+    [
+      DespatchAdviceField.BuyerCustomerParty,
+      { meta: DespatchAdviceFieldMeta.BuyerCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={DespatchAdviceField.BuyerCustomerParty}
+          meta={DespatchAdviceFieldMeta.BuyerCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.BuyerCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomerPartyDisplay
-            label="Buyer Customer Party"
-            value={value.BuyerCustomerParty?.[0]}
-            meta={DespatchAdviceFieldMeta.BuyerCustomerParty}
-          />
+    [
+      DespatchAdviceField.SellerSupplierParty,
+      { meta: DespatchAdviceFieldMeta.SellerSupplierParty,
+        template: ({value, renderContext, fieldConfig}) => <SupplierPartyDisplay
+          key={DespatchAdviceField.SellerSupplierParty}
+          meta={DespatchAdviceFieldMeta.SellerSupplierParty}
+          fieldConfig={fieldConfig}
+          supplierParty={value?.SellerSupplierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <SupplierPartyDisplay
-            label="Seller Supplier Party"
-            value={value.SellerSupplierParty?.[0]}
-            meta={DespatchAdviceFieldMeta.SellerSupplierParty}
-          />
+    [
+      DespatchAdviceField.OriginatorCustomerParty,
+      { meta: DespatchAdviceFieldMeta.OriginatorCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={DespatchAdviceField.OriginatorCustomerParty}
+          meta={DespatchAdviceFieldMeta.OriginatorCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.OriginatorCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomerPartyDisplay
-            label="Originator Customer Party"
-            value={value.OriginatorCustomerParty?.[0]}
-            meta={DespatchAdviceFieldMeta.OriginatorCustomerParty}
-          />
+    [
+      DespatchAdviceField.Shipment,
+      { meta: DespatchAdviceFieldMeta.Shipment,
+        template: ({value, renderContext, fieldConfig}) => <ShipmentDisplay
+          key={DespatchAdviceField.Shipment}
+          meta={DespatchAdviceFieldMeta.Shipment}
+          fieldConfig={fieldConfig}
+          shipment={value?.Shipment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ShipmentDisplay
-            label="Shipment"
-            value={value.Shipment?.[0]}
-            meta={DespatchAdviceFieldMeta.Shipment}
-          />
+    [
+      DespatchAdviceField.DespatchLine,
+      { meta: DespatchAdviceFieldMeta.DespatchLine,
+        template: ({value, renderContext, fieldConfig}) => <DespatchLineDisplay
+          key={DespatchAdviceField.DespatchLine}
+          meta={DespatchAdviceFieldMeta.DespatchLine}
+          fieldConfig={fieldConfig}
+          despatchLine={value?.DespatchLine}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DespatchLine"
-            label="Despatch Line"
-            items={value.DespatchLine}
-            meta={DespatchAdviceFieldMeta.DespatchLine} 
-            itemDisplay={ (itemValue: DespatchLine, key: string | number) =>
-              <DespatchLineDisplay
-                key={key}
-                label="Despatch Line"
-                value={itemValue}
-                meta={DespatchAdviceFieldMeta.DespatchLine}
-              />
-            }
-          />
-        </div>
-    </div>
+export function DespatchAdviceDisplay<TFieldMeta>({ meta, fieldConfig, despatchAdvice, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    DespatchAdviceTypeName,
+    meta,
+    fieldConfig,
+    despatchAdvice,
+    renderContext,
+    DespatchAdviceSubElementsMap,
   )
 }

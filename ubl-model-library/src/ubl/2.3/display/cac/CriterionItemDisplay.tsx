@@ -1,73 +1,92 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { CriterionItem } from  '../../model/cac/CriterionItem'
-import { CriterionItemFieldMeta } from  '../../meta/cac/CriterionItemMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import ItemDisplay from './ItemDisplay'
-import { Item } from '../../model/cac/Item'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { CriterionItemField, CriterionItemFieldMeta, CriterionItemTypeName } from  '../../meta/cac/CriterionItemMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { ItemDisplay } from './ItemDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: CriterionItem | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<CriterionItem, void>
+  criterionItem: CriterionItem[] | undefined
+  renderContext: RenderContext
 }
 
-export default function CriterionItemDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const CriterionItemSubElementsMap: SubElementsTemplatesMap<CriterionItemField, CriterionItem, void> = new Map([
+    [
+      CriterionItemField.UBLExtensions,
+      { meta: CriterionItemFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={CriterionItemField.UBLExtensions}
+          meta={CriterionItemFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-CriterionItem">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={CriterionItemFieldMeta.UBLExtensions}
-          />
+    [
+      CriterionItemField.ID,
+      { meta: CriterionItemFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CriterionItemField.ID}
+          meta={CriterionItemFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={CriterionItemFieldMeta.ID}
-          />
+    [
+      CriterionItemField.TypeCode,
+      { meta: CriterionItemFieldMeta.TypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={CriterionItemField.TypeCode}
+          meta={CriterionItemFieldMeta.TypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.TypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Type Code"
-            value={value.TypeCode?.[0]}
-            meta={CriterionItemFieldMeta.TypeCode}
-          />
+    [
+      CriterionItemField.CriterionDescription,
+      { meta: CriterionItemFieldMeta.CriterionDescription,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={CriterionItemField.CriterionDescription}
+          meta={CriterionItemFieldMeta.CriterionDescription}
+          fieldConfig={fieldConfig}
+          text={value?.CriterionDescription}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-CriterionDescription"
-            label="Criterion Description"
-            items={value.CriterionDescription}
-            meta={CriterionItemFieldMeta.CriterionDescription} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Criterion Description"
-                value={itemValue}
-                meta={CriterionItemFieldMeta.CriterionDescription}
-              />
-            }
-          />
+    [
+      CriterionItemField.DeclaredPropertyItem,
+      { meta: CriterionItemFieldMeta.DeclaredPropertyItem,
+        template: ({value, renderContext, fieldConfig}) => <ItemDisplay
+          key={CriterionItemField.DeclaredPropertyItem}
+          meta={CriterionItemFieldMeta.DeclaredPropertyItem}
+          fieldConfig={fieldConfig}
+          item={value?.DeclaredPropertyItem}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ItemDisplay
-            label="Declared Property Item"
-            value={value.DeclaredPropertyItem?.[0]}
-            meta={CriterionItemFieldMeta.DeclaredPropertyItem}
-          />
-        </div>
-    </div>
+export function CriterionItemDisplay<TFieldMeta>({ meta, fieldConfig, criterionItem, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    CriterionItemTypeName,
+    meta,
+    fieldConfig,
+    criterionItem,
+    renderContext,
+    CriterionItemSubElementsMap,
   )
 }

@@ -1,18 +1,25 @@
 import React from 'react'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { DateTime } from '../../model/cbc/DateTime'
-import FieldDisplay from '../FieldDisplay'
+import { FieldConfig } from '../FieldConfig'
+import { FieldDisplay } from '../FieldDisplay'
 
 type Props = {
-  label: string
-  value: DateTime | undefined
+  className: string
+  label?: string
+  dateTime: DateTime | undefined
   meta: FieldMeta<any>
+  fieldConfig?: FieldConfig
 }
 
-export default function DateTimeDisplay({ label, value, meta }: Props) {
-  if (value === undefined) {
+export function DateTimeDisplay({ className, label, dateTime, meta, fieldConfig }: Props) {
+  if (dateTime === undefined) {
     return null
   }
-  const stringValue = value._
-  return <div className="ubl-cbc ubl-DateTime"><FieldDisplay label={label} value={stringValue} /></div>
+  const stringValue = dateTime._
+  return (
+    <div className={className}>
+      <FieldDisplay label={label} value={stringValue} config={fieldConfig} />
+    </div>
+  )
 }

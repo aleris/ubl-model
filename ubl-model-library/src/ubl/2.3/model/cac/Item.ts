@@ -16,7 +16,6 @@ import { TaxCategory } from './TaxCategory'
 import { Text } from '../cbc/Text'
 import { TransactionConditions } from './TransactionConditions'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe an item of trade. It includes a generic description applicable to all examples of the item
  * together with optional subsidiary descriptions of any number of actual instances of the type.

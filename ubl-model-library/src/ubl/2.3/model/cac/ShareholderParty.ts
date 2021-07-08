@@ -1,7 +1,6 @@
 import { Numeric } from '../cbc/Numeric'
 import { Party } from './Party'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a shareholder party.
  */

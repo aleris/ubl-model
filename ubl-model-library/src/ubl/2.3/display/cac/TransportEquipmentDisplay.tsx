@@ -1,670 +1,809 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TransportEquipment } from  '../../model/cac/TransportEquipment'
-import { TransportEquipmentFieldMeta } from  '../../meta/cac/TransportEquipmentMeta'
-import AllowanceChargeDisplay from './AllowanceChargeDisplay'
-import { AllowanceCharge } from '../../model/cac/AllowanceCharge'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DeliveryDisplay from './DeliveryDisplay'
-import { Delivery } from '../../model/cac/Delivery'
-import DespatchDisplay from './DespatchDisplay'
-import { Despatch } from '../../model/cac/Despatch'
-import DimensionDisplay from './DimensionDisplay'
-import { Dimension } from '../../model/cac/Dimension'
-import DocumentReferenceDisplay from './DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import GoodsItemDisplay from './GoodsItemDisplay'
-import { GoodsItem } from '../../model/cac/GoodsItem'
-import HazardousGoodsTransitDisplay from './HazardousGoodsTransitDisplay'
-import { HazardousGoodsTransit } from '../../model/cac/HazardousGoodsTransit'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import LocationDisplay from './LocationDisplay'
-import { Location } from '../../model/cac/Location'
-import MeasureDisplay from '../cbc/MeasureDisplay'
-import { Measure } from '../../model/cbc/Measure'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import PackageDisplay from './PackageDisplay'
-import { Package } from '../../model/cac/Package'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PickupDisplay from './PickupDisplay'
-import { Pickup } from '../../model/cac/Pickup'
-import SupplierPartyDisplay from './SupplierPartyDisplay'
-import { SupplierParty } from '../../model/cac/SupplierParty'
-import TemperatureDisplay from './TemperatureDisplay'
-import { Temperature } from '../../model/cac/Temperature'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TradingTermsDisplay from './TradingTermsDisplay'
-import { TradingTerms } from '../../model/cac/TradingTerms'
-import TransportEquipmentSealDisplay from './TransportEquipmentSealDisplay'
-import { TransportEquipmentSeal } from '../../model/cac/TransportEquipmentSeal'
-import TransportEventDisplay from './TransportEventDisplay'
-import { TransportEvent } from '../../model/cac/TransportEvent'
-import TransportHandlingUnitDisplay from './TransportHandlingUnitDisplay'
-import { TransportHandlingUnit } from '../../model/cac/TransportHandlingUnit'
-import TransportMeansDisplay from './TransportMeansDisplay'
-import { TransportMeans } from '../../model/cac/TransportMeans'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
-import VerifiedGrossMassDisplay from './VerifiedGrossMassDisplay'
-import { VerifiedGrossMass } from '../../model/cac/VerifiedGrossMass'
+import { TransportEquipmentField, TransportEquipmentFieldMeta, TransportEquipmentTypeName } from  '../../meta/cac/TransportEquipmentMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AllowanceChargeDisplay } from './AllowanceChargeDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DeliveryDisplay } from './DeliveryDisplay'
+import { DespatchDisplay } from './DespatchDisplay'
+import { DimensionDisplay } from './DimensionDisplay'
+import { DocumentReferenceDisplay } from './DocumentReferenceDisplay'
+import { GoodsItemDisplay } from './GoodsItemDisplay'
+import { HazardousGoodsTransitDisplay } from './HazardousGoodsTransitDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { LocationDisplay } from './LocationDisplay'
+import { MeasureDisplay } from '../cbc/MeasureDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { PackageDisplay } from './PackageDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { PickupDisplay } from './PickupDisplay'
+import { SupplierPartyDisplay } from './SupplierPartyDisplay'
+import { TemperatureDisplay } from './TemperatureDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TradingTermsDisplay } from './TradingTermsDisplay'
+import { TransportEquipmentSealDisplay } from './TransportEquipmentSealDisplay'
+import { TransportEventDisplay } from './TransportEventDisplay'
+import { TransportHandlingUnitDisplay } from './TransportHandlingUnitDisplay'
+import { TransportMeansDisplay } from './TransportMeansDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
+import { VerifiedGrossMassDisplay } from './VerifiedGrossMassDisplay'
 
-type Props<T> = {
-  label: string
-  value: TransportEquipment | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<TransportEquipment, void>
+  transportEquipment: TransportEquipment[] | undefined
+  renderContext: RenderContext
 }
 
-export default function TransportEquipmentDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const TransportEquipmentSubElementsMap: SubElementsTemplatesMap<TransportEquipmentField, TransportEquipment, void> = new Map([
+    [
+      TransportEquipmentField.UBLExtensions,
+      { meta: TransportEquipmentFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={TransportEquipmentField.UBLExtensions}
+          meta={TransportEquipmentFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-TransportEquipment">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={TransportEquipmentFieldMeta.UBLExtensions}
-          />
+    [
+      TransportEquipmentField.ID,
+      { meta: TransportEquipmentFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TransportEquipmentField.ID}
+          meta={TransportEquipmentFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={TransportEquipmentFieldMeta.ID}
-          />
+    [
+      TransportEquipmentField.ReferencedConsignmentID,
+      { meta: TransportEquipmentFieldMeta.ReferencedConsignmentID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TransportEquipmentField.ReferencedConsignmentID}
+          meta={TransportEquipmentFieldMeta.ReferencedConsignmentID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ReferencedConsignmentID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Identifier ubl-ReferencedConsignmentID"
-            label="Referenced Consignment Identifier"
-            items={value.ReferencedConsignmentID}
-            meta={TransportEquipmentFieldMeta.ReferencedConsignmentID} 
-            itemDisplay={ (itemValue: Identifier, key: string | number) =>
-              <IdentifierDisplay
-                key={key}
-                label="Referenced Consignment Identifier"
-                value={itemValue}
-                meta={TransportEquipmentFieldMeta.ReferencedConsignmentID}
-              />
-            }
-          />
+    [
+      TransportEquipmentField.TransportEquipmentTypeCode,
+      { meta: TransportEquipmentFieldMeta.TransportEquipmentTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TransportEquipmentField.TransportEquipmentTypeCode}
+          meta={TransportEquipmentFieldMeta.TransportEquipmentTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.TransportEquipmentTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Transport Equipment Type Code"
-            value={value.TransportEquipmentTypeCode?.[0]}
-            meta={TransportEquipmentFieldMeta.TransportEquipmentTypeCode}
-          />
+    [
+      TransportEquipmentField.ProviderTypeCode,
+      { meta: TransportEquipmentFieldMeta.ProviderTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TransportEquipmentField.ProviderTypeCode}
+          meta={TransportEquipmentFieldMeta.ProviderTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.ProviderTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Provider Type Code"
-            value={value.ProviderTypeCode?.[0]}
-            meta={TransportEquipmentFieldMeta.ProviderTypeCode}
-          />
+    [
+      TransportEquipmentField.OwnerTypeCode,
+      { meta: TransportEquipmentFieldMeta.OwnerTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TransportEquipmentField.OwnerTypeCode}
+          meta={TransportEquipmentFieldMeta.OwnerTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.OwnerTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Owner Type Code"
-            value={value.OwnerTypeCode?.[0]}
-            meta={TransportEquipmentFieldMeta.OwnerTypeCode}
-          />
+    [
+      TransportEquipmentField.SizeTypeCode,
+      { meta: TransportEquipmentFieldMeta.SizeTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TransportEquipmentField.SizeTypeCode}
+          meta={TransportEquipmentFieldMeta.SizeTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.SizeTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Size Type Code"
-            value={value.SizeTypeCode?.[0]}
-            meta={TransportEquipmentFieldMeta.SizeTypeCode}
-          />
+    [
+      TransportEquipmentField.DispositionCode,
+      { meta: TransportEquipmentFieldMeta.DispositionCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TransportEquipmentField.DispositionCode}
+          meta={TransportEquipmentFieldMeta.DispositionCode}
+          fieldConfig={fieldConfig}
+          code={value?.DispositionCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Disposition Code"
-            value={value.DispositionCode?.[0]}
-            meta={TransportEquipmentFieldMeta.DispositionCode}
-          />
+    [
+      TransportEquipmentField.FullnessIndicationCode,
+      { meta: TransportEquipmentFieldMeta.FullnessIndicationCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TransportEquipmentField.FullnessIndicationCode}
+          meta={TransportEquipmentFieldMeta.FullnessIndicationCode}
+          fieldConfig={fieldConfig}
+          code={value?.FullnessIndicationCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Fullness Indication Code"
-            value={value.FullnessIndicationCode?.[0]}
-            meta={TransportEquipmentFieldMeta.FullnessIndicationCode}
-          />
+    [
+      TransportEquipmentField.RefrigerationOnIndicator,
+      { meta: TransportEquipmentFieldMeta.RefrigerationOnIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={TransportEquipmentField.RefrigerationOnIndicator}
+          meta={TransportEquipmentFieldMeta.RefrigerationOnIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.RefrigerationOnIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Refrigeration On Indicator"
-            value={value.RefrigerationOnIndicator?.[0]}
-            meta={TransportEquipmentFieldMeta.RefrigerationOnIndicator}
-          />
+    [
+      TransportEquipmentField.Information,
+      { meta: TransportEquipmentFieldMeta.Information,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TransportEquipmentField.Information}
+          meta={TransportEquipmentFieldMeta.Information}
+          fieldConfig={fieldConfig}
+          text={value?.Information}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Information"
-            label="Information"
-            items={value.Information}
-            meta={TransportEquipmentFieldMeta.Information} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Information"
-                value={itemValue}
-                meta={TransportEquipmentFieldMeta.Information}
-              />
-            }
-          />
+    [
+      TransportEquipmentField.ReturnabilityIndicator,
+      { meta: TransportEquipmentFieldMeta.ReturnabilityIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={TransportEquipmentField.ReturnabilityIndicator}
+          meta={TransportEquipmentFieldMeta.ReturnabilityIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.ReturnabilityIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Returnability Indicator"
-            value={value.ReturnabilityIndicator?.[0]}
-            meta={TransportEquipmentFieldMeta.ReturnabilityIndicator}
-          />
+    [
+      TransportEquipmentField.LegalStatusIndicator,
+      { meta: TransportEquipmentFieldMeta.LegalStatusIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={TransportEquipmentField.LegalStatusIndicator}
+          meta={TransportEquipmentFieldMeta.LegalStatusIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.LegalStatusIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Legal Status Indicator"
-            value={value.LegalStatusIndicator?.[0]}
-            meta={TransportEquipmentFieldMeta.LegalStatusIndicator}
-          />
+    [
+      TransportEquipmentField.AirFlowPercent,
+      { meta: TransportEquipmentFieldMeta.AirFlowPercent,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={TransportEquipmentField.AirFlowPercent}
+          meta={TransportEquipmentFieldMeta.AirFlowPercent}
+          fieldConfig={fieldConfig}
+          numeric={value?.AirFlowPercent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Air Flow Percent"
-            value={value.AirFlowPercent?.[0]}
-            meta={TransportEquipmentFieldMeta.AirFlowPercent}
-          />
+    [
+      TransportEquipmentField.HumidityPercent,
+      { meta: TransportEquipmentFieldMeta.HumidityPercent,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={TransportEquipmentField.HumidityPercent}
+          meta={TransportEquipmentFieldMeta.HumidityPercent}
+          fieldConfig={fieldConfig}
+          numeric={value?.HumidityPercent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Humidity Percent"
-            value={value.HumidityPercent?.[0]}
-            meta={TransportEquipmentFieldMeta.HumidityPercent}
-          />
+    [
+      TransportEquipmentField.AnimalFoodApprovedIndicator,
+      { meta: TransportEquipmentFieldMeta.AnimalFoodApprovedIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={TransportEquipmentField.AnimalFoodApprovedIndicator}
+          meta={TransportEquipmentFieldMeta.AnimalFoodApprovedIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.AnimalFoodApprovedIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Animal Food Approved Indicator"
-            value={value.AnimalFoodApprovedIndicator?.[0]}
-            meta={TransportEquipmentFieldMeta.AnimalFoodApprovedIndicator}
-          />
+    [
+      TransportEquipmentField.HumanFoodApprovedIndicator,
+      { meta: TransportEquipmentFieldMeta.HumanFoodApprovedIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={TransportEquipmentField.HumanFoodApprovedIndicator}
+          meta={TransportEquipmentFieldMeta.HumanFoodApprovedIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.HumanFoodApprovedIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Human Food Approved Indicator"
-            value={value.HumanFoodApprovedIndicator?.[0]}
-            meta={TransportEquipmentFieldMeta.HumanFoodApprovedIndicator}
-          />
+    [
+      TransportEquipmentField.DangerousGoodsApprovedIndicator,
+      { meta: TransportEquipmentFieldMeta.DangerousGoodsApprovedIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={TransportEquipmentField.DangerousGoodsApprovedIndicator}
+          meta={TransportEquipmentFieldMeta.DangerousGoodsApprovedIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.DangerousGoodsApprovedIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Dangerous Goods Approved Indicator"
-            value={value.DangerousGoodsApprovedIndicator?.[0]}
-            meta={TransportEquipmentFieldMeta.DangerousGoodsApprovedIndicator}
-          />
+    [
+      TransportEquipmentField.RefrigeratedIndicator,
+      { meta: TransportEquipmentFieldMeta.RefrigeratedIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={TransportEquipmentField.RefrigeratedIndicator}
+          meta={TransportEquipmentFieldMeta.RefrigeratedIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.RefrigeratedIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Refrigerated Indicator"
-            value={value.RefrigeratedIndicator?.[0]}
-            meta={TransportEquipmentFieldMeta.RefrigeratedIndicator}
-          />
+    [
+      TransportEquipmentField.Characteristics,
+      { meta: TransportEquipmentFieldMeta.Characteristics,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TransportEquipmentField.Characteristics}
+          meta={TransportEquipmentFieldMeta.Characteristics}
+          fieldConfig={fieldConfig}
+          text={value?.Characteristics}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Characteristics"
-            value={value.Characteristics?.[0]}
-            meta={TransportEquipmentFieldMeta.Characteristics}
-          />
+    [
+      TransportEquipmentField.DamageRemarks,
+      { meta: TransportEquipmentFieldMeta.DamageRemarks,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TransportEquipmentField.DamageRemarks}
+          meta={TransportEquipmentFieldMeta.DamageRemarks}
+          fieldConfig={fieldConfig}
+          text={value?.DamageRemarks}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-DamageRemarks"
-            label="Damage Remarks"
-            items={value.DamageRemarks}
-            meta={TransportEquipmentFieldMeta.DamageRemarks} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Damage Remarks"
-                value={itemValue}
-                meta={TransportEquipmentFieldMeta.DamageRemarks}
-              />
-            }
-          />
+    [
+      TransportEquipmentField.Description,
+      { meta: TransportEquipmentFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TransportEquipmentField.Description}
+          meta={TransportEquipmentFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={TransportEquipmentFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={TransportEquipmentFieldMeta.Description}
-              />
-            }
-          />
+    [
+      TransportEquipmentField.SpecialTransportRequirements,
+      { meta: TransportEquipmentFieldMeta.SpecialTransportRequirements,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TransportEquipmentField.SpecialTransportRequirements}
+          meta={TransportEquipmentFieldMeta.SpecialTransportRequirements}
+          fieldConfig={fieldConfig}
+          text={value?.SpecialTransportRequirements}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-SpecialTransportRequirements"
-            label="Special Transport Requirements"
-            items={value.SpecialTransportRequirements}
-            meta={TransportEquipmentFieldMeta.SpecialTransportRequirements} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Special Transport Requirements"
-                value={itemValue}
-                meta={TransportEquipmentFieldMeta.SpecialTransportRequirements}
-              />
-            }
-          />
+    [
+      TransportEquipmentField.GrossWeightMeasure,
+      { meta: TransportEquipmentFieldMeta.GrossWeightMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={TransportEquipmentField.GrossWeightMeasure}
+          meta={TransportEquipmentFieldMeta.GrossWeightMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.GrossWeightMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Gross Weight"
-            value={value.GrossWeightMeasure?.[0]}
-            meta={TransportEquipmentFieldMeta.GrossWeightMeasure}
-          />
+    [
+      TransportEquipmentField.GrossVolumeMeasure,
+      { meta: TransportEquipmentFieldMeta.GrossVolumeMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={TransportEquipmentField.GrossVolumeMeasure}
+          meta={TransportEquipmentFieldMeta.GrossVolumeMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.GrossVolumeMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Gross Volume"
-            value={value.GrossVolumeMeasure?.[0]}
-            meta={TransportEquipmentFieldMeta.GrossVolumeMeasure}
-          />
+    [
+      TransportEquipmentField.TareWeightMeasure,
+      { meta: TransportEquipmentFieldMeta.TareWeightMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={TransportEquipmentField.TareWeightMeasure}
+          meta={TransportEquipmentFieldMeta.TareWeightMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.TareWeightMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Tare Weight"
-            value={value.TareWeightMeasure?.[0]}
-            meta={TransportEquipmentFieldMeta.TareWeightMeasure}
-          />
+    [
+      TransportEquipmentField.TrackingDeviceCode,
+      { meta: TransportEquipmentFieldMeta.TrackingDeviceCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TransportEquipmentField.TrackingDeviceCode}
+          meta={TransportEquipmentFieldMeta.TrackingDeviceCode}
+          fieldConfig={fieldConfig}
+          code={value?.TrackingDeviceCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Tracking Device Code"
-            value={value.TrackingDeviceCode?.[0]}
-            meta={TransportEquipmentFieldMeta.TrackingDeviceCode}
-          />
+    [
+      TransportEquipmentField.PowerIndicator,
+      { meta: TransportEquipmentFieldMeta.PowerIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={TransportEquipmentField.PowerIndicator}
+          meta={TransportEquipmentFieldMeta.PowerIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.PowerIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Power"
-            value={value.PowerIndicator?.[0]}
-            meta={TransportEquipmentFieldMeta.PowerIndicator}
-          />
+    [
+      TransportEquipmentField.TraceID,
+      { meta: TransportEquipmentFieldMeta.TraceID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TransportEquipmentField.TraceID}
+          meta={TransportEquipmentFieldMeta.TraceID}
+          fieldConfig={fieldConfig}
+          identifier={value?.TraceID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Trace Identifier"
-            value={value.TraceID?.[0]}
-            meta={TransportEquipmentFieldMeta.TraceID}
-          />
+    [
+      TransportEquipmentField.MeasurementDimension,
+      { meta: TransportEquipmentFieldMeta.MeasurementDimension,
+        template: ({value, renderContext, fieldConfig}) => <DimensionDisplay
+          key={TransportEquipmentField.MeasurementDimension}
+          meta={TransportEquipmentFieldMeta.MeasurementDimension}
+          fieldConfig={fieldConfig}
+          dimension={value?.MeasurementDimension}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Dimension ubl-MeasurementDimension"
-            label="Measurement Dimension"
-            items={value.MeasurementDimension}
-            meta={TransportEquipmentFieldMeta.MeasurementDimension} 
-            itemDisplay={ (itemValue: Dimension, key: string | number) =>
-              <DimensionDisplay
-                key={key}
-                label="Measurement Dimension"
-                value={itemValue}
-                meta={TransportEquipmentFieldMeta.MeasurementDimension}
-              />
-            }
-          />
+    [
+      TransportEquipmentField.TransportEquipmentSeal,
+      { meta: TransportEquipmentFieldMeta.TransportEquipmentSeal,
+        template: ({value, renderContext, fieldConfig}) => <TransportEquipmentSealDisplay
+          key={TransportEquipmentField.TransportEquipmentSeal}
+          meta={TransportEquipmentFieldMeta.TransportEquipmentSeal}
+          fieldConfig={fieldConfig}
+          transportEquipmentSeal={value?.TransportEquipmentSeal}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TransportEquipmentSeal"
-            label="Transport Equipment Seal"
-            items={value.TransportEquipmentSeal}
-            meta={TransportEquipmentFieldMeta.TransportEquipmentSeal} 
-            itemDisplay={ (itemValue: TransportEquipmentSeal, key: string | number) =>
-              <TransportEquipmentSealDisplay
-                key={key}
-                label="Transport Equipment Seal"
-                value={itemValue}
-                meta={TransportEquipmentFieldMeta.TransportEquipmentSeal}
-              />
-            }
-          />
+    [
+      TransportEquipmentField.MinimumTemperature,
+      { meta: TransportEquipmentFieldMeta.MinimumTemperature,
+        template: ({value, renderContext, fieldConfig}) => <TemperatureDisplay
+          key={TransportEquipmentField.MinimumTemperature}
+          meta={TransportEquipmentFieldMeta.MinimumTemperature}
+          fieldConfig={fieldConfig}
+          temperature={value?.MinimumTemperature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TemperatureDisplay
-            label="Minimum Temperature"
-            value={value.MinimumTemperature?.[0]}
-            meta={TransportEquipmentFieldMeta.MinimumTemperature}
-          />
+    [
+      TransportEquipmentField.MaximumTemperature,
+      { meta: TransportEquipmentFieldMeta.MaximumTemperature,
+        template: ({value, renderContext, fieldConfig}) => <TemperatureDisplay
+          key={TransportEquipmentField.MaximumTemperature}
+          meta={TransportEquipmentFieldMeta.MaximumTemperature}
+          fieldConfig={fieldConfig}
+          temperature={value?.MaximumTemperature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TemperatureDisplay
-            label="Maximum Temperature"
-            value={value.MaximumTemperature?.[0]}
-            meta={TransportEquipmentFieldMeta.MaximumTemperature}
-          />
+    [
+      TransportEquipmentField.ProviderParty,
+      { meta: TransportEquipmentFieldMeta.ProviderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={TransportEquipmentField.ProviderParty}
+          meta={TransportEquipmentFieldMeta.ProviderParty}
+          fieldConfig={fieldConfig}
+          party={value?.ProviderParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Provider Party"
-            value={value.ProviderParty?.[0]}
-            meta={TransportEquipmentFieldMeta.ProviderParty}
-          />
+    [
+      TransportEquipmentField.LoadingProofParty,
+      { meta: TransportEquipmentFieldMeta.LoadingProofParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={TransportEquipmentField.LoadingProofParty}
+          meta={TransportEquipmentFieldMeta.LoadingProofParty}
+          fieldConfig={fieldConfig}
+          party={value?.LoadingProofParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Loading Proof Party"
-            value={value.LoadingProofParty?.[0]}
-            meta={TransportEquipmentFieldMeta.LoadingProofParty}
-          />
+    [
+      TransportEquipmentField.SupplierParty,
+      { meta: TransportEquipmentFieldMeta.SupplierParty,
+        template: ({value, renderContext, fieldConfig}) => <SupplierPartyDisplay
+          key={TransportEquipmentField.SupplierParty}
+          meta={TransportEquipmentFieldMeta.SupplierParty}
+          fieldConfig={fieldConfig}
+          supplierParty={value?.SupplierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <SupplierPartyDisplay
-            label="Supplier Party"
-            value={value.SupplierParty?.[0]}
-            meta={TransportEquipmentFieldMeta.SupplierParty}
-          />
+    [
+      TransportEquipmentField.OwnerParty,
+      { meta: TransportEquipmentFieldMeta.OwnerParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={TransportEquipmentField.OwnerParty}
+          meta={TransportEquipmentFieldMeta.OwnerParty}
+          fieldConfig={fieldConfig}
+          party={value?.OwnerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Owner Party"
-            value={value.OwnerParty?.[0]}
-            meta={TransportEquipmentFieldMeta.OwnerParty}
-          />
+    [
+      TransportEquipmentField.OperatingParty,
+      { meta: TransportEquipmentFieldMeta.OperatingParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={TransportEquipmentField.OperatingParty}
+          meta={TransportEquipmentFieldMeta.OperatingParty}
+          fieldConfig={fieldConfig}
+          party={value?.OperatingParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Operating Party"
-            value={value.OperatingParty?.[0]}
-            meta={TransportEquipmentFieldMeta.OperatingParty}
-          />
+    [
+      TransportEquipmentField.LoadingLocation,
+      { meta: TransportEquipmentFieldMeta.LoadingLocation,
+        template: ({value, renderContext, fieldConfig}) => <LocationDisplay
+          key={TransportEquipmentField.LoadingLocation}
+          meta={TransportEquipmentFieldMeta.LoadingLocation}
+          fieldConfig={fieldConfig}
+          location={value?.LoadingLocation}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <LocationDisplay
-            label="Loading Location"
-            value={value.LoadingLocation?.[0]}
-            meta={TransportEquipmentFieldMeta.LoadingLocation}
-          />
+    [
+      TransportEquipmentField.UnloadingLocation,
+      { meta: TransportEquipmentFieldMeta.UnloadingLocation,
+        template: ({value, renderContext, fieldConfig}) => <LocationDisplay
+          key={TransportEquipmentField.UnloadingLocation}
+          meta={TransportEquipmentFieldMeta.UnloadingLocation}
+          fieldConfig={fieldConfig}
+          location={value?.UnloadingLocation}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <LocationDisplay
-            label="Unloading Location"
-            value={value.UnloadingLocation?.[0]}
-            meta={TransportEquipmentFieldMeta.UnloadingLocation}
-          />
+    [
+      TransportEquipmentField.StorageLocation,
+      { meta: TransportEquipmentFieldMeta.StorageLocation,
+        template: ({value, renderContext, fieldConfig}) => <LocationDisplay
+          key={TransportEquipmentField.StorageLocation}
+          meta={TransportEquipmentFieldMeta.StorageLocation}
+          fieldConfig={fieldConfig}
+          location={value?.StorageLocation}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <LocationDisplay
-            label="Storage Location"
-            value={value.StorageLocation?.[0]}
-            meta={TransportEquipmentFieldMeta.StorageLocation}
-          />
+    [
+      TransportEquipmentField.PositioningTransportEvent,
+      { meta: TransportEquipmentFieldMeta.PositioningTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={TransportEquipmentField.PositioningTransportEvent}
+          meta={TransportEquipmentFieldMeta.PositioningTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.PositioningTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TransportEvent ubl-PositioningTransportEvent"
-            label="Positioning Transport Event"
-            items={value.PositioningTransportEvent}
-            meta={TransportEquipmentFieldMeta.PositioningTransportEvent} 
-            itemDisplay={ (itemValue: TransportEvent, key: string | number) =>
-              <TransportEventDisplay
-                key={key}
-                label="Positioning Transport Event"
-                value={itemValue}
-                meta={TransportEquipmentFieldMeta.PositioningTransportEvent}
-              />
-            }
-          />
+    [
+      TransportEquipmentField.QuarantineTransportEvent,
+      { meta: TransportEquipmentFieldMeta.QuarantineTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={TransportEquipmentField.QuarantineTransportEvent}
+          meta={TransportEquipmentFieldMeta.QuarantineTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.QuarantineTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TransportEvent ubl-QuarantineTransportEvent"
-            label="Quarantine Transport Event"
-            items={value.QuarantineTransportEvent}
-            meta={TransportEquipmentFieldMeta.QuarantineTransportEvent} 
-            itemDisplay={ (itemValue: TransportEvent, key: string | number) =>
-              <TransportEventDisplay
-                key={key}
-                label="Quarantine Transport Event"
-                value={itemValue}
-                meta={TransportEquipmentFieldMeta.QuarantineTransportEvent}
-              />
-            }
-          />
+    [
+      TransportEquipmentField.DeliveryTransportEvent,
+      { meta: TransportEquipmentFieldMeta.DeliveryTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={TransportEquipmentField.DeliveryTransportEvent}
+          meta={TransportEquipmentFieldMeta.DeliveryTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.DeliveryTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TransportEvent ubl-DeliveryTransportEvent"
-            label="Delivery Transport Event"
-            items={value.DeliveryTransportEvent}
-            meta={TransportEquipmentFieldMeta.DeliveryTransportEvent} 
-            itemDisplay={ (itemValue: TransportEvent, key: string | number) =>
-              <TransportEventDisplay
-                key={key}
-                label="Delivery Transport Event"
-                value={itemValue}
-                meta={TransportEquipmentFieldMeta.DeliveryTransportEvent}
-              />
-            }
-          />
+    [
+      TransportEquipmentField.PickupTransportEvent,
+      { meta: TransportEquipmentFieldMeta.PickupTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={TransportEquipmentField.PickupTransportEvent}
+          meta={TransportEquipmentFieldMeta.PickupTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.PickupTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TransportEvent ubl-PickupTransportEvent"
-            label="Pickup Transport Event"
-            items={value.PickupTransportEvent}
-            meta={TransportEquipmentFieldMeta.PickupTransportEvent} 
-            itemDisplay={ (itemValue: TransportEvent, key: string | number) =>
-              <TransportEventDisplay
-                key={key}
-                label="Pickup Transport Event"
-                value={itemValue}
-                meta={TransportEquipmentFieldMeta.PickupTransportEvent}
-              />
-            }
-          />
+    [
+      TransportEquipmentField.HandlingTransportEvent,
+      { meta: TransportEquipmentFieldMeta.HandlingTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={TransportEquipmentField.HandlingTransportEvent}
+          meta={TransportEquipmentFieldMeta.HandlingTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.HandlingTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TransportEvent ubl-HandlingTransportEvent"
-            label="Handling Transport Event"
-            items={value.HandlingTransportEvent}
-            meta={TransportEquipmentFieldMeta.HandlingTransportEvent} 
-            itemDisplay={ (itemValue: TransportEvent, key: string | number) =>
-              <TransportEventDisplay
-                key={key}
-                label="Handling Transport Event"
-                value={itemValue}
-                meta={TransportEquipmentFieldMeta.HandlingTransportEvent}
-              />
-            }
-          />
+    [
+      TransportEquipmentField.LoadingTransportEvent,
+      { meta: TransportEquipmentFieldMeta.LoadingTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={TransportEquipmentField.LoadingTransportEvent}
+          meta={TransportEquipmentFieldMeta.LoadingTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.LoadingTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TransportEvent ubl-LoadingTransportEvent"
-            label="Loading Transport Event"
-            items={value.LoadingTransportEvent}
-            meta={TransportEquipmentFieldMeta.LoadingTransportEvent} 
-            itemDisplay={ (itemValue: TransportEvent, key: string | number) =>
-              <TransportEventDisplay
-                key={key}
-                label="Loading Transport Event"
-                value={itemValue}
-                meta={TransportEquipmentFieldMeta.LoadingTransportEvent}
-              />
-            }
-          />
+    [
+      TransportEquipmentField.TransportEvent,
+      { meta: TransportEquipmentFieldMeta.TransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={TransportEquipmentField.TransportEvent}
+          meta={TransportEquipmentFieldMeta.TransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.TransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TransportEvent"
-            label="Transport Event"
-            items={value.TransportEvent}
-            meta={TransportEquipmentFieldMeta.TransportEvent} 
-            itemDisplay={ (itemValue: TransportEvent, key: string | number) =>
-              <TransportEventDisplay
-                key={key}
-                label="Transport Event"
-                value={itemValue}
-                meta={TransportEquipmentFieldMeta.TransportEvent}
-              />
-            }
-          />
+    [
+      TransportEquipmentField.ApplicableTransportMeans,
+      { meta: TransportEquipmentFieldMeta.ApplicableTransportMeans,
+        template: ({value, renderContext, fieldConfig}) => <TransportMeansDisplay
+          key={TransportEquipmentField.ApplicableTransportMeans}
+          meta={TransportEquipmentFieldMeta.ApplicableTransportMeans}
+          fieldConfig={fieldConfig}
+          transportMeans={value?.ApplicableTransportMeans}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TransportMeansDisplay
-            label="Applicable Transport Means"
-            value={value.ApplicableTransportMeans?.[0]}
-            meta={TransportEquipmentFieldMeta.ApplicableTransportMeans}
-          />
+    [
+      TransportEquipmentField.HaulageTradingTerms,
+      { meta: TransportEquipmentFieldMeta.HaulageTradingTerms,
+        template: ({value, renderContext, fieldConfig}) => <TradingTermsDisplay
+          key={TransportEquipmentField.HaulageTradingTerms}
+          meta={TransportEquipmentFieldMeta.HaulageTradingTerms}
+          fieldConfig={fieldConfig}
+          tradingTerms={value?.HaulageTradingTerms}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TradingTerms ubl-HaulageTradingTerms"
-            label="Haulage Trading Terms"
-            items={value.HaulageTradingTerms}
-            meta={TransportEquipmentFieldMeta.HaulageTradingTerms} 
-            itemDisplay={ (itemValue: TradingTerms, key: string | number) =>
-              <TradingTermsDisplay
-                key={key}
-                label="Haulage Trading Terms"
-                value={itemValue}
-                meta={TransportEquipmentFieldMeta.HaulageTradingTerms}
-              />
-            }
-          />
+    [
+      TransportEquipmentField.HazardousGoodsTransit,
+      { meta: TransportEquipmentFieldMeta.HazardousGoodsTransit,
+        template: ({value, renderContext, fieldConfig}) => <HazardousGoodsTransitDisplay
+          key={TransportEquipmentField.HazardousGoodsTransit}
+          meta={TransportEquipmentFieldMeta.HazardousGoodsTransit}
+          fieldConfig={fieldConfig}
+          hazardousGoodsTransit={value?.HazardousGoodsTransit}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-HazardousGoodsTransit"
-            label="Hazardous Goods Transit"
-            items={value.HazardousGoodsTransit}
-            meta={TransportEquipmentFieldMeta.HazardousGoodsTransit} 
-            itemDisplay={ (itemValue: HazardousGoodsTransit, key: string | number) =>
-              <HazardousGoodsTransitDisplay
-                key={key}
-                label="Hazardous Goods Transit"
-                value={itemValue}
-                meta={TransportEquipmentFieldMeta.HazardousGoodsTransit}
-              />
-            }
-          />
+    [
+      TransportEquipmentField.PackagedTransportHandlingUnit,
+      { meta: TransportEquipmentFieldMeta.PackagedTransportHandlingUnit,
+        template: ({value, renderContext, fieldConfig}) => <TransportHandlingUnitDisplay
+          key={TransportEquipmentField.PackagedTransportHandlingUnit}
+          meta={TransportEquipmentFieldMeta.PackagedTransportHandlingUnit}
+          fieldConfig={fieldConfig}
+          transportHandlingUnit={value?.PackagedTransportHandlingUnit}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TransportHandlingUnit ubl-PackagedTransportHandlingUnit"
-            label="Packaged Transport Handling Unit"
-            items={value.PackagedTransportHandlingUnit}
-            meta={TransportEquipmentFieldMeta.PackagedTransportHandlingUnit} 
-            itemDisplay={ (itemValue: TransportHandlingUnit, key: string | number) =>
-              <TransportHandlingUnitDisplay
-                key={key}
-                label="Packaged Transport Handling Unit"
-                value={itemValue}
-                meta={TransportEquipmentFieldMeta.PackagedTransportHandlingUnit}
-              />
-            }
-          />
+    [
+      TransportEquipmentField.ServiceAllowanceCharge,
+      { meta: TransportEquipmentFieldMeta.ServiceAllowanceCharge,
+        template: ({value, renderContext, fieldConfig}) => <AllowanceChargeDisplay
+          key={TransportEquipmentField.ServiceAllowanceCharge}
+          meta={TransportEquipmentFieldMeta.ServiceAllowanceCharge}
+          fieldConfig={fieldConfig}
+          allowanceCharge={value?.ServiceAllowanceCharge}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-AllowanceCharge ubl-ServiceAllowanceCharge"
-            label="Service Allowance Charge"
-            items={value.ServiceAllowanceCharge}
-            meta={TransportEquipmentFieldMeta.ServiceAllowanceCharge} 
-            itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-              <AllowanceChargeDisplay
-                key={key}
-                label="Service Allowance Charge"
-                value={itemValue}
-                meta={TransportEquipmentFieldMeta.ServiceAllowanceCharge}
-              />
-            }
-          />
+    [
+      TransportEquipmentField.FreightAllowanceCharge,
+      { meta: TransportEquipmentFieldMeta.FreightAllowanceCharge,
+        template: ({value, renderContext, fieldConfig}) => <AllowanceChargeDisplay
+          key={TransportEquipmentField.FreightAllowanceCharge}
+          meta={TransportEquipmentFieldMeta.FreightAllowanceCharge}
+          fieldConfig={fieldConfig}
+          allowanceCharge={value?.FreightAllowanceCharge}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-AllowanceCharge ubl-FreightAllowanceCharge"
-            label="Freight Allowance Charge"
-            items={value.FreightAllowanceCharge}
-            meta={TransportEquipmentFieldMeta.FreightAllowanceCharge} 
-            itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-              <AllowanceChargeDisplay
-                key={key}
-                label="Freight Allowance Charge"
-                value={itemValue}
-                meta={TransportEquipmentFieldMeta.FreightAllowanceCharge}
-              />
-            }
-          />
+    [
+      TransportEquipmentField.AttachedTransportEquipment,
+      { meta: TransportEquipmentFieldMeta.AttachedTransportEquipment,
+        template: ({value, renderContext, fieldConfig}) => <TransportEquipmentDisplay
+          key={TransportEquipmentField.AttachedTransportEquipment}
+          meta={TransportEquipmentFieldMeta.AttachedTransportEquipment}
+          fieldConfig={fieldConfig}
+          transportEquipment={value?.AttachedTransportEquipment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TransportEquipment ubl-AttachedTransportEquipment"
-            label="Attached Transport Equipment"
-            items={value.AttachedTransportEquipment}
-            meta={TransportEquipmentFieldMeta.AttachedTransportEquipment} 
-            itemDisplay={ (itemValue: TransportEquipment, key: string | number) =>
-              <TransportEquipmentDisplay
-                key={key}
-                label="Attached Transport Equipment"
-                value={itemValue}
-                meta={TransportEquipmentFieldMeta.AttachedTransportEquipment}
-              />
-            }
-          />
+    [
+      TransportEquipmentField.Delivery,
+      { meta: TransportEquipmentFieldMeta.Delivery,
+        template: ({value, renderContext, fieldConfig}) => <DeliveryDisplay
+          key={TransportEquipmentField.Delivery}
+          meta={TransportEquipmentFieldMeta.Delivery}
+          fieldConfig={fieldConfig}
+          delivery={value?.Delivery}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DeliveryDisplay
-            label="Delivery"
-            value={value.Delivery?.[0]}
-            meta={TransportEquipmentFieldMeta.Delivery}
-          />
+    [
+      TransportEquipmentField.Pickup,
+      { meta: TransportEquipmentFieldMeta.Pickup,
+        template: ({value, renderContext, fieldConfig}) => <PickupDisplay
+          key={TransportEquipmentField.Pickup}
+          meta={TransportEquipmentFieldMeta.Pickup}
+          fieldConfig={fieldConfig}
+          pickup={value?.Pickup}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PickupDisplay
-            label="Pickup"
-            value={value.Pickup?.[0]}
-            meta={TransportEquipmentFieldMeta.Pickup}
-          />
+    [
+      TransportEquipmentField.Despatch,
+      { meta: TransportEquipmentFieldMeta.Despatch,
+        template: ({value, renderContext, fieldConfig}) => <DespatchDisplay
+          key={TransportEquipmentField.Despatch}
+          meta={TransportEquipmentFieldMeta.Despatch}
+          fieldConfig={fieldConfig}
+          despatch={value?.Despatch}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DespatchDisplay
-            label="Despatch"
-            value={value.Despatch?.[0]}
-            meta={TransportEquipmentFieldMeta.Despatch}
-          />
+    [
+      TransportEquipmentField.ShipmentDocumentReference,
+      { meta: TransportEquipmentFieldMeta.ShipmentDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={TransportEquipmentField.ShipmentDocumentReference}
+          meta={TransportEquipmentFieldMeta.ShipmentDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.ShipmentDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentReference ubl-ShipmentDocumentReference"
-            label="Shipment Document Reference"
-            items={value.ShipmentDocumentReference}
-            meta={TransportEquipmentFieldMeta.ShipmentDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Shipment Document Reference"
-                value={itemValue}
-                meta={TransportEquipmentFieldMeta.ShipmentDocumentReference}
-              />
-            }
-          />
+    [
+      TransportEquipmentField.ContainedInTransportEquipment,
+      { meta: TransportEquipmentFieldMeta.ContainedInTransportEquipment,
+        template: ({value, renderContext, fieldConfig}) => <TransportEquipmentDisplay
+          key={TransportEquipmentField.ContainedInTransportEquipment}
+          meta={TransportEquipmentFieldMeta.ContainedInTransportEquipment}
+          fieldConfig={fieldConfig}
+          transportEquipment={value?.ContainedInTransportEquipment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TransportEquipment ubl-ContainedInTransportEquipment"
-            label="Contained In Transport Equipment"
-            items={value.ContainedInTransportEquipment}
-            meta={TransportEquipmentFieldMeta.ContainedInTransportEquipment} 
-            itemDisplay={ (itemValue: TransportEquipment, key: string | number) =>
-              <TransportEquipmentDisplay
-                key={key}
-                label="Contained In Transport Equipment"
-                value={itemValue}
-                meta={TransportEquipmentFieldMeta.ContainedInTransportEquipment}
-              />
-            }
-          />
+    [
+      TransportEquipmentField.Package,
+      { meta: TransportEquipmentFieldMeta.Package,
+        template: ({value, renderContext, fieldConfig}) => <PackageDisplay
+          key={TransportEquipmentField.Package}
+          meta={TransportEquipmentFieldMeta.Package}
+          fieldConfig={fieldConfig}
+          packageValue={value?.Package}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Package"
-            label="Package"
-            items={value.Package}
-            meta={TransportEquipmentFieldMeta.Package} 
-            itemDisplay={ (itemValue: Package, key: string | number) =>
-              <PackageDisplay
-                key={key}
-                label="Package"
-                value={itemValue}
-                meta={TransportEquipmentFieldMeta.Package}
-              />
-            }
-          />
+    [
+      TransportEquipmentField.GoodsItem,
+      { meta: TransportEquipmentFieldMeta.GoodsItem,
+        template: ({value, renderContext, fieldConfig}) => <GoodsItemDisplay
+          key={TransportEquipmentField.GoodsItem}
+          meta={TransportEquipmentFieldMeta.GoodsItem}
+          fieldConfig={fieldConfig}
+          goodsItem={value?.GoodsItem}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-GoodsItem"
-            label="Goods Item"
-            items={value.GoodsItem}
-            meta={TransportEquipmentFieldMeta.GoodsItem} 
-            itemDisplay={ (itemValue: GoodsItem, key: string | number) =>
-              <GoodsItemDisplay
-                key={key}
-                label="Goods Item"
-                value={itemValue}
-                meta={TransportEquipmentFieldMeta.GoodsItem}
-              />
-            }
-          />
+    [
+      TransportEquipmentField.VerifiedGrossMass,
+      { meta: TransportEquipmentFieldMeta.VerifiedGrossMass,
+        template: ({value, renderContext, fieldConfig}) => <VerifiedGrossMassDisplay
+          key={TransportEquipmentField.VerifiedGrossMass}
+          meta={TransportEquipmentFieldMeta.VerifiedGrossMass}
+          fieldConfig={fieldConfig}
+          verifiedGrossMass={value?.VerifiedGrossMass}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <VerifiedGrossMassDisplay
-            label="Verified Gross Mass"
-            value={value.VerifiedGrossMass?.[0]}
-            meta={TransportEquipmentFieldMeta.VerifiedGrossMass}
-          />
-        </div>
-    </div>
+export function TransportEquipmentDisplay<TFieldMeta>({ meta, fieldConfig, transportEquipment, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    TransportEquipmentTypeName,
+    meta,
+    fieldConfig,
+    transportEquipment,
+    renderContext,
+    TransportEquipmentSubElementsMap,
   )
 }

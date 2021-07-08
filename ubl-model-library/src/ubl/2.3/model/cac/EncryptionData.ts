@@ -3,7 +3,6 @@ import { EncryptionCertificatePathChain } from './EncryptionCertificatePathChain
 import { EncryptionSymmetricAlgorithm } from './EncryptionSymmetricAlgorithm'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * Details of an encryption process
  */

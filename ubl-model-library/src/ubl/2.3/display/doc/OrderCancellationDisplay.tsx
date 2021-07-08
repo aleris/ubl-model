@@ -1,222 +1,279 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { OrderCancellation } from  '../../model/doc/OrderCancellation'
-import { OrderCancellationFieldMeta } from  '../../meta/doc/OrderCancellationMeta'
-import ContractDisplay from '../cac/ContractDisplay'
-import { Contract } from '../../model/cac/Contract'
-import CustomerPartyDisplay from '../cac/CustomerPartyDisplay'
-import { CustomerParty } from '../../model/cac/CustomerParty'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import OrderReferenceDisplay from '../cac/OrderReferenceDisplay'
-import { OrderReference } from '../../model/cac/OrderReference'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import SupplierPartyDisplay from '../cac/SupplierPartyDisplay'
-import { SupplierParty } from '../../model/cac/SupplierParty'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { OrderCancellationField, OrderCancellationFieldMeta, OrderCancellationTypeName } from  '../../meta/doc/OrderCancellationMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { ContractDisplay } from '../cac/ContractDisplay'
+import { CustomerPartyDisplay } from '../cac/CustomerPartyDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { OrderReferenceDisplay } from '../cac/OrderReferenceDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { SupplierPartyDisplay } from '../cac/SupplierPartyDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: OrderCancellation | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<OrderCancellation, void>
+  orderCancellation: OrderCancellation[] | undefined
+  renderContext: RenderContext
 }
 
-export default function OrderCancellationDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const OrderCancellationSubElementsMap: SubElementsTemplatesMap<OrderCancellationField, OrderCancellation, void> = new Map([
+    [
+      OrderCancellationField.UBLExtensions,
+      { meta: OrderCancellationFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={OrderCancellationField.UBLExtensions}
+          meta={OrderCancellationFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-OrderCancellation">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={OrderCancellationFieldMeta.UBLExtensions}
-          />
+    [
+      OrderCancellationField.UBLVersionID,
+      { meta: OrderCancellationFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={OrderCancellationField.UBLVersionID}
+          meta={OrderCancellationFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={OrderCancellationFieldMeta.UBLVersionID}
-          />
+    [
+      OrderCancellationField.CustomizationID,
+      { meta: OrderCancellationFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={OrderCancellationField.CustomizationID}
+          meta={OrderCancellationFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={OrderCancellationFieldMeta.CustomizationID}
-          />
+    [
+      OrderCancellationField.ProfileID,
+      { meta: OrderCancellationFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={OrderCancellationField.ProfileID}
+          meta={OrderCancellationFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={OrderCancellationFieldMeta.ProfileID}
-          />
+    [
+      OrderCancellationField.ProfileExecutionID,
+      { meta: OrderCancellationFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={OrderCancellationField.ProfileExecutionID}
+          meta={OrderCancellationFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={OrderCancellationFieldMeta.ProfileExecutionID}
-          />
+    [
+      OrderCancellationField.ID,
+      { meta: OrderCancellationFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={OrderCancellationField.ID}
+          meta={OrderCancellationFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={OrderCancellationFieldMeta.ID}
-          />
+    [
+      OrderCancellationField.CopyIndicator,
+      { meta: OrderCancellationFieldMeta.CopyIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={OrderCancellationField.CopyIndicator}
+          meta={OrderCancellationFieldMeta.CopyIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.CopyIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Copy Indicator"
-            value={value.CopyIndicator?.[0]}
-            meta={OrderCancellationFieldMeta.CopyIndicator}
-          />
+    [
+      OrderCancellationField.UUID,
+      { meta: OrderCancellationFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={OrderCancellationField.UUID}
+          meta={OrderCancellationFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={OrderCancellationFieldMeta.UUID}
-          />
+    [
+      OrderCancellationField.IssueDate,
+      { meta: OrderCancellationFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={OrderCancellationField.IssueDate}
+          meta={OrderCancellationFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={OrderCancellationFieldMeta.IssueDate}
-          />
+    [
+      OrderCancellationField.IssueTime,
+      { meta: OrderCancellationFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={OrderCancellationField.IssueTime}
+          meta={OrderCancellationFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={OrderCancellationFieldMeta.IssueTime}
-          />
+    [
+      OrderCancellationField.Note,
+      { meta: OrderCancellationFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={OrderCancellationField.Note}
+          meta={OrderCancellationFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={OrderCancellationFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={OrderCancellationFieldMeta.Note}
-              />
-            }
-          />
+    [
+      OrderCancellationField.CancellationNote,
+      { meta: OrderCancellationFieldMeta.CancellationNote,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={OrderCancellationField.CancellationNote}
+          meta={OrderCancellationFieldMeta.CancellationNote}
+          fieldConfig={fieldConfig}
+          text={value?.CancellationNote}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-CancellationNote"
-            label="Cancellation Note"
-            items={value.CancellationNote}
-            meta={OrderCancellationFieldMeta.CancellationNote} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Cancellation Note"
-                value={itemValue}
-                meta={OrderCancellationFieldMeta.CancellationNote}
-              />
-            }
-          />
+    [
+      OrderCancellationField.OrderReference,
+      { meta: OrderCancellationFieldMeta.OrderReference,
+        template: ({value, renderContext, fieldConfig}) => <OrderReferenceDisplay
+          key={OrderCancellationField.OrderReference}
+          meta={OrderCancellationFieldMeta.OrderReference}
+          fieldConfig={fieldConfig}
+          orderReference={value?.OrderReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-OrderReference"
-            label="Order Reference"
-            items={value.OrderReference}
-            meta={OrderCancellationFieldMeta.OrderReference} 
-            itemDisplay={ (itemValue: OrderReference, key: string | number) =>
-              <OrderReferenceDisplay
-                key={key}
-                label="Order Reference"
-                value={itemValue}
-                meta={OrderCancellationFieldMeta.OrderReference}
-              />
-            }
-          />
+    [
+      OrderCancellationField.OriginatorDocumentReference,
+      { meta: OrderCancellationFieldMeta.OriginatorDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={OrderCancellationField.OriginatorDocumentReference}
+          meta={OrderCancellationFieldMeta.OriginatorDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.OriginatorDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DocumentReferenceDisplay
-            label="Originator Document Reference"
-            value={value.OriginatorDocumentReference?.[0]}
-            meta={OrderCancellationFieldMeta.OriginatorDocumentReference}
-          />
+    [
+      OrderCancellationField.AdditionalDocumentReference,
+      { meta: OrderCancellationFieldMeta.AdditionalDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={OrderCancellationField.AdditionalDocumentReference}
+          meta={OrderCancellationFieldMeta.AdditionalDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.AdditionalDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-AdditionalDocumentReference"
-            label="Additional Document Reference"
-            items={value.AdditionalDocumentReference}
-            meta={OrderCancellationFieldMeta.AdditionalDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Additional Document Reference"
-                value={itemValue}
-                meta={OrderCancellationFieldMeta.AdditionalDocumentReference}
-              />
-            }
-          />
+    [
+      OrderCancellationField.Contract,
+      { meta: OrderCancellationFieldMeta.Contract,
+        template: ({value, renderContext, fieldConfig}) => <ContractDisplay
+          key={OrderCancellationField.Contract}
+          meta={OrderCancellationFieldMeta.Contract}
+          fieldConfig={fieldConfig}
+          contract={value?.Contract}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Contract"
-            label="Contract"
-            items={value.Contract}
-            meta={OrderCancellationFieldMeta.Contract} 
-            itemDisplay={ (itemValue: Contract, key: string | number) =>
-              <ContractDisplay
-                key={key}
-                label="Contract"
-                value={itemValue}
-                meta={OrderCancellationFieldMeta.Contract}
-              />
-            }
-          />
+    [
+      OrderCancellationField.Signature,
+      { meta: OrderCancellationFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={OrderCancellationField.Signature}
+          meta={OrderCancellationFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={OrderCancellationFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={OrderCancellationFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      OrderCancellationField.BuyerCustomerParty,
+      { meta: OrderCancellationFieldMeta.BuyerCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={OrderCancellationField.BuyerCustomerParty}
+          meta={OrderCancellationFieldMeta.BuyerCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.BuyerCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomerPartyDisplay
-            label="Buyer Customer Party"
-            value={value.BuyerCustomerParty?.[0]}
-            meta={OrderCancellationFieldMeta.BuyerCustomerParty}
-          />
+    [
+      OrderCancellationField.SellerSupplierParty,
+      { meta: OrderCancellationFieldMeta.SellerSupplierParty,
+        template: ({value, renderContext, fieldConfig}) => <SupplierPartyDisplay
+          key={OrderCancellationField.SellerSupplierParty}
+          meta={OrderCancellationFieldMeta.SellerSupplierParty}
+          fieldConfig={fieldConfig}
+          supplierParty={value?.SellerSupplierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <SupplierPartyDisplay
-            label="Seller Supplier Party"
-            value={value.SellerSupplierParty?.[0]}
-            meta={OrderCancellationFieldMeta.SellerSupplierParty}
-          />
+    [
+      OrderCancellationField.OriginatorCustomerParty,
+      { meta: OrderCancellationFieldMeta.OriginatorCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={OrderCancellationField.OriginatorCustomerParty}
+          meta={OrderCancellationFieldMeta.OriginatorCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.OriginatorCustomerParty}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <CustomerPartyDisplay
-            label="Originator Customer Party"
-            value={value.OriginatorCustomerParty?.[0]}
-            meta={OrderCancellationFieldMeta.OriginatorCustomerParty}
-          />
-        </div>
-    </div>
+export function OrderCancellationDisplay<TFieldMeta>({ meta, fieldConfig, orderCancellation, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    OrderCancellationTypeName,
+    meta,
+    fieldConfig,
+    orderCancellation,
+    renderContext,
+    OrderCancellationSubElementsMap,
   )
 }

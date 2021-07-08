@@ -1,4 +1,19 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AllowanceChargeType } from './AllowanceChargeMeta'
+import { AmountType } from '../cbc/AmountMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { CountryType } from './CountryMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DutyType } from './DutyMeta'
+import { ExchangeRateType } from './ExchangeRateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { PriceType } from './PriceMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { TaxTotalType } from './TaxTotalMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum TelecommunicationsServiceField {
   UBLExtensions = 'UBLExtensions',
@@ -28,11 +43,11 @@ export enum TelecommunicationsServiceField {
 export const TelecommunicationsServiceFieldMetaUBLExtensions = new FieldMeta<TelecommunicationsServiceField>(
   TelecommunicationsServiceField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -41,10 +56,10 @@ export const TelecommunicationsServiceFieldMetaID = new FieldMeta<Telecommunicat
   TelecommunicationsServiceField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this telecommunications service.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -53,10 +68,10 @@ export const TelecommunicationsServiceFieldMetaCallDate = new FieldMeta<Telecomm
   TelecommunicationsServiceField.CallDate,
   'CallDate',
   'Call Date',
-  'Date',
+  DateType.name,
   'In the case of a telephone call, the date of the call.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   '2008-01-01'
 )
@@ -65,10 +80,10 @@ export const TelecommunicationsServiceFieldMetaCallTime = new FieldMeta<Telecomm
   TelecommunicationsServiceField.CallTime,
   'CallTime',
   'Call Time',
-  'Time',
+  TimeType.name,
   'In the case of a telephone call, the time of the call.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   '00:01:00'
 )
@@ -77,10 +92,10 @@ export const TelecommunicationsServiceFieldMetaServiceNumberCalled = new FieldMe
   TelecommunicationsServiceField.ServiceNumberCalled,
   'ServiceNumberCalled',
   'Service Number Called',
-  'Text',
+  TextType.name,
   'In the case of a telephone call, the phone number called.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   '12345679'
 )
@@ -89,10 +104,10 @@ export const TelecommunicationsServiceFieldMetaTelecommunicationsServiceCategory
   TelecommunicationsServiceField.TelecommunicationsServiceCategory,
   'TelecommunicationsServiceCategory',
   'Telecommunications Service Category',
-  'Text',
+  TextType.name,
   'The telecommunications category, expressed as text.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Subscription'
 )
@@ -101,10 +116,10 @@ export const TelecommunicationsServiceFieldMetaTelecommunicationsServiceCategory
   TelecommunicationsServiceField.TelecommunicationsServiceCategoryCode,
   'TelecommunicationsServiceCategoryCode',
   'Telecommunications Service Category Code',
-  'Code',
+  CodeType.name,
   'The telecommunications category, expressed as a code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Subscription'
 )
@@ -113,10 +128,10 @@ export const TelecommunicationsServiceFieldMetaMovieTitle = new FieldMeta<Teleco
   TelecommunicationsServiceField.MovieTitle,
   'MovieTitle',
   'Movie Title',
-  'Text',
+  TextType.name,
   'The title of a movie delivered via this telecommunications service.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'The Matrix'
 )
@@ -125,10 +140,10 @@ export const TelecommunicationsServiceFieldMetaRoamingPartnerName = new FieldMet
   TelecommunicationsServiceField.RoamingPartnerName,
   'RoamingPartnerName',
   'Roaming Partner Name',
-  'Text',
+  TextType.name,
   'Statement of the roaming partner name.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -137,10 +152,10 @@ export const TelecommunicationsServiceFieldMetaPayPerView = new FieldMeta<Teleco
   TelecommunicationsServiceField.PayPerView,
   'PayPerView',
   'Pay Per View',
-  'Text',
+  TextType.name,
   'A pay-per-view delivered via this telecommunications service.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -149,10 +164,10 @@ export const TelecommunicationsServiceFieldMetaQuantity = new FieldMeta<Telecomm
   TelecommunicationsServiceField.Quantity,
   'Quantity',
   'Quantity',
-  'Quantity',
+  QuantityType.name,
   'The number of calls.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '5761'
 )
@@ -161,10 +176,10 @@ export const TelecommunicationsServiceFieldMetaTelecommunicationsServiceCall = n
   TelecommunicationsServiceField.TelecommunicationsServiceCall,
   'TelecommunicationsServiceCall',
   'Telecommunications Service Call',
-  'Text',
+  TextType.name,
   'The telecommunications call described as a text',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'CallAttempt'
 )
@@ -173,10 +188,10 @@ export const TelecommunicationsServiceFieldMetaTelecommunicationsServiceCallCode
   TelecommunicationsServiceField.TelecommunicationsServiceCallCode,
   'TelecommunicationsServiceCallCode',
   'Telecommunications Service Call Code',
-  'Code',
+  CodeType.name,
   'The telecommunications call described as a code',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'CallAttempt'
 )
@@ -185,10 +200,10 @@ export const TelecommunicationsServiceFieldMetaCallBaseAmount = new FieldMeta<Te
   TelecommunicationsServiceField.CallBaseAmount,
   'CallBaseAmount',
   'Call Base Amount',
-  'Amount',
+  AmountType.name,
   'The amount to be payed as the base for one call',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -197,10 +212,10 @@ export const TelecommunicationsServiceFieldMetaCallExtensionAmount = new FieldMe
   TelecommunicationsServiceField.CallExtensionAmount,
   'CallExtensionAmount',
   'Call Extension Amount',
-  'Amount',
+  AmountType.name,
   'The amount to be payed for the call',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '542.44'
 )
@@ -209,10 +224,10 @@ export const TelecommunicationsServiceFieldMetaPrice = new FieldMeta<Telecommuni
   TelecommunicationsServiceField.Price,
   'Price',
   'Price',
-  'Price',
+  PriceType.name,
   'The price for using the telecommunication service',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -221,10 +236,10 @@ export const TelecommunicationsServiceFieldMetaCountry = new FieldMeta<Telecommu
   TelecommunicationsServiceField.Country,
   'Country',
   'Country',
-  'Country',
+  CountryType.name,
   'The country to which the service is provided. In case of a telephone call it is the country where the receiver is located.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -233,10 +248,10 @@ export const TelecommunicationsServiceFieldMetaExchangeRate = new FieldMeta<Tele
   TelecommunicationsServiceField.ExchangeRate,
   'ExchangeRate',
   'Exchange Rate',
-  'ExchangeRate',
+  ExchangeRateType.name,
   'A exchanges rates used in the pricing e.g.. when phone calls has crossed border lines.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -245,10 +260,10 @@ export const TelecommunicationsServiceFieldMetaAllowanceCharge = new FieldMeta<T
   TelecommunicationsServiceField.AllowanceCharge,
   'AllowanceCharge',
   'Allowance Charge',
-  'AllowanceCharge',
+  AllowanceChargeType.name,
   'An allowance or charge that applies to the UtilityStatement as a whole.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -257,10 +272,10 @@ export const TelecommunicationsServiceFieldMetaTaxTotal = new FieldMeta<Telecomm
   TelecommunicationsServiceField.TaxTotal,
   'TaxTotal',
   'Tax Total',
-  'TaxTotal',
+  TaxTotalType.name,
   'A total amount of taxes of a particular kind applicable to this telecommunications service.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -269,10 +284,10 @@ export const TelecommunicationsServiceFieldMetaCallDuty = new FieldMeta<Telecomm
   TelecommunicationsServiceField.CallDuty,
   'CallDuty',
   'Call Duty',
-  'Duty',
+  DutyType.name,
   'In the case of a telephone call, a duty on this call.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -281,10 +296,10 @@ export const TelecommunicationsServiceFieldMetaTimeDuty = new FieldMeta<Telecomm
   TelecommunicationsServiceField.TimeDuty,
   'TimeDuty',
   'Time Duty',
-  'Duty',
+  DutyType.name,
   'A duty on a consumption of time.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -338,3 +353,11 @@ export const TelecommunicationsServiceFieldMap = new Map([
   [TelecommunicationsServiceField.CallDuty, TelecommunicationsServiceFieldMetaCallDuty],
   [TelecommunicationsServiceField.TimeDuty, TelecommunicationsServiceFieldMetaTimeDuty]
 ])
+
+export const TelecommunicationsServiceType: Type<TelecommunicationsServiceField> = {
+  name: 'TelecommunicationsService',
+  label: 'Telecommunications Service',
+  module: TypeModule.cac,
+  definition: 'A class to describe a telecommunications service (e.g., a telephone call or a video on demand service).',
+  fields: TelecommunicationsServiceFieldMap,
+}

@@ -1,40 +1,53 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ProcurementProjectLotReference } from  '../../model/cac/ProcurementProjectLotReference'
-import { ProcurementProjectLotReferenceFieldMeta } from  '../../meta/cac/ProcurementProjectLotReferenceMeta'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ProcurementProjectLotReferenceField, ProcurementProjectLotReferenceFieldMeta, ProcurementProjectLotReferenceTypeName } from  '../../meta/cac/ProcurementProjectLotReferenceMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ProcurementProjectLotReference | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ProcurementProjectLotReference, void>
+  procurementProjectLotReference: ProcurementProjectLotReference[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ProcurementProjectLotReferenceDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ProcurementProjectLotReferenceSubElementsMap: SubElementsTemplatesMap<ProcurementProjectLotReferenceField, ProcurementProjectLotReference, void> = new Map([
+    [
+      ProcurementProjectLotReferenceField.UBLExtensions,
+      { meta: ProcurementProjectLotReferenceFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ProcurementProjectLotReferenceField.UBLExtensions}
+          meta={ProcurementProjectLotReferenceFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ProcurementProjectLotReference">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ProcurementProjectLotReferenceFieldMeta.UBLExtensions}
-          />
+    [
+      ProcurementProjectLotReferenceField.ID,
+      { meta: ProcurementProjectLotReferenceFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ProcurementProjectLotReferenceField.ID}
+          meta={ProcurementProjectLotReferenceFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={ProcurementProjectLotReferenceFieldMeta.ID}
-          />
-        </div>
-    </div>
+export function ProcurementProjectLotReferenceDisplay<TFieldMeta>({ meta, fieldConfig, procurementProjectLotReference, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ProcurementProjectLotReferenceTypeName,
+    meta,
+    fieldConfig,
+    procurementProjectLotReference,
+    renderContext,
+    ProcurementProjectLotReferenceSubElementsMap,
   )
 }

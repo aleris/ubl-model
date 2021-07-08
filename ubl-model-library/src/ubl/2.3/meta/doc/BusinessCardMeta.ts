@@ -1,4 +1,14 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CapabilityType } from '../cac/CapabilityMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum BusinessCardField {
   UBLExtensions = 'UBLExtensions',
@@ -25,11 +35,11 @@ export enum BusinessCardField {
 export const BusinessCardFieldMetaUBLExtensions = new FieldMeta<BusinessCardField>(
   BusinessCardField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -38,10 +48,10 @@ export const BusinessCardFieldMetaUBLVersionID = new FieldMeta<BusinessCardField
   BusinessCardField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.2'
 )
@@ -50,10 +60,10 @@ export const BusinessCardFieldMetaCustomizationID = new FieldMeta<BusinessCardFi
   BusinessCardField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -62,10 +72,10 @@ export const BusinessCardFieldMetaProfileID = new FieldMeta<BusinessCardField>(
   BusinessCardField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BasicProcurementProcess'
 )
@@ -74,10 +84,10 @@ export const BusinessCardFieldMetaProfileExecutionID = new FieldMeta<BusinessCar
   BusinessCardField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BPP-1001'
 )
@@ -86,10 +96,10 @@ export const BusinessCardFieldMetaID = new FieldMeta<BusinessCardField>(
   BusinessCardField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -98,10 +108,10 @@ export const BusinessCardFieldMetaUUID = new FieldMeta<BusinessCardField>(
   BusinessCardField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -110,10 +120,10 @@ export const BusinessCardFieldMetaIssueDate = new FieldMeta<BusinessCardField>(
   BusinessCardField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -122,10 +132,10 @@ export const BusinessCardFieldMetaIssueTime = new FieldMeta<BusinessCardField>(
   BusinessCardField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -134,10 +144,10 @@ export const BusinessCardFieldMetaVersionID = new FieldMeta<BusinessCardField>(
   BusinessCardField.VersionID,
   'VersionID',
   'Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the current version of this business card.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '1.1'
 )
@@ -146,10 +156,10 @@ export const BusinessCardFieldMetaPreviousVersionID = new FieldMeta<BusinessCard
   BusinessCardField.PreviousVersionID,
   'PreviousVersionID',
   'Previous Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the previous version of this business card.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '1'
 )
@@ -158,10 +168,10 @@ export const BusinessCardFieldMetaBriefDescription = new FieldMeta<BusinessCardF
   BusinessCardField.BriefDescription,
   'BriefDescription',
   'Brief Description',
-  'Text',
+  TextType.name,
   'Textual description of the document instance.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -170,10 +180,10 @@ export const BusinessCardFieldMetaSignature = new FieldMeta<BusinessCardField>(
   BusinessCardField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -182,10 +192,10 @@ export const BusinessCardFieldMetaSenderParty = new FieldMeta<BusinessCardField>
   BusinessCardField.SenderParty,
   'SenderParty',
   'Sender Party',
-  'Party',
+  PartyType.name,
   'The party sending this business card. This party could be the owner of this business card or a third-party acting on behalf of the owner (e.g. business network).',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -194,10 +204,10 @@ export const BusinessCardFieldMetaReceiverParty = new FieldMeta<BusinessCardFiel
   BusinessCardField.ReceiverParty,
   'ReceiverParty',
   'Receiver Party',
-  'Party',
+  PartyType.name,
   'The party receiving this business card.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -206,10 +216,10 @@ export const BusinessCardFieldMetaBusinessParty = new FieldMeta<BusinessCardFiel
   BusinessCardField.BusinessParty,
   'BusinessParty',
   'Business Party',
-  'Party',
+  PartyType.name,
   'The party owning this business card.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -218,10 +228,10 @@ export const BusinessCardFieldMetaBrochureDocumentReference = new FieldMeta<Busi
   BusinessCardField.BrochureDocumentReference,
   'BrochureDocumentReference',
   'Brochure Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a company brochure document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -230,10 +240,10 @@ export const BusinessCardFieldMetaAdditionalDocumentReference = new FieldMeta<Bu
   BusinessCardField.AdditionalDocumentReference,
   'AdditionalDocumentReference',
   'Additional Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to an additional document (e.g. presentations).',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -242,10 +252,10 @@ export const BusinessCardFieldMetaBusinessCapability = new FieldMeta<BusinessCar
   BusinessCardField.BusinessCapability,
   'BusinessCapability',
   'Business Capability',
-  'Capability',
+  CapabilityType.name,
   'The business capabilities of the party.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -293,3 +303,11 @@ export const BusinessCardFieldMap = new Map([
   [BusinessCardField.AdditionalDocumentReference, BusinessCardFieldMetaAdditionalDocumentReference],
   [BusinessCardField.BusinessCapability, BusinessCardFieldMetaBusinessCapability]
 ])
+
+export const BusinessCardType: Type<BusinessCardField> = {
+  name: 'BusinessCard',
+  label: 'Business Card',
+  module: TypeModule.doc,
+  definition: 'A document used to provide information about a business party and its business capabilities.',
+  fields: BusinessCardFieldMap,
+}

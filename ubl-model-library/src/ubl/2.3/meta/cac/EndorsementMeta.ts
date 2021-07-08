@@ -1,4 +1,10 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { EndorserPartyType } from './EndorserPartyMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { SignatureType } from './SignatureMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum EndorsementField {
   UBLExtensions = 'UBLExtensions',
@@ -12,11 +18,11 @@ export enum EndorsementField {
 export const EndorsementFieldMetaUBLExtensions = new FieldMeta<EndorsementField>(
   EndorsementField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -25,10 +31,10 @@ export const EndorsementFieldMetaDocumentID = new FieldMeta<EndorsementField>(
   EndorsementField.DocumentID,
   'DocumentID',
   'Document',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this endorsement.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -37,10 +43,10 @@ export const EndorsementFieldMetaApprovalStatus = new FieldMeta<EndorsementField
   EndorsementField.ApprovalStatus,
   'ApprovalStatus',
   'Approval Status',
-  'Text',
+  TextType.name,
   'The status of this endorsement.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   'Authentication Code',
   undefined
 )
@@ -49,10 +55,10 @@ export const EndorsementFieldMetaRemarks = new FieldMeta<EndorsementField>(
   EndorsementField.Remarks,
   'Remarks',
   'Remarks',
-  'Text',
+  TextType.name,
   'Remarks provided by the endorsing party.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -61,10 +67,10 @@ export const EndorsementFieldMetaEndorserParty = new FieldMeta<EndorsementField>
   EndorsementField.EndorserParty,
   'EndorserParty',
   'Endorser Party',
-  'EndorserParty',
+  EndorserPartyType.name,
   'The type of party providing this endorsement.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -73,10 +79,10 @@ export const EndorsementFieldMetaSignature = new FieldMeta<EndorsementField>(
   EndorsementField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this endorsement.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -98,3 +104,11 @@ export const EndorsementFieldMap = new Map([
   [EndorsementField.EndorserParty, EndorsementFieldMetaEndorserParty],
   [EndorsementField.Signature, EndorsementFieldMetaSignature]
 ])
+
+export const EndorsementType: Type<EndorsementField> = {
+  name: 'Endorsement',
+  label: 'Endorsement',
+  module: TypeModule.cac,
+  definition: 'A class to describe an endorsement of a document.',
+  fields: EndorsementFieldMap,
+}

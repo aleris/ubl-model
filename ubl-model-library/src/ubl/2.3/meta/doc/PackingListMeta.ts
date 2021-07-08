@@ -1,4 +1,15 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentDistributionType } from '../cac/DocumentDistributionMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { ShipmentType } from '../cac/ShipmentMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum PackingListField {
   UBLExtensions = 'UBLExtensions',
@@ -27,11 +38,11 @@ export enum PackingListField {
 export const PackingListFieldMetaUBLExtensions = new FieldMeta<PackingListField>(
   PackingListField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -40,10 +51,10 @@ export const PackingListFieldMetaUBLVersionID = new FieldMeta<PackingListField>(
   PackingListField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.0.5'
 )
@@ -52,10 +63,10 @@ export const PackingListFieldMetaCustomizationID = new FieldMeta<PackingListFiel
   PackingListField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -64,10 +75,10 @@ export const PackingListFieldMetaProfileID = new FieldMeta<PackingListField>(
   PackingListField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the subset of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BasicProcurementProcess'
 )
@@ -76,10 +87,10 @@ export const PackingListFieldMetaProfileExecutionID = new FieldMeta<PackingListF
   PackingListField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BPP-1001'
 )
@@ -88,10 +99,10 @@ export const PackingListFieldMetaID = new FieldMeta<PackingListField>(
   PackingListField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   'Packing List Number',
   undefined
 )
@@ -100,10 +111,10 @@ export const PackingListFieldMetaUUID = new FieldMeta<PackingListField>(
   PackingListField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document..',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -112,10 +123,10 @@ export const PackingListFieldMetaIssueDate = new FieldMeta<PackingListField>(
   PackingListField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -124,10 +135,10 @@ export const PackingListFieldMetaIssueTime = new FieldMeta<PackingListField>(
   PackingListField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -136,10 +147,10 @@ export const PackingListFieldMetaName = new FieldMeta<PackingListField>(
   PackingListField.Name,
   'Name',
   'Name',
-  'Text',
+  TextType.name,
   'Text, assigned by the sender, that identifies this document to business users.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -148,10 +159,10 @@ export const PackingListFieldMetaDescription = new FieldMeta<PackingListField>(
   PackingListField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Textual description of the document instance.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -160,10 +171,10 @@ export const PackingListFieldMetaNote = new FieldMeta<PackingListField>(
   PackingListField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -172,10 +183,10 @@ export const PackingListFieldMetaVersionID = new FieldMeta<PackingListField>(
   PackingListField.VersionID,
   'VersionID',
   'Version',
-  'Identifier',
+  IdentifierType.name,
   'Version identifier of a Packing List.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -184,10 +195,10 @@ export const PackingListFieldMetaOtherInstruction = new FieldMeta<PackingListFie
   PackingListField.OtherInstruction,
   'OtherInstruction',
   'Other Instruction',
-  'Text',
+  TextType.name,
   'Contains other free-text-based instructions related to the shipment to the forwarders or carriers. This should only be used where such information cannot be represented in other structured information entities within the document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -196,10 +207,10 @@ export const PackingListFieldMetaConsignorParty = new FieldMeta<PackingListField
   PackingListField.ConsignorParty,
   'ConsignorParty',
   'Consignor Party',
-  'Party',
+  PartyType.name,
   'The party consigning goods, as stipulated in the transport contract by the party ordering transport.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   'Consignor (WCO ID 71 and 72)',
   undefined
 )
@@ -208,10 +219,10 @@ export const PackingListFieldMetaCarrierParty = new FieldMeta<PackingListField>(
   PackingListField.CarrierParty,
   'CarrierParty',
   'Carrier Party',
-  'Party',
+  PartyType.name,
   'The party providing the transport of goods between named points.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   'Transport Company, Shipping Line, NVOCC, Airline, Haulier, Courier, Carrier (WCO ID 49 and 50)',
   undefined
 )
@@ -220,10 +231,10 @@ export const PackingListFieldMetaFreightForwarderParty = new FieldMeta<PackingLi
   PackingListField.FreightForwarderParty,
   'FreightForwarderParty',
   'Freight Forwarder Party',
-  'Party',
+  PartyType.name,
   'The party combining individual smaller shipments into a single larger consignment (a so-called consolidated consignment) that is sent to a counterpart who mirrors the consolidator\'s activity by dividing the consolidated consignment into its original components.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   'Consolidator (WCO ID 192 AND 193)',
   undefined
 )
@@ -232,10 +243,10 @@ export const PackingListFieldMetaShipment = new FieldMeta<PackingListField>(
   PackingListField.Shipment,
   'Shipment',
   'Shipment',
-  'Shipment',
+  ShipmentType.name,
   'A description of the shipment.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -244,10 +255,10 @@ export const PackingListFieldMetaDocumentReference = new FieldMeta<PackingListFi
   PackingListField.DocumentReference,
   'DocumentReference',
   'Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to another document associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -256,10 +267,10 @@ export const PackingListFieldMetaDocumentDistribution = new FieldMeta<PackingLis
   PackingListField.DocumentDistribution,
   'DocumentDistribution',
   'Document Distribution',
-  'DocumentDistribution',
+  DocumentDistributionType.name,
   'A list of interested parties to whom this document is distributed.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -268,10 +279,10 @@ export const PackingListFieldMetaSignature = new FieldMeta<PackingListField>(
   PackingListField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -323,3 +334,11 @@ export const PackingListFieldMap = new Map([
   [PackingListField.DocumentDistribution, PackingListFieldMetaDocumentDistribution],
   [PackingListField.Signature, PackingListFieldMetaSignature]
 ])
+
+export const PackingListType: Type<PackingListField> = {
+  name: 'PackingList',
+  label: 'Packing List',
+  module: TypeModule.doc,
+  definition: 'A document describing how goods are packed.',
+  fields: PackingListFieldMap,
+}

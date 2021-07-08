@@ -1,186 +1,216 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { DespatchLine } from  '../../model/cac/DespatchLine'
-import { DespatchLineFieldMeta } from  '../../meta/cac/DespatchLineMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DocumentReferenceDisplay from './DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import ItemDisplay from './ItemDisplay'
-import { Item } from '../../model/cac/Item'
-import OrderLineReferenceDisplay from './OrderLineReferenceDisplay'
-import { OrderLineReference } from '../../model/cac/OrderLineReference'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import ShipmentDisplay from './ShipmentDisplay'
-import { Shipment } from '../../model/cac/Shipment'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { DespatchLineField, DespatchLineFieldMeta, DespatchLineTypeName } from  '../../meta/cac/DespatchLineMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DocumentReferenceDisplay } from './DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { ItemDisplay } from './ItemDisplay'
+import { OrderLineReferenceDisplay } from './OrderLineReferenceDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { ShipmentDisplay } from './ShipmentDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: DespatchLine | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<DespatchLine, void>
+  despatchLine: DespatchLine[] | undefined
+  renderContext: RenderContext
 }
 
-export default function DespatchLineDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const DespatchLineSubElementsMap: SubElementsTemplatesMap<DespatchLineField, DespatchLine, void> = new Map([
+    [
+      DespatchLineField.UBLExtensions,
+      { meta: DespatchLineFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={DespatchLineField.UBLExtensions}
+          meta={DespatchLineFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-DespatchLine">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={DespatchLineFieldMeta.UBLExtensions}
-          />
+    [
+      DespatchLineField.ID,
+      { meta: DespatchLineFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DespatchLineField.ID}
+          meta={DespatchLineFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={DespatchLineFieldMeta.ID}
-          />
+    [
+      DespatchLineField.UUID,
+      { meta: DespatchLineFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DespatchLineField.UUID}
+          meta={DespatchLineFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={DespatchLineFieldMeta.UUID}
-          />
+    [
+      DespatchLineField.Note,
+      { meta: DespatchLineFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={DespatchLineField.Note}
+          meta={DespatchLineFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={DespatchLineFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={DespatchLineFieldMeta.Note}
-              />
-            }
-          />
+    [
+      DespatchLineField.LineStatusCode,
+      { meta: DespatchLineFieldMeta.LineStatusCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={DespatchLineField.LineStatusCode}
+          meta={DespatchLineFieldMeta.LineStatusCode}
+          fieldConfig={fieldConfig}
+          code={value?.LineStatusCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Line Status Code"
-            value={value.LineStatusCode?.[0]}
-            meta={DespatchLineFieldMeta.LineStatusCode}
-          />
+    [
+      DespatchLineField.DeliveredQuantity,
+      { meta: DespatchLineFieldMeta.DeliveredQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={DespatchLineField.DeliveredQuantity}
+          meta={DespatchLineFieldMeta.DeliveredQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.DeliveredQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Delivered Quantity"
-            value={value.DeliveredQuantity?.[0]}
-            meta={DespatchLineFieldMeta.DeliveredQuantity}
-          />
+    [
+      DespatchLineField.BackorderQuantity,
+      { meta: DespatchLineFieldMeta.BackorderQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={DespatchLineField.BackorderQuantity}
+          meta={DespatchLineFieldMeta.BackorderQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.BackorderQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Backorder Quantity"
-            value={value.BackorderQuantity?.[0]}
-            meta={DespatchLineFieldMeta.BackorderQuantity}
-          />
+    [
+      DespatchLineField.BackorderReason,
+      { meta: DespatchLineFieldMeta.BackorderReason,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={DespatchLineField.BackorderReason}
+          meta={DespatchLineFieldMeta.BackorderReason}
+          fieldConfig={fieldConfig}
+          text={value?.BackorderReason}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-BackorderReason"
-            label="Backorder Reason"
-            items={value.BackorderReason}
-            meta={DespatchLineFieldMeta.BackorderReason} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Backorder Reason"
-                value={itemValue}
-                meta={DespatchLineFieldMeta.BackorderReason}
-              />
-            }
-          />
+    [
+      DespatchLineField.OutstandingQuantity,
+      { meta: DespatchLineFieldMeta.OutstandingQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={DespatchLineField.OutstandingQuantity}
+          meta={DespatchLineFieldMeta.OutstandingQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.OutstandingQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Outstanding Quantity"
-            value={value.OutstandingQuantity?.[0]}
-            meta={DespatchLineFieldMeta.OutstandingQuantity}
-          />
+    [
+      DespatchLineField.OutstandingReason,
+      { meta: DespatchLineFieldMeta.OutstandingReason,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={DespatchLineField.OutstandingReason}
+          meta={DespatchLineFieldMeta.OutstandingReason}
+          fieldConfig={fieldConfig}
+          text={value?.OutstandingReason}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-OutstandingReason"
-            label="Outstanding Reason"
-            items={value.OutstandingReason}
-            meta={DespatchLineFieldMeta.OutstandingReason} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Outstanding Reason"
-                value={itemValue}
-                meta={DespatchLineFieldMeta.OutstandingReason}
-              />
-            }
-          />
+    [
+      DespatchLineField.OversupplyQuantity,
+      { meta: DespatchLineFieldMeta.OversupplyQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={DespatchLineField.OversupplyQuantity}
+          meta={DespatchLineFieldMeta.OversupplyQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.OversupplyQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Oversupply Quantity"
-            value={value.OversupplyQuantity?.[0]}
-            meta={DespatchLineFieldMeta.OversupplyQuantity}
-          />
+    [
+      DespatchLineField.OrderLineReference,
+      { meta: DespatchLineFieldMeta.OrderLineReference,
+        template: ({value, renderContext, fieldConfig}) => <OrderLineReferenceDisplay
+          key={DespatchLineField.OrderLineReference}
+          meta={DespatchLineFieldMeta.OrderLineReference}
+          fieldConfig={fieldConfig}
+          orderLineReference={value?.OrderLineReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-OrderLineReference"
-            label="Order Line Reference"
-            items={value.OrderLineReference}
-            meta={DespatchLineFieldMeta.OrderLineReference} 
-            itemDisplay={ (itemValue: OrderLineReference, key: string | number) =>
-              <OrderLineReferenceDisplay
-                key={key}
-                label="Order Line Reference"
-                value={itemValue}
-                meta={DespatchLineFieldMeta.OrderLineReference}
-              />
-            }
-          />
+    [
+      DespatchLineField.DocumentReference,
+      { meta: DespatchLineFieldMeta.DocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={DespatchLineField.DocumentReference}
+          meta={DespatchLineFieldMeta.DocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.DocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentReference"
-            label="Document Reference"
-            items={value.DocumentReference}
-            meta={DespatchLineFieldMeta.DocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Document Reference"
-                value={itemValue}
-                meta={DespatchLineFieldMeta.DocumentReference}
-              />
-            }
-          />
+    [
+      DespatchLineField.Item,
+      { meta: DespatchLineFieldMeta.Item,
+        template: ({value, renderContext, fieldConfig}) => <ItemDisplay
+          key={DespatchLineField.Item}
+          meta={DespatchLineFieldMeta.Item}
+          fieldConfig={fieldConfig}
+          item={value?.Item}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ItemDisplay
-            label="Item"
-            value={value.Item?.[0]}
-            meta={DespatchLineFieldMeta.Item}
-          />
+    [
+      DespatchLineField.Shipment,
+      { meta: DespatchLineFieldMeta.Shipment,
+        template: ({value, renderContext, fieldConfig}) => <ShipmentDisplay
+          key={DespatchLineField.Shipment}
+          meta={DespatchLineFieldMeta.Shipment}
+          fieldConfig={fieldConfig}
+          shipment={value?.Shipment}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Shipment"
-            label="Shipment"
-            items={value.Shipment}
-            meta={DespatchLineFieldMeta.Shipment} 
-            itemDisplay={ (itemValue: Shipment, key: string | number) =>
-              <ShipmentDisplay
-                key={key}
-                label="Shipment"
-                value={itemValue}
-                meta={DespatchLineFieldMeta.Shipment}
-              />
-            }
-          />
-        </div>
-    </div>
+export function DespatchLineDisplay<TFieldMeta>({ meta, fieldConfig, despatchLine, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    DespatchLineTypeName,
+    meta,
+    fieldConfig,
+    despatchLine,
+    renderContext,
+    DespatchLineSubElementsMap,
   )
 }

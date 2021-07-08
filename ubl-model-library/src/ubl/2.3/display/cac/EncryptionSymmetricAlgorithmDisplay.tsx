@@ -1,46 +1,65 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { EncryptionSymmetricAlgorithm } from  '../../model/cac/EncryptionSymmetricAlgorithm'
-import { EncryptionSymmetricAlgorithmFieldMeta } from  '../../meta/cac/EncryptionSymmetricAlgorithmMeta'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { EncryptionSymmetricAlgorithmField, EncryptionSymmetricAlgorithmFieldMeta, EncryptionSymmetricAlgorithmTypeName } from  '../../meta/cac/EncryptionSymmetricAlgorithmMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: EncryptionSymmetricAlgorithm | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<EncryptionSymmetricAlgorithm, void>
+  encryptionSymmetricAlgorithm: EncryptionSymmetricAlgorithm[] | undefined
+  renderContext: RenderContext
 }
 
-export default function EncryptionSymmetricAlgorithmDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const EncryptionSymmetricAlgorithmSubElementsMap: SubElementsTemplatesMap<EncryptionSymmetricAlgorithmField, EncryptionSymmetricAlgorithm, void> = new Map([
+    [
+      EncryptionSymmetricAlgorithmField.UBLExtensions,
+      { meta: EncryptionSymmetricAlgorithmFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={EncryptionSymmetricAlgorithmField.UBLExtensions}
+          meta={EncryptionSymmetricAlgorithmFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-EncryptionSymmetricAlgorithm">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={EncryptionSymmetricAlgorithmFieldMeta.UBLExtensions}
-          />
+    [
+      EncryptionSymmetricAlgorithmField.ID,
+      { meta: EncryptionSymmetricAlgorithmFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={EncryptionSymmetricAlgorithmField.ID}
+          meta={EncryptionSymmetricAlgorithmFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={EncryptionSymmetricAlgorithmFieldMeta.ID}
-          />
+    [
+      EncryptionSymmetricAlgorithmField.OID,
+      { meta: EncryptionSymmetricAlgorithmFieldMeta.OID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={EncryptionSymmetricAlgorithmField.OID}
+          meta={EncryptionSymmetricAlgorithmFieldMeta.OID}
+          fieldConfig={fieldConfig}
+          identifier={value?.OID}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <IdentifierDisplay
-            label="OID"
-            value={value.OID?.[0]}
-            meta={EncryptionSymmetricAlgorithmFieldMeta.OID}
-          />
-        </div>
-    </div>
+export function EncryptionSymmetricAlgorithmDisplay<TFieldMeta>({ meta, fieldConfig, encryptionSymmetricAlgorithm, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    EncryptionSymmetricAlgorithmTypeName,
+    meta,
+    fieldConfig,
+    encryptionSymmetricAlgorithm,
+    renderContext,
+    EncryptionSymmetricAlgorithmSubElementsMap,
   )
 }

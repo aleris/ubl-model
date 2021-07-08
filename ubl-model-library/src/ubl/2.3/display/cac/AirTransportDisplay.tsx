@@ -1,40 +1,53 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { AirTransport } from  '../../model/cac/AirTransport'
-import { AirTransportFieldMeta } from  '../../meta/cac/AirTransportMeta'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { AirTransportField, AirTransportFieldMeta, AirTransportTypeName } from  '../../meta/cac/AirTransportMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: AirTransport | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<AirTransport, void>
+  airTransport: AirTransport[] | undefined
+  renderContext: RenderContext
 }
 
-export default function AirTransportDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const AirTransportSubElementsMap: SubElementsTemplatesMap<AirTransportField, AirTransport, void> = new Map([
+    [
+      AirTransportField.UBLExtensions,
+      { meta: AirTransportFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={AirTransportField.UBLExtensions}
+          meta={AirTransportFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-AirTransport">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={AirTransportFieldMeta.UBLExtensions}
-          />
+    [
+      AirTransportField.AircraftID,
+      { meta: AirTransportFieldMeta.AircraftID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={AirTransportField.AircraftID}
+          meta={AirTransportFieldMeta.AircraftID}
+          fieldConfig={fieldConfig}
+          identifier={value?.AircraftID}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <IdentifierDisplay
-            label="Aircraft Identifier"
-            value={value.AircraftID?.[0]}
-            meta={AirTransportFieldMeta.AircraftID}
-          />
-        </div>
-    </div>
+export function AirTransportDisplay<TFieldMeta>({ meta, fieldConfig, airTransport, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    AirTransportTypeName,
+    meta,
+    fieldConfig,
+    airTransport,
+    renderContext,
+    AirTransportSubElementsMap,
   )
 }

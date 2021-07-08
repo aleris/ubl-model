@@ -1,63 +1,78 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TenderRequirement } from  '../../model/cac/TenderRequirement'
-import { TenderRequirementFieldMeta } from  '../../meta/cac/TenderRequirementMeta'
-import DocumentReferenceDisplay from './DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { TenderRequirementField, TenderRequirementFieldMeta, TenderRequirementTypeName } from  '../../meta/cac/TenderRequirementMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { DocumentReferenceDisplay } from './DocumentReferenceDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: TenderRequirement | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<TenderRequirement, void>
+  tenderRequirement: TenderRequirement[] | undefined
+  renderContext: RenderContext
 }
 
-export default function TenderRequirementDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const TenderRequirementSubElementsMap: SubElementsTemplatesMap<TenderRequirementField, TenderRequirement, void> = new Map([
+    [
+      TenderRequirementField.UBLExtensions,
+      { meta: TenderRequirementFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={TenderRequirementField.UBLExtensions}
+          meta={TenderRequirementFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-TenderRequirement">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={TenderRequirementFieldMeta.UBLExtensions}
-          />
+    [
+      TenderRequirementField.Name,
+      { meta: TenderRequirementFieldMeta.Name,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TenderRequirementField.Name}
+          meta={TenderRequirementFieldMeta.Name}
+          fieldConfig={fieldConfig}
+          text={value?.Name}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Name"
-            value={value.Name?.[0]}
-            meta={TenderRequirementFieldMeta.Name}
-          />
+    [
+      TenderRequirementField.Description,
+      { meta: TenderRequirementFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TenderRequirementField.Description}
+          meta={TenderRequirementFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={TenderRequirementFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={TenderRequirementFieldMeta.Description}
-              />
-            }
-          />
+    [
+      TenderRequirementField.TemplateDocumentReference,
+      { meta: TenderRequirementFieldMeta.TemplateDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={TenderRequirementField.TemplateDocumentReference}
+          meta={TenderRequirementFieldMeta.TemplateDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.TemplateDocumentReference}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <DocumentReferenceDisplay
-            label="Template Document Reference"
-            value={value.TemplateDocumentReference?.[0]}
-            meta={TenderRequirementFieldMeta.TemplateDocumentReference}
-          />
-        </div>
-    </div>
+export function TenderRequirementDisplay<TFieldMeta>({ meta, fieldConfig, tenderRequirement, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    TenderRequirementTypeName,
+    meta,
+    fieldConfig,
+    tenderRequirement,
+    renderContext,
+    TenderRequirementSubElementsMap,
   )
 }

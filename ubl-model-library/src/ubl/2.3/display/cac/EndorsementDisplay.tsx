@@ -1,88 +1,104 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Endorsement } from  '../../model/cac/Endorsement'
-import { EndorsementFieldMeta } from  '../../meta/cac/EndorsementMeta'
-import EndorserPartyDisplay from './EndorserPartyDisplay'
-import { EndorserParty } from '../../model/cac/EndorserParty'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import SignatureDisplay from './SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { EndorsementField, EndorsementFieldMeta, EndorsementTypeName } from  '../../meta/cac/EndorsementMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { EndorserPartyDisplay } from './EndorserPartyDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { SignatureDisplay } from './SignatureDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: Endorsement | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<Endorsement, void>
+  endorsement: Endorsement[] | undefined
+  renderContext: RenderContext
 }
 
-export default function EndorsementDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const EndorsementSubElementsMap: SubElementsTemplatesMap<EndorsementField, Endorsement, void> = new Map([
+    [
+      EndorsementField.UBLExtensions,
+      { meta: EndorsementFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={EndorsementField.UBLExtensions}
+          meta={EndorsementFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-Endorsement">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={EndorsementFieldMeta.UBLExtensions}
-          />
+    [
+      EndorsementField.DocumentID,
+      { meta: EndorsementFieldMeta.DocumentID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={EndorsementField.DocumentID}
+          meta={EndorsementFieldMeta.DocumentID}
+          fieldConfig={fieldConfig}
+          identifier={value?.DocumentID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Document"
-            value={value.DocumentID?.[0]}
-            meta={EndorsementFieldMeta.DocumentID}
-          />
+    [
+      EndorsementField.ApprovalStatus,
+      { meta: EndorsementFieldMeta.ApprovalStatus,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={EndorsementField.ApprovalStatus}
+          meta={EndorsementFieldMeta.ApprovalStatus}
+          fieldConfig={fieldConfig}
+          text={value?.ApprovalStatus}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Approval Status"
-            value={value.ApprovalStatus?.[0]}
-            meta={EndorsementFieldMeta.ApprovalStatus}
-          />
+    [
+      EndorsementField.Remarks,
+      { meta: EndorsementFieldMeta.Remarks,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={EndorsementField.Remarks}
+          meta={EndorsementFieldMeta.Remarks}
+          fieldConfig={fieldConfig}
+          text={value?.Remarks}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Remarks"
-            label="Remarks"
-            items={value.Remarks}
-            meta={EndorsementFieldMeta.Remarks} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Remarks"
-                value={itemValue}
-                meta={EndorsementFieldMeta.Remarks}
-              />
-            }
-          />
+    [
+      EndorsementField.EndorserParty,
+      { meta: EndorsementFieldMeta.EndorserParty,
+        template: ({value, renderContext, fieldConfig}) => <EndorserPartyDisplay
+          key={EndorsementField.EndorserParty}
+          meta={EndorsementFieldMeta.EndorserParty}
+          fieldConfig={fieldConfig}
+          endorserParty={value?.EndorserParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <EndorserPartyDisplay
-            label="Endorser Party"
-            value={value.EndorserParty?.[0]}
-            meta={EndorsementFieldMeta.EndorserParty}
-          />
+    [
+      EndorsementField.Signature,
+      { meta: EndorsementFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={EndorsementField.Signature}
+          meta={EndorsementFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={EndorsementFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={EndorsementFieldMeta.Signature}
-              />
-            }
-          />
-        </div>
-    </div>
+export function EndorsementDisplay<TFieldMeta>({ meta, fieldConfig, endorsement, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    EndorsementTypeName,
+    meta,
+    fieldConfig,
+    endorsement,
+    renderContext,
+    EndorsementSubElementsMap,
   )
 }

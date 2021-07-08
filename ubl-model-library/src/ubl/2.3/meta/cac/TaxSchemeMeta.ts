@@ -1,4 +1,10 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AddressType } from './AddressMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum TaxSchemeField {
   UBLExtensions = 'UBLExtensions',
@@ -12,11 +18,11 @@ export enum TaxSchemeField {
 export const TaxSchemeFieldMetaUBLExtensions = new FieldMeta<TaxSchemeField>(
   TaxSchemeField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -25,10 +31,10 @@ export const TaxSchemeFieldMetaID = new FieldMeta<TaxSchemeField>(
   TaxSchemeField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this taxation scheme.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'http://www.unece.org/uncefact/codelist/standard/EDIFICASEU_TaxExemptionReason_D09B.xsd'
 )
@@ -37,10 +43,10 @@ export const TaxSchemeFieldMetaName = new FieldMeta<TaxSchemeField>(
   TaxSchemeField.Name,
   'Name',
   'Name',
-  'Text',
+  TextType.name,
   'The name of this taxation scheme.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Value Added Tax , Wholesale Tax , Sales Tax , State Tax'
 )
@@ -49,10 +55,10 @@ export const TaxSchemeFieldMetaTaxTypeCode = new FieldMeta<TaxSchemeField>(
   TaxSchemeField.TaxTypeCode,
   'TaxTypeCode',
   'Tax Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of tax.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Consumption , Sales'
 )
@@ -61,10 +67,10 @@ export const TaxSchemeFieldMetaCurrencyCode = new FieldMeta<TaxSchemeField>(
   TaxSchemeField.CurrencyCode,
   'CurrencyCode',
   'Currency Code',
-  'Code',
+  CodeType.name,
   'A code signifying the currency in which the tax is collected and reported.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -73,10 +79,10 @@ export const TaxSchemeFieldMetaJurisdictionRegionAddress = new FieldMeta<TaxSche
   TaxSchemeField.JurisdictionRegionAddress,
   'JurisdictionRegionAddress',
   'Jurisdiction Region Address',
-  'Address',
+  AddressType.name,
   'A geographic area in which this taxation scheme applies.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -98,3 +104,11 @@ export const TaxSchemeFieldMap = new Map([
   [TaxSchemeField.CurrencyCode, TaxSchemeFieldMetaCurrencyCode],
   [TaxSchemeField.JurisdictionRegionAddress, TaxSchemeFieldMetaJurisdictionRegionAddress]
 ])
+
+export const TaxSchemeType: Type<TaxSchemeField> = {
+  name: 'TaxScheme',
+  label: 'Tax Scheme',
+  module: TypeModule.cac,
+  definition: 'A class to describe a taxation scheme (e.g., VAT, State tax, County tax).',
+  fields: TaxSchemeFieldMap,
+}

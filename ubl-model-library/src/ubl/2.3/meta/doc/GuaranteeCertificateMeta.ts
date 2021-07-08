@@ -1,4 +1,19 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { ImmobilizedSecurityType } from '../cac/ImmobilizedSecurityMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { PeriodType } from '../cac/PeriodMeta'
+import { RegulationType } from '../cac/RegulationMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum GuaranteeCertificateField {
   UBLExtensions = 'UBLExtensions',
@@ -30,11 +45,11 @@ export enum GuaranteeCertificateField {
 export const GuaranteeCertificateFieldMetaUBLExtensions = new FieldMeta<GuaranteeCertificateField>(
   GuaranteeCertificateField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -43,10 +58,10 @@ export const GuaranteeCertificateFieldMetaUBLVersionID = new FieldMeta<Guarantee
   GuaranteeCertificateField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.0.5'
 )
@@ -55,10 +70,10 @@ export const GuaranteeCertificateFieldMetaCustomizationID = new FieldMeta<Guaran
   GuaranteeCertificateField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -67,10 +82,10 @@ export const GuaranteeCertificateFieldMetaProfileID = new FieldMeta<GuaranteeCer
   GuaranteeCertificateField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BasicProcurementProcess'
 )
@@ -79,10 +94,10 @@ export const GuaranteeCertificateFieldMetaProfileExecutionID = new FieldMeta<Gua
   GuaranteeCertificateField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BPP-1001'
 )
@@ -91,10 +106,10 @@ export const GuaranteeCertificateFieldMetaID = new FieldMeta<GuaranteeCertificat
   GuaranteeCertificateField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -103,10 +118,10 @@ export const GuaranteeCertificateFieldMetaCopyIndicator = new FieldMeta<Guarante
   GuaranteeCertificateField.CopyIndicator,
   'CopyIndicator',
   'Copy Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this document is a copy (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -115,10 +130,10 @@ export const GuaranteeCertificateFieldMetaUUID = new FieldMeta<GuaranteeCertific
   GuaranteeCertificateField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -127,10 +142,10 @@ export const GuaranteeCertificateFieldMetaContractFolderID = new FieldMeta<Guara
   GuaranteeCertificateField.ContractFolderID,
   'ContractFolderID',
   'Contract Folder Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier, assigned by the sender, for the process file (i.e., record) to which this document belongs.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -139,10 +154,10 @@ export const GuaranteeCertificateFieldMetaIssueDate = new FieldMeta<GuaranteeCer
   GuaranteeCertificateField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -151,10 +166,10 @@ export const GuaranteeCertificateFieldMetaIssueTime = new FieldMeta<GuaranteeCer
   GuaranteeCertificateField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -163,10 +178,10 @@ export const GuaranteeCertificateFieldMetaGuaranteeTypeCode = new FieldMeta<Guar
   GuaranteeCertificateField.GuaranteeTypeCode,
   'GuaranteeTypeCode',
   'Guarantee Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of the guarantee.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -175,10 +190,10 @@ export const GuaranteeCertificateFieldMetaPurpose = new FieldMeta<GuaranteeCerti
   GuaranteeCertificateField.Purpose,
   'Purpose',
   'Purpose',
-  'Text',
+  TextType.name,
   'A textual description of the purpose of the bid bond guarantee.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -187,10 +202,10 @@ export const GuaranteeCertificateFieldMetaLiabilityAmount = new FieldMeta<Guaran
   GuaranteeCertificateField.LiabilityAmount,
   'LiabilityAmount',
   'Liability',
-  'Amount',
+  AmountType.name,
   'The liability amount (a monetary value) in the bid bond guarantee.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -199,10 +214,10 @@ export const GuaranteeCertificateFieldMetaConstitutionCode = new FieldMeta<Guara
   GuaranteeCertificateField.ConstitutionCode,
   'ConstitutionCode',
   'Constitution Code',
-  'Code',
+  CodeType.name,
   'The code stating the constitution means of the guarantee.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -211,10 +226,10 @@ export const GuaranteeCertificateFieldMetaNote = new FieldMeta<GuaranteeCertific
   GuaranteeCertificateField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -223,10 +238,10 @@ export const GuaranteeCertificateFieldMetaApplicablePeriod = new FieldMeta<Guara
   GuaranteeCertificateField.ApplicablePeriod,
   'ApplicablePeriod',
   'Applicable Period',
-  'Period',
+  PeriodType.name,
   'The specified period in the tendering process for which this bid bond guarantee is effective',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -235,10 +250,10 @@ export const GuaranteeCertificateFieldMetaApplicableRegulation = new FieldMeta<G
   GuaranteeCertificateField.ApplicableRegulation,
   'ApplicableRegulation',
   'Applicable Regulation',
-  'Regulation',
+  RegulationType.name,
   'A reference to an applicable regulation.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -247,10 +262,10 @@ export const GuaranteeCertificateFieldMetaGuaranteeDocumentReference = new Field
   GuaranteeCertificateField.GuaranteeDocumentReference,
   'GuaranteeDocumentReference',
   'Guarantee Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a legal document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -259,10 +274,10 @@ export const GuaranteeCertificateFieldMetaImmobilizedSecurity = new FieldMeta<Gu
   GuaranteeCertificateField.ImmobilizedSecurity,
   'ImmobilizedSecurity',
   'Immobilized Security',
-  'ImmobilizedSecurity',
+  ImmobilizedSecurityType.name,
   'Details of an immobilized security.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -271,10 +286,10 @@ export const GuaranteeCertificateFieldMetaSignature = new FieldMeta<GuaranteeCer
   GuaranteeCertificateField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -283,10 +298,10 @@ export const GuaranteeCertificateFieldMetaGuarantorParty = new FieldMeta<Guarant
   GuaranteeCertificateField.GuarantorParty,
   'GuarantorParty',
   'Guarantor Party',
-  'Party',
+  PartyType.name,
   'The guarantee creditor organization that has the authority to charge bid bond guarantee credit.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -295,10 +310,10 @@ export const GuaranteeCertificateFieldMetaInterestedParty = new FieldMeta<Guaran
   GuaranteeCertificateField.InterestedParty,
   'InterestedParty',
   'Interested Party',
-  'Party',
+  PartyType.name,
   'The party depositing the bid bond guarantee.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -307,10 +322,10 @@ export const GuaranteeCertificateFieldMetaBeneficiaryParty = new FieldMeta<Guara
   GuaranteeCertificateField.BeneficiaryParty,
   'BeneficiaryParty',
   'Beneficiary Party',
-  'Party',
+  PartyType.name,
   'The beneficiary of the bid bond guarantee.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -368,3 +383,11 @@ export const GuaranteeCertificateFieldMap = new Map([
   [GuaranteeCertificateField.InterestedParty, GuaranteeCertificateFieldMetaInterestedParty],
   [GuaranteeCertificateField.BeneficiaryParty, GuaranteeCertificateFieldMetaBeneficiaryParty]
 ])
+
+export const GuaranteeCertificateType: Type<GuaranteeCertificateField> = {
+  name: 'GuaranteeCertificate',
+  label: 'Guarantee Certificate',
+  module: TypeModule.doc,
+  definition: 'A document to notify the deposit of a bid bond guarantee.',
+  fields: GuaranteeCertificateFieldMap,
+}

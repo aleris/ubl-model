@@ -1,102 +1,129 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Meter } from  '../../model/cac/Meter'
-import { MeterFieldMeta } from  '../../meta/cac/MeterMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import MeterPropertyDisplay from './MeterPropertyDisplay'
-import { MeterProperty } from '../../model/cac/MeterProperty'
-import MeterReadingDisplay from './MeterReadingDisplay'
-import { MeterReading } from '../../model/cac/MeterReading'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { MeterField, MeterFieldMeta, MeterTypeName } from  '../../meta/cac/MeterMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { MeterPropertyDisplay } from './MeterPropertyDisplay'
+import { MeterReadingDisplay } from './MeterReadingDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: Meter | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<Meter, void>
+  meter: Meter[] | undefined
+  renderContext: RenderContext
 }
 
-export default function MeterDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const MeterSubElementsMap: SubElementsTemplatesMap<MeterField, Meter, void> = new Map([
+    [
+      MeterField.UBLExtensions,
+      { meta: MeterFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={MeterField.UBLExtensions}
+          meta={MeterFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-Meter">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={MeterFieldMeta.UBLExtensions}
-          />
+    [
+      MeterField.MeterNumber,
+      { meta: MeterFieldMeta.MeterNumber,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={MeterField.MeterNumber}
+          meta={MeterFieldMeta.MeterNumber}
+          fieldConfig={fieldConfig}
+          text={value?.MeterNumber}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Meter Number"
-            value={value.MeterNumber?.[0]}
-            meta={MeterFieldMeta.MeterNumber}
-          />
+    [
+      MeterField.MeterName,
+      { meta: MeterFieldMeta.MeterName,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={MeterField.MeterName}
+          meta={MeterFieldMeta.MeterName}
+          fieldConfig={fieldConfig}
+          text={value?.MeterName}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Meter Name"
-            value={value.MeterName?.[0]}
-            meta={MeterFieldMeta.MeterName}
-          />
+    [
+      MeterField.MeterConstant,
+      { meta: MeterFieldMeta.MeterConstant,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={MeterField.MeterConstant}
+          meta={MeterFieldMeta.MeterConstant}
+          fieldConfig={fieldConfig}
+          text={value?.MeterConstant}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Meter Constant"
-            value={value.MeterConstant?.[0]}
-            meta={MeterFieldMeta.MeterConstant}
-          />
+    [
+      MeterField.MeterConstantCode,
+      { meta: MeterFieldMeta.MeterConstantCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={MeterField.MeterConstantCode}
+          meta={MeterFieldMeta.MeterConstantCode}
+          fieldConfig={fieldConfig}
+          code={value?.MeterConstantCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Meter Constant Code"
-            value={value.MeterConstantCode?.[0]}
-            meta={MeterFieldMeta.MeterConstantCode}
-          />
+    [
+      MeterField.TotalDeliveredQuantity,
+      { meta: MeterFieldMeta.TotalDeliveredQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={MeterField.TotalDeliveredQuantity}
+          meta={MeterFieldMeta.TotalDeliveredQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.TotalDeliveredQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Total Delivered Quantity"
-            value={value.TotalDeliveredQuantity?.[0]}
-            meta={MeterFieldMeta.TotalDeliveredQuantity}
-          />
+    [
+      MeterField.MeterReading,
+      { meta: MeterFieldMeta.MeterReading,
+        template: ({value, renderContext, fieldConfig}) => <MeterReadingDisplay
+          key={MeterField.MeterReading}
+          meta={MeterFieldMeta.MeterReading}
+          fieldConfig={fieldConfig}
+          meterReading={value?.MeterReading}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-MeterReading"
-            label="Meter Reading"
-            items={value.MeterReading}
-            meta={MeterFieldMeta.MeterReading} 
-            itemDisplay={ (itemValue: MeterReading, key: string | number) =>
-              <MeterReadingDisplay
-                key={key}
-                label="Meter Reading"
-                value={itemValue}
-                meta={MeterFieldMeta.MeterReading}
-              />
-            }
-          />
+    [
+      MeterField.MeterProperty,
+      { meta: MeterFieldMeta.MeterProperty,
+        template: ({value, renderContext, fieldConfig}) => <MeterPropertyDisplay
+          key={MeterField.MeterProperty}
+          meta={MeterFieldMeta.MeterProperty}
+          fieldConfig={fieldConfig}
+          meterProperty={value?.MeterProperty}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-MeterProperty"
-            label="Meter Property"
-            items={value.MeterProperty}
-            meta={MeterFieldMeta.MeterProperty} 
-            itemDisplay={ (itemValue: MeterProperty, key: string | number) =>
-              <MeterPropertyDisplay
-                key={key}
-                label="Meter Property"
-                value={itemValue}
-                meta={MeterFieldMeta.MeterProperty}
-              />
-            }
-          />
-        </div>
-    </div>
+export function MeterDisplay<TFieldMeta>({ meta, fieldConfig, meter, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    MeterTypeName,
+    meta,
+    fieldConfig,
+    meter,
+    renderContext,
+    MeterSubElementsMap,
   )
 }

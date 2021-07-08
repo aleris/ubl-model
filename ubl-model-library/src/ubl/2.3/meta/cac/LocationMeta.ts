@@ -1,4 +1,12 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AddressType } from './AddressMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { LocationCoordinateType } from './LocationCoordinateMeta'
+import { PeriodType } from './PeriodMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum LocationField {
   UBLExtensions = 'UBLExtensions',
@@ -19,11 +27,11 @@ export enum LocationField {
 export const LocationFieldMetaUBLExtensions = new FieldMeta<LocationField>(
   LocationField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -32,10 +40,10 @@ export const LocationFieldMetaID = new FieldMeta<LocationField>(
   LocationField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this location, e.g., the EAN Location Number, GLN.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '5790002221134'
 )
@@ -44,10 +52,10 @@ export const LocationFieldMetaDescription = new FieldMeta<LocationField>(
   LocationField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing this location.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -56,10 +64,10 @@ export const LocationFieldMetaConditions = new FieldMeta<LocationField>(
   LocationField.Conditions,
   'Conditions',
   'Conditions',
-  'Text',
+  TextType.name,
   'Free-form text describing the physical conditions of the location.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -68,10 +76,10 @@ export const LocationFieldMetaCountrySubentity = new FieldMeta<LocationField>(
   LocationField.CountrySubentity,
   'CountrySubentity',
   'Country Subentity',
-  'Text',
+  TextType.name,
   'A territorial division of a country, such as a county or state, expressed as text.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'AdministrativeArea, State, Country, Shire, Canton',
   'Florida , Tamilnadu'
 )
@@ -80,10 +88,10 @@ export const LocationFieldMetaCountrySubentityCode = new FieldMeta<LocationField
   LocationField.CountrySubentityCode,
   'CountrySubentityCode',
   'Country Subentity Code',
-  'Code',
+  CodeType.name,
   'A territorial division of a country, such as a county or state, expressed as a code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'AdministrativeAreaCode, State Code',
   undefined
 )
@@ -92,10 +100,10 @@ export const LocationFieldMetaLocationTypeCode = new FieldMeta<LocationField>(
   LocationField.LocationTypeCode,
   'LocationTypeCode',
   'Location Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of location.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -104,10 +112,10 @@ export const LocationFieldMetaInformationURI = new FieldMeta<LocationField>(
   LocationField.InformationURI,
   'InformationURI',
   'Information URI',
-  'Identifier',
+  IdentifierType.name,
   'The Uniform Resource Identifier (URI) of a document providing information about this location.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -116,10 +124,10 @@ export const LocationFieldMetaName = new FieldMeta<LocationField>(
   LocationField.Name,
   'Name',
   'Name',
-  'Text',
+  TextType.name,
   'The name of this location.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'winter 2005 collection'
 )
@@ -128,10 +136,10 @@ export const LocationFieldMetaValidityPeriod = new FieldMeta<LocationField>(
   LocationField.ValidityPeriod,
   'ValidityPeriod',
   'Validity Period',
-  'Period',
+  PeriodType.name,
   'A period during which this location can be used (e.g., for delivery).',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -140,10 +148,10 @@ export const LocationFieldMetaAddress = new FieldMeta<LocationField>(
   LocationField.Address,
   'Address',
   'Address',
-  'Address',
+  AddressType.name,
   'The address of this location.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -152,10 +160,10 @@ export const LocationFieldMetaSubsidiaryLocation = new FieldMeta<LocationField>(
   LocationField.SubsidiaryLocation,
   'SubsidiaryLocation',
   'Subsidiary Location',
-  'Location',
+  LocationType.name,
   'A location subsidiary to this location.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -164,10 +172,10 @@ export const LocationFieldMetaLocationCoordinate = new FieldMeta<LocationField>(
   LocationField.LocationCoordinate,
   'LocationCoordinate',
   'Location Coordinate',
-  'LocationCoordinate',
+  LocationCoordinateType.name,
   'The geographical coordinates of this location.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -203,3 +211,11 @@ export const LocationFieldMap = new Map([
   [LocationField.SubsidiaryLocation, LocationFieldMetaSubsidiaryLocation],
   [LocationField.LocationCoordinate, LocationFieldMetaLocationCoordinate]
 ])
+
+export const LocationType: Type<LocationField> = {
+  name: 'Location',
+  label: 'Location',
+  module: TypeModule.cac,
+  definition: 'A class to describe a location.',
+  fields: LocationFieldMap,
+}

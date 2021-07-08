@@ -3,7 +3,6 @@ import { Date } from '../cbc/Date'
 import { Identifier } from '../cbc/Identifier'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to define a credit card, debit card, or charge card account.
  */

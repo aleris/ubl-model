@@ -1,4 +1,7 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum CreditAccountField {
   UBLExtensions = 'UBLExtensions',
@@ -8,11 +11,11 @@ export enum CreditAccountField {
 export const CreditAccountFieldMetaUBLExtensions = new FieldMeta<CreditAccountField>(
   CreditAccountField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -21,10 +24,10 @@ export const CreditAccountFieldMetaAccountID = new FieldMeta<CreditAccountField>
   CreditAccountField.AccountID,
   'AccountID',
   'Account Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this credit account.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   'Customer Code 29'
 )
@@ -38,3 +41,11 @@ export const CreditAccountFieldMap = new Map([
   [CreditAccountField.UBLExtensions, CreditAccountFieldMetaUBLExtensions],
   [CreditAccountField.AccountID, CreditAccountFieldMetaAccountID]
 ])
+
+export const CreditAccountType: Type<CreditAccountField> = {
+  name: 'CreditAccount',
+  label: 'Credit Account',
+  module: TypeModule.cac,
+  definition: 'A class to identify a credit account for sales on account.',
+  fields: CreditAccountFieldMap,
+}

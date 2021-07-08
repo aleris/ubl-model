@@ -2,7 +2,6 @@ import { Period } from './Period'
 import { ServiceLevelAgreement } from './ServiceLevelAgreement'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe the terms and conditions of a digital agreement.
  */

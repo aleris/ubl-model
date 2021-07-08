@@ -1,193 +1,242 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { CertificateOfOriginApplication } from  '../../model/cac/CertificateOfOriginApplication'
-import { CertificateOfOriginApplicationFieldMeta } from  '../../meta/cac/CertificateOfOriginApplicationMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import CountryDisplay from './CountryDisplay'
-import { Country } from '../../model/cac/Country'
-import DocumentDistributionDisplay from './DocumentDistributionDisplay'
-import { DocumentDistribution } from '../../model/cac/DocumentDistribution'
-import DocumentReferenceDisplay from './DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import EndorserPartyDisplay from './EndorserPartyDisplay'
-import { EndorserParty } from '../../model/cac/EndorserParty'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import ShipmentDisplay from './ShipmentDisplay'
-import { Shipment } from '../../model/cac/Shipment'
-import SignatureDisplay from './SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { CertificateOfOriginApplicationField, CertificateOfOriginApplicationFieldMeta, CertificateOfOriginApplicationTypeName } from  '../../meta/cac/CertificateOfOriginApplicationMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { CountryDisplay } from './CountryDisplay'
+import { DocumentDistributionDisplay } from './DocumentDistributionDisplay'
+import { DocumentReferenceDisplay } from './DocumentReferenceDisplay'
+import { EndorserPartyDisplay } from './EndorserPartyDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { ShipmentDisplay } from './ShipmentDisplay'
+import { SignatureDisplay } from './SignatureDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: CertificateOfOriginApplication | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<CertificateOfOriginApplication, void>
+  certificateOfOriginApplication: CertificateOfOriginApplication[] | undefined
+  renderContext: RenderContext
 }
 
-export default function CertificateOfOriginApplicationDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const CertificateOfOriginApplicationSubElementsMap: SubElementsTemplatesMap<CertificateOfOriginApplicationField, CertificateOfOriginApplication, void> = new Map([
+    [
+      CertificateOfOriginApplicationField.UBLExtensions,
+      { meta: CertificateOfOriginApplicationFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={CertificateOfOriginApplicationField.UBLExtensions}
+          meta={CertificateOfOriginApplicationFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-CertificateOfOriginApplication">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={CertificateOfOriginApplicationFieldMeta.UBLExtensions}
-          />
+    [
+      CertificateOfOriginApplicationField.ReferenceID,
+      { meta: CertificateOfOriginApplicationFieldMeta.ReferenceID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CertificateOfOriginApplicationField.ReferenceID}
+          meta={CertificateOfOriginApplicationFieldMeta.ReferenceID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ReferenceID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Reference"
-            value={value.ReferenceID?.[0]}
-            meta={CertificateOfOriginApplicationFieldMeta.ReferenceID}
-          />
+    [
+      CertificateOfOriginApplicationField.CertificateType,
+      { meta: CertificateOfOriginApplicationFieldMeta.CertificateType,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={CertificateOfOriginApplicationField.CertificateType}
+          meta={CertificateOfOriginApplicationFieldMeta.CertificateType}
+          fieldConfig={fieldConfig}
+          text={value?.CertificateType}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Certificate Type"
-            value={value.CertificateType?.[0]}
-            meta={CertificateOfOriginApplicationFieldMeta.CertificateType}
-          />
+    [
+      CertificateOfOriginApplicationField.ApplicationStatusCode,
+      { meta: CertificateOfOriginApplicationFieldMeta.ApplicationStatusCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={CertificateOfOriginApplicationField.ApplicationStatusCode}
+          meta={CertificateOfOriginApplicationFieldMeta.ApplicationStatusCode}
+          fieldConfig={fieldConfig}
+          code={value?.ApplicationStatusCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Application Status Code"
-            value={value.ApplicationStatusCode?.[0]}
-            meta={CertificateOfOriginApplicationFieldMeta.ApplicationStatusCode}
-          />
+    [
+      CertificateOfOriginApplicationField.OriginalJobID,
+      { meta: CertificateOfOriginApplicationFieldMeta.OriginalJobID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CertificateOfOriginApplicationField.OriginalJobID}
+          meta={CertificateOfOriginApplicationFieldMeta.OriginalJobID}
+          fieldConfig={fieldConfig}
+          identifier={value?.OriginalJobID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Original Job Identifier"
-            value={value.OriginalJobID?.[0]}
-            meta={CertificateOfOriginApplicationFieldMeta.OriginalJobID}
-          />
+    [
+      CertificateOfOriginApplicationField.PreviousJobID,
+      { meta: CertificateOfOriginApplicationFieldMeta.PreviousJobID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CertificateOfOriginApplicationField.PreviousJobID}
+          meta={CertificateOfOriginApplicationFieldMeta.PreviousJobID}
+          fieldConfig={fieldConfig}
+          identifier={value?.PreviousJobID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Previous Job Identifier"
-            value={value.PreviousJobID?.[0]}
-            meta={CertificateOfOriginApplicationFieldMeta.PreviousJobID}
-          />
+    [
+      CertificateOfOriginApplicationField.Remarks,
+      { meta: CertificateOfOriginApplicationFieldMeta.Remarks,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={CertificateOfOriginApplicationField.Remarks}
+          meta={CertificateOfOriginApplicationFieldMeta.Remarks}
+          fieldConfig={fieldConfig}
+          text={value?.Remarks}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Remarks"
-            label="Remarks"
-            items={value.Remarks}
-            meta={CertificateOfOriginApplicationFieldMeta.Remarks} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Remarks"
-                value={itemValue}
-                meta={CertificateOfOriginApplicationFieldMeta.Remarks}
-              />
-            }
-          />
+    [
+      CertificateOfOriginApplicationField.Shipment,
+      { meta: CertificateOfOriginApplicationFieldMeta.Shipment,
+        template: ({value, renderContext, fieldConfig}) => <ShipmentDisplay
+          key={CertificateOfOriginApplicationField.Shipment}
+          meta={CertificateOfOriginApplicationFieldMeta.Shipment}
+          fieldConfig={fieldConfig}
+          shipment={value?.Shipment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ShipmentDisplay
-            label="Shipment"
-            value={value.Shipment?.[0]}
-            meta={CertificateOfOriginApplicationFieldMeta.Shipment}
-          />
+    [
+      CertificateOfOriginApplicationField.EndorserParty,
+      { meta: CertificateOfOriginApplicationFieldMeta.EndorserParty,
+        template: ({value, renderContext, fieldConfig}) => <EndorserPartyDisplay
+          key={CertificateOfOriginApplicationField.EndorserParty}
+          meta={CertificateOfOriginApplicationFieldMeta.EndorserParty}
+          fieldConfig={fieldConfig}
+          endorserParty={value?.EndorserParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-EndorserParty"
-            label="Endorser Party"
-            items={value.EndorserParty}
-            meta={CertificateOfOriginApplicationFieldMeta.EndorserParty} 
-            itemDisplay={ (itemValue: EndorserParty, key: string | number) =>
-              <EndorserPartyDisplay
-                key={key}
-                label="Endorser Party"
-                value={itemValue}
-                meta={CertificateOfOriginApplicationFieldMeta.EndorserParty}
-              />
-            }
-          />
+    [
+      CertificateOfOriginApplicationField.PreparationParty,
+      { meta: CertificateOfOriginApplicationFieldMeta.PreparationParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={CertificateOfOriginApplicationField.PreparationParty}
+          meta={CertificateOfOriginApplicationFieldMeta.PreparationParty}
+          fieldConfig={fieldConfig}
+          party={value?.PreparationParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Preparation Party"
-            value={value.PreparationParty?.[0]}
-            meta={CertificateOfOriginApplicationFieldMeta.PreparationParty}
-          />
+    [
+      CertificateOfOriginApplicationField.IssuerParty,
+      { meta: CertificateOfOriginApplicationFieldMeta.IssuerParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={CertificateOfOriginApplicationField.IssuerParty}
+          meta={CertificateOfOriginApplicationFieldMeta.IssuerParty}
+          fieldConfig={fieldConfig}
+          party={value?.IssuerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Issuer Party"
-            value={value.IssuerParty?.[0]}
-            meta={CertificateOfOriginApplicationFieldMeta.IssuerParty}
-          />
+    [
+      CertificateOfOriginApplicationField.ExporterParty,
+      { meta: CertificateOfOriginApplicationFieldMeta.ExporterParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={CertificateOfOriginApplicationField.ExporterParty}
+          meta={CertificateOfOriginApplicationFieldMeta.ExporterParty}
+          fieldConfig={fieldConfig}
+          party={value?.ExporterParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Exporter Party"
-            value={value.ExporterParty?.[0]}
-            meta={CertificateOfOriginApplicationFieldMeta.ExporterParty}
-          />
+    [
+      CertificateOfOriginApplicationField.ImporterParty,
+      { meta: CertificateOfOriginApplicationFieldMeta.ImporterParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={CertificateOfOriginApplicationField.ImporterParty}
+          meta={CertificateOfOriginApplicationFieldMeta.ImporterParty}
+          fieldConfig={fieldConfig}
+          party={value?.ImporterParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Importer Party"
-            value={value.ImporterParty?.[0]}
-            meta={CertificateOfOriginApplicationFieldMeta.ImporterParty}
-          />
+    [
+      CertificateOfOriginApplicationField.IssuingCountry,
+      { meta: CertificateOfOriginApplicationFieldMeta.IssuingCountry,
+        template: ({value, renderContext, fieldConfig}) => <CountryDisplay
+          key={CertificateOfOriginApplicationField.IssuingCountry}
+          meta={CertificateOfOriginApplicationFieldMeta.IssuingCountry}
+          fieldConfig={fieldConfig}
+          country={value?.IssuingCountry}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CountryDisplay
-            label="Issuing Country"
-            value={value.IssuingCountry?.[0]}
-            meta={CertificateOfOriginApplicationFieldMeta.IssuingCountry}
-          />
+    [
+      CertificateOfOriginApplicationField.DocumentDistribution,
+      { meta: CertificateOfOriginApplicationFieldMeta.DocumentDistribution,
+        template: ({value, renderContext, fieldConfig}) => <DocumentDistributionDisplay
+          key={CertificateOfOriginApplicationField.DocumentDistribution}
+          meta={CertificateOfOriginApplicationFieldMeta.DocumentDistribution}
+          fieldConfig={fieldConfig}
+          documentDistribution={value?.DocumentDistribution}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentDistribution"
-            label="Document Distribution"
-            items={value.DocumentDistribution}
-            meta={CertificateOfOriginApplicationFieldMeta.DocumentDistribution} 
-            itemDisplay={ (itemValue: DocumentDistribution, key: string | number) =>
-              <DocumentDistributionDisplay
-                key={key}
-                label="Document Distribution"
-                value={itemValue}
-                meta={CertificateOfOriginApplicationFieldMeta.DocumentDistribution}
-              />
-            }
-          />
+    [
+      CertificateOfOriginApplicationField.SupportingDocumentReference,
+      { meta: CertificateOfOriginApplicationFieldMeta.SupportingDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={CertificateOfOriginApplicationField.SupportingDocumentReference}
+          meta={CertificateOfOriginApplicationFieldMeta.SupportingDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.SupportingDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentReference ubl-SupportingDocumentReference"
-            label="Supporting Document Reference"
-            items={value.SupportingDocumentReference}
-            meta={CertificateOfOriginApplicationFieldMeta.SupportingDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Supporting Document Reference"
-                value={itemValue}
-                meta={CertificateOfOriginApplicationFieldMeta.SupportingDocumentReference}
-              />
-            }
-          />
+    [
+      CertificateOfOriginApplicationField.Signature,
+      { meta: CertificateOfOriginApplicationFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={CertificateOfOriginApplicationField.Signature}
+          meta={CertificateOfOriginApplicationFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={CertificateOfOriginApplicationFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={CertificateOfOriginApplicationFieldMeta.Signature}
-              />
-            }
-          />
-        </div>
-    </div>
+export function CertificateOfOriginApplicationDisplay<TFieldMeta>({ meta, fieldConfig, certificateOfOriginApplication, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    CertificateOfOriginApplicationTypeName,
+    meta,
+    fieldConfig,
+    certificateOfOriginApplication,
+    renderContext,
+    CertificateOfOriginApplicationSubElementsMap,
   )
 }

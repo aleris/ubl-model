@@ -1,4 +1,11 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { MeterPropertyType } from './MeterPropertyMeta'
+import { MeterReadingType } from './MeterReadingMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum MeterField {
   UBLExtensions = 'UBLExtensions',
@@ -14,11 +21,11 @@ export enum MeterField {
 export const MeterFieldMetaUBLExtensions = new FieldMeta<MeterField>(
   MeterField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -27,10 +34,10 @@ export const MeterFieldMetaMeterNumber = new FieldMeta<MeterField>(
   MeterField.MeterNumber,
   'MeterNumber',
   'Meter Number',
-  'Text',
+  TextType.name,
   'The meter number, expressed as text.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '61722x'
 )
@@ -39,10 +46,10 @@ export const MeterFieldMetaMeterName = new FieldMeta<MeterField>(
   MeterField.MeterName,
   'MeterName',
   'Meter Name',
-  'Text',
+  TextType.name,
   'The name of this meter, which serves as an identifier to distinguish a main meter from a submeter.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -51,10 +58,10 @@ export const MeterFieldMetaMeterConstant = new FieldMeta<MeterField>(
   MeterField.MeterConstant,
   'MeterConstant',
   'Meter Constant',
-  'Text',
+  TextType.name,
   'The factor by which readings of this meter must be multiplied to calculate consumption, expressed as text.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '1.000'
 )
@@ -63,10 +70,10 @@ export const MeterFieldMetaMeterConstantCode = new FieldMeta<MeterField>(
   MeterField.MeterConstantCode,
   'MeterConstantCode',
   'Meter Constant Code',
-  'Code',
+  CodeType.name,
   'A code signifying the formula to be used in applying the meter constant.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Factor'
 )
@@ -75,10 +82,10 @@ export const MeterFieldMetaTotalDeliveredQuantity = new FieldMeta<MeterField>(
   MeterField.TotalDeliveredQuantity,
   'TotalDeliveredQuantity',
   'Total Delivered Quantity',
-  'Quantity',
+  QuantityType.name,
   'The quantity delivered; the total quantity consumed as calculated from the meter readings.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '5761.00'
 )
@@ -87,10 +94,10 @@ export const MeterFieldMetaMeterReading = new FieldMeta<MeterField>(
   MeterField.MeterReading,
   'MeterReading',
   'Meter Reading',
-  'MeterReading',
+  MeterReadingType.name,
   'A reading of this meter.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -99,10 +106,10 @@ export const MeterFieldMetaMeterProperty = new FieldMeta<MeterField>(
   MeterField.MeterProperty,
   'MeterProperty',
   'Meter Property',
-  'MeterProperty',
+  MeterPropertyType.name,
   'A property of this meter.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -128,3 +135,11 @@ export const MeterFieldMap = new Map([
   [MeterField.MeterReading, MeterFieldMetaMeterReading],
   [MeterField.MeterProperty, MeterFieldMetaMeterProperty]
 ])
+
+export const MeterType: Type<MeterField> = {
+  name: 'Meter',
+  label: 'Meter',
+  module: TypeModule.cac,
+  definition: 'A class to describe a meter and its readings.',
+  fields: MeterFieldMap,
+}

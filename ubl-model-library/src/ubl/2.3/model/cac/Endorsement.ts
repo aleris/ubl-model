@@ -3,7 +3,6 @@ import { Identifier } from '../cbc/Identifier'
 import { Signature } from './Signature'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe an endorsement of a document.
  */

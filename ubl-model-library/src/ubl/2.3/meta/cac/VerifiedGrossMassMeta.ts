@@ -1,4 +1,14 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from './DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { MeasureType } from '../cbc/MeasureMeta'
+import { PartyType } from './PartyMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum VerifiedGrossMassField {
   UBLExtensions = 'UBLExtensions',
@@ -18,11 +28,11 @@ export enum VerifiedGrossMassField {
 export const VerifiedGrossMassFieldMetaUBLExtensions = new FieldMeta<VerifiedGrossMassField>(
   VerifiedGrossMassField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -31,10 +41,10 @@ export const VerifiedGrossMassFieldMetaID = new FieldMeta<VerifiedGrossMassField
   VerifiedGrossMassField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this mass measure.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -43,10 +53,10 @@ export const VerifiedGrossMassFieldMetaWeighingDate = new FieldMeta<VerifiedGros
   VerifiedGrossMassField.WeighingDate,
   'WeighingDate',
   'Weighing Date',
-  'Date',
+  DateType.name,
   'The weighing date.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -55,10 +65,10 @@ export const VerifiedGrossMassFieldMetaWeighingTime = new FieldMeta<VerifiedGros
   VerifiedGrossMassField.WeighingTime,
   'WeighingTime',
   'Weighing Time',
-  'Time',
+  TimeType.name,
   'The weighing time.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -67,10 +77,10 @@ export const VerifiedGrossMassFieldMetaWeighingMethodCode = new FieldMeta<Verifi
   VerifiedGrossMassField.WeighingMethodCode,
   'WeighingMethodCode',
   'Weighing Method Code',
-  'Code',
+  CodeType.name,
   'A code signifying the weighing method used (e.g. according the SOLAS Convention).',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   '1, 2'
 )
@@ -79,10 +89,10 @@ export const VerifiedGrossMassFieldMetaWeighingDeviceID = new FieldMeta<Verified
   VerifiedGrossMassField.WeighingDeviceID,
   'WeighingDeviceID',
   'Weighing Device Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the weighing device used for executing the weight measurement.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'WeighScale-01'
 )
@@ -91,10 +101,10 @@ export const VerifiedGrossMassFieldMetaWeighingDeviceType = new FieldMeta<Verifi
   VerifiedGrossMassField.WeighingDeviceType,
   'WeighingDeviceType',
   'Weighing Device Type',
-  'Text',
+  TextType.name,
   'Text describing the weighing device type used for executing the weight measurement.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Truck Scale, Weighbridge'
 )
@@ -103,10 +113,10 @@ export const VerifiedGrossMassFieldMetaGrossMassMeasure = new FieldMeta<Verified
   VerifiedGrossMassField.GrossMassMeasure,
   'GrossMassMeasure',
   'Gross Mass',
-  'Measure',
+  MeasureType.name,
   'The total verified gross mass of a packed container which includes the cargo weight, block and bracing materials and container tare.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   'VGM',
   undefined
 )
@@ -115,10 +125,10 @@ export const VerifiedGrossMassFieldMetaWeighingParty = new FieldMeta<VerifiedGro
   VerifiedGrossMassField.WeighingParty,
   'WeighingParty',
   'Weighing Party',
-  'Party',
+  PartyType.name,
   'The party executing the weight measure.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -127,10 +137,10 @@ export const VerifiedGrossMassFieldMetaShipperParty = new FieldMeta<VerifiedGros
   VerifiedGrossMassField.ShipperParty,
   'ShipperParty',
   'Shipper Party',
-  'Party',
+  PartyType.name,
   'The party playing the role of the Shipper (BCO, FF or NVOCC) who is responsible for the VGM (e.g. according the SOLAS Convention).',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -139,10 +149,10 @@ export const VerifiedGrossMassFieldMetaResponsibleParty = new FieldMeta<Verified
   VerifiedGrossMassField.ResponsibleParty,
   'ResponsibleParty',
   'Responsible Party',
-  'Party',
+  PartyType.name,
   'The party responsible for signing the VGM on behalf of the Shipper.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -151,10 +161,10 @@ export const VerifiedGrossMassFieldMetaDocumentReference = new FieldMeta<Verifie
   VerifiedGrossMassField.DocumentReference,
   'DocumentReference',
   'Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to the VGM documentary evidence.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -188,3 +198,11 @@ export const VerifiedGrossMassFieldMap = new Map([
   [VerifiedGrossMassField.ResponsibleParty, VerifiedGrossMassFieldMetaResponsibleParty],
   [VerifiedGrossMassField.DocumentReference, VerifiedGrossMassFieldMetaDocumentReference]
 ])
+
+export const VerifiedGrossMassType: Type<VerifiedGrossMassField> = {
+  name: 'VerifiedGrossMass',
+  label: 'Verified Gross Mass',
+  module: TypeModule.cac,
+  definition: 'A class to describe a verified gross mass (VGM) measure and its documentation.',
+  fields: VerifiedGrossMassFieldMap,
+}

@@ -1,532 +1,641 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { FreightInvoice } from  '../../model/doc/FreightInvoice'
-import { FreightInvoiceFieldMeta } from  '../../meta/doc/FreightInvoiceMeta'
-import AllowanceChargeDisplay from '../cac/AllowanceChargeDisplay'
-import { AllowanceCharge } from '../../model/cac/AllowanceCharge'
-import BillingReferenceDisplay from '../cac/BillingReferenceDisplay'
-import { BillingReference } from '../../model/cac/BillingReference'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import CustomerPartyDisplay from '../cac/CustomerPartyDisplay'
-import { CustomerParty } from '../../model/cac/CustomerParty'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import ExchangeRateDisplay from '../cac/ExchangeRateDisplay'
-import { ExchangeRate } from '../../model/cac/ExchangeRate'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import InvoiceLineDisplay from '../cac/InvoiceLineDisplay'
-import { InvoiceLine } from '../../model/cac/InvoiceLine'
-import MonetaryTotalDisplay from '../cac/MonetaryTotalDisplay'
-import { MonetaryTotal } from '../../model/cac/MonetaryTotal'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import OrderReferenceDisplay from '../cac/OrderReferenceDisplay'
-import { OrderReference } from '../../model/cac/OrderReference'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PaymentDisplay from '../cac/PaymentDisplay'
-import { Payment } from '../../model/cac/Payment'
-import PaymentMeansDisplay from '../cac/PaymentMeansDisplay'
-import { PaymentMeans } from '../../model/cac/PaymentMeans'
-import PaymentTermsDisplay from '../cac/PaymentTermsDisplay'
-import { PaymentTerms } from '../../model/cac/PaymentTerms'
-import PeriodDisplay from '../cac/PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import ProjectReferenceDisplay from '../cac/ProjectReferenceDisplay'
-import { ProjectReference } from '../../model/cac/ProjectReference'
-import ShipmentDisplay from '../cac/ShipmentDisplay'
-import { Shipment } from '../../model/cac/Shipment'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import SupplierPartyDisplay from '../cac/SupplierPartyDisplay'
-import { SupplierParty } from '../../model/cac/SupplierParty'
-import TaxTotalDisplay from '../cac/TaxTotalDisplay'
-import { TaxTotal } from '../../model/cac/TaxTotal'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { FreightInvoiceField, FreightInvoiceFieldMeta, FreightInvoiceTypeName } from  '../../meta/doc/FreightInvoiceMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AllowanceChargeDisplay } from '../cac/AllowanceChargeDisplay'
+import { BillingReferenceDisplay } from '../cac/BillingReferenceDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { CustomerPartyDisplay } from '../cac/CustomerPartyDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { ExchangeRateDisplay } from '../cac/ExchangeRateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { InvoiceLineDisplay } from '../cac/InvoiceLineDisplay'
+import { MonetaryTotalDisplay } from '../cac/MonetaryTotalDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { OrderReferenceDisplay } from '../cac/OrderReferenceDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { PaymentDisplay } from '../cac/PaymentDisplay'
+import { PaymentMeansDisplay } from '../cac/PaymentMeansDisplay'
+import { PaymentTermsDisplay } from '../cac/PaymentTermsDisplay'
+import { PeriodDisplay } from '../cac/PeriodDisplay'
+import { ProjectReferenceDisplay } from '../cac/ProjectReferenceDisplay'
+import { ShipmentDisplay } from '../cac/ShipmentDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { SupplierPartyDisplay } from '../cac/SupplierPartyDisplay'
+import { TaxTotalDisplay } from '../cac/TaxTotalDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: FreightInvoice | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<FreightInvoice, void>
+  freightInvoice: FreightInvoice[] | undefined
+  renderContext: RenderContext
 }
 
-export default function FreightInvoiceDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const FreightInvoiceSubElementsMap: SubElementsTemplatesMap<FreightInvoiceField, FreightInvoice, void> = new Map([
+    [
+      FreightInvoiceField.UBLExtensions,
+      { meta: FreightInvoiceFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={FreightInvoiceField.UBLExtensions}
+          meta={FreightInvoiceFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-FreightInvoice">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={FreightInvoiceFieldMeta.UBLExtensions}
-          />
+    [
+      FreightInvoiceField.UBLVersionID,
+      { meta: FreightInvoiceFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={FreightInvoiceField.UBLVersionID}
+          meta={FreightInvoiceFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={FreightInvoiceFieldMeta.UBLVersionID}
-          />
+    [
+      FreightInvoiceField.CustomizationID,
+      { meta: FreightInvoiceFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={FreightInvoiceField.CustomizationID}
+          meta={FreightInvoiceFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={FreightInvoiceFieldMeta.CustomizationID}
-          />
+    [
+      FreightInvoiceField.ProfileID,
+      { meta: FreightInvoiceFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={FreightInvoiceField.ProfileID}
+          meta={FreightInvoiceFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={FreightInvoiceFieldMeta.ProfileID}
-          />
+    [
+      FreightInvoiceField.ProfileExecutionID,
+      { meta: FreightInvoiceFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={FreightInvoiceField.ProfileExecutionID}
+          meta={FreightInvoiceFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={FreightInvoiceFieldMeta.ProfileExecutionID}
-          />
+    [
+      FreightInvoiceField.ID,
+      { meta: FreightInvoiceFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={FreightInvoiceField.ID}
+          meta={FreightInvoiceFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={FreightInvoiceFieldMeta.ID}
-          />
+    [
+      FreightInvoiceField.CopyIndicator,
+      { meta: FreightInvoiceFieldMeta.CopyIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={FreightInvoiceField.CopyIndicator}
+          meta={FreightInvoiceFieldMeta.CopyIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.CopyIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Copy Indicator"
-            value={value.CopyIndicator?.[0]}
-            meta={FreightInvoiceFieldMeta.CopyIndicator}
-          />
+    [
+      FreightInvoiceField.UUID,
+      { meta: FreightInvoiceFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={FreightInvoiceField.UUID}
+          meta={FreightInvoiceFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={FreightInvoiceFieldMeta.UUID}
-          />
+    [
+      FreightInvoiceField.IssueDate,
+      { meta: FreightInvoiceFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={FreightInvoiceField.IssueDate}
+          meta={FreightInvoiceFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={FreightInvoiceFieldMeta.IssueDate}
-          />
+    [
+      FreightInvoiceField.IssueTime,
+      { meta: FreightInvoiceFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={FreightInvoiceField.IssueTime}
+          meta={FreightInvoiceFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={FreightInvoiceFieldMeta.IssueTime}
-          />
+    [
+      FreightInvoiceField.DueDate,
+      { meta: FreightInvoiceFieldMeta.DueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={FreightInvoiceField.DueDate}
+          meta={FreightInvoiceFieldMeta.DueDate}
+          fieldConfig={fieldConfig}
+          date={value?.DueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Due Date"
-            value={value.DueDate?.[0]}
-            meta={FreightInvoiceFieldMeta.DueDate}
-          />
+    [
+      FreightInvoiceField.InvoiceTypeCode,
+      { meta: FreightInvoiceFieldMeta.InvoiceTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={FreightInvoiceField.InvoiceTypeCode}
+          meta={FreightInvoiceFieldMeta.InvoiceTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.InvoiceTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Invoice Type Code"
-            value={value.InvoiceTypeCode?.[0]}
-            meta={FreightInvoiceFieldMeta.InvoiceTypeCode}
-          />
+    [
+      FreightInvoiceField.Note,
+      { meta: FreightInvoiceFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={FreightInvoiceField.Note}
+          meta={FreightInvoiceFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={FreightInvoiceFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={FreightInvoiceFieldMeta.Note}
-              />
-            }
-          />
+    [
+      FreightInvoiceField.TaxPointDate,
+      { meta: FreightInvoiceFieldMeta.TaxPointDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={FreightInvoiceField.TaxPointDate}
+          meta={FreightInvoiceFieldMeta.TaxPointDate}
+          fieldConfig={fieldConfig}
+          date={value?.TaxPointDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Tax Point Date"
-            value={value.TaxPointDate?.[0]}
-            meta={FreightInvoiceFieldMeta.TaxPointDate}
-          />
+    [
+      FreightInvoiceField.DocumentCurrencyCode,
+      { meta: FreightInvoiceFieldMeta.DocumentCurrencyCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={FreightInvoiceField.DocumentCurrencyCode}
+          meta={FreightInvoiceFieldMeta.DocumentCurrencyCode}
+          fieldConfig={fieldConfig}
+          code={value?.DocumentCurrencyCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Document Currency Code"
-            value={value.DocumentCurrencyCode?.[0]}
-            meta={FreightInvoiceFieldMeta.DocumentCurrencyCode}
-          />
+    [
+      FreightInvoiceField.TaxCurrencyCode,
+      { meta: FreightInvoiceFieldMeta.TaxCurrencyCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={FreightInvoiceField.TaxCurrencyCode}
+          meta={FreightInvoiceFieldMeta.TaxCurrencyCode}
+          fieldConfig={fieldConfig}
+          code={value?.TaxCurrencyCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Tax Currency Code"
-            value={value.TaxCurrencyCode?.[0]}
-            meta={FreightInvoiceFieldMeta.TaxCurrencyCode}
-          />
+    [
+      FreightInvoiceField.PricingCurrencyCode,
+      { meta: FreightInvoiceFieldMeta.PricingCurrencyCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={FreightInvoiceField.PricingCurrencyCode}
+          meta={FreightInvoiceFieldMeta.PricingCurrencyCode}
+          fieldConfig={fieldConfig}
+          code={value?.PricingCurrencyCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Pricing Currency Code"
-            value={value.PricingCurrencyCode?.[0]}
-            meta={FreightInvoiceFieldMeta.PricingCurrencyCode}
-          />
+    [
+      FreightInvoiceField.PaymentCurrencyCode,
+      { meta: FreightInvoiceFieldMeta.PaymentCurrencyCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={FreightInvoiceField.PaymentCurrencyCode}
+          meta={FreightInvoiceFieldMeta.PaymentCurrencyCode}
+          fieldConfig={fieldConfig}
+          code={value?.PaymentCurrencyCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Payment Currency Code"
-            value={value.PaymentCurrencyCode?.[0]}
-            meta={FreightInvoiceFieldMeta.PaymentCurrencyCode}
-          />
+    [
+      FreightInvoiceField.PaymentAlternativeCurrencyCode,
+      { meta: FreightInvoiceFieldMeta.PaymentAlternativeCurrencyCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={FreightInvoiceField.PaymentAlternativeCurrencyCode}
+          meta={FreightInvoiceFieldMeta.PaymentAlternativeCurrencyCode}
+          fieldConfig={fieldConfig}
+          code={value?.PaymentAlternativeCurrencyCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Payment Alternative Currency Code"
-            value={value.PaymentAlternativeCurrencyCode?.[0]}
-            meta={FreightInvoiceFieldMeta.PaymentAlternativeCurrencyCode}
-          />
+    [
+      FreightInvoiceField.AccountingCostCode,
+      { meta: FreightInvoiceFieldMeta.AccountingCostCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={FreightInvoiceField.AccountingCostCode}
+          meta={FreightInvoiceFieldMeta.AccountingCostCode}
+          fieldConfig={fieldConfig}
+          code={value?.AccountingCostCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Accounting Cost Code"
-            value={value.AccountingCostCode?.[0]}
-            meta={FreightInvoiceFieldMeta.AccountingCostCode}
-          />
+    [
+      FreightInvoiceField.AccountingCost,
+      { meta: FreightInvoiceFieldMeta.AccountingCost,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={FreightInvoiceField.AccountingCost}
+          meta={FreightInvoiceFieldMeta.AccountingCost}
+          fieldConfig={fieldConfig}
+          text={value?.AccountingCost}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Accounting Cost"
-            value={value.AccountingCost?.[0]}
-            meta={FreightInvoiceFieldMeta.AccountingCost}
-          />
+    [
+      FreightInvoiceField.LineCountNumeric,
+      { meta: FreightInvoiceFieldMeta.LineCountNumeric,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={FreightInvoiceField.LineCountNumeric}
+          meta={FreightInvoiceFieldMeta.LineCountNumeric}
+          fieldConfig={fieldConfig}
+          numeric={value?.LineCountNumeric}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Line Count"
-            value={value.LineCountNumeric?.[0]}
-            meta={FreightInvoiceFieldMeta.LineCountNumeric}
-          />
+    [
+      FreightInvoiceField.InvoicePeriod,
+      { meta: FreightInvoiceFieldMeta.InvoicePeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={FreightInvoiceField.InvoicePeriod}
+          meta={FreightInvoiceFieldMeta.InvoicePeriod}
+          fieldConfig={fieldConfig}
+          period={value?.InvoicePeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Period ubl-InvoicePeriod"
-            label="Invoice Period"
-            items={value.InvoicePeriod}
-            meta={FreightInvoiceFieldMeta.InvoicePeriod} 
-            itemDisplay={ (itemValue: Period, key: string | number) =>
-              <PeriodDisplay
-                key={key}
-                label="Invoice Period"
-                value={itemValue}
-                meta={FreightInvoiceFieldMeta.InvoicePeriod}
-              />
-            }
-          />
+    [
+      FreightInvoiceField.Shipment,
+      { meta: FreightInvoiceFieldMeta.Shipment,
+        template: ({value, renderContext, fieldConfig}) => <ShipmentDisplay
+          key={FreightInvoiceField.Shipment}
+          meta={FreightInvoiceFieldMeta.Shipment}
+          fieldConfig={fieldConfig}
+          shipment={value?.Shipment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Shipment"
-            label="Shipment"
-            items={value.Shipment}
-            meta={FreightInvoiceFieldMeta.Shipment} 
-            itemDisplay={ (itemValue: Shipment, key: string | number) =>
-              <ShipmentDisplay
-                key={key}
-                label="Shipment"
-                value={itemValue}
-                meta={FreightInvoiceFieldMeta.Shipment}
-              />
-            }
-          />
+    [
+      FreightInvoiceField.OrderReference,
+      { meta: FreightInvoiceFieldMeta.OrderReference,
+        template: ({value, renderContext, fieldConfig}) => <OrderReferenceDisplay
+          key={FreightInvoiceField.OrderReference}
+          meta={FreightInvoiceFieldMeta.OrderReference}
+          fieldConfig={fieldConfig}
+          orderReference={value?.OrderReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <OrderReferenceDisplay
-            label="Order Reference"
-            value={value.OrderReference?.[0]}
-            meta={FreightInvoiceFieldMeta.OrderReference}
-          />
+    [
+      FreightInvoiceField.BillingReference,
+      { meta: FreightInvoiceFieldMeta.BillingReference,
+        template: ({value, renderContext, fieldConfig}) => <BillingReferenceDisplay
+          key={FreightInvoiceField.BillingReference}
+          meta={FreightInvoiceFieldMeta.BillingReference}
+          fieldConfig={fieldConfig}
+          billingReference={value?.BillingReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-BillingReference"
-            label="Billing Reference"
-            items={value.BillingReference}
-            meta={FreightInvoiceFieldMeta.BillingReference} 
-            itemDisplay={ (itemValue: BillingReference, key: string | number) =>
-              <BillingReferenceDisplay
-                key={key}
-                label="Billing Reference"
-                value={itemValue}
-                meta={FreightInvoiceFieldMeta.BillingReference}
-              />
-            }
-          />
+    [
+      FreightInvoiceField.DespatchDocumentReference,
+      { meta: FreightInvoiceFieldMeta.DespatchDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={FreightInvoiceField.DespatchDocumentReference}
+          meta={FreightInvoiceFieldMeta.DespatchDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.DespatchDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-DespatchDocumentReference"
-            label="Despatch Document Reference"
-            items={value.DespatchDocumentReference}
-            meta={FreightInvoiceFieldMeta.DespatchDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Despatch Document Reference"
-                value={itemValue}
-                meta={FreightInvoiceFieldMeta.DespatchDocumentReference}
-              />
-            }
-          />
+    [
+      FreightInvoiceField.ReceiptDocumentReference,
+      { meta: FreightInvoiceFieldMeta.ReceiptDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={FreightInvoiceField.ReceiptDocumentReference}
+          meta={FreightInvoiceFieldMeta.ReceiptDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.ReceiptDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-ReceiptDocumentReference"
-            label="Receipt Document Reference"
-            items={value.ReceiptDocumentReference}
-            meta={FreightInvoiceFieldMeta.ReceiptDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Receipt Document Reference"
-                value={itemValue}
-                meta={FreightInvoiceFieldMeta.ReceiptDocumentReference}
-              />
-            }
-          />
+    [
+      FreightInvoiceField.OriginatorDocumentReference,
+      { meta: FreightInvoiceFieldMeta.OriginatorDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={FreightInvoiceField.OriginatorDocumentReference}
+          meta={FreightInvoiceFieldMeta.OriginatorDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.OriginatorDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-OriginatorDocumentReference"
-            label="Originator Document Reference"
-            items={value.OriginatorDocumentReference}
-            meta={FreightInvoiceFieldMeta.OriginatorDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Originator Document Reference"
-                value={itemValue}
-                meta={FreightInvoiceFieldMeta.OriginatorDocumentReference}
-              />
-            }
-          />
+    [
+      FreightInvoiceField.ContractDocumentReference,
+      { meta: FreightInvoiceFieldMeta.ContractDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={FreightInvoiceField.ContractDocumentReference}
+          meta={FreightInvoiceFieldMeta.ContractDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.ContractDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-ContractDocumentReference"
-            label="Contract Document Reference"
-            items={value.ContractDocumentReference}
-            meta={FreightInvoiceFieldMeta.ContractDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Contract Document Reference"
-                value={itemValue}
-                meta={FreightInvoiceFieldMeta.ContractDocumentReference}
-              />
-            }
-          />
+    [
+      FreightInvoiceField.AdditionalDocumentReference,
+      { meta: FreightInvoiceFieldMeta.AdditionalDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={FreightInvoiceField.AdditionalDocumentReference}
+          meta={FreightInvoiceFieldMeta.AdditionalDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.AdditionalDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-AdditionalDocumentReference"
-            label="Additional Document Reference"
-            items={value.AdditionalDocumentReference}
-            meta={FreightInvoiceFieldMeta.AdditionalDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Additional Document Reference"
-                value={itemValue}
-                meta={FreightInvoiceFieldMeta.AdditionalDocumentReference}
-              />
-            }
-          />
+    [
+      FreightInvoiceField.ProjectReference,
+      { meta: FreightInvoiceFieldMeta.ProjectReference,
+        template: ({value, renderContext, fieldConfig}) => <ProjectReferenceDisplay
+          key={FreightInvoiceField.ProjectReference}
+          meta={FreightInvoiceFieldMeta.ProjectReference}
+          fieldConfig={fieldConfig}
+          projectReference={value?.ProjectReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-ProjectReference"
-            label="Project Reference"
-            items={value.ProjectReference}
-            meta={FreightInvoiceFieldMeta.ProjectReference} 
-            itemDisplay={ (itemValue: ProjectReference, key: string | number) =>
-              <ProjectReferenceDisplay
-                key={key}
-                label="Project Reference"
-                value={itemValue}
-                meta={FreightInvoiceFieldMeta.ProjectReference}
-              />
-            }
-          />
+    [
+      FreightInvoiceField.Signature,
+      { meta: FreightInvoiceFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={FreightInvoiceField.Signature}
+          meta={FreightInvoiceFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={FreightInvoiceFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={FreightInvoiceFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      FreightInvoiceField.AccountingSupplierParty,
+      { meta: FreightInvoiceFieldMeta.AccountingSupplierParty,
+        template: ({value, renderContext, fieldConfig}) => <SupplierPartyDisplay
+          key={FreightInvoiceField.AccountingSupplierParty}
+          meta={FreightInvoiceFieldMeta.AccountingSupplierParty}
+          fieldConfig={fieldConfig}
+          supplierParty={value?.AccountingSupplierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <SupplierPartyDisplay
-            label="Accounting Supplier Party"
-            value={value.AccountingSupplierParty?.[0]}
-            meta={FreightInvoiceFieldMeta.AccountingSupplierParty}
-          />
+    [
+      FreightInvoiceField.AccountingCustomerParty,
+      { meta: FreightInvoiceFieldMeta.AccountingCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={FreightInvoiceField.AccountingCustomerParty}
+          meta={FreightInvoiceFieldMeta.AccountingCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.AccountingCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomerPartyDisplay
-            label="Accounting Customer Party"
-            value={value.AccountingCustomerParty?.[0]}
-            meta={FreightInvoiceFieldMeta.AccountingCustomerParty}
-          />
+    [
+      FreightInvoiceField.PayeeParty,
+      { meta: FreightInvoiceFieldMeta.PayeeParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={FreightInvoiceField.PayeeParty}
+          meta={FreightInvoiceFieldMeta.PayeeParty}
+          fieldConfig={fieldConfig}
+          party={value?.PayeeParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Payee Party"
-            value={value.PayeeParty?.[0]}
-            meta={FreightInvoiceFieldMeta.PayeeParty}
-          />
+    [
+      FreightInvoiceField.TaxRepresentativeParty,
+      { meta: FreightInvoiceFieldMeta.TaxRepresentativeParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={FreightInvoiceField.TaxRepresentativeParty}
+          meta={FreightInvoiceFieldMeta.TaxRepresentativeParty}
+          fieldConfig={fieldConfig}
+          party={value?.TaxRepresentativeParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Tax Representative Party"
-            value={value.TaxRepresentativeParty?.[0]}
-            meta={FreightInvoiceFieldMeta.TaxRepresentativeParty}
-          />
+    [
+      FreightInvoiceField.PaymentMeans,
+      { meta: FreightInvoiceFieldMeta.PaymentMeans,
+        template: ({value, renderContext, fieldConfig}) => <PaymentMeansDisplay
+          key={FreightInvoiceField.PaymentMeans}
+          meta={FreightInvoiceFieldMeta.PaymentMeans}
+          fieldConfig={fieldConfig}
+          paymentMeans={value?.PaymentMeans}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-PaymentMeans"
-            label="Payment Means"
-            items={value.PaymentMeans}
-            meta={FreightInvoiceFieldMeta.PaymentMeans} 
-            itemDisplay={ (itemValue: PaymentMeans, key: string | number) =>
-              <PaymentMeansDisplay
-                key={key}
-                label="Payment Means"
-                value={itemValue}
-                meta={FreightInvoiceFieldMeta.PaymentMeans}
-              />
-            }
-          />
+    [
+      FreightInvoiceField.PaymentTerms,
+      { meta: FreightInvoiceFieldMeta.PaymentTerms,
+        template: ({value, renderContext, fieldConfig}) => <PaymentTermsDisplay
+          key={FreightInvoiceField.PaymentTerms}
+          meta={FreightInvoiceFieldMeta.PaymentTerms}
+          fieldConfig={fieldConfig}
+          paymentTerms={value?.PaymentTerms}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-PaymentTerms"
-            label="Payment Terms"
-            items={value.PaymentTerms}
-            meta={FreightInvoiceFieldMeta.PaymentTerms} 
-            itemDisplay={ (itemValue: PaymentTerms, key: string | number) =>
-              <PaymentTermsDisplay
-                key={key}
-                label="Payment Terms"
-                value={itemValue}
-                meta={FreightInvoiceFieldMeta.PaymentTerms}
-              />
-            }
-          />
+    [
+      FreightInvoiceField.PrepaidPayment,
+      { meta: FreightInvoiceFieldMeta.PrepaidPayment,
+        template: ({value, renderContext, fieldConfig}) => <PaymentDisplay
+          key={FreightInvoiceField.PrepaidPayment}
+          meta={FreightInvoiceFieldMeta.PrepaidPayment}
+          fieldConfig={fieldConfig}
+          payment={value?.PrepaidPayment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Payment ubl-PrepaidPayment"
-            label="Prepaid Payment"
-            items={value.PrepaidPayment}
-            meta={FreightInvoiceFieldMeta.PrepaidPayment} 
-            itemDisplay={ (itemValue: Payment, key: string | number) =>
-              <PaymentDisplay
-                key={key}
-                label="Prepaid Payment"
-                value={itemValue}
-                meta={FreightInvoiceFieldMeta.PrepaidPayment}
-              />
-            }
-          />
+    [
+      FreightInvoiceField.AllowanceCharge,
+      { meta: FreightInvoiceFieldMeta.AllowanceCharge,
+        template: ({value, renderContext, fieldConfig}) => <AllowanceChargeDisplay
+          key={FreightInvoiceField.AllowanceCharge}
+          meta={FreightInvoiceFieldMeta.AllowanceCharge}
+          fieldConfig={fieldConfig}
+          allowanceCharge={value?.AllowanceCharge}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-AllowanceCharge"
-            label="Allowance Charge"
-            items={value.AllowanceCharge}
-            meta={FreightInvoiceFieldMeta.AllowanceCharge} 
-            itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-              <AllowanceChargeDisplay
-                key={key}
-                label="Allowance Charge"
-                value={itemValue}
-                meta={FreightInvoiceFieldMeta.AllowanceCharge}
-              />
-            }
-          />
+    [
+      FreightInvoiceField.TaxExchangeRate,
+      { meta: FreightInvoiceFieldMeta.TaxExchangeRate,
+        template: ({value, renderContext, fieldConfig}) => <ExchangeRateDisplay
+          key={FreightInvoiceField.TaxExchangeRate}
+          meta={FreightInvoiceFieldMeta.TaxExchangeRate}
+          fieldConfig={fieldConfig}
+          exchangeRate={value?.TaxExchangeRate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ExchangeRateDisplay
-            label="Tax Exchange Rate"
-            value={value.TaxExchangeRate?.[0]}
-            meta={FreightInvoiceFieldMeta.TaxExchangeRate}
-          />
+    [
+      FreightInvoiceField.PricingExchangeRate,
+      { meta: FreightInvoiceFieldMeta.PricingExchangeRate,
+        template: ({value, renderContext, fieldConfig}) => <ExchangeRateDisplay
+          key={FreightInvoiceField.PricingExchangeRate}
+          meta={FreightInvoiceFieldMeta.PricingExchangeRate}
+          fieldConfig={fieldConfig}
+          exchangeRate={value?.PricingExchangeRate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ExchangeRateDisplay
-            label="Pricing Exchange Rate"
-            value={value.PricingExchangeRate?.[0]}
-            meta={FreightInvoiceFieldMeta.PricingExchangeRate}
-          />
+    [
+      FreightInvoiceField.PaymentExchangeRate,
+      { meta: FreightInvoiceFieldMeta.PaymentExchangeRate,
+        template: ({value, renderContext, fieldConfig}) => <ExchangeRateDisplay
+          key={FreightInvoiceField.PaymentExchangeRate}
+          meta={FreightInvoiceFieldMeta.PaymentExchangeRate}
+          fieldConfig={fieldConfig}
+          exchangeRate={value?.PaymentExchangeRate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ExchangeRateDisplay
-            label="Payment Exchange Rate"
-            value={value.PaymentExchangeRate?.[0]}
-            meta={FreightInvoiceFieldMeta.PaymentExchangeRate}
-          />
+    [
+      FreightInvoiceField.PaymentAlternativeExchangeRate,
+      { meta: FreightInvoiceFieldMeta.PaymentAlternativeExchangeRate,
+        template: ({value, renderContext, fieldConfig}) => <ExchangeRateDisplay
+          key={FreightInvoiceField.PaymentAlternativeExchangeRate}
+          meta={FreightInvoiceFieldMeta.PaymentAlternativeExchangeRate}
+          fieldConfig={fieldConfig}
+          exchangeRate={value?.PaymentAlternativeExchangeRate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ExchangeRateDisplay
-            label="Payment Alternative Exchange Rate"
-            value={value.PaymentAlternativeExchangeRate?.[0]}
-            meta={FreightInvoiceFieldMeta.PaymentAlternativeExchangeRate}
-          />
+    [
+      FreightInvoiceField.TaxTotal,
+      { meta: FreightInvoiceFieldMeta.TaxTotal,
+        template: ({value, renderContext, fieldConfig}) => <TaxTotalDisplay
+          key={FreightInvoiceField.TaxTotal}
+          meta={FreightInvoiceFieldMeta.TaxTotal}
+          fieldConfig={fieldConfig}
+          taxTotal={value?.TaxTotal}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-TaxTotal"
-            label="Tax Total"
-            items={value.TaxTotal}
-            meta={FreightInvoiceFieldMeta.TaxTotal} 
-            itemDisplay={ (itemValue: TaxTotal, key: string | number) =>
-              <TaxTotalDisplay
-                key={key}
-                label="Tax Total"
-                value={itemValue}
-                meta={FreightInvoiceFieldMeta.TaxTotal}
-              />
-            }
-          />
+    [
+      FreightInvoiceField.WithholdingTaxTotal,
+      { meta: FreightInvoiceFieldMeta.WithholdingTaxTotal,
+        template: ({value, renderContext, fieldConfig}) => <TaxTotalDisplay
+          key={FreightInvoiceField.WithholdingTaxTotal}
+          meta={FreightInvoiceFieldMeta.WithholdingTaxTotal}
+          fieldConfig={fieldConfig}
+          taxTotal={value?.WithholdingTaxTotal}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-TaxTotal ubl-WithholdingTaxTotal"
-            label="Withholding Tax Total"
-            items={value.WithholdingTaxTotal}
-            meta={FreightInvoiceFieldMeta.WithholdingTaxTotal} 
-            itemDisplay={ (itemValue: TaxTotal, key: string | number) =>
-              <TaxTotalDisplay
-                key={key}
-                label="Withholding Tax Total"
-                value={itemValue}
-                meta={FreightInvoiceFieldMeta.WithholdingTaxTotal}
-              />
-            }
-          />
+    [
+      FreightInvoiceField.LegalMonetaryTotal,
+      { meta: FreightInvoiceFieldMeta.LegalMonetaryTotal,
+        template: ({value, renderContext, fieldConfig}) => <MonetaryTotalDisplay
+          key={FreightInvoiceField.LegalMonetaryTotal}
+          meta={FreightInvoiceFieldMeta.LegalMonetaryTotal}
+          fieldConfig={fieldConfig}
+          monetaryTotal={value?.LegalMonetaryTotal}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MonetaryTotalDisplay
-            label="Legal Monetary Total"
-            value={value.LegalMonetaryTotal?.[0]}
-            meta={FreightInvoiceFieldMeta.LegalMonetaryTotal}
-          />
+    [
+      FreightInvoiceField.InvoiceLine,
+      { meta: FreightInvoiceFieldMeta.InvoiceLine,
+        template: ({value, renderContext, fieldConfig}) => <InvoiceLineDisplay
+          key={FreightInvoiceField.InvoiceLine}
+          meta={FreightInvoiceFieldMeta.InvoiceLine}
+          fieldConfig={fieldConfig}
+          invoiceLine={value?.InvoiceLine}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-InvoiceLine"
-            label="Invoice Line"
-            items={value.InvoiceLine}
-            meta={FreightInvoiceFieldMeta.InvoiceLine} 
-            itemDisplay={ (itemValue: InvoiceLine, key: string | number) =>
-              <InvoiceLineDisplay
-                key={key}
-                label="Invoice Line"
-                value={itemValue}
-                meta={FreightInvoiceFieldMeta.InvoiceLine}
-              />
-            }
-          />
-        </div>
-    </div>
+export function FreightInvoiceDisplay<TFieldMeta>({ meta, fieldConfig, freightInvoice, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    FreightInvoiceTypeName,
+    meta,
+    fieldConfig,
+    freightInvoice,
+    renderContext,
+    FreightInvoiceSubElementsMap,
   )
 }

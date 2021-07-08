@@ -1,7 +1,6 @@
 import { Code } from '../cbc/Code'
 import { Measure } from '../cbc/Measure'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class for defining a set of geographical coordinates (apparently misnamed).
  */

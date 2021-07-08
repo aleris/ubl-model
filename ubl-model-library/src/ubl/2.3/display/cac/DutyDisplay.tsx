@@ -1,64 +1,92 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Duty } from  '../../model/cac/Duty'
-import { DutyFieldMeta } from  '../../meta/cac/DutyMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import TaxCategoryDisplay from './TaxCategoryDisplay'
-import { TaxCategory } from '../../model/cac/TaxCategory'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { DutyField, DutyFieldMeta, DutyTypeName } from  '../../meta/cac/DutyMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { TaxCategoryDisplay } from './TaxCategoryDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: Duty | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<Duty, void>
+  duty: Duty[] | undefined
+  renderContext: RenderContext
 }
 
-export default function DutyDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const DutySubElementsMap: SubElementsTemplatesMap<DutyField, Duty, void> = new Map([
+    [
+      DutyField.UBLExtensions,
+      { meta: DutyFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={DutyField.UBLExtensions}
+          meta={DutyFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-Duty">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={DutyFieldMeta.UBLExtensions}
-          />
+    [
+      DutyField.Amount,
+      { meta: DutyFieldMeta.Amount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={DutyField.Amount}
+          meta={DutyFieldMeta.Amount}
+          fieldConfig={fieldConfig}
+          amount={value?.Amount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Amount"
-            value={value.Amount?.[0]}
-            meta={DutyFieldMeta.Amount}
-          />
+    [
+      DutyField.Duty,
+      { meta: DutyFieldMeta.Duty,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={DutyField.Duty}
+          meta={DutyFieldMeta.Duty}
+          fieldConfig={fieldConfig}
+          text={value?.Duty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Duty"
-            value={value.Duty?.[0]}
-            meta={DutyFieldMeta.Duty}
-          />
+    [
+      DutyField.DutyCode,
+      { meta: DutyFieldMeta.DutyCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={DutyField.DutyCode}
+          meta={DutyFieldMeta.DutyCode}
+          fieldConfig={fieldConfig}
+          code={value?.DutyCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Duty Code"
-            value={value.DutyCode?.[0]}
-            meta={DutyFieldMeta.DutyCode}
-          />
+    [
+      DutyField.TaxCategory,
+      { meta: DutyFieldMeta.TaxCategory,
+        template: ({value, renderContext, fieldConfig}) => <TaxCategoryDisplay
+          key={DutyField.TaxCategory}
+          meta={DutyFieldMeta.TaxCategory}
+          fieldConfig={fieldConfig}
+          taxCategory={value?.TaxCategory}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <TaxCategoryDisplay
-            label="Tax Category"
-            value={value.TaxCategory?.[0]}
-            meta={DutyFieldMeta.TaxCategory}
-          />
-        </div>
-    </div>
+export function DutyDisplay<TFieldMeta>({ meta, fieldConfig, duty, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    DutyTypeName,
+    meta,
+    fieldConfig,
+    duty,
+    renderContext,
+    DutySubElementsMap,
   )
 }

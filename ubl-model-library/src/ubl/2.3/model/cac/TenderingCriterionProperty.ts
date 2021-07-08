@@ -8,7 +8,6 @@ import { Period } from './Period'
 import { Quantity } from '../cbc/Quantity'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe the criterion properties.
  */

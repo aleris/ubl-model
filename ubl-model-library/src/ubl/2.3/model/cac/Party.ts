@@ -17,7 +17,6 @@ import { ServiceProviderParty } from './ServiceProviderParty'
 import { SocialMediaProfile } from './SocialMediaProfile'
 import { UBLExtensions } from '../ext/UBLExtensions'
 import { WebSite } from './WebSite'
-
 /**
  * A class to describe an organization, sub-organization, or individual fulfilling a role in a business process.
  */

@@ -4,7 +4,6 @@ import { Identifier } from '../cbc/Identifier'
 import { Party } from './Party'
 import { Quantity } from '../cbc/Quantity'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe an immobilized security to be used as a guarantee.
  */

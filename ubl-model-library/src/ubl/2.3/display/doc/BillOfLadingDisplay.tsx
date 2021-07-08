@@ -1,277 +1,365 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { BillOfLading } from  '../../model/doc/BillOfLading'
-import { BillOfLadingFieldMeta } from  '../../meta/doc/BillOfLadingMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentDistributionDisplay from '../cac/DocumentDistributionDisplay'
-import { DocumentDistribution } from '../../model/cac/DocumentDistribution'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import ExchangeRateDisplay from '../cac/ExchangeRateDisplay'
-import { ExchangeRate } from '../../model/cac/ExchangeRate'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import ShipmentDisplay from '../cac/ShipmentDisplay'
-import { Shipment } from '../../model/cac/Shipment'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { BillOfLadingField, BillOfLadingFieldMeta, BillOfLadingTypeName } from  '../../meta/doc/BillOfLadingMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentDistributionDisplay } from '../cac/DocumentDistributionDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { ExchangeRateDisplay } from '../cac/ExchangeRateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { ShipmentDisplay } from '../cac/ShipmentDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: BillOfLading | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<BillOfLading, void>
+  billOfLading: BillOfLading[] | undefined
+  renderContext: RenderContext
 }
 
-export default function BillOfLadingDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const BillOfLadingSubElementsMap: SubElementsTemplatesMap<BillOfLadingField, BillOfLading, void> = new Map([
+    [
+      BillOfLadingField.UBLExtensions,
+      { meta: BillOfLadingFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={BillOfLadingField.UBLExtensions}
+          meta={BillOfLadingFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-BillOfLading">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={BillOfLadingFieldMeta.UBLExtensions}
-          />
+    [
+      BillOfLadingField.UBLVersionID,
+      { meta: BillOfLadingFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={BillOfLadingField.UBLVersionID}
+          meta={BillOfLadingFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={BillOfLadingFieldMeta.UBLVersionID}
-          />
+    [
+      BillOfLadingField.CustomizationID,
+      { meta: BillOfLadingFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={BillOfLadingField.CustomizationID}
+          meta={BillOfLadingFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={BillOfLadingFieldMeta.CustomizationID}
-          />
+    [
+      BillOfLadingField.ProfileID,
+      { meta: BillOfLadingFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={BillOfLadingField.ProfileID}
+          meta={BillOfLadingFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={BillOfLadingFieldMeta.ProfileID}
-          />
+    [
+      BillOfLadingField.ProfileExecutionID,
+      { meta: BillOfLadingFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={BillOfLadingField.ProfileExecutionID}
+          meta={BillOfLadingFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={BillOfLadingFieldMeta.ProfileExecutionID}
-          />
+    [
+      BillOfLadingField.ID,
+      { meta: BillOfLadingFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={BillOfLadingField.ID}
+          meta={BillOfLadingFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={BillOfLadingFieldMeta.ID}
-          />
+    [
+      BillOfLadingField.CarrierAssignedID,
+      { meta: BillOfLadingFieldMeta.CarrierAssignedID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={BillOfLadingField.CarrierAssignedID}
+          meta={BillOfLadingFieldMeta.CarrierAssignedID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CarrierAssignedID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Carrier Assigned Identifier"
-            value={value.CarrierAssignedID?.[0]}
-            meta={BillOfLadingFieldMeta.CarrierAssignedID}
-          />
+    [
+      BillOfLadingField.UUID,
+      { meta: BillOfLadingFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={BillOfLadingField.UUID}
+          meta={BillOfLadingFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={BillOfLadingFieldMeta.UUID}
-          />
+    [
+      BillOfLadingField.IssueDate,
+      { meta: BillOfLadingFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={BillOfLadingField.IssueDate}
+          meta={BillOfLadingFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={BillOfLadingFieldMeta.IssueDate}
-          />
+    [
+      BillOfLadingField.IssueTime,
+      { meta: BillOfLadingFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={BillOfLadingField.IssueTime}
+          meta={BillOfLadingFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={BillOfLadingFieldMeta.IssueTime}
-          />
+    [
+      BillOfLadingField.Name,
+      { meta: BillOfLadingFieldMeta.Name,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={BillOfLadingField.Name}
+          meta={BillOfLadingFieldMeta.Name}
+          fieldConfig={fieldConfig}
+          text={value?.Name}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Name"
-            value={value.Name?.[0]}
-            meta={BillOfLadingFieldMeta.Name}
-          />
+    [
+      BillOfLadingField.Description,
+      { meta: BillOfLadingFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={BillOfLadingField.Description}
+          meta={BillOfLadingFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={BillOfLadingFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={BillOfLadingFieldMeta.Description}
-              />
-            }
-          />
+    [
+      BillOfLadingField.Note,
+      { meta: BillOfLadingFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={BillOfLadingField.Note}
+          meta={BillOfLadingFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={BillOfLadingFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={BillOfLadingFieldMeta.Note}
-              />
-            }
-          />
+    [
+      BillOfLadingField.DocumentStatusCode,
+      { meta: BillOfLadingFieldMeta.DocumentStatusCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={BillOfLadingField.DocumentStatusCode}
+          meta={BillOfLadingFieldMeta.DocumentStatusCode}
+          fieldConfig={fieldConfig}
+          code={value?.DocumentStatusCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Document Status Code"
-            value={value.DocumentStatusCode?.[0]}
-            meta={BillOfLadingFieldMeta.DocumentStatusCode}
-          />
+    [
+      BillOfLadingField.ShippingOrderID,
+      { meta: BillOfLadingFieldMeta.ShippingOrderID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={BillOfLadingField.ShippingOrderID}
+          meta={BillOfLadingFieldMeta.ShippingOrderID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ShippingOrderID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Shipping Order Identifier"
-            value={value.ShippingOrderID?.[0]}
-            meta={BillOfLadingFieldMeta.ShippingOrderID}
-          />
+    [
+      BillOfLadingField.ToOrderIndicator,
+      { meta: BillOfLadingFieldMeta.ToOrderIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={BillOfLadingField.ToOrderIndicator}
+          meta={BillOfLadingFieldMeta.ToOrderIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.ToOrderIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="To Order Indicator"
-            value={value.ToOrderIndicator?.[0]}
-            meta={BillOfLadingFieldMeta.ToOrderIndicator}
-          />
+    [
+      BillOfLadingField.AdValoremIndicator,
+      { meta: BillOfLadingFieldMeta.AdValoremIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={BillOfLadingField.AdValoremIndicator}
+          meta={BillOfLadingFieldMeta.AdValoremIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.AdValoremIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Ad Valorem Indicator"
-            value={value.AdValoremIndicator?.[0]}
-            meta={BillOfLadingFieldMeta.AdValoremIndicator}
-          />
+    [
+      BillOfLadingField.DeclaredCarriageValueAmount,
+      { meta: BillOfLadingFieldMeta.DeclaredCarriageValueAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={BillOfLadingField.DeclaredCarriageValueAmount}
+          meta={BillOfLadingFieldMeta.DeclaredCarriageValueAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.DeclaredCarriageValueAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Declared Carriage Value"
-            value={value.DeclaredCarriageValueAmount?.[0]}
-            meta={BillOfLadingFieldMeta.DeclaredCarriageValueAmount}
-          />
+    [
+      BillOfLadingField.OtherInstruction,
+      { meta: BillOfLadingFieldMeta.OtherInstruction,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={BillOfLadingField.OtherInstruction}
+          meta={BillOfLadingFieldMeta.OtherInstruction}
+          fieldConfig={fieldConfig}
+          text={value?.OtherInstruction}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-OtherInstruction"
-            label="Other Instruction"
-            items={value.OtherInstruction}
-            meta={BillOfLadingFieldMeta.OtherInstruction} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Other Instruction"
-                value={itemValue}
-                meta={BillOfLadingFieldMeta.OtherInstruction}
-              />
-            }
-          />
+    [
+      BillOfLadingField.ConsignorParty,
+      { meta: BillOfLadingFieldMeta.ConsignorParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={BillOfLadingField.ConsignorParty}
+          meta={BillOfLadingFieldMeta.ConsignorParty}
+          fieldConfig={fieldConfig}
+          party={value?.ConsignorParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Consignor Party"
-            value={value.ConsignorParty?.[0]}
-            meta={BillOfLadingFieldMeta.ConsignorParty}
-          />
+    [
+      BillOfLadingField.CarrierParty,
+      { meta: BillOfLadingFieldMeta.CarrierParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={BillOfLadingField.CarrierParty}
+          meta={BillOfLadingFieldMeta.CarrierParty}
+          fieldConfig={fieldConfig}
+          party={value?.CarrierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Carrier Party"
-            value={value.CarrierParty?.[0]}
-            meta={BillOfLadingFieldMeta.CarrierParty}
-          />
+    [
+      BillOfLadingField.FreightForwarderParty,
+      { meta: BillOfLadingFieldMeta.FreightForwarderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={BillOfLadingField.FreightForwarderParty}
+          meta={BillOfLadingFieldMeta.FreightForwarderParty}
+          fieldConfig={fieldConfig}
+          party={value?.FreightForwarderParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Freight Forwarder Party"
-            value={value.FreightForwarderParty?.[0]}
-            meta={BillOfLadingFieldMeta.FreightForwarderParty}
-          />
+    [
+      BillOfLadingField.Shipment,
+      { meta: BillOfLadingFieldMeta.Shipment,
+        template: ({value, renderContext, fieldConfig}) => <ShipmentDisplay
+          key={BillOfLadingField.Shipment}
+          meta={BillOfLadingFieldMeta.Shipment}
+          fieldConfig={fieldConfig}
+          shipment={value?.Shipment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ShipmentDisplay
-            label="Shipment"
-            value={value.Shipment?.[0]}
-            meta={BillOfLadingFieldMeta.Shipment}
-          />
+    [
+      BillOfLadingField.DocumentReference,
+      { meta: BillOfLadingFieldMeta.DocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={BillOfLadingField.DocumentReference}
+          meta={BillOfLadingFieldMeta.DocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.DocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference"
-            label="Document Reference"
-            items={value.DocumentReference}
-            meta={BillOfLadingFieldMeta.DocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Document Reference"
-                value={itemValue}
-                meta={BillOfLadingFieldMeta.DocumentReference}
-              />
-            }
-          />
+    [
+      BillOfLadingField.ExchangeRate,
+      { meta: BillOfLadingFieldMeta.ExchangeRate,
+        template: ({value, renderContext, fieldConfig}) => <ExchangeRateDisplay
+          key={BillOfLadingField.ExchangeRate}
+          meta={BillOfLadingFieldMeta.ExchangeRate}
+          fieldConfig={fieldConfig}
+          exchangeRate={value?.ExchangeRate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-ExchangeRate"
-            label="Exchange Rate"
-            items={value.ExchangeRate}
-            meta={BillOfLadingFieldMeta.ExchangeRate} 
-            itemDisplay={ (itemValue: ExchangeRate, key: string | number) =>
-              <ExchangeRateDisplay
-                key={key}
-                label="Exchange Rate"
-                value={itemValue}
-                meta={BillOfLadingFieldMeta.ExchangeRate}
-              />
-            }
-          />
+    [
+      BillOfLadingField.DocumentDistribution,
+      { meta: BillOfLadingFieldMeta.DocumentDistribution,
+        template: ({value, renderContext, fieldConfig}) => <DocumentDistributionDisplay
+          key={BillOfLadingField.DocumentDistribution}
+          meta={BillOfLadingFieldMeta.DocumentDistribution}
+          fieldConfig={fieldConfig}
+          documentDistribution={value?.DocumentDistribution}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentDistribution"
-            label="Document Distribution"
-            items={value.DocumentDistribution}
-            meta={BillOfLadingFieldMeta.DocumentDistribution} 
-            itemDisplay={ (itemValue: DocumentDistribution, key: string | number) =>
-              <DocumentDistributionDisplay
-                key={key}
-                label="Document Distribution"
-                value={itemValue}
-                meta={BillOfLadingFieldMeta.DocumentDistribution}
-              />
-            }
-          />
+    [
+      BillOfLadingField.Signature,
+      { meta: BillOfLadingFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={BillOfLadingField.Signature}
+          meta={BillOfLadingFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={BillOfLadingFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={BillOfLadingFieldMeta.Signature}
-              />
-            }
-          />
-        </div>
-    </div>
+export function BillOfLadingDisplay<TFieldMeta>({ meta, fieldConfig, billOfLading, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    BillOfLadingTypeName,
+    meta,
+    fieldConfig,
+    billOfLading,
+    renderContext,
+    BillOfLadingSubElementsMap,
   )
 }

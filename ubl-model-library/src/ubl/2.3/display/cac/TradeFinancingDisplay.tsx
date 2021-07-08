@@ -1,104 +1,130 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TradeFinancing } from  '../../model/cac/TradeFinancing'
-import { TradeFinancingFieldMeta } from  '../../meta/cac/TradeFinancingMeta'
-import ClauseDisplay from './ClauseDisplay'
-import { Clause } from '../../model/cac/Clause'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DocumentReferenceDisplay from './DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import FinancialAccountDisplay from './FinancialAccountDisplay'
-import { FinancialAccount } from '../../model/cac/FinancialAccount'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { TradeFinancingField, TradeFinancingFieldMeta, TradeFinancingTypeName } from  '../../meta/cac/TradeFinancingMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { ClauseDisplay } from './ClauseDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DocumentReferenceDisplay } from './DocumentReferenceDisplay'
+import { FinancialAccountDisplay } from './FinancialAccountDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: TradeFinancing | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<TradeFinancing, void>
+  tradeFinancing: TradeFinancing[] | undefined
+  renderContext: RenderContext
 }
 
-export default function TradeFinancingDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const TradeFinancingSubElementsMap: SubElementsTemplatesMap<TradeFinancingField, TradeFinancing, void> = new Map([
+    [
+      TradeFinancingField.UBLExtensions,
+      { meta: TradeFinancingFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={TradeFinancingField.UBLExtensions}
+          meta={TradeFinancingFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-TradeFinancing">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={TradeFinancingFieldMeta.UBLExtensions}
-          />
+    [
+      TradeFinancingField.ID,
+      { meta: TradeFinancingFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TradeFinancingField.ID}
+          meta={TradeFinancingFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={TradeFinancingFieldMeta.ID}
-          />
+    [
+      TradeFinancingField.FinancingInstrumentCode,
+      { meta: TradeFinancingFieldMeta.FinancingInstrumentCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TradeFinancingField.FinancingInstrumentCode}
+          meta={TradeFinancingFieldMeta.FinancingInstrumentCode}
+          fieldConfig={fieldConfig}
+          code={value?.FinancingInstrumentCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Financing Instrument Code"
-            value={value.FinancingInstrumentCode?.[0]}
-            meta={TradeFinancingFieldMeta.FinancingInstrumentCode}
-          />
+    [
+      TradeFinancingField.ContractDocumentReference,
+      { meta: TradeFinancingFieldMeta.ContractDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={TradeFinancingField.ContractDocumentReference}
+          meta={TradeFinancingFieldMeta.ContractDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.ContractDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DocumentReferenceDisplay
-            label="Contract Document Reference"
-            value={value.ContractDocumentReference?.[0]}
-            meta={TradeFinancingFieldMeta.ContractDocumentReference}
-          />
+    [
+      TradeFinancingField.DocumentReference,
+      { meta: TradeFinancingFieldMeta.DocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={TradeFinancingField.DocumentReference}
+          meta={TradeFinancingFieldMeta.DocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.DocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentReference"
-            label="Document Reference"
-            items={value.DocumentReference}
-            meta={TradeFinancingFieldMeta.DocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Document Reference"
-                value={itemValue}
-                meta={TradeFinancingFieldMeta.DocumentReference}
-              />
-            }
-          />
+    [
+      TradeFinancingField.FinancingParty,
+      { meta: TradeFinancingFieldMeta.FinancingParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={TradeFinancingField.FinancingParty}
+          meta={TradeFinancingFieldMeta.FinancingParty}
+          fieldConfig={fieldConfig}
+          party={value?.FinancingParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Financing Party"
-            value={value.FinancingParty?.[0]}
-            meta={TradeFinancingFieldMeta.FinancingParty}
-          />
+    [
+      TradeFinancingField.FinancingFinancialAccount,
+      { meta: TradeFinancingFieldMeta.FinancingFinancialAccount,
+        template: ({value, renderContext, fieldConfig}) => <FinancialAccountDisplay
+          key={TradeFinancingField.FinancingFinancialAccount}
+          meta={TradeFinancingFieldMeta.FinancingFinancialAccount}
+          fieldConfig={fieldConfig}
+          financialAccount={value?.FinancingFinancialAccount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <FinancialAccountDisplay
-            label="Financing Financial Account"
-            value={value.FinancingFinancialAccount?.[0]}
-            meta={TradeFinancingFieldMeta.FinancingFinancialAccount}
-          />
+    [
+      TradeFinancingField.Clause,
+      { meta: TradeFinancingFieldMeta.Clause,
+        template: ({value, renderContext, fieldConfig}) => <ClauseDisplay
+          key={TradeFinancingField.Clause}
+          meta={TradeFinancingFieldMeta.Clause}
+          fieldConfig={fieldConfig}
+          clause={value?.Clause}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Clause"
-            label="Clause"
-            items={value.Clause}
-            meta={TradeFinancingFieldMeta.Clause} 
-            itemDisplay={ (itemValue: Clause, key: string | number) =>
-              <ClauseDisplay
-                key={key}
-                label="Clause"
-                value={itemValue}
-                meta={TradeFinancingFieldMeta.Clause}
-              />
-            }
-          />
-        </div>
-    </div>
+export function TradeFinancingDisplay<TFieldMeta>({ meta, fieldConfig, tradeFinancing, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    TradeFinancingTypeName,
+    meta,
+    fieldConfig,
+    tradeFinancing,
+    renderContext,
+    TradeFinancingSubElementsMap,
   )
 }

@@ -3,7 +3,6 @@ import { Code } from '../cbc/Code'
 import { Quantity } from '../cbc/Quantity'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * The Statement of correction, for examples heating correction.
  */

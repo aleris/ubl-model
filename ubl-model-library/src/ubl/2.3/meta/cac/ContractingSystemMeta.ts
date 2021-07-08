@@ -1,4 +1,9 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ContractingSystemField {
   UBLExtensions = 'UBLExtensions',
@@ -10,11 +15,11 @@ export enum ContractingSystemField {
 export const ContractingSystemFieldMetaUBLExtensions = new FieldMeta<ContractingSystemField>(
   ContractingSystemField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -23,10 +28,10 @@ export const ContractingSystemFieldMetaID = new FieldMeta<ContractingSystemField
   ContractingSystemField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the contracting system.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -35,10 +40,10 @@ export const ContractingSystemFieldMetaContractingSystemTypeCode = new FieldMeta
   ContractingSystemField.ContractingSystemTypeCode,
   'ContractingSystemTypeCode',
   'Contracting System Type',
-  'Code',
+  CodeType.name,
   'A code signifying the type of contracting system (e.g., framework agreement, dynamic purchasing system).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -47,10 +52,10 @@ export const ContractingSystemFieldMetaDescription = new FieldMeta<ContractingSy
   ContractingSystemField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'The description of the contracting system',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -68,3 +73,11 @@ export const ContractingSystemFieldMap = new Map([
   [ContractingSystemField.ContractingSystemTypeCode, ContractingSystemFieldMetaContractingSystemTypeCode],
   [ContractingSystemField.Description, ContractingSystemFieldMetaDescription]
 ])
+
+export const ContractingSystemType: Type<ContractingSystemField> = {
+  name: 'ContractingSystem',
+  label: 'Contracting System',
+  module: TypeModule.cac,
+  definition: 'A class to describe the contracting system. If the procedure is individual (nonrepetitive), this class should not be used.',
+  fields: ContractingSystemFieldMap,
+}

@@ -4,7 +4,6 @@ import { Location } from './Location'
 import { Party } from './Party'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a pickup for delivery.
  */

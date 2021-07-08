@@ -5,7 +5,6 @@ import { FinancialAccount } from './FinancialAccount'
 import { Identifier } from '../cbc/Identifier'
 import { Party } from './Party'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a trade financing instrument.
  */

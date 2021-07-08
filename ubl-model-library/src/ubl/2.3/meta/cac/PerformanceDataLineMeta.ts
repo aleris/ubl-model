@@ -1,4 +1,12 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { ItemType } from './ItemMeta'
+import { PeriodType } from './PeriodMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum PerformanceDataLineField {
   UBLExtensions = 'UBLExtensions',
@@ -13,11 +21,11 @@ export enum PerformanceDataLineField {
 export const PerformanceDataLineFieldMetaUBLExtensions = new FieldMeta<PerformanceDataLineField>(
   PerformanceDataLineField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -26,10 +34,10 @@ export const PerformanceDataLineFieldMetaID = new FieldMeta<PerformanceDataLineF
   PerformanceDataLineField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this performance data line.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -38,10 +46,10 @@ export const PerformanceDataLineFieldMetaNote = new FieldMeta<PerformanceDataLin
   PerformanceDataLineField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -50,10 +58,10 @@ export const PerformanceDataLineFieldMetaPerformanceValueQuantity = new FieldMet
   PerformanceDataLineField.PerformanceValueQuantity,
   'PerformanceValueQuantity',
   'Performance Value',
-  'Quantity',
+  QuantityType.name,
   'The value of the reported attribute.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -62,10 +70,10 @@ export const PerformanceDataLineFieldMetaPerformanceMetricTypeCode = new FieldMe
   PerformanceDataLineField.PerformanceMetricTypeCode,
   'PerformanceMetricTypeCode',
   'Performance Metric Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the measure of performance applicable to the reported attribute.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -74,10 +82,10 @@ export const PerformanceDataLineFieldMetaPeriod = new FieldMeta<PerformanceDataL
   PerformanceDataLineField.Period,
   'Period',
   'Period',
-  'Period',
+  PeriodType.name,
   'The period to which this performance data line applies.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -86,10 +94,10 @@ export const PerformanceDataLineFieldMetaItem = new FieldMeta<PerformanceDataLin
   PerformanceDataLineField.Item,
   'Item',
   'Item',
-  'Item',
+  ItemType.name,
   'The item whose performance is reported in this data line.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -113,3 +121,11 @@ export const PerformanceDataLineFieldMap = new Map([
   [PerformanceDataLineField.Period, PerformanceDataLineFieldMetaPeriod],
   [PerformanceDataLineField.Item, PerformanceDataLineFieldMetaItem]
 ])
+
+export const PerformanceDataLineType: Type<PerformanceDataLineField> = {
+  name: 'PerformanceDataLine',
+  label: 'Performance Data Line',
+  module: TypeModule.cac,
+  definition: 'A class to define a line in a Performance History.',
+  fields: PerformanceDataLineFieldMap,
+}

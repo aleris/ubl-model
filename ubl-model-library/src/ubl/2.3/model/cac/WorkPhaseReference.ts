@@ -5,7 +5,6 @@ import { Identifier } from '../cbc/Identifier'
 import { Numeric } from '../cbc/Numeric'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class that refers to a phase of work. Used for instance to specify what part of the contract the billing is
  * referring to.

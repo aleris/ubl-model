@@ -1,5 +1,5 @@
 import {
-  extractTypeName
+  extractTypeName, getPropertyName
 } from '../type-gen-utils'
 import { Documentation } from '../Documentation'
 import { PrefixedName } from '../PrefixedName'
@@ -38,5 +38,9 @@ export class AggregateType {
       : fieldNodes.map((fieldNode: any) => AggregateField.fromJsonNode(aggregateType, typeResolver, fieldNode))
     aggregateType.fields.push(...fields)
     return aggregateType
+  }
+
+  get propertyName() {
+    return getPropertyName(this.typeName)
   }
 }

@@ -1,99 +1,141 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ItemInstance } from  '../../model/cac/ItemInstance'
-import { ItemInstanceFieldMeta } from  '../../meta/cac/ItemInstanceMeta'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import ItemPropertyDisplay from './ItemPropertyDisplay'
-import { ItemProperty } from '../../model/cac/ItemProperty'
-import LotIdentificationDisplay from './LotIdentificationDisplay'
-import { LotIdentification } from '../../model/cac/LotIdentification'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ItemInstanceField, ItemInstanceFieldMeta, ItemInstanceTypeName } from  '../../meta/cac/ItemInstanceMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { ItemPropertyDisplay } from './ItemPropertyDisplay'
+import { LotIdentificationDisplay } from './LotIdentificationDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ItemInstance | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ItemInstance, void>
+  itemInstance: ItemInstance[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ItemInstanceDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ItemInstanceSubElementsMap: SubElementsTemplatesMap<ItemInstanceField, ItemInstance, void> = new Map([
+    [
+      ItemInstanceField.UBLExtensions,
+      { meta: ItemInstanceFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ItemInstanceField.UBLExtensions}
+          meta={ItemInstanceFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ItemInstance">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ItemInstanceFieldMeta.UBLExtensions}
-          />
+    [
+      ItemInstanceField.ProductTraceID,
+      { meta: ItemInstanceFieldMeta.ProductTraceID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ItemInstanceField.ProductTraceID}
+          meta={ItemInstanceFieldMeta.ProductTraceID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProductTraceID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Product Trace Identifier"
-            value={value.ProductTraceID?.[0]}
-            meta={ItemInstanceFieldMeta.ProductTraceID}
-          />
+    [
+      ItemInstanceField.ManufactureDate,
+      { meta: ItemInstanceFieldMeta.ManufactureDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={ItemInstanceField.ManufactureDate}
+          meta={ItemInstanceFieldMeta.ManufactureDate}
+          fieldConfig={fieldConfig}
+          date={value?.ManufactureDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Manufacture Date"
-            value={value.ManufactureDate?.[0]}
-            meta={ItemInstanceFieldMeta.ManufactureDate}
-          />
+    [
+      ItemInstanceField.ManufactureTime,
+      { meta: ItemInstanceFieldMeta.ManufactureTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={ItemInstanceField.ManufactureTime}
+          meta={ItemInstanceFieldMeta.ManufactureTime}
+          fieldConfig={fieldConfig}
+          time={value?.ManufactureTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Manufacture Time"
-            value={value.ManufactureTime?.[0]}
-            meta={ItemInstanceFieldMeta.ManufactureTime}
-          />
+    [
+      ItemInstanceField.BestBeforeDate,
+      { meta: ItemInstanceFieldMeta.BestBeforeDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={ItemInstanceField.BestBeforeDate}
+          meta={ItemInstanceFieldMeta.BestBeforeDate}
+          fieldConfig={fieldConfig}
+          date={value?.BestBeforeDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Best Before Date"
-            value={value.BestBeforeDate?.[0]}
-            meta={ItemInstanceFieldMeta.BestBeforeDate}
-          />
+    [
+      ItemInstanceField.RegistrationID,
+      { meta: ItemInstanceFieldMeta.RegistrationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ItemInstanceField.RegistrationID}
+          meta={ItemInstanceFieldMeta.RegistrationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.RegistrationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Registration Identifier"
-            value={value.RegistrationID?.[0]}
-            meta={ItemInstanceFieldMeta.RegistrationID}
-          />
+    [
+      ItemInstanceField.SerialID,
+      { meta: ItemInstanceFieldMeta.SerialID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ItemInstanceField.SerialID}
+          meta={ItemInstanceFieldMeta.SerialID}
+          fieldConfig={fieldConfig}
+          identifier={value?.SerialID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Serial Identifier"
-            value={value.SerialID?.[0]}
-            meta={ItemInstanceFieldMeta.SerialID}
-          />
+    [
+      ItemInstanceField.AdditionalItemProperty,
+      { meta: ItemInstanceFieldMeta.AdditionalItemProperty,
+        template: ({value, renderContext, fieldConfig}) => <ItemPropertyDisplay
+          key={ItemInstanceField.AdditionalItemProperty}
+          meta={ItemInstanceFieldMeta.AdditionalItemProperty}
+          fieldConfig={fieldConfig}
+          itemProperty={value?.AdditionalItemProperty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-ItemProperty ubl-AdditionalItemProperty"
-            label="Additional Item Property"
-            items={value.AdditionalItemProperty}
-            meta={ItemInstanceFieldMeta.AdditionalItemProperty} 
-            itemDisplay={ (itemValue: ItemProperty, key: string | number) =>
-              <ItemPropertyDisplay
-                key={key}
-                label="Additional Item Property"
-                value={itemValue}
-                meta={ItemInstanceFieldMeta.AdditionalItemProperty}
-              />
-            }
-          />
+    [
+      ItemInstanceField.LotIdentification,
+      { meta: ItemInstanceFieldMeta.LotIdentification,
+        template: ({value, renderContext, fieldConfig}) => <LotIdentificationDisplay
+          key={ItemInstanceField.LotIdentification}
+          meta={ItemInstanceFieldMeta.LotIdentification}
+          fieldConfig={fieldConfig}
+          lotIdentification={value?.LotIdentification}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <LotIdentificationDisplay
-            label="Lot Identification"
-            value={value.LotIdentification?.[0]}
-            meta={ItemInstanceFieldMeta.LotIdentification}
-          />
-        </div>
-    </div>
+export function ItemInstanceDisplay<TFieldMeta>({ meta, fieldConfig, itemInstance, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ItemInstanceTypeName,
+    meta,
+    fieldConfig,
+    itemInstance,
+    renderContext,
+    ItemInstanceSubElementsMap,
   )
 }

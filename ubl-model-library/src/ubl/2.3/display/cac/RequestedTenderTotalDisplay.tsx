@@ -1,112 +1,152 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { RequestedTenderTotal } from  '../../model/cac/RequestedTenderTotal'
-import { RequestedTenderTotalFieldMeta } from  '../../meta/cac/RequestedTenderTotalMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import TaxCategoryDisplay from './TaxCategoryDisplay'
-import { TaxCategory } from '../../model/cac/TaxCategory'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { RequestedTenderTotalField, RequestedTenderTotalFieldMeta, RequestedTenderTotalTypeName } from  '../../meta/cac/RequestedTenderTotalMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { TaxCategoryDisplay } from './TaxCategoryDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: RequestedTenderTotal | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<RequestedTenderTotal, void>
+  requestedTenderTotal: RequestedTenderTotal[] | undefined
+  renderContext: RenderContext
 }
 
-export default function RequestedTenderTotalDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const RequestedTenderTotalSubElementsMap: SubElementsTemplatesMap<RequestedTenderTotalField, RequestedTenderTotal, void> = new Map([
+    [
+      RequestedTenderTotalField.UBLExtensions,
+      { meta: RequestedTenderTotalFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={RequestedTenderTotalField.UBLExtensions}
+          meta={RequestedTenderTotalFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-RequestedTenderTotal">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={RequestedTenderTotalFieldMeta.UBLExtensions}
-          />
+    [
+      RequestedTenderTotalField.EstimatedOverallContractAmount,
+      { meta: RequestedTenderTotalFieldMeta.EstimatedOverallContractAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={RequestedTenderTotalField.EstimatedOverallContractAmount}
+          meta={RequestedTenderTotalFieldMeta.EstimatedOverallContractAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.EstimatedOverallContractAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Estimated Overall Contract"
-            value={value.EstimatedOverallContractAmount?.[0]}
-            meta={RequestedTenderTotalFieldMeta.EstimatedOverallContractAmount}
-          />
+    [
+      RequestedTenderTotalField.EstimatedOverallFrameworkContractsAmount,
+      { meta: RequestedTenderTotalFieldMeta.EstimatedOverallFrameworkContractsAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={RequestedTenderTotalField.EstimatedOverallFrameworkContractsAmount}
+          meta={RequestedTenderTotalFieldMeta.EstimatedOverallFrameworkContractsAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.EstimatedOverallFrameworkContractsAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Estimated Overall Framework Contracts"
-            value={value.EstimatedOverallFrameworkContractsAmount?.[0]}
-            meta={RequestedTenderTotalFieldMeta.EstimatedOverallFrameworkContractsAmount}
-          />
+    [
+      RequestedTenderTotalField.TotalAmount,
+      { meta: RequestedTenderTotalFieldMeta.TotalAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={RequestedTenderTotalField.TotalAmount}
+          meta={RequestedTenderTotalFieldMeta.TotalAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.TotalAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Total Amount"
-            value={value.TotalAmount?.[0]}
-            meta={RequestedTenderTotalFieldMeta.TotalAmount}
-          />
+    [
+      RequestedTenderTotalField.TaxIncludedIndicator,
+      { meta: RequestedTenderTotalFieldMeta.TaxIncludedIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={RequestedTenderTotalField.TaxIncludedIndicator}
+          meta={RequestedTenderTotalFieldMeta.TaxIncludedIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.TaxIncludedIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Tax Included Indicator"
-            value={value.TaxIncludedIndicator?.[0]}
-            meta={RequestedTenderTotalFieldMeta.TaxIncludedIndicator}
-          />
+    [
+      RequestedTenderTotalField.MinimumAmount,
+      { meta: RequestedTenderTotalFieldMeta.MinimumAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={RequestedTenderTotalField.MinimumAmount}
+          meta={RequestedTenderTotalFieldMeta.MinimumAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.MinimumAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Minimum Amount"
-            value={value.MinimumAmount?.[0]}
-            meta={RequestedTenderTotalFieldMeta.MinimumAmount}
-          />
+    [
+      RequestedTenderTotalField.MaximumAmount,
+      { meta: RequestedTenderTotalFieldMeta.MaximumAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={RequestedTenderTotalField.MaximumAmount}
+          meta={RequestedTenderTotalFieldMeta.MaximumAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.MaximumAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Maximum Amount"
-            value={value.MaximumAmount?.[0]}
-            meta={RequestedTenderTotalFieldMeta.MaximumAmount}
-          />
+    [
+      RequestedTenderTotalField.MonetaryScope,
+      { meta: RequestedTenderTotalFieldMeta.MonetaryScope,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={RequestedTenderTotalField.MonetaryScope}
+          meta={RequestedTenderTotalFieldMeta.MonetaryScope}
+          fieldConfig={fieldConfig}
+          text={value?.MonetaryScope}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-MonetaryScope"
-            label="Monetary Scope"
-            items={value.MonetaryScope}
-            meta={RequestedTenderTotalFieldMeta.MonetaryScope} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Monetary Scope"
-                value={itemValue}
-                meta={RequestedTenderTotalFieldMeta.MonetaryScope}
-              />
-            }
-          />
+    [
+      RequestedTenderTotalField.AverageSubsequentContractAmount,
+      { meta: RequestedTenderTotalFieldMeta.AverageSubsequentContractAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={RequestedTenderTotalField.AverageSubsequentContractAmount}
+          meta={RequestedTenderTotalFieldMeta.AverageSubsequentContractAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.AverageSubsequentContractAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Average Subsequent Contract"
-            value={value.AverageSubsequentContractAmount?.[0]}
-            meta={RequestedTenderTotalFieldMeta.AverageSubsequentContractAmount}
-          />
+    [
+      RequestedTenderTotalField.ApplicableTaxCategory,
+      { meta: RequestedTenderTotalFieldMeta.ApplicableTaxCategory,
+        template: ({value, renderContext, fieldConfig}) => <TaxCategoryDisplay
+          key={RequestedTenderTotalField.ApplicableTaxCategory}
+          meta={RequestedTenderTotalFieldMeta.ApplicableTaxCategory}
+          fieldConfig={fieldConfig}
+          taxCategory={value?.ApplicableTaxCategory}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TaxCategory ubl-ApplicableTaxCategory"
-            label="Applicable Tax Category"
-            items={value.ApplicableTaxCategory}
-            meta={RequestedTenderTotalFieldMeta.ApplicableTaxCategory} 
-            itemDisplay={ (itemValue: TaxCategory, key: string | number) =>
-              <TaxCategoryDisplay
-                key={key}
-                label="Applicable Tax Category"
-                value={itemValue}
-                meta={RequestedTenderTotalFieldMeta.ApplicableTaxCategory}
-              />
-            }
-          />
-        </div>
-    </div>
+export function RequestedTenderTotalDisplay<TFieldMeta>({ meta, fieldConfig, requestedTenderTotal, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    RequestedTenderTotalTypeName,
+    meta,
+    fieldConfig,
+    requestedTenderTotal,
+    renderContext,
+    RequestedTenderTotalSubElementsMap,
   )
 }

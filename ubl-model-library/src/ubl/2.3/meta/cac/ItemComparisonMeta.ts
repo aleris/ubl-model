@@ -1,4 +1,8 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ItemComparisonField {
   UBLExtensions = 'UBLExtensions',
@@ -9,11 +13,11 @@ export enum ItemComparisonField {
 export const ItemComparisonFieldMetaUBLExtensions = new FieldMeta<ItemComparisonField>(
   ItemComparisonField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -22,10 +26,10 @@ export const ItemComparisonFieldMetaPriceAmount = new FieldMeta<ItemComparisonFi
   ItemComparisonField.PriceAmount,
   'PriceAmount',
   'Price Amount',
-  'Amount',
+  AmountType.name,
   'The price for the Item Comparison',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -34,10 +38,10 @@ export const ItemComparisonFieldMetaQuantity = new FieldMeta<ItemComparisonField
   ItemComparisonField.Quantity,
   'Quantity',
   'Quantity',
-  'Quantity',
+  QuantityType.name,
   'The quantity for which this comparison is valid.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'per unit'
 )
@@ -53,3 +57,11 @@ export const ItemComparisonFieldMap = new Map([
   [ItemComparisonField.PriceAmount, ItemComparisonFieldMetaPriceAmount],
   [ItemComparisonField.Quantity, ItemComparisonFieldMetaQuantity]
 ])
+
+export const ItemComparisonType: Type<ItemComparisonField> = {
+  name: 'ItemComparison',
+  label: 'Item Comparison',
+  module: TypeModule.cac,
+  definition: 'A class to provide information about price and quantity of an item for use in price comparisons based on price, quantity, or measurements.',
+  fields: ItemComparisonFieldMap,
+}

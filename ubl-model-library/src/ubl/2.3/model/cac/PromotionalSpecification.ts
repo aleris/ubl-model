@@ -2,7 +2,6 @@ import { EventTactic } from './EventTactic'
 import { Identifier } from '../cbc/Identifier'
 import { PromotionalEventLineItem } from './PromotionalEventLineItem'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a promotional event as a set of item locations that share a set of promotional tactics.
  */

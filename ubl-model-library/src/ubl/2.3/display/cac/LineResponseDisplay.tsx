@@ -1,57 +1,66 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { LineResponse } from  '../../model/cac/LineResponse'
-import { LineResponseFieldMeta } from  '../../meta/cac/LineResponseMeta'
-import LineReferenceDisplay from './LineReferenceDisplay'
-import { LineReference } from '../../model/cac/LineReference'
-import ResponseDisplay from './ResponseDisplay'
-import { Response } from '../../model/cac/Response'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { LineResponseField, LineResponseFieldMeta, LineResponseTypeName } from  '../../meta/cac/LineResponseMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { LineReferenceDisplay } from './LineReferenceDisplay'
+import { ResponseDisplay } from './ResponseDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: LineResponse | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<LineResponse, void>
+  lineResponse: LineResponse[] | undefined
+  renderContext: RenderContext
 }
 
-export default function LineResponseDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const LineResponseSubElementsMap: SubElementsTemplatesMap<LineResponseField, LineResponse, void> = new Map([
+    [
+      LineResponseField.UBLExtensions,
+      { meta: LineResponseFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={LineResponseField.UBLExtensions}
+          meta={LineResponseFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-LineResponse">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={LineResponseFieldMeta.UBLExtensions}
-          />
+    [
+      LineResponseField.LineReference,
+      { meta: LineResponseFieldMeta.LineReference,
+        template: ({value, renderContext, fieldConfig}) => <LineReferenceDisplay
+          key={LineResponseField.LineReference}
+          meta={LineResponseFieldMeta.LineReference}
+          fieldConfig={fieldConfig}
+          lineReference={value?.LineReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <LineReferenceDisplay
-            label="Line Reference"
-            value={value.LineReference?.[0]}
-            meta={LineResponseFieldMeta.LineReference}
-          />
+    [
+      LineResponseField.Response,
+      { meta: LineResponseFieldMeta.Response,
+        template: ({value, renderContext, fieldConfig}) => <ResponseDisplay
+          key={LineResponseField.Response}
+          meta={LineResponseFieldMeta.Response}
+          fieldConfig={fieldConfig}
+          response={value?.Response}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Response"
-            label="Response"
-            items={value.Response}
-            meta={LineResponseFieldMeta.Response} 
-            itemDisplay={ (itemValue: Response, key: string | number) =>
-              <ResponseDisplay
-                key={key}
-                label="Response"
-                value={itemValue}
-                meta={LineResponseFieldMeta.Response}
-              />
-            }
-          />
-        </div>
-    </div>
+export function LineResponseDisplay<TFieldMeta>({ meta, fieldConfig, lineResponse, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    LineResponseTypeName,
+    meta,
+    fieldConfig,
+    lineResponse,
+    renderContext,
+    LineResponseSubElementsMap,
   )
 }

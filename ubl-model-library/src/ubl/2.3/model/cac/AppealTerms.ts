@@ -2,7 +2,6 @@ import { Party } from './Party'
 import { Period } from './Period'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe the terms and conditions, set by the contracting authority, under which an appeal can be lodged
  * for a tender award.

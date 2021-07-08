@@ -7,7 +7,18 @@ export function capitalize(text: string) {
 }
 
 export function uncapitalize(text: string) {
+  if (text.startsWith('UBL')) {
+    return text.substr(0, 3).toLowerCase() + text.substr(3)
+  }
   return text.substr(0, 1).toLowerCase() + text.substr(1)
+}
+
+export function transformReserved(text: string) {
+  return text === 'package' ? `${text}Value` : text
+}
+
+export function getPropertyName(typeName: string) {
+  return transformReserved(uncapitalize(typeName))
 }
 
 const MAX_LINE_LENGTH = 120
@@ -60,4 +71,18 @@ export function singleQuoteEscape(text: string | undefined) {
     .replace(/\\n/g, ' ')
     .trim()
   return `'${escaped}'`
+}
+
+export function indent(text: string, count: number, indentation = '  ') {
+  return text.replace(/^/gm, indentation.repeat(count))
+}
+
+export function mapCardinalityToEnum(cardinalityString: string): string {
+  switch (cardinalityString) {
+    case '1': return 'FieldCardinality.Uni'
+    case '0..1': return 'FieldCardinality.UniOptional'
+    case '1..n': return 'FieldCardinality.Multi'
+    case '0..n': return 'FieldCardinality.MultiOptional'
+    default: return 'FieldCardinality.UniOptional'
+  }
 }

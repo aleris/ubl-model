@@ -20,13 +20,13 @@ export class CoreModelGenerator implements TypeCodeGenerator<CoreType> {
     }]
   }
 
-  asCodeString(coreType: CoreType) {
+  asCodeFiles(coreType: CoreType) {
     const code = CoreTypeFormatterFactory.create(this.version).asCodeString(this.version, coreType)
-    return {
+    return [{
       dirPath: `model/${UblModule.cbc}`,
       fileName: `${coreType.typeName}.ts`,
       content: code
-    }
+    }]
   }
 }
 

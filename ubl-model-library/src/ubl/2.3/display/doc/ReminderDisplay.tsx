@@ -1,398 +1,529 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Reminder } from  '../../model/doc/Reminder'
-import { ReminderFieldMeta } from  '../../meta/doc/ReminderMeta'
-import AllowanceChargeDisplay from '../cac/AllowanceChargeDisplay'
-import { AllowanceCharge } from '../../model/cac/AllowanceCharge'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import CustomerPartyDisplay from '../cac/CustomerPartyDisplay'
-import { CustomerParty } from '../../model/cac/CustomerParty'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import ExchangeRateDisplay from '../cac/ExchangeRateDisplay'
-import { ExchangeRate } from '../../model/cac/ExchangeRate'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import MonetaryTotalDisplay from '../cac/MonetaryTotalDisplay'
-import { MonetaryTotal } from '../../model/cac/MonetaryTotal'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PaymentDisplay from '../cac/PaymentDisplay'
-import { Payment } from '../../model/cac/Payment'
-import PaymentMeansDisplay from '../cac/PaymentMeansDisplay'
-import { PaymentMeans } from '../../model/cac/PaymentMeans'
-import PaymentTermsDisplay from '../cac/PaymentTermsDisplay'
-import { PaymentTerms } from '../../model/cac/PaymentTerms'
-import PeriodDisplay from '../cac/PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import ReminderLineDisplay from '../cac/ReminderLineDisplay'
-import { ReminderLine } from '../../model/cac/ReminderLine'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import SupplierPartyDisplay from '../cac/SupplierPartyDisplay'
-import { SupplierParty } from '../../model/cac/SupplierParty'
-import TaxTotalDisplay from '../cac/TaxTotalDisplay'
-import { TaxTotal } from '../../model/cac/TaxTotal'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ReminderField, ReminderFieldMeta, ReminderTypeName } from  '../../meta/doc/ReminderMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AllowanceChargeDisplay } from '../cac/AllowanceChargeDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { CustomerPartyDisplay } from '../cac/CustomerPartyDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { ExchangeRateDisplay } from '../cac/ExchangeRateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { MonetaryTotalDisplay } from '../cac/MonetaryTotalDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { PaymentDisplay } from '../cac/PaymentDisplay'
+import { PaymentMeansDisplay } from '../cac/PaymentMeansDisplay'
+import { PaymentTermsDisplay } from '../cac/PaymentTermsDisplay'
+import { PeriodDisplay } from '../cac/PeriodDisplay'
+import { ReminderLineDisplay } from '../cac/ReminderLineDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { SupplierPartyDisplay } from '../cac/SupplierPartyDisplay'
+import { TaxTotalDisplay } from '../cac/TaxTotalDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: Reminder | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<Reminder, void>
+  reminder: Reminder[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ReminderDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ReminderSubElementsMap: SubElementsTemplatesMap<ReminderField, Reminder, void> = new Map([
+    [
+      ReminderField.UBLExtensions,
+      { meta: ReminderFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ReminderField.UBLExtensions}
+          meta={ReminderFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-Reminder">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ReminderFieldMeta.UBLExtensions}
-          />
+    [
+      ReminderField.UBLVersionID,
+      { meta: ReminderFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ReminderField.UBLVersionID}
+          meta={ReminderFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={ReminderFieldMeta.UBLVersionID}
-          />
+    [
+      ReminderField.CustomizationID,
+      { meta: ReminderFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ReminderField.CustomizationID}
+          meta={ReminderFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={ReminderFieldMeta.CustomizationID}
-          />
+    [
+      ReminderField.ProfileID,
+      { meta: ReminderFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ReminderField.ProfileID}
+          meta={ReminderFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={ReminderFieldMeta.ProfileID}
-          />
+    [
+      ReminderField.ProfileExecutionID,
+      { meta: ReminderFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ReminderField.ProfileExecutionID}
+          meta={ReminderFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={ReminderFieldMeta.ProfileExecutionID}
-          />
+    [
+      ReminderField.ID,
+      { meta: ReminderFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ReminderField.ID}
+          meta={ReminderFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={ReminderFieldMeta.ID}
-          />
+    [
+      ReminderField.CopyIndicator,
+      { meta: ReminderFieldMeta.CopyIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ReminderField.CopyIndicator}
+          meta={ReminderFieldMeta.CopyIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.CopyIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Copy Indicator"
-            value={value.CopyIndicator?.[0]}
-            meta={ReminderFieldMeta.CopyIndicator}
-          />
+    [
+      ReminderField.UUID,
+      { meta: ReminderFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ReminderField.UUID}
+          meta={ReminderFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={ReminderFieldMeta.UUID}
-          />
+    [
+      ReminderField.IssueDate,
+      { meta: ReminderFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={ReminderField.IssueDate}
+          meta={ReminderFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={ReminderFieldMeta.IssueDate}
-          />
+    [
+      ReminderField.IssueTime,
+      { meta: ReminderFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={ReminderField.IssueTime}
+          meta={ReminderFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={ReminderFieldMeta.IssueTime}
-          />
+    [
+      ReminderField.ReminderTypeCode,
+      { meta: ReminderFieldMeta.ReminderTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ReminderField.ReminderTypeCode}
+          meta={ReminderFieldMeta.ReminderTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.ReminderTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Reminder Type Code"
-            value={value.ReminderTypeCode?.[0]}
-            meta={ReminderFieldMeta.ReminderTypeCode}
-          />
+    [
+      ReminderField.ReminderSequenceNumeric,
+      { meta: ReminderFieldMeta.ReminderSequenceNumeric,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={ReminderField.ReminderSequenceNumeric}
+          meta={ReminderFieldMeta.ReminderSequenceNumeric}
+          fieldConfig={fieldConfig}
+          numeric={value?.ReminderSequenceNumeric}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Reminder Sequence"
-            value={value.ReminderSequenceNumeric?.[0]}
-            meta={ReminderFieldMeta.ReminderSequenceNumeric}
-          />
+    [
+      ReminderField.Note,
+      { meta: ReminderFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ReminderField.Note}
+          meta={ReminderFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={ReminderFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={ReminderFieldMeta.Note}
-              />
-            }
-          />
+    [
+      ReminderField.TaxPointDate,
+      { meta: ReminderFieldMeta.TaxPointDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={ReminderField.TaxPointDate}
+          meta={ReminderFieldMeta.TaxPointDate}
+          fieldConfig={fieldConfig}
+          date={value?.TaxPointDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Tax Point Date"
-            value={value.TaxPointDate?.[0]}
-            meta={ReminderFieldMeta.TaxPointDate}
-          />
+    [
+      ReminderField.DocumentCurrencyCode,
+      { meta: ReminderFieldMeta.DocumentCurrencyCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ReminderField.DocumentCurrencyCode}
+          meta={ReminderFieldMeta.DocumentCurrencyCode}
+          fieldConfig={fieldConfig}
+          code={value?.DocumentCurrencyCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Document Currency Code"
-            value={value.DocumentCurrencyCode?.[0]}
-            meta={ReminderFieldMeta.DocumentCurrencyCode}
-          />
+    [
+      ReminderField.TaxCurrencyCode,
+      { meta: ReminderFieldMeta.TaxCurrencyCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ReminderField.TaxCurrencyCode}
+          meta={ReminderFieldMeta.TaxCurrencyCode}
+          fieldConfig={fieldConfig}
+          code={value?.TaxCurrencyCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Tax Currency Code"
-            value={value.TaxCurrencyCode?.[0]}
-            meta={ReminderFieldMeta.TaxCurrencyCode}
-          />
+    [
+      ReminderField.PricingCurrencyCode,
+      { meta: ReminderFieldMeta.PricingCurrencyCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ReminderField.PricingCurrencyCode}
+          meta={ReminderFieldMeta.PricingCurrencyCode}
+          fieldConfig={fieldConfig}
+          code={value?.PricingCurrencyCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Pricing Currency Code"
-            value={value.PricingCurrencyCode?.[0]}
-            meta={ReminderFieldMeta.PricingCurrencyCode}
-          />
+    [
+      ReminderField.PaymentCurrencyCode,
+      { meta: ReminderFieldMeta.PaymentCurrencyCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ReminderField.PaymentCurrencyCode}
+          meta={ReminderFieldMeta.PaymentCurrencyCode}
+          fieldConfig={fieldConfig}
+          code={value?.PaymentCurrencyCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Payment Currency Code"
-            value={value.PaymentCurrencyCode?.[0]}
-            meta={ReminderFieldMeta.PaymentCurrencyCode}
-          />
+    [
+      ReminderField.PaymentAlternativeCurrencyCode,
+      { meta: ReminderFieldMeta.PaymentAlternativeCurrencyCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ReminderField.PaymentAlternativeCurrencyCode}
+          meta={ReminderFieldMeta.PaymentAlternativeCurrencyCode}
+          fieldConfig={fieldConfig}
+          code={value?.PaymentAlternativeCurrencyCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Payment Alternative Currency Code"
-            value={value.PaymentAlternativeCurrencyCode?.[0]}
-            meta={ReminderFieldMeta.PaymentAlternativeCurrencyCode}
-          />
+    [
+      ReminderField.AccountingCostCode,
+      { meta: ReminderFieldMeta.AccountingCostCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ReminderField.AccountingCostCode}
+          meta={ReminderFieldMeta.AccountingCostCode}
+          fieldConfig={fieldConfig}
+          code={value?.AccountingCostCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Accounting Cost Code"
-            value={value.AccountingCostCode?.[0]}
-            meta={ReminderFieldMeta.AccountingCostCode}
-          />
+    [
+      ReminderField.AccountingCost,
+      { meta: ReminderFieldMeta.AccountingCost,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ReminderField.AccountingCost}
+          meta={ReminderFieldMeta.AccountingCost}
+          fieldConfig={fieldConfig}
+          text={value?.AccountingCost}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Accounting Cost"
-            value={value.AccountingCost?.[0]}
-            meta={ReminderFieldMeta.AccountingCost}
-          />
+    [
+      ReminderField.LineCountNumeric,
+      { meta: ReminderFieldMeta.LineCountNumeric,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={ReminderField.LineCountNumeric}
+          meta={ReminderFieldMeta.LineCountNumeric}
+          fieldConfig={fieldConfig}
+          numeric={value?.LineCountNumeric}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Line Count"
-            value={value.LineCountNumeric?.[0]}
-            meta={ReminderFieldMeta.LineCountNumeric}
-          />
+    [
+      ReminderField.ReminderPeriod,
+      { meta: ReminderFieldMeta.ReminderPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={ReminderField.ReminderPeriod}
+          meta={ReminderFieldMeta.ReminderPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.ReminderPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Period ubl-ReminderPeriod"
-            label="Reminder Period"
-            items={value.ReminderPeriod}
-            meta={ReminderFieldMeta.ReminderPeriod} 
-            itemDisplay={ (itemValue: Period, key: string | number) =>
-              <PeriodDisplay
-                key={key}
-                label="Reminder Period"
-                value={itemValue}
-                meta={ReminderFieldMeta.ReminderPeriod}
-              />
-            }
-          />
+    [
+      ReminderField.AdditionalDocumentReference,
+      { meta: ReminderFieldMeta.AdditionalDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={ReminderField.AdditionalDocumentReference}
+          meta={ReminderFieldMeta.AdditionalDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.AdditionalDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-AdditionalDocumentReference"
-            label="Additional Document Reference"
-            items={value.AdditionalDocumentReference}
-            meta={ReminderFieldMeta.AdditionalDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Additional Document Reference"
-                value={itemValue}
-                meta={ReminderFieldMeta.AdditionalDocumentReference}
-              />
-            }
-          />
+    [
+      ReminderField.Signature,
+      { meta: ReminderFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={ReminderField.Signature}
+          meta={ReminderFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={ReminderFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={ReminderFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      ReminderField.AccountingSupplierParty,
+      { meta: ReminderFieldMeta.AccountingSupplierParty,
+        template: ({value, renderContext, fieldConfig}) => <SupplierPartyDisplay
+          key={ReminderField.AccountingSupplierParty}
+          meta={ReminderFieldMeta.AccountingSupplierParty}
+          fieldConfig={fieldConfig}
+          supplierParty={value?.AccountingSupplierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <SupplierPartyDisplay
-            label="Accounting Supplier Party"
-            value={value.AccountingSupplierParty?.[0]}
-            meta={ReminderFieldMeta.AccountingSupplierParty}
-          />
+    [
+      ReminderField.AccountingCustomerParty,
+      { meta: ReminderFieldMeta.AccountingCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={ReminderField.AccountingCustomerParty}
+          meta={ReminderFieldMeta.AccountingCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.AccountingCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomerPartyDisplay
-            label="Accounting Customer Party"
-            value={value.AccountingCustomerParty?.[0]}
-            meta={ReminderFieldMeta.AccountingCustomerParty}
-          />
+    [
+      ReminderField.PayeeParty,
+      { meta: ReminderFieldMeta.PayeeParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ReminderField.PayeeParty}
+          meta={ReminderFieldMeta.PayeeParty}
+          fieldConfig={fieldConfig}
+          party={value?.PayeeParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Payee Party"
-            value={value.PayeeParty?.[0]}
-            meta={ReminderFieldMeta.PayeeParty}
-          />
+    [
+      ReminderField.TaxRepresentativeParty,
+      { meta: ReminderFieldMeta.TaxRepresentativeParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ReminderField.TaxRepresentativeParty}
+          meta={ReminderFieldMeta.TaxRepresentativeParty}
+          fieldConfig={fieldConfig}
+          party={value?.TaxRepresentativeParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Tax Representative Party"
-            value={value.TaxRepresentativeParty?.[0]}
-            meta={ReminderFieldMeta.TaxRepresentativeParty}
-          />
+    [
+      ReminderField.PaymentMeans,
+      { meta: ReminderFieldMeta.PaymentMeans,
+        template: ({value, renderContext, fieldConfig}) => <PaymentMeansDisplay
+          key={ReminderField.PaymentMeans}
+          meta={ReminderFieldMeta.PaymentMeans}
+          fieldConfig={fieldConfig}
+          paymentMeans={value?.PaymentMeans}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-PaymentMeans"
-            label="Payment Means"
-            items={value.PaymentMeans}
-            meta={ReminderFieldMeta.PaymentMeans} 
-            itemDisplay={ (itemValue: PaymentMeans, key: string | number) =>
-              <PaymentMeansDisplay
-                key={key}
-                label="Payment Means"
-                value={itemValue}
-                meta={ReminderFieldMeta.PaymentMeans}
-              />
-            }
-          />
+    [
+      ReminderField.PaymentTerms,
+      { meta: ReminderFieldMeta.PaymentTerms,
+        template: ({value, renderContext, fieldConfig}) => <PaymentTermsDisplay
+          key={ReminderField.PaymentTerms}
+          meta={ReminderFieldMeta.PaymentTerms}
+          fieldConfig={fieldConfig}
+          paymentTerms={value?.PaymentTerms}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-PaymentTerms"
-            label="Payment Terms"
-            items={value.PaymentTerms}
-            meta={ReminderFieldMeta.PaymentTerms} 
-            itemDisplay={ (itemValue: PaymentTerms, key: string | number) =>
-              <PaymentTermsDisplay
-                key={key}
-                label="Payment Terms"
-                value={itemValue}
-                meta={ReminderFieldMeta.PaymentTerms}
-              />
-            }
-          />
+    [
+      ReminderField.PrepaidPayment,
+      { meta: ReminderFieldMeta.PrepaidPayment,
+        template: ({value, renderContext, fieldConfig}) => <PaymentDisplay
+          key={ReminderField.PrepaidPayment}
+          meta={ReminderFieldMeta.PrepaidPayment}
+          fieldConfig={fieldConfig}
+          payment={value?.PrepaidPayment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Payment ubl-PrepaidPayment"
-            label="Prepaid Payment"
-            items={value.PrepaidPayment}
-            meta={ReminderFieldMeta.PrepaidPayment} 
-            itemDisplay={ (itemValue: Payment, key: string | number) =>
-              <PaymentDisplay
-                key={key}
-                label="Prepaid Payment"
-                value={itemValue}
-                meta={ReminderFieldMeta.PrepaidPayment}
-              />
-            }
-          />
+    [
+      ReminderField.AllowanceCharge,
+      { meta: ReminderFieldMeta.AllowanceCharge,
+        template: ({value, renderContext, fieldConfig}) => <AllowanceChargeDisplay
+          key={ReminderField.AllowanceCharge}
+          meta={ReminderFieldMeta.AllowanceCharge}
+          fieldConfig={fieldConfig}
+          allowanceCharge={value?.AllowanceCharge}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-AllowanceCharge"
-            label="Allowance Charge"
-            items={value.AllowanceCharge}
-            meta={ReminderFieldMeta.AllowanceCharge} 
-            itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-              <AllowanceChargeDisplay
-                key={key}
-                label="Allowance Charge"
-                value={itemValue}
-                meta={ReminderFieldMeta.AllowanceCharge}
-              />
-            }
-          />
+    [
+      ReminderField.TaxExchangeRate,
+      { meta: ReminderFieldMeta.TaxExchangeRate,
+        template: ({value, renderContext, fieldConfig}) => <ExchangeRateDisplay
+          key={ReminderField.TaxExchangeRate}
+          meta={ReminderFieldMeta.TaxExchangeRate}
+          fieldConfig={fieldConfig}
+          exchangeRate={value?.TaxExchangeRate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ExchangeRateDisplay
-            label="Tax Exchange Rate"
-            value={value.TaxExchangeRate?.[0]}
-            meta={ReminderFieldMeta.TaxExchangeRate}
-          />
+    [
+      ReminderField.PricingExchangeRate,
+      { meta: ReminderFieldMeta.PricingExchangeRate,
+        template: ({value, renderContext, fieldConfig}) => <ExchangeRateDisplay
+          key={ReminderField.PricingExchangeRate}
+          meta={ReminderFieldMeta.PricingExchangeRate}
+          fieldConfig={fieldConfig}
+          exchangeRate={value?.PricingExchangeRate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ExchangeRateDisplay
-            label="Pricing Exchange Rate"
-            value={value.PricingExchangeRate?.[0]}
-            meta={ReminderFieldMeta.PricingExchangeRate}
-          />
+    [
+      ReminderField.PaymentExchangeRate,
+      { meta: ReminderFieldMeta.PaymentExchangeRate,
+        template: ({value, renderContext, fieldConfig}) => <ExchangeRateDisplay
+          key={ReminderField.PaymentExchangeRate}
+          meta={ReminderFieldMeta.PaymentExchangeRate}
+          fieldConfig={fieldConfig}
+          exchangeRate={value?.PaymentExchangeRate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ExchangeRateDisplay
-            label="Payment Exchange Rate"
-            value={value.PaymentExchangeRate?.[0]}
-            meta={ReminderFieldMeta.PaymentExchangeRate}
-          />
+    [
+      ReminderField.PaymentAlternativeExchangeRate,
+      { meta: ReminderFieldMeta.PaymentAlternativeExchangeRate,
+        template: ({value, renderContext, fieldConfig}) => <ExchangeRateDisplay
+          key={ReminderField.PaymentAlternativeExchangeRate}
+          meta={ReminderFieldMeta.PaymentAlternativeExchangeRate}
+          fieldConfig={fieldConfig}
+          exchangeRate={value?.PaymentAlternativeExchangeRate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ExchangeRateDisplay
-            label="Payment Alternative Exchange Rate"
-            value={value.PaymentAlternativeExchangeRate?.[0]}
-            meta={ReminderFieldMeta.PaymentAlternativeExchangeRate}
-          />
+    [
+      ReminderField.TaxTotal,
+      { meta: ReminderFieldMeta.TaxTotal,
+        template: ({value, renderContext, fieldConfig}) => <TaxTotalDisplay
+          key={ReminderField.TaxTotal}
+          meta={ReminderFieldMeta.TaxTotal}
+          fieldConfig={fieldConfig}
+          taxTotal={value?.TaxTotal}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-TaxTotal"
-            label="Tax Total"
-            items={value.TaxTotal}
-            meta={ReminderFieldMeta.TaxTotal} 
-            itemDisplay={ (itemValue: TaxTotal, key: string | number) =>
-              <TaxTotalDisplay
-                key={key}
-                label="Tax Total"
-                value={itemValue}
-                meta={ReminderFieldMeta.TaxTotal}
-              />
-            }
-          />
+    [
+      ReminderField.LegalMonetaryTotal,
+      { meta: ReminderFieldMeta.LegalMonetaryTotal,
+        template: ({value, renderContext, fieldConfig}) => <MonetaryTotalDisplay
+          key={ReminderField.LegalMonetaryTotal}
+          meta={ReminderFieldMeta.LegalMonetaryTotal}
+          fieldConfig={fieldConfig}
+          monetaryTotal={value?.LegalMonetaryTotal}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MonetaryTotalDisplay
-            label="Legal Monetary Total"
-            value={value.LegalMonetaryTotal?.[0]}
-            meta={ReminderFieldMeta.LegalMonetaryTotal}
-          />
+    [
+      ReminderField.ReminderLine,
+      { meta: ReminderFieldMeta.ReminderLine,
+        template: ({value, renderContext, fieldConfig}) => <ReminderLineDisplay
+          key={ReminderField.ReminderLine}
+          meta={ReminderFieldMeta.ReminderLine}
+          fieldConfig={fieldConfig}
+          reminderLine={value?.ReminderLine}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-ReminderLine"
-            label="Reminder Line"
-            items={value.ReminderLine}
-            meta={ReminderFieldMeta.ReminderLine} 
-            itemDisplay={ (itemValue: ReminderLine, key: string | number) =>
-              <ReminderLineDisplay
-                key={key}
-                label="Reminder Line"
-                value={itemValue}
-                meta={ReminderFieldMeta.ReminderLine}
-              />
-            }
-          />
-        </div>
-    </div>
+export function ReminderDisplay<TFieldMeta>({ meta, fieldConfig, reminder, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ReminderTypeName,
+    meta,
+    fieldConfig,
+    reminder,
+    renderContext,
+    ReminderSubElementsMap,
   )
 }

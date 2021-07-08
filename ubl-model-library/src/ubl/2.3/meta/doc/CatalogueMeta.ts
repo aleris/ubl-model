@@ -1,4 +1,22 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CatalogueLineType } from '../cac/CatalogueLineMeta'
+import { CatalogueReferenceType } from '../cac/CatalogueReferenceMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { ContractType } from '../cac/ContractMeta'
+import { CustomerPartyType } from '../cac/CustomerPartyMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { PeriodType } from '../cac/PeriodMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { SupplierPartyType } from '../cac/SupplierPartyMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { TradingTermsType } from '../cac/TradingTermsMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum CatalogueField {
   UBLExtensions = 'UBLExtensions',
@@ -35,11 +53,11 @@ export enum CatalogueField {
 export const CatalogueFieldMetaUBLExtensions = new FieldMeta<CatalogueField>(
   CatalogueField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -48,10 +66,10 @@ export const CatalogueFieldMetaUBLVersionID = new FieldMeta<CatalogueField>(
   CatalogueField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.0.5'
 )
@@ -60,10 +78,10 @@ export const CatalogueFieldMetaCustomizationID = new FieldMeta<CatalogueField>(
   CatalogueField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -72,10 +90,10 @@ export const CatalogueFieldMetaProfileID = new FieldMeta<CatalogueField>(
   CatalogueField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BasicProcurementProcess'
 )
@@ -84,10 +102,10 @@ export const CatalogueFieldMetaProfileExecutionID = new FieldMeta<CatalogueField
   CatalogueField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BPP-1001'
 )
@@ -96,10 +114,10 @@ export const CatalogueFieldMetaID = new FieldMeta<CatalogueField>(
   CatalogueField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -108,10 +126,10 @@ export const CatalogueFieldMetaUUID = new FieldMeta<CatalogueField>(
   CatalogueField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -120,10 +138,10 @@ export const CatalogueFieldMetaActionCode = new FieldMeta<CatalogueField>(
   CatalogueField.ActionCode,
   'ActionCode',
   'Action Code',
-  'Code',
+  CodeType.name,
   'A code signifying whether the transaction is a replacement or an update.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Replace , Update .'
 )
@@ -132,10 +150,10 @@ export const CatalogueFieldMetaName = new FieldMeta<CatalogueField>(
   CatalogueField.Name,
   'Name',
   'Name',
-  'Text',
+  TextType.name,
   'Text, assigned by the sender, that identifies this document to business users.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'winter 2005 collection'
 )
@@ -144,10 +162,10 @@ export const CatalogueFieldMetaIssueDate = new FieldMeta<CatalogueField>(
   CatalogueField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -156,10 +174,10 @@ export const CatalogueFieldMetaIssueTime = new FieldMeta<CatalogueField>(
   CatalogueField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -168,10 +186,10 @@ export const CatalogueFieldMetaRevisionDate = new FieldMeta<CatalogueField>(
   CatalogueField.RevisionDate,
   'RevisionDate',
   'Revision Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the seller party, on which the information in the Catalogue was last revised.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -180,10 +198,10 @@ export const CatalogueFieldMetaRevisionTime = new FieldMeta<CatalogueField>(
   CatalogueField.RevisionTime,
   'RevisionTime',
   'Revision Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the Seller party, at which the information in the Catalogue was last revised.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -192,10 +210,10 @@ export const CatalogueFieldMetaNote = new FieldMeta<CatalogueField>(
   CatalogueField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -204,10 +222,10 @@ export const CatalogueFieldMetaDescription = new FieldMeta<CatalogueField>(
   CatalogueField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Textual description of the document instance.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   'computer accessories for laptops'
 )
@@ -216,10 +234,10 @@ export const CatalogueFieldMetaVersionID = new FieldMeta<CatalogueField>(
   CatalogueField.VersionID,
   'VersionID',
   'Version',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the current version of the Catalogue.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '1.1'
 )
@@ -228,10 +246,10 @@ export const CatalogueFieldMetaPreviousVersionID = new FieldMeta<CatalogueField>
   CatalogueField.PreviousVersionID,
   'PreviousVersionID',
   'Previous Version',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the previous version of the Catalogue that is superseded by this version.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '1.0'
 )
@@ -240,10 +258,10 @@ export const CatalogueFieldMetaLineCountNumeric = new FieldMeta<CatalogueField>(
   CatalogueField.LineCountNumeric,
   'LineCountNumeric',
   'Line Count',
-  'Numeric',
+  NumericType.name,
   'The number of Catalogue Lines in the document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -252,10 +270,10 @@ export const CatalogueFieldMetaValidityPeriod = new FieldMeta<CatalogueField>(
   CatalogueField.ValidityPeriod,
   'ValidityPeriod',
   'Validity Period',
-  'Period',
+  PeriodType.name,
   'A period, assigned by the seller, during which the information in the Catalogue is effective. This may be given as start and end dates or as a duration.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -264,10 +282,10 @@ export const CatalogueFieldMetaReferencedContract = new FieldMeta<CatalogueField
   CatalogueField.ReferencedContract,
   'ReferencedContract',
   'Referenced Contract',
-  'Contract',
+  ContractType.name,
   'A contract or framework agreement with which this Catalogue is associated.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -276,10 +294,10 @@ export const CatalogueFieldMetaSourceCatalogueReference = new FieldMeta<Catalogu
   CatalogueField.SourceCatalogueReference,
   'SourceCatalogueReference',
   'Source Catalogue Reference',
-  'CatalogueReference',
+  CatalogueReferenceType.name,
   'A reference to the source catalogue.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -288,10 +306,10 @@ export const CatalogueFieldMetaDocumentReference = new FieldMeta<CatalogueField>
   CatalogueField.DocumentReference,
   'DocumentReference',
   'Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to another document associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -300,10 +318,10 @@ export const CatalogueFieldMetaSignature = new FieldMeta<CatalogueField>(
   CatalogueField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -312,10 +330,10 @@ export const CatalogueFieldMetaProviderParty = new FieldMeta<CatalogueField>(
   CatalogueField.ProviderParty,
   'ProviderParty',
   'Provider Party',
-  'Party',
+  PartyType.name,
   'The party providing the Catalogue.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -324,10 +342,10 @@ export const CatalogueFieldMetaReceiverParty = new FieldMeta<CatalogueField>(
   CatalogueField.ReceiverParty,
   'ReceiverParty',
   'Receiver Party',
-  'Party',
+  PartyType.name,
   'The party receiving the Catalogue.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -336,10 +354,10 @@ export const CatalogueFieldMetaSellerSupplierParty = new FieldMeta<CatalogueFiel
   CatalogueField.SellerSupplierParty,
   'SellerSupplierParty',
   'Seller Supplier Party',
-  'SupplierParty',
+  SupplierPartyType.name,
   'The seller.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -348,10 +366,10 @@ export const CatalogueFieldMetaContractorCustomerParty = new FieldMeta<Catalogue
   CatalogueField.ContractorCustomerParty,
   'ContractorCustomerParty',
   'Contractor Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The customer party responsible for the contracts with which the Catalogue is associated.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -360,10 +378,10 @@ export const CatalogueFieldMetaTradingTerms = new FieldMeta<CatalogueField>(
   CatalogueField.TradingTerms,
   'TradingTerms',
   'Trading Terms',
-  'TradingTerms',
+  TradingTermsType.name,
   'The trading terms associated with this Catalogue.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -372,10 +390,10 @@ export const CatalogueFieldMetaCatalogueLine = new FieldMeta<CatalogueField>(
   CatalogueField.CatalogueLine,
   'CatalogueLine',
   'Catalogue Line',
-  'CatalogueLine',
+  CatalogueLineType.name,
   'A line in a Catalogue describing an item of sale.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -443,3 +461,11 @@ export const CatalogueFieldMap = new Map([
   [CatalogueField.TradingTerms, CatalogueFieldMetaTradingTerms],
   [CatalogueField.CatalogueLine, CatalogueFieldMetaCatalogueLine]
 ])
+
+export const CatalogueType: Type<CatalogueField> = {
+  name: 'Catalogue',
+  label: 'Catalogue',
+  module: TypeModule.doc,
+  definition: 'A document that describes items, prices, and price validity.',
+  fields: CatalogueFieldMap,
+}

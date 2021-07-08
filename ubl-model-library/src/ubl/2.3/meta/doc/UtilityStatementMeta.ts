@@ -1,4 +1,18 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { CustomerPartyType } from '../cac/CustomerPartyMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { OnAccountPaymentType } from '../cac/OnAccountPaymentMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { SubscriberConsumptionType } from '../cac/SubscriberConsumptionMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum UtilityStatementField {
   UBLExtensions = 'UBLExtensions',
@@ -30,11 +44,11 @@ export enum UtilityStatementField {
 export const UtilityStatementFieldMetaUBLExtensions = new FieldMeta<UtilityStatementField>(
   UtilityStatementField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -43,10 +57,10 @@ export const UtilityStatementFieldMetaUBLVersionID = new FieldMeta<UtilityStatem
   UtilityStatementField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.0'
 )
@@ -55,10 +69,10 @@ export const UtilityStatementFieldMetaCustomizationID = new FieldMeta<UtilitySta
   UtilityStatementField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'OIOUBL-2.02'
 )
@@ -67,10 +81,10 @@ export const UtilityStatementFieldMetaProfileID = new FieldMeta<UtilityStatement
   UtilityStatementField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Reference-Utility-1.0'
 )
@@ -79,10 +93,10 @@ export const UtilityStatementFieldMetaProfileExecutionID = new FieldMeta<Utility
   UtilityStatementField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BPP-1001'
 )
@@ -91,10 +105,10 @@ export const UtilityStatementFieldMetaID = new FieldMeta<UtilityStatementField>(
   UtilityStatementField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   '61014906x-1'
 )
@@ -103,10 +117,10 @@ export const UtilityStatementFieldMetaCopyIndicator = new FieldMeta<UtilityState
   UtilityStatementField.CopyIndicator,
   'CopyIndicator',
   'Copy Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this document is a copy (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -115,10 +129,10 @@ export const UtilityStatementFieldMetaUUID = new FieldMeta<UtilityStatementField
   UtilityStatementField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '9756b4d0-8815-1029-857a-e388fe63f499'
 )
@@ -127,10 +141,10 @@ export const UtilityStatementFieldMetaIssueDate = new FieldMeta<UtilityStatement
   UtilityStatementField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   '2007-12-12'
 )
@@ -139,10 +153,10 @@ export const UtilityStatementFieldMetaIssueTime = new FieldMeta<UtilityStatement
   UtilityStatementField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '12:32:56'
 )
@@ -151,10 +165,10 @@ export const UtilityStatementFieldMetaUtilityStatementTypeCode = new FieldMeta<U
   UtilityStatementField.UtilityStatementTypeCode,
   'UtilityStatementTypeCode',
   'Utility Statement Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of Utility Statement.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   'Electricity'
 )
@@ -163,10 +177,10 @@ export const UtilityStatementFieldMetaNote = new FieldMeta<UtilityStatementField
   UtilityStatementField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   'Concerning account remark'
 )
@@ -175,10 +189,10 @@ export const UtilityStatementFieldMetaDocumentCurrencyCode = new FieldMeta<Utili
   UtilityStatementField.DocumentCurrencyCode,
   'DocumentCurrencyCode',
   'Document Currency Code',
-  'Code',
+  CodeType.name,
   'A code signifying the default currency for this document.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -187,10 +201,10 @@ export const UtilityStatementFieldMetaAccountingCostCode = new FieldMeta<Utility
   UtilityStatementField.AccountingCostCode,
   'AccountingCostCode',
   'Accounting Cost Code',
-  'Code',
+  CodeType.name,
   'The buyer\'s accounting cost code, applied to the UtilityStatement.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '5050.0'
 )
@@ -199,10 +213,10 @@ export const UtilityStatementFieldMetaAccountingCost = new FieldMeta<UtilityStat
   UtilityStatementField.AccountingCost,
   'AccountingCost',
   'Accounting Cost',
-  'Text',
+  TextType.name,
   'The buyer\'s accounting cost code, applied to the UtilityStatement, expressed as text.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -211,10 +225,10 @@ export const UtilityStatementFieldMetaParentDocumentReference = new FieldMeta<Ut
   UtilityStatementField.ParentDocumentReference,
   'ParentDocumentReference',
   'Parent Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to the parent Invoice or Credit Note.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -223,10 +237,10 @@ export const UtilityStatementFieldMetaAdditionalDocumentReference = new FieldMet
   UtilityStatementField.AdditionalDocumentReference,
   'AdditionalDocumentReference',
   'Additional Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to an additional document associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -235,10 +249,10 @@ export const UtilityStatementFieldMetaSignature = new FieldMeta<UtilityStatement
   UtilityStatementField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -247,10 +261,10 @@ export const UtilityStatementFieldMetaSenderParty = new FieldMeta<UtilityStateme
   UtilityStatementField.SenderParty,
   'SenderParty',
   'Sender Party',
-  'Party',
+  PartyType.name,
   'The party sending this document.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -259,10 +273,10 @@ export const UtilityStatementFieldMetaReceiverParty = new FieldMeta<UtilityState
   UtilityStatementField.ReceiverParty,
   'ReceiverParty',
   'Receiver Party',
-  'Party',
+  PartyType.name,
   'The party receiving this document.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -271,10 +285,10 @@ export const UtilityStatementFieldMetaCustomerParty = new FieldMeta<UtilityState
   UtilityStatementField.CustomerParty,
   'CustomerParty',
   'Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The buyer, if different from the receiver of the document.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -283,10 +297,10 @@ export const UtilityStatementFieldMetaSubscriberParty = new FieldMeta<UtilitySta
   UtilityStatementField.SubscriberParty,
   'SubscriberParty',
   'Subscriber Party',
-  'Party',
+  PartyType.name,
   'The subscriber (user or receiver of the service), if different from the buyer and from the party receiving this document.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -295,10 +309,10 @@ export const UtilityStatementFieldMetaMainOnAccountPayment = new FieldMeta<Utili
   UtilityStatementField.MainOnAccountPayment,
   'MainOnAccountPayment',
   'Main On Account Payment',
-  'OnAccountPayment',
+  OnAccountPaymentType.name,
   'A payment on an account.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -307,10 +321,10 @@ export const UtilityStatementFieldMetaSubscriberConsumption = new FieldMeta<Util
   UtilityStatementField.SubscriberConsumption,
   'SubscriberConsumption',
   'Subscriber Consumption',
-  'SubscriberConsumption',
+  SubscriberConsumptionType.name,
   'A utility statement for a particular consumption point.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -368,3 +382,11 @@ export const UtilityStatementFieldMap = new Map([
   [UtilityStatementField.MainOnAccountPayment, UtilityStatementFieldMetaMainOnAccountPayment],
   [UtilityStatementField.SubscriberConsumption, UtilityStatementFieldMetaSubscriberConsumption]
 ])
+
+export const UtilityStatementType: Type<UtilityStatementField> = {
+  name: 'UtilityStatement',
+  label: 'Utility Statement',
+  module: TypeModule.doc,
+  definition: 'A supplement to an Invoice or Credit Note, containing information on the consumption of services provided by utility suppliers to private and public customers, including electricity, gas, water, and telephone services.',
+  fields: UtilityStatementFieldMap,
+}

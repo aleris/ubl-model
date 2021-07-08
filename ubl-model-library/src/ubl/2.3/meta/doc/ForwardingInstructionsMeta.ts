@@ -1,4 +1,19 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentDistributionType } from '../cac/DocumentDistributionMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { ExchangeRateType } from '../cac/ExchangeRateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { ShipmentType } from '../cac/ShipmentMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ForwardingInstructionsField {
   UBLExtensions = 'UBLExtensions',
@@ -33,11 +48,11 @@ export enum ForwardingInstructionsField {
 export const ForwardingInstructionsFieldMetaUBLExtensions = new FieldMeta<ForwardingInstructionsField>(
   ForwardingInstructionsField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -46,10 +61,10 @@ export const ForwardingInstructionsFieldMetaUBLVersionID = new FieldMeta<Forward
   ForwardingInstructionsField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.0.5'
 )
@@ -58,10 +73,10 @@ export const ForwardingInstructionsFieldMetaCustomizationID = new FieldMeta<Forw
   ForwardingInstructionsField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -70,10 +85,10 @@ export const ForwardingInstructionsFieldMetaProfileID = new FieldMeta<Forwarding
   ForwardingInstructionsField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BasicProcurementProcess'
 )
@@ -82,10 +97,10 @@ export const ForwardingInstructionsFieldMetaProfileExecutionID = new FieldMeta<F
   ForwardingInstructionsField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BPP-1001'
 )
@@ -94,10 +109,10 @@ export const ForwardingInstructionsFieldMetaID = new FieldMeta<ForwardingInstruc
   ForwardingInstructionsField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -106,10 +121,10 @@ export const ForwardingInstructionsFieldMetaCarrierAssignedID = new FieldMeta<Fo
   ForwardingInstructionsField.CarrierAssignedID,
   'CarrierAssignedID',
   'Carrier Assigned Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Reference number assigned by a carrier or its agent to identify a specific shipment, such as a booking reference number when cargo space is reserved prior to loading.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -118,10 +133,10 @@ export const ForwardingInstructionsFieldMetaUUID = new FieldMeta<ForwardingInstr
   ForwardingInstructionsField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -130,10 +145,10 @@ export const ForwardingInstructionsFieldMetaIssueDate = new FieldMeta<Forwarding
   ForwardingInstructionsField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -142,10 +157,10 @@ export const ForwardingInstructionsFieldMetaIssueTime = new FieldMeta<Forwarding
   ForwardingInstructionsField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -154,10 +169,10 @@ export const ForwardingInstructionsFieldMetaName = new FieldMeta<ForwardingInstr
   ForwardingInstructionsField.Name,
   'Name',
   'Name',
-  'Text',
+  TextType.name,
   'Text, assigned by the sender, that identifies this document to business users.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -166,10 +181,10 @@ export const ForwardingInstructionsFieldMetaDescription = new FieldMeta<Forwardi
   ForwardingInstructionsField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Textual description of the document instance.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -178,10 +193,10 @@ export const ForwardingInstructionsFieldMetaNote = new FieldMeta<ForwardingInstr
   ForwardingInstructionsField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -190,10 +205,10 @@ export const ForwardingInstructionsFieldMetaDocumentStatusCode = new FieldMeta<F
   ForwardingInstructionsField.DocumentStatusCode,
   'DocumentStatusCode',
   'Document Status Code',
-  'Code',
+  CodeType.name,
   'A code signifying the status of the Forwarding Instructions with respect to its original state. This code may be used if the document precedes the event and is subsequently found to be incorrect and in need of cancellation or revision.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -202,10 +217,10 @@ export const ForwardingInstructionsFieldMetaShippingOrderID = new FieldMeta<Forw
   ForwardingInstructionsField.ShippingOrderID,
   'ShippingOrderID',
   'Shipping Order Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Reference number to identify a Shipping Order.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -214,10 +229,10 @@ export const ForwardingInstructionsFieldMetaToOrderIndicator = new FieldMeta<For
   ForwardingInstructionsField.ToOrderIndicator,
   'ToOrderIndicator',
   'To Order Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether the transport document is consigned to order.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -226,10 +241,10 @@ export const ForwardingInstructionsFieldMetaAdValoremIndicator = new FieldMeta<F
   ForwardingInstructionsField.AdValoremIndicator,
   'AdValoremIndicator',
   'Ad Valorem Indicator',
-  'Indicator',
+  IndicatorType.name,
   'A term used in commerce in reference to certain duties, called ad valorem duties, which are levied on commodities at certain rates per centum on their value.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -238,10 +253,10 @@ export const ForwardingInstructionsFieldMetaDeclaredCarriageValueAmount = new Fi
   ForwardingInstructionsField.DeclaredCarriageValueAmount,
   'DeclaredCarriageValueAmount',
   'Declared Carriage Value',
-  'Amount',
+  AmountType.name,
   'Value declared by the shipper or his agent solely for the purpose of varying the carrier\'s level of liability from that provided in the contract of carriage in case of loss or damage to goods or delayed delivery.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -250,10 +265,10 @@ export const ForwardingInstructionsFieldMetaOtherInstruction = new FieldMeta<For
   ForwardingInstructionsField.OtherInstruction,
   'OtherInstruction',
   'Other Instruction',
-  'Text',
+  TextType.name,
   'Contains other free-text instructions to the forwarders or carriers related to the shipment. This should only be used where such information cannot be represented in other structured information entities within the document.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -262,10 +277,10 @@ export const ForwardingInstructionsFieldMetaConsignorParty = new FieldMeta<Forwa
   ForwardingInstructionsField.ConsignorParty,
   'ConsignorParty',
   'Consignor Party',
-  'Party',
+  PartyType.name,
   'The party consigning goods, as stipulated in the transport contract by the party ordering transport.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   'Consignor (WCO ID 71 and 72)',
   undefined
 )
@@ -274,10 +289,10 @@ export const ForwardingInstructionsFieldMetaCarrierParty = new FieldMeta<Forward
   ForwardingInstructionsField.CarrierParty,
   'CarrierParty',
   'Carrier Party',
-  'Party',
+  PartyType.name,
   'The party providing the transport of goods between named points.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   'Transport Company, Shipping Line, NVOCC, Airline, Haulier, Courier, Carrier (WCO ID 49 and 50)',
   undefined
 )
@@ -286,10 +301,10 @@ export const ForwardingInstructionsFieldMetaFreightForwarderParty = new FieldMet
   ForwardingInstructionsField.FreightForwarderParty,
   'FreightForwarderParty',
   'Freight Forwarder Party',
-  'Party',
+  PartyType.name,
   'A party combining individual smaller consignments into a single larger shipment (a so-called consolidated consignment or shipment) that is sent to a counterpart who mirrors the consolidator\'s activity by dividing the consolidated consignment into its original components.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   'Consolidator (WCO ID 192 AND 193)',
   undefined
 )
@@ -298,10 +313,10 @@ export const ForwardingInstructionsFieldMetaShipment = new FieldMeta<ForwardingI
   ForwardingInstructionsField.Shipment,
   'Shipment',
   'Shipment',
-  'Shipment',
+  ShipmentType.name,
   'An identifiable collection of one or more goods items to be transported between the seller party and the buyer party.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -310,10 +325,10 @@ export const ForwardingInstructionsFieldMetaDocumentReference = new FieldMeta<Fo
   ForwardingInstructionsField.DocumentReference,
   'DocumentReference',
   'Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to another document associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -322,10 +337,10 @@ export const ForwardingInstructionsFieldMetaExchangeRate = new FieldMeta<Forward
   ForwardingInstructionsField.ExchangeRate,
   'ExchangeRate',
   'Exchange Rate',
-  'ExchangeRate',
+  ExchangeRateType.name,
   'Information about the rate of exchange (conversion) between two currencies.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -334,10 +349,10 @@ export const ForwardingInstructionsFieldMetaDocumentDistribution = new FieldMeta
   ForwardingInstructionsField.DocumentDistribution,
   'DocumentDistribution',
   'Document Distribution',
-  'DocumentDistribution',
+  DocumentDistributionType.name,
   'A list of interested parties to whom this document is distributed.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -346,10 +361,10 @@ export const ForwardingInstructionsFieldMetaSignature = new FieldMeta<Forwarding
   ForwardingInstructionsField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -413,3 +428,11 @@ export const ForwardingInstructionsFieldMap = new Map([
   [ForwardingInstructionsField.DocumentDistribution, ForwardingInstructionsFieldMetaDocumentDistribution],
   [ForwardingInstructionsField.Signature, ForwardingInstructionsFieldMetaSignature]
 ])
+
+export const ForwardingInstructionsType: Type<ForwardingInstructionsField> = {
+  name: 'ForwardingInstructions',
+  label: 'Forwarding Instructions',
+  module: TypeModule.doc,
+  definition: 'A document issued to a forwarder, giving instructions regarding the action to be taken for the forwarding of goods described therein. Forwarding Instructions is used by any party who gives instructions for the transportation services required for a consignment of goods to any party who is contracted to provide the transportation services. The parties who issue this document are commonly referred to as the shipper or consignor, while the parties who receive this document are forwarders, carriers, shipping agents, etc. This document may also be issued by a forwarder or shipping agent in its capacity as a shipper. This document can be used to arrange for the transportation (1) of different types of goods or cargoes; (2) whether containerized or non-containerized; (3) through different modes of transport including multi-modal; and (4) from any origin to any destination.',
+  fields: ForwardingInstructionsFieldMap,
+}

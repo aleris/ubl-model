@@ -1,4 +1,10 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { ItemType } from './ItemMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum CriterionItemField {
   UBLExtensions = 'UBLExtensions',
@@ -11,11 +17,11 @@ export enum CriterionItemField {
 export const CriterionItemFieldMetaUBLExtensions = new FieldMeta<CriterionItemField>(
   CriterionItemField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -24,10 +30,10 @@ export const CriterionItemFieldMetaID = new FieldMeta<CriterionItemField>(
   CriterionItemField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this criteria',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -36,10 +42,10 @@ export const CriterionItemFieldMetaTypeCode = new FieldMeta<CriterionItemField>(
   CriterionItemField.TypeCode,
   'TypeCode',
   'Type Code',
-  'Code',
+  CodeType.name,
   'A code describing the type of criteria',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -48,10 +54,10 @@ export const CriterionItemFieldMetaCriterionDescription = new FieldMeta<Criterio
   CriterionItemField.CriterionDescription,
   'CriterionDescription',
   'Criterion Description',
-  'Text',
+  TextType.name,
   'The criteria for this item, expressed as a text',
-  '1..n',
-  'cbc',
+  FieldCardinality.Multi,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -60,10 +66,10 @@ export const CriterionItemFieldMetaDeclaredPropertyItem = new FieldMeta<Criterio
   CriterionItemField.DeclaredPropertyItem,
   'DeclaredPropertyItem',
   'Declared Property Item',
-  'Item',
+  ItemType.name,
   'The item associated with this criteria',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -83,3 +89,11 @@ export const CriterionItemFieldMap = new Map([
   [CriterionItemField.CriterionDescription, CriterionItemFieldMetaCriterionDescription],
   [CriterionItemField.DeclaredPropertyItem, CriterionItemFieldMetaDeclaredPropertyItem]
 ])
+
+export const CriterionItemType: Type<CriterionItemField> = {
+  name: 'CriterionItem',
+  label: 'Criterion Item',
+  module: TypeModule.cac,
+  definition: 'A class describing a criteria',
+  fields: CriterionItemFieldMap,
+}

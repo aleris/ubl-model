@@ -4,7 +4,6 @@ import { ContractingRepresentationType } from './ContractingRepresentationType'
 import { Identifier } from '../cbc/Identifier'
 import { Party } from './Party'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe an individual, a group, or a body having a procurement role in a tendering process.
  */

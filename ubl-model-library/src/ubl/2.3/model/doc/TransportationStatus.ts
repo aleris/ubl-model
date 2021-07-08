@@ -11,7 +11,6 @@ import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { TransportEvent } from '../cac/TransportEvent'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A document to circulate reports of transportation status or changes in status (events) among a group of participants.
  */

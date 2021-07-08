@@ -1,4 +1,12 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from './DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum WorkPhaseReferenceField {
   UBLExtensions = 'UBLExtensions',
@@ -14,11 +22,11 @@ export enum WorkPhaseReferenceField {
 export const WorkPhaseReferenceFieldMetaUBLExtensions = new FieldMeta<WorkPhaseReferenceField>(
   WorkPhaseReferenceField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -27,10 +35,10 @@ export const WorkPhaseReferenceFieldMetaID = new FieldMeta<WorkPhaseReferenceFie
   WorkPhaseReferenceField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this phase of work.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -39,10 +47,10 @@ export const WorkPhaseReferenceFieldMetaWorkPhaseCode = new FieldMeta<WorkPhaseR
   WorkPhaseReferenceField.WorkPhaseCode,
   'WorkPhaseCode',
   'Work Phase Code',
-  'Code',
+  CodeType.name,
   'A code signifying this phase of work.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -51,10 +59,10 @@ export const WorkPhaseReferenceFieldMetaWorkPhase = new FieldMeta<WorkPhaseRefer
   WorkPhaseReferenceField.WorkPhase,
   'WorkPhase',
   'Work Phase',
-  'Text',
+  TextType.name,
   'Text describing this phase of work.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -63,10 +71,10 @@ export const WorkPhaseReferenceFieldMetaProgressPercent = new FieldMeta<WorkPhas
   WorkPhaseReferenceField.ProgressPercent,
   'ProgressPercent',
   'Progress Percent',
-  'Numeric',
+  NumericType.name,
   'The progress percentage of the work phase.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -75,10 +83,10 @@ export const WorkPhaseReferenceFieldMetaStartDate = new FieldMeta<WorkPhaseRefer
   WorkPhaseReferenceField.StartDate,
   'StartDate',
   'Start Date',
-  'Date',
+  DateType.name,
   'The date on which this phase of work begins.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -87,10 +95,10 @@ export const WorkPhaseReferenceFieldMetaEndDate = new FieldMeta<WorkPhaseReferen
   WorkPhaseReferenceField.EndDate,
   'EndDate',
   'End Date',
-  'Date',
+  DateType.name,
   'The date on which this phase of work ends.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -99,10 +107,10 @@ export const WorkPhaseReferenceFieldMetaWorkOrderDocumentReference = new FieldMe
   WorkPhaseReferenceField.WorkOrderDocumentReference,
   'WorkOrderDocumentReference',
   'Work Order Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a document regarding the work order for the project in which this phase of work takes place.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -128,3 +136,11 @@ export const WorkPhaseReferenceFieldMap = new Map([
   [WorkPhaseReferenceField.EndDate, WorkPhaseReferenceFieldMetaEndDate],
   [WorkPhaseReferenceField.WorkOrderDocumentReference, WorkPhaseReferenceFieldMetaWorkOrderDocumentReference]
 ])
+
+export const WorkPhaseReferenceType: Type<WorkPhaseReferenceField> = {
+  name: 'WorkPhaseReference',
+  label: 'Work Phase Reference',
+  module: TypeModule.cac,
+  definition: 'A class that refers to a phase of work. Used for instance to specify what part of the contract the billing is referring to.',
+  fields: WorkPhaseReferenceFieldMap,
+}

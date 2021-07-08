@@ -1,4 +1,8 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { DigitalServiceType } from './DigitalServiceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum DigitalCollaborationField {
   UBLExtensions = 'UBLExtensions',
@@ -10,11 +14,11 @@ export enum DigitalCollaborationField {
 export const DigitalCollaborationFieldMetaUBLExtensions = new FieldMeta<DigitalCollaborationField>(
   DigitalCollaborationField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -23,10 +27,10 @@ export const DigitalCollaborationFieldMetaID = new FieldMeta<DigitalCollaboratio
   DigitalCollaborationField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the digital collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -35,10 +39,10 @@ export const DigitalCollaborationFieldMetaSendingDigitalService = new FieldMeta<
   DigitalCollaborationField.SendingDigitalService,
   'SendingDigitalService',
   'Sending Digital Service',
-  'DigitalService',
+  DigitalServiceType.name,
   'The sending digital service associated with this digital collaboration.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -47,10 +51,10 @@ export const DigitalCollaborationFieldMetaReceivingDigitalService = new FieldMet
   DigitalCollaborationField.ReceivingDigitalService,
   'ReceivingDigitalService',
   'Receiving Digital Service',
-  'DigitalService',
+  DigitalServiceType.name,
   'The receiving digital service associated with this digital collaboration.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -68,3 +72,11 @@ export const DigitalCollaborationFieldMap = new Map([
   [DigitalCollaborationField.SendingDigitalService, DigitalCollaborationFieldMetaSendingDigitalService],
   [DigitalCollaborationField.ReceivingDigitalService, DigitalCollaborationFieldMetaReceivingDigitalService]
 ])
+
+export const DigitalCollaborationType: Type<DigitalCollaborationField> = {
+  name: 'DigitalCollaboration',
+  label: 'Digital Collaboration',
+  module: TypeModule.cac,
+  definition: 'A class to describe a digital trade collaboration.',
+  fields: DigitalCollaborationFieldMap,
+}

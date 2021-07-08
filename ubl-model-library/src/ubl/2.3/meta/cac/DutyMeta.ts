@@ -1,4 +1,10 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { TaxCategoryType } from './TaxCategoryMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum DutyField {
   UBLExtensions = 'UBLExtensions',
@@ -11,11 +17,11 @@ export enum DutyField {
 export const DutyFieldMetaUBLExtensions = new FieldMeta<DutyField>(
   DutyField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -24,10 +30,10 @@ export const DutyFieldMetaAmount = new FieldMeta<DutyField>(
   DutyField.Amount,
   'Amount',
   'Amount',
-  'Amount',
+  AmountType.name,
   'The amount of this duty.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   '88.23'
 )
@@ -36,10 +42,10 @@ export const DutyFieldMetaDuty = new FieldMeta<DutyField>(
   DutyField.Duty,
   'Duty',
   'Duty',
-  'Text',
+  TextType.name,
   'Text describing this duty.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'ConnectionFee'
 )
@@ -48,10 +54,10 @@ export const DutyFieldMetaDutyCode = new FieldMeta<DutyField>(
   DutyField.DutyCode,
   'DutyCode',
   'Duty Code',
-  'Code',
+  CodeType.name,
   'The type of this charge rate, expressed as a code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'ConnectionFee'
 )
@@ -60,10 +66,10 @@ export const DutyFieldMetaTaxCategory = new FieldMeta<DutyField>(
   DutyField.TaxCategory,
   'TaxCategory',
   'Tax Category',
-  'TaxCategory',
+  TaxCategoryType.name,
   'The tax category applicable to this duty.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -83,3 +89,11 @@ export const DutyFieldMap = new Map([
   [DutyField.DutyCode, DutyFieldMetaDutyCode],
   [DutyField.TaxCategory, DutyFieldMetaTaxCategory]
 ])
+
+export const DutyType: Type<DutyField> = {
+  name: 'Duty',
+  label: 'Duty',
+  module: TypeModule.cac,
+  definition: 'The charging rate used for both call charging and time dependent charging',
+  fields: DutyFieldMap,
+}

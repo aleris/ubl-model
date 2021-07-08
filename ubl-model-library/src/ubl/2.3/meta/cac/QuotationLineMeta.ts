@@ -1,4 +1,13 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { DocumentReferenceType } from './DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { LineItemType } from './LineItemMeta'
+import { LineReferenceType } from './LineReferenceMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum QuotationLineField {
   UBLExtensions = 'UBLExtensions',
@@ -19,11 +28,11 @@ export enum QuotationLineField {
 export const QuotationLineFieldMetaUBLExtensions = new FieldMeta<QuotationLineField>(
   QuotationLineField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -32,10 +41,10 @@ export const QuotationLineFieldMetaID = new FieldMeta<QuotationLineField>(
   QuotationLineField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this quotation line.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -44,10 +53,10 @@ export const QuotationLineFieldMetaNote = new FieldMeta<QuotationLineField>(
   QuotationLineField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -56,10 +65,10 @@ export const QuotationLineFieldMetaQuantity = new FieldMeta<QuotationLineField>(
   QuotationLineField.Quantity,
   'Quantity',
   'Quantity',
-  'Quantity',
+  QuantityType.name,
   'The quantity of the item quoted.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -68,10 +77,10 @@ export const QuotationLineFieldMetaLineExtensionAmount = new FieldMeta<Quotation
   QuotationLineField.LineExtensionAmount,
   'LineExtensionAmount',
   'Line Extension Amount',
-  'Amount',
+  AmountType.name,
   'The total amount for this quotation line, including allowance charges but net of taxes.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -80,10 +89,10 @@ export const QuotationLineFieldMetaTaxInclusiveLineExtensionAmount = new FieldMe
   QuotationLineField.TaxInclusiveLineExtensionAmount,
   'TaxInclusiveLineExtensionAmount',
   'Tax Inclusive Line Extension Amount',
-  'Amount',
+  AmountType.name,
   'The total amount for this quotation line, including all allowances, charges and taxes.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -92,10 +101,10 @@ export const QuotationLineFieldMetaTotalTaxAmount = new FieldMeta<QuotationLineF
   QuotationLineField.TotalTaxAmount,
   'TotalTaxAmount',
   'Total Tax Amount',
-  'Amount',
+  AmountType.name,
   'The total tax amount for this quotation line.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -104,10 +113,10 @@ export const QuotationLineFieldMetaRequestForQuotationLineID = new FieldMeta<Quo
   QuotationLineField.RequestForQuotationLineID,
   'RequestForQuotationLineID',
   'Request For Quotation Line Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the line in the Request for Quotation to which this line is a response.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -116,10 +125,10 @@ export const QuotationLineFieldMetaDocumentReference = new FieldMeta<QuotationLi
   QuotationLineField.DocumentReference,
   'DocumentReference',
   'Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a document associated with this quotation line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -128,10 +137,10 @@ export const QuotationLineFieldMetaLineItem = new FieldMeta<QuotationLineField>(
   QuotationLineField.LineItem,
   'LineItem',
   'Line Item',
-  'LineItem',
+  LineItemType.name,
   'The item that is the subject of this quotation line.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -140,10 +149,10 @@ export const QuotationLineFieldMetaSellerProposedSubstituteLineItem = new FieldM
   QuotationLineField.SellerProposedSubstituteLineItem,
   'SellerProposedSubstituteLineItem',
   'Seller Proposed Substitute Line Item',
-  'LineItem',
+  LineItemType.name,
   'An item proposed by the seller as a substitute for the item that is the subject of this quotation line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -152,10 +161,10 @@ export const QuotationLineFieldMetaAlternativeLineItem = new FieldMeta<Quotation
   QuotationLineField.AlternativeLineItem,
   'AlternativeLineItem',
   'Alternative Line Item',
-  'LineItem',
+  LineItemType.name,
   'An item proposed by the seller as an alternative to the item that is the subject of this quotation line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -164,10 +173,10 @@ export const QuotationLineFieldMetaRequestLineReference = new FieldMeta<Quotatio
   QuotationLineField.RequestLineReference,
   'RequestLineReference',
   'Request Line Reference',
-  'LineReference',
+  LineReferenceType.name,
   'A reference to the line in the Request for Quotation to which this line is a response.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -203,3 +212,11 @@ export const QuotationLineFieldMap = new Map([
   [QuotationLineField.AlternativeLineItem, QuotationLineFieldMetaAlternativeLineItem],
   [QuotationLineField.RequestLineReference, QuotationLineFieldMetaRequestLineReference]
 ])
+
+export const QuotationLineType: Type<QuotationLineField> = {
+  name: 'QuotationLine',
+  label: 'Quotation Line',
+  module: TypeModule.cac,
+  definition: 'A class to define a line in a Quotation.',
+  fields: QuotationLineFieldMap,
+}

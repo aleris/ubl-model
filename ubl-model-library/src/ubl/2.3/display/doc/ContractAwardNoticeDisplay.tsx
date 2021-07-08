@@ -1,327 +1,417 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ContractAwardNotice } from  '../../model/doc/ContractAwardNotice'
-import { ContractAwardNoticeFieldMeta } from  '../../meta/doc/ContractAwardNoticeMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import ContractingPartyDisplay from '../cac/ContractingPartyDisplay'
-import { ContractingParty } from '../../model/cac/ContractingParty'
-import CustomerPartyDisplay from '../cac/CustomerPartyDisplay'
-import { CustomerParty } from '../../model/cac/CustomerParty'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import LanguageDisplay from '../cac/LanguageDisplay'
-import { Language } from '../../model/cac/Language'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import ProcurementProjectDisplay from '../cac/ProcurementProjectDisplay'
-import { ProcurementProject } from '../../model/cac/ProcurementProject'
-import ProcurementProjectLotDisplay from '../cac/ProcurementProjectLotDisplay'
-import { ProcurementProjectLot } from '../../model/cac/ProcurementProjectLot'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import TenderingProcessDisplay from '../cac/TenderingProcessDisplay'
-import { TenderingProcess } from '../../model/cac/TenderingProcess'
-import TenderingTermsDisplay from '../cac/TenderingTermsDisplay'
-import { TenderingTerms } from '../../model/cac/TenderingTerms'
-import TenderResultDisplay from '../cac/TenderResultDisplay'
-import { TenderResult } from '../../model/cac/TenderResult'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ContractAwardNoticeField, ContractAwardNoticeFieldMeta, ContractAwardNoticeTypeName } from  '../../meta/doc/ContractAwardNoticeMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { ContractingPartyDisplay } from '../cac/ContractingPartyDisplay'
+import { CustomerPartyDisplay } from '../cac/CustomerPartyDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { LanguageDisplay } from '../cac/LanguageDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { ProcurementProjectDisplay } from '../cac/ProcurementProjectDisplay'
+import { ProcurementProjectLotDisplay } from '../cac/ProcurementProjectLotDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { TenderingProcessDisplay } from '../cac/TenderingProcessDisplay'
+import { TenderingTermsDisplay } from '../cac/TenderingTermsDisplay'
+import { TenderResultDisplay } from '../cac/TenderResultDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ContractAwardNotice | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ContractAwardNotice, void>
+  contractAwardNotice: ContractAwardNotice[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ContractAwardNoticeDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ContractAwardNoticeSubElementsMap: SubElementsTemplatesMap<ContractAwardNoticeField, ContractAwardNotice, void> = new Map([
+    [
+      ContractAwardNoticeField.UBLExtensions,
+      { meta: ContractAwardNoticeFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ContractAwardNoticeField.UBLExtensions}
+          meta={ContractAwardNoticeFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-ContractAwardNotice">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ContractAwardNoticeFieldMeta.UBLExtensions}
-          />
+    [
+      ContractAwardNoticeField.UBLVersionID,
+      { meta: ContractAwardNoticeFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ContractAwardNoticeField.UBLVersionID}
+          meta={ContractAwardNoticeFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={ContractAwardNoticeFieldMeta.UBLVersionID}
-          />
+    [
+      ContractAwardNoticeField.CustomizationID,
+      { meta: ContractAwardNoticeFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ContractAwardNoticeField.CustomizationID}
+          meta={ContractAwardNoticeFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={ContractAwardNoticeFieldMeta.CustomizationID}
-          />
+    [
+      ContractAwardNoticeField.ProfileID,
+      { meta: ContractAwardNoticeFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ContractAwardNoticeField.ProfileID}
+          meta={ContractAwardNoticeFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={ContractAwardNoticeFieldMeta.ProfileID}
-          />
+    [
+      ContractAwardNoticeField.ProfileExecutionID,
+      { meta: ContractAwardNoticeFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ContractAwardNoticeField.ProfileExecutionID}
+          meta={ContractAwardNoticeFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={ContractAwardNoticeFieldMeta.ProfileExecutionID}
-          />
+    [
+      ContractAwardNoticeField.ID,
+      { meta: ContractAwardNoticeFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ContractAwardNoticeField.ID}
+          meta={ContractAwardNoticeFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={ContractAwardNoticeFieldMeta.ID}
-          />
+    [
+      ContractAwardNoticeField.CopyIndicator,
+      { meta: ContractAwardNoticeFieldMeta.CopyIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ContractAwardNoticeField.CopyIndicator}
+          meta={ContractAwardNoticeFieldMeta.CopyIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.CopyIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Copy Indicator"
-            value={value.CopyIndicator?.[0]}
-            meta={ContractAwardNoticeFieldMeta.CopyIndicator}
-          />
+    [
+      ContractAwardNoticeField.UUID,
+      { meta: ContractAwardNoticeFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ContractAwardNoticeField.UUID}
+          meta={ContractAwardNoticeFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={ContractAwardNoticeFieldMeta.UUID}
-          />
+    [
+      ContractAwardNoticeField.ContractFolderID,
+      { meta: ContractAwardNoticeFieldMeta.ContractFolderID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ContractAwardNoticeField.ContractFolderID}
+          meta={ContractAwardNoticeFieldMeta.ContractFolderID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ContractFolderID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Contract Folder Identifier"
-            value={value.ContractFolderID?.[0]}
-            meta={ContractAwardNoticeFieldMeta.ContractFolderID}
-          />
+    [
+      ContractAwardNoticeField.IssueDate,
+      { meta: ContractAwardNoticeFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={ContractAwardNoticeField.IssueDate}
+          meta={ContractAwardNoticeFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={ContractAwardNoticeFieldMeta.IssueDate}
-          />
+    [
+      ContractAwardNoticeField.IssueTime,
+      { meta: ContractAwardNoticeFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={ContractAwardNoticeField.IssueTime}
+          meta={ContractAwardNoticeFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={ContractAwardNoticeFieldMeta.IssueTime}
-          />
+    [
+      ContractAwardNoticeField.Note,
+      { meta: ContractAwardNoticeFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ContractAwardNoticeField.Note}
+          meta={ContractAwardNoticeFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={ContractAwardNoticeFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={ContractAwardNoticeFieldMeta.Note}
-              />
-            }
-          />
+    [
+      ContractAwardNoticeField.VersionID,
+      { meta: ContractAwardNoticeFieldMeta.VersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ContractAwardNoticeField.VersionID}
+          meta={ContractAwardNoticeFieldMeta.VersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.VersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Version Identifier"
-            value={value.VersionID?.[0]}
-            meta={ContractAwardNoticeFieldMeta.VersionID}
-          />
+    [
+      ContractAwardNoticeField.PreviousVersionID,
+      { meta: ContractAwardNoticeFieldMeta.PreviousVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ContractAwardNoticeField.PreviousVersionID}
+          meta={ContractAwardNoticeFieldMeta.PreviousVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.PreviousVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Previous Version Identifier"
-            value={value.PreviousVersionID?.[0]}
-            meta={ContractAwardNoticeFieldMeta.PreviousVersionID}
-          />
+    [
+      ContractAwardNoticeField.RequestedPublicationDate,
+      { meta: ContractAwardNoticeFieldMeta.RequestedPublicationDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={ContractAwardNoticeField.RequestedPublicationDate}
+          meta={ContractAwardNoticeFieldMeta.RequestedPublicationDate}
+          fieldConfig={fieldConfig}
+          date={value?.RequestedPublicationDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Requested Publication Date"
-            value={value.RequestedPublicationDate?.[0]}
-            meta={ContractAwardNoticeFieldMeta.RequestedPublicationDate}
-          />
+    [
+      ContractAwardNoticeField.RegulatoryDomain,
+      { meta: ContractAwardNoticeFieldMeta.RegulatoryDomain,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ContractAwardNoticeField.RegulatoryDomain}
+          meta={ContractAwardNoticeFieldMeta.RegulatoryDomain}
+          fieldConfig={fieldConfig}
+          text={value?.RegulatoryDomain}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-RegulatoryDomain"
-            label="Regulatory Domain"
-            items={value.RegulatoryDomain}
-            meta={ContractAwardNoticeFieldMeta.RegulatoryDomain} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Regulatory Domain"
-                value={itemValue}
-                meta={ContractAwardNoticeFieldMeta.RegulatoryDomain}
-              />
-            }
-          />
+    [
+      ContractAwardNoticeField.NoticeTypeCode,
+      { meta: ContractAwardNoticeFieldMeta.NoticeTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ContractAwardNoticeField.NoticeTypeCode}
+          meta={ContractAwardNoticeFieldMeta.NoticeTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.NoticeTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Notice Type Code"
-            value={value.NoticeTypeCode?.[0]}
-            meta={ContractAwardNoticeFieldMeta.NoticeTypeCode}
-          />
+    [
+      ContractAwardNoticeField.PublishAwardIndicator,
+      { meta: ContractAwardNoticeFieldMeta.PublishAwardIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ContractAwardNoticeField.PublishAwardIndicator}
+          meta={ContractAwardNoticeFieldMeta.PublishAwardIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.PublishAwardIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Publish Award Indicator"
-            value={value.PublishAwardIndicator?.[0]}
-            meta={ContractAwardNoticeFieldMeta.PublishAwardIndicator}
-          />
+    [
+      ContractAwardNoticeField.NoticeLanguageCode,
+      { meta: ContractAwardNoticeFieldMeta.NoticeLanguageCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ContractAwardNoticeField.NoticeLanguageCode}
+          meta={ContractAwardNoticeFieldMeta.NoticeLanguageCode}
+          fieldConfig={fieldConfig}
+          code={value?.NoticeLanguageCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Notice Language Code"
-            value={value.NoticeLanguageCode?.[0]}
-            meta={ContractAwardNoticeFieldMeta.NoticeLanguageCode}
-          />
+    [
+      ContractAwardNoticeField.AdditionalNoticeLanguage,
+      { meta: ContractAwardNoticeFieldMeta.AdditionalNoticeLanguage,
+        template: ({value, renderContext, fieldConfig}) => <LanguageDisplay
+          key={ContractAwardNoticeField.AdditionalNoticeLanguage}
+          meta={ContractAwardNoticeFieldMeta.AdditionalNoticeLanguage}
+          fieldConfig={fieldConfig}
+          language={value?.AdditionalNoticeLanguage}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Language ubl-AdditionalNoticeLanguage"
-            label="Additional Notice Language"
-            items={value.AdditionalNoticeLanguage}
-            meta={ContractAwardNoticeFieldMeta.AdditionalNoticeLanguage} 
-            itemDisplay={ (itemValue: Language, key: string | number) =>
-              <LanguageDisplay
-                key={key}
-                label="Additional Notice Language"
-                value={itemValue}
-                meta={ContractAwardNoticeFieldMeta.AdditionalNoticeLanguage}
-              />
-            }
-          />
+    [
+      ContractAwardNoticeField.PreviousDocumentReference,
+      { meta: ContractAwardNoticeFieldMeta.PreviousDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={ContractAwardNoticeField.PreviousDocumentReference}
+          meta={ContractAwardNoticeFieldMeta.PreviousDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.PreviousDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-PreviousDocumentReference"
-            label="Previous Document Reference"
-            items={value.PreviousDocumentReference}
-            meta={ContractAwardNoticeFieldMeta.PreviousDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Previous Document Reference"
-                value={itemValue}
-                meta={ContractAwardNoticeFieldMeta.PreviousDocumentReference}
-              />
-            }
-          />
+    [
+      ContractAwardNoticeField.MinutesDocumentReference,
+      { meta: ContractAwardNoticeFieldMeta.MinutesDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={ContractAwardNoticeField.MinutesDocumentReference}
+          meta={ContractAwardNoticeFieldMeta.MinutesDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.MinutesDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-MinutesDocumentReference"
-            label="Minutes Document Reference"
-            items={value.MinutesDocumentReference}
-            meta={ContractAwardNoticeFieldMeta.MinutesDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Minutes Document Reference"
-                value={itemValue}
-                meta={ContractAwardNoticeFieldMeta.MinutesDocumentReference}
-              />
-            }
-          />
+    [
+      ContractAwardNoticeField.Signature,
+      { meta: ContractAwardNoticeFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={ContractAwardNoticeField.Signature}
+          meta={ContractAwardNoticeFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={ContractAwardNoticeFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={ContractAwardNoticeFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      ContractAwardNoticeField.ContractingParty,
+      { meta: ContractAwardNoticeFieldMeta.ContractingParty,
+        template: ({value, renderContext, fieldConfig}) => <ContractingPartyDisplay
+          key={ContractAwardNoticeField.ContractingParty}
+          meta={ContractAwardNoticeFieldMeta.ContractingParty}
+          fieldConfig={fieldConfig}
+          contractingParty={value?.ContractingParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-ContractingParty"
-            label="Contracting Party"
-            items={value.ContractingParty}
-            meta={ContractAwardNoticeFieldMeta.ContractingParty} 
-            itemDisplay={ (itemValue: ContractingParty, key: string | number) =>
-              <ContractingPartyDisplay
-                key={key}
-                label="Contracting Party"
-                value={itemValue}
-                meta={ContractAwardNoticeFieldMeta.ContractingParty}
-              />
-            }
-          />
+    [
+      ContractAwardNoticeField.OriginatorCustomerParty,
+      { meta: ContractAwardNoticeFieldMeta.OriginatorCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={ContractAwardNoticeField.OriginatorCustomerParty}
+          meta={ContractAwardNoticeFieldMeta.OriginatorCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.OriginatorCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomerPartyDisplay
-            label="Originator Customer Party"
-            value={value.OriginatorCustomerParty?.[0]}
-            meta={ContractAwardNoticeFieldMeta.OriginatorCustomerParty}
-          />
+    [
+      ContractAwardNoticeField.ReceiverParty,
+      { meta: ContractAwardNoticeFieldMeta.ReceiverParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ContractAwardNoticeField.ReceiverParty}
+          meta={ContractAwardNoticeFieldMeta.ReceiverParty}
+          fieldConfig={fieldConfig}
+          party={value?.ReceiverParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Receiver Party"
-            value={value.ReceiverParty?.[0]}
-            meta={ContractAwardNoticeFieldMeta.ReceiverParty}
-          />
+    [
+      ContractAwardNoticeField.TenderingTerms,
+      { meta: ContractAwardNoticeFieldMeta.TenderingTerms,
+        template: ({value, renderContext, fieldConfig}) => <TenderingTermsDisplay
+          key={ContractAwardNoticeField.TenderingTerms}
+          meta={ContractAwardNoticeFieldMeta.TenderingTerms}
+          fieldConfig={fieldConfig}
+          tenderingTerms={value?.TenderingTerms}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TenderingTermsDisplay
-            label="Tendering Terms"
-            value={value.TenderingTerms?.[0]}
-            meta={ContractAwardNoticeFieldMeta.TenderingTerms}
-          />
+    [
+      ContractAwardNoticeField.TenderingProcess,
+      { meta: ContractAwardNoticeFieldMeta.TenderingProcess,
+        template: ({value, renderContext, fieldConfig}) => <TenderingProcessDisplay
+          key={ContractAwardNoticeField.TenderingProcess}
+          meta={ContractAwardNoticeFieldMeta.TenderingProcess}
+          fieldConfig={fieldConfig}
+          tenderingProcess={value?.TenderingProcess}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TenderingProcessDisplay
-            label="Tendering Process"
-            value={value.TenderingProcess?.[0]}
-            meta={ContractAwardNoticeFieldMeta.TenderingProcess}
-          />
+    [
+      ContractAwardNoticeField.ProcurementProject,
+      { meta: ContractAwardNoticeFieldMeta.ProcurementProject,
+        template: ({value, renderContext, fieldConfig}) => <ProcurementProjectDisplay
+          key={ContractAwardNoticeField.ProcurementProject}
+          meta={ContractAwardNoticeFieldMeta.ProcurementProject}
+          fieldConfig={fieldConfig}
+          procurementProject={value?.ProcurementProject}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ProcurementProjectDisplay
-            label="Procurement Project"
-            value={value.ProcurementProject?.[0]}
-            meta={ContractAwardNoticeFieldMeta.ProcurementProject}
-          />
+    [
+      ContractAwardNoticeField.ProcurementProjectLot,
+      { meta: ContractAwardNoticeFieldMeta.ProcurementProjectLot,
+        template: ({value, renderContext, fieldConfig}) => <ProcurementProjectLotDisplay
+          key={ContractAwardNoticeField.ProcurementProjectLot}
+          meta={ContractAwardNoticeFieldMeta.ProcurementProjectLot}
+          fieldConfig={fieldConfig}
+          procurementProjectLot={value?.ProcurementProjectLot}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-ProcurementProjectLot"
-            label="Procurement Project Lot"
-            items={value.ProcurementProjectLot}
-            meta={ContractAwardNoticeFieldMeta.ProcurementProjectLot} 
-            itemDisplay={ (itemValue: ProcurementProjectLot, key: string | number) =>
-              <ProcurementProjectLotDisplay
-                key={key}
-                label="Procurement Project Lot"
-                value={itemValue}
-                meta={ContractAwardNoticeFieldMeta.ProcurementProjectLot}
-              />
-            }
-          />
+    [
+      ContractAwardNoticeField.TenderResult,
+      { meta: ContractAwardNoticeFieldMeta.TenderResult,
+        template: ({value, renderContext, fieldConfig}) => <TenderResultDisplay
+          key={ContractAwardNoticeField.TenderResult}
+          meta={ContractAwardNoticeFieldMeta.TenderResult}
+          fieldConfig={fieldConfig}
+          tenderResult={value?.TenderResult}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-TenderResult"
-            label="Tender Result"
-            items={value.TenderResult}
-            meta={ContractAwardNoticeFieldMeta.TenderResult} 
-            itemDisplay={ (itemValue: TenderResult, key: string | number) =>
-              <TenderResultDisplay
-                key={key}
-                label="Tender Result"
-                value={itemValue}
-                meta={ContractAwardNoticeFieldMeta.TenderResult}
-              />
-            }
-          />
-        </div>
-    </div>
+export function ContractAwardNoticeDisplay<TFieldMeta>({ meta, fieldConfig, contractAwardNotice, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ContractAwardNoticeTypeName,
+    meta,
+    fieldConfig,
+    contractAwardNotice,
+    renderContext,
+    ContractAwardNoticeSubElementsMap,
   )
 }

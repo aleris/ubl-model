@@ -1,48 +1,66 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Renewal } from  '../../model/cac/Renewal'
-import { RenewalFieldMeta } from  '../../meta/cac/RenewalMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { RenewalField, RenewalFieldMeta, RenewalTypeName } from  '../../meta/cac/RenewalMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: Renewal | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<Renewal, void>
+  renewal: Renewal[] | undefined
+  renderContext: RenderContext
 }
 
-export default function RenewalDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const RenewalSubElementsMap: SubElementsTemplatesMap<RenewalField, Renewal, void> = new Map([
+    [
+      RenewalField.UBLExtensions,
+      { meta: RenewalFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={RenewalField.UBLExtensions}
+          meta={RenewalFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-Renewal">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={RenewalFieldMeta.UBLExtensions}
-          />
+    [
+      RenewalField.Amount,
+      { meta: RenewalFieldMeta.Amount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={RenewalField.Amount}
+          meta={RenewalFieldMeta.Amount}
+          fieldConfig={fieldConfig}
+          amount={value?.Amount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Amount"
-            value={value.Amount?.[0]}
-            meta={RenewalFieldMeta.Amount}
-          />
+    [
+      RenewalField.Period,
+      { meta: RenewalFieldMeta.Period,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={RenewalField.Period}
+          meta={RenewalFieldMeta.Period}
+          fieldConfig={fieldConfig}
+          period={value?.Period}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <PeriodDisplay
-            label="Period"
-            value={value.Period?.[0]}
-            meta={RenewalFieldMeta.Period}
-          />
-        </div>
-    </div>
+export function RenewalDisplay<TFieldMeta>({ meta, fieldConfig, renewal, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    RenewalTypeName,
+    meta,
+    fieldConfig,
+    renewal,
+    renderContext,
+    RenewalSubElementsMap,
   )
 }

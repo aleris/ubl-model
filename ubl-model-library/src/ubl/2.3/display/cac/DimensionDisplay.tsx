@@ -1,77 +1,103 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Dimension } from  '../../model/cac/Dimension'
-import { DimensionFieldMeta } from  '../../meta/cac/DimensionMeta'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import MeasureDisplay from '../cbc/MeasureDisplay'
-import { Measure } from '../../model/cbc/Measure'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { DimensionField, DimensionFieldMeta, DimensionTypeName } from  '../../meta/cac/DimensionMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { MeasureDisplay } from '../cbc/MeasureDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: Dimension | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<Dimension, void>
+  dimension: Dimension[] | undefined
+  renderContext: RenderContext
 }
 
-export default function DimensionDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const DimensionSubElementsMap: SubElementsTemplatesMap<DimensionField, Dimension, void> = new Map([
+    [
+      DimensionField.UBLExtensions,
+      { meta: DimensionFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={DimensionField.UBLExtensions}
+          meta={DimensionFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-Dimension">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={DimensionFieldMeta.UBLExtensions}
-          />
+    [
+      DimensionField.AttributeID,
+      { meta: DimensionFieldMeta.AttributeID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DimensionField.AttributeID}
+          meta={DimensionFieldMeta.AttributeID}
+          fieldConfig={fieldConfig}
+          identifier={value?.AttributeID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Attribute Identifier"
-            value={value.AttributeID?.[0]}
-            meta={DimensionFieldMeta.AttributeID}
-          />
+    [
+      DimensionField.Measure,
+      { meta: DimensionFieldMeta.Measure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={DimensionField.Measure}
+          meta={DimensionFieldMeta.Measure}
+          fieldConfig={fieldConfig}
+          measure={value?.Measure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Measure"
-            value={value.Measure?.[0]}
-            meta={DimensionFieldMeta.Measure}
-          />
+    [
+      DimensionField.Description,
+      { meta: DimensionFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={DimensionField.Description}
+          meta={DimensionFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={DimensionFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={DimensionFieldMeta.Description}
-              />
-            }
-          />
+    [
+      DimensionField.MinimumMeasure,
+      { meta: DimensionFieldMeta.MinimumMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={DimensionField.MinimumMeasure}
+          meta={DimensionFieldMeta.MinimumMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.MinimumMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Minimum Measure"
-            value={value.MinimumMeasure?.[0]}
-            meta={DimensionFieldMeta.MinimumMeasure}
-          />
+    [
+      DimensionField.MaximumMeasure,
+      { meta: DimensionFieldMeta.MaximumMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={DimensionField.MaximumMeasure}
+          meta={DimensionFieldMeta.MaximumMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.MaximumMeasure}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <MeasureDisplay
-            label="Maximum Measure"
-            value={value.MaximumMeasure?.[0]}
-            meta={DimensionFieldMeta.MaximumMeasure}
-          />
-        </div>
-    </div>
+export function DimensionDisplay<TFieldMeta>({ meta, fieldConfig, dimension, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    DimensionTypeName,
+    meta,
+    fieldConfig,
+    dimension,
+    renderContext,
+    DimensionSubElementsMap,
   )
 }

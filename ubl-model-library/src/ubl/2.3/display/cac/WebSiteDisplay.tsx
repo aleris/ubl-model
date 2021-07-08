@@ -1,94 +1,116 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { WebSite } from  '../../model/cac/WebSite'
-import { WebSiteFieldMeta } from  '../../meta/cac/WebSiteMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
-import WebSiteAccessDisplay from './WebSiteAccessDisplay'
-import { WebSiteAccess } from '../../model/cac/WebSiteAccess'
+import { WebSiteField, WebSiteFieldMeta, WebSiteTypeName } from  '../../meta/cac/WebSiteMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
+import { WebSiteAccessDisplay } from './WebSiteAccessDisplay'
 
-type Props<T> = {
-  label: string
-  value: WebSite | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<WebSite, void>
+  webSite: WebSite[] | undefined
+  renderContext: RenderContext
 }
 
-export default function WebSiteDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const WebSiteSubElementsMap: SubElementsTemplatesMap<WebSiteField, WebSite, void> = new Map([
+    [
+      WebSiteField.UBLExtensions,
+      { meta: WebSiteFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={WebSiteField.UBLExtensions}
+          meta={WebSiteFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-WebSite">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={WebSiteFieldMeta.UBLExtensions}
-          />
+    [
+      WebSiteField.ID,
+      { meta: WebSiteFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={WebSiteField.ID}
+          meta={WebSiteFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={WebSiteFieldMeta.ID}
-          />
+    [
+      WebSiteField.Name,
+      { meta: WebSiteFieldMeta.Name,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={WebSiteField.Name}
+          meta={WebSiteFieldMeta.Name}
+          fieldConfig={fieldConfig}
+          text={value?.Name}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Name"
-            value={value.Name?.[0]}
-            meta={WebSiteFieldMeta.Name}
-          />
+    [
+      WebSiteField.Description,
+      { meta: WebSiteFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={WebSiteField.Description}
+          meta={WebSiteFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={WebSiteFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={WebSiteFieldMeta.Description}
-              />
-            }
-          />
+    [
+      WebSiteField.WebSiteTypeCode,
+      { meta: WebSiteFieldMeta.WebSiteTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={WebSiteField.WebSiteTypeCode}
+          meta={WebSiteFieldMeta.WebSiteTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.WebSiteTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Web Site Type Code"
-            value={value.WebSiteTypeCode?.[0]}
-            meta={WebSiteFieldMeta.WebSiteTypeCode}
-          />
+    [
+      WebSiteField.URI,
+      { meta: WebSiteFieldMeta.URI,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={WebSiteField.URI}
+          meta={WebSiteFieldMeta.URI}
+          fieldConfig={fieldConfig}
+          identifier={value?.URI}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="URI"
-            value={value.URI?.[0]}
-            meta={WebSiteFieldMeta.URI}
-          />
+    [
+      WebSiteField.WebSiteAccess,
+      { meta: WebSiteFieldMeta.WebSiteAccess,
+        template: ({value, renderContext, fieldConfig}) => <WebSiteAccessDisplay
+          key={WebSiteField.WebSiteAccess}
+          meta={WebSiteFieldMeta.WebSiteAccess}
+          fieldConfig={fieldConfig}
+          webSiteAccess={value?.WebSiteAccess}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-WebSiteAccess"
-            label="Web Site Access"
-            items={value.WebSiteAccess}
-            meta={WebSiteFieldMeta.WebSiteAccess} 
-            itemDisplay={ (itemValue: WebSiteAccess, key: string | number) =>
-              <WebSiteAccessDisplay
-                key={key}
-                label="Web Site Access"
-                value={itemValue}
-                meta={WebSiteFieldMeta.WebSiteAccess}
-              />
-            }
-          />
-        </div>
-    </div>
+export function WebSiteDisplay<TFieldMeta>({ meta, fieldConfig, webSite, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    WebSiteTypeName,
+    meta,
+    fieldConfig,
+    webSite,
+    renderContext,
+    WebSiteSubElementsMap,
   )
 }

@@ -1,4 +1,22 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AllowanceChargeType } from './AllowanceChargeMeta'
+import { AmountType } from '../cbc/AmountMeta'
+import { BillingReferenceType } from './BillingReferenceMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DeliveryType } from './DeliveryMeta'
+import { DocumentReferenceType } from './DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { ItemType } from './ItemMeta'
+import { LineReferenceType } from './LineReferenceMeta'
+import { PriceType } from './PriceMeta'
+import { PricingReferenceType } from './PricingReferenceMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { ResponseType } from './ResponseMeta'
+import { TaxTotalType } from './TaxTotalMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum DebitNoteLineField {
   UBLExtensions = 'UBLExtensions',
@@ -29,11 +47,11 @@ export enum DebitNoteLineField {
 export const DebitNoteLineFieldMetaUBLExtensions = new FieldMeta<DebitNoteLineField>(
   DebitNoteLineField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -42,10 +60,10 @@ export const DebitNoteLineFieldMetaID = new FieldMeta<DebitNoteLineField>(
   DebitNoteLineField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this debit note line.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -54,10 +72,10 @@ export const DebitNoteLineFieldMetaUUID = new FieldMeta<DebitNoteLineField>(
   DebitNoteLineField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for this debit note line.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -66,10 +84,10 @@ export const DebitNoteLineFieldMetaNote = new FieldMeta<DebitNoteLineField>(
   DebitNoteLineField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -78,10 +96,10 @@ export const DebitNoteLineFieldMetaDebitedQuantity = new FieldMeta<DebitNoteLine
   DebitNoteLineField.DebitedQuantity,
   'DebitedQuantity',
   'Debited Quantity',
-  'Quantity',
+  QuantityType.name,
   'The quantity of Items debited in this debit note line.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -90,10 +108,10 @@ export const DebitNoteLineFieldMetaLineExtensionAmount = new FieldMeta<DebitNote
   DebitNoteLineField.LineExtensionAmount,
   'LineExtensionAmount',
   'Line Extension Amount',
-  'Amount',
+  AmountType.name,
   'The total amount for this debit note line, including allowance charges but net of taxes.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -102,10 +120,10 @@ export const DebitNoteLineFieldMetaTaxInclusiveLineExtensionAmount = new FieldMe
   DebitNoteLineField.TaxInclusiveLineExtensionAmount,
   'TaxInclusiveLineExtensionAmount',
   'Tax Inclusive Line Extension Amount',
-  'Amount',
+  AmountType.name,
   'The total amount for this debit note line, including all allowances, charges and taxes.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -114,10 +132,10 @@ export const DebitNoteLineFieldMetaTaxPointDate = new FieldMeta<DebitNoteLineFie
   DebitNoteLineField.TaxPointDate,
   'TaxPointDate',
   'Tax Point Date',
-  'Date',
+  DateType.name,
   'The date of this debit note line, used to indicate the point at which tax becomes applicable.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -126,10 +144,10 @@ export const DebitNoteLineFieldMetaAccountingCostCode = new FieldMeta<DebitNoteL
   DebitNoteLineField.AccountingCostCode,
   'AccountingCostCode',
   'Accounting Cost Code',
-  'Code',
+  CodeType.name,
   'The buyer\'s accounting cost centre for this debit note line, expressed as a code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -138,10 +156,10 @@ export const DebitNoteLineFieldMetaAccountingCost = new FieldMeta<DebitNoteLineF
   DebitNoteLineField.AccountingCost,
   'AccountingCost',
   'Accounting Cost',
-  'Text',
+  TextType.name,
   'The buyer\'s accounting cost centre for this debit note line, expressed as text.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -150,10 +168,10 @@ export const DebitNoteLineFieldMetaPaymentPurposeCode = new FieldMeta<DebitNoteL
   DebitNoteLineField.PaymentPurposeCode,
   'PaymentPurposeCode',
   'Payment Purpose Code',
-  'Code',
+  CodeType.name,
   'A code signifying the business purpose for this payment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -162,10 +180,10 @@ export const DebitNoteLineFieldMetaDiscrepancyResponse = new FieldMeta<DebitNote
   DebitNoteLineField.DiscrepancyResponse,
   'DiscrepancyResponse',
   'Discrepancy Response',
-  'Response',
+  ResponseType.name,
   'A reason for the debit.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -174,10 +192,10 @@ export const DebitNoteLineFieldMetaDespatchLineReference = new FieldMeta<DebitNo
   DebitNoteLineField.DespatchLineReference,
   'DespatchLineReference',
   'Despatch Line Reference',
-  'LineReference',
+  LineReferenceType.name,
   'A reference to a despatch line associated with this debit note line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -186,10 +204,10 @@ export const DebitNoteLineFieldMetaReceiptLineReference = new FieldMeta<DebitNot
   DebitNoteLineField.ReceiptLineReference,
   'ReceiptLineReference',
   'Receipt Line Reference',
-  'LineReference',
+  LineReferenceType.name,
   'A reference to a receipt line associated with this debit note line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -198,10 +216,10 @@ export const DebitNoteLineFieldMetaBillingReference = new FieldMeta<DebitNoteLin
   DebitNoteLineField.BillingReference,
   'BillingReference',
   'Billing Reference',
-  'BillingReference',
+  BillingReferenceType.name,
   'A reference to a billing document associated with this debit note line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -210,10 +228,10 @@ export const DebitNoteLineFieldMetaDocumentReference = new FieldMeta<DebitNoteLi
   DebitNoteLineField.DocumentReference,
   'DocumentReference',
   'Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a document associated with this debit note line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -222,10 +240,10 @@ export const DebitNoteLineFieldMetaPricingReference = new FieldMeta<DebitNoteLin
   DebitNoteLineField.PricingReference,
   'PricingReference',
   'Pricing Reference',
-  'PricingReference',
+  PricingReferenceType.name,
   'A reference to pricing and item location information associated with this debit note line.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -234,10 +252,10 @@ export const DebitNoteLineFieldMetaDelivery = new FieldMeta<DebitNoteLineField>(
   DebitNoteLineField.Delivery,
   'Delivery',
   'Delivery',
-  'Delivery',
+  DeliveryType.name,
   'A delivery associated with this debit note line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -246,10 +264,10 @@ export const DebitNoteLineFieldMetaTaxTotal = new FieldMeta<DebitNoteLineField>(
   DebitNoteLineField.TaxTotal,
   'TaxTotal',
   'Tax Total',
-  'TaxTotal',
+  TaxTotalType.name,
   'A total amount of taxes of a particular kind applicable to this debit note line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -258,10 +276,10 @@ export const DebitNoteLineFieldMetaAllowanceCharge = new FieldMeta<DebitNoteLine
   DebitNoteLineField.AllowanceCharge,
   'AllowanceCharge',
   'Allowance Charge',
-  'AllowanceCharge',
+  AllowanceChargeType.name,
   'An allowance or charge associated with this debit note.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -270,10 +288,10 @@ export const DebitNoteLineFieldMetaItem = new FieldMeta<DebitNoteLineField>(
   DebitNoteLineField.Item,
   'Item',
   'Item',
-  'Item',
+  ItemType.name,
   'The item associated with this debit note line.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -282,10 +300,10 @@ export const DebitNoteLineFieldMetaPrice = new FieldMeta<DebitNoteLineField>(
   DebitNoteLineField.Price,
   'Price',
   'Price',
-  'Price',
+  PriceType.name,
   'The price of the item associated with this debit note line.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   'Unit Price, Base Price',
   undefined
 )
@@ -294,10 +312,10 @@ export const DebitNoteLineFieldMetaSubDebitNoteLine = new FieldMeta<DebitNoteLin
   DebitNoteLineField.SubDebitNoteLine,
   'SubDebitNoteLine',
   'Sub Debit Note Line',
-  'DebitNoteLine',
+  DebitNoteLineType.name,
   'A recursive description of a debit note line subsidiary to this debit note line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -353,3 +371,11 @@ export const DebitNoteLineFieldMap = new Map([
   [DebitNoteLineField.Price, DebitNoteLineFieldMetaPrice],
   [DebitNoteLineField.SubDebitNoteLine, DebitNoteLineFieldMetaSubDebitNoteLine]
 ])
+
+export const DebitNoteLineType: Type<DebitNoteLineField> = {
+  name: 'DebitNoteLine',
+  label: 'Debit Note Line',
+  module: TypeModule.cac,
+  definition: 'A class to define a line in a Debit Note.',
+  fields: DebitNoteLineFieldMap,
+}

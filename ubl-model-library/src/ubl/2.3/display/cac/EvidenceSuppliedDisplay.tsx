@@ -1,40 +1,53 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { EvidenceSupplied } from  '../../model/cac/EvidenceSupplied'
-import { EvidenceSuppliedFieldMeta } from  '../../meta/cac/EvidenceSuppliedMeta'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { EvidenceSuppliedField, EvidenceSuppliedFieldMeta, EvidenceSuppliedTypeName } from  '../../meta/cac/EvidenceSuppliedMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: EvidenceSupplied | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<EvidenceSupplied, void>
+  evidenceSupplied: EvidenceSupplied[] | undefined
+  renderContext: RenderContext
 }
 
-export default function EvidenceSuppliedDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const EvidenceSuppliedSubElementsMap: SubElementsTemplatesMap<EvidenceSuppliedField, EvidenceSupplied, void> = new Map([
+    [
+      EvidenceSuppliedField.UBLExtensions,
+      { meta: EvidenceSuppliedFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={EvidenceSuppliedField.UBLExtensions}
+          meta={EvidenceSuppliedFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-EvidenceSupplied">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={EvidenceSuppliedFieldMeta.UBLExtensions}
-          />
+    [
+      EvidenceSuppliedField.ID,
+      { meta: EvidenceSuppliedFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={EvidenceSuppliedField.ID}
+          meta={EvidenceSuppliedFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={EvidenceSuppliedFieldMeta.ID}
-          />
-        </div>
-    </div>
+export function EvidenceSuppliedDisplay<TFieldMeta>({ meta, fieldConfig, evidenceSupplied, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    EvidenceSuppliedTypeName,
+    meta,
+    fieldConfig,
+    evidenceSupplied,
+    renderContext,
+    EvidenceSuppliedSubElementsMap,
   )
 }

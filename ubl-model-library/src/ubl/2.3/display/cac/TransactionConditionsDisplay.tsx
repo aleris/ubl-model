@@ -1,82 +1,92 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TransactionConditions } from  '../../model/cac/TransactionConditions'
-import { TransactionConditionsFieldMeta } from  '../../meta/cac/TransactionConditionsMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DocumentReferenceDisplay from './DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { TransactionConditionsField, TransactionConditionsFieldMeta, TransactionConditionsTypeName } from  '../../meta/cac/TransactionConditionsMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DocumentReferenceDisplay } from './DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: TransactionConditions | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<TransactionConditions, void>
+  transactionConditions: TransactionConditions[] | undefined
+  renderContext: RenderContext
 }
 
-export default function TransactionConditionsDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const TransactionConditionsSubElementsMap: SubElementsTemplatesMap<TransactionConditionsField, TransactionConditions, void> = new Map([
+    [
+      TransactionConditionsField.UBLExtensions,
+      { meta: TransactionConditionsFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={TransactionConditionsField.UBLExtensions}
+          meta={TransactionConditionsFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-TransactionConditions">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={TransactionConditionsFieldMeta.UBLExtensions}
-          />
+    [
+      TransactionConditionsField.ID,
+      { meta: TransactionConditionsFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TransactionConditionsField.ID}
+          meta={TransactionConditionsFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={TransactionConditionsFieldMeta.ID}
-          />
+    [
+      TransactionConditionsField.ActionCode,
+      { meta: TransactionConditionsFieldMeta.ActionCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TransactionConditionsField.ActionCode}
+          meta={TransactionConditionsFieldMeta.ActionCode}
+          fieldConfig={fieldConfig}
+          code={value?.ActionCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Action Code"
-            value={value.ActionCode?.[0]}
-            meta={TransactionConditionsFieldMeta.ActionCode}
-          />
+    [
+      TransactionConditionsField.Description,
+      { meta: TransactionConditionsFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TransactionConditionsField.Description}
+          meta={TransactionConditionsFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={TransactionConditionsFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={TransactionConditionsFieldMeta.Description}
-              />
-            }
-          />
+    [
+      TransactionConditionsField.DocumentReference,
+      { meta: TransactionConditionsFieldMeta.DocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={TransactionConditionsField.DocumentReference}
+          meta={TransactionConditionsFieldMeta.DocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.DocumentReference}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentReference"
-            label="Document Reference"
-            items={value.DocumentReference}
-            meta={TransactionConditionsFieldMeta.DocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Document Reference"
-                value={itemValue}
-                meta={TransactionConditionsFieldMeta.DocumentReference}
-              />
-            }
-          />
-        </div>
-    </div>
+export function TransactionConditionsDisplay<TFieldMeta>({ meta, fieldConfig, transactionConditions, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    TransactionConditionsTypeName,
+    meta,
+    fieldConfig,
+    transactionConditions,
+    renderContext,
+    TransactionConditionsSubElementsMap,
   )
 }

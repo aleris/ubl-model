@@ -2,7 +2,6 @@ import { Identifier } from '../cbc/Identifier'
 import { Measure } from '../cbc/Measure'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a measurement of temperature.
  */

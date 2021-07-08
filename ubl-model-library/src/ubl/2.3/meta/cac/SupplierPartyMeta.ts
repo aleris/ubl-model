@@ -1,4 +1,10 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { ContactType } from './ContactMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { PartyType } from './PartyMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum SupplierPartyField {
   UBLExtensions = 'UBLExtensions',
@@ -14,11 +20,11 @@ export enum SupplierPartyField {
 export const SupplierPartyFieldMetaUBLExtensions = new FieldMeta<SupplierPartyField>(
   SupplierPartyField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -27,10 +33,10 @@ export const SupplierPartyFieldMetaCustomerAssignedAccountID = new FieldMeta<Sup
   SupplierPartyField.CustomerAssignedAccountID,
   'CustomerAssignedAccountID',
   'Customer Assigned Account Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this supplier party, assigned by the customer.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -39,10 +45,10 @@ export const SupplierPartyFieldMetaAdditionalAccountID = new FieldMeta<SupplierP
   SupplierPartyField.AdditionalAccountID,
   'AdditionalAccountID',
   'Additional Account Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An additional identifier for this supplier party.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -51,10 +57,10 @@ export const SupplierPartyFieldMetaDataSendingCapability = new FieldMeta<Supplie
   SupplierPartyField.DataSendingCapability,
   'DataSendingCapability',
   'Data Sending Capability',
-  'Text',
+  TextType.name,
   'Text describing the supplier\'s ability to send invoice data via a purchase card provider (e.g., VISA, MasterCard, American Express).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -63,10 +69,10 @@ export const SupplierPartyFieldMetaParty = new FieldMeta<SupplierPartyField>(
   SupplierPartyField.Party,
   'Party',
   'Party',
-  'Party',
+  PartyType.name,
   'The supplier party itself.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -75,10 +81,10 @@ export const SupplierPartyFieldMetaDespatchContact = new FieldMeta<SupplierParty
   SupplierPartyField.DespatchContact,
   'DespatchContact',
   'Despatch Contact',
-  'Contact',
+  ContactType.name,
   'A contact at this supplier party for despatches (pickups).',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -87,10 +93,10 @@ export const SupplierPartyFieldMetaAccountingContact = new FieldMeta<SupplierPar
   SupplierPartyField.AccountingContact,
   'AccountingContact',
   'Accounting Contact',
-  'Contact',
+  ContactType.name,
   'A contact at this supplier party for accounting.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -99,10 +105,10 @@ export const SupplierPartyFieldMetaSellerContact = new FieldMeta<SupplierPartyFi
   SupplierPartyField.SellerContact,
   'SellerContact',
   'Seller Contact',
-  'Contact',
+  ContactType.name,
   'The primary contact for this supplier party.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -128,3 +134,11 @@ export const SupplierPartyFieldMap = new Map([
   [SupplierPartyField.AccountingContact, SupplierPartyFieldMetaAccountingContact],
   [SupplierPartyField.SellerContact, SupplierPartyFieldMetaSellerContact]
 ])
+
+export const SupplierPartyType: Type<SupplierPartyField> = {
+  name: 'SupplierParty',
+  label: 'Supplier Party',
+  module: TypeModule.cac,
+  definition: 'A class to describe a supplier party.',
+  fields: SupplierPartyFieldMap,
+}

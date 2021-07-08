@@ -1,4 +1,10 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { PartyType } from './PartyMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum DocumentDistributionField {
   UBLExtensions = 'UBLExtensions',
@@ -12,11 +18,11 @@ export enum DocumentDistributionField {
 export const DocumentDistributionFieldMetaUBLExtensions = new FieldMeta<DocumentDistributionField>(
   DocumentDistributionField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -25,10 +31,10 @@ export const DocumentDistributionFieldMetaDocumentTypeCode = new FieldMeta<Docum
   DocumentDistributionField.DocumentTypeCode,
   'DocumentTypeCode',
   'Document Type Code',
-  'Code',
+  CodeType.name,
   'The type of document, expressed as a code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -37,10 +43,10 @@ export const DocumentDistributionFieldMetaPrintQualifier = new FieldMeta<Documen
   DocumentDistributionField.PrintQualifier,
   'PrintQualifier',
   'Print Qualifier',
-  'Text',
+  TextType.name,
   'Text describing the interested party\'s distribution rights.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -49,10 +55,10 @@ export const DocumentDistributionFieldMetaMaximumCopiesNumeric = new FieldMeta<D
   DocumentDistributionField.MaximumCopiesNumeric,
   'MaximumCopiesNumeric',
   'Maximum Copies',
-  'Numeric',
+  NumericType.name,
   'The maximum number of printed copies of the document that the interested party is allowed to make.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -61,10 +67,10 @@ export const DocumentDistributionFieldMetaMaximumOriginalsNumeric = new FieldMet
   DocumentDistributionField.MaximumOriginalsNumeric,
   'MaximumOriginalsNumeric',
   'Maximum Originals',
-  'Numeric',
+  NumericType.name,
   'The maximum number of printed originals of the document that the interested party is allowed to make.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -73,10 +79,10 @@ export const DocumentDistributionFieldMetaParty = new FieldMeta<DocumentDistribu
   DocumentDistributionField.Party,
   'Party',
   'Party',
-  'Party',
+  PartyType.name,
   'The interested party to which the document should be distributed.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -98,3 +104,11 @@ export const DocumentDistributionFieldMap = new Map([
   [DocumentDistributionField.MaximumOriginalsNumeric, DocumentDistributionFieldMetaMaximumOriginalsNumeric],
   [DocumentDistributionField.Party, DocumentDistributionFieldMetaParty]
 ])
+
+export const DocumentDistributionType: Type<DocumentDistributionField> = {
+  name: 'DocumentDistribution',
+  label: 'Document Distribution',
+  module: TypeModule.cac,
+  definition: 'A class to describe the distribution of a document to an interested party.',
+  fields: DocumentDistributionFieldMap,
+}

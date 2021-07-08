@@ -14,7 +14,6 @@ import { TenderingCriterionResponse } from '../cac/TenderingCriterionResponse'
 import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A document issued by a procurement organization to notify an economic operator whether it has been admitted to or
  * excluded from the tendering process.

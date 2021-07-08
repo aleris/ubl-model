@@ -1,57 +1,66 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { SecurityClearanceTerm } from  '../../model/cac/SecurityClearanceTerm'
-import { SecurityClearanceTermFieldMeta } from  '../../meta/cac/SecurityClearanceTermMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { SecurityClearanceTermField, SecurityClearanceTermFieldMeta, SecurityClearanceTermTypeName } from  '../../meta/cac/SecurityClearanceTermMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: SecurityClearanceTerm | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<SecurityClearanceTerm, void>
+  securityClearanceTerm: SecurityClearanceTerm[] | undefined
+  renderContext: RenderContext
 }
 
-export default function SecurityClearanceTermDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const SecurityClearanceTermSubElementsMap: SubElementsTemplatesMap<SecurityClearanceTermField, SecurityClearanceTerm, void> = new Map([
+    [
+      SecurityClearanceTermField.UBLExtensions,
+      { meta: SecurityClearanceTermFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={SecurityClearanceTermField.UBLExtensions}
+          meta={SecurityClearanceTermFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-SecurityClearanceTerm">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={SecurityClearanceTermFieldMeta.UBLExtensions}
-          />
+    [
+      SecurityClearanceTermField.Code,
+      { meta: SecurityClearanceTermFieldMeta.Code,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={SecurityClearanceTermField.Code}
+          meta={SecurityClearanceTermFieldMeta.Code}
+          fieldConfig={fieldConfig}
+          code={value?.Code}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Code"
-            value={value.Code?.[0]}
-            meta={SecurityClearanceTermFieldMeta.Code}
-          />
+    [
+      SecurityClearanceTermField.Description,
+      { meta: SecurityClearanceTermFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={SecurityClearanceTermField.Description}
+          meta={SecurityClearanceTermFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={SecurityClearanceTermFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={SecurityClearanceTermFieldMeta.Description}
-              />
-            }
-          />
-        </div>
-    </div>
+export function SecurityClearanceTermDisplay<TFieldMeta>({ meta, fieldConfig, securityClearanceTerm, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    SecurityClearanceTermTypeName,
+    meta,
+    fieldConfig,
+    securityClearanceTerm,
+    renderContext,
+    SecurityClearanceTermSubElementsMap,
   )
 }

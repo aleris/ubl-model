@@ -1,4 +1,20 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AllowanceChargeType } from './AllowanceChargeMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { DateType } from '../cbc/DateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { LocationType } from './LocationMeta'
+import { PartyType } from './PartyMeta'
+import { PeriodType } from './PeriodMeta'
+import { PersonType } from './PersonMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { TransportEventType } from './TransportEventMeta'
+import { TransportMeansType } from './TransportMeansMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ShipmentStageField {
   UBLExtensions = 'UBLExtensions',
@@ -68,11 +84,11 @@ export enum ShipmentStageField {
 export const ShipmentStageFieldMetaUBLExtensions = new FieldMeta<ShipmentStageField>(
   ShipmentStageField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -81,10 +97,10 @@ export const ShipmentStageFieldMetaID = new FieldMeta<ShipmentStageField>(
   ShipmentStageField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this shipment stage.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '1 , 2 , etc..'
 )
@@ -93,10 +109,10 @@ export const ShipmentStageFieldMetaTransportModeCode = new FieldMeta<ShipmentSta
   ShipmentStageField.TransportModeCode,
   'TransportModeCode',
   'Transport Mode Code',
-  'Code',
+  CodeType.name,
   'A code signifying the method of transport used for this shipment stage.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -105,10 +121,10 @@ export const ShipmentStageFieldMetaTransportMeansTypeCode = new FieldMeta<Shipme
   ShipmentStageField.TransportMeansTypeCode,
   'TransportMeansTypeCode',
   'Transport Means Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the kind of transport means (truck, vessel, etc.) used for this shipment stage.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -117,10 +133,10 @@ export const ShipmentStageFieldMetaTransitDirectionCode = new FieldMeta<Shipment
   ShipmentStageField.TransitDirectionCode,
   'TransitDirectionCode',
   'Transit Direction Code',
-  'Code',
+  CodeType.name,
   'A code signifying the direction of transit in this shipment stage.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -129,10 +145,10 @@ export const ShipmentStageFieldMetaPreCarriageIndicator = new FieldMeta<Shipment
   ShipmentStageField.PreCarriageIndicator,
   'PreCarriageIndicator',
   'Pre Carriage Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indicator that this stage takes place before the main carriage of the shipment (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Truck delivery to wharf'
 )
@@ -141,10 +157,10 @@ export const ShipmentStageFieldMetaOnCarriageIndicator = new FieldMeta<ShipmentS
   ShipmentStageField.OnCarriageIndicator,
   'OnCarriageIndicator',
   'On Carriage Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indicator that this stage takes place after the main carriage of the shipment (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Truck delivery from wharf'
 )
@@ -153,10 +169,10 @@ export const ShipmentStageFieldMetaEstimatedDeliveryDate = new FieldMeta<Shipmen
   ShipmentStageField.EstimatedDeliveryDate,
   'EstimatedDeliveryDate',
   'Estimated Delivery Date',
-  'Date',
+  DateType.name,
   'The estimated date of delivery in this shipment stage.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -165,10 +181,10 @@ export const ShipmentStageFieldMetaEstimatedDeliveryTime = new FieldMeta<Shipmen
   ShipmentStageField.EstimatedDeliveryTime,
   'EstimatedDeliveryTime',
   'Estimated Delivery Time',
-  'Time',
+  TimeType.name,
   'The estimated time of delivery in this shipment stage.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -177,10 +193,10 @@ export const ShipmentStageFieldMetaRequiredDeliveryDate = new FieldMeta<Shipment
   ShipmentStageField.RequiredDeliveryDate,
   'RequiredDeliveryDate',
   'Required Delivery Date',
-  'Date',
+  DateType.name,
   'The delivery date required by the buyer in this shipment stage.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -189,10 +205,10 @@ export const ShipmentStageFieldMetaRequiredDeliveryTime = new FieldMeta<Shipment
   ShipmentStageField.RequiredDeliveryTime,
   'RequiredDeliveryTime',
   'Required Delivery Time',
-  'Time',
+  TimeType.name,
   'The delivery time required by the buyer in this shipment stage.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -201,10 +217,10 @@ export const ShipmentStageFieldMetaLoadingSequenceID = new FieldMeta<ShipmentSta
   ShipmentStageField.LoadingSequenceID,
   'LoadingSequenceID',
   'Loading Sequence Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the loading sequence (of consignments) associated with this shipment stage.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -213,10 +229,10 @@ export const ShipmentStageFieldMetaSuccessiveSequenceID = new FieldMeta<Shipment
   ShipmentStageField.SuccessiveSequenceID,
   'SuccessiveSequenceID',
   'Successive Sequence Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the successive loading sequence (of consignments) associated with a shipment stage.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -225,10 +241,10 @@ export const ShipmentStageFieldMetaInstructions = new FieldMeta<ShipmentStageFie
   ShipmentStageField.Instructions,
   'Instructions',
   'Instructions',
-  'Text',
+  TextType.name,
   'Text of instructions applicable to a shipment stage.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -237,10 +253,10 @@ export const ShipmentStageFieldMetaDemurrageInstructions = new FieldMeta<Shipmen
   ShipmentStageField.DemurrageInstructions,
   'DemurrageInstructions',
   'Demurrage Instructions',
-  'Text',
+  TextType.name,
   'Text of instructions relating to demurrage (the case in which a vessel is prevented from loading or discharging cargo within the stipulated laytime).',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -249,10 +265,10 @@ export const ShipmentStageFieldMetaCrewQuantity = new FieldMeta<ShipmentStageFie
   ShipmentStageField.CrewQuantity,
   'CrewQuantity',
   'Crew Quantity',
-  'Quantity',
+  QuantityType.name,
   'The total number of crew aboard a transport means.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -261,10 +277,10 @@ export const ShipmentStageFieldMetaPassengerQuantity = new FieldMeta<ShipmentSta
   ShipmentStageField.PassengerQuantity,
   'PassengerQuantity',
   'Passenger Quantity',
-  'Quantity',
+  QuantityType.name,
   'The total number of passengers aboard a transport means.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -273,10 +289,10 @@ export const ShipmentStageFieldMetaTransitPeriod = new FieldMeta<ShipmentStageFi
   ShipmentStageField.TransitPeriod,
   'TransitPeriod',
   'Transit Period',
-  'Period',
+  PeriodType.name,
   'The period during which this shipment stage actually took place.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -285,10 +301,10 @@ export const ShipmentStageFieldMetaCarrierParty = new FieldMeta<ShipmentStageFie
   ShipmentStageField.CarrierParty,
   'CarrierParty',
   'Carrier Party',
-  'Party',
+  PartyType.name,
   'A carrier party responsible for this shipment stage.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -297,10 +313,10 @@ export const ShipmentStageFieldMetaTransportMeans = new FieldMeta<ShipmentStageF
   ShipmentStageField.TransportMeans,
   'TransportMeans',
   'Transport Means',
-  'TransportMeans',
+  TransportMeansType.name,
   'The means of transport used in this shipment stage.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -309,10 +325,10 @@ export const ShipmentStageFieldMetaLoadingPortLocation = new FieldMeta<ShipmentS
   ShipmentStageField.LoadingPortLocation,
   'LoadingPortLocation',
   'Loading Port Location',
-  'Location',
+  LocationType.name,
   'The location of loading for a shipment stage.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -321,10 +337,10 @@ export const ShipmentStageFieldMetaUnloadingPortLocation = new FieldMeta<Shipmen
   ShipmentStageField.UnloadingPortLocation,
   'UnloadingPortLocation',
   'Unloading Port Location',
-  'Location',
+  LocationType.name,
   'The location of unloading for a shipment stage.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -333,10 +349,10 @@ export const ShipmentStageFieldMetaTransshipPortLocation = new FieldMeta<Shipmen
   ShipmentStageField.TransshipPortLocation,
   'TransshipPortLocation',
   'Transship Port Location',
-  'Location',
+  LocationType.name,
   'The location of transshipment relating to a shipment stage.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -345,10 +361,10 @@ export const ShipmentStageFieldMetaLoadingTransportEvent = new FieldMeta<Shipmen
   ShipmentStageField.LoadingTransportEvent,
   'LoadingTransportEvent',
   'Loading Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'The loading of goods in this shipment stage.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -357,10 +373,10 @@ export const ShipmentStageFieldMetaExaminationTransportEvent = new FieldMeta<Shi
   ShipmentStageField.ExaminationTransportEvent,
   'ExaminationTransportEvent',
   'Examination Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'The examination of shipments in this shipment stage.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -369,10 +385,10 @@ export const ShipmentStageFieldMetaAvailabilityTransportEvent = new FieldMeta<Sh
   ShipmentStageField.AvailabilityTransportEvent,
   'AvailabilityTransportEvent',
   'Availability Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'The making available of shipments in this shipment stage.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -381,10 +397,10 @@ export const ShipmentStageFieldMetaExportationTransportEvent = new FieldMeta<Shi
   ShipmentStageField.ExportationTransportEvent,
   'ExportationTransportEvent',
   'Exportation Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'The export event associated with this shipment stage.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -393,10 +409,10 @@ export const ShipmentStageFieldMetaDischargeTransportEvent = new FieldMeta<Shipm
   ShipmentStageField.DischargeTransportEvent,
   'DischargeTransportEvent',
   'Discharge Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'The discharge event associated with this shipment stage.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -405,10 +421,10 @@ export const ShipmentStageFieldMetaWarehousingTransportEvent = new FieldMeta<Shi
   ShipmentStageField.WarehousingTransportEvent,
   'WarehousingTransportEvent',
   'Warehousing Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'The warehousing event associated with this shipment stage.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -417,10 +433,10 @@ export const ShipmentStageFieldMetaTakeoverTransportEvent = new FieldMeta<Shipme
   ShipmentStageField.TakeoverTransportEvent,
   'TakeoverTransportEvent',
   'Takeover Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'The receiver\'s takeover of the goods in this shipment stage.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -429,10 +445,10 @@ export const ShipmentStageFieldMetaOptionalTakeoverTransportEvent = new FieldMet
   ShipmentStageField.OptionalTakeoverTransportEvent,
   'OptionalTakeoverTransportEvent',
   'Optional Takeover Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'The optional takeover of the goods in this shipment stage.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -441,10 +457,10 @@ export const ShipmentStageFieldMetaDropoffTransportEvent = new FieldMeta<Shipmen
   ShipmentStageField.DropoffTransportEvent,
   'DropoffTransportEvent',
   'Dropoff Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'The dropping off of goods in this shipment stage.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -453,10 +469,10 @@ export const ShipmentStageFieldMetaActualPickupTransportEvent = new FieldMeta<Sh
   ShipmentStageField.ActualPickupTransportEvent,
   'ActualPickupTransportEvent',
   'Actual Pickup Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'The pickup of goods in this shipment stage.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -465,10 +481,10 @@ export const ShipmentStageFieldMetaDeliveryTransportEvent = new FieldMeta<Shipme
   ShipmentStageField.DeliveryTransportEvent,
   'DeliveryTransportEvent',
   'Delivery Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'The delivery of goods in this shipment stage.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -477,10 +493,10 @@ export const ShipmentStageFieldMetaReceiptTransportEvent = new FieldMeta<Shipmen
   ShipmentStageField.ReceiptTransportEvent,
   'ReceiptTransportEvent',
   'Receipt Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'The receipt of goods in this shipment stage.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -489,10 +505,10 @@ export const ShipmentStageFieldMetaStorageTransportEvent = new FieldMeta<Shipmen
   ShipmentStageField.StorageTransportEvent,
   'StorageTransportEvent',
   'Storage Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'The storage of goods in this shipment stage.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -501,10 +517,10 @@ export const ShipmentStageFieldMetaAcceptanceTransportEvent = new FieldMeta<Ship
   ShipmentStageField.AcceptanceTransportEvent,
   'AcceptanceTransportEvent',
   'Acceptance Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'The acceptance of goods in this shipment stage.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -513,10 +529,10 @@ export const ShipmentStageFieldMetaTerminalOperatorParty = new FieldMeta<Shipmen
   ShipmentStageField.TerminalOperatorParty,
   'TerminalOperatorParty',
   'Terminal Operator Party',
-  'Party',
+  PartyType.name,
   'A terminal operator associated with this shipment stage.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -525,10 +541,10 @@ export const ShipmentStageFieldMetaCustomsAgentParty = new FieldMeta<ShipmentSta
   ShipmentStageField.CustomsAgentParty,
   'CustomsAgentParty',
   'Customs Agent Party',
-  'Party',
+  PartyType.name,
   'A customs agent associated with this shipment stage.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -537,10 +553,10 @@ export const ShipmentStageFieldMetaEstimatedTransitPeriod = new FieldMeta<Shipme
   ShipmentStageField.EstimatedTransitPeriod,
   'EstimatedTransitPeriod',
   'Estimated Transit Period',
-  'Period',
+  PeriodType.name,
   'The estimated transit period of this shipment stage.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -549,10 +565,10 @@ export const ShipmentStageFieldMetaFreightAllowanceCharge = new FieldMeta<Shipme
   ShipmentStageField.FreightAllowanceCharge,
   'FreightAllowanceCharge',
   'Freight Allowance Charge',
-  'AllowanceCharge',
+  AllowanceChargeType.name,
   'A freight allowance charge for this shipment stage.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -561,10 +577,10 @@ export const ShipmentStageFieldMetaFreightChargeLocation = new FieldMeta<Shipmen
   ShipmentStageField.FreightChargeLocation,
   'FreightChargeLocation',
   'Freight Charge Location',
-  'Location',
+  LocationType.name,
   'The location associated with a freight charge related to this shipment stage.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -573,10 +589,10 @@ export const ShipmentStageFieldMetaDetentionTransportEvent = new FieldMeta<Shipm
   ShipmentStageField.DetentionTransportEvent,
   'DetentionTransportEvent',
   'Detention Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'The detention of a transport means during loading and unloading operations.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -585,10 +601,10 @@ export const ShipmentStageFieldMetaRequestedDepartureTransportEvent = new FieldM
   ShipmentStageField.RequestedDepartureTransportEvent,
   'RequestedDepartureTransportEvent',
   'Requested Departure Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'The departure requested by the party requesting a transportation service.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -597,10 +613,10 @@ export const ShipmentStageFieldMetaRequestedArrivalTransportEvent = new FieldMet
   ShipmentStageField.RequestedArrivalTransportEvent,
   'RequestedArrivalTransportEvent',
   'Requested Arrival Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'The arrival requested by the party requesting a transportation service.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -609,10 +625,10 @@ export const ShipmentStageFieldMetaRequestedWaypointTransportEvent = new FieldMe
   ShipmentStageField.RequestedWaypointTransportEvent,
   'RequestedWaypointTransportEvent',
   'Requested Waypoint Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'A waypoint requested by the party requesting a transportation service.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -621,10 +637,10 @@ export const ShipmentStageFieldMetaPlannedDepartureTransportEvent = new FieldMet
   ShipmentStageField.PlannedDepartureTransportEvent,
   'PlannedDepartureTransportEvent',
   'Planned Departure Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'The departure planned by the party providing a transportation service.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -633,10 +649,10 @@ export const ShipmentStageFieldMetaPlannedArrivalTransportEvent = new FieldMeta<
   ShipmentStageField.PlannedArrivalTransportEvent,
   'PlannedArrivalTransportEvent',
   'Planned Arrival Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'The arrival planned by the party providing a transportation service.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -645,10 +661,10 @@ export const ShipmentStageFieldMetaPlannedWaypointTransportEvent = new FieldMeta
   ShipmentStageField.PlannedWaypointTransportEvent,
   'PlannedWaypointTransportEvent',
   'Planned Waypoint Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'A waypoint planned by the party providing a transportation service.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -657,10 +673,10 @@ export const ShipmentStageFieldMetaActualDepartureTransportEvent = new FieldMeta
   ShipmentStageField.ActualDepartureTransportEvent,
   'ActualDepartureTransportEvent',
   'Actual Departure Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'The actual departure from a specific location during a transportation service.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -669,10 +685,10 @@ export const ShipmentStageFieldMetaActualWaypointTransportEvent = new FieldMeta<
   ShipmentStageField.ActualWaypointTransportEvent,
   'ActualWaypointTransportEvent',
   'Actual Waypoint Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'The location of an actual waypoint during a transportation service.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -681,10 +697,10 @@ export const ShipmentStageFieldMetaActualArrivalTransportEvent = new FieldMeta<S
   ShipmentStageField.ActualArrivalTransportEvent,
   'ActualArrivalTransportEvent',
   'Actual Arrival Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'The actual arrival at a specific location during a transportation service.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -693,10 +709,10 @@ export const ShipmentStageFieldMetaTransportEvent = new FieldMeta<ShipmentStageF
   ShipmentStageField.TransportEvent,
   'TransportEvent',
   'Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'A significant occurrence in the course of this shipment of goods.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -705,10 +721,10 @@ export const ShipmentStageFieldMetaEstimatedDepartureTransportEvent = new FieldM
   ShipmentStageField.EstimatedDepartureTransportEvent,
   'EstimatedDepartureTransportEvent',
   'Estimated Departure Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'Describes an estimated departure at a location during a transport service.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -717,10 +733,10 @@ export const ShipmentStageFieldMetaEstimatedArrivalTransportEvent = new FieldMet
   ShipmentStageField.EstimatedArrivalTransportEvent,
   'EstimatedArrivalTransportEvent',
   'Estimated Arrival Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'Describes an estimated arrival at a location during a transport service.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -729,10 +745,10 @@ export const ShipmentStageFieldMetaPassengerPerson = new FieldMeta<ShipmentStage
   ShipmentStageField.PassengerPerson,
   'PassengerPerson',
   'Passenger Person',
-  'Person',
+  PersonType.name,
   'A person who travels in a conveyance without participating in its operation.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -741,10 +757,10 @@ export const ShipmentStageFieldMetaDriverPerson = new FieldMeta<ShipmentStageFie
   ShipmentStageField.DriverPerson,
   'DriverPerson',
   'Driver Person',
-  'Person',
+  PersonType.name,
   'Describes a person responsible for driving the transport means.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -753,10 +769,10 @@ export const ShipmentStageFieldMetaReportingPerson = new FieldMeta<ShipmentStage
   ShipmentStageField.ReportingPerson,
   'ReportingPerson',
   'Reporting Person',
-  'Person',
+  PersonType.name,
   'Describes a person being responsible for providing the required administrative reporting relating to a transport.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -765,10 +781,10 @@ export const ShipmentStageFieldMetaCrewMemberPerson = new FieldMeta<ShipmentStag
   ShipmentStageField.CrewMemberPerson,
   'CrewMemberPerson',
   'Crew Member Person',
-  'Person',
+  PersonType.name,
   'A person operating or serving aboard a transport means.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -777,10 +793,10 @@ export const ShipmentStageFieldMetaSecurityOfficerPerson = new FieldMeta<Shipmen
   ShipmentStageField.SecurityOfficerPerson,
   'SecurityOfficerPerson',
   'Security Officer Person',
-  'Person',
+  PersonType.name,
   'The person on board the vessel, accountable to the master, designated by the company as responsible for the security of the ship, including implementation and maintenance of the ship security plan and for the liaison with the company security officer and the port facility security officers.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -789,10 +805,10 @@ export const ShipmentStageFieldMetaMasterPerson = new FieldMeta<ShipmentStageFie
   ShipmentStageField.MasterPerson,
   'MasterPerson',
   'Master Person',
-  'Person',
+  PersonType.name,
   'The person responsible for the ship\'s safe and efficient operation, including cargo operations, navigation, crew management and for ensuring that the vessel complies with local and international laws, as well as company and flag state policies.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -801,10 +817,10 @@ export const ShipmentStageFieldMetaShipsSurgeonPerson = new FieldMeta<ShipmentSt
   ShipmentStageField.ShipsSurgeonPerson,
   'ShipsSurgeonPerson',
   'Ships Surgeon Person',
-  'Person',
+  PersonType.name,
   'The person responsible for the health of the people aboard a ship at sea.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -938,3 +954,11 @@ export const ShipmentStageFieldMap = new Map([
   [ShipmentStageField.MasterPerson, ShipmentStageFieldMetaMasterPerson],
   [ShipmentStageField.ShipsSurgeonPerson, ShipmentStageFieldMetaShipsSurgeonPerson]
 ])
+
+export const ShipmentStageType: Type<ShipmentStageField> = {
+  name: 'ShipmentStage',
+  label: 'Shipment Stage',
+  module: TypeModule.cac,
+  definition: 'A class to describe one stage of movement in a transport of goods.',
+  fields: ShipmentStageFieldMap,
+}

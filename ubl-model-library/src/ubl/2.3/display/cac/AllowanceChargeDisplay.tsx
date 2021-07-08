@@ -1,167 +1,229 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { AllowanceCharge } from  '../../model/cac/AllowanceCharge'
-import { AllowanceChargeFieldMeta } from  '../../meta/cac/AllowanceChargeMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import PaymentMeansDisplay from './PaymentMeansDisplay'
-import { PaymentMeans } from '../../model/cac/PaymentMeans'
-import TaxCategoryDisplay from './TaxCategoryDisplay'
-import { TaxCategory } from '../../model/cac/TaxCategory'
-import TaxTotalDisplay from './TaxTotalDisplay'
-import { TaxTotal } from '../../model/cac/TaxTotal'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { AllowanceChargeField, AllowanceChargeFieldMeta, AllowanceChargeTypeName } from  '../../meta/cac/AllowanceChargeMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { PaymentMeansDisplay } from './PaymentMeansDisplay'
+import { TaxCategoryDisplay } from './TaxCategoryDisplay'
+import { TaxTotalDisplay } from './TaxTotalDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: AllowanceCharge | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<AllowanceCharge, void>
+  allowanceCharge: AllowanceCharge[] | undefined
+  renderContext: RenderContext
 }
 
-export default function AllowanceChargeDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const AllowanceChargeSubElementsMap: SubElementsTemplatesMap<AllowanceChargeField, AllowanceCharge, void> = new Map([
+    [
+      AllowanceChargeField.UBLExtensions,
+      { meta: AllowanceChargeFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={AllowanceChargeField.UBLExtensions}
+          meta={AllowanceChargeFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-AllowanceCharge">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={AllowanceChargeFieldMeta.UBLExtensions}
-          />
+    [
+      AllowanceChargeField.ID,
+      { meta: AllowanceChargeFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={AllowanceChargeField.ID}
+          meta={AllowanceChargeFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={AllowanceChargeFieldMeta.ID}
-          />
+    [
+      AllowanceChargeField.ChargeIndicator,
+      { meta: AllowanceChargeFieldMeta.ChargeIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={AllowanceChargeField.ChargeIndicator}
+          meta={AllowanceChargeFieldMeta.ChargeIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.ChargeIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Charge Indicator"
-            value={value.ChargeIndicator?.[0]}
-            meta={AllowanceChargeFieldMeta.ChargeIndicator}
-          />
+    [
+      AllowanceChargeField.AllowanceChargeReasonCode,
+      { meta: AllowanceChargeFieldMeta.AllowanceChargeReasonCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={AllowanceChargeField.AllowanceChargeReasonCode}
+          meta={AllowanceChargeFieldMeta.AllowanceChargeReasonCode}
+          fieldConfig={fieldConfig}
+          code={value?.AllowanceChargeReasonCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Allowance Charge Reason Code"
-            value={value.AllowanceChargeReasonCode?.[0]}
-            meta={AllowanceChargeFieldMeta.AllowanceChargeReasonCode}
-          />
+    [
+      AllowanceChargeField.AllowanceChargeReason,
+      { meta: AllowanceChargeFieldMeta.AllowanceChargeReason,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={AllowanceChargeField.AllowanceChargeReason}
+          meta={AllowanceChargeFieldMeta.AllowanceChargeReason}
+          fieldConfig={fieldConfig}
+          text={value?.AllowanceChargeReason}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-AllowanceChargeReason"
-            label="Allowance Charge Reason"
-            items={value.AllowanceChargeReason}
-            meta={AllowanceChargeFieldMeta.AllowanceChargeReason} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Allowance Charge Reason"
-                value={itemValue}
-                meta={AllowanceChargeFieldMeta.AllowanceChargeReason}
-              />
-            }
-          />
+    [
+      AllowanceChargeField.MultiplierFactorNumeric,
+      { meta: AllowanceChargeFieldMeta.MultiplierFactorNumeric,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={AllowanceChargeField.MultiplierFactorNumeric}
+          meta={AllowanceChargeFieldMeta.MultiplierFactorNumeric}
+          fieldConfig={fieldConfig}
+          numeric={value?.MultiplierFactorNumeric}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Multiplier Factor"
-            value={value.MultiplierFactorNumeric?.[0]}
-            meta={AllowanceChargeFieldMeta.MultiplierFactorNumeric}
-          />
+    [
+      AllowanceChargeField.PrepaidIndicator,
+      { meta: AllowanceChargeFieldMeta.PrepaidIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={AllowanceChargeField.PrepaidIndicator}
+          meta={AllowanceChargeFieldMeta.PrepaidIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.PrepaidIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Prepaid Indicator"
-            value={value.PrepaidIndicator?.[0]}
-            meta={AllowanceChargeFieldMeta.PrepaidIndicator}
-          />
+    [
+      AllowanceChargeField.SequenceNumeric,
+      { meta: AllowanceChargeFieldMeta.SequenceNumeric,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={AllowanceChargeField.SequenceNumeric}
+          meta={AllowanceChargeFieldMeta.SequenceNumeric}
+          fieldConfig={fieldConfig}
+          numeric={value?.SequenceNumeric}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Sequence"
-            value={value.SequenceNumeric?.[0]}
-            meta={AllowanceChargeFieldMeta.SequenceNumeric}
-          />
+    [
+      AllowanceChargeField.Amount,
+      { meta: AllowanceChargeFieldMeta.Amount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={AllowanceChargeField.Amount}
+          meta={AllowanceChargeFieldMeta.Amount}
+          fieldConfig={fieldConfig}
+          amount={value?.Amount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Amount"
-            value={value.Amount?.[0]}
-            meta={AllowanceChargeFieldMeta.Amount}
-          />
+    [
+      AllowanceChargeField.BaseAmount,
+      { meta: AllowanceChargeFieldMeta.BaseAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={AllowanceChargeField.BaseAmount}
+          meta={AllowanceChargeFieldMeta.BaseAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.BaseAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Base Amount"
-            value={value.BaseAmount?.[0]}
-            meta={AllowanceChargeFieldMeta.BaseAmount}
-          />
+    [
+      AllowanceChargeField.AccountingCostCode,
+      { meta: AllowanceChargeFieldMeta.AccountingCostCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={AllowanceChargeField.AccountingCostCode}
+          meta={AllowanceChargeFieldMeta.AccountingCostCode}
+          fieldConfig={fieldConfig}
+          code={value?.AccountingCostCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Accounting Cost Code"
-            value={value.AccountingCostCode?.[0]}
-            meta={AllowanceChargeFieldMeta.AccountingCostCode}
-          />
+    [
+      AllowanceChargeField.AccountingCost,
+      { meta: AllowanceChargeFieldMeta.AccountingCost,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={AllowanceChargeField.AccountingCost}
+          meta={AllowanceChargeFieldMeta.AccountingCost}
+          fieldConfig={fieldConfig}
+          text={value?.AccountingCost}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Accounting Cost"
-            value={value.AccountingCost?.[0]}
-            meta={AllowanceChargeFieldMeta.AccountingCost}
-          />
+    [
+      AllowanceChargeField.PerUnitAmount,
+      { meta: AllowanceChargeFieldMeta.PerUnitAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={AllowanceChargeField.PerUnitAmount}
+          meta={AllowanceChargeFieldMeta.PerUnitAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.PerUnitAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Per Unit Amount"
-            value={value.PerUnitAmount?.[0]}
-            meta={AllowanceChargeFieldMeta.PerUnitAmount}
-          />
+    [
+      AllowanceChargeField.TaxCategory,
+      { meta: AllowanceChargeFieldMeta.TaxCategory,
+        template: ({value, renderContext, fieldConfig}) => <TaxCategoryDisplay
+          key={AllowanceChargeField.TaxCategory}
+          meta={AllowanceChargeFieldMeta.TaxCategory}
+          fieldConfig={fieldConfig}
+          taxCategory={value?.TaxCategory}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TaxCategory"
-            label="Tax Category"
-            items={value.TaxCategory}
-            meta={AllowanceChargeFieldMeta.TaxCategory} 
-            itemDisplay={ (itemValue: TaxCategory, key: string | number) =>
-              <TaxCategoryDisplay
-                key={key}
-                label="Tax Category"
-                value={itemValue}
-                meta={AllowanceChargeFieldMeta.TaxCategory}
-              />
-            }
-          />
+    [
+      AllowanceChargeField.TaxTotal,
+      { meta: AllowanceChargeFieldMeta.TaxTotal,
+        template: ({value, renderContext, fieldConfig}) => <TaxTotalDisplay
+          key={AllowanceChargeField.TaxTotal}
+          meta={AllowanceChargeFieldMeta.TaxTotal}
+          fieldConfig={fieldConfig}
+          taxTotal={value?.TaxTotal}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TaxTotalDisplay
-            label="Tax Total"
-            value={value.TaxTotal?.[0]}
-            meta={AllowanceChargeFieldMeta.TaxTotal}
-          />
+    [
+      AllowanceChargeField.PaymentMeans,
+      { meta: AllowanceChargeFieldMeta.PaymentMeans,
+        template: ({value, renderContext, fieldConfig}) => <PaymentMeansDisplay
+          key={AllowanceChargeField.PaymentMeans}
+          meta={AllowanceChargeFieldMeta.PaymentMeans}
+          fieldConfig={fieldConfig}
+          paymentMeans={value?.PaymentMeans}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-PaymentMeans"
-            label="Payment Means"
-            items={value.PaymentMeans}
-            meta={AllowanceChargeFieldMeta.PaymentMeans} 
-            itemDisplay={ (itemValue: PaymentMeans, key: string | number) =>
-              <PaymentMeansDisplay
-                key={key}
-                label="Payment Means"
-                value={itemValue}
-                meta={AllowanceChargeFieldMeta.PaymentMeans}
-              />
-            }
-          />
-        </div>
-    </div>
+export function AllowanceChargeDisplay<TFieldMeta>({ meta, fieldConfig, allowanceCharge, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    AllowanceChargeTypeName,
+    meta,
+    fieldConfig,
+    allowanceCharge,
+    renderContext,
+    AllowanceChargeSubElementsMap,
   )
 }

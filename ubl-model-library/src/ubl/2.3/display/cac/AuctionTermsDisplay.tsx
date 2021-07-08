@@ -1,125 +1,127 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { AuctionTerms } from  '../../model/cac/AuctionTerms'
-import { AuctionTermsFieldMeta } from  '../../meta/cac/AuctionTermsMeta'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { AuctionTermsField, AuctionTermsFieldMeta, AuctionTermsTypeName } from  '../../meta/cac/AuctionTermsMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: AuctionTerms | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<AuctionTerms, void>
+  auctionTerms: AuctionTerms[] | undefined
+  renderContext: RenderContext
 }
 
-export default function AuctionTermsDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const AuctionTermsSubElementsMap: SubElementsTemplatesMap<AuctionTermsField, AuctionTerms, void> = new Map([
+    [
+      AuctionTermsField.UBLExtensions,
+      { meta: AuctionTermsFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={AuctionTermsField.UBLExtensions}
+          meta={AuctionTermsFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-AuctionTerms">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={AuctionTermsFieldMeta.UBLExtensions}
-          />
+    [
+      AuctionTermsField.AuctionConstraintIndicator,
+      { meta: AuctionTermsFieldMeta.AuctionConstraintIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={AuctionTermsField.AuctionConstraintIndicator}
+          meta={AuctionTermsFieldMeta.AuctionConstraintIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.AuctionConstraintIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Auction Constraint"
-            value={value.AuctionConstraintIndicator?.[0]}
-            meta={AuctionTermsFieldMeta.AuctionConstraintIndicator}
-          />
+    [
+      AuctionTermsField.JustificationDescription,
+      { meta: AuctionTermsFieldMeta.JustificationDescription,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={AuctionTermsField.JustificationDescription}
+          meta={AuctionTermsFieldMeta.JustificationDescription}
+          fieldConfig={fieldConfig}
+          text={value?.JustificationDescription}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-JustificationDescription"
-            label="Justification Description"
-            items={value.JustificationDescription}
-            meta={AuctionTermsFieldMeta.JustificationDescription} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Justification Description"
-                value={itemValue}
-                meta={AuctionTermsFieldMeta.JustificationDescription}
-              />
-            }
-          />
+    [
+      AuctionTermsField.Description,
+      { meta: AuctionTermsFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={AuctionTermsField.Description}
+          meta={AuctionTermsFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={AuctionTermsFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={AuctionTermsFieldMeta.Description}
-              />
-            }
-          />
+    [
+      AuctionTermsField.ProcessDescription,
+      { meta: AuctionTermsFieldMeta.ProcessDescription,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={AuctionTermsField.ProcessDescription}
+          meta={AuctionTermsFieldMeta.ProcessDescription}
+          fieldConfig={fieldConfig}
+          text={value?.ProcessDescription}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-ProcessDescription"
-            label="Process Description"
-            items={value.ProcessDescription}
-            meta={AuctionTermsFieldMeta.ProcessDescription} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Process Description"
-                value={itemValue}
-                meta={AuctionTermsFieldMeta.ProcessDescription}
-              />
-            }
-          />
+    [
+      AuctionTermsField.ConditionsDescription,
+      { meta: AuctionTermsFieldMeta.ConditionsDescription,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={AuctionTermsField.ConditionsDescription}
+          meta={AuctionTermsFieldMeta.ConditionsDescription}
+          fieldConfig={fieldConfig}
+          text={value?.ConditionsDescription}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-ConditionsDescription"
-            label="Conditions Description"
-            items={value.ConditionsDescription}
-            meta={AuctionTermsFieldMeta.ConditionsDescription} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Conditions Description"
-                value={itemValue}
-                meta={AuctionTermsFieldMeta.ConditionsDescription}
-              />
-            }
-          />
+    [
+      AuctionTermsField.ElectronicDeviceDescription,
+      { meta: AuctionTermsFieldMeta.ElectronicDeviceDescription,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={AuctionTermsField.ElectronicDeviceDescription}
+          meta={AuctionTermsFieldMeta.ElectronicDeviceDescription}
+          fieldConfig={fieldConfig}
+          text={value?.ElectronicDeviceDescription}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-ElectronicDeviceDescription"
-            label="Electronic Device Description"
-            items={value.ElectronicDeviceDescription}
-            meta={AuctionTermsFieldMeta.ElectronicDeviceDescription} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Electronic Device Description"
-                value={itemValue}
-                meta={AuctionTermsFieldMeta.ElectronicDeviceDescription}
-              />
-            }
-          />
+    [
+      AuctionTermsField.AuctionURI,
+      { meta: AuctionTermsFieldMeta.AuctionURI,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={AuctionTermsField.AuctionURI}
+          meta={AuctionTermsFieldMeta.AuctionURI}
+          fieldConfig={fieldConfig}
+          identifier={value?.AuctionURI}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <IdentifierDisplay
-            label="Auction URI"
-            value={value.AuctionURI?.[0]}
-            meta={AuctionTermsFieldMeta.AuctionURI}
-          />
-        </div>
-    </div>
+export function AuctionTermsDisplay<TFieldMeta>({ meta, fieldConfig, auctionTerms, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    AuctionTermsTypeName,
+    meta,
+    fieldConfig,
+    auctionTerms,
+    renderContext,
+    AuctionTermsSubElementsMap,
   )
 }

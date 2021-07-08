@@ -1,4 +1,10 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { ActivityPropertyType } from './ActivityPropertyMeta'
+import { ItemType } from './ItemMeta'
+import { PriceType } from './PriceMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum SalesItemField {
   UBLExtensions = 'UBLExtensions',
@@ -12,11 +18,11 @@ export enum SalesItemField {
 export const SalesItemFieldMetaUBLExtensions = new FieldMeta<SalesItemField>(
   SalesItemField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -25,10 +31,10 @@ export const SalesItemFieldMetaQuantity = new FieldMeta<SalesItemField>(
   SalesItemField.Quantity,
   'Quantity',
   'Quantity',
-  'Quantity',
+  QuantityType.name,
   'The quantity the given information are related to',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -37,10 +43,10 @@ export const SalesItemFieldMetaActivityProperty = new FieldMeta<SalesItemField>(
   SalesItemField.ActivityProperty,
   'ActivityProperty',
   'Activity Property',
-  'ActivityProperty',
+  ActivityPropertyType.name,
   'A class to describe the activity (for example "sales", "movement", ...) related to the item.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -49,10 +55,10 @@ export const SalesItemFieldMetaTaxExclusivePrice = new FieldMeta<SalesItemField>
   SalesItemField.TaxExclusivePrice,
   'TaxExclusivePrice',
   'Tax Exclusive Price',
-  'Price',
+  PriceType.name,
   'A price for this sales item, exclusive of tax.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -61,10 +67,10 @@ export const SalesItemFieldMetaTaxInclusivePrice = new FieldMeta<SalesItemField>
   SalesItemField.TaxInclusivePrice,
   'TaxInclusivePrice',
   'Tax Inclusive Price',
-  'Price',
+  PriceType.name,
   'A price for this sales item, including tax.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -73,10 +79,10 @@ export const SalesItemFieldMetaItem = new FieldMeta<SalesItemField>(
   SalesItemField.Item,
   'Item',
   'Item',
-  'Item',
+  ItemType.name,
   'The sales item itself.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -98,3 +104,11 @@ export const SalesItemFieldMap = new Map([
   [SalesItemField.TaxInclusivePrice, SalesItemFieldMetaTaxInclusivePrice],
   [SalesItemField.Item, SalesItemFieldMetaItem]
 ])
+
+export const SalesItemType: Type<SalesItemField> = {
+  name: 'SalesItem',
+  label: 'Sales Item',
+  module: TypeModule.cac,
+  definition: 'A class to describe information related to an item in a sales context',
+  fields: SalesItemFieldMap,
+}

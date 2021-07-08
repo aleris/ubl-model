@@ -1,4 +1,9 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AllowanceChargeType } from './AllowanceChargeMeta'
+import { AmountType } from '../cbc/AmountMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum BillingReferenceLineField {
   UBLExtensions = 'UBLExtensions',
@@ -10,11 +15,11 @@ export enum BillingReferenceLineField {
 export const BillingReferenceLineFieldMetaUBLExtensions = new FieldMeta<BillingReferenceLineField>(
   BillingReferenceLineField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -23,10 +28,10 @@ export const BillingReferenceLineFieldMetaID = new FieldMeta<BillingReferenceLin
   BillingReferenceLineField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this transaction line in a billing document.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -35,10 +40,10 @@ export const BillingReferenceLineFieldMetaAmount = new FieldMeta<BillingReferenc
   BillingReferenceLineField.Amount,
   'Amount',
   'Amount',
-  'Amount',
+  AmountType.name,
   'The monetary amount of the transaction line, including any allowances and charges but excluding taxes.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -47,10 +52,10 @@ export const BillingReferenceLineFieldMetaAllowanceCharge = new FieldMeta<Billin
   BillingReferenceLineField.AllowanceCharge,
   'AllowanceCharge',
   'Allowance Charge',
-  'AllowanceCharge',
+  AllowanceChargeType.name,
   'An allowance or charge applicable to the transaction line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -68,3 +73,11 @@ export const BillingReferenceLineFieldMap = new Map([
   [BillingReferenceLineField.Amount, BillingReferenceLineFieldMetaAmount],
   [BillingReferenceLineField.AllowanceCharge, BillingReferenceLineFieldMetaAllowanceCharge]
 ])
+
+export const BillingReferenceLineType: Type<BillingReferenceLineField> = {
+  name: 'BillingReferenceLine',
+  label: 'Billing Reference Line',
+  module: TypeModule.cac,
+  definition: 'A class to define a reference to a transaction line in a billing document.',
+  fields: BillingReferenceLineFieldMap,
+}

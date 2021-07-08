@@ -8,7 +8,6 @@ import { PriceList } from './PriceList'
 import { Quantity } from '../cbc/Quantity'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a price, expressed in a data structure containing multiple properties (compare with
  * UnstructuredPrice).

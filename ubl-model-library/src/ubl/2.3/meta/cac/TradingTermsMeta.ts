@@ -1,4 +1,8 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AddressType } from './AddressMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum TradingTermsField {
   UBLExtensions = 'UBLExtensions',
@@ -10,11 +14,11 @@ export enum TradingTermsField {
 export const TradingTermsFieldMetaUBLExtensions = new FieldMeta<TradingTermsField>(
   TradingTermsField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -23,10 +27,10 @@ export const TradingTermsFieldMetaInformation = new FieldMeta<TradingTermsField>
   TradingTermsField.Information,
   'Information',
   'Information',
-  'Text',
+  TextType.name,
   'Text describing the terms of a trade agreement.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   'Unless credit terms have been expressly agreed by Dell, payment for the products or services shall be made in full before physical delivery of products or services. Customer shall pay for all shipping and handling charges.'
 )
@@ -35,10 +39,10 @@ export const TradingTermsFieldMetaReference = new FieldMeta<TradingTermsField>(
   TradingTermsField.Reference,
   'Reference',
   'Reference',
-  'Text',
+  TextType.name,
   'A reference quoting the basis of the terms',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'http://www1.ap.dell.com/content/topics/topic.aspx/ap/policy/en/au/sales_terms_au'
 )
@@ -47,10 +51,10 @@ export const TradingTermsFieldMetaApplicableAddress = new FieldMeta<TradingTerms
   TradingTermsField.ApplicableAddress,
   'ApplicableAddress',
   'Applicable Address',
-  'Address',
+  AddressType.name,
   'The address at which these trading terms apply.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -68,3 +72,11 @@ export const TradingTermsFieldMap = new Map([
   [TradingTermsField.Reference, TradingTermsFieldMetaReference],
   [TradingTermsField.ApplicableAddress, TradingTermsFieldMetaApplicableAddress]
 ])
+
+export const TradingTermsType: Type<TradingTermsField> = {
+  name: 'TradingTerms',
+  label: 'Trading Terms',
+  module: TypeModule.cac,
+  definition: 'A class for describing the terms of a trade agreement.',
+  fields: TradingTermsFieldMap,
+}

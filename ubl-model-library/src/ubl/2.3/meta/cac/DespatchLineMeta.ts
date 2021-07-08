@@ -1,4 +1,14 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { DocumentReferenceType } from './DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { ItemType } from './ItemMeta'
+import { OrderLineReferenceType } from './OrderLineReferenceMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { ShipmentType } from './ShipmentMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum DespatchLineField {
   UBLExtensions = 'UBLExtensions',
@@ -21,11 +31,11 @@ export enum DespatchLineField {
 export const DespatchLineFieldMetaUBLExtensions = new FieldMeta<DespatchLineField>(
   DespatchLineField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -34,10 +44,10 @@ export const DespatchLineFieldMetaID = new FieldMeta<DespatchLineField>(
   DespatchLineField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this despatch line.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -46,10 +56,10 @@ export const DespatchLineFieldMetaUUID = new FieldMeta<DespatchLineField>(
   DespatchLineField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for this despatch line.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -58,10 +68,10 @@ export const DespatchLineFieldMetaNote = new FieldMeta<DespatchLineField>(
   DespatchLineField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -70,10 +80,10 @@ export const DespatchLineFieldMetaLineStatusCode = new FieldMeta<DespatchLineFie
   DespatchLineField.LineStatusCode,
   'LineStatusCode',
   'Line Status Code',
-  'Code',
+  CodeType.name,
   'A code signifying the status of this despatch line with respect to its original state.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -82,10 +92,10 @@ export const DespatchLineFieldMetaDeliveredQuantity = new FieldMeta<DespatchLine
   DespatchLineField.DeliveredQuantity,
   'DeliveredQuantity',
   'Delivered Quantity',
-  'Quantity',
+  QuantityType.name,
   'The quantity despatched (picked up).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -94,10 +104,10 @@ export const DespatchLineFieldMetaBackorderQuantity = new FieldMeta<DespatchLine
   DespatchLineField.BackorderQuantity,
   'BackorderQuantity',
   'Backorder Quantity',
-  'Quantity',
+  QuantityType.name,
   'The quantity on back order at the supplier.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -106,10 +116,10 @@ export const DespatchLineFieldMetaBackorderReason = new FieldMeta<DespatchLineFi
   DespatchLineField.BackorderReason,
   'BackorderReason',
   'Backorder Reason',
-  'Text',
+  TextType.name,
   'The reason for the back order.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -118,10 +128,10 @@ export const DespatchLineFieldMetaOutstandingQuantity = new FieldMeta<DespatchLi
   DespatchLineField.OutstandingQuantity,
   'OutstandingQuantity',
   'Outstanding Quantity',
-  'Quantity',
+  QuantityType.name,
   'The quantity outstanding (which will follow in a later despatch).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -130,10 +140,10 @@ export const DespatchLineFieldMetaOutstandingReason = new FieldMeta<DespatchLine
   DespatchLineField.OutstandingReason,
   'OutstandingReason',
   'Outstanding Reason',
-  'Text',
+  TextType.name,
   'The reason for the outstanding quantity.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -142,10 +152,10 @@ export const DespatchLineFieldMetaOversupplyQuantity = new FieldMeta<DespatchLin
   DespatchLineField.OversupplyQuantity,
   'OversupplyQuantity',
   'Oversupply Quantity',
-  'Quantity',
+  QuantityType.name,
   'The quantity over-supplied, i.e., the quantity over and above that ordered.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -154,10 +164,10 @@ export const DespatchLineFieldMetaOrderLineReference = new FieldMeta<DespatchLin
   DespatchLineField.OrderLineReference,
   'OrderLineReference',
   'Order Line Reference',
-  'OrderLineReference',
+  OrderLineReferenceType.name,
   'A reference to an order line associated with this despatch line.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -166,10 +176,10 @@ export const DespatchLineFieldMetaDocumentReference = new FieldMeta<DespatchLine
   DespatchLineField.DocumentReference,
   'DocumentReference',
   'Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a document associated with this despatch line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -178,10 +188,10 @@ export const DespatchLineFieldMetaItem = new FieldMeta<DespatchLineField>(
   DespatchLineField.Item,
   'Item',
   'Item',
-  'Item',
+  ItemType.name,
   'The item associated with this despatch line.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -190,10 +200,10 @@ export const DespatchLineFieldMetaShipment = new FieldMeta<DespatchLineField>(
   DespatchLineField.Shipment,
   'Shipment',
   'Shipment',
-  'Shipment',
+  ShipmentType.name,
   'A shipment associated with this despatch line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -233,3 +243,11 @@ export const DespatchLineFieldMap = new Map([
   [DespatchLineField.Item, DespatchLineFieldMetaItem],
   [DespatchLineField.Shipment, DespatchLineFieldMetaShipment]
 ])
+
+export const DespatchLineType: Type<DespatchLineField> = {
+  name: 'DespatchLine',
+  label: 'Despatch Line',
+  module: TypeModule.cac,
+  definition: 'A class to define a line in a Despatch Advice.',
+  fields: DespatchLineFieldMap,
+}

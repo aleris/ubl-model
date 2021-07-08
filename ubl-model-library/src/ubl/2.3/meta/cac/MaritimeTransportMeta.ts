@@ -1,4 +1,11 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { DocumentReferenceType } from './DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { LocationType } from './LocationMeta'
+import { MeasureType } from '../cbc/MeasureMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum MaritimeTransportField {
   UBLExtensions = 'UBLExtensions',
@@ -15,11 +22,11 @@ export enum MaritimeTransportField {
 export const MaritimeTransportFieldMetaUBLExtensions = new FieldMeta<MaritimeTransportField>(
   MaritimeTransportField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -28,10 +35,10 @@ export const MaritimeTransportFieldMetaVesselID = new FieldMeta<MaritimeTranspor
   MaritimeTransportField.VesselID,
   'VesselID',
   'Vessel Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for a specific vessel.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Lloyds Number, Registration Number (WCO ID 167)',
   'International Maritime Organisation number of a vessel'
 )
@@ -40,10 +47,10 @@ export const MaritimeTransportFieldMetaVesselName = new FieldMeta<MaritimeTransp
   MaritimeTransportField.VesselName,
   'VesselName',
   'Vessel Name',
-  'Text',
+  TextType.name,
   'The name of the vessel.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Ships Name',
   undefined
 )
@@ -52,10 +59,10 @@ export const MaritimeTransportFieldMetaRadioCallSignID = new FieldMeta<MaritimeT
   MaritimeTransportField.RadioCallSignID,
   'RadioCallSignID',
   'Radio Call Sign Identifier',
-  'Identifier',
+  IdentifierType.name,
   'The radio call sign of the vessel.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -64,10 +71,10 @@ export const MaritimeTransportFieldMetaShipsRequirements = new FieldMeta<Maritim
   MaritimeTransportField.ShipsRequirements,
   'ShipsRequirements',
   'Ships Requirements',
-  'Text',
+  TextType.name,
   'Information about what services a vessel will require when it arrives at a port, such as refueling, maintenance, waste disposal etc.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -76,10 +83,10 @@ export const MaritimeTransportFieldMetaGrossTonnageMeasure = new FieldMeta<Marit
   MaritimeTransportField.GrossTonnageMeasure,
   'GrossTonnageMeasure',
   'Gross Tonnage',
-  'Measure',
+  MeasureType.name,
   'Gross tonnage is calculated by measuring a ship\'s volume (from keel to funnel, to the outside of the hull framing) and applying a mathematical formula and is used to determine things such as a ship\'s manning regulations, safety rules, registration fees and port dues.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -88,10 +95,10 @@ export const MaritimeTransportFieldMetaNetTonnageMeasure = new FieldMeta<Maritim
   MaritimeTransportField.NetTonnageMeasure,
   'NetTonnageMeasure',
   'Net Tonnage',
-  'Measure',
+  MeasureType.name,
   'Net tonnage is calculated by measuring a ship\'s internal volume and applying a mathematical formula and is used to calculate the port duties.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -100,10 +107,10 @@ export const MaritimeTransportFieldMetaRegistryCertificateDocumentReference = ne
   MaritimeTransportField.RegistryCertificateDocumentReference,
   'RegistryCertificateDocumentReference',
   'Registry Certificate Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'The certificate issued to the ship by the ships registry in a given flag state.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -112,10 +119,10 @@ export const MaritimeTransportFieldMetaRegistryPortLocation = new FieldMeta<Mari
   MaritimeTransportField.RegistryPortLocation,
   'RegistryPortLocation',
   'Registry Port Location',
-  'Location',
+  LocationType.name,
   'The port in which a vessel is registered or permanently based.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -143,3 +150,11 @@ export const MaritimeTransportFieldMap = new Map([
   [MaritimeTransportField.RegistryCertificateDocumentReference, MaritimeTransportFieldMetaRegistryCertificateDocumentReference],
   [MaritimeTransportField.RegistryPortLocation, MaritimeTransportFieldMetaRegistryPortLocation]
 ])
+
+export const MaritimeTransportType: Type<MaritimeTransportField> = {
+  name: 'MaritimeTransport',
+  label: 'Maritime Transport',
+  module: TypeModule.cac,
+  definition: 'A class to describe a vessel used for transport by water (including sea, river, and canal).',
+  fields: MaritimeTransportFieldMap,
+}

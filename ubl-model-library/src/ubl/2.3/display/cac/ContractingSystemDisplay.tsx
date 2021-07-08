@@ -1,65 +1,79 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ContractingSystem } from  '../../model/cac/ContractingSystem'
-import { ContractingSystemFieldMeta } from  '../../meta/cac/ContractingSystemMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ContractingSystemField, ContractingSystemFieldMeta, ContractingSystemTypeName } from  '../../meta/cac/ContractingSystemMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ContractingSystem | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ContractingSystem, void>
+  contractingSystem: ContractingSystem[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ContractingSystemDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ContractingSystemSubElementsMap: SubElementsTemplatesMap<ContractingSystemField, ContractingSystem, void> = new Map([
+    [
+      ContractingSystemField.UBLExtensions,
+      { meta: ContractingSystemFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ContractingSystemField.UBLExtensions}
+          meta={ContractingSystemFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ContractingSystem">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ContractingSystemFieldMeta.UBLExtensions}
-          />
+    [
+      ContractingSystemField.ID,
+      { meta: ContractingSystemFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ContractingSystemField.ID}
+          meta={ContractingSystemFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={ContractingSystemFieldMeta.ID}
-          />
+    [
+      ContractingSystemField.ContractingSystemTypeCode,
+      { meta: ContractingSystemFieldMeta.ContractingSystemTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ContractingSystemField.ContractingSystemTypeCode}
+          meta={ContractingSystemFieldMeta.ContractingSystemTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.ContractingSystemTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Contracting System Type"
-            value={value.ContractingSystemTypeCode?.[0]}
-            meta={ContractingSystemFieldMeta.ContractingSystemTypeCode}
-          />
+    [
+      ContractingSystemField.Description,
+      { meta: ContractingSystemFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ContractingSystemField.Description}
+          meta={ContractingSystemFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={ContractingSystemFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={ContractingSystemFieldMeta.Description}
-              />
-            }
-          />
-        </div>
-    </div>
+export function ContractingSystemDisplay<TFieldMeta>({ meta, fieldConfig, contractingSystem, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ContractingSystemTypeName,
+    meta,
+    fieldConfig,
+    contractingSystem,
+    renderContext,
+    ContractingSystemSubElementsMap,
   )
 }

@@ -1,89 +1,118 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TransportationSegment } from  '../../model/cac/TransportationSegment'
-import { TransportationSegmentFieldMeta } from  '../../meta/cac/TransportationSegmentMeta'
-import ConsignmentDisplay from './ConsignmentDisplay'
-import { Consignment } from '../../model/cac/Consignment'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import ShipmentStageDisplay from './ShipmentStageDisplay'
-import { ShipmentStage } from '../../model/cac/ShipmentStage'
-import TransportationServiceDisplay from './TransportationServiceDisplay'
-import { TransportationService } from '../../model/cac/TransportationService'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { TransportationSegmentField, TransportationSegmentFieldMeta, TransportationSegmentTypeName } from  '../../meta/cac/TransportationSegmentMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { ConsignmentDisplay } from './ConsignmentDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { ShipmentStageDisplay } from './ShipmentStageDisplay'
+import { TransportationServiceDisplay } from './TransportationServiceDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: TransportationSegment | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<TransportationSegment, void>
+  transportationSegment: TransportationSegment[] | undefined
+  renderContext: RenderContext
 }
 
-export default function TransportationSegmentDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const TransportationSegmentSubElementsMap: SubElementsTemplatesMap<TransportationSegmentField, TransportationSegment, void> = new Map([
+    [
+      TransportationSegmentField.UBLExtensions,
+      { meta: TransportationSegmentFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={TransportationSegmentField.UBLExtensions}
+          meta={TransportationSegmentFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-TransportationSegment">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={TransportationSegmentFieldMeta.UBLExtensions}
-          />
+    [
+      TransportationSegmentField.SequenceNumeric,
+      { meta: TransportationSegmentFieldMeta.SequenceNumeric,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={TransportationSegmentField.SequenceNumeric}
+          meta={TransportationSegmentFieldMeta.SequenceNumeric}
+          fieldConfig={fieldConfig}
+          numeric={value?.SequenceNumeric}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Sequence"
-            value={value.SequenceNumeric?.[0]}
-            meta={TransportationSegmentFieldMeta.SequenceNumeric}
-          />
+    [
+      TransportationSegmentField.TransportExecutionPlanReferenceID,
+      { meta: TransportationSegmentFieldMeta.TransportExecutionPlanReferenceID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TransportationSegmentField.TransportExecutionPlanReferenceID}
+          meta={TransportationSegmentFieldMeta.TransportExecutionPlanReferenceID}
+          fieldConfig={fieldConfig}
+          identifier={value?.TransportExecutionPlanReferenceID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Transport Execution Plan Reference"
-            value={value.TransportExecutionPlanReferenceID?.[0]}
-            meta={TransportationSegmentFieldMeta.TransportExecutionPlanReferenceID}
-          />
+    [
+      TransportationSegmentField.TransportationService,
+      { meta: TransportationSegmentFieldMeta.TransportationService,
+        template: ({value, renderContext, fieldConfig}) => <TransportationServiceDisplay
+          key={TransportationSegmentField.TransportationService}
+          meta={TransportationSegmentFieldMeta.TransportationService}
+          fieldConfig={fieldConfig}
+          transportationService={value?.TransportationService}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TransportationServiceDisplay
-            label="Transportation Service"
-            value={value.TransportationService?.[0]}
-            meta={TransportationSegmentFieldMeta.TransportationService}
-          />
+    [
+      TransportationSegmentField.TransportServiceProviderParty,
+      { meta: TransportationSegmentFieldMeta.TransportServiceProviderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={TransportationSegmentField.TransportServiceProviderParty}
+          meta={TransportationSegmentFieldMeta.TransportServiceProviderParty}
+          fieldConfig={fieldConfig}
+          party={value?.TransportServiceProviderParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Transport Service Provider Party"
-            value={value.TransportServiceProviderParty?.[0]}
-            meta={TransportationSegmentFieldMeta.TransportServiceProviderParty}
-          />
+    [
+      TransportationSegmentField.ReferencedConsignment,
+      { meta: TransportationSegmentFieldMeta.ReferencedConsignment,
+        template: ({value, renderContext, fieldConfig}) => <ConsignmentDisplay
+          key={TransportationSegmentField.ReferencedConsignment}
+          meta={TransportationSegmentFieldMeta.ReferencedConsignment}
+          fieldConfig={fieldConfig}
+          consignment={value?.ReferencedConsignment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ConsignmentDisplay
-            label="Referenced Consignment"
-            value={value.ReferencedConsignment?.[0]}
-            meta={TransportationSegmentFieldMeta.ReferencedConsignment}
-          />
+    [
+      TransportationSegmentField.ShipmentStage,
+      { meta: TransportationSegmentFieldMeta.ShipmentStage,
+        template: ({value, renderContext, fieldConfig}) => <ShipmentStageDisplay
+          key={TransportationSegmentField.ShipmentStage}
+          meta={TransportationSegmentFieldMeta.ShipmentStage}
+          fieldConfig={fieldConfig}
+          shipmentStage={value?.ShipmentStage}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-ShipmentStage"
-            label="Shipment Stage"
-            items={value.ShipmentStage}
-            meta={TransportationSegmentFieldMeta.ShipmentStage} 
-            itemDisplay={ (itemValue: ShipmentStage, key: string | number) =>
-              <ShipmentStageDisplay
-                key={key}
-                label="Shipment Stage"
-                value={itemValue}
-                meta={TransportationSegmentFieldMeta.ShipmentStage}
-              />
-            }
-          />
-        </div>
-    </div>
+export function TransportationSegmentDisplay<TFieldMeta>({ meta, fieldConfig, transportationSegment, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    TransportationSegmentTypeName,
+    meta,
+    fieldConfig,
+    transportationSegment,
+    renderContext,
+    TransportationSegmentSubElementsMap,
   )
 }

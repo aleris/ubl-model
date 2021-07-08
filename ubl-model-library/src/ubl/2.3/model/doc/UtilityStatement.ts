@@ -11,7 +11,6 @@ import { SubscriberConsumption } from '../cac/SubscriberConsumption'
 import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A supplement to an Invoice or Credit Note, containing information on the consumption of services provided by utility
  * suppliers to private and public customers, including electricity, gas, water, and telephone services.

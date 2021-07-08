@@ -1,40 +1,53 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ProcurementAdditionalType } from  '../../model/cac/ProcurementAdditionalType'
-import { ProcurementAdditionalTypeFieldMeta } from  '../../meta/cac/ProcurementAdditionalTypeMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ProcurementAdditionalTypeField, ProcurementAdditionalTypeFieldMeta, ProcurementAdditionalTypeTypeName } from  '../../meta/cac/ProcurementAdditionalTypeMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ProcurementAdditionalType | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ProcurementAdditionalType, void>
+  procurementAdditionalType: ProcurementAdditionalType[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ProcurementAdditionalTypeDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ProcurementAdditionalTypeSubElementsMap: SubElementsTemplatesMap<ProcurementAdditionalTypeField, ProcurementAdditionalType, void> = new Map([
+    [
+      ProcurementAdditionalTypeField.UBLExtensions,
+      { meta: ProcurementAdditionalTypeFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ProcurementAdditionalTypeField.UBLExtensions}
+          meta={ProcurementAdditionalTypeFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ProcurementAdditionalType">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ProcurementAdditionalTypeFieldMeta.UBLExtensions}
-          />
+    [
+      ProcurementAdditionalTypeField.ProcurementTypeCode,
+      { meta: ProcurementAdditionalTypeFieldMeta.ProcurementTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ProcurementAdditionalTypeField.ProcurementTypeCode}
+          meta={ProcurementAdditionalTypeFieldMeta.ProcurementTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.ProcurementTypeCode}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <CodeDisplay
-            label="Procurement Type Code"
-            value={value.ProcurementTypeCode?.[0]}
-            meta={ProcurementAdditionalTypeFieldMeta.ProcurementTypeCode}
-          />
-        </div>
-    </div>
+export function ProcurementAdditionalTypeDisplay<TFieldMeta>({ meta, fieldConfig, procurementAdditionalType, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ProcurementAdditionalTypeTypeName,
+    meta,
+    fieldConfig,
+    procurementAdditionalType,
+    renderContext,
+    ProcurementAdditionalTypeSubElementsMap,
   )
 }

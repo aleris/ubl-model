@@ -1,367 +1,410 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { InvoiceLine } from  '../../model/cac/InvoiceLine'
-import { InvoiceLineFieldMeta } from  '../../meta/cac/InvoiceLineMeta'
-import AllowanceChargeDisplay from './AllowanceChargeDisplay'
-import { AllowanceCharge } from '../../model/cac/AllowanceCharge'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import BillingReferenceDisplay from './BillingReferenceDisplay'
-import { BillingReference } from '../../model/cac/BillingReference'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DeliveryDisplay from './DeliveryDisplay'
-import { Delivery } from '../../model/cac/Delivery'
-import DeliveryTermsDisplay from './DeliveryTermsDisplay'
-import { DeliveryTerms } from '../../model/cac/DeliveryTerms'
-import DocumentReferenceDisplay from './DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import ItemDisplay from './ItemDisplay'
-import { Item } from '../../model/cac/Item'
-import LineReferenceDisplay from './LineReferenceDisplay'
-import { LineReference } from '../../model/cac/LineReference'
-import OrderLineReferenceDisplay from './OrderLineReferenceDisplay'
-import { OrderLineReference } from '../../model/cac/OrderLineReference'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PaymentTermsDisplay from './PaymentTermsDisplay'
-import { PaymentTerms } from '../../model/cac/PaymentTerms'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import PriceDisplay from './PriceDisplay'
-import { Price } from '../../model/cac/Price'
-import PriceExtensionDisplay from './PriceExtensionDisplay'
-import { PriceExtension } from '../../model/cac/PriceExtension'
-import PricingReferenceDisplay from './PricingReferenceDisplay'
-import { PricingReference } from '../../model/cac/PricingReference'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import TaxTotalDisplay from './TaxTotalDisplay'
-import { TaxTotal } from '../../model/cac/TaxTotal'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { InvoiceLineField, InvoiceLineFieldMeta, InvoiceLineTypeName } from  '../../meta/cac/InvoiceLineMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AllowanceChargeDisplay } from './AllowanceChargeDisplay'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { BillingReferenceDisplay } from './BillingReferenceDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DeliveryDisplay } from './DeliveryDisplay'
+import { DeliveryTermsDisplay } from './DeliveryTermsDisplay'
+import { DocumentReferenceDisplay } from './DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { ItemDisplay } from './ItemDisplay'
+import { LineReferenceDisplay } from './LineReferenceDisplay'
+import { OrderLineReferenceDisplay } from './OrderLineReferenceDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { PaymentTermsDisplay } from './PaymentTermsDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { PriceDisplay } from './PriceDisplay'
+import { PriceExtensionDisplay } from './PriceExtensionDisplay'
+import { PricingReferenceDisplay } from './PricingReferenceDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { TaxTotalDisplay } from './TaxTotalDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: InvoiceLine | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<InvoiceLine, void>
+  invoiceLine: InvoiceLine[] | undefined
+  renderContext: RenderContext
 }
 
-export default function InvoiceLineDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const InvoiceLineSubElementsMap: SubElementsTemplatesMap<InvoiceLineField, InvoiceLine, void> = new Map([
+    [
+      InvoiceLineField.UBLExtensions,
+      { meta: InvoiceLineFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={InvoiceLineField.UBLExtensions}
+          meta={InvoiceLineFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-InvoiceLine">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={InvoiceLineFieldMeta.UBLExtensions}
-          />
+    [
+      InvoiceLineField.ID,
+      { meta: InvoiceLineFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={InvoiceLineField.ID}
+          meta={InvoiceLineFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={InvoiceLineFieldMeta.ID}
-          />
+    [
+      InvoiceLineField.UUID,
+      { meta: InvoiceLineFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={InvoiceLineField.UUID}
+          meta={InvoiceLineFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={InvoiceLineFieldMeta.UUID}
-          />
+    [
+      InvoiceLineField.Note,
+      { meta: InvoiceLineFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={InvoiceLineField.Note}
+          meta={InvoiceLineFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={InvoiceLineFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={InvoiceLineFieldMeta.Note}
-              />
-            }
-          />
+    [
+      InvoiceLineField.InvoicedQuantity,
+      { meta: InvoiceLineFieldMeta.InvoicedQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={InvoiceLineField.InvoicedQuantity}
+          meta={InvoiceLineFieldMeta.InvoicedQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.InvoicedQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Invoiced Quantity"
-            value={value.InvoicedQuantity?.[0]}
-            meta={InvoiceLineFieldMeta.InvoicedQuantity}
-          />
+    [
+      InvoiceLineField.LineExtensionAmount,
+      { meta: InvoiceLineFieldMeta.LineExtensionAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={InvoiceLineField.LineExtensionAmount}
+          meta={InvoiceLineFieldMeta.LineExtensionAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.LineExtensionAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Line Extension Amount"
-            value={value.LineExtensionAmount?.[0]}
-            meta={InvoiceLineFieldMeta.LineExtensionAmount}
-          />
+    [
+      InvoiceLineField.TaxInclusiveLineExtensionAmount,
+      { meta: InvoiceLineFieldMeta.TaxInclusiveLineExtensionAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={InvoiceLineField.TaxInclusiveLineExtensionAmount}
+          meta={InvoiceLineFieldMeta.TaxInclusiveLineExtensionAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.TaxInclusiveLineExtensionAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Tax Inclusive Line Extension Amount"
-            value={value.TaxInclusiveLineExtensionAmount?.[0]}
-            meta={InvoiceLineFieldMeta.TaxInclusiveLineExtensionAmount}
-          />
+    [
+      InvoiceLineField.TaxPointDate,
+      { meta: InvoiceLineFieldMeta.TaxPointDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={InvoiceLineField.TaxPointDate}
+          meta={InvoiceLineFieldMeta.TaxPointDate}
+          fieldConfig={fieldConfig}
+          date={value?.TaxPointDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Tax Point Date"
-            value={value.TaxPointDate?.[0]}
-            meta={InvoiceLineFieldMeta.TaxPointDate}
-          />
+    [
+      InvoiceLineField.AccountingCostCode,
+      { meta: InvoiceLineFieldMeta.AccountingCostCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={InvoiceLineField.AccountingCostCode}
+          meta={InvoiceLineFieldMeta.AccountingCostCode}
+          fieldConfig={fieldConfig}
+          code={value?.AccountingCostCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Accounting Cost Code"
-            value={value.AccountingCostCode?.[0]}
-            meta={InvoiceLineFieldMeta.AccountingCostCode}
-          />
+    [
+      InvoiceLineField.AccountingCost,
+      { meta: InvoiceLineFieldMeta.AccountingCost,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={InvoiceLineField.AccountingCost}
+          meta={InvoiceLineFieldMeta.AccountingCost}
+          fieldConfig={fieldConfig}
+          text={value?.AccountingCost}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Accounting Cost"
-            value={value.AccountingCost?.[0]}
-            meta={InvoiceLineFieldMeta.AccountingCost}
-          />
+    [
+      InvoiceLineField.PaymentPurposeCode,
+      { meta: InvoiceLineFieldMeta.PaymentPurposeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={InvoiceLineField.PaymentPurposeCode}
+          meta={InvoiceLineFieldMeta.PaymentPurposeCode}
+          fieldConfig={fieldConfig}
+          code={value?.PaymentPurposeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Payment Purpose Code"
-            value={value.PaymentPurposeCode?.[0]}
-            meta={InvoiceLineFieldMeta.PaymentPurposeCode}
-          />
+    [
+      InvoiceLineField.FreeOfChargeIndicator,
+      { meta: InvoiceLineFieldMeta.FreeOfChargeIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={InvoiceLineField.FreeOfChargeIndicator}
+          meta={InvoiceLineFieldMeta.FreeOfChargeIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.FreeOfChargeIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Free Of Charge Indicator"
-            value={value.FreeOfChargeIndicator?.[0]}
-            meta={InvoiceLineFieldMeta.FreeOfChargeIndicator}
-          />
+    [
+      InvoiceLineField.InvoicePeriod,
+      { meta: InvoiceLineFieldMeta.InvoicePeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={InvoiceLineField.InvoicePeriod}
+          meta={InvoiceLineFieldMeta.InvoicePeriod}
+          fieldConfig={fieldConfig}
+          period={value?.InvoicePeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Period ubl-InvoicePeriod"
-            label="Invoice Period"
-            items={value.InvoicePeriod}
-            meta={InvoiceLineFieldMeta.InvoicePeriod} 
-            itemDisplay={ (itemValue: Period, key: string | number) =>
-              <PeriodDisplay
-                key={key}
-                label="Invoice Period"
-                value={itemValue}
-                meta={InvoiceLineFieldMeta.InvoicePeriod}
-              />
-            }
-          />
+    [
+      InvoiceLineField.OrderLineReference,
+      { meta: InvoiceLineFieldMeta.OrderLineReference,
+        template: ({value, renderContext, fieldConfig}) => <OrderLineReferenceDisplay
+          key={InvoiceLineField.OrderLineReference}
+          meta={InvoiceLineFieldMeta.OrderLineReference}
+          fieldConfig={fieldConfig}
+          orderLineReference={value?.OrderLineReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-OrderLineReference"
-            label="Order Line Reference"
-            items={value.OrderLineReference}
-            meta={InvoiceLineFieldMeta.OrderLineReference} 
-            itemDisplay={ (itemValue: OrderLineReference, key: string | number) =>
-              <OrderLineReferenceDisplay
-                key={key}
-                label="Order Line Reference"
-                value={itemValue}
-                meta={InvoiceLineFieldMeta.OrderLineReference}
-              />
-            }
-          />
+    [
+      InvoiceLineField.DespatchLineReference,
+      { meta: InvoiceLineFieldMeta.DespatchLineReference,
+        template: ({value, renderContext, fieldConfig}) => <LineReferenceDisplay
+          key={InvoiceLineField.DespatchLineReference}
+          meta={InvoiceLineFieldMeta.DespatchLineReference}
+          fieldConfig={fieldConfig}
+          lineReference={value?.DespatchLineReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-LineReference ubl-DespatchLineReference"
-            label="Despatch Line Reference"
-            items={value.DespatchLineReference}
-            meta={InvoiceLineFieldMeta.DespatchLineReference} 
-            itemDisplay={ (itemValue: LineReference, key: string | number) =>
-              <LineReferenceDisplay
-                key={key}
-                label="Despatch Line Reference"
-                value={itemValue}
-                meta={InvoiceLineFieldMeta.DespatchLineReference}
-              />
-            }
-          />
+    [
+      InvoiceLineField.ReceiptLineReference,
+      { meta: InvoiceLineFieldMeta.ReceiptLineReference,
+        template: ({value, renderContext, fieldConfig}) => <LineReferenceDisplay
+          key={InvoiceLineField.ReceiptLineReference}
+          meta={InvoiceLineFieldMeta.ReceiptLineReference}
+          fieldConfig={fieldConfig}
+          lineReference={value?.ReceiptLineReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-LineReference ubl-ReceiptLineReference"
-            label="Receipt Line Reference"
-            items={value.ReceiptLineReference}
-            meta={InvoiceLineFieldMeta.ReceiptLineReference} 
-            itemDisplay={ (itemValue: LineReference, key: string | number) =>
-              <LineReferenceDisplay
-                key={key}
-                label="Receipt Line Reference"
-                value={itemValue}
-                meta={InvoiceLineFieldMeta.ReceiptLineReference}
-              />
-            }
-          />
+    [
+      InvoiceLineField.BillingReference,
+      { meta: InvoiceLineFieldMeta.BillingReference,
+        template: ({value, renderContext, fieldConfig}) => <BillingReferenceDisplay
+          key={InvoiceLineField.BillingReference}
+          meta={InvoiceLineFieldMeta.BillingReference}
+          fieldConfig={fieldConfig}
+          billingReference={value?.BillingReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-BillingReference"
-            label="Billing Reference"
-            items={value.BillingReference}
-            meta={InvoiceLineFieldMeta.BillingReference} 
-            itemDisplay={ (itemValue: BillingReference, key: string | number) =>
-              <BillingReferenceDisplay
-                key={key}
-                label="Billing Reference"
-                value={itemValue}
-                meta={InvoiceLineFieldMeta.BillingReference}
-              />
-            }
-          />
+    [
+      InvoiceLineField.DocumentReference,
+      { meta: InvoiceLineFieldMeta.DocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={InvoiceLineField.DocumentReference}
+          meta={InvoiceLineFieldMeta.DocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.DocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentReference"
-            label="Document Reference"
-            items={value.DocumentReference}
-            meta={InvoiceLineFieldMeta.DocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Document Reference"
-                value={itemValue}
-                meta={InvoiceLineFieldMeta.DocumentReference}
-              />
-            }
-          />
+    [
+      InvoiceLineField.PricingReference,
+      { meta: InvoiceLineFieldMeta.PricingReference,
+        template: ({value, renderContext, fieldConfig}) => <PricingReferenceDisplay
+          key={InvoiceLineField.PricingReference}
+          meta={InvoiceLineFieldMeta.PricingReference}
+          fieldConfig={fieldConfig}
+          pricingReference={value?.PricingReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PricingReferenceDisplay
-            label="Pricing Reference"
-            value={value.PricingReference?.[0]}
-            meta={InvoiceLineFieldMeta.PricingReference}
-          />
+    [
+      InvoiceLineField.OriginatorParty,
+      { meta: InvoiceLineFieldMeta.OriginatorParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={InvoiceLineField.OriginatorParty}
+          meta={InvoiceLineFieldMeta.OriginatorParty}
+          fieldConfig={fieldConfig}
+          party={value?.OriginatorParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Originator Party"
-            value={value.OriginatorParty?.[0]}
-            meta={InvoiceLineFieldMeta.OriginatorParty}
-          />
+    [
+      InvoiceLineField.Delivery,
+      { meta: InvoiceLineFieldMeta.Delivery,
+        template: ({value, renderContext, fieldConfig}) => <DeliveryDisplay
+          key={InvoiceLineField.Delivery}
+          meta={InvoiceLineFieldMeta.Delivery}
+          fieldConfig={fieldConfig}
+          delivery={value?.Delivery}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Delivery"
-            label="Delivery"
-            items={value.Delivery}
-            meta={InvoiceLineFieldMeta.Delivery} 
-            itemDisplay={ (itemValue: Delivery, key: string | number) =>
-              <DeliveryDisplay
-                key={key}
-                label="Delivery"
-                value={itemValue}
-                meta={InvoiceLineFieldMeta.Delivery}
-              />
-            }
-          />
+    [
+      InvoiceLineField.PaymentTerms,
+      { meta: InvoiceLineFieldMeta.PaymentTerms,
+        template: ({value, renderContext, fieldConfig}) => <PaymentTermsDisplay
+          key={InvoiceLineField.PaymentTerms}
+          meta={InvoiceLineFieldMeta.PaymentTerms}
+          fieldConfig={fieldConfig}
+          paymentTerms={value?.PaymentTerms}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-PaymentTerms"
-            label="Payment Terms"
-            items={value.PaymentTerms}
-            meta={InvoiceLineFieldMeta.PaymentTerms} 
-            itemDisplay={ (itemValue: PaymentTerms, key: string | number) =>
-              <PaymentTermsDisplay
-                key={key}
-                label="Payment Terms"
-                value={itemValue}
-                meta={InvoiceLineFieldMeta.PaymentTerms}
-              />
-            }
-          />
+    [
+      InvoiceLineField.AllowanceCharge,
+      { meta: InvoiceLineFieldMeta.AllowanceCharge,
+        template: ({value, renderContext, fieldConfig}) => <AllowanceChargeDisplay
+          key={InvoiceLineField.AllowanceCharge}
+          meta={InvoiceLineFieldMeta.AllowanceCharge}
+          fieldConfig={fieldConfig}
+          allowanceCharge={value?.AllowanceCharge}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-AllowanceCharge"
-            label="Allowance Charge"
-            items={value.AllowanceCharge}
-            meta={InvoiceLineFieldMeta.AllowanceCharge} 
-            itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-              <AllowanceChargeDisplay
-                key={key}
-                label="Allowance Charge"
-                value={itemValue}
-                meta={InvoiceLineFieldMeta.AllowanceCharge}
-              />
-            }
-          />
+    [
+      InvoiceLineField.TaxTotal,
+      { meta: InvoiceLineFieldMeta.TaxTotal,
+        template: ({value, renderContext, fieldConfig}) => <TaxTotalDisplay
+          key={InvoiceLineField.TaxTotal}
+          meta={InvoiceLineFieldMeta.TaxTotal}
+          fieldConfig={fieldConfig}
+          taxTotal={value?.TaxTotal}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TaxTotal"
-            label="Tax Total"
-            items={value.TaxTotal}
-            meta={InvoiceLineFieldMeta.TaxTotal} 
-            itemDisplay={ (itemValue: TaxTotal, key: string | number) =>
-              <TaxTotalDisplay
-                key={key}
-                label="Tax Total"
-                value={itemValue}
-                meta={InvoiceLineFieldMeta.TaxTotal}
-              />
-            }
-          />
+    [
+      InvoiceLineField.WithholdingTaxTotal,
+      { meta: InvoiceLineFieldMeta.WithholdingTaxTotal,
+        template: ({value, renderContext, fieldConfig}) => <TaxTotalDisplay
+          key={InvoiceLineField.WithholdingTaxTotal}
+          meta={InvoiceLineFieldMeta.WithholdingTaxTotal}
+          fieldConfig={fieldConfig}
+          taxTotal={value?.WithholdingTaxTotal}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TaxTotal ubl-WithholdingTaxTotal"
-            label="Withholding Tax Total"
-            items={value.WithholdingTaxTotal}
-            meta={InvoiceLineFieldMeta.WithholdingTaxTotal} 
-            itemDisplay={ (itemValue: TaxTotal, key: string | number) =>
-              <TaxTotalDisplay
-                key={key}
-                label="Withholding Tax Total"
-                value={itemValue}
-                meta={InvoiceLineFieldMeta.WithholdingTaxTotal}
-              />
-            }
-          />
+    [
+      InvoiceLineField.Item,
+      { meta: InvoiceLineFieldMeta.Item,
+        template: ({value, renderContext, fieldConfig}) => <ItemDisplay
+          key={InvoiceLineField.Item}
+          meta={InvoiceLineFieldMeta.Item}
+          fieldConfig={fieldConfig}
+          item={value?.Item}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ItemDisplay
-            label="Item"
-            value={value.Item?.[0]}
-            meta={InvoiceLineFieldMeta.Item}
-          />
+    [
+      InvoiceLineField.Price,
+      { meta: InvoiceLineFieldMeta.Price,
+        template: ({value, renderContext, fieldConfig}) => <PriceDisplay
+          key={InvoiceLineField.Price}
+          meta={InvoiceLineFieldMeta.Price}
+          fieldConfig={fieldConfig}
+          price={value?.Price}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PriceDisplay
-            label="Price"
-            value={value.Price?.[0]}
-            meta={InvoiceLineFieldMeta.Price}
-          />
+    [
+      InvoiceLineField.DeliveryTerms,
+      { meta: InvoiceLineFieldMeta.DeliveryTerms,
+        template: ({value, renderContext, fieldConfig}) => <DeliveryTermsDisplay
+          key={InvoiceLineField.DeliveryTerms}
+          meta={InvoiceLineFieldMeta.DeliveryTerms}
+          fieldConfig={fieldConfig}
+          deliveryTerms={value?.DeliveryTerms}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DeliveryTermsDisplay
-            label="Delivery Terms"
-            value={value.DeliveryTerms?.[0]}
-            meta={InvoiceLineFieldMeta.DeliveryTerms}
-          />
+    [
+      InvoiceLineField.SubInvoiceLine,
+      { meta: InvoiceLineFieldMeta.SubInvoiceLine,
+        template: ({value, renderContext, fieldConfig}) => <InvoiceLineDisplay
+          key={InvoiceLineField.SubInvoiceLine}
+          meta={InvoiceLineFieldMeta.SubInvoiceLine}
+          fieldConfig={fieldConfig}
+          invoiceLine={value?.SubInvoiceLine}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-InvoiceLine ubl-SubInvoiceLine"
-            label="Sub Invoice Line"
-            items={value.SubInvoiceLine}
-            meta={InvoiceLineFieldMeta.SubInvoiceLine} 
-            itemDisplay={ (itemValue: InvoiceLine, key: string | number) =>
-              <InvoiceLineDisplay
-                key={key}
-                label="Sub Invoice Line"
-                value={itemValue}
-                meta={InvoiceLineFieldMeta.SubInvoiceLine}
-              />
-            }
-          />
+    [
+      InvoiceLineField.ItemPriceExtension,
+      { meta: InvoiceLineFieldMeta.ItemPriceExtension,
+        template: ({value, renderContext, fieldConfig}) => <PriceExtensionDisplay
+          key={InvoiceLineField.ItemPriceExtension}
+          meta={InvoiceLineFieldMeta.ItemPriceExtension}
+          fieldConfig={fieldConfig}
+          priceExtension={value?.ItemPriceExtension}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <PriceExtensionDisplay
-            label="Item Price Extension"
-            value={value.ItemPriceExtension?.[0]}
-            meta={InvoiceLineFieldMeta.ItemPriceExtension}
-          />
-        </div>
-    </div>
+export function InvoiceLineDisplay<TFieldMeta>({ meta, fieldConfig, invoiceLine, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    InvoiceLineTypeName,
+    meta,
+    fieldConfig,
+    invoiceLine,
+    renderContext,
+    InvoiceLineSubElementsMap,
   )
 }

@@ -1,200 +1,268 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ExceptionNotification } from  '../../model/doc/ExceptionNotification'
-import { ExceptionNotificationFieldMeta } from  '../../meta/doc/ExceptionNotificationMeta'
-import CustomerPartyDisplay from '../cac/CustomerPartyDisplay'
-import { CustomerParty } from '../../model/cac/CustomerParty'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import ExceptionNotificationLineDisplay from '../cac/ExceptionNotificationLineDisplay'
-import { ExceptionNotificationLine } from '../../model/cac/ExceptionNotificationLine'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PeriodDisplay from '../cac/PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import SupplierPartyDisplay from '../cac/SupplierPartyDisplay'
-import { SupplierParty } from '../../model/cac/SupplierParty'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ExceptionNotificationField, ExceptionNotificationFieldMeta, ExceptionNotificationTypeName } from  '../../meta/doc/ExceptionNotificationMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CustomerPartyDisplay } from '../cac/CustomerPartyDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { ExceptionNotificationLineDisplay } from '../cac/ExceptionNotificationLineDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { PeriodDisplay } from '../cac/PeriodDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { SupplierPartyDisplay } from '../cac/SupplierPartyDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ExceptionNotification | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ExceptionNotification, void>
+  exceptionNotification: ExceptionNotification[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ExceptionNotificationDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ExceptionNotificationSubElementsMap: SubElementsTemplatesMap<ExceptionNotificationField, ExceptionNotification, void> = new Map([
+    [
+      ExceptionNotificationField.UBLExtensions,
+      { meta: ExceptionNotificationFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ExceptionNotificationField.UBLExtensions}
+          meta={ExceptionNotificationFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-ExceptionNotification">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ExceptionNotificationFieldMeta.UBLExtensions}
-          />
+    [
+      ExceptionNotificationField.UBLVersionID,
+      { meta: ExceptionNotificationFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ExceptionNotificationField.UBLVersionID}
+          meta={ExceptionNotificationFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={ExceptionNotificationFieldMeta.UBLVersionID}
-          />
+    [
+      ExceptionNotificationField.CustomizationID,
+      { meta: ExceptionNotificationFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ExceptionNotificationField.CustomizationID}
+          meta={ExceptionNotificationFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={ExceptionNotificationFieldMeta.CustomizationID}
-          />
+    [
+      ExceptionNotificationField.ProfileID,
+      { meta: ExceptionNotificationFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ExceptionNotificationField.ProfileID}
+          meta={ExceptionNotificationFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={ExceptionNotificationFieldMeta.ProfileID}
-          />
+    [
+      ExceptionNotificationField.ProfileExecutionID,
+      { meta: ExceptionNotificationFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ExceptionNotificationField.ProfileExecutionID}
+          meta={ExceptionNotificationFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={ExceptionNotificationFieldMeta.ProfileExecutionID}
-          />
+    [
+      ExceptionNotificationField.ID,
+      { meta: ExceptionNotificationFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ExceptionNotificationField.ID}
+          meta={ExceptionNotificationFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={ExceptionNotificationFieldMeta.ID}
-          />
+    [
+      ExceptionNotificationField.CopyIndicator,
+      { meta: ExceptionNotificationFieldMeta.CopyIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ExceptionNotificationField.CopyIndicator}
+          meta={ExceptionNotificationFieldMeta.CopyIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.CopyIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Copy Indicator"
-            value={value.CopyIndicator?.[0]}
-            meta={ExceptionNotificationFieldMeta.CopyIndicator}
-          />
+    [
+      ExceptionNotificationField.UUID,
+      { meta: ExceptionNotificationFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ExceptionNotificationField.UUID}
+          meta={ExceptionNotificationFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={ExceptionNotificationFieldMeta.UUID}
-          />
+    [
+      ExceptionNotificationField.IssueDate,
+      { meta: ExceptionNotificationFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={ExceptionNotificationField.IssueDate}
+          meta={ExceptionNotificationFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={ExceptionNotificationFieldMeta.IssueDate}
-          />
+    [
+      ExceptionNotificationField.IssueTime,
+      { meta: ExceptionNotificationFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={ExceptionNotificationField.IssueTime}
+          meta={ExceptionNotificationFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={ExceptionNotificationFieldMeta.IssueTime}
-          />
+    [
+      ExceptionNotificationField.Note,
+      { meta: ExceptionNotificationFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ExceptionNotificationField.Note}
+          meta={ExceptionNotificationFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={ExceptionNotificationFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={ExceptionNotificationFieldMeta.Note}
-              />
-            }
-          />
+    [
+      ExceptionNotificationField.ExceptionObservationPeriod,
+      { meta: ExceptionNotificationFieldMeta.ExceptionObservationPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={ExceptionNotificationField.ExceptionObservationPeriod}
+          meta={ExceptionNotificationFieldMeta.ExceptionObservationPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.ExceptionObservationPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Exception Observation Period"
-            value={value.ExceptionObservationPeriod?.[0]}
-            meta={ExceptionNotificationFieldMeta.ExceptionObservationPeriod}
-          />
+    [
+      ExceptionNotificationField.DocumentReference,
+      { meta: ExceptionNotificationFieldMeta.DocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={ExceptionNotificationField.DocumentReference}
+          meta={ExceptionNotificationFieldMeta.DocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.DocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference"
-            label="Document Reference"
-            items={value.DocumentReference}
-            meta={ExceptionNotificationFieldMeta.DocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Document Reference"
-                value={itemValue}
-                meta={ExceptionNotificationFieldMeta.DocumentReference}
-              />
-            }
-          />
+    [
+      ExceptionNotificationField.Signature,
+      { meta: ExceptionNotificationFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={ExceptionNotificationField.Signature}
+          meta={ExceptionNotificationFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={ExceptionNotificationFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={ExceptionNotificationFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      ExceptionNotificationField.SenderParty,
+      { meta: ExceptionNotificationFieldMeta.SenderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ExceptionNotificationField.SenderParty}
+          meta={ExceptionNotificationFieldMeta.SenderParty}
+          fieldConfig={fieldConfig}
+          party={value?.SenderParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Sender Party"
-            value={value.SenderParty?.[0]}
-            meta={ExceptionNotificationFieldMeta.SenderParty}
-          />
+    [
+      ExceptionNotificationField.ReceiverParty,
+      { meta: ExceptionNotificationFieldMeta.ReceiverParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ExceptionNotificationField.ReceiverParty}
+          meta={ExceptionNotificationFieldMeta.ReceiverParty}
+          fieldConfig={fieldConfig}
+          party={value?.ReceiverParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Receiver Party"
-            value={value.ReceiverParty?.[0]}
-            meta={ExceptionNotificationFieldMeta.ReceiverParty}
-          />
+    [
+      ExceptionNotificationField.BuyerCustomerParty,
+      { meta: ExceptionNotificationFieldMeta.BuyerCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={ExceptionNotificationField.BuyerCustomerParty}
+          meta={ExceptionNotificationFieldMeta.BuyerCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.BuyerCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomerPartyDisplay
-            label="Buyer Customer Party"
-            value={value.BuyerCustomerParty?.[0]}
-            meta={ExceptionNotificationFieldMeta.BuyerCustomerParty}
-          />
+    [
+      ExceptionNotificationField.SellerSupplierParty,
+      { meta: ExceptionNotificationFieldMeta.SellerSupplierParty,
+        template: ({value, renderContext, fieldConfig}) => <SupplierPartyDisplay
+          key={ExceptionNotificationField.SellerSupplierParty}
+          meta={ExceptionNotificationFieldMeta.SellerSupplierParty}
+          fieldConfig={fieldConfig}
+          supplierParty={value?.SellerSupplierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <SupplierPartyDisplay
-            label="Seller Supplier Party"
-            value={value.SellerSupplierParty?.[0]}
-            meta={ExceptionNotificationFieldMeta.SellerSupplierParty}
-          />
+    [
+      ExceptionNotificationField.ExceptionNotificationLine,
+      { meta: ExceptionNotificationFieldMeta.ExceptionNotificationLine,
+        template: ({value, renderContext, fieldConfig}) => <ExceptionNotificationLineDisplay
+          key={ExceptionNotificationField.ExceptionNotificationLine}
+          meta={ExceptionNotificationFieldMeta.ExceptionNotificationLine}
+          fieldConfig={fieldConfig}
+          exceptionNotificationLine={value?.ExceptionNotificationLine}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-ExceptionNotificationLine"
-            label="Exception Notification Line"
-            items={value.ExceptionNotificationLine}
-            meta={ExceptionNotificationFieldMeta.ExceptionNotificationLine} 
-            itemDisplay={ (itemValue: ExceptionNotificationLine, key: string | number) =>
-              <ExceptionNotificationLineDisplay
-                key={key}
-                label="Exception Notification Line"
-                value={itemValue}
-                meta={ExceptionNotificationFieldMeta.ExceptionNotificationLine}
-              />
-            }
-          />
-        </div>
-    </div>
+export function ExceptionNotificationDisplay<TFieldMeta>({ meta, fieldConfig, exceptionNotification, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ExceptionNotificationTypeName,
+    meta,
+    fieldConfig,
+    exceptionNotification,
+    renderContext,
+    ExceptionNotificationSubElementsMap,
   )
 }

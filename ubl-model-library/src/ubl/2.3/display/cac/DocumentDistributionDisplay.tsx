@@ -1,70 +1,104 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { DocumentDistribution } from  '../../model/cac/DocumentDistribution'
-import { DocumentDistributionFieldMeta } from  '../../meta/cac/DocumentDistributionMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { DocumentDistributionField, DocumentDistributionFieldMeta, DocumentDistributionTypeName } from  '../../meta/cac/DocumentDistributionMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: DocumentDistribution | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<DocumentDistribution, void>
+  documentDistribution: DocumentDistribution[] | undefined
+  renderContext: RenderContext
 }
 
-export default function DocumentDistributionDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const DocumentDistributionSubElementsMap: SubElementsTemplatesMap<DocumentDistributionField, DocumentDistribution, void> = new Map([
+    [
+      DocumentDistributionField.UBLExtensions,
+      { meta: DocumentDistributionFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={DocumentDistributionField.UBLExtensions}
+          meta={DocumentDistributionFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-DocumentDistribution">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={DocumentDistributionFieldMeta.UBLExtensions}
-          />
+    [
+      DocumentDistributionField.DocumentTypeCode,
+      { meta: DocumentDistributionFieldMeta.DocumentTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={DocumentDistributionField.DocumentTypeCode}
+          meta={DocumentDistributionFieldMeta.DocumentTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.DocumentTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Document Type Code"
-            value={value.DocumentTypeCode?.[0]}
-            meta={DocumentDistributionFieldMeta.DocumentTypeCode}
-          />
+    [
+      DocumentDistributionField.PrintQualifier,
+      { meta: DocumentDistributionFieldMeta.PrintQualifier,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={DocumentDistributionField.PrintQualifier}
+          meta={DocumentDistributionFieldMeta.PrintQualifier}
+          fieldConfig={fieldConfig}
+          text={value?.PrintQualifier}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Print Qualifier"
-            value={value.PrintQualifier?.[0]}
-            meta={DocumentDistributionFieldMeta.PrintQualifier}
-          />
+    [
+      DocumentDistributionField.MaximumCopiesNumeric,
+      { meta: DocumentDistributionFieldMeta.MaximumCopiesNumeric,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={DocumentDistributionField.MaximumCopiesNumeric}
+          meta={DocumentDistributionFieldMeta.MaximumCopiesNumeric}
+          fieldConfig={fieldConfig}
+          numeric={value?.MaximumCopiesNumeric}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Maximum Copies"
-            value={value.MaximumCopiesNumeric?.[0]}
-            meta={DocumentDistributionFieldMeta.MaximumCopiesNumeric}
-          />
+    [
+      DocumentDistributionField.MaximumOriginalsNumeric,
+      { meta: DocumentDistributionFieldMeta.MaximumOriginalsNumeric,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={DocumentDistributionField.MaximumOriginalsNumeric}
+          meta={DocumentDistributionFieldMeta.MaximumOriginalsNumeric}
+          fieldConfig={fieldConfig}
+          numeric={value?.MaximumOriginalsNumeric}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Maximum Originals"
-            value={value.MaximumOriginalsNumeric?.[0]}
-            meta={DocumentDistributionFieldMeta.MaximumOriginalsNumeric}
-          />
+    [
+      DocumentDistributionField.Party,
+      { meta: DocumentDistributionFieldMeta.Party,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={DocumentDistributionField.Party}
+          meta={DocumentDistributionFieldMeta.Party}
+          fieldConfig={fieldConfig}
+          party={value?.Party}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <PartyDisplay
-            label="Party"
-            value={value.Party?.[0]}
-            meta={DocumentDistributionFieldMeta.Party}
-          />
-        </div>
-    </div>
+export function DocumentDistributionDisplay<TFieldMeta>({ meta, fieldConfig, documentDistribution, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    DocumentDistributionTypeName,
+    meta,
+    fieldConfig,
+    documentDistribution,
+    renderContext,
+    DocumentDistributionSubElementsMap,
   )
 }

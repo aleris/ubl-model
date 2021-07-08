@@ -1,4 +1,8 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ContractExecutionRequirementField {
   UBLExtensions = 'UBLExtensions',
@@ -10,11 +14,11 @@ export enum ContractExecutionRequirementField {
 export const ContractExecutionRequirementFieldMetaUBLExtensions = new FieldMeta<ContractExecutionRequirementField>(
   ContractExecutionRequirementField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -23,10 +27,10 @@ export const ContractExecutionRequirementFieldMetaName = new FieldMeta<ContractE
   ContractExecutionRequirementField.Name,
   'Name',
   'Name',
-  'Text',
+  TextType.name,
   'A name for this requirement.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -35,10 +39,10 @@ export const ContractExecutionRequirementFieldMetaExecutionRequirementCode = new
   ContractExecutionRequirementField.ExecutionRequirementCode,
   'ExecutionRequirementCode',
   'Execution Requirement Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of party independent of its role.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -47,10 +51,10 @@ export const ContractExecutionRequirementFieldMetaDescription = new FieldMeta<Co
   ContractExecutionRequirementField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing this requirement.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -68,3 +72,11 @@ export const ContractExecutionRequirementFieldMap = new Map([
   [ContractExecutionRequirementField.ExecutionRequirementCode, ContractExecutionRequirementFieldMetaExecutionRequirementCode],
   [ContractExecutionRequirementField.Description, ContractExecutionRequirementFieldMetaDescription]
 ])
+
+export const ContractExecutionRequirementType: Type<ContractExecutionRequirementField> = {
+  name: 'ContractExecutionRequirement',
+  label: 'Contract Execution Requirement',
+  module: TypeModule.cac,
+  definition: 'A class to describe a requirement for execution of a contract.',
+  fields: ContractExecutionRequirementFieldMap,
+}

@@ -1,200 +1,268 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ItemInformationRequest } from  '../../model/doc/ItemInformationRequest'
-import { ItemInformationRequestFieldMeta } from  '../../meta/doc/ItemInformationRequestMeta'
-import CustomerPartyDisplay from '../cac/CustomerPartyDisplay'
-import { CustomerParty } from '../../model/cac/CustomerParty'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import ItemInformationRequestLineDisplay from '../cac/ItemInformationRequestLineDisplay'
-import { ItemInformationRequestLine } from '../../model/cac/ItemInformationRequestLine'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PeriodDisplay from '../cac/PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import SupplierPartyDisplay from '../cac/SupplierPartyDisplay'
-import { SupplierParty } from '../../model/cac/SupplierParty'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ItemInformationRequestField, ItemInformationRequestFieldMeta, ItemInformationRequestTypeName } from  '../../meta/doc/ItemInformationRequestMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CustomerPartyDisplay } from '../cac/CustomerPartyDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { ItemInformationRequestLineDisplay } from '../cac/ItemInformationRequestLineDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { PeriodDisplay } from '../cac/PeriodDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { SupplierPartyDisplay } from '../cac/SupplierPartyDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ItemInformationRequest | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ItemInformationRequest, void>
+  itemInformationRequest: ItemInformationRequest[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ItemInformationRequestDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ItemInformationRequestSubElementsMap: SubElementsTemplatesMap<ItemInformationRequestField, ItemInformationRequest, void> = new Map([
+    [
+      ItemInformationRequestField.UBLExtensions,
+      { meta: ItemInformationRequestFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ItemInformationRequestField.UBLExtensions}
+          meta={ItemInformationRequestFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-ItemInformationRequest">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ItemInformationRequestFieldMeta.UBLExtensions}
-          />
+    [
+      ItemInformationRequestField.UBLVersionID,
+      { meta: ItemInformationRequestFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ItemInformationRequestField.UBLVersionID}
+          meta={ItemInformationRequestFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={ItemInformationRequestFieldMeta.UBLVersionID}
-          />
+    [
+      ItemInformationRequestField.CustomizationID,
+      { meta: ItemInformationRequestFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ItemInformationRequestField.CustomizationID}
+          meta={ItemInformationRequestFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={ItemInformationRequestFieldMeta.CustomizationID}
-          />
+    [
+      ItemInformationRequestField.ProfileID,
+      { meta: ItemInformationRequestFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ItemInformationRequestField.ProfileID}
+          meta={ItemInformationRequestFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={ItemInformationRequestFieldMeta.ProfileID}
-          />
+    [
+      ItemInformationRequestField.ProfileExecutionID,
+      { meta: ItemInformationRequestFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ItemInformationRequestField.ProfileExecutionID}
+          meta={ItemInformationRequestFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={ItemInformationRequestFieldMeta.ProfileExecutionID}
-          />
+    [
+      ItemInformationRequestField.ID,
+      { meta: ItemInformationRequestFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ItemInformationRequestField.ID}
+          meta={ItemInformationRequestFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={ItemInformationRequestFieldMeta.ID}
-          />
+    [
+      ItemInformationRequestField.CopyIndicator,
+      { meta: ItemInformationRequestFieldMeta.CopyIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ItemInformationRequestField.CopyIndicator}
+          meta={ItemInformationRequestFieldMeta.CopyIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.CopyIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Copy Indicator"
-            value={value.CopyIndicator?.[0]}
-            meta={ItemInformationRequestFieldMeta.CopyIndicator}
-          />
+    [
+      ItemInformationRequestField.UUID,
+      { meta: ItemInformationRequestFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ItemInformationRequestField.UUID}
+          meta={ItemInformationRequestFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={ItemInformationRequestFieldMeta.UUID}
-          />
+    [
+      ItemInformationRequestField.IssueDate,
+      { meta: ItemInformationRequestFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={ItemInformationRequestField.IssueDate}
+          meta={ItemInformationRequestFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={ItemInformationRequestFieldMeta.IssueDate}
-          />
+    [
+      ItemInformationRequestField.IssueTime,
+      { meta: ItemInformationRequestFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={ItemInformationRequestField.IssueTime}
+          meta={ItemInformationRequestFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={ItemInformationRequestFieldMeta.IssueTime}
-          />
+    [
+      ItemInformationRequestField.Note,
+      { meta: ItemInformationRequestFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ItemInformationRequestField.Note}
+          meta={ItemInformationRequestFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={ItemInformationRequestFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={ItemInformationRequestFieldMeta.Note}
-              />
-            }
-          />
+    [
+      ItemInformationRequestField.Period,
+      { meta: ItemInformationRequestFieldMeta.Period,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={ItemInformationRequestField.Period}
+          meta={ItemInformationRequestFieldMeta.Period}
+          fieldConfig={fieldConfig}
+          period={value?.Period}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Period"
-            value={value.Period?.[0]}
-            meta={ItemInformationRequestFieldMeta.Period}
-          />
+    [
+      ItemInformationRequestField.DocumentReference,
+      { meta: ItemInformationRequestFieldMeta.DocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={ItemInformationRequestField.DocumentReference}
+          meta={ItemInformationRequestFieldMeta.DocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.DocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference"
-            label="Document Reference"
-            items={value.DocumentReference}
-            meta={ItemInformationRequestFieldMeta.DocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Document Reference"
-                value={itemValue}
-                meta={ItemInformationRequestFieldMeta.DocumentReference}
-              />
-            }
-          />
+    [
+      ItemInformationRequestField.Signature,
+      { meta: ItemInformationRequestFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={ItemInformationRequestField.Signature}
+          meta={ItemInformationRequestFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={ItemInformationRequestFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={ItemInformationRequestFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      ItemInformationRequestField.SenderParty,
+      { meta: ItemInformationRequestFieldMeta.SenderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ItemInformationRequestField.SenderParty}
+          meta={ItemInformationRequestFieldMeta.SenderParty}
+          fieldConfig={fieldConfig}
+          party={value?.SenderParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Sender Party"
-            value={value.SenderParty?.[0]}
-            meta={ItemInformationRequestFieldMeta.SenderParty}
-          />
+    [
+      ItemInformationRequestField.ReceiverParty,
+      { meta: ItemInformationRequestFieldMeta.ReceiverParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ItemInformationRequestField.ReceiverParty}
+          meta={ItemInformationRequestFieldMeta.ReceiverParty}
+          fieldConfig={fieldConfig}
+          party={value?.ReceiverParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Receiver Party"
-            value={value.ReceiverParty?.[0]}
-            meta={ItemInformationRequestFieldMeta.ReceiverParty}
-          />
+    [
+      ItemInformationRequestField.BuyerCustomerParty,
+      { meta: ItemInformationRequestFieldMeta.BuyerCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={ItemInformationRequestField.BuyerCustomerParty}
+          meta={ItemInformationRequestFieldMeta.BuyerCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.BuyerCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomerPartyDisplay
-            label="Buyer Customer Party"
-            value={value.BuyerCustomerParty?.[0]}
-            meta={ItemInformationRequestFieldMeta.BuyerCustomerParty}
-          />
+    [
+      ItemInformationRequestField.SellerSupplierParty,
+      { meta: ItemInformationRequestFieldMeta.SellerSupplierParty,
+        template: ({value, renderContext, fieldConfig}) => <SupplierPartyDisplay
+          key={ItemInformationRequestField.SellerSupplierParty}
+          meta={ItemInformationRequestFieldMeta.SellerSupplierParty}
+          fieldConfig={fieldConfig}
+          supplierParty={value?.SellerSupplierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <SupplierPartyDisplay
-            label="Seller Supplier Party"
-            value={value.SellerSupplierParty?.[0]}
-            meta={ItemInformationRequestFieldMeta.SellerSupplierParty}
-          />
+    [
+      ItemInformationRequestField.ItemInformationRequestLine,
+      { meta: ItemInformationRequestFieldMeta.ItemInformationRequestLine,
+        template: ({value, renderContext, fieldConfig}) => <ItemInformationRequestLineDisplay
+          key={ItemInformationRequestField.ItemInformationRequestLine}
+          meta={ItemInformationRequestFieldMeta.ItemInformationRequestLine}
+          fieldConfig={fieldConfig}
+          itemInformationRequestLine={value?.ItemInformationRequestLine}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-ItemInformationRequestLine"
-            label="Item Information Request Line"
-            items={value.ItemInformationRequestLine}
-            meta={ItemInformationRequestFieldMeta.ItemInformationRequestLine} 
-            itemDisplay={ (itemValue: ItemInformationRequestLine, key: string | number) =>
-              <ItemInformationRequestLineDisplay
-                key={key}
-                label="Item Information Request Line"
-                value={itemValue}
-                meta={ItemInformationRequestFieldMeta.ItemInformationRequestLine}
-              />
-            }
-          />
-        </div>
-    </div>
+export function ItemInformationRequestDisplay<TFieldMeta>({ meta, fieldConfig, itemInformationRequest, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ItemInformationRequestTypeName,
+    meta,
+    fieldConfig,
+    itemInformationRequest,
+    renderContext,
+    ItemInformationRequestSubElementsMap,
   )
 }

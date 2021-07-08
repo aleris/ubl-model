@@ -9,7 +9,6 @@ import { Signature } from '../cac/Signature'
 import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A request to unsubscribe from a tendering procedure. Economic Operators can subscribe to a tendering procedure using
  * the Expression Of Interest. Upon subscription, the Economic Operator keeps receiving relevant documentation for the

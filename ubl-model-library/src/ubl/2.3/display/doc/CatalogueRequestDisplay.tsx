@@ -1,319 +1,395 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { CatalogueRequest } from  '../../model/doc/CatalogueRequest'
-import { CatalogueRequestFieldMeta } from  '../../meta/doc/CatalogueRequestMeta'
-import AddressDisplay from '../cac/AddressDisplay'
-import { Address } from '../../model/cac/Address'
-import CatalogueReferenceDisplay from '../cac/CatalogueReferenceDisplay'
-import { CatalogueReference } from '../../model/cac/CatalogueReference'
-import CatalogueRequestLineDisplay from '../cac/CatalogueRequestLineDisplay'
-import { CatalogueRequestLine } from '../../model/cac/CatalogueRequestLine'
-import ClassificationSchemeDisplay from '../cac/ClassificationSchemeDisplay'
-import { ClassificationScheme } from '../../model/cac/ClassificationScheme'
-import ContractDisplay from '../cac/ContractDisplay'
-import { Contract } from '../../model/cac/Contract'
-import CustomerPartyDisplay from '../cac/CustomerPartyDisplay'
-import { CustomerParty } from '../../model/cac/CustomerParty'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import LanguageDisplay from '../cac/LanguageDisplay'
-import { Language } from '../../model/cac/Language'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PeriodDisplay from '../cac/PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import SupplierPartyDisplay from '../cac/SupplierPartyDisplay'
-import { SupplierParty } from '../../model/cac/SupplierParty'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import TradingTermsDisplay from '../cac/TradingTermsDisplay'
-import { TradingTerms } from '../../model/cac/TradingTerms'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { CatalogueRequestField, CatalogueRequestFieldMeta, CatalogueRequestTypeName } from  '../../meta/doc/CatalogueRequestMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AddressDisplay } from '../cac/AddressDisplay'
+import { CatalogueReferenceDisplay } from '../cac/CatalogueReferenceDisplay'
+import { CatalogueRequestLineDisplay } from '../cac/CatalogueRequestLineDisplay'
+import { ClassificationSchemeDisplay } from '../cac/ClassificationSchemeDisplay'
+import { ContractDisplay } from '../cac/ContractDisplay'
+import { CustomerPartyDisplay } from '../cac/CustomerPartyDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { LanguageDisplay } from '../cac/LanguageDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { PeriodDisplay } from '../cac/PeriodDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { SupplierPartyDisplay } from '../cac/SupplierPartyDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { TradingTermsDisplay } from '../cac/TradingTermsDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: CatalogueRequest | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<CatalogueRequest, void>
+  catalogueRequest: CatalogueRequest[] | undefined
+  renderContext: RenderContext
 }
 
-export default function CatalogueRequestDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const CatalogueRequestSubElementsMap: SubElementsTemplatesMap<CatalogueRequestField, CatalogueRequest, void> = new Map([
+    [
+      CatalogueRequestField.UBLExtensions,
+      { meta: CatalogueRequestFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={CatalogueRequestField.UBLExtensions}
+          meta={CatalogueRequestFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-CatalogueRequest">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={CatalogueRequestFieldMeta.UBLExtensions}
-          />
+    [
+      CatalogueRequestField.UBLVersionID,
+      { meta: CatalogueRequestFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CatalogueRequestField.UBLVersionID}
+          meta={CatalogueRequestFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={CatalogueRequestFieldMeta.UBLVersionID}
-          />
+    [
+      CatalogueRequestField.CustomizationID,
+      { meta: CatalogueRequestFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CatalogueRequestField.CustomizationID}
+          meta={CatalogueRequestFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={CatalogueRequestFieldMeta.CustomizationID}
-          />
+    [
+      CatalogueRequestField.ProfileID,
+      { meta: CatalogueRequestFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CatalogueRequestField.ProfileID}
+          meta={CatalogueRequestFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={CatalogueRequestFieldMeta.ProfileID}
-          />
+    [
+      CatalogueRequestField.ProfileExecutionID,
+      { meta: CatalogueRequestFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CatalogueRequestField.ProfileExecutionID}
+          meta={CatalogueRequestFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={CatalogueRequestFieldMeta.ProfileExecutionID}
-          />
+    [
+      CatalogueRequestField.ID,
+      { meta: CatalogueRequestFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CatalogueRequestField.ID}
+          meta={CatalogueRequestFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={CatalogueRequestFieldMeta.ID}
-          />
+    [
+      CatalogueRequestField.UUID,
+      { meta: CatalogueRequestFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CatalogueRequestField.UUID}
+          meta={CatalogueRequestFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={CatalogueRequestFieldMeta.UUID}
-          />
+    [
+      CatalogueRequestField.Name,
+      { meta: CatalogueRequestFieldMeta.Name,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={CatalogueRequestField.Name}
+          meta={CatalogueRequestFieldMeta.Name}
+          fieldConfig={fieldConfig}
+          text={value?.Name}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Name"
-            value={value.Name?.[0]}
-            meta={CatalogueRequestFieldMeta.Name}
-          />
+    [
+      CatalogueRequestField.IssueDate,
+      { meta: CatalogueRequestFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={CatalogueRequestField.IssueDate}
+          meta={CatalogueRequestFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={CatalogueRequestFieldMeta.IssueDate}
-          />
+    [
+      CatalogueRequestField.IssueTime,
+      { meta: CatalogueRequestFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={CatalogueRequestField.IssueTime}
+          meta={CatalogueRequestFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={CatalogueRequestFieldMeta.IssueTime}
-          />
+    [
+      CatalogueRequestField.Note,
+      { meta: CatalogueRequestFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={CatalogueRequestField.Note}
+          meta={CatalogueRequestFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={CatalogueRequestFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={CatalogueRequestFieldMeta.Note}
-              />
-            }
-          />
+    [
+      CatalogueRequestField.Description,
+      { meta: CatalogueRequestFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={CatalogueRequestField.Description}
+          meta={CatalogueRequestFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={CatalogueRequestFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={CatalogueRequestFieldMeta.Description}
-              />
-            }
-          />
+    [
+      CatalogueRequestField.PricingUpdateRequestIndicator,
+      { meta: CatalogueRequestFieldMeta.PricingUpdateRequestIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={CatalogueRequestField.PricingUpdateRequestIndicator}
+          meta={CatalogueRequestFieldMeta.PricingUpdateRequestIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.PricingUpdateRequestIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Pricing Update Request Indicator"
-            value={value.PricingUpdateRequestIndicator?.[0]}
-            meta={CatalogueRequestFieldMeta.PricingUpdateRequestIndicator}
-          />
+    [
+      CatalogueRequestField.ItemUpdateRequestIndicator,
+      { meta: CatalogueRequestFieldMeta.ItemUpdateRequestIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={CatalogueRequestField.ItemUpdateRequestIndicator}
+          meta={CatalogueRequestFieldMeta.ItemUpdateRequestIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.ItemUpdateRequestIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Item Update Request Indicator"
-            value={value.ItemUpdateRequestIndicator?.[0]}
-            meta={CatalogueRequestFieldMeta.ItemUpdateRequestIndicator}
-          />
+    [
+      CatalogueRequestField.LineCountNumeric,
+      { meta: CatalogueRequestFieldMeta.LineCountNumeric,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={CatalogueRequestField.LineCountNumeric}
+          meta={CatalogueRequestFieldMeta.LineCountNumeric}
+          fieldConfig={fieldConfig}
+          numeric={value?.LineCountNumeric}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Line Count"
-            value={value.LineCountNumeric?.[0]}
-            meta={CatalogueRequestFieldMeta.LineCountNumeric}
-          />
+    [
+      CatalogueRequestField.ValidityPeriod,
+      { meta: CatalogueRequestFieldMeta.ValidityPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={CatalogueRequestField.ValidityPeriod}
+          meta={CatalogueRequestFieldMeta.ValidityPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.ValidityPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Period ubl-ValidityPeriod"
-            label="Validity Period"
-            items={value.ValidityPeriod}
-            meta={CatalogueRequestFieldMeta.ValidityPeriod} 
-            itemDisplay={ (itemValue: Period, key: string | number) =>
-              <PeriodDisplay
-                key={key}
-                label="Validity Period"
-                value={itemValue}
-                meta={CatalogueRequestFieldMeta.ValidityPeriod}
-              />
-            }
-          />
+    [
+      CatalogueRequestField.Signature,
+      { meta: CatalogueRequestFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={CatalogueRequestField.Signature}
+          meta={CatalogueRequestFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={CatalogueRequestFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={CatalogueRequestFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      CatalogueRequestField.ReceiverParty,
+      { meta: CatalogueRequestFieldMeta.ReceiverParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={CatalogueRequestField.ReceiverParty}
+          meta={CatalogueRequestFieldMeta.ReceiverParty}
+          fieldConfig={fieldConfig}
+          party={value?.ReceiverParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Receiver Party"
-            value={value.ReceiverParty?.[0]}
-            meta={CatalogueRequestFieldMeta.ReceiverParty}
-          />
+    [
+      CatalogueRequestField.ProviderParty,
+      { meta: CatalogueRequestFieldMeta.ProviderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={CatalogueRequestField.ProviderParty}
+          meta={CatalogueRequestFieldMeta.ProviderParty}
+          fieldConfig={fieldConfig}
+          party={value?.ProviderParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Provider Party"
-            value={value.ProviderParty?.[0]}
-            meta={CatalogueRequestFieldMeta.ProviderParty}
-          />
+    [
+      CatalogueRequestField.SellerSupplierParty,
+      { meta: CatalogueRequestFieldMeta.SellerSupplierParty,
+        template: ({value, renderContext, fieldConfig}) => <SupplierPartyDisplay
+          key={CatalogueRequestField.SellerSupplierParty}
+          meta={CatalogueRequestFieldMeta.SellerSupplierParty}
+          fieldConfig={fieldConfig}
+          supplierParty={value?.SellerSupplierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <SupplierPartyDisplay
-            label="Seller Supplier Party"
-            value={value.SellerSupplierParty?.[0]}
-            meta={CatalogueRequestFieldMeta.SellerSupplierParty}
-          />
+    [
+      CatalogueRequestField.ContractorCustomerParty,
+      { meta: CatalogueRequestFieldMeta.ContractorCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={CatalogueRequestField.ContractorCustomerParty}
+          meta={CatalogueRequestFieldMeta.ContractorCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.ContractorCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomerPartyDisplay
-            label="Contractor Customer Party"
-            value={value.ContractorCustomerParty?.[0]}
-            meta={CatalogueRequestFieldMeta.ContractorCustomerParty}
-          />
+    [
+      CatalogueRequestField.RequestedCatalogueReference,
+      { meta: CatalogueRequestFieldMeta.RequestedCatalogueReference,
+        template: ({value, renderContext, fieldConfig}) => <CatalogueReferenceDisplay
+          key={CatalogueRequestField.RequestedCatalogueReference}
+          meta={CatalogueRequestFieldMeta.RequestedCatalogueReference}
+          fieldConfig={fieldConfig}
+          catalogueReference={value?.RequestedCatalogueReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CatalogueReferenceDisplay
-            label="Requested Catalogue Reference"
-            value={value.RequestedCatalogueReference?.[0]}
-            meta={CatalogueRequestFieldMeta.RequestedCatalogueReference}
-          />
+    [
+      CatalogueRequestField.ReferencedContract,
+      { meta: CatalogueRequestFieldMeta.ReferencedContract,
+        template: ({value, renderContext, fieldConfig}) => <ContractDisplay
+          key={CatalogueRequestField.ReferencedContract}
+          meta={CatalogueRequestFieldMeta.ReferencedContract}
+          fieldConfig={fieldConfig}
+          contract={value?.ReferencedContract}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Contract ubl-ReferencedContract"
-            label="Referenced Contract"
-            items={value.ReferencedContract}
-            meta={CatalogueRequestFieldMeta.ReferencedContract} 
-            itemDisplay={ (itemValue: Contract, key: string | number) =>
-              <ContractDisplay
-                key={key}
-                label="Referenced Contract"
-                value={itemValue}
-                meta={CatalogueRequestFieldMeta.ReferencedContract}
-              />
-            }
-          />
+    [
+      CatalogueRequestField.TradingTerms,
+      { meta: CatalogueRequestFieldMeta.TradingTerms,
+        template: ({value, renderContext, fieldConfig}) => <TradingTermsDisplay
+          key={CatalogueRequestField.TradingTerms}
+          meta={CatalogueRequestFieldMeta.TradingTerms}
+          fieldConfig={fieldConfig}
+          tradingTerms={value?.TradingTerms}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TradingTermsDisplay
-            label="Trading Terms"
-            value={value.TradingTerms?.[0]}
-            meta={CatalogueRequestFieldMeta.TradingTerms}
-          />
+    [
+      CatalogueRequestField.DocumentReference,
+      { meta: CatalogueRequestFieldMeta.DocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={CatalogueRequestField.DocumentReference}
+          meta={CatalogueRequestFieldMeta.DocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.DocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference"
-            label="Document Reference"
-            items={value.DocumentReference}
-            meta={CatalogueRequestFieldMeta.DocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Document Reference"
-                value={itemValue}
-                meta={CatalogueRequestFieldMeta.DocumentReference}
-              />
-            }
-          />
+    [
+      CatalogueRequestField.ApplicableTerritoryAddress,
+      { meta: CatalogueRequestFieldMeta.ApplicableTerritoryAddress,
+        template: ({value, renderContext, fieldConfig}) => <AddressDisplay
+          key={CatalogueRequestField.ApplicableTerritoryAddress}
+          meta={CatalogueRequestFieldMeta.ApplicableTerritoryAddress}
+          fieldConfig={fieldConfig}
+          address={value?.ApplicableTerritoryAddress}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Address ubl-ApplicableTerritoryAddress"
-            label="Applicable Territory Address"
-            items={value.ApplicableTerritoryAddress}
-            meta={CatalogueRequestFieldMeta.ApplicableTerritoryAddress} 
-            itemDisplay={ (itemValue: Address, key: string | number) =>
-              <AddressDisplay
-                key={key}
-                label="Applicable Territory Address"
-                value={itemValue}
-                meta={CatalogueRequestFieldMeta.ApplicableTerritoryAddress}
-              />
-            }
-          />
+    [
+      CatalogueRequestField.RequestedLanguage,
+      { meta: CatalogueRequestFieldMeta.RequestedLanguage,
+        template: ({value, renderContext, fieldConfig}) => <LanguageDisplay
+          key={CatalogueRequestField.RequestedLanguage}
+          meta={CatalogueRequestFieldMeta.RequestedLanguage}
+          fieldConfig={fieldConfig}
+          language={value?.RequestedLanguage}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <LanguageDisplay
-            label="Requested Language"
-            value={value.RequestedLanguage?.[0]}
-            meta={CatalogueRequestFieldMeta.RequestedLanguage}
-          />
+    [
+      CatalogueRequestField.RequestedClassificationScheme,
+      { meta: CatalogueRequestFieldMeta.RequestedClassificationScheme,
+        template: ({value, renderContext, fieldConfig}) => <ClassificationSchemeDisplay
+          key={CatalogueRequestField.RequestedClassificationScheme}
+          meta={CatalogueRequestFieldMeta.RequestedClassificationScheme}
+          fieldConfig={fieldConfig}
+          classificationScheme={value?.RequestedClassificationScheme}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-ClassificationScheme ubl-RequestedClassificationScheme"
-            label="Requested Classification Scheme"
-            items={value.RequestedClassificationScheme}
-            meta={CatalogueRequestFieldMeta.RequestedClassificationScheme} 
-            itemDisplay={ (itemValue: ClassificationScheme, key: string | number) =>
-              <ClassificationSchemeDisplay
-                key={key}
-                label="Requested Classification Scheme"
-                value={itemValue}
-                meta={CatalogueRequestFieldMeta.RequestedClassificationScheme}
-              />
-            }
-          />
+    [
+      CatalogueRequestField.CatalogueRequestLine,
+      { meta: CatalogueRequestFieldMeta.CatalogueRequestLine,
+        template: ({value, renderContext, fieldConfig}) => <CatalogueRequestLineDisplay
+          key={CatalogueRequestField.CatalogueRequestLine}
+          meta={CatalogueRequestFieldMeta.CatalogueRequestLine}
+          fieldConfig={fieldConfig}
+          catalogueRequestLine={value?.CatalogueRequestLine}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-CatalogueRequestLine"
-            label="Catalogue Request Line"
-            items={value.CatalogueRequestLine}
-            meta={CatalogueRequestFieldMeta.CatalogueRequestLine} 
-            itemDisplay={ (itemValue: CatalogueRequestLine, key: string | number) =>
-              <CatalogueRequestLineDisplay
-                key={key}
-                label="Catalogue Request Line"
-                value={itemValue}
-                meta={CatalogueRequestFieldMeta.CatalogueRequestLine}
-              />
-            }
-          />
-        </div>
-    </div>
+export function CatalogueRequestDisplay<TFieldMeta>({ meta, fieldConfig, catalogueRequest, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    CatalogueRequestTypeName,
+    meta,
+    fieldConfig,
+    catalogueRequest,
+    renderContext,
+    CatalogueRequestSubElementsMap,
   )
 }

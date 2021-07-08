@@ -6,7 +6,6 @@ import { Shipment } from '../cac/Shipment'
 import { Signature } from '../cac/Signature'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A document used to report weight or verified mass measurements in the transport chain.
  */

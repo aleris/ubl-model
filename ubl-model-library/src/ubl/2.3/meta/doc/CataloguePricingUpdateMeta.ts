@@ -1,4 +1,21 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CataloguePricingUpdateLineType } from '../cac/CataloguePricingUpdateLineMeta'
+import { CatalogueReferenceType } from '../cac/CatalogueReferenceMeta'
+import { ContractType } from '../cac/ContractMeta'
+import { CustomerPartyType } from '../cac/CustomerPartyMeta'
+import { DateType } from '../cbc/DateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { LanguageType } from '../cac/LanguageMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { PeriodType } from '../cac/PeriodMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { SupplierPartyType } from '../cac/SupplierPartyMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { TradingTermsType } from '../cac/TradingTermsMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum CataloguePricingUpdateField {
   UBLExtensions = 'UBLExtensions',
@@ -33,11 +50,11 @@ export enum CataloguePricingUpdateField {
 export const CataloguePricingUpdateFieldMetaUBLExtensions = new FieldMeta<CataloguePricingUpdateField>(
   CataloguePricingUpdateField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -46,10 +63,10 @@ export const CataloguePricingUpdateFieldMetaUBLVersionID = new FieldMeta<Catalog
   CataloguePricingUpdateField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.0.5'
 )
@@ -58,10 +75,10 @@ export const CataloguePricingUpdateFieldMetaCustomizationID = new FieldMeta<Cata
   CataloguePricingUpdateField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -70,10 +87,10 @@ export const CataloguePricingUpdateFieldMetaProfileID = new FieldMeta<CatalogueP
   CataloguePricingUpdateField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the subset of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BasicProcurementProcess'
 )
@@ -82,10 +99,10 @@ export const CataloguePricingUpdateFieldMetaProfileExecutionID = new FieldMeta<C
   CataloguePricingUpdateField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -94,10 +111,10 @@ export const CataloguePricingUpdateFieldMetaID = new FieldMeta<CataloguePricingU
   CataloguePricingUpdateField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -106,10 +123,10 @@ export const CataloguePricingUpdateFieldMetaUUID = new FieldMeta<CataloguePricin
   CataloguePricingUpdateField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -118,10 +135,10 @@ export const CataloguePricingUpdateFieldMetaName = new FieldMeta<CataloguePricin
   CataloguePricingUpdateField.Name,
   'Name',
   'Name',
-  'Text',
+  TextType.name,
   'Text, assigned by the sender, that identifies this document to business users.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Seasonal Promotion'
 )
@@ -130,10 +147,10 @@ export const CataloguePricingUpdateFieldMetaIssueDate = new FieldMeta<CatalogueP
   CataloguePricingUpdateField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -142,10 +159,10 @@ export const CataloguePricingUpdateFieldMetaIssueTime = new FieldMeta<CatalogueP
   CataloguePricingUpdateField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -154,10 +171,10 @@ export const CataloguePricingUpdateFieldMetaRevisionDate = new FieldMeta<Catalog
   CataloguePricingUpdateField.RevisionDate,
   'RevisionDate',
   'Revision Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the seller, on which the Catalogue was revised.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -166,10 +183,10 @@ export const CataloguePricingUpdateFieldMetaRevisionTime = new FieldMeta<Catalog
   CataloguePricingUpdateField.RevisionTime,
   'RevisionTime',
   'Revision Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the seller, at which the Catalogue was revised.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -178,10 +195,10 @@ export const CataloguePricingUpdateFieldMetaNote = new FieldMeta<CataloguePricin
   CataloguePricingUpdateField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -190,10 +207,10 @@ export const CataloguePricingUpdateFieldMetaDescription = new FieldMeta<Catalogu
   CataloguePricingUpdateField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Describes the Catalogue Revision.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   'adjustment of prices for Christmas trading period'
 )
@@ -202,10 +219,10 @@ export const CataloguePricingUpdateFieldMetaVersionID = new FieldMeta<CatalogueP
   CataloguePricingUpdateField.VersionID,
   'VersionID',
   'Version',
-  'Identifier',
+  IdentifierType.name,
   'Indicates the current version of the catalogue.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '1.1'
 )
@@ -214,10 +231,10 @@ export const CataloguePricingUpdateFieldMetaLineCountNumeric = new FieldMeta<Cat
   CataloguePricingUpdateField.LineCountNumeric,
   'LineCountNumeric',
   'Line Count',
-  'Numeric',
+  NumericType.name,
   'The number of lines in the document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -226,10 +243,10 @@ export const CataloguePricingUpdateFieldMetaValidityPeriod = new FieldMeta<Catal
   CataloguePricingUpdateField.ValidityPeriod,
   'ValidityPeriod',
   'Validity Period',
-  'Period',
+  PeriodType.name,
   'A period, assigned by the seller, during which the information in the Catalogue Revision is effective. This may be given as start and end dates or as a duration.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -238,10 +255,10 @@ export const CataloguePricingUpdateFieldMetaRelatedCatalogueReference = new Fiel
   CataloguePricingUpdateField.RelatedCatalogueReference,
   'RelatedCatalogueReference',
   'Related Catalogue Reference',
-  'CatalogueReference',
+  CatalogueReferenceType.name,
   'A reference to the Catalogue being updated.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -250,10 +267,10 @@ export const CataloguePricingUpdateFieldMetaReferencedContract = new FieldMeta<C
   CataloguePricingUpdateField.ReferencedContract,
   'ReferencedContract',
   'Referenced Contract',
-  'Contract',
+  ContractType.name,
   'A contract or framework agreement with which the Catalogue is associated.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -262,10 +279,10 @@ export const CataloguePricingUpdateFieldMetaSignature = new FieldMeta<CatalogueP
   CataloguePricingUpdateField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -274,10 +291,10 @@ export const CataloguePricingUpdateFieldMetaProviderParty = new FieldMeta<Catalo
   CataloguePricingUpdateField.ProviderParty,
   'ProviderParty',
   'Provider Party',
-  'Party',
+  PartyType.name,
   'The party sending the Catalogue Pricing Update.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -286,10 +303,10 @@ export const CataloguePricingUpdateFieldMetaReceiverParty = new FieldMeta<Catalo
   CataloguePricingUpdateField.ReceiverParty,
   'ReceiverParty',
   'Receiver Party',
-  'Party',
+  PartyType.name,
   'The party receiving the Catalogue Pricing Update.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -298,10 +315,10 @@ export const CataloguePricingUpdateFieldMetaSellerSupplierParty = new FieldMeta<
   CataloguePricingUpdateField.SellerSupplierParty,
   'SellerSupplierParty',
   'Seller Supplier Party',
-  'SupplierParty',
+  SupplierPartyType.name,
   'The seller.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -310,10 +327,10 @@ export const CataloguePricingUpdateFieldMetaContractorCustomerParty = new FieldM
   CataloguePricingUpdateField.ContractorCustomerParty,
   'ContractorCustomerParty',
   'Contractor Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The customer party responsible for the contracts with which the Catalogue is associated.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -322,10 +339,10 @@ export const CataloguePricingUpdateFieldMetaTradingTerms = new FieldMeta<Catalog
   CataloguePricingUpdateField.TradingTerms,
   'TradingTerms',
   'Trading Terms',
-  'TradingTerms',
+  TradingTermsType.name,
   'The trading terms associated with the Catalogue.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -334,10 +351,10 @@ export const CataloguePricingUpdateFieldMetaDefaultLanguage = new FieldMeta<Cata
   CataloguePricingUpdateField.DefaultLanguage,
   'DefaultLanguage',
   'Default Language',
-  'Language',
+  LanguageType.name,
   'The default language for the catalogue pricing update.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -346,10 +363,10 @@ export const CataloguePricingUpdateFieldMetaCataloguePricingUpdateLine = new Fie
   CataloguePricingUpdateField.CataloguePricingUpdateLine,
   'CataloguePricingUpdateLine',
   'Catalogue Pricing Update Line',
-  'CataloguePricingUpdateLine',
+  CataloguePricingUpdateLineType.name,
   'One or more lines in the Catalogue Pricing Update, each line updating a specific catalogue item.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -413,3 +430,11 @@ export const CataloguePricingUpdateFieldMap = new Map([
   [CataloguePricingUpdateField.DefaultLanguage, CataloguePricingUpdateFieldMetaDefaultLanguage],
   [CataloguePricingUpdateField.CataloguePricingUpdateLine, CataloguePricingUpdateFieldMetaCataloguePricingUpdateLine]
 ])
+
+export const CataloguePricingUpdateType: Type<CataloguePricingUpdateField> = {
+  name: 'CataloguePricingUpdate',
+  label: 'Catalogue Pricing Update',
+  module: TypeModule.doc,
+  definition: 'A document used to update information about prices in an existing Catalogue.',
+  fields: CataloguePricingUpdateFieldMap,
+}

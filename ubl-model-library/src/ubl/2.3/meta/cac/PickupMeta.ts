@@ -1,4 +1,11 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { DateType } from '../cbc/DateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { LocationType } from './LocationMeta'
+import { PartyType } from './PartyMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum PickupField {
   UBLExtensions = 'UBLExtensions',
@@ -16,11 +23,11 @@ export enum PickupField {
 export const PickupFieldMetaUBLExtensions = new FieldMeta<PickupField>(
   PickupField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -29,10 +36,10 @@ export const PickupFieldMetaID = new FieldMeta<PickupField>(
   PickupField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this pickup.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -41,10 +48,10 @@ export const PickupFieldMetaActualPickupDate = new FieldMeta<PickupField>(
   PickupField.ActualPickupDate,
   'ActualPickupDate',
   'Actual Pickup Date',
-  'Date',
+  DateType.name,
   'The actual pickup date.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -53,10 +60,10 @@ export const PickupFieldMetaActualPickupTime = new FieldMeta<PickupField>(
   PickupField.ActualPickupTime,
   'ActualPickupTime',
   'Actual Pickup Time',
-  'Time',
+  TimeType.name,
   'The actual pickup time.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -65,10 +72,10 @@ export const PickupFieldMetaEarliestPickupDate = new FieldMeta<PickupField>(
   PickupField.EarliestPickupDate,
   'EarliestPickupDate',
   'Earliest Pickup Date',
-  'Date',
+  DateType.name,
   'The earliest pickup date.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -77,10 +84,10 @@ export const PickupFieldMetaEarliestPickupTime = new FieldMeta<PickupField>(
   PickupField.EarliestPickupTime,
   'EarliestPickupTime',
   'Earliest Pickup Time',
-  'Time',
+  TimeType.name,
   'The earliest pickup time.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -89,10 +96,10 @@ export const PickupFieldMetaLatestPickupDate = new FieldMeta<PickupField>(
   PickupField.LatestPickupDate,
   'LatestPickupDate',
   'Latest Pickup Date',
-  'Date',
+  DateType.name,
   'The latest pickup date.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -101,10 +108,10 @@ export const PickupFieldMetaLatestPickupTime = new FieldMeta<PickupField>(
   PickupField.LatestPickupTime,
   'LatestPickupTime',
   'Latest Pickup Time',
-  'Time',
+  TimeType.name,
   'The latest pickup time.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -113,10 +120,10 @@ export const PickupFieldMetaPickupLocation = new FieldMeta<PickupField>(
   PickupField.PickupLocation,
   'PickupLocation',
   'Pickup Location',
-  'Location',
+  LocationType.name,
   'The pickup location.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -125,10 +132,10 @@ export const PickupFieldMetaPickupParty = new FieldMeta<PickupField>(
   PickupField.PickupParty,
   'PickupParty',
   'Pickup Party',
-  'Party',
+  PartyType.name,
   'The party responsible for picking up a delivery.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -158,3 +165,11 @@ export const PickupFieldMap = new Map([
   [PickupField.PickupLocation, PickupFieldMetaPickupLocation],
   [PickupField.PickupParty, PickupFieldMetaPickupParty]
 ])
+
+export const PickupType: Type<PickupField> = {
+  name: 'Pickup',
+  label: 'Pickup',
+  module: TypeModule.cac,
+  definition: 'A class to describe a pickup for delivery.',
+  fields: PickupFieldMap,
+}

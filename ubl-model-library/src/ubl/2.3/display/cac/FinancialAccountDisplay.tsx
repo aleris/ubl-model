@@ -1,105 +1,153 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { FinancialAccount } from  '../../model/cac/FinancialAccount'
-import { FinancialAccountFieldMeta } from  '../../meta/cac/FinancialAccountMeta'
-import BranchDisplay from './BranchDisplay'
-import { Branch } from '../../model/cac/Branch'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import CountryDisplay from './CountryDisplay'
-import { Country } from '../../model/cac/Country'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { FinancialAccountField, FinancialAccountFieldMeta, FinancialAccountTypeName } from  '../../meta/cac/FinancialAccountMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { BranchDisplay } from './BranchDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { CountryDisplay } from './CountryDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: FinancialAccount | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<FinancialAccount, void>
+  financialAccount: FinancialAccount[] | undefined
+  renderContext: RenderContext
 }
 
-export default function FinancialAccountDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const FinancialAccountSubElementsMap: SubElementsTemplatesMap<FinancialAccountField, FinancialAccount, void> = new Map([
+    [
+      FinancialAccountField.UBLExtensions,
+      { meta: FinancialAccountFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={FinancialAccountField.UBLExtensions}
+          meta={FinancialAccountFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-FinancialAccount">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={FinancialAccountFieldMeta.UBLExtensions}
-          />
+    [
+      FinancialAccountField.ID,
+      { meta: FinancialAccountFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={FinancialAccountField.ID}
+          meta={FinancialAccountFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={FinancialAccountFieldMeta.ID}
-          />
+    [
+      FinancialAccountField.Name,
+      { meta: FinancialAccountFieldMeta.Name,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={FinancialAccountField.Name}
+          meta={FinancialAccountFieldMeta.Name}
+          fieldConfig={fieldConfig}
+          text={value?.Name}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Name"
-            value={value.Name?.[0]}
-            meta={FinancialAccountFieldMeta.Name}
-          />
+    [
+      FinancialAccountField.AliasName,
+      { meta: FinancialAccountFieldMeta.AliasName,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={FinancialAccountField.AliasName}
+          meta={FinancialAccountFieldMeta.AliasName}
+          fieldConfig={fieldConfig}
+          text={value?.AliasName}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Alias Name"
-            value={value.AliasName?.[0]}
-            meta={FinancialAccountFieldMeta.AliasName}
-          />
+    [
+      FinancialAccountField.AccountTypeCode,
+      { meta: FinancialAccountFieldMeta.AccountTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={FinancialAccountField.AccountTypeCode}
+          meta={FinancialAccountFieldMeta.AccountTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.AccountTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Account Type Code"
-            value={value.AccountTypeCode?.[0]}
-            meta={FinancialAccountFieldMeta.AccountTypeCode}
-          />
+    [
+      FinancialAccountField.AccountFormatCode,
+      { meta: FinancialAccountFieldMeta.AccountFormatCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={FinancialAccountField.AccountFormatCode}
+          meta={FinancialAccountFieldMeta.AccountFormatCode}
+          fieldConfig={fieldConfig}
+          code={value?.AccountFormatCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Account Format Code"
-            value={value.AccountFormatCode?.[0]}
-            meta={FinancialAccountFieldMeta.AccountFormatCode}
-          />
+    [
+      FinancialAccountField.CurrencyCode,
+      { meta: FinancialAccountFieldMeta.CurrencyCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={FinancialAccountField.CurrencyCode}
+          meta={FinancialAccountFieldMeta.CurrencyCode}
+          fieldConfig={fieldConfig}
+          code={value?.CurrencyCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Currency Code"
-            value={value.CurrencyCode?.[0]}
-            meta={FinancialAccountFieldMeta.CurrencyCode}
-          />
+    [
+      FinancialAccountField.PaymentNote,
+      { meta: FinancialAccountFieldMeta.PaymentNote,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={FinancialAccountField.PaymentNote}
+          meta={FinancialAccountFieldMeta.PaymentNote}
+          fieldConfig={fieldConfig}
+          text={value?.PaymentNote}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-PaymentNote"
-            label="Payment Note"
-            items={value.PaymentNote}
-            meta={FinancialAccountFieldMeta.PaymentNote} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Payment Note"
-                value={itemValue}
-                meta={FinancialAccountFieldMeta.PaymentNote}
-              />
-            }
-          />
+    [
+      FinancialAccountField.FinancialInstitutionBranch,
+      { meta: FinancialAccountFieldMeta.FinancialInstitutionBranch,
+        template: ({value, renderContext, fieldConfig}) => <BranchDisplay
+          key={FinancialAccountField.FinancialInstitutionBranch}
+          meta={FinancialAccountFieldMeta.FinancialInstitutionBranch}
+          fieldConfig={fieldConfig}
+          branch={value?.FinancialInstitutionBranch}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <BranchDisplay
-            label="Financial Institution Branch"
-            value={value.FinancialInstitutionBranch?.[0]}
-            meta={FinancialAccountFieldMeta.FinancialInstitutionBranch}
-          />
+    [
+      FinancialAccountField.Country,
+      { meta: FinancialAccountFieldMeta.Country,
+        template: ({value, renderContext, fieldConfig}) => <CountryDisplay
+          key={FinancialAccountField.Country}
+          meta={FinancialAccountFieldMeta.Country}
+          fieldConfig={fieldConfig}
+          country={value?.Country}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <CountryDisplay
-            label="Country"
-            value={value.Country?.[0]}
-            meta={FinancialAccountFieldMeta.Country}
-          />
-        </div>
-    </div>
+export function FinancialAccountDisplay<TFieldMeta>({ meta, fieldConfig, financialAccount, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    FinancialAccountTypeName,
+    meta,
+    fieldConfig,
+    financialAccount,
+    renderContext,
+    FinancialAccountSubElementsMap,
   )
 }

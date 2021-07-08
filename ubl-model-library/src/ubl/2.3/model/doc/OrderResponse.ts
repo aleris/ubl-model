@@ -27,7 +27,6 @@ import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { TransactionConditions } from '../cac/TransactionConditions'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A document used to indicate detailed acceptance or rejection of an Order or to make a counter-offer.
  */

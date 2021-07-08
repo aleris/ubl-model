@@ -1,4 +1,10 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CustomerPartyType } from './CustomerPartyMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { ItemLocationQuantityType } from './ItemLocationQuantityMeta'
+import { SupplierPartyType } from './SupplierPartyMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum CataloguePricingUpdateLineField {
   UBLExtensions = 'UBLExtensions',
@@ -11,11 +17,11 @@ export enum CataloguePricingUpdateLineField {
 export const CataloguePricingUpdateLineFieldMetaUBLExtensions = new FieldMeta<CataloguePricingUpdateLineField>(
   CataloguePricingUpdateLineField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -24,10 +30,10 @@ export const CataloguePricingUpdateLineFieldMetaID = new FieldMeta<CataloguePric
   CataloguePricingUpdateLineField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the catalogue line to be updated.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   '1'
 )
@@ -36,10 +42,10 @@ export const CataloguePricingUpdateLineFieldMetaContractorCustomerParty = new Fi
   CataloguePricingUpdateLineField.ContractorCustomerParty,
   'ContractorCustomerParty',
   'Contractor Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The customer responsible for the contract associated with the catalogue line being updated.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -48,10 +54,10 @@ export const CataloguePricingUpdateLineFieldMetaSellerSupplierParty = new FieldM
   CataloguePricingUpdateLineField.SellerSupplierParty,
   'SellerSupplierParty',
   'Seller Supplier Party',
-  'SupplierParty',
+  SupplierPartyType.name,
   'The seller/supplier responsible for the contract associated with the catalogue line being updated.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -60,10 +66,10 @@ export const CataloguePricingUpdateLineFieldMetaRequiredItemLocationQuantity = n
   CataloguePricingUpdateLineField.RequiredItemLocationQuantity,
   'RequiredItemLocationQuantity',
   'Required Item Location Quantity',
-  'ItemLocationQuantity',
+  ItemLocationQuantityType.name,
   'Updated properties of the item in this catalogue line that are dependent on location and quantity.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -83,3 +89,11 @@ export const CataloguePricingUpdateLineFieldMap = new Map([
   [CataloguePricingUpdateLineField.SellerSupplierParty, CataloguePricingUpdateLineFieldMetaSellerSupplierParty],
   [CataloguePricingUpdateLineField.RequiredItemLocationQuantity, CataloguePricingUpdateLineFieldMetaRequiredItemLocationQuantity]
 ])
+
+export const CataloguePricingUpdateLineType: Type<CataloguePricingUpdateLineField> = {
+  name: 'CataloguePricingUpdateLine',
+  label: 'Catalogue Pricing Update Line',
+  module: TypeModule.cac,
+  definition: 'A class to define a line describing a pricing update to a catalogue line.',
+  fields: CataloguePricingUpdateLineFieldMap,
+}

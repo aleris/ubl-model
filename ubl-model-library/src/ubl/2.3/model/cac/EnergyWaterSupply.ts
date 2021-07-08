@@ -3,7 +3,6 @@ import { ConsumptionCorrection } from './ConsumptionCorrection'
 import { ConsumptionReport } from './ConsumptionReport'
 import { EnergyTaxReport } from './EnergyTaxReport'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe the supply (and therefore consumption) of an amount of energy or water.
  */

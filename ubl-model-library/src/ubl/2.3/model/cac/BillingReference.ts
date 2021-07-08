@@ -1,7 +1,6 @@
 import { BillingReferenceLine } from './BillingReferenceLine'
 import { DocumentReference } from './DocumentReference'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to define a reference to a billing document.
  */

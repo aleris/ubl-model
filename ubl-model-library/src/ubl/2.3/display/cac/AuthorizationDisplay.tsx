@@ -1,82 +1,92 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Authorization } from  '../../model/cac/Authorization'
-import { AuthorizationFieldMeta } from  '../../meta/cac/AuthorizationMeta'
-import CertificateDisplay from './CertificateDisplay'
-import { Certificate } from '../../model/cac/Certificate'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { AuthorizationField, AuthorizationFieldMeta, AuthorizationTypeName } from  '../../meta/cac/AuthorizationMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CertificateDisplay } from './CertificateDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: Authorization | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<Authorization, void>
+  authorization: Authorization[] | undefined
+  renderContext: RenderContext
 }
 
-export default function AuthorizationDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const AuthorizationSubElementsMap: SubElementsTemplatesMap<AuthorizationField, Authorization, void> = new Map([
+    [
+      AuthorizationField.UBLExtensions,
+      { meta: AuthorizationFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={AuthorizationField.UBLExtensions}
+          meta={AuthorizationFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-Authorization">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={AuthorizationFieldMeta.UBLExtensions}
-          />
+    [
+      AuthorizationField.PurposeCode,
+      { meta: AuthorizationFieldMeta.PurposeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={AuthorizationField.PurposeCode}
+          meta={AuthorizationFieldMeta.PurposeCode}
+          fieldConfig={fieldConfig}
+          code={value?.PurposeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Purpose Code"
-            value={value.PurposeCode?.[0]}
-            meta={AuthorizationFieldMeta.PurposeCode}
-          />
+    [
+      AuthorizationField.Purpose,
+      { meta: AuthorizationFieldMeta.Purpose,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={AuthorizationField.Purpose}
+          meta={AuthorizationFieldMeta.Purpose}
+          fieldConfig={fieldConfig}
+          text={value?.Purpose}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Purpose"
-            label="Purpose"
-            items={value.Purpose}
-            meta={AuthorizationFieldMeta.Purpose} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Purpose"
-                value={itemValue}
-                meta={AuthorizationFieldMeta.Purpose}
-              />
-            }
-          />
+    [
+      AuthorizationField.ValidityPeriod,
+      { meta: AuthorizationFieldMeta.ValidityPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={AuthorizationField.ValidityPeriod}
+          meta={AuthorizationFieldMeta.ValidityPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.ValidityPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Validity Period"
-            value={value.ValidityPeriod?.[0]}
-            meta={AuthorizationFieldMeta.ValidityPeriod}
-          />
+    [
+      AuthorizationField.Certificate,
+      { meta: AuthorizationFieldMeta.Certificate,
+        template: ({value, renderContext, fieldConfig}) => <CertificateDisplay
+          key={AuthorizationField.Certificate}
+          meta={AuthorizationFieldMeta.Certificate}
+          fieldConfig={fieldConfig}
+          certificate={value?.Certificate}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Certificate"
-            label="Certificate"
-            items={value.Certificate}
-            meta={AuthorizationFieldMeta.Certificate} 
-            itemDisplay={ (itemValue: Certificate, key: string | number) =>
-              <CertificateDisplay
-                key={key}
-                label="Certificate"
-                value={itemValue}
-                meta={AuthorizationFieldMeta.Certificate}
-              />
-            }
-          />
-        </div>
-    </div>
+export function AuthorizationDisplay<TFieldMeta>({ meta, fieldConfig, authorization, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    AuthorizationTypeName,
+    meta,
+    fieldConfig,
+    authorization,
+    renderContext,
+    AuthorizationSubElementsMap,
   )
 }

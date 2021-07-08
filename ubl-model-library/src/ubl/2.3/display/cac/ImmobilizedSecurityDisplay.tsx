@@ -1,84 +1,129 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ImmobilizedSecurity } from  '../../model/cac/ImmobilizedSecurity'
-import { ImmobilizedSecurityFieldMeta } from  '../../meta/cac/ImmobilizedSecurityMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ImmobilizedSecurityField, ImmobilizedSecurityFieldMeta, ImmobilizedSecurityTypeName } from  '../../meta/cac/ImmobilizedSecurityMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ImmobilizedSecurity | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ImmobilizedSecurity, void>
+  immobilizedSecurity: ImmobilizedSecurity[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ImmobilizedSecurityDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ImmobilizedSecuritySubElementsMap: SubElementsTemplatesMap<ImmobilizedSecurityField, ImmobilizedSecurity, void> = new Map([
+    [
+      ImmobilizedSecurityField.UBLExtensions,
+      { meta: ImmobilizedSecurityFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ImmobilizedSecurityField.UBLExtensions}
+          meta={ImmobilizedSecurityFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ImmobilizedSecurity">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ImmobilizedSecurityFieldMeta.UBLExtensions}
-          />
+    [
+      ImmobilizedSecurityField.ImmobilizationCertificateID,
+      { meta: ImmobilizedSecurityFieldMeta.ImmobilizationCertificateID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ImmobilizedSecurityField.ImmobilizationCertificateID}
+          meta={ImmobilizedSecurityFieldMeta.ImmobilizationCertificateID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ImmobilizationCertificateID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Immobilization Certificate Identifier"
-            value={value.ImmobilizationCertificateID?.[0]}
-            meta={ImmobilizedSecurityFieldMeta.ImmobilizationCertificateID}
-          />
+    [
+      ImmobilizedSecurityField.SecurityID,
+      { meta: ImmobilizedSecurityFieldMeta.SecurityID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ImmobilizedSecurityField.SecurityID}
+          meta={ImmobilizedSecurityFieldMeta.SecurityID}
+          fieldConfig={fieldConfig}
+          identifier={value?.SecurityID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Security Identifier"
-            value={value.SecurityID?.[0]}
-            meta={ImmobilizedSecurityFieldMeta.SecurityID}
-          />
+    [
+      ImmobilizedSecurityField.IssueDate,
+      { meta: ImmobilizedSecurityFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={ImmobilizedSecurityField.IssueDate}
+          meta={ImmobilizedSecurityFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={ImmobilizedSecurityFieldMeta.IssueDate}
-          />
+    [
+      ImmobilizedSecurityField.FaceValueAmount,
+      { meta: ImmobilizedSecurityFieldMeta.FaceValueAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={ImmobilizedSecurityField.FaceValueAmount}
+          meta={ImmobilizedSecurityFieldMeta.FaceValueAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.FaceValueAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Face Value"
-            value={value.FaceValueAmount?.[0]}
-            meta={ImmobilizedSecurityFieldMeta.FaceValueAmount}
-          />
+    [
+      ImmobilizedSecurityField.MarketValueAmount,
+      { meta: ImmobilizedSecurityFieldMeta.MarketValueAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={ImmobilizedSecurityField.MarketValueAmount}
+          meta={ImmobilizedSecurityFieldMeta.MarketValueAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.MarketValueAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Market Value"
-            value={value.MarketValueAmount?.[0]}
-            meta={ImmobilizedSecurityFieldMeta.MarketValueAmount}
-          />
+    [
+      ImmobilizedSecurityField.SharesNumberQuantity,
+      { meta: ImmobilizedSecurityFieldMeta.SharesNumberQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={ImmobilizedSecurityField.SharesNumberQuantity}
+          meta={ImmobilizedSecurityFieldMeta.SharesNumberQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.SharesNumberQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Shares Number"
-            value={value.SharesNumberQuantity?.[0]}
-            meta={ImmobilizedSecurityFieldMeta.SharesNumberQuantity}
-          />
+    [
+      ImmobilizedSecurityField.IssuerParty,
+      { meta: ImmobilizedSecurityFieldMeta.IssuerParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ImmobilizedSecurityField.IssuerParty}
+          meta={ImmobilizedSecurityFieldMeta.IssuerParty}
+          fieldConfig={fieldConfig}
+          party={value?.IssuerParty}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <PartyDisplay
-            label="Issuer Party"
-            value={value.IssuerParty?.[0]}
-            meta={ImmobilizedSecurityFieldMeta.IssuerParty}
-          />
-        </div>
-    </div>
+export function ImmobilizedSecurityDisplay<TFieldMeta>({ meta, fieldConfig, immobilizedSecurity, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ImmobilizedSecurityTypeName,
+    meta,
+    fieldConfig,
+    immobilizedSecurity,
+    renderContext,
+    ImmobilizedSecuritySubElementsMap,
   )
 }

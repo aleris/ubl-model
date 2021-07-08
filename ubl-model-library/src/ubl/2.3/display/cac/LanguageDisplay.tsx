@@ -1,56 +1,79 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Language } from  '../../model/cac/Language'
-import { LanguageFieldMeta } from  '../../meta/cac/LanguageMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { LanguageField, LanguageFieldMeta, LanguageTypeName } from  '../../meta/cac/LanguageMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: Language | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<Language, void>
+  language: Language[] | undefined
+  renderContext: RenderContext
 }
 
-export default function LanguageDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const LanguageSubElementsMap: SubElementsTemplatesMap<LanguageField, Language, void> = new Map([
+    [
+      LanguageField.UBLExtensions,
+      { meta: LanguageFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={LanguageField.UBLExtensions}
+          meta={LanguageFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-Language">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={LanguageFieldMeta.UBLExtensions}
-          />
+    [
+      LanguageField.ID,
+      { meta: LanguageFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={LanguageField.ID}
+          meta={LanguageFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={LanguageFieldMeta.ID}
-          />
+    [
+      LanguageField.Name,
+      { meta: LanguageFieldMeta.Name,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={LanguageField.Name}
+          meta={LanguageFieldMeta.Name}
+          fieldConfig={fieldConfig}
+          text={value?.Name}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Name"
-            value={value.Name?.[0]}
-            meta={LanguageFieldMeta.Name}
-          />
+    [
+      LanguageField.LocaleCode,
+      { meta: LanguageFieldMeta.LocaleCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={LanguageField.LocaleCode}
+          meta={LanguageFieldMeta.LocaleCode}
+          fieldConfig={fieldConfig}
+          code={value?.LocaleCode}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <CodeDisplay
-            label="Locale Code"
-            value={value.LocaleCode?.[0]}
-            meta={LanguageFieldMeta.LocaleCode}
-          />
-        </div>
-    </div>
+export function LanguageDisplay<TFieldMeta>({ meta, fieldConfig, language, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    LanguageTypeName,
+    meta,
+    fieldConfig,
+    language,
+    renderContext,
+    LanguageSubElementsMap,
   )
 }

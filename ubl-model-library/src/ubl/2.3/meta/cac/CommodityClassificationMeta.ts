@@ -1,4 +1,7 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum CommodityClassificationField {
   UBLExtensions = 'UBLExtensions',
@@ -11,11 +14,11 @@ export enum CommodityClassificationField {
 export const CommodityClassificationFieldMetaUBLExtensions = new FieldMeta<CommodityClassificationField>(
   CommodityClassificationField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -24,10 +27,10 @@ export const CommodityClassificationFieldMetaNatureCode = new FieldMeta<Commodit
   CommodityClassificationField.NatureCode,
   'NatureCode',
   'Nature Code',
-  'Code',
+  CodeType.name,
   'A code defined by a specific maintenance agency signifying the high-level nature of the commodity.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'wooden products'
 )
@@ -36,10 +39,10 @@ export const CommodityClassificationFieldMetaCargoTypeCode = new FieldMeta<Commo
   CommodityClassificationField.CargoTypeCode,
   'CargoTypeCode',
   'Cargo Type Code',
-  'Code',
+  CodeType.name,
   'A mutually agreed code signifying the type of cargo for purposes of commodity classification.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Refrigerated'
 )
@@ -48,10 +51,10 @@ export const CommodityClassificationFieldMetaCommodityCode = new FieldMeta<Commo
   CommodityClassificationField.CommodityCode,
   'CommodityCode',
   'Commodity Code',
-  'Code',
+  CodeType.name,
   'The harmonized international commodity code for cross border and regulatory (customs and trade statistics) purposes.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Harmonized Code',
   '1102222883'
 )
@@ -60,10 +63,10 @@ export const CommodityClassificationFieldMetaItemClassificationCode = new FieldM
   CommodityClassificationField.ItemClassificationCode,
   'ItemClassificationCode',
   'Item Classification Code',
-  'Code',
+  CodeType.name,
   'A code signifying the trade classification of the commodity.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'UN/SPSC Code',
   '3440234'
 )
@@ -83,3 +86,11 @@ export const CommodityClassificationFieldMap = new Map([
   [CommodityClassificationField.CommodityCode, CommodityClassificationFieldMetaCommodityCode],
   [CommodityClassificationField.ItemClassificationCode, CommodityClassificationFieldMetaItemClassificationCode]
 ])
+
+export const CommodityClassificationType: Type<CommodityClassificationField> = {
+  name: 'CommodityClassification',
+  label: 'Commodity Classification',
+  module: TypeModule.cac,
+  definition: 'A class to describe the classification of a commodity.',
+  fields: CommodityClassificationFieldMap,
+}

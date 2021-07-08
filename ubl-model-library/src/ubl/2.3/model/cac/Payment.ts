@@ -3,7 +3,6 @@ import { Date } from '../cbc/Date'
 import { Identifier } from '../cbc/Identifier'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a payment.
  */

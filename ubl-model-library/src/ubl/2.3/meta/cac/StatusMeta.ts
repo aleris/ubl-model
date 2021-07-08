@@ -1,4 +1,14 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { ConditionType } from './ConditionMeta'
+import { DateType } from '../cbc/DateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum StatusField {
   UBLExtensions = 'UBLExtensions',
@@ -20,11 +30,11 @@ export enum StatusField {
 export const StatusFieldMetaUBLExtensions = new FieldMeta<StatusField>(
   StatusField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -33,10 +43,10 @@ export const StatusFieldMetaConditionCode = new FieldMeta<StatusField>(
   StatusField.ConditionCode,
   'ConditionCode',
   'Condition Code',
-  'Code',
+  CodeType.name,
   'Specifies the status condition of the related object.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -45,10 +55,10 @@ export const StatusFieldMetaReferenceDate = new FieldMeta<StatusField>(
   StatusField.ReferenceDate,
   'ReferenceDate',
   'Reference Date',
-  'Date',
+  DateType.name,
   'The reference date for this status.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -57,10 +67,10 @@ export const StatusFieldMetaReferenceTime = new FieldMeta<StatusField>(
   StatusField.ReferenceTime,
   'ReferenceTime',
   'Reference Time',
-  'Time',
+  TimeType.name,
   'The reference time for this status.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -69,10 +79,10 @@ export const StatusFieldMetaDescription = new FieldMeta<StatusField>(
   StatusField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing this status.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -81,10 +91,10 @@ export const StatusFieldMetaStatusReasonCode = new FieldMeta<StatusField>(
   StatusField.StatusReasonCode,
   'StatusReasonCode',
   'Status Reason Code',
-  'Code',
+  CodeType.name,
   'The reason for this status condition or position, expressed as a code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -93,10 +103,10 @@ export const StatusFieldMetaStatusReason = new FieldMeta<StatusField>(
   StatusField.StatusReason,
   'StatusReason',
   'Status Reason',
-  'Text',
+  TextType.name,
   'The reason for this status condition or position, expressed as text.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -105,10 +115,10 @@ export const StatusFieldMetaSequenceID = new FieldMeta<StatusField>(
   StatusField.SequenceID,
   'SequenceID',
   'Sequence Identifier',
-  'Identifier',
+  IdentifierType.name,
   'A sequence identifier for this status.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -117,10 +127,10 @@ export const StatusFieldMetaText = new FieldMeta<StatusField>(
   StatusField.Text,
   'Text',
   'Text',
-  'Text',
+  TextType.name,
   'Provides any textual information related to this status.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -129,10 +139,10 @@ export const StatusFieldMetaIndicationIndicator = new FieldMeta<StatusField>(
   StatusField.IndicationIndicator,
   'IndicationIndicator',
   'Indication Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Specifies an indicator relevant to a specific status.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -141,10 +151,10 @@ export const StatusFieldMetaPercent = new FieldMeta<StatusField>(
   StatusField.Percent,
   'Percent',
   'Percent',
-  'Numeric',
+  NumericType.name,
   'A percentage meaningful in the context of this status.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -153,10 +163,10 @@ export const StatusFieldMetaReliabilityPercent = new FieldMeta<StatusField>(
   StatusField.ReliabilityPercent,
   'ReliabilityPercent',
   'Reliability Percent',
-  'Numeric',
+  NumericType.name,
   'The reliability of this status, expressed as a percentage.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -165,10 +175,10 @@ export const StatusFieldMetaSubStatus = new FieldMeta<StatusField>(
   StatusField.SubStatus,
   'SubStatus',
   'Sub Status',
-  'Status',
+  StatusType.name,
   'An additional sub status to clarify or ellaborate on the status',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -177,10 +187,10 @@ export const StatusFieldMetaCondition = new FieldMeta<StatusField>(
   StatusField.Condition,
   'Condition',
   'Condition',
-  'Condition',
+  ConditionType.name,
   'Measurements that quantify the condition of the objects covered by the status.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -218,3 +228,11 @@ export const StatusFieldMap = new Map([
   [StatusField.SubStatus, StatusFieldMetaSubStatus],
   [StatusField.Condition, StatusFieldMetaCondition]
 ])
+
+export const StatusType: Type<StatusField> = {
+  name: 'Status',
+  label: 'Status',
+  module: TypeModule.cac,
+  definition: 'A class to describe the condition or position of an object.',
+  fields: StatusFieldMap,
+}

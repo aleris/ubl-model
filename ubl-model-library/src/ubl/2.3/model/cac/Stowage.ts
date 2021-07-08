@@ -2,7 +2,6 @@ import { Dimension } from './Dimension'
 import { Identifier } from '../cbc/Identifier'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a location on board a means of transport where specified goods or transport equipment have been
  * stowed or are to be stowed.

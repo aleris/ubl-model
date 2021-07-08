@@ -1,180 +1,276 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { PaymentTerms } from  '../../model/cac/PaymentTerms'
-import { PaymentTermsFieldMeta } from  '../../meta/cac/PaymentTermsMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import ExchangeRateDisplay from './ExchangeRateDisplay'
-import { ExchangeRate } from '../../model/cac/ExchangeRate'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { PaymentTermsField, PaymentTermsFieldMeta, PaymentTermsTypeName } from  '../../meta/cac/PaymentTermsMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { ExchangeRateDisplay } from './ExchangeRateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: PaymentTerms | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<PaymentTerms, void>
+  paymentTerms: PaymentTerms[] | undefined
+  renderContext: RenderContext
 }
 
-export default function PaymentTermsDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const PaymentTermsSubElementsMap: SubElementsTemplatesMap<PaymentTermsField, PaymentTerms, void> = new Map([
+    [
+      PaymentTermsField.UBLExtensions,
+      { meta: PaymentTermsFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={PaymentTermsField.UBLExtensions}
+          meta={PaymentTermsFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-PaymentTerms">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={PaymentTermsFieldMeta.UBLExtensions}
-          />
+    [
+      PaymentTermsField.ID,
+      { meta: PaymentTermsFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PaymentTermsField.ID}
+          meta={PaymentTermsFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={PaymentTermsFieldMeta.ID}
-          />
+    [
+      PaymentTermsField.PaymentMeansID,
+      { meta: PaymentTermsFieldMeta.PaymentMeansID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PaymentTermsField.PaymentMeansID}
+          meta={PaymentTermsFieldMeta.PaymentMeansID}
+          fieldConfig={fieldConfig}
+          identifier={value?.PaymentMeansID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Identifier ubl-PaymentMeansID"
-            label="Payment Means Identifier"
-            items={value.PaymentMeansID}
-            meta={PaymentTermsFieldMeta.PaymentMeansID} 
-            itemDisplay={ (itemValue: Identifier, key: string | number) =>
-              <IdentifierDisplay
-                key={key}
-                label="Payment Means Identifier"
-                value={itemValue}
-                meta={PaymentTermsFieldMeta.PaymentMeansID}
-              />
-            }
-          />
+    [
+      PaymentTermsField.PrepaidPaymentReferenceID,
+      { meta: PaymentTermsFieldMeta.PrepaidPaymentReferenceID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PaymentTermsField.PrepaidPaymentReferenceID}
+          meta={PaymentTermsFieldMeta.PrepaidPaymentReferenceID}
+          fieldConfig={fieldConfig}
+          identifier={value?.PrepaidPaymentReferenceID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Prepaid Payment Reference Identifier"
-            value={value.PrepaidPaymentReferenceID?.[0]}
-            meta={PaymentTermsFieldMeta.PrepaidPaymentReferenceID}
-          />
+    [
+      PaymentTermsField.Note,
+      { meta: PaymentTermsFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={PaymentTermsField.Note}
+          meta={PaymentTermsFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={PaymentTermsFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={PaymentTermsFieldMeta.Note}
-              />
-            }
-          />
+    [
+      PaymentTermsField.ReferenceEventCode,
+      { meta: PaymentTermsFieldMeta.ReferenceEventCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={PaymentTermsField.ReferenceEventCode}
+          meta={PaymentTermsFieldMeta.ReferenceEventCode}
+          fieldConfig={fieldConfig}
+          code={value?.ReferenceEventCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Reference Event Code"
-            value={value.ReferenceEventCode?.[0]}
-            meta={PaymentTermsFieldMeta.ReferenceEventCode}
-          />
+    [
+      PaymentTermsField.SettlementDiscountPercent,
+      { meta: PaymentTermsFieldMeta.SettlementDiscountPercent,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={PaymentTermsField.SettlementDiscountPercent}
+          meta={PaymentTermsFieldMeta.SettlementDiscountPercent}
+          fieldConfig={fieldConfig}
+          numeric={value?.SettlementDiscountPercent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Settlement Discount Percent"
-            value={value.SettlementDiscountPercent?.[0]}
-            meta={PaymentTermsFieldMeta.SettlementDiscountPercent}
-          />
+    [
+      PaymentTermsField.PenaltySurchargePercent,
+      { meta: PaymentTermsFieldMeta.PenaltySurchargePercent,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={PaymentTermsField.PenaltySurchargePercent}
+          meta={PaymentTermsFieldMeta.PenaltySurchargePercent}
+          fieldConfig={fieldConfig}
+          numeric={value?.PenaltySurchargePercent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Penalty Surcharge Percent"
-            value={value.PenaltySurchargePercent?.[0]}
-            meta={PaymentTermsFieldMeta.PenaltySurchargePercent}
-          />
+    [
+      PaymentTermsField.PaymentPercent,
+      { meta: PaymentTermsFieldMeta.PaymentPercent,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={PaymentTermsField.PaymentPercent}
+          meta={PaymentTermsFieldMeta.PaymentPercent}
+          fieldConfig={fieldConfig}
+          numeric={value?.PaymentPercent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Payment Percent"
-            value={value.PaymentPercent?.[0]}
-            meta={PaymentTermsFieldMeta.PaymentPercent}
-          />
+    [
+      PaymentTermsField.Amount,
+      { meta: PaymentTermsFieldMeta.Amount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={PaymentTermsField.Amount}
+          meta={PaymentTermsFieldMeta.Amount}
+          fieldConfig={fieldConfig}
+          amount={value?.Amount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Amount"
-            value={value.Amount?.[0]}
-            meta={PaymentTermsFieldMeta.Amount}
-          />
+    [
+      PaymentTermsField.SettlementDiscountAmount,
+      { meta: PaymentTermsFieldMeta.SettlementDiscountAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={PaymentTermsField.SettlementDiscountAmount}
+          meta={PaymentTermsFieldMeta.SettlementDiscountAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.SettlementDiscountAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Settlement Discount Amount"
-            value={value.SettlementDiscountAmount?.[0]}
-            meta={PaymentTermsFieldMeta.SettlementDiscountAmount}
-          />
+    [
+      PaymentTermsField.PenaltyAmount,
+      { meta: PaymentTermsFieldMeta.PenaltyAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={PaymentTermsField.PenaltyAmount}
+          meta={PaymentTermsFieldMeta.PenaltyAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.PenaltyAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Penalty Amount"
-            value={value.PenaltyAmount?.[0]}
-            meta={PaymentTermsFieldMeta.PenaltyAmount}
-          />
+    [
+      PaymentTermsField.PaymentTermsDetailsURI,
+      { meta: PaymentTermsFieldMeta.PaymentTermsDetailsURI,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PaymentTermsField.PaymentTermsDetailsURI}
+          meta={PaymentTermsFieldMeta.PaymentTermsDetailsURI}
+          fieldConfig={fieldConfig}
+          identifier={value?.PaymentTermsDetailsURI}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Payment Terms Details URI"
-            value={value.PaymentTermsDetailsURI?.[0]}
-            meta={PaymentTermsFieldMeta.PaymentTermsDetailsURI}
-          />
+    [
+      PaymentTermsField.PaymentDueDate,
+      { meta: PaymentTermsFieldMeta.PaymentDueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={PaymentTermsField.PaymentDueDate}
+          meta={PaymentTermsFieldMeta.PaymentDueDate}
+          fieldConfig={fieldConfig}
+          date={value?.PaymentDueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Payment Due Date"
-            value={value.PaymentDueDate?.[0]}
-            meta={PaymentTermsFieldMeta.PaymentDueDate}
-          />
+    [
+      PaymentTermsField.InstallmentDueDate,
+      { meta: PaymentTermsFieldMeta.InstallmentDueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={PaymentTermsField.InstallmentDueDate}
+          meta={PaymentTermsFieldMeta.InstallmentDueDate}
+          fieldConfig={fieldConfig}
+          date={value?.InstallmentDueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Installment Due Date"
-            value={value.InstallmentDueDate?.[0]}
-            meta={PaymentTermsFieldMeta.InstallmentDueDate}
-          />
+    [
+      PaymentTermsField.InvoicingPartyReference,
+      { meta: PaymentTermsFieldMeta.InvoicingPartyReference,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={PaymentTermsField.InvoicingPartyReference}
+          meta={PaymentTermsFieldMeta.InvoicingPartyReference}
+          fieldConfig={fieldConfig}
+          text={value?.InvoicingPartyReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Invoicing Party Reference"
-            value={value.InvoicingPartyReference?.[0]}
-            meta={PaymentTermsFieldMeta.InvoicingPartyReference}
-          />
+    [
+      PaymentTermsField.SettlementPeriod,
+      { meta: PaymentTermsFieldMeta.SettlementPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={PaymentTermsField.SettlementPeriod}
+          meta={PaymentTermsFieldMeta.SettlementPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.SettlementPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Settlement Period"
-            value={value.SettlementPeriod?.[0]}
-            meta={PaymentTermsFieldMeta.SettlementPeriod}
-          />
+    [
+      PaymentTermsField.PenaltyPeriod,
+      { meta: PaymentTermsFieldMeta.PenaltyPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={PaymentTermsField.PenaltyPeriod}
+          meta={PaymentTermsFieldMeta.PenaltyPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.PenaltyPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Penalty Period"
-            value={value.PenaltyPeriod?.[0]}
-            meta={PaymentTermsFieldMeta.PenaltyPeriod}
-          />
+    [
+      PaymentTermsField.ExchangeRate,
+      { meta: PaymentTermsFieldMeta.ExchangeRate,
+        template: ({value, renderContext, fieldConfig}) => <ExchangeRateDisplay
+          key={PaymentTermsField.ExchangeRate}
+          meta={PaymentTermsFieldMeta.ExchangeRate}
+          fieldConfig={fieldConfig}
+          exchangeRate={value?.ExchangeRate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ExchangeRateDisplay
-            label="Exchange Rate"
-            value={value.ExchangeRate?.[0]}
-            meta={PaymentTermsFieldMeta.ExchangeRate}
-          />
+    [
+      PaymentTermsField.ValidityPeriod,
+      { meta: PaymentTermsFieldMeta.ValidityPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={PaymentTermsField.ValidityPeriod}
+          meta={PaymentTermsFieldMeta.ValidityPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.ValidityPeriod}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <PeriodDisplay
-            label="Validity Period"
-            value={value.ValidityPeriod?.[0]}
-            meta={PaymentTermsFieldMeta.ValidityPeriod}
-          />
-        </div>
-    </div>
+export function PaymentTermsDisplay<TFieldMeta>({ meta, fieldConfig, paymentTerms, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    PaymentTermsTypeName,
+    meta,
+    fieldConfig,
+    paymentTerms,
+    renderContext,
+    PaymentTermsSubElementsMap,
   )
 }

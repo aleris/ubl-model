@@ -1,89 +1,118 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ForecastLine } from  '../../model/cac/ForecastLine'
-import { ForecastLineFieldMeta } from  '../../meta/cac/ForecastLineMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import SalesItemDisplay from './SalesItemDisplay'
-import { SalesItem } from '../../model/cac/SalesItem'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ForecastLineField, ForecastLineFieldMeta, ForecastLineTypeName } from  '../../meta/cac/ForecastLineMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { SalesItemDisplay } from './SalesItemDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ForecastLine | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ForecastLine, void>
+  forecastLine: ForecastLine[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ForecastLineDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ForecastLineSubElementsMap: SubElementsTemplatesMap<ForecastLineField, ForecastLine, void> = new Map([
+    [
+      ForecastLineField.UBLExtensions,
+      { meta: ForecastLineFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ForecastLineField.UBLExtensions}
+          meta={ForecastLineFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ForecastLine">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ForecastLineFieldMeta.UBLExtensions}
-          />
+    [
+      ForecastLineField.ID,
+      { meta: ForecastLineFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ForecastLineField.ID}
+          meta={ForecastLineFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={ForecastLineFieldMeta.ID}
-          />
+    [
+      ForecastLineField.Note,
+      { meta: ForecastLineFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ForecastLineField.Note}
+          meta={ForecastLineFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={ForecastLineFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={ForecastLineFieldMeta.Note}
-              />
-            }
-          />
+    [
+      ForecastLineField.FrozenDocumentIndicator,
+      { meta: ForecastLineFieldMeta.FrozenDocumentIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ForecastLineField.FrozenDocumentIndicator}
+          meta={ForecastLineFieldMeta.FrozenDocumentIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.FrozenDocumentIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Frozen Document Indicator"
-            value={value.FrozenDocumentIndicator?.[0]}
-            meta={ForecastLineFieldMeta.FrozenDocumentIndicator}
-          />
+    [
+      ForecastLineField.ForecastTypeCode,
+      { meta: ForecastLineFieldMeta.ForecastTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ForecastLineField.ForecastTypeCode}
+          meta={ForecastLineFieldMeta.ForecastTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.ForecastTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Forecast Type Code"
-            value={value.ForecastTypeCode?.[0]}
-            meta={ForecastLineFieldMeta.ForecastTypeCode}
-          />
+    [
+      ForecastLineField.ForecastPeriod,
+      { meta: ForecastLineFieldMeta.ForecastPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={ForecastLineField.ForecastPeriod}
+          meta={ForecastLineFieldMeta.ForecastPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.ForecastPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Forecast Period"
-            value={value.ForecastPeriod?.[0]}
-            meta={ForecastLineFieldMeta.ForecastPeriod}
-          />
+    [
+      ForecastLineField.SalesItem,
+      { meta: ForecastLineFieldMeta.SalesItem,
+        template: ({value, renderContext, fieldConfig}) => <SalesItemDisplay
+          key={ForecastLineField.SalesItem}
+          meta={ForecastLineFieldMeta.SalesItem}
+          fieldConfig={fieldConfig}
+          salesItem={value?.SalesItem}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <SalesItemDisplay
-            label="Sales Item"
-            value={value.SalesItem?.[0]}
-            meta={ForecastLineFieldMeta.SalesItem}
-          />
-        </div>
-    </div>
+export function ForecastLineDisplay<TFieldMeta>({ meta, fieldConfig, forecastLine, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ForecastLineTypeName,
+    meta,
+    fieldConfig,
+    forecastLine,
+    renderContext,
+    ForecastLineSubElementsMap,
   )
 }

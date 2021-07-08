@@ -1,4 +1,31 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AllowanceChargeType } from './AllowanceChargeMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { DeliveryType } from './DeliveryMeta'
+import { DespatchType } from './DespatchMeta'
+import { DimensionType } from './DimensionMeta'
+import { DocumentReferenceType } from './DocumentReferenceMeta'
+import { GoodsItemType } from './GoodsItemMeta'
+import { HazardousGoodsTransitType } from './HazardousGoodsTransitMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { LocationType } from './LocationMeta'
+import { MeasureType } from '../cbc/MeasureMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { PackageType } from './PackageMeta'
+import { PartyType } from './PartyMeta'
+import { PickupType } from './PickupMeta'
+import { SupplierPartyType } from './SupplierPartyMeta'
+import { TemperatureType } from './TemperatureMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TradingTermsType } from './TradingTermsMeta'
+import { TransportEquipmentSealType } from './TransportEquipmentSealMeta'
+import { TransportEventType } from './TransportEventMeta'
+import { TransportHandlingUnitType } from './TransportHandlingUnitMeta'
+import { TransportMeansType } from './TransportMeansMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
+import { VerifiedGrossMassType } from './VerifiedGrossMassMeta'
 
 export enum TransportEquipmentField {
   UBLExtensions = 'UBLExtensions',
@@ -69,11 +96,11 @@ export enum TransportEquipmentField {
 export const TransportEquipmentFieldMetaUBLExtensions = new FieldMeta<TransportEquipmentField>(
   TransportEquipmentField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -82,10 +109,10 @@ export const TransportEquipmentFieldMetaID = new FieldMeta<TransportEquipmentFie
   TransportEquipmentField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this piece of transport equipment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'OCLU 1234567'
 )
@@ -94,10 +121,10 @@ export const TransportEquipmentFieldMetaReferencedConsignmentID = new FieldMeta<
   TransportEquipmentField.ReferencedConsignmentID,
   'ReferencedConsignmentID',
   'Referenced Consignment Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the consignment contained by this piece of transport equipment.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -106,10 +133,10 @@ export const TransportEquipmentFieldMetaTransportEquipmentTypeCode = new FieldMe
   TransportEquipmentField.TransportEquipmentTypeCode,
   'TransportEquipmentTypeCode',
   'Transport Equipment Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of this piece of transport equipment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -118,10 +145,10 @@ export const TransportEquipmentFieldMetaProviderTypeCode = new FieldMeta<Transpo
   TransportEquipmentField.ProviderTypeCode,
   'ProviderTypeCode',
   'Provider Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of provider of this piece of transport equipment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -130,10 +157,10 @@ export const TransportEquipmentFieldMetaOwnerTypeCode = new FieldMeta<TransportE
   TransportEquipmentField.OwnerTypeCode,
   'OwnerTypeCode',
   'Owner Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of owner of this piece of transport equipment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -142,10 +169,10 @@ export const TransportEquipmentFieldMetaSizeTypeCode = new FieldMeta<TransportEq
   TransportEquipmentField.SizeTypeCode,
   'SizeTypeCode',
   'Size Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the size and type of this piece of piece of transport equipment. When the piece of transport equipment is a shipping container, it is recommended to use ContainerSizeTypeCode for validation.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Container Size Type Code',
   undefined
 )
@@ -154,10 +181,10 @@ export const TransportEquipmentFieldMetaDispositionCode = new FieldMeta<Transpor
   TransportEquipmentField.DispositionCode,
   'DispositionCode',
   'Disposition Code',
-  'Code',
+  CodeType.name,
   'A code signifying the current disposition of this piece of transport equipment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Status',
   undefined
 )
@@ -166,10 +193,10 @@ export const TransportEquipmentFieldMetaFullnessIndicationCode = new FieldMeta<T
   TransportEquipmentField.FullnessIndicationCode,
   'FullnessIndicationCode',
   'Fullness Indication Code',
-  'Code',
+  CodeType.name,
   'A code signifying whether this piece of transport equipment is full, partially full, or empty.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -178,10 +205,10 @@ export const TransportEquipmentFieldMetaRefrigerationOnIndicator = new FieldMeta
   TransportEquipmentField.RefrigerationOnIndicator,
   'RefrigerationOnIndicator',
   'Refrigeration On Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indicator that this piece of transport equipment\'s refrigeration is on (true) or off (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -190,10 +217,10 @@ export const TransportEquipmentFieldMetaInformation = new FieldMeta<TransportEqu
   TransportEquipmentField.Information,
   'Information',
   'Information',
-  'Text',
+  TextType.name,
   'Additional information about this piece of transport equipment.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -202,10 +229,10 @@ export const TransportEquipmentFieldMetaReturnabilityIndicator = new FieldMeta<T
   TransportEquipmentField.ReturnabilityIndicator,
   'ReturnabilityIndicator',
   'Returnability Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indicator that this piece of transport equipment is returnable (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -214,10 +241,10 @@ export const TransportEquipmentFieldMetaLegalStatusIndicator = new FieldMeta<Tra
   TransportEquipmentField.LegalStatusIndicator,
   'LegalStatusIndicator',
   'Legal Status Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indication of the legal status of this piece of transport equipment with respect to the Container Convention Code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -226,10 +253,10 @@ export const TransportEquipmentFieldMetaAirFlowPercent = new FieldMeta<Transport
   TransportEquipmentField.AirFlowPercent,
   'AirFlowPercent',
   'Air Flow Percent',
-  'Numeric',
+  NumericType.name,
   'The percent of the airflow within this piece of transport equipment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -238,10 +265,10 @@ export const TransportEquipmentFieldMetaHumidityPercent = new FieldMeta<Transpor
   TransportEquipmentField.HumidityPercent,
   'HumidityPercent',
   'Humidity Percent',
-  'Numeric',
+  NumericType.name,
   'The percent humidity within this piece of transport equipment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -250,10 +277,10 @@ export const TransportEquipmentFieldMetaAnimalFoodApprovedIndicator = new FieldM
   TransportEquipmentField.AnimalFoodApprovedIndicator,
   'AnimalFoodApprovedIndicator',
   'Animal Food Approved Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indicator that this piece of transport equipment is approved for animal food (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -262,10 +289,10 @@ export const TransportEquipmentFieldMetaHumanFoodApprovedIndicator = new FieldMe
   TransportEquipmentField.HumanFoodApprovedIndicator,
   'HumanFoodApprovedIndicator',
   'Human Food Approved Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indicator that this piece of transport equipment is approved for human food (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -274,10 +301,10 @@ export const TransportEquipmentFieldMetaDangerousGoodsApprovedIndicator = new Fi
   TransportEquipmentField.DangerousGoodsApprovedIndicator,
   'DangerousGoodsApprovedIndicator',
   'Dangerous Goods Approved Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indicator that this piece of transport equipment is approved for dangerous goods (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -286,10 +313,10 @@ export const TransportEquipmentFieldMetaRefrigeratedIndicator = new FieldMeta<Tr
   TransportEquipmentField.RefrigeratedIndicator,
   'RefrigeratedIndicator',
   'Refrigerated Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indicator that this piece of transport equipment is refrigerated (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -298,10 +325,10 @@ export const TransportEquipmentFieldMetaCharacteristics = new FieldMeta<Transpor
   TransportEquipmentField.Characteristics,
   'Characteristics',
   'Characteristics',
-  'Text',
+  TextType.name,
   'Characteristics of this piece of transport equipment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -310,10 +337,10 @@ export const TransportEquipmentFieldMetaDamageRemarks = new FieldMeta<TransportE
   TransportEquipmentField.DamageRemarks,
   'DamageRemarks',
   'Damage Remarks',
-  'Text',
+  TextType.name,
   'Damage associated with this piece of transport equipment.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -322,10 +349,10 @@ export const TransportEquipmentFieldMetaDescription = new FieldMeta<TransportEqu
   TransportEquipmentField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing this piece of transport equipment.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -334,10 +361,10 @@ export const TransportEquipmentFieldMetaSpecialTransportRequirements = new Field
   TransportEquipmentField.SpecialTransportRequirements,
   'SpecialTransportRequirements',
   'Special Transport Requirements',
-  'Text',
+  TextType.name,
   'Special transport requirements expressed as text.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -346,10 +373,10 @@ export const TransportEquipmentFieldMetaGrossWeightMeasure = new FieldMeta<Trans
   TransportEquipmentField.GrossWeightMeasure,
   'GrossWeightMeasure',
   'Gross Weight',
-  'Measure',
+  MeasureType.name,
   'The gross weight of this piece of transport equipment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -358,10 +385,10 @@ export const TransportEquipmentFieldMetaGrossVolumeMeasure = new FieldMeta<Trans
   TransportEquipmentField.GrossVolumeMeasure,
   'GrossVolumeMeasure',
   'Gross Volume',
-  'Measure',
+  MeasureType.name,
   'The gross volume of this piece of transport equipment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -370,10 +397,10 @@ export const TransportEquipmentFieldMetaTareWeightMeasure = new FieldMeta<Transp
   TransportEquipmentField.TareWeightMeasure,
   'TareWeightMeasure',
   'Tare Weight',
-  'Measure',
+  MeasureType.name,
   'The weight of this piece of transport equipment when empty.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -382,10 +409,10 @@ export const TransportEquipmentFieldMetaTrackingDeviceCode = new FieldMeta<Trans
   TransportEquipmentField.TrackingDeviceCode,
   'TrackingDeviceCode',
   'Tracking Device Code',
-  'Code',
+  CodeType.name,
   'A code signifying the tracking device for this piece of transport equipment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -394,10 +421,10 @@ export const TransportEquipmentFieldMetaPowerIndicator = new FieldMeta<Transport
   TransportEquipmentField.PowerIndicator,
   'PowerIndicator',
   'Power',
-  'Indicator',
+  IndicatorType.name,
   'An indicator that this piece of transport equipment can supply power (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -406,10 +433,10 @@ export const TransportEquipmentFieldMetaTraceID = new FieldMeta<TransportEquipme
   TransportEquipmentField.TraceID,
   'TraceID',
   'Trace Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for use in tracing this piece of transport equipment, such as the EPC number used in RFID.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -418,10 +445,10 @@ export const TransportEquipmentFieldMetaMeasurementDimension = new FieldMeta<Tra
   TransportEquipmentField.MeasurementDimension,
   'MeasurementDimension',
   'Measurement Dimension',
-  'Dimension',
+  DimensionType.name,
   'A measurable dimension (length, mass, weight, or volume) of this piece of transport equipment.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -430,10 +457,10 @@ export const TransportEquipmentFieldMetaTransportEquipmentSeal = new FieldMeta<T
   TransportEquipmentField.TransportEquipmentSeal,
   'TransportEquipmentSeal',
   'Transport Equipment Seal',
-  'TransportEquipmentSeal',
+  TransportEquipmentSealType.name,
   'A seal securing the door of a piece of transport equipment.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -442,10 +469,10 @@ export const TransportEquipmentFieldMetaMinimumTemperature = new FieldMeta<Trans
   TransportEquipmentField.MinimumTemperature,
   'MinimumTemperature',
   'Minimum Temperature',
-  'Temperature',
+  TemperatureType.name,
   'In the case of a refrigeration unit, the minimum allowable operating temperature for this container.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -454,10 +481,10 @@ export const TransportEquipmentFieldMetaMaximumTemperature = new FieldMeta<Trans
   TransportEquipmentField.MaximumTemperature,
   'MaximumTemperature',
   'Maximum Temperature',
-  'Temperature',
+  TemperatureType.name,
   'In the case of a refrigeration unit, the maximum allowable operating temperature for this container.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -466,10 +493,10 @@ export const TransportEquipmentFieldMetaProviderParty = new FieldMeta<TransportE
   TransportEquipmentField.ProviderParty,
   'ProviderParty',
   'Provider Party',
-  'Party',
+  PartyType.name,
   'The party providing this piece of transport equipment.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -478,10 +505,10 @@ export const TransportEquipmentFieldMetaLoadingProofParty = new FieldMeta<Transp
   TransportEquipmentField.LoadingProofParty,
   'LoadingProofParty',
   'Loading Proof Party',
-  'Party',
+  PartyType.name,
   'The authorized party responsible for certifying that the goods were loaded into this piece of transport equipment.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   'Party responsible for proof of vanning (WCO ID 059)',
   undefined
 )
@@ -490,10 +517,10 @@ export const TransportEquipmentFieldMetaSupplierParty = new FieldMeta<TransportE
   TransportEquipmentField.SupplierParty,
   'SupplierParty',
   'Supplier Party',
-  'SupplierParty',
+  SupplierPartyType.name,
   'The party that supplies this piece of transport equipment.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   'Party responsible for proof of vanning (WCO ID 059)',
   undefined
 )
@@ -502,10 +529,10 @@ export const TransportEquipmentFieldMetaOwnerParty = new FieldMeta<TransportEqui
   TransportEquipmentField.OwnerParty,
   'OwnerParty',
   'Owner Party',
-  'Party',
+  PartyType.name,
   'The party that owns this piece of transport equipment.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   'Party responsible for proof of vanning (WCO ID 059)',
   undefined
 )
@@ -514,10 +541,10 @@ export const TransportEquipmentFieldMetaOperatingParty = new FieldMeta<Transport
   TransportEquipmentField.OperatingParty,
   'OperatingParty',
   'Operating Party',
-  'Party',
+  PartyType.name,
   'The party that operates this piece of transport equipment.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   'Party responsible for proof of vanning (WCO ID 059)',
   undefined
 )
@@ -526,10 +553,10 @@ export const TransportEquipmentFieldMetaLoadingLocation = new FieldMeta<Transpor
   TransportEquipmentField.LoadingLocation,
   'LoadingLocation',
   'Loading Location',
-  'Location',
+  LocationType.name,
   'The location where this piece of transport equipment is loaded.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   'Vanning address (WCO ID 068), Stuffing location',
   undefined
 )
@@ -538,10 +565,10 @@ export const TransportEquipmentFieldMetaUnloadingLocation = new FieldMeta<Transp
   TransportEquipmentField.UnloadingLocation,
   'UnloadingLocation',
   'Unloading Location',
-  'Location',
+  LocationType.name,
   'The location where this piece of transport equipment is unloaded.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -550,10 +577,10 @@ export const TransportEquipmentFieldMetaStorageLocation = new FieldMeta<Transpor
   TransportEquipmentField.StorageLocation,
   'StorageLocation',
   'Storage Location',
-  'Location',
+  LocationType.name,
   'The location where this piece of transport equipment is being stored.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -562,10 +589,10 @@ export const TransportEquipmentFieldMetaPositioningTransportEvent = new FieldMet
   TransportEquipmentField.PositioningTransportEvent,
   'PositioningTransportEvent',
   'Positioning Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'A positioning of this piece of transport equipment.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -574,10 +601,10 @@ export const TransportEquipmentFieldMetaQuarantineTransportEvent = new FieldMeta
   TransportEquipmentField.QuarantineTransportEvent,
   'QuarantineTransportEvent',
   'Quarantine Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'A quarantine of this piece of transport equipment.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -586,10 +613,10 @@ export const TransportEquipmentFieldMetaDeliveryTransportEvent = new FieldMeta<T
   TransportEquipmentField.DeliveryTransportEvent,
   'DeliveryTransportEvent',
   'Delivery Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'A delivery of this piece of transport equipment.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -598,10 +625,10 @@ export const TransportEquipmentFieldMetaPickupTransportEvent = new FieldMeta<Tra
   TransportEquipmentField.PickupTransportEvent,
   'PickupTransportEvent',
   'Pickup Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'A pickup of this piece of transport equipment.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -610,10 +637,10 @@ export const TransportEquipmentFieldMetaHandlingTransportEvent = new FieldMeta<T
   TransportEquipmentField.HandlingTransportEvent,
   'HandlingTransportEvent',
   'Handling Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'A handling of this piece of transport equipment.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -622,10 +649,10 @@ export const TransportEquipmentFieldMetaLoadingTransportEvent = new FieldMeta<Tr
   TransportEquipmentField.LoadingTransportEvent,
   'LoadingTransportEvent',
   'Loading Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'A loading of this piece of transport equipment.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -634,10 +661,10 @@ export const TransportEquipmentFieldMetaTransportEvent = new FieldMeta<Transport
   TransportEquipmentField.TransportEvent,
   'TransportEvent',
   'Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'A transport event associated with this piece of transport equipment.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -646,10 +673,10 @@ export const TransportEquipmentFieldMetaApplicableTransportMeans = new FieldMeta
   TransportEquipmentField.ApplicableTransportMeans,
   'ApplicableTransportMeans',
   'Applicable Transport Means',
-  'TransportMeans',
+  TransportMeansType.name,
   'The applicable transport means associated with this piece of transport equipment.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -658,10 +685,10 @@ export const TransportEquipmentFieldMetaHaulageTradingTerms = new FieldMeta<Tran
   TransportEquipmentField.HaulageTradingTerms,
   'HaulageTradingTerms',
   'Haulage Trading Terms',
-  'TradingTerms',
+  TradingTermsType.name,
   'A set of haulage trading terms associated with this piece of transport equipment.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -670,10 +697,10 @@ export const TransportEquipmentFieldMetaHazardousGoodsTransit = new FieldMeta<Tr
   TransportEquipmentField.HazardousGoodsTransit,
   'HazardousGoodsTransit',
   'Hazardous Goods Transit',
-  'HazardousGoodsTransit',
+  HazardousGoodsTransitType.name,
   'Transit-related information regarding a type of hazardous goods contained in this piece of transport equipment.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -682,10 +709,10 @@ export const TransportEquipmentFieldMetaPackagedTransportHandlingUnit = new Fiel
   TransportEquipmentField.PackagedTransportHandlingUnit,
   'PackagedTransportHandlingUnit',
   'Packaged Transport Handling Unit',
-  'TransportHandlingUnit',
+  TransportHandlingUnitType.name,
   'A packaged transport handling unit associated with this piece of transport equipment.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -694,10 +721,10 @@ export const TransportEquipmentFieldMetaServiceAllowanceCharge = new FieldMeta<T
   TransportEquipmentField.ServiceAllowanceCharge,
   'ServiceAllowanceCharge',
   'Service Allowance Charge',
-  'AllowanceCharge',
+  AllowanceChargeType.name,
   'A service allowance charge associated with this piece of transport equipment.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -706,10 +733,10 @@ export const TransportEquipmentFieldMetaFreightAllowanceCharge = new FieldMeta<T
   TransportEquipmentField.FreightAllowanceCharge,
   'FreightAllowanceCharge',
   'Freight Allowance Charge',
-  'AllowanceCharge',
+  AllowanceChargeType.name,
   'A freight allowance charge associated with this piece of transport equipment.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -718,10 +745,10 @@ export const TransportEquipmentFieldMetaAttachedTransportEquipment = new FieldMe
   TransportEquipmentField.AttachedTransportEquipment,
   'AttachedTransportEquipment',
   'Attached Transport Equipment',
-  'TransportEquipment',
+  TransportEquipmentType.name,
   'A piece of transport equipment attached to this piece of transport equipment.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -730,10 +757,10 @@ export const TransportEquipmentFieldMetaDelivery = new FieldMeta<TransportEquipm
   TransportEquipmentField.Delivery,
   'Delivery',
   'Delivery',
-  'Delivery',
+  DeliveryType.name,
   'The delivery of this piece of transport equipment.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -742,10 +769,10 @@ export const TransportEquipmentFieldMetaPickup = new FieldMeta<TransportEquipmen
   TransportEquipmentField.Pickup,
   'Pickup',
   'Pickup',
-  'Pickup',
+  PickupType.name,
   'The pickup of this piece of transport equipment.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -754,10 +781,10 @@ export const TransportEquipmentFieldMetaDespatch = new FieldMeta<TransportEquipm
   TransportEquipmentField.Despatch,
   'Despatch',
   'Despatch',
-  'Despatch',
+  DespatchType.name,
   'The despatch of this piece of transport equipment.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -766,10 +793,10 @@ export const TransportEquipmentFieldMetaShipmentDocumentReference = new FieldMet
   TransportEquipmentField.ShipmentDocumentReference,
   'ShipmentDocumentReference',
   'Shipment Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a shipping document associated with this piece of transport equipment.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -778,10 +805,10 @@ export const TransportEquipmentFieldMetaContainedInTransportEquipment = new Fiel
   TransportEquipmentField.ContainedInTransportEquipment,
   'ContainedInTransportEquipment',
   'Contained In Transport Equipment',
-  'TransportEquipment',
+  TransportEquipmentType.name,
   'A piece of transport equipment contained in this piece of transport equipment.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   'e.g. pallets inside containers'
 )
@@ -790,10 +817,10 @@ export const TransportEquipmentFieldMetaPackage = new FieldMeta<TransportEquipme
   TransportEquipmentField.Package,
   'Package',
   'Package',
-  'Package',
+  PackageType.name,
   'A package contained in this piece of transport equipment.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -802,10 +829,10 @@ export const TransportEquipmentFieldMetaGoodsItem = new FieldMeta<TransportEquip
   TransportEquipmentField.GoodsItem,
   'GoodsItem',
   'Goods Item',
-  'GoodsItem',
+  GoodsItemType.name,
   'A goods item contained in this piece of transport equipment.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -814,10 +841,10 @@ export const TransportEquipmentFieldMetaVerifiedGrossMass = new FieldMeta<Transp
   TransportEquipmentField.VerifiedGrossMass,
   'VerifiedGrossMass',
   'Verified Gross Mass',
-  'VerifiedGrossMass',
+  VerifiedGrossMassType.name,
   'The verified gross mass of this piece of transport equipment.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -953,3 +980,11 @@ export const TransportEquipmentFieldMap = new Map([
   [TransportEquipmentField.GoodsItem, TransportEquipmentFieldMetaGoodsItem],
   [TransportEquipmentField.VerifiedGrossMass, TransportEquipmentFieldMetaVerifiedGrossMass]
 ])
+
+export const TransportEquipmentType: Type<TransportEquipmentField> = {
+  name: 'TransportEquipment',
+  label: 'Transport Equipment',
+  module: TypeModule.cac,
+  definition: 'A class to describe a piece of equipment used to transport goods.',
+  fields: TransportEquipmentFieldMap,
+}

@@ -1,4 +1,8 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ConsumptionAverageField {
   UBLExtensions = 'UBLExtensions',
@@ -9,11 +13,11 @@ export enum ConsumptionAverageField {
 export const ConsumptionAverageFieldMetaUBLExtensions = new FieldMeta<ConsumptionAverageField>(
   ConsumptionAverageField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -22,10 +26,10 @@ export const ConsumptionAverageFieldMetaAverageAmount = new FieldMeta<Consumptio
   ConsumptionAverageField.AverageAmount,
   'AverageAmount',
   'Average Amount',
-  'Amount',
+  AmountType.name,
   'The average monetary amount of the consumption.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '1.65'
 )
@@ -34,10 +38,10 @@ export const ConsumptionAverageFieldMetaDescription = new FieldMeta<ConsumptionA
   ConsumptionAverageField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'A description of the average consumed.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   'Average price incl. value added tax per kilowatt-hour in the billing period.'
 )
@@ -53,3 +57,11 @@ export const ConsumptionAverageFieldMap = new Map([
   [ConsumptionAverageField.AverageAmount, ConsumptionAverageFieldMetaAverageAmount],
   [ConsumptionAverageField.Description, ConsumptionAverageFieldMetaDescription]
 ])
+
+export const ConsumptionAverageType: Type<ConsumptionAverageField> = {
+  name: 'ConsumptionAverage',
+  label: 'Consumption Average',
+  module: TypeModule.cac,
+  definition: 'A class to define an average consumption as a monetary amount.',
+  fields: ConsumptionAverageFieldMap,
+}

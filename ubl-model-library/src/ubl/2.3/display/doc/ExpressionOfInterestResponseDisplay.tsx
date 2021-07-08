@@ -1,224 +1,280 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ExpressionOfInterestResponse } from  '../../model/doc/ExpressionOfInterestResponse'
-import { ExpressionOfInterestResponseFieldMeta } from  '../../meta/doc/ExpressionOfInterestResponseMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import ContractingPartyDisplay from '../cac/ContractingPartyDisplay'
-import { ContractingParty } from '../../model/cac/ContractingParty'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import EconomicOperatorPartyDisplay from '../cac/EconomicOperatorPartyDisplay'
-import { EconomicOperatorParty } from '../../model/cac/EconomicOperatorParty'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import ProcurementProjectDisplay from '../cac/ProcurementProjectDisplay'
-import { ProcurementProject } from '../../model/cac/ProcurementProject'
-import ProcurementProjectLotReferenceDisplay from '../cac/ProcurementProjectLotReferenceDisplay'
-import { ProcurementProjectLotReference } from '../../model/cac/ProcurementProjectLotReference'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ExpressionOfInterestResponseField, ExpressionOfInterestResponseFieldMeta, ExpressionOfInterestResponseTypeName } from  '../../meta/doc/ExpressionOfInterestResponseMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { ContractingPartyDisplay } from '../cac/ContractingPartyDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { EconomicOperatorPartyDisplay } from '../cac/EconomicOperatorPartyDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { ProcurementProjectDisplay } from '../cac/ProcurementProjectDisplay'
+import { ProcurementProjectLotReferenceDisplay } from '../cac/ProcurementProjectLotReferenceDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ExpressionOfInterestResponse | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ExpressionOfInterestResponse, void>
+  expressionOfInterestResponse: ExpressionOfInterestResponse[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ExpressionOfInterestResponseDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ExpressionOfInterestResponseSubElementsMap: SubElementsTemplatesMap<ExpressionOfInterestResponseField, ExpressionOfInterestResponse, void> = new Map([
+    [
+      ExpressionOfInterestResponseField.UBLExtensions,
+      { meta: ExpressionOfInterestResponseFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ExpressionOfInterestResponseField.UBLExtensions}
+          meta={ExpressionOfInterestResponseFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-ExpressionOfInterestResponse">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ExpressionOfInterestResponseFieldMeta.UBLExtensions}
-          />
+    [
+      ExpressionOfInterestResponseField.UBLVersionID,
+      { meta: ExpressionOfInterestResponseFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ExpressionOfInterestResponseField.UBLVersionID}
+          meta={ExpressionOfInterestResponseFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={ExpressionOfInterestResponseFieldMeta.UBLVersionID}
-          />
+    [
+      ExpressionOfInterestResponseField.CustomizationID,
+      { meta: ExpressionOfInterestResponseFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ExpressionOfInterestResponseField.CustomizationID}
+          meta={ExpressionOfInterestResponseFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={ExpressionOfInterestResponseFieldMeta.CustomizationID}
-          />
+    [
+      ExpressionOfInterestResponseField.ProfileID,
+      { meta: ExpressionOfInterestResponseFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ExpressionOfInterestResponseField.ProfileID}
+          meta={ExpressionOfInterestResponseFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={ExpressionOfInterestResponseFieldMeta.ProfileID}
-          />
+    [
+      ExpressionOfInterestResponseField.ProfileExecutionID,
+      { meta: ExpressionOfInterestResponseFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ExpressionOfInterestResponseField.ProfileExecutionID}
+          meta={ExpressionOfInterestResponseFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={ExpressionOfInterestResponseFieldMeta.ProfileExecutionID}
-          />
+    [
+      ExpressionOfInterestResponseField.ID,
+      { meta: ExpressionOfInterestResponseFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ExpressionOfInterestResponseField.ID}
+          meta={ExpressionOfInterestResponseFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={ExpressionOfInterestResponseFieldMeta.ID}
-          />
+    [
+      ExpressionOfInterestResponseField.CopyIndicator,
+      { meta: ExpressionOfInterestResponseFieldMeta.CopyIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ExpressionOfInterestResponseField.CopyIndicator}
+          meta={ExpressionOfInterestResponseFieldMeta.CopyIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.CopyIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Copy Indicator"
-            value={value.CopyIndicator?.[0]}
-            meta={ExpressionOfInterestResponseFieldMeta.CopyIndicator}
-          />
+    [
+      ExpressionOfInterestResponseField.UUID,
+      { meta: ExpressionOfInterestResponseFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ExpressionOfInterestResponseField.UUID}
+          meta={ExpressionOfInterestResponseFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={ExpressionOfInterestResponseFieldMeta.UUID}
-          />
+    [
+      ExpressionOfInterestResponseField.ContractFolderID,
+      { meta: ExpressionOfInterestResponseFieldMeta.ContractFolderID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ExpressionOfInterestResponseField.ContractFolderID}
+          meta={ExpressionOfInterestResponseFieldMeta.ContractFolderID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ContractFolderID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Contract Folder Identifier"
-            value={value.ContractFolderID?.[0]}
-            meta={ExpressionOfInterestResponseFieldMeta.ContractFolderID}
-          />
+    [
+      ExpressionOfInterestResponseField.IssueDate,
+      { meta: ExpressionOfInterestResponseFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={ExpressionOfInterestResponseField.IssueDate}
+          meta={ExpressionOfInterestResponseFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={ExpressionOfInterestResponseFieldMeta.IssueDate}
-          />
+    [
+      ExpressionOfInterestResponseField.IssueTime,
+      { meta: ExpressionOfInterestResponseFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={ExpressionOfInterestResponseField.IssueTime}
+          meta={ExpressionOfInterestResponseFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={ExpressionOfInterestResponseFieldMeta.IssueTime}
-          />
+    [
+      ExpressionOfInterestResponseField.ContractName,
+      { meta: ExpressionOfInterestResponseFieldMeta.ContractName,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ExpressionOfInterestResponseField.ContractName}
+          meta={ExpressionOfInterestResponseFieldMeta.ContractName}
+          fieldConfig={fieldConfig}
+          text={value?.ContractName}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-ContractName"
-            label="Contract Name"
-            items={value.ContractName}
-            meta={ExpressionOfInterestResponseFieldMeta.ContractName} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Contract Name"
-                value={itemValue}
-                meta={ExpressionOfInterestResponseFieldMeta.ContractName}
-              />
-            }
-          />
+    [
+      ExpressionOfInterestResponseField.TenderLanguageLocaleCode,
+      { meta: ExpressionOfInterestResponseFieldMeta.TenderLanguageLocaleCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ExpressionOfInterestResponseField.TenderLanguageLocaleCode}
+          meta={ExpressionOfInterestResponseFieldMeta.TenderLanguageLocaleCode}
+          fieldConfig={fieldConfig}
+          code={value?.TenderLanguageLocaleCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Tender Language Locale Code"
-            value={value.TenderLanguageLocaleCode?.[0]}
-            meta={ExpressionOfInterestResponseFieldMeta.TenderLanguageLocaleCode}
-          />
+    [
+      ExpressionOfInterestResponseField.Note,
+      { meta: ExpressionOfInterestResponseFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ExpressionOfInterestResponseField.Note}
+          meta={ExpressionOfInterestResponseFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={ExpressionOfInterestResponseFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={ExpressionOfInterestResponseFieldMeta.Note}
-              />
-            }
-          />
+    [
+      ExpressionOfInterestResponseField.ExpressionOfInterestDocumentReference,
+      { meta: ExpressionOfInterestResponseFieldMeta.ExpressionOfInterestDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={ExpressionOfInterestResponseField.ExpressionOfInterestDocumentReference}
+          meta={ExpressionOfInterestResponseFieldMeta.ExpressionOfInterestDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.ExpressionOfInterestDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-ExpressionOfInterestDocumentReference"
-            label="Expression Of Interest Document Reference"
-            items={value.ExpressionOfInterestDocumentReference}
-            meta={ExpressionOfInterestResponseFieldMeta.ExpressionOfInterestDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Expression Of Interest Document Reference"
-                value={itemValue}
-                meta={ExpressionOfInterestResponseFieldMeta.ExpressionOfInterestDocumentReference}
-              />
-            }
-          />
+    [
+      ExpressionOfInterestResponseField.Signature,
+      { meta: ExpressionOfInterestResponseFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={ExpressionOfInterestResponseField.Signature}
+          meta={ExpressionOfInterestResponseFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={ExpressionOfInterestResponseFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={ExpressionOfInterestResponseFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      ExpressionOfInterestResponseField.EconomicOperatorParty,
+      { meta: ExpressionOfInterestResponseFieldMeta.EconomicOperatorParty,
+        template: ({value, renderContext, fieldConfig}) => <EconomicOperatorPartyDisplay
+          key={ExpressionOfInterestResponseField.EconomicOperatorParty}
+          meta={ExpressionOfInterestResponseFieldMeta.EconomicOperatorParty}
+          fieldConfig={fieldConfig}
+          economicOperatorParty={value?.EconomicOperatorParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <EconomicOperatorPartyDisplay
-            label="Economic Operator Party"
-            value={value.EconomicOperatorParty?.[0]}
-            meta={ExpressionOfInterestResponseFieldMeta.EconomicOperatorParty}
-          />
+    [
+      ExpressionOfInterestResponseField.ContractingParty,
+      { meta: ExpressionOfInterestResponseFieldMeta.ContractingParty,
+        template: ({value, renderContext, fieldConfig}) => <ContractingPartyDisplay
+          key={ExpressionOfInterestResponseField.ContractingParty}
+          meta={ExpressionOfInterestResponseFieldMeta.ContractingParty}
+          fieldConfig={fieldConfig}
+          contractingParty={value?.ContractingParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-ContractingParty"
-            label="Contracting Party"
-            items={value.ContractingParty}
-            meta={ExpressionOfInterestResponseFieldMeta.ContractingParty} 
-            itemDisplay={ (itemValue: ContractingParty, key: string | number) =>
-              <ContractingPartyDisplay
-                key={key}
-                label="Contracting Party"
-                value={itemValue}
-                meta={ExpressionOfInterestResponseFieldMeta.ContractingParty}
-              />
-            }
-          />
+    [
+      ExpressionOfInterestResponseField.ProcurementProject,
+      { meta: ExpressionOfInterestResponseFieldMeta.ProcurementProject,
+        template: ({value, renderContext, fieldConfig}) => <ProcurementProjectDisplay
+          key={ExpressionOfInterestResponseField.ProcurementProject}
+          meta={ExpressionOfInterestResponseFieldMeta.ProcurementProject}
+          fieldConfig={fieldConfig}
+          procurementProject={value?.ProcurementProject}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ProcurementProjectDisplay
-            label="Procurement Project"
-            value={value.ProcurementProject?.[0]}
-            meta={ExpressionOfInterestResponseFieldMeta.ProcurementProject}
-          />
+    [
+      ExpressionOfInterestResponseField.ProcurementProjectLotReference,
+      { meta: ExpressionOfInterestResponseFieldMeta.ProcurementProjectLotReference,
+        template: ({value, renderContext, fieldConfig}) => <ProcurementProjectLotReferenceDisplay
+          key={ExpressionOfInterestResponseField.ProcurementProjectLotReference}
+          meta={ExpressionOfInterestResponseFieldMeta.ProcurementProjectLotReference}
+          fieldConfig={fieldConfig}
+          procurementProjectLotReference={value?.ProcurementProjectLotReference}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-ProcurementProjectLotReference"
-            label="Procurement Project Lot Reference"
-            items={value.ProcurementProjectLotReference}
-            meta={ExpressionOfInterestResponseFieldMeta.ProcurementProjectLotReference} 
-            itemDisplay={ (itemValue: ProcurementProjectLotReference, key: string | number) =>
-              <ProcurementProjectLotReferenceDisplay
-                key={key}
-                label="Procurement Project Lot Reference"
-                value={itemValue}
-                meta={ExpressionOfInterestResponseFieldMeta.ProcurementProjectLotReference}
-              />
-            }
-          />
-        </div>
-    </div>
+export function ExpressionOfInterestResponseDisplay<TFieldMeta>({ meta, fieldConfig, expressionOfInterestResponse, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ExpressionOfInterestResponseTypeName,
+    meta,
+    fieldConfig,
+    expressionOfInterestResponse,
+    renderContext,
+    ExpressionOfInterestResponseSubElementsMap,
   )
 }

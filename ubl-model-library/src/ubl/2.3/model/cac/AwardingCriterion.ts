@@ -5,7 +5,6 @@ import { Numeric } from '../cbc/Numeric'
 import { Quantity } from '../cbc/Quantity'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to define a criterion from the contracting party that will be taken into account when awarding a contract. An
  * awarding criterion can be objective, when it can be evaluated following a formula, or subjective, when human analysis

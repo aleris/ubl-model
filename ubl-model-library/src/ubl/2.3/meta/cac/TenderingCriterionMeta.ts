@@ -1,4 +1,15 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { CommodityClassificationType } from './CommodityClassificationMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { LegislationType } from './LegislationMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { ProcurementProjectLotReferenceType } from './ProcurementProjectLotReferenceMeta'
+import { TenderingCriterionPropertyGroupType } from './TenderingCriterionPropertyGroupMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum TenderingCriterionField {
   UBLExtensions = 'UBLExtensions',
@@ -21,11 +32,11 @@ export enum TenderingCriterionField {
 export const TenderingCriterionFieldMetaUBLExtensions = new FieldMeta<TenderingCriterionField>(
   TenderingCriterionField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -34,10 +45,10 @@ export const TenderingCriterionFieldMetaID = new FieldMeta<TenderingCriterionFie
   TenderingCriterionField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this item of criterion support.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -46,10 +57,10 @@ export const TenderingCriterionFieldMetaCriterionTypeCode = new FieldMeta<Tender
   TenderingCriterionField.CriterionTypeCode,
   'CriterionTypeCode',
   'Criterion Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of criterion.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -58,10 +69,10 @@ export const TenderingCriterionFieldMetaName = new FieldMeta<TenderingCriterionF
   TenderingCriterionField.Name,
   'Name',
   'Name',
-  'Text',
+  TextType.name,
   'The name of the criterion.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -70,10 +81,10 @@ export const TenderingCriterionFieldMetaDescription = new FieldMeta<TenderingCri
   TenderingCriterionField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'The textual description for this criterion.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -82,10 +93,10 @@ export const TenderingCriterionFieldMetaWeightNumeric = new FieldMeta<TenderingC
   TenderingCriterionField.WeightNumeric,
   'WeightNumeric',
   'Weight Numeric',
-  'Numeric',
+  NumericType.name,
   'A weighting to provide for automatic scoring of the criterion.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -94,10 +105,10 @@ export const TenderingCriterionFieldMetaFulfilmentIndicator = new FieldMeta<Tend
   TenderingCriterionField.FulfilmentIndicator,
   'FulfilmentIndicator',
   'Fulfilment Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indication that this criterion has been fulfilled.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'TRUE means fulfilled, FALSE means not fulfilled'
 )
@@ -106,10 +117,10 @@ export const TenderingCriterionFieldMetaFulfilmentIndicatorTypeCode = new FieldM
   TenderingCriterionField.FulfilmentIndicatorTypeCode,
   'FulfilmentIndicatorTypeCode',
   'Fulfilment Indicator Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying how this criterion has been fulfilled.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -118,10 +129,10 @@ export const TenderingCriterionFieldMetaEvaluationMethodTypeCode = new FieldMeta
   TenderingCriterionField.EvaluationMethodTypeCode,
   'EvaluationMethodTypeCode',
   'Evaluation Method Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of Evaluation.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Weight'
 )
@@ -130,10 +141,10 @@ export const TenderingCriterionFieldMetaWeightingConsiderationDescription = new 
   TenderingCriterionField.WeightingConsiderationDescription,
   'WeightingConsiderationDescription',
   'Weighting Consideration Description',
-  'Text',
+  TextType.name,
   'The textual description of the Weighting Description',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -142,10 +153,10 @@ export const TenderingCriterionFieldMetaProcurementProjectLotReference = new Fie
   TenderingCriterionField.ProcurementProjectLotReference,
   'ProcurementProjectLotReference',
   'Procurement Project Lot Reference',
-  'ProcurementProjectLotReference',
+  ProcurementProjectLotReferenceType.name,
   'One or more lots to which the tendering criterion applies',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -154,10 +165,10 @@ export const TenderingCriterionFieldMetaCommodityClassification = new FieldMeta<
   TenderingCriterionField.CommodityClassification,
   'CommodityClassification',
   'Commodity Classification',
-  'CommodityClassification',
+  CommodityClassificationType.name,
   'One or more classification to which this criterion applies',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -166,10 +177,10 @@ export const TenderingCriterionFieldMetaSubTenderingCriterion = new FieldMeta<Te
   TenderingCriterionField.SubTenderingCriterion,
   'SubTenderingCriterion',
   'Sub Tendering Criterion',
-  'TenderingCriterion',
+  TenderingCriterionType.name,
   'One or more tendering subcriteria.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -178,10 +189,10 @@ export const TenderingCriterionFieldMetaLegislation = new FieldMeta<TenderingCri
   TenderingCriterionField.Legislation,
   'Legislation',
   'Legislation',
-  'Legislation',
+  LegislationType.name,
   'The legislation reference for the criterion.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -190,10 +201,10 @@ export const TenderingCriterionFieldMetaTenderingCriterionPropertyGroup = new Fi
   TenderingCriterionField.TenderingCriterionPropertyGroup,
   'TenderingCriterionPropertyGroup',
   'Tendering Criterion Property Group',
-  'TenderingCriterionPropertyGroup',
+  TenderingCriterionPropertyGroupType.name,
   'The sets of properties that can be used to fulfil the tendering criterion.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -233,3 +244,11 @@ export const TenderingCriterionFieldMap = new Map([
   [TenderingCriterionField.Legislation, TenderingCriterionFieldMetaLegislation],
   [TenderingCriterionField.TenderingCriterionPropertyGroup, TenderingCriterionFieldMetaTenderingCriterionPropertyGroup]
 ])
+
+export const TenderingCriterionType: Type<TenderingCriterionField> = {
+  name: 'TenderingCriterion',
+  label: 'Tendering Criterion',
+  module: TypeModule.cac,
+  definition: 'A class to describe an item of criterion support for representations of capabilities or the ability to meet tendering requirements, which an economic operator must provide for acceptance into a tendering process.',
+  fields: TenderingCriterionFieldMap,
+}

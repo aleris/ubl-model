@@ -1,4 +1,18 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CustomerPartyType } from '../cac/CustomerPartyMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { ExceptionNotificationLineType } from '../cac/ExceptionNotificationLineMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { PeriodType } from '../cac/PeriodMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { SupplierPartyType } from '../cac/SupplierPartyMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ExceptionNotificationField {
   UBLExtensions = 'UBLExtensions',
@@ -25,11 +39,11 @@ export enum ExceptionNotificationField {
 export const ExceptionNotificationFieldMetaUBLExtensions = new FieldMeta<ExceptionNotificationField>(
   ExceptionNotificationField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -38,10 +52,10 @@ export const ExceptionNotificationFieldMetaUBLVersionID = new FieldMeta<Exceptio
   ExceptionNotificationField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.0.5'
 )
@@ -50,10 +64,10 @@ export const ExceptionNotificationFieldMetaCustomizationID = new FieldMeta<Excep
   ExceptionNotificationField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -62,10 +76,10 @@ export const ExceptionNotificationFieldMetaProfileID = new FieldMeta<ExceptionNo
   ExceptionNotificationField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BasicProcurementProcess'
 )
@@ -74,10 +88,10 @@ export const ExceptionNotificationFieldMetaProfileExecutionID = new FieldMeta<Ex
   ExceptionNotificationField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BPP-1001'
 )
@@ -86,10 +100,10 @@ export const ExceptionNotificationFieldMetaID = new FieldMeta<ExceptionNotificat
   ExceptionNotificationField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   'Exception Notification Number',
   undefined
 )
@@ -98,10 +112,10 @@ export const ExceptionNotificationFieldMetaCopyIndicator = new FieldMeta<Excepti
   ExceptionNotificationField.CopyIndicator,
   'CopyIndicator',
   'Copy Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this document is a copy (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -110,10 +124,10 @@ export const ExceptionNotificationFieldMetaUUID = new FieldMeta<ExceptionNotific
   ExceptionNotificationField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -122,10 +136,10 @@ export const ExceptionNotificationFieldMetaIssueDate = new FieldMeta<ExceptionNo
   ExceptionNotificationField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   'Exception Notification Date',
   undefined
 )
@@ -134,10 +148,10 @@ export const ExceptionNotificationFieldMetaIssueTime = new FieldMeta<ExceptionNo
   ExceptionNotificationField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -146,10 +160,10 @@ export const ExceptionNotificationFieldMetaNote = new FieldMeta<ExceptionNotific
   ExceptionNotificationField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -158,10 +172,10 @@ export const ExceptionNotificationFieldMetaExceptionObservationPeriod = new Fiel
   ExceptionNotificationField.ExceptionObservationPeriod,
   'ExceptionObservationPeriod',
   'Exception Observation Period',
-  'Period',
+  PeriodType.name,
   'The period of time during which the exceptions are observed.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -170,10 +184,10 @@ export const ExceptionNotificationFieldMetaDocumentReference = new FieldMeta<Exc
   ExceptionNotificationField.DocumentReference,
   'DocumentReference',
   'Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to another document associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -182,10 +196,10 @@ export const ExceptionNotificationFieldMetaSignature = new FieldMeta<ExceptionNo
   ExceptionNotificationField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -194,10 +208,10 @@ export const ExceptionNotificationFieldMetaSenderParty = new FieldMeta<Exception
   ExceptionNotificationField.SenderParty,
   'SenderParty',
   'Sender Party',
-  'Party',
+  PartyType.name,
   'The party sending this document.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -206,10 +220,10 @@ export const ExceptionNotificationFieldMetaReceiverParty = new FieldMeta<Excepti
   ExceptionNotificationField.ReceiverParty,
   'ReceiverParty',
   'Receiver Party',
-  'Party',
+  PartyType.name,
   'The party receiving this document.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -218,10 +232,10 @@ export const ExceptionNotificationFieldMetaBuyerCustomerParty = new FieldMeta<Ex
   ExceptionNotificationField.BuyerCustomerParty,
   'BuyerCustomerParty',
   'Buyer Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The buyer.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -230,10 +244,10 @@ export const ExceptionNotificationFieldMetaSellerSupplierParty = new FieldMeta<E
   ExceptionNotificationField.SellerSupplierParty,
   'SellerSupplierParty',
   'Seller Supplier Party',
-  'SupplierParty',
+  SupplierPartyType.name,
   'The seller.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -242,10 +256,10 @@ export const ExceptionNotificationFieldMetaExceptionNotificationLine = new Field
   ExceptionNotificationField.ExceptionNotificationLine,
   'ExceptionNotificationLine',
   'Exception Notification Line',
-  'ExceptionNotificationLine',
+  ExceptionNotificationLineType.name,
   'A line in the Exception Notification.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -293,3 +307,11 @@ export const ExceptionNotificationFieldMap = new Map([
   [ExceptionNotificationField.SellerSupplierParty, ExceptionNotificationFieldMetaSellerSupplierParty],
   [ExceptionNotificationField.ExceptionNotificationLine, ExceptionNotificationFieldMetaExceptionNotificationLine]
 ])
+
+export const ExceptionNotificationType: Type<ExceptionNotificationField> = {
+  name: 'ExceptionNotification',
+  label: 'Exception Notification',
+  module: TypeModule.doc,
+  definition: 'A document used to notify an exception in forecast variance, product activity, or performance history.',
+  fields: ExceptionNotificationFieldMap,
+}

@@ -1,201 +1,264 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { BusinessCard } from  '../../model/doc/BusinessCard'
-import { BusinessCardFieldMeta } from  '../../meta/doc/BusinessCardMeta'
-import CapabilityDisplay from '../cac/CapabilityDisplay'
-import { Capability } from '../../model/cac/Capability'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { BusinessCardField, BusinessCardFieldMeta, BusinessCardTypeName } from  '../../meta/doc/BusinessCardMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CapabilityDisplay } from '../cac/CapabilityDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: BusinessCard | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<BusinessCard, void>
+  businessCard: BusinessCard[] | undefined
+  renderContext: RenderContext
 }
 
-export default function BusinessCardDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const BusinessCardSubElementsMap: SubElementsTemplatesMap<BusinessCardField, BusinessCard, void> = new Map([
+    [
+      BusinessCardField.UBLExtensions,
+      { meta: BusinessCardFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={BusinessCardField.UBLExtensions}
+          meta={BusinessCardFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-BusinessCard">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={BusinessCardFieldMeta.UBLExtensions}
-          />
+    [
+      BusinessCardField.UBLVersionID,
+      { meta: BusinessCardFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={BusinessCardField.UBLVersionID}
+          meta={BusinessCardFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={BusinessCardFieldMeta.UBLVersionID}
-          />
+    [
+      BusinessCardField.CustomizationID,
+      { meta: BusinessCardFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={BusinessCardField.CustomizationID}
+          meta={BusinessCardFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={BusinessCardFieldMeta.CustomizationID}
-          />
+    [
+      BusinessCardField.ProfileID,
+      { meta: BusinessCardFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={BusinessCardField.ProfileID}
+          meta={BusinessCardFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={BusinessCardFieldMeta.ProfileID}
-          />
+    [
+      BusinessCardField.ProfileExecutionID,
+      { meta: BusinessCardFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={BusinessCardField.ProfileExecutionID}
+          meta={BusinessCardFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={BusinessCardFieldMeta.ProfileExecutionID}
-          />
+    [
+      BusinessCardField.ID,
+      { meta: BusinessCardFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={BusinessCardField.ID}
+          meta={BusinessCardFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={BusinessCardFieldMeta.ID}
-          />
+    [
+      BusinessCardField.UUID,
+      { meta: BusinessCardFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={BusinessCardField.UUID}
+          meta={BusinessCardFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={BusinessCardFieldMeta.UUID}
-          />
+    [
+      BusinessCardField.IssueDate,
+      { meta: BusinessCardFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={BusinessCardField.IssueDate}
+          meta={BusinessCardFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={BusinessCardFieldMeta.IssueDate}
-          />
+    [
+      BusinessCardField.IssueTime,
+      { meta: BusinessCardFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={BusinessCardField.IssueTime}
+          meta={BusinessCardFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={BusinessCardFieldMeta.IssueTime}
-          />
+    [
+      BusinessCardField.VersionID,
+      { meta: BusinessCardFieldMeta.VersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={BusinessCardField.VersionID}
+          meta={BusinessCardFieldMeta.VersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.VersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Version Identifier"
-            value={value.VersionID?.[0]}
-            meta={BusinessCardFieldMeta.VersionID}
-          />
+    [
+      BusinessCardField.PreviousVersionID,
+      { meta: BusinessCardFieldMeta.PreviousVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={BusinessCardField.PreviousVersionID}
+          meta={BusinessCardFieldMeta.PreviousVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.PreviousVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Previous Version Identifier"
-            value={value.PreviousVersionID?.[0]}
-            meta={BusinessCardFieldMeta.PreviousVersionID}
-          />
+    [
+      BusinessCardField.BriefDescription,
+      { meta: BusinessCardFieldMeta.BriefDescription,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={BusinessCardField.BriefDescription}
+          meta={BusinessCardFieldMeta.BriefDescription}
+          fieldConfig={fieldConfig}
+          text={value?.BriefDescription}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-BriefDescription"
-            label="Brief Description"
-            items={value.BriefDescription}
-            meta={BusinessCardFieldMeta.BriefDescription} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Brief Description"
-                value={itemValue}
-                meta={BusinessCardFieldMeta.BriefDescription}
-              />
-            }
-          />
+    [
+      BusinessCardField.Signature,
+      { meta: BusinessCardFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={BusinessCardField.Signature}
+          meta={BusinessCardFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={BusinessCardFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={BusinessCardFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      BusinessCardField.SenderParty,
+      { meta: BusinessCardFieldMeta.SenderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={BusinessCardField.SenderParty}
+          meta={BusinessCardFieldMeta.SenderParty}
+          fieldConfig={fieldConfig}
+          party={value?.SenderParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Sender Party"
-            value={value.SenderParty?.[0]}
-            meta={BusinessCardFieldMeta.SenderParty}
-          />
+    [
+      BusinessCardField.ReceiverParty,
+      { meta: BusinessCardFieldMeta.ReceiverParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={BusinessCardField.ReceiverParty}
+          meta={BusinessCardFieldMeta.ReceiverParty}
+          fieldConfig={fieldConfig}
+          party={value?.ReceiverParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Receiver Party"
-            value={value.ReceiverParty?.[0]}
-            meta={BusinessCardFieldMeta.ReceiverParty}
-          />
+    [
+      BusinessCardField.BusinessParty,
+      { meta: BusinessCardFieldMeta.BusinessParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={BusinessCardField.BusinessParty}
+          meta={BusinessCardFieldMeta.BusinessParty}
+          fieldConfig={fieldConfig}
+          party={value?.BusinessParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Business Party"
-            value={value.BusinessParty?.[0]}
-            meta={BusinessCardFieldMeta.BusinessParty}
-          />
+    [
+      BusinessCardField.BrochureDocumentReference,
+      { meta: BusinessCardFieldMeta.BrochureDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={BusinessCardField.BrochureDocumentReference}
+          meta={BusinessCardFieldMeta.BrochureDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.BrochureDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-BrochureDocumentReference"
-            label="Brochure Document Reference"
-            items={value.BrochureDocumentReference}
-            meta={BusinessCardFieldMeta.BrochureDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Brochure Document Reference"
-                value={itemValue}
-                meta={BusinessCardFieldMeta.BrochureDocumentReference}
-              />
-            }
-          />
+    [
+      BusinessCardField.AdditionalDocumentReference,
+      { meta: BusinessCardFieldMeta.AdditionalDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={BusinessCardField.AdditionalDocumentReference}
+          meta={BusinessCardFieldMeta.AdditionalDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.AdditionalDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-AdditionalDocumentReference"
-            label="Additional Document Reference"
-            items={value.AdditionalDocumentReference}
-            meta={BusinessCardFieldMeta.AdditionalDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Additional Document Reference"
-                value={itemValue}
-                meta={BusinessCardFieldMeta.AdditionalDocumentReference}
-              />
-            }
-          />
+    [
+      BusinessCardField.BusinessCapability,
+      { meta: BusinessCardFieldMeta.BusinessCapability,
+        template: ({value, renderContext, fieldConfig}) => <CapabilityDisplay
+          key={BusinessCardField.BusinessCapability}
+          meta={BusinessCardFieldMeta.BusinessCapability}
+          fieldConfig={fieldConfig}
+          capability={value?.BusinessCapability}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Capability ubl-BusinessCapability"
-            label="Business Capability"
-            items={value.BusinessCapability}
-            meta={BusinessCardFieldMeta.BusinessCapability} 
-            itemDisplay={ (itemValue: Capability, key: string | number) =>
-              <CapabilityDisplay
-                key={key}
-                label="Business Capability"
-                value={itemValue}
-                meta={BusinessCardFieldMeta.BusinessCapability}
-              />
-            }
-          />
-        </div>
-    </div>
+export function BusinessCardDisplay<TFieldMeta>({ meta, fieldConfig, businessCard, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    BusinessCardTypeName,
+    meta,
+    fieldConfig,
+    businessCard,
+    renderContext,
+    BusinessCardSubElementsMap,
   )
 }

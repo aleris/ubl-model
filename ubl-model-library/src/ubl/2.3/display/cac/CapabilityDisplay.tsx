@@ -1,106 +1,131 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Capability } from  '../../model/cac/Capability'
-import { CapabilityFieldMeta } from  '../../meta/cac/CapabilityMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import EvidenceSuppliedDisplay from './EvidenceSuppliedDisplay'
-import { EvidenceSupplied } from '../../model/cac/EvidenceSupplied'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
-import WebSiteDisplay from './WebSiteDisplay'
-import { WebSite } from '../../model/cac/WebSite'
+import { CapabilityField, CapabilityFieldMeta, CapabilityTypeName } from  '../../meta/cac/CapabilityMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { EvidenceSuppliedDisplay } from './EvidenceSuppliedDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
+import { WebSiteDisplay } from './WebSiteDisplay'
 
-type Props<T> = {
-  label: string
-  value: Capability | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<Capability, void>
+  capability: Capability[] | undefined
+  renderContext: RenderContext
 }
 
-export default function CapabilityDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const CapabilitySubElementsMap: SubElementsTemplatesMap<CapabilityField, Capability, void> = new Map([
+    [
+      CapabilityField.UBLExtensions,
+      { meta: CapabilityFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={CapabilityField.UBLExtensions}
+          meta={CapabilityFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-Capability">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={CapabilityFieldMeta.UBLExtensions}
-          />
+    [
+      CapabilityField.CapabilityTypeCode,
+      { meta: CapabilityFieldMeta.CapabilityTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={CapabilityField.CapabilityTypeCode}
+          meta={CapabilityFieldMeta.CapabilityTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.CapabilityTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Capability Type Code"
-            value={value.CapabilityTypeCode?.[0]}
-            meta={CapabilityFieldMeta.CapabilityTypeCode}
-          />
+    [
+      CapabilityField.Description,
+      { meta: CapabilityFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={CapabilityField.Description}
+          meta={CapabilityFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={CapabilityFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={CapabilityFieldMeta.Description}
-              />
-            }
-          />
+    [
+      CapabilityField.ValueAmount,
+      { meta: CapabilityFieldMeta.ValueAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={CapabilityField.ValueAmount}
+          meta={CapabilityFieldMeta.ValueAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.ValueAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Value"
-            value={value.ValueAmount?.[0]}
-            meta={CapabilityFieldMeta.ValueAmount}
-          />
+    [
+      CapabilityField.ValueQuantity,
+      { meta: CapabilityFieldMeta.ValueQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={CapabilityField.ValueQuantity}
+          meta={CapabilityFieldMeta.ValueQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.ValueQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Value Quantity"
-            value={value.ValueQuantity?.[0]}
-            meta={CapabilityFieldMeta.ValueQuantity}
-          />
+    [
+      CapabilityField.EvidenceSupplied,
+      { meta: CapabilityFieldMeta.EvidenceSupplied,
+        template: ({value, renderContext, fieldConfig}) => <EvidenceSuppliedDisplay
+          key={CapabilityField.EvidenceSupplied}
+          meta={CapabilityFieldMeta.EvidenceSupplied}
+          fieldConfig={fieldConfig}
+          evidenceSupplied={value?.EvidenceSupplied}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-EvidenceSupplied"
-            label="Evidence Supplied"
-            items={value.EvidenceSupplied}
-            meta={CapabilityFieldMeta.EvidenceSupplied} 
-            itemDisplay={ (itemValue: EvidenceSupplied, key: string | number) =>
-              <EvidenceSuppliedDisplay
-                key={key}
-                label="Evidence Supplied"
-                value={itemValue}
-                meta={CapabilityFieldMeta.EvidenceSupplied}
-              />
-            }
-          />
+    [
+      CapabilityField.ValidityPeriod,
+      { meta: CapabilityFieldMeta.ValidityPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={CapabilityField.ValidityPeriod}
+          meta={CapabilityFieldMeta.ValidityPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.ValidityPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Validity Period"
-            value={value.ValidityPeriod?.[0]}
-            meta={CapabilityFieldMeta.ValidityPeriod}
-          />
+    [
+      CapabilityField.WebSite,
+      { meta: CapabilityFieldMeta.WebSite,
+        template: ({value, renderContext, fieldConfig}) => <WebSiteDisplay
+          key={CapabilityField.WebSite}
+          meta={CapabilityFieldMeta.WebSite}
+          fieldConfig={fieldConfig}
+          webSite={value?.WebSite}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <WebSiteDisplay
-            label="Web Site"
-            value={value.WebSite?.[0]}
-            meta={CapabilityFieldMeta.WebSite}
-          />
-        </div>
-    </div>
+export function CapabilityDisplay<TFieldMeta>({ meta, fieldConfig, capability, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    CapabilityTypeName,
+    meta,
+    fieldConfig,
+    capability,
+    renderContext,
+    CapabilitySubElementsMap,
   )
 }

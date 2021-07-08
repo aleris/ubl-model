@@ -1,192 +1,255 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ProductActivity } from  '../../model/doc/ProductActivity'
-import { ProductActivityFieldMeta } from  '../../meta/doc/ProductActivityMeta'
-import ActivityDataLineDisplay from '../cac/ActivityDataLineDisplay'
-import { ActivityDataLine } from '../../model/cac/ActivityDataLine'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PeriodDisplay from '../cac/PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ProductActivityField, ProductActivityFieldMeta, ProductActivityTypeName } from  '../../meta/doc/ProductActivityMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { ActivityDataLineDisplay } from '../cac/ActivityDataLineDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { PeriodDisplay } from '../cac/PeriodDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ProductActivity | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ProductActivity, void>
+  productActivity: ProductActivity[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ProductActivityDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ProductActivitySubElementsMap: SubElementsTemplatesMap<ProductActivityField, ProductActivity, void> = new Map([
+    [
+      ProductActivityField.UBLExtensions,
+      { meta: ProductActivityFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ProductActivityField.UBLExtensions}
+          meta={ProductActivityFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-ProductActivity">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ProductActivityFieldMeta.UBLExtensions}
-          />
+    [
+      ProductActivityField.UBLVersionID,
+      { meta: ProductActivityFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ProductActivityField.UBLVersionID}
+          meta={ProductActivityFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={ProductActivityFieldMeta.UBLVersionID}
-          />
+    [
+      ProductActivityField.CustomizationID,
+      { meta: ProductActivityFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ProductActivityField.CustomizationID}
+          meta={ProductActivityFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={ProductActivityFieldMeta.CustomizationID}
-          />
+    [
+      ProductActivityField.ProfileID,
+      { meta: ProductActivityFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ProductActivityField.ProfileID}
+          meta={ProductActivityFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={ProductActivityFieldMeta.ProfileID}
-          />
+    [
+      ProductActivityField.ProfileExecutionID,
+      { meta: ProductActivityFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ProductActivityField.ProfileExecutionID}
+          meta={ProductActivityFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={ProductActivityFieldMeta.ProfileExecutionID}
-          />
+    [
+      ProductActivityField.ID,
+      { meta: ProductActivityFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ProductActivityField.ID}
+          meta={ProductActivityFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={ProductActivityFieldMeta.ID}
-          />
+    [
+      ProductActivityField.CopyIndicator,
+      { meta: ProductActivityFieldMeta.CopyIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ProductActivityField.CopyIndicator}
+          meta={ProductActivityFieldMeta.CopyIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.CopyIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Copy Indicator"
-            value={value.CopyIndicator?.[0]}
-            meta={ProductActivityFieldMeta.CopyIndicator}
-          />
+    [
+      ProductActivityField.UUID,
+      { meta: ProductActivityFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ProductActivityField.UUID}
+          meta={ProductActivityFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={ProductActivityFieldMeta.UUID}
-          />
+    [
+      ProductActivityField.IssueDate,
+      { meta: ProductActivityFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={ProductActivityField.IssueDate}
+          meta={ProductActivityFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={ProductActivityFieldMeta.IssueDate}
-          />
+    [
+      ProductActivityField.IssueTime,
+      { meta: ProductActivityFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={ProductActivityField.IssueTime}
+          meta={ProductActivityFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={ProductActivityFieldMeta.IssueTime}
-          />
+    [
+      ProductActivityField.Note,
+      { meta: ProductActivityFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ProductActivityField.Note}
+          meta={ProductActivityFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={ProductActivityFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={ProductActivityFieldMeta.Note}
-              />
-            }
-          />
+    [
+      ProductActivityField.DocumentCurrencyCode,
+      { meta: ProductActivityFieldMeta.DocumentCurrencyCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ProductActivityField.DocumentCurrencyCode}
+          meta={ProductActivityFieldMeta.DocumentCurrencyCode}
+          fieldConfig={fieldConfig}
+          code={value?.DocumentCurrencyCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Document Currency Code"
-            value={value.DocumentCurrencyCode?.[0]}
-            meta={ProductActivityFieldMeta.DocumentCurrencyCode}
-          />
+    [
+      ProductActivityField.ActivityPeriod,
+      { meta: ProductActivityFieldMeta.ActivityPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={ProductActivityField.ActivityPeriod}
+          meta={ProductActivityFieldMeta.ActivityPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.ActivityPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Activity Period"
-            value={value.ActivityPeriod?.[0]}
-            meta={ProductActivityFieldMeta.ActivityPeriod}
-          />
+    [
+      ProductActivityField.DocumentReference,
+      { meta: ProductActivityFieldMeta.DocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={ProductActivityField.DocumentReference}
+          meta={ProductActivityFieldMeta.DocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.DocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference"
-            label="Document Reference"
-            items={value.DocumentReference}
-            meta={ProductActivityFieldMeta.DocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Document Reference"
-                value={itemValue}
-                meta={ProductActivityFieldMeta.DocumentReference}
-              />
-            }
-          />
+    [
+      ProductActivityField.Signature,
+      { meta: ProductActivityFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={ProductActivityField.Signature}
+          meta={ProductActivityFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={ProductActivityFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={ProductActivityFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      ProductActivityField.SenderParty,
+      { meta: ProductActivityFieldMeta.SenderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ProductActivityField.SenderParty}
+          meta={ProductActivityFieldMeta.SenderParty}
+          fieldConfig={fieldConfig}
+          party={value?.SenderParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Sender Party"
-            value={value.SenderParty?.[0]}
-            meta={ProductActivityFieldMeta.SenderParty}
-          />
+    [
+      ProductActivityField.ReceiverParty,
+      { meta: ProductActivityFieldMeta.ReceiverParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ProductActivityField.ReceiverParty}
+          meta={ProductActivityFieldMeta.ReceiverParty}
+          fieldConfig={fieldConfig}
+          party={value?.ReceiverParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Receiver Party"
-            value={value.ReceiverParty?.[0]}
-            meta={ProductActivityFieldMeta.ReceiverParty}
-          />
+    [
+      ProductActivityField.SupplyChainActivityDataLine,
+      { meta: ProductActivityFieldMeta.SupplyChainActivityDataLine,
+        template: ({value, renderContext, fieldConfig}) => <ActivityDataLineDisplay
+          key={ProductActivityField.SupplyChainActivityDataLine}
+          meta={ProductActivityFieldMeta.SupplyChainActivityDataLine}
+          fieldConfig={fieldConfig}
+          activityDataLine={value?.SupplyChainActivityDataLine}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-ActivityDataLine ubl-SupplyChainActivityDataLine"
-            label="Supply Chain Activity Data Line"
-            items={value.SupplyChainActivityDataLine}
-            meta={ProductActivityFieldMeta.SupplyChainActivityDataLine} 
-            itemDisplay={ (itemValue: ActivityDataLine, key: string | number) =>
-              <ActivityDataLineDisplay
-                key={key}
-                label="Supply Chain Activity Data Line"
-                value={itemValue}
-                meta={ProductActivityFieldMeta.SupplyChainActivityDataLine}
-              />
-            }
-          />
-        </div>
-    </div>
+export function ProductActivityDisplay<TFieldMeta>({ meta, fieldConfig, productActivity, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ProductActivityTypeName,
+    meta,
+    fieldConfig,
+    productActivity,
+    renderContext,
+    ProductActivitySubElementsMap,
   )
 }

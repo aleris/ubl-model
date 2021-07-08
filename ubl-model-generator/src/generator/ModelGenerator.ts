@@ -1,3 +1,4 @@
+import { AllDocsGenerator } from './AllDocsGenerator'
 import { UblSchema } from './UblSchema'
 import { CodeFileWriter } from './CodeFileWriter'
 import { TypeDictionary } from './TypeDictionary'
@@ -38,12 +39,18 @@ export class ModelGenerator {
       aggregateTypesCodeGenerators
     )
     await aggregateTypesGenerator.generate(UblModule.cac, 'common/UBL-CommonAggregateComponents')
+    await aggregateTypesGenerator.generateAll(UblModule.cac, 'common/UBL-CommonAggregateComponents')
     await aggregateTypesGenerator.generate(UblModule.ext, 'common/UBL-ExtensionContentDataType')
+    await aggregateTypesGenerator.generateAll(UblModule.ext, 'common/UBL-ExtensionContentDataType')
     await aggregateTypesGenerator.generate(UblModule.ext, 'common/UBL-CommonExtensionComponents')
+    await aggregateTypesGenerator.generateAll(UblModule.ext, 'common/UBL-CommonExtensionComponents')
 
     for (const mainDocPath of ublSchema.listMainDocFileNames()) {
       await aggregateTypesGenerator.generate(UblModule.doc, mainDocPath)
     }
+
+    await new AllDocsGenerator(ublSchema, typeResolver, codeFileWriter).generate()
+
     console.log(`${codeFileWriter.counter} UBL model files generated for version ${version}`)
   }
 }

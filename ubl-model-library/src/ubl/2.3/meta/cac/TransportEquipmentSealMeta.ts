@@ -1,4 +1,9 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum TransportEquipmentSealField {
   UBLExtensions = 'UBLExtensions',
@@ -12,11 +17,11 @@ export enum TransportEquipmentSealField {
 export const TransportEquipmentSealFieldMetaUBLExtensions = new FieldMeta<TransportEquipmentSealField>(
   TransportEquipmentSealField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -25,10 +30,10 @@ export const TransportEquipmentSealFieldMetaID = new FieldMeta<TransportEquipmen
   TransportEquipmentSealField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this transport equipment seal.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   'ACS1234'
 )
@@ -37,10 +42,10 @@ export const TransportEquipmentSealFieldMetaSealIssuerTypeCode = new FieldMeta<T
   TransportEquipmentSealField.SealIssuerTypeCode,
   'SealIssuerTypeCode',
   'Seal Issuer Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of party that issues and is responsible for this transport equipment seal.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -49,10 +54,10 @@ export const TransportEquipmentSealFieldMetaCondition = new FieldMeta<TransportE
   TransportEquipmentSealField.Condition,
   'Condition',
   'Condition',
-  'Text',
+  TextType.name,
   'The condition of this transport equipment seal.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -61,10 +66,10 @@ export const TransportEquipmentSealFieldMetaSealStatusCode = new FieldMeta<Trans
   TransportEquipmentSealField.SealStatusCode,
   'SealStatusCode',
   'Seal Status Code',
-  'Code',
+  CodeType.name,
   'A code signifying the condition of this transport equipment seal.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -73,10 +78,10 @@ export const TransportEquipmentSealFieldMetaSealingPartyType = new FieldMeta<Tra
   TransportEquipmentSealField.SealingPartyType,
   'SealingPartyType',
   'Sealing Party Type',
-  'Text',
+  TextType.name,
   'The role of the sealing party.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Sealing Party',
   undefined
 )
@@ -98,3 +103,11 @@ export const TransportEquipmentSealFieldMap = new Map([
   [TransportEquipmentSealField.SealStatusCode, TransportEquipmentSealFieldMetaSealStatusCode],
   [TransportEquipmentSealField.SealingPartyType, TransportEquipmentSealFieldMetaSealingPartyType]
 ])
+
+export const TransportEquipmentSealType: Type<TransportEquipmentSealField> = {
+  name: 'TransportEquipmentSeal',
+  label: 'Transport Equipment Seal',
+  module: TypeModule.cac,
+  definition: 'A class to describe a device (a transport equipment seal) for securing the doors of a shipping container.',
+  fields: TransportEquipmentSealFieldMap,
+}

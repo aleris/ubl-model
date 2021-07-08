@@ -1,89 +1,118 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { PerformanceDataLine } from  '../../model/cac/PerformanceDataLine'
-import { PerformanceDataLineFieldMeta } from  '../../meta/cac/PerformanceDataLineMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import ItemDisplay from './ItemDisplay'
-import { Item } from '../../model/cac/Item'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { PerformanceDataLineField, PerformanceDataLineFieldMeta, PerformanceDataLineTypeName } from  '../../meta/cac/PerformanceDataLineMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { ItemDisplay } from './ItemDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: PerformanceDataLine | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<PerformanceDataLine, void>
+  performanceDataLine: PerformanceDataLine[] | undefined
+  renderContext: RenderContext
 }
 
-export default function PerformanceDataLineDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const PerformanceDataLineSubElementsMap: SubElementsTemplatesMap<PerformanceDataLineField, PerformanceDataLine, void> = new Map([
+    [
+      PerformanceDataLineField.UBLExtensions,
+      { meta: PerformanceDataLineFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={PerformanceDataLineField.UBLExtensions}
+          meta={PerformanceDataLineFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-PerformanceDataLine">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={PerformanceDataLineFieldMeta.UBLExtensions}
-          />
+    [
+      PerformanceDataLineField.ID,
+      { meta: PerformanceDataLineFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PerformanceDataLineField.ID}
+          meta={PerformanceDataLineFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={PerformanceDataLineFieldMeta.ID}
-          />
+    [
+      PerformanceDataLineField.Note,
+      { meta: PerformanceDataLineFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={PerformanceDataLineField.Note}
+          meta={PerformanceDataLineFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={PerformanceDataLineFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={PerformanceDataLineFieldMeta.Note}
-              />
-            }
-          />
+    [
+      PerformanceDataLineField.PerformanceValueQuantity,
+      { meta: PerformanceDataLineFieldMeta.PerformanceValueQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={PerformanceDataLineField.PerformanceValueQuantity}
+          meta={PerformanceDataLineFieldMeta.PerformanceValueQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.PerformanceValueQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Performance Value"
-            value={value.PerformanceValueQuantity?.[0]}
-            meta={PerformanceDataLineFieldMeta.PerformanceValueQuantity}
-          />
+    [
+      PerformanceDataLineField.PerformanceMetricTypeCode,
+      { meta: PerformanceDataLineFieldMeta.PerformanceMetricTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={PerformanceDataLineField.PerformanceMetricTypeCode}
+          meta={PerformanceDataLineFieldMeta.PerformanceMetricTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.PerformanceMetricTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Performance Metric Type Code"
-            value={value.PerformanceMetricTypeCode?.[0]}
-            meta={PerformanceDataLineFieldMeta.PerformanceMetricTypeCode}
-          />
+    [
+      PerformanceDataLineField.Period,
+      { meta: PerformanceDataLineFieldMeta.Period,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={PerformanceDataLineField.Period}
+          meta={PerformanceDataLineFieldMeta.Period}
+          fieldConfig={fieldConfig}
+          period={value?.Period}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Period"
-            value={value.Period?.[0]}
-            meta={PerformanceDataLineFieldMeta.Period}
-          />
+    [
+      PerformanceDataLineField.Item,
+      { meta: PerformanceDataLineFieldMeta.Item,
+        template: ({value, renderContext, fieldConfig}) => <ItemDisplay
+          key={PerformanceDataLineField.Item}
+          meta={PerformanceDataLineFieldMeta.Item}
+          fieldConfig={fieldConfig}
+          item={value?.Item}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ItemDisplay
-            label="Item"
-            value={value.Item?.[0]}
-            meta={PerformanceDataLineFieldMeta.Item}
-          />
-        </div>
-    </div>
+export function PerformanceDataLineDisplay<TFieldMeta>({ meta, fieldConfig, performanceDataLine, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    PerformanceDataLineTypeName,
+    meta,
+    fieldConfig,
+    performanceDataLine,
+    renderContext,
+    PerformanceDataLineSubElementsMap,
   )
 }

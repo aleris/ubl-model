@@ -1,171 +1,195 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ItemLocationQuantity } from  '../../model/cac/ItemLocationQuantity'
-import { ItemLocationQuantityFieldMeta } from  '../../meta/cac/ItemLocationQuantityMeta'
-import AddressDisplay from './AddressDisplay'
-import { Address } from '../../model/cac/Address'
-import AllowanceChargeDisplay from './AllowanceChargeDisplay'
-import { AllowanceCharge } from '../../model/cac/AllowanceCharge'
-import DeliveryUnitDisplay from './DeliveryUnitDisplay'
-import { DeliveryUnit } from '../../model/cac/DeliveryUnit'
-import DependentPriceReferenceDisplay from './DependentPriceReferenceDisplay'
-import { DependentPriceReference } from '../../model/cac/DependentPriceReference'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import MeasureDisplay from '../cbc/MeasureDisplay'
-import { Measure } from '../../model/cbc/Measure'
-import PackageDisplay from './PackageDisplay'
-import { Package } from '../../model/cac/Package'
-import PriceDisplay from './PriceDisplay'
-import { Price } from '../../model/cac/Price'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import TaxCategoryDisplay from './TaxCategoryDisplay'
-import { TaxCategory } from '../../model/cac/TaxCategory'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ItemLocationQuantityField, ItemLocationQuantityFieldMeta, ItemLocationQuantityTypeName } from  '../../meta/cac/ItemLocationQuantityMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AddressDisplay } from './AddressDisplay'
+import { AllowanceChargeDisplay } from './AllowanceChargeDisplay'
+import { DeliveryUnitDisplay } from './DeliveryUnitDisplay'
+import { DependentPriceReferenceDisplay } from './DependentPriceReferenceDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { MeasureDisplay } from '../cbc/MeasureDisplay'
+import { PackageDisplay } from './PackageDisplay'
+import { PriceDisplay } from './PriceDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { TaxCategoryDisplay } from './TaxCategoryDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ItemLocationQuantity | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ItemLocationQuantity, void>
+  itemLocationQuantity: ItemLocationQuantity[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ItemLocationQuantityDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ItemLocationQuantitySubElementsMap: SubElementsTemplatesMap<ItemLocationQuantityField, ItemLocationQuantity, void> = new Map([
+    [
+      ItemLocationQuantityField.UBLExtensions,
+      { meta: ItemLocationQuantityFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ItemLocationQuantityField.UBLExtensions}
+          meta={ItemLocationQuantityFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ItemLocationQuantity">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ItemLocationQuantityFieldMeta.UBLExtensions}
-          />
+    [
+      ItemLocationQuantityField.LeadTimeMeasure,
+      { meta: ItemLocationQuantityFieldMeta.LeadTimeMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={ItemLocationQuantityField.LeadTimeMeasure}
+          meta={ItemLocationQuantityFieldMeta.LeadTimeMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.LeadTimeMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Lead Time"
-            value={value.LeadTimeMeasure?.[0]}
-            meta={ItemLocationQuantityFieldMeta.LeadTimeMeasure}
-          />
+    [
+      ItemLocationQuantityField.MinimumQuantity,
+      { meta: ItemLocationQuantityFieldMeta.MinimumQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={ItemLocationQuantityField.MinimumQuantity}
+          meta={ItemLocationQuantityFieldMeta.MinimumQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.MinimumQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Minimum Quantity"
-            value={value.MinimumQuantity?.[0]}
-            meta={ItemLocationQuantityFieldMeta.MinimumQuantity}
-          />
+    [
+      ItemLocationQuantityField.MaximumQuantity,
+      { meta: ItemLocationQuantityFieldMeta.MaximumQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={ItemLocationQuantityField.MaximumQuantity}
+          meta={ItemLocationQuantityFieldMeta.MaximumQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.MaximumQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Maximum Quantity"
-            value={value.MaximumQuantity?.[0]}
-            meta={ItemLocationQuantityFieldMeta.MaximumQuantity}
-          />
+    [
+      ItemLocationQuantityField.HazardousRiskIndicator,
+      { meta: ItemLocationQuantityFieldMeta.HazardousRiskIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ItemLocationQuantityField.HazardousRiskIndicator}
+          meta={ItemLocationQuantityFieldMeta.HazardousRiskIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.HazardousRiskIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Hazardous Risk Indicator"
-            value={value.HazardousRiskIndicator?.[0]}
-            meta={ItemLocationQuantityFieldMeta.HazardousRiskIndicator}
-          />
+    [
+      ItemLocationQuantityField.TradingRestrictions,
+      { meta: ItemLocationQuantityFieldMeta.TradingRestrictions,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ItemLocationQuantityField.TradingRestrictions}
+          meta={ItemLocationQuantityFieldMeta.TradingRestrictions}
+          fieldConfig={fieldConfig}
+          text={value?.TradingRestrictions}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-TradingRestrictions"
-            label="Trading Restrictions"
-            items={value.TradingRestrictions}
-            meta={ItemLocationQuantityFieldMeta.TradingRestrictions} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Trading Restrictions"
-                value={itemValue}
-                meta={ItemLocationQuantityFieldMeta.TradingRestrictions}
-              />
-            }
-          />
+    [
+      ItemLocationQuantityField.ApplicableTerritoryAddress,
+      { meta: ItemLocationQuantityFieldMeta.ApplicableTerritoryAddress,
+        template: ({value, renderContext, fieldConfig}) => <AddressDisplay
+          key={ItemLocationQuantityField.ApplicableTerritoryAddress}
+          meta={ItemLocationQuantityFieldMeta.ApplicableTerritoryAddress}
+          fieldConfig={fieldConfig}
+          address={value?.ApplicableTerritoryAddress}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Address ubl-ApplicableTerritoryAddress"
-            label="Applicable Territory Address"
-            items={value.ApplicableTerritoryAddress}
-            meta={ItemLocationQuantityFieldMeta.ApplicableTerritoryAddress} 
-            itemDisplay={ (itemValue: Address, key: string | number) =>
-              <AddressDisplay
-                key={key}
-                label="Applicable Territory Address"
-                value={itemValue}
-                meta={ItemLocationQuantityFieldMeta.ApplicableTerritoryAddress}
-              />
-            }
-          />
+    [
+      ItemLocationQuantityField.Price,
+      { meta: ItemLocationQuantityFieldMeta.Price,
+        template: ({value, renderContext, fieldConfig}) => <PriceDisplay
+          key={ItemLocationQuantityField.Price}
+          meta={ItemLocationQuantityFieldMeta.Price}
+          fieldConfig={fieldConfig}
+          price={value?.Price}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PriceDisplay
-            label="Price"
-            value={value.Price?.[0]}
-            meta={ItemLocationQuantityFieldMeta.Price}
-          />
+    [
+      ItemLocationQuantityField.DeliveryUnit,
+      { meta: ItemLocationQuantityFieldMeta.DeliveryUnit,
+        template: ({value, renderContext, fieldConfig}) => <DeliveryUnitDisplay
+          key={ItemLocationQuantityField.DeliveryUnit}
+          meta={ItemLocationQuantityFieldMeta.DeliveryUnit}
+          fieldConfig={fieldConfig}
+          deliveryUnit={value?.DeliveryUnit}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DeliveryUnit"
-            label="Delivery Unit"
-            items={value.DeliveryUnit}
-            meta={ItemLocationQuantityFieldMeta.DeliveryUnit} 
-            itemDisplay={ (itemValue: DeliveryUnit, key: string | number) =>
-              <DeliveryUnitDisplay
-                key={key}
-                label="Delivery Unit"
-                value={itemValue}
-                meta={ItemLocationQuantityFieldMeta.DeliveryUnit}
-              />
-            }
-          />
+    [
+      ItemLocationQuantityField.ApplicableTaxCategory,
+      { meta: ItemLocationQuantityFieldMeta.ApplicableTaxCategory,
+        template: ({value, renderContext, fieldConfig}) => <TaxCategoryDisplay
+          key={ItemLocationQuantityField.ApplicableTaxCategory}
+          meta={ItemLocationQuantityFieldMeta.ApplicableTaxCategory}
+          fieldConfig={fieldConfig}
+          taxCategory={value?.ApplicableTaxCategory}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TaxCategory ubl-ApplicableTaxCategory"
-            label="Applicable Tax Category"
-            items={value.ApplicableTaxCategory}
-            meta={ItemLocationQuantityFieldMeta.ApplicableTaxCategory} 
-            itemDisplay={ (itemValue: TaxCategory, key: string | number) =>
-              <TaxCategoryDisplay
-                key={key}
-                label="Applicable Tax Category"
-                value={itemValue}
-                meta={ItemLocationQuantityFieldMeta.ApplicableTaxCategory}
-              />
-            }
-          />
+    [
+      ItemLocationQuantityField.Package,
+      { meta: ItemLocationQuantityFieldMeta.Package,
+        template: ({value, renderContext, fieldConfig}) => <PackageDisplay
+          key={ItemLocationQuantityField.Package}
+          meta={ItemLocationQuantityFieldMeta.Package}
+          fieldConfig={fieldConfig}
+          packageValue={value?.Package}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PackageDisplay
-            label="Package"
-            value={value.Package?.[0]}
-            meta={ItemLocationQuantityFieldMeta.Package}
-          />
+    [
+      ItemLocationQuantityField.AllowanceCharge,
+      { meta: ItemLocationQuantityFieldMeta.AllowanceCharge,
+        template: ({value, renderContext, fieldConfig}) => <AllowanceChargeDisplay
+          key={ItemLocationQuantityField.AllowanceCharge}
+          meta={ItemLocationQuantityFieldMeta.AllowanceCharge}
+          fieldConfig={fieldConfig}
+          allowanceCharge={value?.AllowanceCharge}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-AllowanceCharge"
-            label="Allowance Charge"
-            items={value.AllowanceCharge}
-            meta={ItemLocationQuantityFieldMeta.AllowanceCharge} 
-            itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-              <AllowanceChargeDisplay
-                key={key}
-                label="Allowance Charge"
-                value={itemValue}
-                meta={ItemLocationQuantityFieldMeta.AllowanceCharge}
-              />
-            }
-          />
+    [
+      ItemLocationQuantityField.DependentPriceReference,
+      { meta: ItemLocationQuantityFieldMeta.DependentPriceReference,
+        template: ({value, renderContext, fieldConfig}) => <DependentPriceReferenceDisplay
+          key={ItemLocationQuantityField.DependentPriceReference}
+          meta={ItemLocationQuantityFieldMeta.DependentPriceReference}
+          fieldConfig={fieldConfig}
+          dependentPriceReference={value?.DependentPriceReference}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <DependentPriceReferenceDisplay
-            label="Dependent Price Reference"
-            value={value.DependentPriceReference?.[0]}
-            meta={ItemLocationQuantityFieldMeta.DependentPriceReference}
-          />
-        </div>
-    </div>
+export function ItemLocationQuantityDisplay<TFieldMeta>({ meta, fieldConfig, itemLocationQuantity, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ItemLocationQuantityTypeName,
+    meta,
+    fieldConfig,
+    itemLocationQuantity,
+    renderContext,
+    ItemLocationQuantitySubElementsMap,
   )
 }

@@ -3,7 +3,6 @@ import { Code } from '../cbc/Code'
 import { TaxCategory } from './TaxCategory'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * The charging rate used for both call charging and time dependent charging
  */

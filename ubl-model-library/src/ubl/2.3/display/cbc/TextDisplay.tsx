@@ -1,18 +1,25 @@
 import React from 'react'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Text } from '../../model/cbc/Text'
-import FieldDisplay from '../FieldDisplay'
+import { FieldConfig } from '../FieldConfig'
+import { FieldDisplay } from '../FieldDisplay'
 
 type Props = {
-  label: string
-  value: Text | undefined
+  className: string
+  label?: string
+  text: Text | undefined
   meta: FieldMeta<any>
+  fieldConfig?: FieldConfig
 }
 
-export default function TextDisplay({ label, value, meta }: Props) {
-  if (value === undefined) {
+export function TextDisplay({ className, label, text, meta, fieldConfig }: Props) {
+  if (text === undefined) {
     return null
   }
-  const stringValue = value._
-  return <div className="ubl-cbc ubl-Text"><FieldDisplay label={label} value={stringValue} /></div>
+  const stringValue = text._
+  return (
+    <div className={className}>
+      <FieldDisplay label={label} value={stringValue} config={fieldConfig}/>
+    </div>
+  )
 }

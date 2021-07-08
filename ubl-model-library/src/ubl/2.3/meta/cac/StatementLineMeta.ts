@@ -1,4 +1,22 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AllowanceChargeType } from './AllowanceChargeMeta'
+import { AmountType } from '../cbc/AmountMeta'
+import { BillingReferenceType } from './BillingReferenceMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { CustomerPartyType } from './CustomerPartyMeta'
+import { DocumentReferenceType } from './DocumentReferenceMeta'
+import { ExchangeRateType } from './ExchangeRateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { PartyType } from './PartyMeta'
+import { PaymentType } from './PaymentMeta'
+import { PaymentMeansType } from './PaymentMeansMeta'
+import { PaymentTermsType } from './PaymentTermsMeta'
+import { PeriodType } from './PeriodMeta'
+import { SupplierPartyType } from './SupplierPartyMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum StatementLineField {
   UBLExtensions = 'UBLExtensions',
@@ -29,11 +47,11 @@ export enum StatementLineField {
 export const StatementLineFieldMetaUBLExtensions = new FieldMeta<StatementLineField>(
   StatementLineField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -42,10 +60,10 @@ export const StatementLineFieldMetaID = new FieldMeta<StatementLineField>(
   StatementLineField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this statement line.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -54,10 +72,10 @@ export const StatementLineFieldMetaNote = new FieldMeta<StatementLineField>(
   StatementLineField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -66,10 +84,10 @@ export const StatementLineFieldMetaUUID = new FieldMeta<StatementLineField>(
   StatementLineField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for this statement line.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -78,10 +96,10 @@ export const StatementLineFieldMetaBalanceBroughtForwardIndicator = new FieldMet
   StatementLineField.BalanceBroughtForwardIndicator,
   'BalanceBroughtForwardIndicator',
   'Balance Brought Forward Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indication that this statement line contains an outstanding balance from the previous bill(s) (true) or does not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -90,10 +108,10 @@ export const StatementLineFieldMetaDebitLineAmount = new FieldMeta<StatementLine
   StatementLineField.DebitLineAmount,
   'DebitLineAmount',
   'Debit Line Amount',
-  'Amount',
+  AmountType.name,
   'The amount debited on this statement line.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -102,10 +120,10 @@ export const StatementLineFieldMetaCreditLineAmount = new FieldMeta<StatementLin
   StatementLineField.CreditLineAmount,
   'CreditLineAmount',
   'Credit Line Amount',
-  'Amount',
+  AmountType.name,
   'The amount credited on this statement line.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -114,10 +132,10 @@ export const StatementLineFieldMetaBalanceAmount = new FieldMeta<StatementLineFi
   StatementLineField.BalanceAmount,
   'BalanceAmount',
   'Balance Amount',
-  'Amount',
+  AmountType.name,
   'The balance amount on this statement line.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -126,10 +144,10 @@ export const StatementLineFieldMetaPaymentPurposeCode = new FieldMeta<StatementL
   StatementLineField.PaymentPurposeCode,
   'PaymentPurposeCode',
   'Payment Purpose Code',
-  'Code',
+  CodeType.name,
   'A code signifying the business purpose for this payment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -138,10 +156,10 @@ export const StatementLineFieldMetaPaymentMeans = new FieldMeta<StatementLineFie
   StatementLineField.PaymentMeans,
   'PaymentMeans',
   'Payment Means',
-  'PaymentMeans',
+  PaymentMeansType.name,
   'A means of payment associated with this statement line.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -150,10 +168,10 @@ export const StatementLineFieldMetaPaymentTerms = new FieldMeta<StatementLineFie
   StatementLineField.PaymentTerms,
   'PaymentTerms',
   'Payment Terms',
-  'PaymentTerms',
+  PaymentTermsType.name,
   'A specification of payment terms associated with this statement line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -162,10 +180,10 @@ export const StatementLineFieldMetaBuyerCustomerParty = new FieldMeta<StatementL
   StatementLineField.BuyerCustomerParty,
   'BuyerCustomerParty',
   'Buyer Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The buyer associated with this statement line.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -174,10 +192,10 @@ export const StatementLineFieldMetaSellerSupplierParty = new FieldMeta<Statement
   StatementLineField.SellerSupplierParty,
   'SellerSupplierParty',
   'Seller Supplier Party',
-  'SupplierParty',
+  SupplierPartyType.name,
   'The seller/supplier associated with this statement line.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -186,10 +204,10 @@ export const StatementLineFieldMetaOriginatorCustomerParty = new FieldMeta<State
   StatementLineField.OriginatorCustomerParty,
   'OriginatorCustomerParty',
   'Originator Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The originating party.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -198,10 +216,10 @@ export const StatementLineFieldMetaAccountingCustomerParty = new FieldMeta<State
   StatementLineField.AccountingCustomerParty,
   'AccountingCustomerParty',
   'Accounting Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The Accounting Customer Party related to the statement information reported on this Statement Line.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -210,10 +228,10 @@ export const StatementLineFieldMetaAccountingSupplierParty = new FieldMeta<State
   StatementLineField.AccountingSupplierParty,
   'AccountingSupplierParty',
   'Accounting Supplier Party',
-  'SupplierParty',
+  SupplierPartyType.name,
   'The Accounting Supplier Party related to the statement information reported on this Statement Line.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -222,10 +240,10 @@ export const StatementLineFieldMetaPayeeParty = new FieldMeta<StatementLineField
   StatementLineField.PayeeParty,
   'PayeeParty',
   'Payee Party',
-  'Party',
+  PartyType.name,
   'The payee.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -234,10 +252,10 @@ export const StatementLineFieldMetaInvoicePeriod = new FieldMeta<StatementLineFi
   StatementLineField.InvoicePeriod,
   'InvoicePeriod',
   'Invoice Period',
-  'Period',
+  PeriodType.name,
   'An invoice period to which this statement line applies.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -246,10 +264,10 @@ export const StatementLineFieldMetaBillingReference = new FieldMeta<StatementLin
   StatementLineField.BillingReference,
   'BillingReference',
   'Billing Reference',
-  'BillingReference',
+  BillingReferenceType.name,
   'A reference to a billing document associated with this statement line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -258,10 +276,10 @@ export const StatementLineFieldMetaDocumentReference = new FieldMeta<StatementLi
   StatementLineField.DocumentReference,
   'DocumentReference',
   'Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a document associated with this statement line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -270,10 +288,10 @@ export const StatementLineFieldMetaExchangeRate = new FieldMeta<StatementLineFie
   StatementLineField.ExchangeRate,
   'ExchangeRate',
   'Exchange Rate',
-  'ExchangeRate',
+  ExchangeRateType.name,
   'The rate of exchange between the currency of the Statement and the currency of the document described in the BillingReference.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -282,10 +300,10 @@ export const StatementLineFieldMetaAllowanceCharge = new FieldMeta<StatementLine
   StatementLineField.AllowanceCharge,
   'AllowanceCharge',
   'Allowance Charge',
-  'AllowanceCharge',
+  AllowanceChargeType.name,
   'A charge or discount price component associated with this statement line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -294,10 +312,10 @@ export const StatementLineFieldMetaCollectedPayment = new FieldMeta<StatementLin
   StatementLineField.CollectedPayment,
   'CollectedPayment',
   'Collected Payment',
-  'Payment',
+  PaymentType.name,
   'A collected payment.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -353,3 +371,11 @@ export const StatementLineFieldMap = new Map([
   [StatementLineField.AllowanceCharge, StatementLineFieldMetaAllowanceCharge],
   [StatementLineField.CollectedPayment, StatementLineFieldMetaCollectedPayment]
 ])
+
+export const StatementLineType: Type<StatementLineField> = {
+  name: 'StatementLine',
+  label: 'Statement Line',
+  module: TypeModule.cac,
+  definition: 'A class to define a line in a Statement of account.',
+  fields: StatementLineFieldMap,
+}

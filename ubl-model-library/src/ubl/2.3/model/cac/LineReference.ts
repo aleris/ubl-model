@@ -2,7 +2,6 @@ import { Code } from '../cbc/Code'
 import { DocumentReference } from './DocumentReference'
 import { Identifier } from '../cbc/Identifier'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to define a reference to a line in a document.
  */

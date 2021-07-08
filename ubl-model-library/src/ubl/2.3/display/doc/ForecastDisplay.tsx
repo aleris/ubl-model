@@ -1,220 +1,305 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Forecast } from  '../../model/doc/Forecast'
-import { ForecastFieldMeta } from  '../../meta/doc/ForecastMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import CustomerPartyDisplay from '../cac/CustomerPartyDisplay'
-import { CustomerParty } from '../../model/cac/CustomerParty'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import ForecastLineDisplay from '../cac/ForecastLineDisplay'
-import { ForecastLine } from '../../model/cac/ForecastLine'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PeriodDisplay from '../cac/PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import SupplierPartyDisplay from '../cac/SupplierPartyDisplay'
-import { SupplierParty } from '../../model/cac/SupplierParty'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ForecastField, ForecastFieldMeta, ForecastTypeName } from  '../../meta/doc/ForecastMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { CustomerPartyDisplay } from '../cac/CustomerPartyDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { ForecastLineDisplay } from '../cac/ForecastLineDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { PeriodDisplay } from '../cac/PeriodDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { SupplierPartyDisplay } from '../cac/SupplierPartyDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: Forecast | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<Forecast, void>
+  forecast: Forecast[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ForecastDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ForecastSubElementsMap: SubElementsTemplatesMap<ForecastField, Forecast, void> = new Map([
+    [
+      ForecastField.UBLExtensions,
+      { meta: ForecastFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ForecastField.UBLExtensions}
+          meta={ForecastFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-Forecast">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ForecastFieldMeta.UBLExtensions}
-          />
+    [
+      ForecastField.UBLVersionID,
+      { meta: ForecastFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ForecastField.UBLVersionID}
+          meta={ForecastFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={ForecastFieldMeta.UBLVersionID}
-          />
+    [
+      ForecastField.CustomizationID,
+      { meta: ForecastFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ForecastField.CustomizationID}
+          meta={ForecastFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={ForecastFieldMeta.CustomizationID}
-          />
+    [
+      ForecastField.ProfileID,
+      { meta: ForecastFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ForecastField.ProfileID}
+          meta={ForecastFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={ForecastFieldMeta.ProfileID}
-          />
+    [
+      ForecastField.ProfileExecutionID,
+      { meta: ForecastFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ForecastField.ProfileExecutionID}
+          meta={ForecastFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={ForecastFieldMeta.ProfileExecutionID}
-          />
+    [
+      ForecastField.ID,
+      { meta: ForecastFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ForecastField.ID}
+          meta={ForecastFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={ForecastFieldMeta.ID}
-          />
+    [
+      ForecastField.CopyIndicator,
+      { meta: ForecastFieldMeta.CopyIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ForecastField.CopyIndicator}
+          meta={ForecastFieldMeta.CopyIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.CopyIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Copy Indicator"
-            value={value.CopyIndicator?.[0]}
-            meta={ForecastFieldMeta.CopyIndicator}
-          />
+    [
+      ForecastField.UUID,
+      { meta: ForecastFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ForecastField.UUID}
+          meta={ForecastFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={ForecastFieldMeta.UUID}
-          />
+    [
+      ForecastField.IssueDate,
+      { meta: ForecastFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={ForecastField.IssueDate}
+          meta={ForecastFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={ForecastFieldMeta.IssueDate}
-          />
+    [
+      ForecastField.IssueTime,
+      { meta: ForecastFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={ForecastField.IssueTime}
+          meta={ForecastFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={ForecastFieldMeta.IssueTime}
-          />
+    [
+      ForecastField.Note,
+      { meta: ForecastFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ForecastField.Note}
+          meta={ForecastFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={ForecastFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={ForecastFieldMeta.Note}
-              />
-            }
-          />
+    [
+      ForecastField.VersionID,
+      { meta: ForecastFieldMeta.VersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ForecastField.VersionID}
+          meta={ForecastFieldMeta.VersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.VersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Version"
-            value={value.VersionID?.[0]}
-            meta={ForecastFieldMeta.VersionID}
-          />
+    [
+      ForecastField.BasedOnConsensusIndicator,
+      { meta: ForecastFieldMeta.BasedOnConsensusIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ForecastField.BasedOnConsensusIndicator}
+          meta={ForecastFieldMeta.BasedOnConsensusIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.BasedOnConsensusIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Based On Consensus Indicator"
-            value={value.BasedOnConsensusIndicator?.[0]}
-            meta={ForecastFieldMeta.BasedOnConsensusIndicator}
-          />
+    [
+      ForecastField.ForecastPurposeCode,
+      { meta: ForecastFieldMeta.ForecastPurposeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ForecastField.ForecastPurposeCode}
+          meta={ForecastFieldMeta.ForecastPurposeCode}
+          fieldConfig={fieldConfig}
+          code={value?.ForecastPurposeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Forecast Purpose Code"
-            value={value.ForecastPurposeCode?.[0]}
-            meta={ForecastFieldMeta.ForecastPurposeCode}
-          />
+    [
+      ForecastField.ForecastPeriod,
+      { meta: ForecastFieldMeta.ForecastPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={ForecastField.ForecastPeriod}
+          meta={ForecastFieldMeta.ForecastPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.ForecastPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Forecast Period"
-            value={value.ForecastPeriod?.[0]}
-            meta={ForecastFieldMeta.ForecastPeriod}
-          />
+    [
+      ForecastField.AdditionalDocumentReference,
+      { meta: ForecastFieldMeta.AdditionalDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={ForecastField.AdditionalDocumentReference}
+          meta={ForecastFieldMeta.AdditionalDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.AdditionalDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-AdditionalDocumentReference"
-            label="Additional Document Reference"
-            items={value.AdditionalDocumentReference}
-            meta={ForecastFieldMeta.AdditionalDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Additional Document Reference"
-                value={itemValue}
-                meta={ForecastFieldMeta.AdditionalDocumentReference}
-              />
-            }
-          />
+    [
+      ForecastField.Signature,
+      { meta: ForecastFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={ForecastField.Signature}
+          meta={ForecastFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={ForecastFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={ForecastFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      ForecastField.SenderParty,
+      { meta: ForecastFieldMeta.SenderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ForecastField.SenderParty}
+          meta={ForecastFieldMeta.SenderParty}
+          fieldConfig={fieldConfig}
+          party={value?.SenderParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Sender Party"
-            value={value.SenderParty?.[0]}
-            meta={ForecastFieldMeta.SenderParty}
-          />
+    [
+      ForecastField.ReceiverParty,
+      { meta: ForecastFieldMeta.ReceiverParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ForecastField.ReceiverParty}
+          meta={ForecastFieldMeta.ReceiverParty}
+          fieldConfig={fieldConfig}
+          party={value?.ReceiverParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Receiver Party"
-            value={value.ReceiverParty?.[0]}
-            meta={ForecastFieldMeta.ReceiverParty}
-          />
+    [
+      ForecastField.BuyerCustomerParty,
+      { meta: ForecastFieldMeta.BuyerCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={ForecastField.BuyerCustomerParty}
+          meta={ForecastFieldMeta.BuyerCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.BuyerCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomerPartyDisplay
-            label="Buyer Customer Party"
-            value={value.BuyerCustomerParty?.[0]}
-            meta={ForecastFieldMeta.BuyerCustomerParty}
-          />
+    [
+      ForecastField.SellerSupplierParty,
+      { meta: ForecastFieldMeta.SellerSupplierParty,
+        template: ({value, renderContext, fieldConfig}) => <SupplierPartyDisplay
+          key={ForecastField.SellerSupplierParty}
+          meta={ForecastFieldMeta.SellerSupplierParty}
+          fieldConfig={fieldConfig}
+          supplierParty={value?.SellerSupplierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <SupplierPartyDisplay
-            label="Seller Supplier Party"
-            value={value.SellerSupplierParty?.[0]}
-            meta={ForecastFieldMeta.SellerSupplierParty}
-          />
+    [
+      ForecastField.ForecastLine,
+      { meta: ForecastFieldMeta.ForecastLine,
+        template: ({value, renderContext, fieldConfig}) => <ForecastLineDisplay
+          key={ForecastField.ForecastLine}
+          meta={ForecastFieldMeta.ForecastLine}
+          fieldConfig={fieldConfig}
+          forecastLine={value?.ForecastLine}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-ForecastLine"
-            label="Forecast Line"
-            items={value.ForecastLine}
-            meta={ForecastFieldMeta.ForecastLine} 
-            itemDisplay={ (itemValue: ForecastLine, key: string | number) =>
-              <ForecastLineDisplay
-                key={key}
-                label="Forecast Line"
-                value={itemValue}
-                meta={ForecastFieldMeta.ForecastLine}
-              />
-            }
-          />
-        </div>
-    </div>
+export function ForecastDisplay<TFieldMeta>({ meta, fieldConfig, forecast, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ForecastTypeName,
+    meta,
+    fieldConfig,
+    forecast,
+    renderContext,
+    ForecastSubElementsMap,
   )
 }

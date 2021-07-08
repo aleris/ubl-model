@@ -1,4 +1,12 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { DateType } from '../cbc/DateMeta'
+import { DigitalProcessType } from '../cac/DigitalProcessMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum DigitalCapabilityField {
   UBLExtensions = 'UBLExtensions',
@@ -22,11 +30,11 @@ export enum DigitalCapabilityField {
 export const DigitalCapabilityFieldMetaUBLExtensions = new FieldMeta<DigitalCapabilityField>(
   DigitalCapabilityField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -35,10 +43,10 @@ export const DigitalCapabilityFieldMetaUBLVersionID = new FieldMeta<DigitalCapab
   DigitalCapabilityField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.2'
 )
@@ -47,10 +55,10 @@ export const DigitalCapabilityFieldMetaCustomizationID = new FieldMeta<DigitalCa
   DigitalCapabilityField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -59,10 +67,10 @@ export const DigitalCapabilityFieldMetaProfileID = new FieldMeta<DigitalCapabili
   DigitalCapabilityField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BasicProcurementProcess'
 )
@@ -71,10 +79,10 @@ export const DigitalCapabilityFieldMetaProfileExecutionID = new FieldMeta<Digita
   DigitalCapabilityField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BPP-1001'
 )
@@ -83,10 +91,10 @@ export const DigitalCapabilityFieldMetaID = new FieldMeta<DigitalCapabilityField
   DigitalCapabilityField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -95,10 +103,10 @@ export const DigitalCapabilityFieldMetaUUID = new FieldMeta<DigitalCapabilityFie
   DigitalCapabilityField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -107,10 +115,10 @@ export const DigitalCapabilityFieldMetaIssueDate = new FieldMeta<DigitalCapabili
   DigitalCapabilityField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -119,10 +127,10 @@ export const DigitalCapabilityFieldMetaIssueTime = new FieldMeta<DigitalCapabili
   DigitalCapabilityField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -131,10 +139,10 @@ export const DigitalCapabilityFieldMetaVersionID = new FieldMeta<DigitalCapabili
   DigitalCapabilityField.VersionID,
   'VersionID',
   'Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the current version of party\'s digital capabilities.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '1.1'
 )
@@ -143,10 +151,10 @@ export const DigitalCapabilityFieldMetaPreviousVersionID = new FieldMeta<Digital
   DigitalCapabilityField.PreviousVersionID,
   'PreviousVersionID',
   'Previous Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the previous version of party\'s digital capabilities.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '1'
 )
@@ -155,10 +163,10 @@ export const DigitalCapabilityFieldMetaSignature = new FieldMeta<DigitalCapabili
   DigitalCapabilityField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -167,10 +175,10 @@ export const DigitalCapabilityFieldMetaSenderParty = new FieldMeta<DigitalCapabi
   DigitalCapabilityField.SenderParty,
   'SenderParty',
   'Sender Party',
-  'Party',
+  PartyType.name,
   'The party sending these digital capabilities. This party could be the owner of these digital capabilities or a third-party acting on behalf of the owner (e.g. service provider).',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -179,10 +187,10 @@ export const DigitalCapabilityFieldMetaReceiverParty = new FieldMeta<DigitalCapa
   DigitalCapabilityField.ReceiverParty,
   'ReceiverParty',
   'Receiver Party',
-  'Party',
+  PartyType.name,
   'The party receiving these digital capabilities.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -191,10 +199,10 @@ export const DigitalCapabilityFieldMetaBusinessParty = new FieldMeta<DigitalCapa
   DigitalCapabilityField.BusinessParty,
   'BusinessParty',
   'Business Party',
-  'Party',
+  PartyType.name,
   'The party owning these digital capabilities.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -203,10 +211,10 @@ export const DigitalCapabilityFieldMetaDigitalProcess = new FieldMeta<DigitalCap
   DigitalCapabilityField.DigitalProcess,
   'DigitalProcess',
   'Digital Process',
-  'DigitalProcess',
+  DigitalProcessType.name,
   'The digital trade processes supported by the party.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -248,3 +256,11 @@ export const DigitalCapabilityFieldMap = new Map([
   [DigitalCapabilityField.BusinessParty, DigitalCapabilityFieldMetaBusinessParty],
   [DigitalCapabilityField.DigitalProcess, DigitalCapabilityFieldMetaDigitalProcess]
 ])
+
+export const DigitalCapabilityType: Type<DigitalCapabilityField> = {
+  name: 'DigitalCapability',
+  label: 'Digital Capability',
+  module: TypeModule.doc,
+  definition: 'A document used to provide information about a business party and its digital trade capabilities.',
+  fields: DigitalCapabilityFieldMap,
+}

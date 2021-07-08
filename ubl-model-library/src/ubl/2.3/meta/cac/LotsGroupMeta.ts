@@ -1,4 +1,8 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { ProcurementProjectLotType } from './ProcurementProjectLotMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum LotsGroupField {
   UBLExtensions = 'UBLExtensions',
@@ -9,11 +13,11 @@ export enum LotsGroupField {
 export const LotsGroupFieldMetaUBLExtensions = new FieldMeta<LotsGroupField>(
   LotsGroupField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -22,10 +26,10 @@ export const LotsGroupFieldMetaLotLotsGroupID = new FieldMeta<LotsGroupField>(
   LotsGroupField.LotLotsGroupID,
   'LotLotsGroupID',
   'Lot Lots Group',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the lotsgroup.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -34,10 +38,10 @@ export const LotsGroupFieldMetaProcurementProjectLot = new FieldMeta<LotsGroupFi
   LotsGroupField.ProcurementProjectLot,
   'ProcurementProjectLot',
   'Procurement Project Lot',
-  'ProcurementProjectLot',
+  ProcurementProjectLotType.name,
   'A Procurement project lot that is included in this LotsGroup.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -53,3 +57,11 @@ export const LotsGroupFieldMap = new Map([
   [LotsGroupField.LotLotsGroupID, LotsGroupFieldMetaLotLotsGroupID],
   [LotsGroupField.ProcurementProjectLot, LotsGroupFieldMetaProcurementProjectLot]
 ])
+
+export const LotsGroupType: Type<LotsGroupField> = {
+  name: 'LotsGroup',
+  label: 'Lots Group',
+  module: TypeModule.cac,
+  definition: 'A class for defining set of lots.',
+  fields: LotsGroupFieldMap,
+}

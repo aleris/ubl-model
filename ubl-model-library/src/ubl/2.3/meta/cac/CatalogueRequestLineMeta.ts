@@ -1,4 +1,11 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { ItemType } from './ItemMeta'
+import { ItemLocationQuantityType } from './ItemLocationQuantityMeta'
+import { PeriodType } from './PeriodMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum CatalogueRequestLineField {
   UBLExtensions = 'UBLExtensions',
@@ -13,11 +20,11 @@ export enum CatalogueRequestLineField {
 export const CatalogueRequestLineFieldMetaUBLExtensions = new FieldMeta<CatalogueRequestLineField>(
   CatalogueRequestLineField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -26,10 +33,10 @@ export const CatalogueRequestLineFieldMetaID = new FieldMeta<CatalogueRequestLin
   CatalogueRequestLineField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the requested catalogue line.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   '1'
 )
@@ -38,10 +45,10 @@ export const CatalogueRequestLineFieldMetaContractSubdivision = new FieldMeta<Ca
   CatalogueRequestLineField.ContractSubdivision,
   'ContractSubdivision',
   'Contract Subdivision',
-  'Text',
+  TextType.name,
   'A subdivision of a contract or tender covering the line being requested.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Installation , Phase One , Support and Maintenance'
 )
@@ -50,10 +57,10 @@ export const CatalogueRequestLineFieldMetaNote = new FieldMeta<CatalogueRequestL
   CatalogueRequestLineField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -62,10 +69,10 @@ export const CatalogueRequestLineFieldMetaLineValidityPeriod = new FieldMeta<Cat
   CatalogueRequestLineField.LineValidityPeriod,
   'LineValidityPeriod',
   'Line Validity Period',
-  'Period',
+  PeriodType.name,
   'The period for which the information in the requested catalogue line is valid.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -74,10 +81,10 @@ export const CatalogueRequestLineFieldMetaRequiredItemLocationQuantity = new Fie
   CatalogueRequestLineField.RequiredItemLocationQuantity,
   'RequiredItemLocationQuantity',
   'Required Item Location Quantity',
-  'ItemLocationQuantity',
+  ItemLocationQuantityType.name,
   'Properties of the item in the requested catalogue line that are dependent on location and quantity.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -86,10 +93,10 @@ export const CatalogueRequestLineFieldMetaItem = new FieldMeta<CatalogueRequestL
   CatalogueRequestLineField.Item,
   'Item',
   'Item',
-  'Item',
+  ItemType.name,
   'The item associated with the requested catalogue line.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -113,3 +120,11 @@ export const CatalogueRequestLineFieldMap = new Map([
   [CatalogueRequestLineField.RequiredItemLocationQuantity, CatalogueRequestLineFieldMetaRequiredItemLocationQuantity],
   [CatalogueRequestLineField.Item, CatalogueRequestLineFieldMetaItem]
 ])
+
+export const CatalogueRequestLineType: Type<CatalogueRequestLineField> = {
+  name: 'CatalogueRequestLine',
+  label: 'Catalogue Request Line',
+  module: TypeModule.cac,
+  definition: 'A class to define a line describing a request for a catalogue line.',
+  fields: CatalogueRequestLineFieldMap,
+}

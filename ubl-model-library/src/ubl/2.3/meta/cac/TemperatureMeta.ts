@@ -1,4 +1,9 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { MeasureType } from '../cbc/MeasureMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum TemperatureField {
   UBLExtensions = 'UBLExtensions',
@@ -10,11 +15,11 @@ export enum TemperatureField {
 export const TemperatureFieldMetaUBLExtensions = new FieldMeta<TemperatureField>(
   TemperatureField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -23,10 +28,10 @@ export const TemperatureFieldMetaAttributeID = new FieldMeta<TemperatureField>(
   TemperatureField.AttributeID,
   'AttributeID',
   'Attribute Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this temperature measurement.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -35,10 +40,10 @@ export const TemperatureFieldMetaMeasure = new FieldMeta<TemperatureField>(
   TemperatureField.Measure,
   'Measure',
   'Measure',
-  'Measure',
+  MeasureType.name,
   'The value of this temperature measurement.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -47,10 +52,10 @@ export const TemperatureFieldMetaDescription = new FieldMeta<TemperatureField>(
   TemperatureField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing this temperature measurement.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   'at sea level'
 )
@@ -68,3 +73,11 @@ export const TemperatureFieldMap = new Map([
   [TemperatureField.Measure, TemperatureFieldMetaMeasure],
   [TemperatureField.Description, TemperatureFieldMetaDescription]
 ])
+
+export const TemperatureType: Type<TemperatureField> = {
+  name: 'Temperature',
+  label: 'Temperature',
+  module: TypeModule.cac,
+  definition: 'A class to describe a measurement of temperature.',
+  fields: TemperatureFieldMap,
+}

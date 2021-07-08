@@ -1,4 +1,20 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { CommodityClassificationType } from './CommodityClassificationMeta'
+import { ContractExtensionType } from './ContractExtensionMeta'
+import { DateType } from '../cbc/DateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { LocationType } from './LocationMeta'
+import { PeriodType } from './PeriodMeta'
+import { ProcurementAdditionalTypeType } from './ProcurementAdditionalTypeMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { RequestedTenderTotalType } from './RequestedTenderTotalMeta'
+import { RequestForTenderLineType } from './RequestForTenderLineMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ProcurementProjectField {
   UBLExtensions = 'UBLExtensions',
@@ -27,11 +43,11 @@ export enum ProcurementProjectField {
 export const ProcurementProjectFieldMetaUBLExtensions = new FieldMeta<ProcurementProjectField>(
   ProcurementProjectField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -40,10 +56,10 @@ export const ProcurementProjectFieldMetaID = new FieldMeta<ProcurementProjectFie
   ProcurementProjectField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this procurement project.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -52,10 +68,10 @@ export const ProcurementProjectFieldMetaName = new FieldMeta<ProcurementProjectF
   ProcurementProjectField.Name,
   'Name',
   'Name',
-  'Text',
+  TextType.name,
   'A name of this procurement project.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -64,10 +80,10 @@ export const ProcurementProjectFieldMetaDescription = new FieldMeta<ProcurementP
   ProcurementProjectField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing this procurement project.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -76,10 +92,10 @@ export const ProcurementProjectFieldMetaProcurementTypeCode = new FieldMeta<Proc
   ProcurementProjectField.ProcurementTypeCode,
   'ProcurementTypeCode',
   'Procurement Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of procurement project (e.g., goods, works, services).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -88,10 +104,10 @@ export const ProcurementProjectFieldMetaProcurementSubTypeCode = new FieldMeta<P
   ProcurementProjectField.ProcurementSubTypeCode,
   'ProcurementSubTypeCode',
   'Procurement Sub Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the subcategory of the type of work for this project (e.g., land surveying, IT consulting).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -100,10 +116,10 @@ export const ProcurementProjectFieldMetaQualityControlCode = new FieldMeta<Procu
   ProcurementProjectField.QualityControlCode,
   'QualityControlCode',
   'Quality Control Code',
-  'Code',
+  CodeType.name,
   'The indication of whether or not the control quality is included in the works project.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -112,10 +128,10 @@ export const ProcurementProjectFieldMetaRequiredFeeAmount = new FieldMeta<Procur
   ProcurementProjectField.RequiredFeeAmount,
   'RequiredFeeAmount',
   'Required Fee',
-  'Amount',
+  AmountType.name,
   'The amount of the reimbursement fee for concession procurement projects.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -124,10 +140,10 @@ export const ProcurementProjectFieldMetaFeeDescription = new FieldMeta<Procureme
   ProcurementProjectField.FeeDescription,
   'FeeDescription',
   'Fee Description',
-  'Text',
+  TextType.name,
   'Text describing the reimbursement fee for concession procurement projects.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -136,10 +152,10 @@ export const ProcurementProjectFieldMetaRequestedDeliveryDate = new FieldMeta<Pr
   ProcurementProjectField.RequestedDeliveryDate,
   'RequestedDeliveryDate',
   'Requested Delivery Date',
-  'Date',
+  DateType.name,
   'The requested delivery date for this procurement project.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -148,10 +164,10 @@ export const ProcurementProjectFieldMetaEstimatedOverallContractQuantity = new F
   ProcurementProjectField.EstimatedOverallContractQuantity,
   'EstimatedOverallContractQuantity',
   'Estimated Overall Contract',
-  'Quantity',
+  QuantityType.name,
   'The estimated overall quantity for this procurement project.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -160,10 +176,10 @@ export const ProcurementProjectFieldMetaNote = new FieldMeta<ProcurementProjectF
   ProcurementProjectField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text applying to the Procurement Project. This element may contain additional information about the lot/contract that is not contained explicitly in another structure.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -172,10 +188,10 @@ export const ProcurementProjectFieldMetaSMESuitableIndicator = new FieldMeta<Pro
   ProcurementProjectField.SMESuitableIndicator,
   'SMESuitableIndicator',
   'SME Suitable',
-  'Indicator',
+  IndicatorType.name,
   'Suitable for Small- and Medium-sized Enterprises. This element specifies that the buyer accepts the risks associated of contracting with SMEs.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -184,10 +200,10 @@ export const ProcurementProjectFieldMetaRequestedTenderTotal = new FieldMeta<Pro
   ProcurementProjectField.RequestedTenderTotal,
   'RequestedTenderTotal',
   'Requested Tender Total',
-  'RequestedTenderTotal',
+  RequestedTenderTotalType.name,
   'Budget monetary amounts for the project as whole.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -196,10 +212,10 @@ export const ProcurementProjectFieldMetaMainCommodityClassification = new FieldM
   ProcurementProjectField.MainCommodityClassification,
   'MainCommodityClassification',
   'Main Commodity Classification',
-  'CommodityClassification',
+  CommodityClassificationType.name,
   'An association to the main classification category for the deliverable requested.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -208,10 +224,10 @@ export const ProcurementProjectFieldMetaAdditionalCommodityClassification = new 
   ProcurementProjectField.AdditionalCommodityClassification,
   'AdditionalCommodityClassification',
   'Additional Commodity Classification',
-  'CommodityClassification',
+  CommodityClassificationType.name,
   'An association to additional classification categories for the deliverable requested.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -220,10 +236,10 @@ export const ProcurementProjectFieldMetaProcurementAdditionalType = new FieldMet
   ProcurementProjectField.ProcurementAdditionalType,
   'ProcurementAdditionalType',
   'Procurement Additional Type',
-  'ProcurementAdditionalType',
+  ProcurementAdditionalTypeType.name,
   'An association to additional procurement type.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -232,10 +248,10 @@ export const ProcurementProjectFieldMetaRealizedLocation = new FieldMeta<Procure
   ProcurementProjectField.RealizedLocation,
   'RealizedLocation',
   'Realized Location',
-  'Location',
+  LocationType.name,
   'A place where this procurement project will be physically realized.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -244,10 +260,10 @@ export const ProcurementProjectFieldMetaPlannedPeriod = new FieldMeta<Procuremen
   ProcurementProjectField.PlannedPeriod,
   'PlannedPeriod',
   'Planned Period',
-  'Period',
+  PeriodType.name,
   'The period during which this procurement project is planned to take place.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -256,10 +272,10 @@ export const ProcurementProjectFieldMetaContractExtension = new FieldMeta<Procur
   ProcurementProjectField.ContractExtension,
   'ContractExtension',
   'Contract Extension',
-  'ContractExtension',
+  ContractExtensionType.name,
   'The contract extension for this tendering process.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -268,10 +284,10 @@ export const ProcurementProjectFieldMetaRequestForTenderLine = new FieldMeta<Pro
   ProcurementProjectField.RequestForTenderLine,
   'RequestForTenderLine',
   'Request For Tender Line',
-  'RequestForTenderLine',
+  RequestForTenderLineType.name,
   'A good or service this project is intended to procure.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -323,3 +339,11 @@ export const ProcurementProjectFieldMap = new Map([
   [ProcurementProjectField.ContractExtension, ProcurementProjectFieldMetaContractExtension],
   [ProcurementProjectField.RequestForTenderLine, ProcurementProjectFieldMetaRequestForTenderLine]
 ])
+
+export const ProcurementProjectType: Type<ProcurementProjectField> = {
+  name: 'ProcurementProject',
+  label: 'Procurement Project',
+  module: TypeModule.cac,
+  definition: 'A class to describe a project to procure goods, works, or services.',
+  fields: ProcurementProjectFieldMap,
+}

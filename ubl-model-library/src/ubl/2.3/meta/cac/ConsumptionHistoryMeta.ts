@@ -1,4 +1,11 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { PeriodType } from './PeriodMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ConsumptionHistoryField {
   UBLExtensions = 'UBLExtensions',
@@ -14,11 +21,11 @@ export enum ConsumptionHistoryField {
 export const ConsumptionHistoryFieldMetaUBLExtensions = new FieldMeta<ConsumptionHistoryField>(
   ConsumptionHistoryField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -27,10 +34,10 @@ export const ConsumptionHistoryFieldMetaMeterNumber = new FieldMeta<ConsumptionH
   ConsumptionHistoryField.MeterNumber,
   'MeterNumber',
   'Meter Number',
-  'Text',
+  TextType.name,
   'A text identifier for the meter measuring the consumption.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '61722x'
 )
@@ -39,10 +46,10 @@ export const ConsumptionHistoryFieldMetaQuantity = new FieldMeta<ConsumptionHist
   ConsumptionHistoryField.Quantity,
   'Quantity',
   'Quantity',
-  'Quantity',
+  QuantityType.name,
   'The quantity consumed.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   '7621.00'
 )
@@ -51,10 +58,10 @@ export const ConsumptionHistoryFieldMetaAmount = new FieldMeta<ConsumptionHistor
   ConsumptionHistoryField.Amount,
   'Amount',
   'Amount',
-  'Amount',
+  AmountType.name,
   'The monetary amount to be charged for the quantity consumed.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -63,10 +70,10 @@ export const ConsumptionHistoryFieldMetaConsumptionLevelCode = new FieldMeta<Con
   ConsumptionHistoryField.ConsumptionLevelCode,
   'ConsumptionLevelCode',
   'Consumption Level Code',
-  'Code',
+  CodeType.name,
   'The consumption level, expressed as a code used explain the consumption quantity, e.g.. diversion from the normal.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'B'
 )
@@ -75,10 +82,10 @@ export const ConsumptionHistoryFieldMetaConsumptionLevel = new FieldMeta<Consump
   ConsumptionHistoryField.ConsumptionLevel,
   'ConsumptionLevel',
   'Consumption Level Text',
-  'Text',
+  TextType.name,
   'The consumption level, expressed as text, used explain the consumption quantity, e.g.. diversion from the normal.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Average'
 )
@@ -87,10 +94,10 @@ export const ConsumptionHistoryFieldMetaDescription = new FieldMeta<ConsumptionH
   ConsumptionHistoryField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing the consumption itself.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   '2004/2005'
 )
@@ -99,10 +106,10 @@ export const ConsumptionHistoryFieldMetaPeriod = new FieldMeta<ConsumptionHistor
   ConsumptionHistoryField.Period,
   'Period',
   'Period',
-  'Period',
+  PeriodType.name,
   'The period during which the consumption took place.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -128,3 +135,11 @@ export const ConsumptionHistoryFieldMap = new Map([
   [ConsumptionHistoryField.Description, ConsumptionHistoryFieldMetaDescription],
   [ConsumptionHistoryField.Period, ConsumptionHistoryFieldMetaPeriod]
 ])
+
+export const ConsumptionHistoryType: Type<ConsumptionHistoryField> = {
+  name: 'ConsumptionHistory',
+  label: 'Consumption History',
+  module: TypeModule.cac,
+  definition: 'A class to describe the measurement of a type of consumption during a particular period, used for the subscriber to get an overview of his consumption',
+  fields: ConsumptionHistoryFieldMap,
+}

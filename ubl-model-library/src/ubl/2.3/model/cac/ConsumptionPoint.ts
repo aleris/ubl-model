@@ -6,7 +6,6 @@ import { Quantity } from '../cbc/Quantity'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
 import { WebSiteAccess } from './WebSiteAccess'
-
 /**
  * A class to define the point of consumption for a utility, such as a meter.
  */

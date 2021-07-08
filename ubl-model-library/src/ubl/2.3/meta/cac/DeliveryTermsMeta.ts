@@ -1,4 +1,12 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AllowanceChargeType } from './AllowanceChargeMeta'
+import { AmountType } from '../cbc/AmountMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { LocationType } from './LocationMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum DeliveryTermsField {
   UBLExtensions = 'UBLExtensions',
@@ -14,11 +22,11 @@ export enum DeliveryTermsField {
 export const DeliveryTermsFieldMetaUBLExtensions = new FieldMeta<DeliveryTermsField>(
   DeliveryTermsField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -27,10 +35,10 @@ export const DeliveryTermsFieldMetaID = new FieldMeta<DeliveryTermsField>(
   DeliveryTermsField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this description of delivery terms.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'CIF, FOB, or EXW from the INCOTERMS Terms of Delivery. (2000 version preferred.)'
 )
@@ -39,10 +47,10 @@ export const DeliveryTermsFieldMetaSpecialTerms = new FieldMeta<DeliveryTermsFie
   DeliveryTermsField.SpecialTerms,
   'SpecialTerms',
   'Special Terms',
-  'Text',
+  TextType.name,
   'A description of any terms or conditions relating to the delivery items.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -51,10 +59,10 @@ export const DeliveryTermsFieldMetaLossRiskResponsibilityCode = new FieldMeta<De
   DeliveryTermsField.LossRiskResponsibilityCode,
   'LossRiskResponsibilityCode',
   'Loss Risk Responsibility Code',
-  'Code',
+  CodeType.name,
   'A code that identifies one of various responsibilities for loss risk in the execution of the delivery.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -63,10 +71,10 @@ export const DeliveryTermsFieldMetaLossRisk = new FieldMeta<DeliveryTermsField>(
   DeliveryTermsField.LossRisk,
   'LossRisk',
   'Loss Risk',
-  'Text',
+  TextType.name,
   'A description of responsibility for risk of loss in execution of the delivery, expressed as text.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -75,10 +83,10 @@ export const DeliveryTermsFieldMetaAmount = new FieldMeta<DeliveryTermsField>(
   DeliveryTermsField.Amount,
   'Amount',
   'Amount',
-  'Amount',
+  AmountType.name,
   'The monetary amount covered by these delivery terms.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -87,10 +95,10 @@ export const DeliveryTermsFieldMetaDeliveryLocation = new FieldMeta<DeliveryTerm
   DeliveryTermsField.DeliveryLocation,
   'DeliveryLocation',
   'Delivery Location',
-  'Location',
+  LocationType.name,
   'The location for the contracted delivery.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -99,10 +107,10 @@ export const DeliveryTermsFieldMetaAllowanceCharge = new FieldMeta<DeliveryTerms
   DeliveryTermsField.AllowanceCharge,
   'AllowanceCharge',
   'Allowance Charge',
-  'AllowanceCharge',
+  AllowanceChargeType.name,
   'An allowance or charge covered by these delivery terms.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -128,3 +136,11 @@ export const DeliveryTermsFieldMap = new Map([
   [DeliveryTermsField.DeliveryLocation, DeliveryTermsFieldMetaDeliveryLocation],
   [DeliveryTermsField.AllowanceCharge, DeliveryTermsFieldMetaAllowanceCharge]
 ])
+
+export const DeliveryTermsType: Type<DeliveryTermsField> = {
+  name: 'DeliveryTerms',
+  label: 'Delivery Terms',
+  module: TypeModule.cac,
+  definition: 'A class for describing the terms and conditions applying to the delivery of goods.',
+  fields: DeliveryTermsFieldMap,
+}

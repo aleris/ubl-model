@@ -1,4 +1,13 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { MeasureType } from '../cbc/MeasureMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { TaxSchemeType } from './TaxSchemeMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum TaxCategoryField {
   UBLExtensions = 'UBLExtensions',
@@ -17,11 +26,11 @@ export enum TaxCategoryField {
 export const TaxCategoryFieldMetaUBLExtensions = new FieldMeta<TaxCategoryField>(
   TaxCategoryField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -30,10 +39,10 @@ export const TaxCategoryFieldMetaID = new FieldMeta<TaxCategoryField>(
   TaxCategoryField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this tax category.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'http://www.unece.org/uncefact/codelist/standard/UNECE_DutyorTaxorFeeCategoryCode_D09B.xsd'
 )
@@ -42,10 +51,10 @@ export const TaxCategoryFieldMetaName = new FieldMeta<TaxCategoryField>(
   TaxCategoryField.Name,
   'Name',
   'Name',
-  'Text',
+  TextType.name,
   'The name of this tax category.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Luxury Goods , Wine Equalization , Exempt'
 )
@@ -54,10 +63,10 @@ export const TaxCategoryFieldMetaPercent = new FieldMeta<TaxCategoryField>(
   TaxCategoryField.Percent,
   'Percent',
   'Percent',
-  'Numeric',
+  NumericType.name,
   'The tax rate for this category, expressed as a percentage.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -66,10 +75,10 @@ export const TaxCategoryFieldMetaBaseUnitMeasure = new FieldMeta<TaxCategoryFiel
   TaxCategoryField.BaseUnitMeasure,
   'BaseUnitMeasure',
   'Base Unit Measure',
-  'Measure',
+  MeasureType.name,
   'A Unit of Measures used as the basic for the tax calculation applied at a certain rate per unit.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -78,10 +87,10 @@ export const TaxCategoryFieldMetaPerUnitAmount = new FieldMeta<TaxCategoryField>
   TaxCategoryField.PerUnitAmount,
   'PerUnitAmount',
   'Per Unit Amount',
-  'Amount',
+  AmountType.name,
   'Where a tax is applied at a certain rate per unit, the rate per unit applied.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -90,10 +99,10 @@ export const TaxCategoryFieldMetaTaxExemptionReasonCode = new FieldMeta<TaxCateg
   TaxCategoryField.TaxExemptionReasonCode,
   'TaxExemptionReasonCode',
   'Tax Exemption Reason Code',
-  'Code',
+  CodeType.name,
   'The reason for tax being exempted, expressed as a code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'http://www.unece.org/uncefact/codelist/standard/UNECE_DutyTaxFeeTypeCode_D09B.xsd'
 )
@@ -102,10 +111,10 @@ export const TaxCategoryFieldMetaTaxExemptionReason = new FieldMeta<TaxCategoryF
   TaxCategoryField.TaxExemptionReason,
   'TaxExemptionReason',
   'Tax Exemption Reason',
-  'Text',
+  TextType.name,
   'The reason for tax being exempted, expressed as text.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -114,10 +123,10 @@ export const TaxCategoryFieldMetaTierRange = new FieldMeta<TaxCategoryField>(
   TaxCategoryField.TierRange,
   'TierRange',
   'Tier Range',
-  'Text',
+  TextType.name,
   'Where a tax is tiered, the range of taxable amounts that determines the rate of tax applicable to this tax category.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -126,10 +135,10 @@ export const TaxCategoryFieldMetaTierRatePercent = new FieldMeta<TaxCategoryFiel
   TaxCategoryField.TierRatePercent,
   'TierRatePercent',
   'Tier Rate',
-  'Numeric',
+  NumericType.name,
   'Where a tax is tiered, the tax rate that applies within the specified range of taxable amounts for this tax category.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -138,10 +147,10 @@ export const TaxCategoryFieldMetaTaxScheme = new FieldMeta<TaxCategoryField>(
   TaxCategoryField.TaxScheme,
   'TaxScheme',
   'Tax Scheme',
-  'TaxScheme',
+  TaxSchemeType.name,
   'The taxation scheme within which this tax category is defined.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -173,3 +182,11 @@ export const TaxCategoryFieldMap = new Map([
   [TaxCategoryField.TierRatePercent, TaxCategoryFieldMetaTierRatePercent],
   [TaxCategoryField.TaxScheme, TaxCategoryFieldMetaTaxScheme]
 ])
+
+export const TaxCategoryType: Type<TaxCategoryField> = {
+  name: 'TaxCategory',
+  label: 'Tax Category',
+  module: TypeModule.cac,
+  definition: 'A class to describe one of the tax categories within a taxation scheme (e.g., High Rate VAT, Low Rate VAT).',
+  fields: TaxCategoryFieldMap,
+}

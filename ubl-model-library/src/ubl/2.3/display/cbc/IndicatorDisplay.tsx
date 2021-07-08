@@ -1,18 +1,35 @@
 import React from 'react'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Indicator } from '../../model/cbc/Indicator'
-import FieldDisplay from '../FieldDisplay'
+import { classNames } from '../classNames'
+import { FieldConfig } from '../FieldConfig'
+import { FieldDisplay } from '../FieldDisplay'
+import IndicatorCheck from './IndicatorCheck.svg'
+import './IndicatorDisplay.scss'
 
 type Props = {
-  label: string
-  value: Indicator | undefined
+  className: string
+  label?: string
+  indicator: Indicator | undefined
   meta: FieldMeta<any>
+  fieldConfig?: FieldConfig
 }
 
-export default function IndicatorDisplay({ label, value, meta }: Props) {
-  if (value === undefined) {
+export function IndicatorDisplay({ className, label, indicator, meta, fieldConfig }: Props) {
+  if (indicator === undefined) {
     return null
   }
-  const stringValue = `${value._}`
-  return <div className="ubl-cbc ubl-Indicator"><FieldDisplay label={label} value={stringValue} /></div>
+  const content = indicator._
+    ? (
+      <span className="Indicator--Check">
+        <img src={IndicatorCheck} alt={`${indicator._}`} />
+        <span>{label}</span>
+      </span>
+    )
+    : null
+  return (
+    <div className={classNames('Indicator', className)}>
+      <FieldDisplay value={content} config={fieldConfig} />
+    </div>
+  )
 }

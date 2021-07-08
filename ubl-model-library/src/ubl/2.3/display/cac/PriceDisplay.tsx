@@ -1,152 +1,181 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Price } from  '../../model/cac/Price'
-import { PriceFieldMeta } from  '../../meta/cac/PriceMeta'
-import AllowanceChargeDisplay from './AllowanceChargeDisplay'
-import { AllowanceCharge } from '../../model/cac/AllowanceCharge'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import ExchangeRateDisplay from './ExchangeRateDisplay'
-import { ExchangeRate } from '../../model/cac/ExchangeRate'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import PriceListDisplay from './PriceListDisplay'
-import { PriceList } from '../../model/cac/PriceList'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { PriceField, PriceFieldMeta, PriceTypeName } from  '../../meta/cac/PriceMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AllowanceChargeDisplay } from './AllowanceChargeDisplay'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { ExchangeRateDisplay } from './ExchangeRateDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { PriceListDisplay } from './PriceListDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: Price | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<Price, void>
+  price: Price[] | undefined
+  renderContext: RenderContext
 }
 
-export default function PriceDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const PriceSubElementsMap: SubElementsTemplatesMap<PriceField, Price, void> = new Map([
+    [
+      PriceField.UBLExtensions,
+      { meta: PriceFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={PriceField.UBLExtensions}
+          meta={PriceFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-Price">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={PriceFieldMeta.UBLExtensions}
-          />
+    [
+      PriceField.PriceAmount,
+      { meta: PriceFieldMeta.PriceAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={PriceField.PriceAmount}
+          meta={PriceFieldMeta.PriceAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.PriceAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Price Amount"
-            value={value.PriceAmount?.[0]}
-            meta={PriceFieldMeta.PriceAmount}
-          />
+    [
+      PriceField.BaseQuantity,
+      { meta: PriceFieldMeta.BaseQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={PriceField.BaseQuantity}
+          meta={PriceFieldMeta.BaseQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.BaseQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Base Quantity"
-            value={value.BaseQuantity?.[0]}
-            meta={PriceFieldMeta.BaseQuantity}
-          />
+    [
+      PriceField.PriceChangeReason,
+      { meta: PriceFieldMeta.PriceChangeReason,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={PriceField.PriceChangeReason}
+          meta={PriceFieldMeta.PriceChangeReason}
+          fieldConfig={fieldConfig}
+          text={value?.PriceChangeReason}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-PriceChangeReason"
-            label="Price Change Reason"
-            items={value.PriceChangeReason}
-            meta={PriceFieldMeta.PriceChangeReason} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Price Change Reason"
-                value={itemValue}
-                meta={PriceFieldMeta.PriceChangeReason}
-              />
-            }
-          />
+    [
+      PriceField.PriceTypeCode,
+      { meta: PriceFieldMeta.PriceTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={PriceField.PriceTypeCode}
+          meta={PriceFieldMeta.PriceTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.PriceTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Price Type Code"
-            value={value.PriceTypeCode?.[0]}
-            meta={PriceFieldMeta.PriceTypeCode}
-          />
+    [
+      PriceField.PriceType,
+      { meta: PriceFieldMeta.PriceType,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={PriceField.PriceType}
+          meta={PriceFieldMeta.PriceType}
+          fieldConfig={fieldConfig}
+          text={value?.PriceType}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Price Type"
-            value={value.PriceType?.[0]}
-            meta={PriceFieldMeta.PriceType}
-          />
+    [
+      PriceField.OrderableUnitFactorRate,
+      { meta: PriceFieldMeta.OrderableUnitFactorRate,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={PriceField.OrderableUnitFactorRate}
+          meta={PriceFieldMeta.OrderableUnitFactorRate}
+          fieldConfig={fieldConfig}
+          numeric={value?.OrderableUnitFactorRate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Orderable Unit Factor"
-            value={value.OrderableUnitFactorRate?.[0]}
-            meta={PriceFieldMeta.OrderableUnitFactorRate}
-          />
+    [
+      PriceField.ValidityPeriod,
+      { meta: PriceFieldMeta.ValidityPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={PriceField.ValidityPeriod}
+          meta={PriceFieldMeta.ValidityPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.ValidityPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Period ubl-ValidityPeriod"
-            label="Validity Period"
-            items={value.ValidityPeriod}
-            meta={PriceFieldMeta.ValidityPeriod} 
-            itemDisplay={ (itemValue: Period, key: string | number) =>
-              <PeriodDisplay
-                key={key}
-                label="Validity Period"
-                value={itemValue}
-                meta={PriceFieldMeta.ValidityPeriod}
-              />
-            }
-          />
+    [
+      PriceField.PriceList,
+      { meta: PriceFieldMeta.PriceList,
+        template: ({value, renderContext, fieldConfig}) => <PriceListDisplay
+          key={PriceField.PriceList}
+          meta={PriceFieldMeta.PriceList}
+          fieldConfig={fieldConfig}
+          priceList={value?.PriceList}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PriceListDisplay
-            label="Price List"
-            value={value.PriceList?.[0]}
-            meta={PriceFieldMeta.PriceList}
-          />
+    [
+      PriceField.AllowanceCharge,
+      { meta: PriceFieldMeta.AllowanceCharge,
+        template: ({value, renderContext, fieldConfig}) => <AllowanceChargeDisplay
+          key={PriceField.AllowanceCharge}
+          meta={PriceFieldMeta.AllowanceCharge}
+          fieldConfig={fieldConfig}
+          allowanceCharge={value?.AllowanceCharge}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-AllowanceCharge"
-            label="Allowance Charge"
-            items={value.AllowanceCharge}
-            meta={PriceFieldMeta.AllowanceCharge} 
-            itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-              <AllowanceChargeDisplay
-                key={key}
-                label="Allowance Charge"
-                value={itemValue}
-                meta={PriceFieldMeta.AllowanceCharge}
-              />
-            }
-          />
+    [
+      PriceField.PricingExchangeRate,
+      { meta: PriceFieldMeta.PricingExchangeRate,
+        template: ({value, renderContext, fieldConfig}) => <ExchangeRateDisplay
+          key={PriceField.PricingExchangeRate}
+          meta={PriceFieldMeta.PricingExchangeRate}
+          fieldConfig={fieldConfig}
+          exchangeRate={value?.PricingExchangeRate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ExchangeRateDisplay
-            label="Pricing Exchange Rate"
-            value={value.PricingExchangeRate?.[0]}
-            meta={PriceFieldMeta.PricingExchangeRate}
-          />
+    [
+      PriceField.AlternativeCurrencyPrice,
+      { meta: PriceFieldMeta.AlternativeCurrencyPrice,
+        template: ({value, renderContext, fieldConfig}) => <PriceDisplay
+          key={PriceField.AlternativeCurrencyPrice}
+          meta={PriceFieldMeta.AlternativeCurrencyPrice}
+          fieldConfig={fieldConfig}
+          price={value?.AlternativeCurrencyPrice}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Price ubl-AlternativeCurrencyPrice"
-            label="Alternative Currency Price"
-            items={value.AlternativeCurrencyPrice}
-            meta={PriceFieldMeta.AlternativeCurrencyPrice} 
-            itemDisplay={ (itemValue: Price, key: string | number) =>
-              <PriceDisplay
-                key={key}
-                label="Alternative Currency Price"
-                value={itemValue}
-                meta={PriceFieldMeta.AlternativeCurrencyPrice}
-              />
-            }
-          />
-        </div>
-    </div>
+export function PriceDisplay<TFieldMeta>({ meta, fieldConfig, price, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    PriceTypeName,
+    meta,
+    fieldConfig,
+    price,
+    renderContext,
+    PriceSubElementsMap,
   )
 }

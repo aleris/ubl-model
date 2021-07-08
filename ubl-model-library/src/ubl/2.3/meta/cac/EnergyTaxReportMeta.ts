@@ -1,4 +1,8 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { TaxSchemeType } from './TaxSchemeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum EnergyTaxReportField {
   UBLExtensions = 'UBLExtensions',
@@ -11,11 +15,11 @@ export enum EnergyTaxReportField {
 export const EnergyTaxReportFieldMetaUBLExtensions = new FieldMeta<EnergyTaxReportField>(
   EnergyTaxReportField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -24,10 +28,10 @@ export const EnergyTaxReportFieldMetaTaxEnergyAmount = new FieldMeta<EnergyTaxRe
   EnergyTaxReportField.TaxEnergyAmount,
   'TaxEnergyAmount',
   'Tax Energy Amount',
-  'Amount',
+  AmountType.name,
   'The monetary amount of taxes (and duties).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '3087.90'
 )
@@ -36,10 +40,10 @@ export const EnergyTaxReportFieldMetaTaxEnergyOnAccountAmount = new FieldMeta<En
   EnergyTaxReportField.TaxEnergyOnAccountAmount,
   'TaxEnergyOnAccountAmount',
   'Tax Energy On Account Amount',
-  'Amount',
+  AmountType.name,
   'The monetary amount of taxes (and duties) paid on account.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2855.40'
 )
@@ -48,10 +52,10 @@ export const EnergyTaxReportFieldMetaTaxEnergyBalanceAmount = new FieldMeta<Ener
   EnergyTaxReportField.TaxEnergyBalanceAmount,
   'TaxEnergyBalanceAmount',
   'Tax Energy Balance',
-  'Amount',
+  AmountType.name,
   'The monetary amount of the balance of taxes owing.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '232.49'
 )
@@ -60,10 +64,10 @@ export const EnergyTaxReportFieldMetaTaxScheme = new FieldMeta<EnergyTaxReportFi
   EnergyTaxReportField.TaxScheme,
   'TaxScheme',
   'Tax Scheme',
-  'TaxScheme',
+  TaxSchemeType.name,
   'The relevant taxation scheme.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -83,3 +87,11 @@ export const EnergyTaxReportFieldMap = new Map([
   [EnergyTaxReportField.TaxEnergyBalanceAmount, EnergyTaxReportFieldMetaTaxEnergyBalanceAmount],
   [EnergyTaxReportField.TaxScheme, EnergyTaxReportFieldMetaTaxScheme]
 ])
+
+export const EnergyTaxReportType: Type<EnergyTaxReportField> = {
+  name: 'EnergyTaxReport',
+  label: 'Energy Tax Report',
+  module: TypeModule.cac,
+  definition: 'A class to describe energy taxes.',
+  fields: EnergyTaxReportFieldMap,
+}

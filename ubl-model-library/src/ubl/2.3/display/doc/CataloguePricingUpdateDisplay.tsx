@@ -1,272 +1,367 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { CataloguePricingUpdate } from  '../../model/doc/CataloguePricingUpdate'
-import { CataloguePricingUpdateFieldMeta } from  '../../meta/doc/CataloguePricingUpdateMeta'
-import CataloguePricingUpdateLineDisplay from '../cac/CataloguePricingUpdateLineDisplay'
-import { CataloguePricingUpdateLine } from '../../model/cac/CataloguePricingUpdateLine'
-import CatalogueReferenceDisplay from '../cac/CatalogueReferenceDisplay'
-import { CatalogueReference } from '../../model/cac/CatalogueReference'
-import ContractDisplay from '../cac/ContractDisplay'
-import { Contract } from '../../model/cac/Contract'
-import CustomerPartyDisplay from '../cac/CustomerPartyDisplay'
-import { CustomerParty } from '../../model/cac/CustomerParty'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import LanguageDisplay from '../cac/LanguageDisplay'
-import { Language } from '../../model/cac/Language'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PeriodDisplay from '../cac/PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import SupplierPartyDisplay from '../cac/SupplierPartyDisplay'
-import { SupplierParty } from '../../model/cac/SupplierParty'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import TradingTermsDisplay from '../cac/TradingTermsDisplay'
-import { TradingTerms } from '../../model/cac/TradingTerms'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { CataloguePricingUpdateField, CataloguePricingUpdateFieldMeta, CataloguePricingUpdateTypeName } from  '../../meta/doc/CataloguePricingUpdateMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CataloguePricingUpdateLineDisplay } from '../cac/CataloguePricingUpdateLineDisplay'
+import { CatalogueReferenceDisplay } from '../cac/CatalogueReferenceDisplay'
+import { ContractDisplay } from '../cac/ContractDisplay'
+import { CustomerPartyDisplay } from '../cac/CustomerPartyDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { LanguageDisplay } from '../cac/LanguageDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { PeriodDisplay } from '../cac/PeriodDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { SupplierPartyDisplay } from '../cac/SupplierPartyDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { TradingTermsDisplay } from '../cac/TradingTermsDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: CataloguePricingUpdate | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<CataloguePricingUpdate, void>
+  cataloguePricingUpdate: CataloguePricingUpdate[] | undefined
+  renderContext: RenderContext
 }
 
-export default function CataloguePricingUpdateDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const CataloguePricingUpdateSubElementsMap: SubElementsTemplatesMap<CataloguePricingUpdateField, CataloguePricingUpdate, void> = new Map([
+    [
+      CataloguePricingUpdateField.UBLExtensions,
+      { meta: CataloguePricingUpdateFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={CataloguePricingUpdateField.UBLExtensions}
+          meta={CataloguePricingUpdateFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-CataloguePricingUpdate">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={CataloguePricingUpdateFieldMeta.UBLExtensions}
-          />
+    [
+      CataloguePricingUpdateField.UBLVersionID,
+      { meta: CataloguePricingUpdateFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CataloguePricingUpdateField.UBLVersionID}
+          meta={CataloguePricingUpdateFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={CataloguePricingUpdateFieldMeta.UBLVersionID}
-          />
+    [
+      CataloguePricingUpdateField.CustomizationID,
+      { meta: CataloguePricingUpdateFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CataloguePricingUpdateField.CustomizationID}
+          meta={CataloguePricingUpdateFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={CataloguePricingUpdateFieldMeta.CustomizationID}
-          />
+    [
+      CataloguePricingUpdateField.ProfileID,
+      { meta: CataloguePricingUpdateFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CataloguePricingUpdateField.ProfileID}
+          meta={CataloguePricingUpdateFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={CataloguePricingUpdateFieldMeta.ProfileID}
-          />
+    [
+      CataloguePricingUpdateField.ProfileExecutionID,
+      { meta: CataloguePricingUpdateFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CataloguePricingUpdateField.ProfileExecutionID}
+          meta={CataloguePricingUpdateFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={CataloguePricingUpdateFieldMeta.ProfileExecutionID}
-          />
+    [
+      CataloguePricingUpdateField.ID,
+      { meta: CataloguePricingUpdateFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CataloguePricingUpdateField.ID}
+          meta={CataloguePricingUpdateFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={CataloguePricingUpdateFieldMeta.ID}
-          />
+    [
+      CataloguePricingUpdateField.UUID,
+      { meta: CataloguePricingUpdateFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CataloguePricingUpdateField.UUID}
+          meta={CataloguePricingUpdateFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={CataloguePricingUpdateFieldMeta.UUID}
-          />
+    [
+      CataloguePricingUpdateField.Name,
+      { meta: CataloguePricingUpdateFieldMeta.Name,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={CataloguePricingUpdateField.Name}
+          meta={CataloguePricingUpdateFieldMeta.Name}
+          fieldConfig={fieldConfig}
+          text={value?.Name}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Name"
-            value={value.Name?.[0]}
-            meta={CataloguePricingUpdateFieldMeta.Name}
-          />
+    [
+      CataloguePricingUpdateField.IssueDate,
+      { meta: CataloguePricingUpdateFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={CataloguePricingUpdateField.IssueDate}
+          meta={CataloguePricingUpdateFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={CataloguePricingUpdateFieldMeta.IssueDate}
-          />
+    [
+      CataloguePricingUpdateField.IssueTime,
+      { meta: CataloguePricingUpdateFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={CataloguePricingUpdateField.IssueTime}
+          meta={CataloguePricingUpdateFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={CataloguePricingUpdateFieldMeta.IssueTime}
-          />
+    [
+      CataloguePricingUpdateField.RevisionDate,
+      { meta: CataloguePricingUpdateFieldMeta.RevisionDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={CataloguePricingUpdateField.RevisionDate}
+          meta={CataloguePricingUpdateFieldMeta.RevisionDate}
+          fieldConfig={fieldConfig}
+          date={value?.RevisionDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Revision Date"
-            value={value.RevisionDate?.[0]}
-            meta={CataloguePricingUpdateFieldMeta.RevisionDate}
-          />
+    [
+      CataloguePricingUpdateField.RevisionTime,
+      { meta: CataloguePricingUpdateFieldMeta.RevisionTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={CataloguePricingUpdateField.RevisionTime}
+          meta={CataloguePricingUpdateFieldMeta.RevisionTime}
+          fieldConfig={fieldConfig}
+          time={value?.RevisionTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Revision Time"
-            value={value.RevisionTime?.[0]}
-            meta={CataloguePricingUpdateFieldMeta.RevisionTime}
-          />
+    [
+      CataloguePricingUpdateField.Note,
+      { meta: CataloguePricingUpdateFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={CataloguePricingUpdateField.Note}
+          meta={CataloguePricingUpdateFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={CataloguePricingUpdateFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={CataloguePricingUpdateFieldMeta.Note}
-              />
-            }
-          />
+    [
+      CataloguePricingUpdateField.Description,
+      { meta: CataloguePricingUpdateFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={CataloguePricingUpdateField.Description}
+          meta={CataloguePricingUpdateFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={CataloguePricingUpdateFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={CataloguePricingUpdateFieldMeta.Description}
-              />
-            }
-          />
+    [
+      CataloguePricingUpdateField.VersionID,
+      { meta: CataloguePricingUpdateFieldMeta.VersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CataloguePricingUpdateField.VersionID}
+          meta={CataloguePricingUpdateFieldMeta.VersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.VersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Version"
-            value={value.VersionID?.[0]}
-            meta={CataloguePricingUpdateFieldMeta.VersionID}
-          />
+    [
+      CataloguePricingUpdateField.LineCountNumeric,
+      { meta: CataloguePricingUpdateFieldMeta.LineCountNumeric,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={CataloguePricingUpdateField.LineCountNumeric}
+          meta={CataloguePricingUpdateFieldMeta.LineCountNumeric}
+          fieldConfig={fieldConfig}
+          numeric={value?.LineCountNumeric}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Line Count"
-            value={value.LineCountNumeric?.[0]}
-            meta={CataloguePricingUpdateFieldMeta.LineCountNumeric}
-          />
+    [
+      CataloguePricingUpdateField.ValidityPeriod,
+      { meta: CataloguePricingUpdateFieldMeta.ValidityPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={CataloguePricingUpdateField.ValidityPeriod}
+          meta={CataloguePricingUpdateFieldMeta.ValidityPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.ValidityPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Period ubl-ValidityPeriod"
-            label="Validity Period"
-            items={value.ValidityPeriod}
-            meta={CataloguePricingUpdateFieldMeta.ValidityPeriod} 
-            itemDisplay={ (itemValue: Period, key: string | number) =>
-              <PeriodDisplay
-                key={key}
-                label="Validity Period"
-                value={itemValue}
-                meta={CataloguePricingUpdateFieldMeta.ValidityPeriod}
-              />
-            }
-          />
+    [
+      CataloguePricingUpdateField.RelatedCatalogueReference,
+      { meta: CataloguePricingUpdateFieldMeta.RelatedCatalogueReference,
+        template: ({value, renderContext, fieldConfig}) => <CatalogueReferenceDisplay
+          key={CataloguePricingUpdateField.RelatedCatalogueReference}
+          meta={CataloguePricingUpdateFieldMeta.RelatedCatalogueReference}
+          fieldConfig={fieldConfig}
+          catalogueReference={value?.RelatedCatalogueReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CatalogueReferenceDisplay
-            label="Related Catalogue Reference"
-            value={value.RelatedCatalogueReference?.[0]}
-            meta={CataloguePricingUpdateFieldMeta.RelatedCatalogueReference}
-          />
+    [
+      CataloguePricingUpdateField.ReferencedContract,
+      { meta: CataloguePricingUpdateFieldMeta.ReferencedContract,
+        template: ({value, renderContext, fieldConfig}) => <ContractDisplay
+          key={CataloguePricingUpdateField.ReferencedContract}
+          meta={CataloguePricingUpdateFieldMeta.ReferencedContract}
+          fieldConfig={fieldConfig}
+          contract={value?.ReferencedContract}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Contract ubl-ReferencedContract"
-            label="Referenced Contract"
-            items={value.ReferencedContract}
-            meta={CataloguePricingUpdateFieldMeta.ReferencedContract} 
-            itemDisplay={ (itemValue: Contract, key: string | number) =>
-              <ContractDisplay
-                key={key}
-                label="Referenced Contract"
-                value={itemValue}
-                meta={CataloguePricingUpdateFieldMeta.ReferencedContract}
-              />
-            }
-          />
+    [
+      CataloguePricingUpdateField.Signature,
+      { meta: CataloguePricingUpdateFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={CataloguePricingUpdateField.Signature}
+          meta={CataloguePricingUpdateFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={CataloguePricingUpdateFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={CataloguePricingUpdateFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      CataloguePricingUpdateField.ProviderParty,
+      { meta: CataloguePricingUpdateFieldMeta.ProviderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={CataloguePricingUpdateField.ProviderParty}
+          meta={CataloguePricingUpdateFieldMeta.ProviderParty}
+          fieldConfig={fieldConfig}
+          party={value?.ProviderParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Provider Party"
-            value={value.ProviderParty?.[0]}
-            meta={CataloguePricingUpdateFieldMeta.ProviderParty}
-          />
+    [
+      CataloguePricingUpdateField.ReceiverParty,
+      { meta: CataloguePricingUpdateFieldMeta.ReceiverParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={CataloguePricingUpdateField.ReceiverParty}
+          meta={CataloguePricingUpdateFieldMeta.ReceiverParty}
+          fieldConfig={fieldConfig}
+          party={value?.ReceiverParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Receiver Party"
-            value={value.ReceiverParty?.[0]}
-            meta={CataloguePricingUpdateFieldMeta.ReceiverParty}
-          />
+    [
+      CataloguePricingUpdateField.SellerSupplierParty,
+      { meta: CataloguePricingUpdateFieldMeta.SellerSupplierParty,
+        template: ({value, renderContext, fieldConfig}) => <SupplierPartyDisplay
+          key={CataloguePricingUpdateField.SellerSupplierParty}
+          meta={CataloguePricingUpdateFieldMeta.SellerSupplierParty}
+          fieldConfig={fieldConfig}
+          supplierParty={value?.SellerSupplierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <SupplierPartyDisplay
-            label="Seller Supplier Party"
-            value={value.SellerSupplierParty?.[0]}
-            meta={CataloguePricingUpdateFieldMeta.SellerSupplierParty}
-          />
+    [
+      CataloguePricingUpdateField.ContractorCustomerParty,
+      { meta: CataloguePricingUpdateFieldMeta.ContractorCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={CataloguePricingUpdateField.ContractorCustomerParty}
+          meta={CataloguePricingUpdateFieldMeta.ContractorCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.ContractorCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomerPartyDisplay
-            label="Contractor Customer Party"
-            value={value.ContractorCustomerParty?.[0]}
-            meta={CataloguePricingUpdateFieldMeta.ContractorCustomerParty}
-          />
+    [
+      CataloguePricingUpdateField.TradingTerms,
+      { meta: CataloguePricingUpdateFieldMeta.TradingTerms,
+        template: ({value, renderContext, fieldConfig}) => <TradingTermsDisplay
+          key={CataloguePricingUpdateField.TradingTerms}
+          meta={CataloguePricingUpdateFieldMeta.TradingTerms}
+          fieldConfig={fieldConfig}
+          tradingTerms={value?.TradingTerms}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TradingTermsDisplay
-            label="Trading Terms"
-            value={value.TradingTerms?.[0]}
-            meta={CataloguePricingUpdateFieldMeta.TradingTerms}
-          />
+    [
+      CataloguePricingUpdateField.DefaultLanguage,
+      { meta: CataloguePricingUpdateFieldMeta.DefaultLanguage,
+        template: ({value, renderContext, fieldConfig}) => <LanguageDisplay
+          key={CataloguePricingUpdateField.DefaultLanguage}
+          meta={CataloguePricingUpdateFieldMeta.DefaultLanguage}
+          fieldConfig={fieldConfig}
+          language={value?.DefaultLanguage}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <LanguageDisplay
-            label="Default Language"
-            value={value.DefaultLanguage?.[0]}
-            meta={CataloguePricingUpdateFieldMeta.DefaultLanguage}
-          />
+    [
+      CataloguePricingUpdateField.CataloguePricingUpdateLine,
+      { meta: CataloguePricingUpdateFieldMeta.CataloguePricingUpdateLine,
+        template: ({value, renderContext, fieldConfig}) => <CataloguePricingUpdateLineDisplay
+          key={CataloguePricingUpdateField.CataloguePricingUpdateLine}
+          meta={CataloguePricingUpdateFieldMeta.CataloguePricingUpdateLine}
+          fieldConfig={fieldConfig}
+          cataloguePricingUpdateLine={value?.CataloguePricingUpdateLine}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-CataloguePricingUpdateLine"
-            label="Catalogue Pricing Update Line"
-            items={value.CataloguePricingUpdateLine}
-            meta={CataloguePricingUpdateFieldMeta.CataloguePricingUpdateLine} 
-            itemDisplay={ (itemValue: CataloguePricingUpdateLine, key: string | number) =>
-              <CataloguePricingUpdateLineDisplay
-                key={key}
-                label="Catalogue Pricing Update Line"
-                value={itemValue}
-                meta={CataloguePricingUpdateFieldMeta.CataloguePricingUpdateLine}
-              />
-            }
-          />
-        </div>
-    </div>
+export function CataloguePricingUpdateDisplay<TFieldMeta>({ meta, fieldConfig, cataloguePricingUpdate, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    CataloguePricingUpdateTypeName,
+    meta,
+    fieldConfig,
+    cataloguePricingUpdate,
+    renderContext,
+    CataloguePricingUpdateSubElementsMap,
   )
 }

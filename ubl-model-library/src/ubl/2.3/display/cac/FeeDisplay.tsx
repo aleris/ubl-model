@@ -1,65 +1,79 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Fee } from  '../../model/cac/Fee'
-import { FeeFieldMeta } from  '../../meta/cac/FeeMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { FeeField, FeeFieldMeta, FeeTypeName } from  '../../meta/cac/FeeMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: Fee | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<Fee, void>
+  fee: Fee[] | undefined
+  renderContext: RenderContext
 }
 
-export default function FeeDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const FeeSubElementsMap: SubElementsTemplatesMap<FeeField, Fee, void> = new Map([
+    [
+      FeeField.UBLExtensions,
+      { meta: FeeFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={FeeField.UBLExtensions}
+          meta={FeeFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-Fee">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={FeeFieldMeta.UBLExtensions}
-          />
+    [
+      FeeField.FeeTypeCode,
+      { meta: FeeFieldMeta.FeeTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={FeeField.FeeTypeCode}
+          meta={FeeFieldMeta.FeeTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.FeeTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Fee Type Code"
-            value={value.FeeTypeCode?.[0]}
-            meta={FeeFieldMeta.FeeTypeCode}
-          />
+    [
+      FeeField.FeeAmount,
+      { meta: FeeFieldMeta.FeeAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={FeeField.FeeAmount}
+          meta={FeeFieldMeta.FeeAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.FeeAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Fee Amount"
-            value={value.FeeAmount?.[0]}
-            meta={FeeFieldMeta.FeeAmount}
-          />
+    [
+      FeeField.FeeDescription,
+      { meta: FeeFieldMeta.FeeDescription,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={FeeField.FeeDescription}
+          meta={FeeFieldMeta.FeeDescription}
+          fieldConfig={fieldConfig}
+          text={value?.FeeDescription}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-FeeDescription"
-            label="Fee Description"
-            items={value.FeeDescription}
-            meta={FeeFieldMeta.FeeDescription} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Fee Description"
-                value={itemValue}
-                meta={FeeFieldMeta.FeeDescription}
-              />
-            }
-          />
-        </div>
-    </div>
+export function FeeDisplay<TFieldMeta>({ meta, fieldConfig, fee, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    FeeTypeName,
+    meta,
+    fieldConfig,
+    fee,
+    renderContext,
+    FeeSubElementsMap,
   )
 }

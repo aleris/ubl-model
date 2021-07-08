@@ -24,7 +24,6 @@ import { TransportHandlingUnit } from './TransportHandlingUnit'
 import { TransportMeans } from './TransportMeans'
 import { UBLExtensions } from '../ext/UBLExtensions'
 import { VerifiedGrossMass } from './VerifiedGrossMass'
-
 /**
  * A class to describe a piece of equipment used to transport goods.
  */

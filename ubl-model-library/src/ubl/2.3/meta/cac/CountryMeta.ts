@@ -1,4 +1,8 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum CountryField {
   UBLExtensions = 'UBLExtensions',
@@ -9,11 +13,11 @@ export enum CountryField {
 export const CountryFieldMetaUBLExtensions = new FieldMeta<CountryField>(
   CountryField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -22,10 +26,10 @@ export const CountryFieldMetaIdentificationCode = new FieldMeta<CountryField>(
   CountryField.IdentificationCode,
   'IdentificationCode',
   'Identification Code',
-  'Code',
+  CodeType.name,
   'A code signifying this country.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -34,10 +38,10 @@ export const CountryFieldMetaName = new FieldMeta<CountryField>(
   CountryField.Name,
   'Name',
   'Name',
-  'Text',
+  TextType.name,
   'The name of this country.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'SOUTH AFRICA'
 )
@@ -53,3 +57,11 @@ export const CountryFieldMap = new Map([
   [CountryField.IdentificationCode, CountryFieldMetaIdentificationCode],
   [CountryField.Name, CountryFieldMetaName]
 ])
+
+export const CountryType: Type<CountryField> = {
+  name: 'Country',
+  label: 'Country',
+  module: TypeModule.cac,
+  definition: 'A class to describe a country.',
+  fields: CountryFieldMap,
+}

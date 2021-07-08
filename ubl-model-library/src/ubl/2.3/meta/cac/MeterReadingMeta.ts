@@ -1,4 +1,11 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { DateType } from '../cbc/DateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum MeterReadingField {
   UBLExtensions = 'UBLExtensions',
@@ -20,11 +27,11 @@ export enum MeterReadingField {
 export const MeterReadingFieldMetaUBLExtensions = new FieldMeta<MeterReadingField>(
   MeterReadingField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -33,10 +40,10 @@ export const MeterReadingFieldMetaID = new FieldMeta<MeterReadingField>(
   MeterReadingField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this meter reading.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '7411013716x'
 )
@@ -45,10 +52,10 @@ export const MeterReadingFieldMetaMeterReadingType = new FieldMeta<MeterReadingF
   MeterReadingField.MeterReadingType,
   'MeterReadingType',
   'Meter Reading Type',
-  'Text',
+  TextType.name,
   'The type of this meter reading, expressed as text.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Electricity'
 )
@@ -57,10 +64,10 @@ export const MeterReadingFieldMetaMeterReadingTypeCode = new FieldMeta<MeterRead
   MeterReadingField.MeterReadingTypeCode,
   'MeterReadingTypeCode',
   'Meter Reading Type Code',
-  'Code',
+  CodeType.name,
   'The type of this meter reading, expressed as a code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Electricity'
 )
@@ -69,10 +76,10 @@ export const MeterReadingFieldMetaPreviousMeterReadingDate = new FieldMeta<Meter
   MeterReadingField.PreviousMeterReadingDate,
   'PreviousMeterReadingDate',
   'Previous Meter Reading Date',
-  'Date',
+  DateType.name,
   'The date of the previous meter reading.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   '2006-09-01'
 )
@@ -81,10 +88,10 @@ export const MeterReadingFieldMetaPreviousMeterQuantity = new FieldMeta<MeterRea
   MeterReadingField.PreviousMeterQuantity,
   'PreviousMeterQuantity',
   'Previous Meter Quantity',
-  'Quantity',
+  QuantityType.name,
   'The quantity of the previous meter reading.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   '122604.00'
 )
@@ -93,10 +100,10 @@ export const MeterReadingFieldMetaLatestMeterReadingDate = new FieldMeta<MeterRe
   MeterReadingField.LatestMeterReadingDate,
   'LatestMeterReadingDate',
   'Latest Meter Reading Date',
-  'Date',
+  DateType.name,
   'The date of the latest meter reading.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   '2006-09-01'
 )
@@ -105,10 +112,10 @@ export const MeterReadingFieldMetaLatestMeterQuantity = new FieldMeta<MeterReadi
   MeterReadingField.LatestMeterQuantity,
   'LatestMeterQuantity',
   'Latest Meter Quantity',
-  'Quantity',
+  QuantityType.name,
   'The quantity of the latest meter reading.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   '128365.00'
 )
@@ -117,10 +124,10 @@ export const MeterReadingFieldMetaPreviousMeterReadingMethod = new FieldMeta<Met
   MeterReadingField.PreviousMeterReadingMethod,
   'PreviousMeterReadingMethod',
   'Previous Meter Reading Method',
-  'Text',
+  TextType.name,
   'The method used for the previous meter reading, expressed as text.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Manuel'
 )
@@ -129,10 +136,10 @@ export const MeterReadingFieldMetaPreviousMeterReadingMethodCode = new FieldMeta
   MeterReadingField.PreviousMeterReadingMethodCode,
   'PreviousMeterReadingMethodCode',
   'Previous Meter Reading Method Code',
-  'Code',
+  CodeType.name,
   'The method used for the previous meter reading, expressed as a code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Estimated'
 )
@@ -141,10 +148,10 @@ export const MeterReadingFieldMetaLatestMeterReadingMethod = new FieldMeta<Meter
   MeterReadingField.LatestMeterReadingMethod,
   'LatestMeterReadingMethod',
   'Latest Meter Reading Method',
-  'Text',
+  TextType.name,
   'The method used for the latest meter reading, expressed as text.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Manuel'
 )
@@ -153,10 +160,10 @@ export const MeterReadingFieldMetaLatestMeterReadingMethodCode = new FieldMeta<M
   MeterReadingField.LatestMeterReadingMethodCode,
   'LatestMeterReadingMethodCode',
   'Latest Meter Reading Method Code',
-  'Code',
+  CodeType.name,
   'The method used for the latest meter reading, expressed as a code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Estimated'
 )
@@ -165,10 +172,10 @@ export const MeterReadingFieldMetaMeterReadingComments = new FieldMeta<MeterRead
   MeterReadingField.MeterReadingComments,
   'MeterReadingComments',
   'Meter Reading Comments',
-  'Text',
+  TextType.name,
   'Text containing comments on this meter reading.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   'The last stated meterstand is estimated'
 )
@@ -177,10 +184,10 @@ export const MeterReadingFieldMetaDeliveredQuantity = new FieldMeta<MeterReading
   MeterReadingField.DeliveredQuantity,
   'DeliveredQuantity',
   'Delivered Quantity',
-  'Quantity',
+  QuantityType.name,
   'Consumption in the period from PreviousMeterReadingDate to LatestMeterReadingDate.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -218,3 +225,11 @@ export const MeterReadingFieldMap = new Map([
   [MeterReadingField.MeterReadingComments, MeterReadingFieldMetaMeterReadingComments],
   [MeterReadingField.DeliveredQuantity, MeterReadingFieldMetaDeliveredQuantity]
 ])
+
+export const MeterReadingType: Type<MeterReadingField> = {
+  name: 'MeterReading',
+  label: 'Meter Reading',
+  module: TypeModule.cac,
+  definition: 'A class to describe a meter reading.',
+  fields: MeterReadingFieldMap,
+}

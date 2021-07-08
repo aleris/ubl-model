@@ -1,4 +1,9 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AddressType } from './AddressMeta'
+import { LineReferenceType } from './LineReferenceMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum DependentPriceReferenceField {
   UBLExtensions = 'UBLExtensions',
@@ -10,11 +15,11 @@ export enum DependentPriceReferenceField {
 export const DependentPriceReferenceFieldMetaUBLExtensions = new FieldMeta<DependentPriceReferenceField>(
   DependentPriceReferenceField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -23,10 +28,10 @@ export const DependentPriceReferenceFieldMetaPercent = new FieldMeta<DependentPr
   DependentPriceReferenceField.Percent,
   'Percent',
   'Percent',
-  'Numeric',
+  NumericType.name,
   'The percentage by which the price of the different item is multiplied to calculate the price of the item.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -35,10 +40,10 @@ export const DependentPriceReferenceFieldMetaLocationAddress = new FieldMeta<Dep
   DependentPriceReferenceField.LocationAddress,
   'LocationAddress',
   'Location Address',
-  'Address',
+  AddressType.name,
   'The reference location for this dependent price reference.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -47,10 +52,10 @@ export const DependentPriceReferenceFieldMetaDependentLineReference = new FieldM
   DependentPriceReferenceField.DependentLineReference,
   'DependentLineReference',
   'Dependent Line Reference',
-  'LineReference',
+  LineReferenceType.name,
   'A reference to a line that the price is depended of.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -68,3 +73,11 @@ export const DependentPriceReferenceFieldMap = new Map([
   [DependentPriceReferenceField.LocationAddress, DependentPriceReferenceFieldMetaLocationAddress],
   [DependentPriceReferenceField.DependentLineReference, DependentPriceReferenceFieldMetaDependentLineReference]
 ])
+
+export const DependentPriceReferenceType: Type<DependentPriceReferenceField> = {
+  name: 'DependentPriceReference',
+  label: 'Dependent Price Reference',
+  module: TypeModule.cac,
+  definition: 'A class to define the price of an item as a percentage of the price of a different item.',
+  fields: DependentPriceReferenceFieldMap,
+}

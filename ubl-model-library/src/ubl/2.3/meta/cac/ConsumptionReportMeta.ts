@@ -1,4 +1,15 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { ConsumptionHistoryType } from './ConsumptionHistoryMeta'
+import { ConsumptionReportReferenceType } from './ConsumptionReportReferenceMeta'
+import { DocumentReferenceType } from './DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { PeriodType } from './PeriodMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ConsumptionReportField {
   UBLExtensions = 'UBLExtensions',
@@ -25,11 +36,11 @@ export enum ConsumptionReportField {
 export const ConsumptionReportFieldMetaUBLExtensions = new FieldMeta<ConsumptionReportField>(
   ConsumptionReportField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -38,10 +49,10 @@ export const ConsumptionReportFieldMetaID = new FieldMeta<ConsumptionReportField
   ConsumptionReportField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this consumption report.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   'n/a'
 )
@@ -50,10 +61,10 @@ export const ConsumptionReportFieldMetaConsumptionType = new FieldMeta<Consumpti
   ConsumptionReportField.ConsumptionType,
   'ConsumptionType',
   'Consumption Type',
-  'Text',
+  TextType.name,
   'The type of consumption, expressed as text.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Consumption'
 )
@@ -62,10 +73,10 @@ export const ConsumptionReportFieldMetaConsumptionTypeCode = new FieldMeta<Consu
   ConsumptionReportField.ConsumptionTypeCode,
   'ConsumptionTypeCode',
   'Consumption Type Code',
-  'Code',
+  CodeType.name,
   'The type of consumption, expressed as a code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Consumption'
 )
@@ -74,10 +85,10 @@ export const ConsumptionReportFieldMetaDescription = new FieldMeta<ConsumptionRe
   ConsumptionReportField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text reporting utility consumption.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   'This report contain the latest year consumption'
 )
@@ -86,10 +97,10 @@ export const ConsumptionReportFieldMetaTotalConsumedQuantity = new FieldMeta<Con
   ConsumptionReportField.TotalConsumedQuantity,
   'TotalConsumedQuantity',
   'Total Consumed Quantity',
-  'Quantity',
+  QuantityType.name,
   'The total quantity consumed.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '20479.00'
 )
@@ -98,10 +109,10 @@ export const ConsumptionReportFieldMetaBasicConsumedQuantity = new FieldMeta<Con
   ConsumptionReportField.BasicConsumedQuantity,
   'BasicConsumedQuantity',
   'Basic Consumed Quantity',
-  'Quantity',
+  QuantityType.name,
   'The basic quantity consumed, excluding additional consumption.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '20000.00'
 )
@@ -110,10 +121,10 @@ export const ConsumptionReportFieldMetaResidentOccupantsNumeric = new FieldMeta<
   ConsumptionReportField.ResidentOccupantsNumeric,
   'ResidentOccupantsNumeric',
   'Resident Occupants Numeric',
-  'Numeric',
+  NumericType.name,
   'The number of people occupying the residence covered by this report.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '4.0'
 )
@@ -122,10 +133,10 @@ export const ConsumptionReportFieldMetaConsumersEnergyLevelCode = new FieldMeta<
   ConsumptionReportField.ConsumersEnergyLevelCode,
   'ConsumersEnergyLevelCode',
   'Consumers Energy Level Code',
-  'Code',
+  CodeType.name,
   'The level of energy consumed, compared to the average for this residence type and the number of people living in the residence, expressed as a code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'B'
 )
@@ -134,10 +145,10 @@ export const ConsumptionReportFieldMetaConsumersEnergyLevel = new FieldMeta<Cons
   ConsumptionReportField.ConsumersEnergyLevel,
   'ConsumersEnergyLevel',
   'Consumers Energy Level',
-  'Text',
+  TextType.name,
   'The level of energy consumed, compared to the average for this residence type and the number of people living in the residence, expressed as text.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Middel'
 )
@@ -146,10 +157,10 @@ export const ConsumptionReportFieldMetaResidenceType = new FieldMeta<Consumption
   ConsumptionReportField.ResidenceType,
   'ResidenceType',
   'Residence Type',
-  'Text',
+  TextType.name,
   'The type of residence (house, apartment, etc.) covered in this report, expressed as text.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'House'
 )
@@ -158,10 +169,10 @@ export const ConsumptionReportFieldMetaResidenceTypeCode = new FieldMeta<Consump
   ConsumptionReportField.ResidenceTypeCode,
   'ResidenceTypeCode',
   'Residence Type Code',
-  'Code',
+  CodeType.name,
   'The type of residence (house, apartment, etc.) covered in this report, expressed as a code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'House'
 )
@@ -170,10 +181,10 @@ export const ConsumptionReportFieldMetaHeatingType = new FieldMeta<ConsumptionRe
   ConsumptionReportField.HeatingType,
   'HeatingType',
   'Heating Type',
-  'Text',
+  TextType.name,
   'The type of heating in the residence covered in this report, expressed as text.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'District heating'
 )
@@ -182,10 +193,10 @@ export const ConsumptionReportFieldMetaHeatingTypeCode = new FieldMeta<Consumpti
   ConsumptionReportField.HeatingTypeCode,
   'HeatingTypeCode',
   'Heating Type Code',
-  'Code',
+  CodeType.name,
   'The type of heating in the residence covered in this report, expressed as a code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'DistrictHeating'
 )
@@ -194,10 +205,10 @@ export const ConsumptionReportFieldMetaPeriod = new FieldMeta<ConsumptionReportF
   ConsumptionReportField.Period,
   'Period',
   'Period',
-  'Period',
+  PeriodType.name,
   'The period of consumption covered in this report.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -206,10 +217,10 @@ export const ConsumptionReportFieldMetaGuidanceDocumentReference = new FieldMeta
   ConsumptionReportField.GuidanceDocumentReference,
   'GuidanceDocumentReference',
   'Guidance Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a document providing an explanation of this kind of report.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -218,10 +229,10 @@ export const ConsumptionReportFieldMetaDocumentReference = new FieldMeta<Consump
   ConsumptionReportField.DocumentReference,
   'DocumentReference',
   'Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to some other document (for example, this report in another format).',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -230,10 +241,10 @@ export const ConsumptionReportFieldMetaConsumptionReportReference = new FieldMet
   ConsumptionReportField.ConsumptionReportReference,
   'ConsumptionReportReference',
   'Consumption Report Reference',
-  'ConsumptionReportReference',
+  ConsumptionReportReferenceType.name,
   'A reference to a previous consumption report.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -242,10 +253,10 @@ export const ConsumptionReportFieldMetaConsumptionHistory = new FieldMeta<Consum
   ConsumptionReportField.ConsumptionHistory,
   'ConsumptionHistory',
   'Consumption History',
-  'ConsumptionHistory',
+  ConsumptionHistoryType.name,
   'A report describing historical parameters relating to a specific instance of consumption.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -293,3 +304,11 @@ export const ConsumptionReportFieldMap = new Map([
   [ConsumptionReportField.ConsumptionReportReference, ConsumptionReportFieldMetaConsumptionReportReference],
   [ConsumptionReportField.ConsumptionHistory, ConsumptionReportFieldMetaConsumptionHistory]
 ])
+
+export const ConsumptionReportType: Type<ConsumptionReportField> = {
+  name: 'ConsumptionReport',
+  label: 'Consumption Report',
+  module: TypeModule.cac,
+  definition: 'A class to describe utility consumption, including details of the environment in which consumption takes place.',
+  fields: ConsumptionReportFieldMap,
+}

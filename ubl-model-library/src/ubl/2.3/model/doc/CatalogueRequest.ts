@@ -18,7 +18,6 @@ import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { TradingTerms } from '../cac/TradingTerms'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A document used to request a Catalogue.
  */

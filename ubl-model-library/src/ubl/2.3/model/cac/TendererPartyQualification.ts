@@ -1,7 +1,6 @@
 import { ProcurementProjectLot } from './ProcurementProjectLot'
 import { QualifyingParty } from './QualifyingParty'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe the qualifications of a tenderer party.
  */

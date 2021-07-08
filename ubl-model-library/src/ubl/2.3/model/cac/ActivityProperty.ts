@@ -1,6 +1,5 @@
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to define a name/value pair for a property of an inventory planning activity.
  */

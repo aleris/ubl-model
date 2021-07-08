@@ -1,4 +1,9 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { DateType } from '../cbc/DateMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ForecastExceptionField {
   UBLExtensions = 'UBLExtensions',
@@ -15,11 +20,11 @@ export enum ForecastExceptionField {
 export const ForecastExceptionFieldMetaUBLExtensions = new FieldMeta<ForecastExceptionField>(
   ForecastExceptionField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -28,10 +33,10 @@ export const ForecastExceptionFieldMetaForecastPurposeCode = new FieldMeta<Forec
   ForecastExceptionField.ForecastPurposeCode,
   'ForecastPurposeCode',
   'Forecast Purpose Code',
-  'Code',
+  CodeType.name,
   'It is either Sales forecast or Order Forecast. Definition can be changed like: "The purpose of the Forecast (either sales or order), about which an exception criteria is being defined".',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -40,10 +45,10 @@ export const ForecastExceptionFieldMetaForecastTypeCode = new FieldMeta<Forecast
   ForecastExceptionField.ForecastTypeCode,
   'ForecastTypeCode',
   'Forecast Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of forecast. Example of values are:BASE PROMOTIONAL SEASONAL TOTAL',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -52,10 +57,10 @@ export const ForecastExceptionFieldMetaIssueDate = new FieldMeta<ForecastExcepti
   ForecastExceptionField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date on which the forecast was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -64,10 +69,10 @@ export const ForecastExceptionFieldMetaIssueTime = new FieldMeta<ForecastExcepti
   ForecastExceptionField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time at which the forecast was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -76,10 +81,10 @@ export const ForecastExceptionFieldMetaDataSourceCode = new FieldMeta<ForecastEx
   ForecastExceptionField.DataSourceCode,
   'DataSourceCode',
   'Data Source Code',
-  'Code',
+  CodeType.name,
   'A code signifying the partner who provides this information.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -88,10 +93,10 @@ export const ForecastExceptionFieldMetaComparisonDataCode = new FieldMeta<Foreca
   ForecastExceptionField.ComparisonDataCode,
   'ComparisonDataCode',
   'Comparison Data Code',
-  'Code',
+  CodeType.name,
   'A code signifying the partner providing the information in this forecast exception.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -100,10 +105,10 @@ export const ForecastExceptionFieldMetaComparisonForecastIssueTime = new FieldMe
   ForecastExceptionField.ComparisonForecastIssueTime,
   'ComparisonForecastIssueTime',
   'Comparison Forecast Issue Time',
-  'Time',
+  TimeType.name,
   'The time at which this comparison forecast was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -112,10 +117,10 @@ export const ForecastExceptionFieldMetaComparisonForecastIssueDate = new FieldMe
   ForecastExceptionField.ComparisonForecastIssueDate,
   'ComparisonForecastIssueDate',
   'Comparison Forecast Issue Date',
-  'Date',
+  DateType.name,
   'The date on which this comparison forecast was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -143,3 +148,11 @@ export const ForecastExceptionFieldMap = new Map([
   [ForecastExceptionField.ComparisonForecastIssueTime, ForecastExceptionFieldMetaComparisonForecastIssueTime],
   [ForecastExceptionField.ComparisonForecastIssueDate, ForecastExceptionFieldMetaComparisonForecastIssueDate]
 ])
+
+export const ForecastExceptionType: Type<ForecastExceptionField> = {
+  name: 'ForecastException',
+  label: 'Forecast Exception',
+  module: TypeModule.cac,
+  definition: 'As explained in Exception Criteria Line: Three types of exception criteria can be defined, Operational, Metric or Forecast Exceptions. This class provides criteria for forecast exception type: the identification of the purpose of the forecast, the source of data and the time basis criteria for the exception.',
+  fields: ForecastExceptionFieldMap,
+}

@@ -1,4 +1,16 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from './DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { ItemType } from './ItemMeta'
+import { LineReferenceType } from './LineReferenceMeta'
+import { OrderLineReferenceType } from './OrderLineReferenceMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { ShipmentType } from './ShipmentMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ReceiptLineField {
   UBLExtensions = 'UBLExtensions',
@@ -27,11 +39,11 @@ export enum ReceiptLineField {
 export const ReceiptLineFieldMetaUBLExtensions = new FieldMeta<ReceiptLineField>(
   ReceiptLineField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -40,10 +52,10 @@ export const ReceiptLineFieldMetaID = new FieldMeta<ReceiptLineField>(
   ReceiptLineField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this receipt line.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -52,10 +64,10 @@ export const ReceiptLineFieldMetaUUID = new FieldMeta<ReceiptLineField>(
   ReceiptLineField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for this receipt line.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -64,10 +76,10 @@ export const ReceiptLineFieldMetaNote = new FieldMeta<ReceiptLineField>(
   ReceiptLineField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -76,10 +88,10 @@ export const ReceiptLineFieldMetaReceivedQuantity = new FieldMeta<ReceiptLineFie
   ReceiptLineField.ReceivedQuantity,
   'ReceivedQuantity',
   'Received Quantity',
-  'Quantity',
+  QuantityType.name,
   'The quantity received.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -88,10 +100,10 @@ export const ReceiptLineFieldMetaShortQuantity = new FieldMeta<ReceiptLineField>
   ReceiptLineField.ShortQuantity,
   'ShortQuantity',
   'Short Quantity',
-  'Quantity',
+  QuantityType.name,
   'The quantity received short; the difference between the quantity reported despatched and the quantity actually received.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -100,10 +112,10 @@ export const ReceiptLineFieldMetaShortageActionCode = new FieldMeta<ReceiptLineF
   ReceiptLineField.ShortageActionCode,
   'ShortageActionCode',
   'Shortage Action Code',
-  'Code',
+  CodeType.name,
   'A code signifying the action that the delivery party wishes the despatch party to take as the result of a shortage.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -112,10 +124,10 @@ export const ReceiptLineFieldMetaRejectedQuantity = new FieldMeta<ReceiptLineFie
   ReceiptLineField.RejectedQuantity,
   'RejectedQuantity',
   'Rejected Quantity',
-  'Quantity',
+  QuantityType.name,
   'The quantity rejected.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -124,10 +136,10 @@ export const ReceiptLineFieldMetaRejectReasonCode = new FieldMeta<ReceiptLineFie
   ReceiptLineField.RejectReasonCode,
   'RejectReasonCode',
   'Reject Reason Code',
-  'Code',
+  CodeType.name,
   'The reason for a rejection, expressed as a code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -136,10 +148,10 @@ export const ReceiptLineFieldMetaRejectReason = new FieldMeta<ReceiptLineField>(
   ReceiptLineField.RejectReason,
   'RejectReason',
   'Reject Reason',
-  'Text',
+  TextType.name,
   'The reason for a rejection, expressed as text.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -148,10 +160,10 @@ export const ReceiptLineFieldMetaRejectActionCode = new FieldMeta<ReceiptLineFie
   ReceiptLineField.RejectActionCode,
   'RejectActionCode',
   'Reject Action Code',
-  'Code',
+  CodeType.name,
   'A code signifying the action that the delivery party wishes the despatch party to take as the result of a rejection.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -160,10 +172,10 @@ export const ReceiptLineFieldMetaQuantityDiscrepancyCode = new FieldMeta<Receipt
   ReceiptLineField.QuantityDiscrepancyCode,
   'QuantityDiscrepancyCode',
   'Quantity Discrepancy Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of a discrepancy in quantity.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -172,10 +184,10 @@ export const ReceiptLineFieldMetaOversupplyQuantity = new FieldMeta<ReceiptLineF
   ReceiptLineField.OversupplyQuantity,
   'OversupplyQuantity',
   'Oversupply Quantity',
-  'Quantity',
+  QuantityType.name,
   'The quantity over-supplied, i.e., the quantity over and above the quantity ordered.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -184,10 +196,10 @@ export const ReceiptLineFieldMetaReceivedDate = new FieldMeta<ReceiptLineField>(
   ReceiptLineField.ReceivedDate,
   'ReceivedDate',
   'Received Date',
-  'Date',
+  DateType.name,
   'The date on which the goods or services were received.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -196,10 +208,10 @@ export const ReceiptLineFieldMetaTimingComplaintCode = new FieldMeta<ReceiptLine
   ReceiptLineField.TimingComplaintCode,
   'TimingComplaintCode',
   'Timing Complaint Code',
-  'Code',
+  CodeType.name,
   'A complaint about the timing of delivery, expressed as a code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -208,10 +220,10 @@ export const ReceiptLineFieldMetaTimingComplaint = new FieldMeta<ReceiptLineFiel
   ReceiptLineField.TimingComplaint,
   'TimingComplaint',
   'Timing Complaint',
-  'Text',
+  TextType.name,
   'A complaint about the timing of delivery, expressed as text.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -220,10 +232,10 @@ export const ReceiptLineFieldMetaOrderLineReference = new FieldMeta<ReceiptLineF
   ReceiptLineField.OrderLineReference,
   'OrderLineReference',
   'Order Line Reference',
-  'OrderLineReference',
+  OrderLineReferenceType.name,
   'A reference to the order line associated with this receipt line.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -232,10 +244,10 @@ export const ReceiptLineFieldMetaDespatchLineReference = new FieldMeta<ReceiptLi
   ReceiptLineField.DespatchLineReference,
   'DespatchLineReference',
   'Despatch Line Reference',
-  'LineReference',
+  LineReferenceType.name,
   'A reference to a despatch line associated with this receipt line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -244,10 +256,10 @@ export const ReceiptLineFieldMetaDocumentReference = new FieldMeta<ReceiptLineFi
   ReceiptLineField.DocumentReference,
   'DocumentReference',
   'Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a document associated with this receipt line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -256,10 +268,10 @@ export const ReceiptLineFieldMetaItem = new FieldMeta<ReceiptLineField>(
   ReceiptLineField.Item,
   'Item',
   'Item',
-  'Item',
+  ItemType.name,
   'An item associated with this receipt line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -268,10 +280,10 @@ export const ReceiptLineFieldMetaShipment = new FieldMeta<ReceiptLineField>(
   ReceiptLineField.Shipment,
   'Shipment',
   'Shipment',
-  'Shipment',
+  ShipmentType.name,
   'A shipment associated with this receipt line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -323,3 +335,11 @@ export const ReceiptLineFieldMap = new Map([
   [ReceiptLineField.Item, ReceiptLineFieldMetaItem],
   [ReceiptLineField.Shipment, ReceiptLineFieldMetaShipment]
 ])
+
+export const ReceiptLineType: Type<ReceiptLineField> = {
+  name: 'ReceiptLine',
+  label: 'Receipt Line',
+  module: TypeModule.cac,
+  definition: 'A class to define a line in a Receipt Advice.',
+  fields: ReceiptLineFieldMap,
+}

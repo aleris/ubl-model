@@ -1,4 +1,8 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { BillingReferenceLineType } from './BillingReferenceLineMeta'
+import { DocumentReferenceType } from './DocumentReferenceMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum BillingReferenceField {
   UBLExtensions = 'UBLExtensions',
@@ -15,11 +19,11 @@ export enum BillingReferenceField {
 export const BillingReferenceFieldMetaUBLExtensions = new FieldMeta<BillingReferenceField>(
   BillingReferenceField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -28,10 +32,10 @@ export const BillingReferenceFieldMetaInvoiceDocumentReference = new FieldMeta<B
   BillingReferenceField.InvoiceDocumentReference,
   'InvoiceDocumentReference',
   'Invoice Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to an invoice.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -40,10 +44,10 @@ export const BillingReferenceFieldMetaSelfBilledInvoiceDocumentReference = new F
   BillingReferenceField.SelfBilledInvoiceDocumentReference,
   'SelfBilledInvoiceDocumentReference',
   'Self Billed Invoice Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a self billed invoice.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -52,10 +56,10 @@ export const BillingReferenceFieldMetaCreditNoteDocumentReference = new FieldMet
   BillingReferenceField.CreditNoteDocumentReference,
   'CreditNoteDocumentReference',
   'Credit Note Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a credit note.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -64,10 +68,10 @@ export const BillingReferenceFieldMetaSelfBilledCreditNoteDocumentReference = ne
   BillingReferenceField.SelfBilledCreditNoteDocumentReference,
   'SelfBilledCreditNoteDocumentReference',
   'Self Billed Credit Note Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a self billed credit note.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -76,10 +80,10 @@ export const BillingReferenceFieldMetaDebitNoteDocumentReference = new FieldMeta
   BillingReferenceField.DebitNoteDocumentReference,
   'DebitNoteDocumentReference',
   'Debit Note Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a debit note.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -88,10 +92,10 @@ export const BillingReferenceFieldMetaReminderDocumentReference = new FieldMeta<
   BillingReferenceField.ReminderDocumentReference,
   'ReminderDocumentReference',
   'Reminder Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a billing reminder.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -100,10 +104,10 @@ export const BillingReferenceFieldMetaAdditionalDocumentReference = new FieldMet
   BillingReferenceField.AdditionalDocumentReference,
   'AdditionalDocumentReference',
   'Additional Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to an additional document.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -112,10 +116,10 @@ export const BillingReferenceFieldMetaBillingReferenceLine = new FieldMeta<Billi
   BillingReferenceField.BillingReferenceLine,
   'BillingReferenceLine',
   'Billing Reference Line',
-  'BillingReferenceLine',
+  BillingReferenceLineType.name,
   'A reference to a transaction line in the billing document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -143,3 +147,11 @@ export const BillingReferenceFieldMap = new Map([
   [BillingReferenceField.AdditionalDocumentReference, BillingReferenceFieldMetaAdditionalDocumentReference],
   [BillingReferenceField.BillingReferenceLine, BillingReferenceFieldMetaBillingReferenceLine]
 ])
+
+export const BillingReferenceType: Type<BillingReferenceField> = {
+  name: 'BillingReference',
+  label: 'Billing Reference',
+  module: TypeModule.cac,
+  definition: 'A class to define a reference to a billing document.',
+  fields: BillingReferenceFieldMap,
+}

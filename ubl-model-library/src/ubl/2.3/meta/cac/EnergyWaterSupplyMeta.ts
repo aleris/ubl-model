@@ -1,4 +1,10 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { ConsumptionAverageType } from './ConsumptionAverageMeta'
+import { ConsumptionCorrectionType } from './ConsumptionCorrectionMeta'
+import { ConsumptionReportType } from './ConsumptionReportMeta'
+import { EnergyTaxReportType } from './EnergyTaxReportMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum EnergyWaterSupplyField {
   UBLExtensions = 'UBLExtensions',
@@ -11,11 +17,11 @@ export enum EnergyWaterSupplyField {
 export const EnergyWaterSupplyFieldMetaUBLExtensions = new FieldMeta<EnergyWaterSupplyField>(
   EnergyWaterSupplyField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -24,10 +30,10 @@ export const EnergyWaterSupplyFieldMetaConsumptionReport = new FieldMeta<EnergyW
   EnergyWaterSupplyField.ConsumptionReport,
   'ConsumptionReport',
   'Consumption Report',
-  'ConsumptionReport',
+  ConsumptionReportType.name,
   'An amount of energy or water consumed.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -36,10 +42,10 @@ export const EnergyWaterSupplyFieldMetaEnergyTaxReport = new FieldMeta<EnergyWat
   EnergyWaterSupplyField.EnergyTaxReport,
   'EnergyTaxReport',
   'Energy Tax Report',
-  'EnergyTaxReport',
+  EnergyTaxReportType.name,
   'A tax on the consumption of energy or water.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -48,10 +54,10 @@ export const EnergyWaterSupplyFieldMetaConsumptionAverage = new FieldMeta<Energy
   EnergyWaterSupplyField.ConsumptionAverage,
   'ConsumptionAverage',
   'Consumption Average',
-  'ConsumptionAverage',
+  ConsumptionAverageType.name,
   'A consumption average.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -60,10 +66,10 @@ export const EnergyWaterSupplyFieldMetaEnergyWaterConsumptionCorrection = new Fi
   EnergyWaterSupplyField.EnergyWaterConsumptionCorrection,
   'EnergyWaterConsumptionCorrection',
   'Energy Water Consumption Correction',
-  'ConsumptionCorrection',
+  ConsumptionCorrectionType.name,
   'Describes any corrections or adjustments to the supply of energy or water.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -83,3 +89,11 @@ export const EnergyWaterSupplyFieldMap = new Map([
   [EnergyWaterSupplyField.ConsumptionAverage, EnergyWaterSupplyFieldMetaConsumptionAverage],
   [EnergyWaterSupplyField.EnergyWaterConsumptionCorrection, EnergyWaterSupplyFieldMetaEnergyWaterConsumptionCorrection]
 ])
+
+export const EnergyWaterSupplyType: Type<EnergyWaterSupplyField> = {
+  name: 'EnergyWaterSupply',
+  label: 'Energy Water Supply',
+  module: TypeModule.cac,
+  definition: 'A class to describe the supply (and therefore consumption) of an amount of energy or water.',
+  fields: EnergyWaterSupplyFieldMap,
+}

@@ -1,344 +1,475 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TransportExecutionPlanRequest } from  '../../model/doc/TransportExecutionPlanRequest'
-import { TransportExecutionPlanRequestFieldMeta } from  '../../meta/doc/TransportExecutionPlanRequestMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import ConsignmentDisplay from '../cac/ConsignmentDisplay'
-import { Consignment } from '../../model/cac/Consignment'
-import ContractDisplay from '../cac/ContractDisplay'
-import { Contract } from '../../model/cac/Contract'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import LocationDisplay from '../cac/LocationDisplay'
-import { Location } from '../../model/cac/Location'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PeriodDisplay from '../cac/PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import TransportationServiceDisplay from '../cac/TransportationServiceDisplay'
-import { TransportationService } from '../../model/cac/TransportationService'
-import TransportExecutionTermsDisplay from '../cac/TransportExecutionTermsDisplay'
-import { TransportExecutionTerms } from '../../model/cac/TransportExecutionTerms'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { TransportExecutionPlanRequestField, TransportExecutionPlanRequestFieldMeta, TransportExecutionPlanRequestTypeName } from  '../../meta/doc/TransportExecutionPlanRequestMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { ConsignmentDisplay } from '../cac/ConsignmentDisplay'
+import { ContractDisplay } from '../cac/ContractDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { LocationDisplay } from '../cac/LocationDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { PeriodDisplay } from '../cac/PeriodDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { TransportationServiceDisplay } from '../cac/TransportationServiceDisplay'
+import { TransportExecutionTermsDisplay } from '../cac/TransportExecutionTermsDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: TransportExecutionPlanRequest | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<TransportExecutionPlanRequest, void>
+  transportExecutionPlanRequest: TransportExecutionPlanRequest[] | undefined
+  renderContext: RenderContext
 }
 
-export default function TransportExecutionPlanRequestDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const TransportExecutionPlanRequestSubElementsMap: SubElementsTemplatesMap<TransportExecutionPlanRequestField, TransportExecutionPlanRequest, void> = new Map([
+    [
+      TransportExecutionPlanRequestField.UBLExtensions,
+      { meta: TransportExecutionPlanRequestFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={TransportExecutionPlanRequestField.UBLExtensions}
+          meta={TransportExecutionPlanRequestFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-TransportExecutionPlanRequest">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={TransportExecutionPlanRequestFieldMeta.UBLExtensions}
-          />
+    [
+      TransportExecutionPlanRequestField.UBLVersionID,
+      { meta: TransportExecutionPlanRequestFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TransportExecutionPlanRequestField.UBLVersionID}
+          meta={TransportExecutionPlanRequestFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={TransportExecutionPlanRequestFieldMeta.UBLVersionID}
-          />
+    [
+      TransportExecutionPlanRequestField.CustomizationID,
+      { meta: TransportExecutionPlanRequestFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TransportExecutionPlanRequestField.CustomizationID}
+          meta={TransportExecutionPlanRequestFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={TransportExecutionPlanRequestFieldMeta.CustomizationID}
-          />
+    [
+      TransportExecutionPlanRequestField.ProfileID,
+      { meta: TransportExecutionPlanRequestFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TransportExecutionPlanRequestField.ProfileID}
+          meta={TransportExecutionPlanRequestFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={TransportExecutionPlanRequestFieldMeta.ProfileID}
-          />
+    [
+      TransportExecutionPlanRequestField.ProfileExecutionID,
+      { meta: TransportExecutionPlanRequestFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TransportExecutionPlanRequestField.ProfileExecutionID}
+          meta={TransportExecutionPlanRequestFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={TransportExecutionPlanRequestFieldMeta.ProfileExecutionID}
-          />
+    [
+      TransportExecutionPlanRequestField.ID,
+      { meta: TransportExecutionPlanRequestFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TransportExecutionPlanRequestField.ID}
+          meta={TransportExecutionPlanRequestFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={TransportExecutionPlanRequestFieldMeta.ID}
-          />
+    [
+      TransportExecutionPlanRequestField.VersionID,
+      { meta: TransportExecutionPlanRequestFieldMeta.VersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TransportExecutionPlanRequestField.VersionID}
+          meta={TransportExecutionPlanRequestFieldMeta.VersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.VersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Version"
-            value={value.VersionID?.[0]}
-            meta={TransportExecutionPlanRequestFieldMeta.VersionID}
-          />
+    [
+      TransportExecutionPlanRequestField.CopyIndicator,
+      { meta: TransportExecutionPlanRequestFieldMeta.CopyIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={TransportExecutionPlanRequestField.CopyIndicator}
+          meta={TransportExecutionPlanRequestFieldMeta.CopyIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.CopyIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Copy Indicator"
-            value={value.CopyIndicator?.[0]}
-            meta={TransportExecutionPlanRequestFieldMeta.CopyIndicator}
-          />
+    [
+      TransportExecutionPlanRequestField.UUID,
+      { meta: TransportExecutionPlanRequestFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TransportExecutionPlanRequestField.UUID}
+          meta={TransportExecutionPlanRequestFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={TransportExecutionPlanRequestFieldMeta.UUID}
-          />
+    [
+      TransportExecutionPlanRequestField.IssueDate,
+      { meta: TransportExecutionPlanRequestFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={TransportExecutionPlanRequestField.IssueDate}
+          meta={TransportExecutionPlanRequestFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={TransportExecutionPlanRequestFieldMeta.IssueDate}
-          />
+    [
+      TransportExecutionPlanRequestField.IssueTime,
+      { meta: TransportExecutionPlanRequestFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={TransportExecutionPlanRequestField.IssueTime}
+          meta={TransportExecutionPlanRequestFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={TransportExecutionPlanRequestFieldMeta.IssueTime}
-          />
+    [
+      TransportExecutionPlanRequestField.DocumentStatusCode,
+      { meta: TransportExecutionPlanRequestFieldMeta.DocumentStatusCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TransportExecutionPlanRequestField.DocumentStatusCode}
+          meta={TransportExecutionPlanRequestFieldMeta.DocumentStatusCode}
+          fieldConfig={fieldConfig}
+          code={value?.DocumentStatusCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Document Status Code"
-            value={value.DocumentStatusCode?.[0]}
-            meta={TransportExecutionPlanRequestFieldMeta.DocumentStatusCode}
-          />
+    [
+      TransportExecutionPlanRequestField.DocumentStatusReasonCode,
+      { meta: TransportExecutionPlanRequestFieldMeta.DocumentStatusReasonCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TransportExecutionPlanRequestField.DocumentStatusReasonCode}
+          meta={TransportExecutionPlanRequestFieldMeta.DocumentStatusReasonCode}
+          fieldConfig={fieldConfig}
+          code={value?.DocumentStatusReasonCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Document Status Reason Code"
-            value={value.DocumentStatusReasonCode?.[0]}
-            meta={TransportExecutionPlanRequestFieldMeta.DocumentStatusReasonCode}
-          />
+    [
+      TransportExecutionPlanRequestField.DocumentStatusReasonDescription,
+      { meta: TransportExecutionPlanRequestFieldMeta.DocumentStatusReasonDescription,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TransportExecutionPlanRequestField.DocumentStatusReasonDescription}
+          meta={TransportExecutionPlanRequestFieldMeta.DocumentStatusReasonDescription}
+          fieldConfig={fieldConfig}
+          text={value?.DocumentStatusReasonDescription}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-DocumentStatusReasonDescription"
-            label="Document Status Reason Description"
-            items={value.DocumentStatusReasonDescription}
-            meta={TransportExecutionPlanRequestFieldMeta.DocumentStatusReasonDescription} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Document Status Reason Description"
-                value={itemValue}
-                meta={TransportExecutionPlanRequestFieldMeta.DocumentStatusReasonDescription}
-              />
-            }
-          />
+    [
+      TransportExecutionPlanRequestField.Note,
+      { meta: TransportExecutionPlanRequestFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TransportExecutionPlanRequestField.Note}
+          meta={TransportExecutionPlanRequestFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={TransportExecutionPlanRequestFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={TransportExecutionPlanRequestFieldMeta.Note}
-              />
-            }
-          />
+    [
+      TransportExecutionPlanRequestField.TransportUserRemarks,
+      { meta: TransportExecutionPlanRequestFieldMeta.TransportUserRemarks,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TransportExecutionPlanRequestField.TransportUserRemarks}
+          meta={TransportExecutionPlanRequestFieldMeta.TransportUserRemarks}
+          fieldConfig={fieldConfig}
+          text={value?.TransportUserRemarks}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-TransportUserRemarks"
-            label="Transport User Remarks"
-            items={value.TransportUserRemarks}
-            meta={TransportExecutionPlanRequestFieldMeta.TransportUserRemarks} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Transport User Remarks"
-                value={itemValue}
-                meta={TransportExecutionPlanRequestFieldMeta.TransportUserRemarks}
-              />
-            }
-          />
+    [
+      TransportExecutionPlanRequestField.SenderParty,
+      { meta: TransportExecutionPlanRequestFieldMeta.SenderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={TransportExecutionPlanRequestField.SenderParty}
+          meta={TransportExecutionPlanRequestFieldMeta.SenderParty}
+          fieldConfig={fieldConfig}
+          party={value?.SenderParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Sender Party"
-            value={value.SenderParty?.[0]}
-            meta={TransportExecutionPlanRequestFieldMeta.SenderParty}
-          />
+    [
+      TransportExecutionPlanRequestField.ReceiverParty,
+      { meta: TransportExecutionPlanRequestFieldMeta.ReceiverParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={TransportExecutionPlanRequestField.ReceiverParty}
+          meta={TransportExecutionPlanRequestFieldMeta.ReceiverParty}
+          fieldConfig={fieldConfig}
+          party={value?.ReceiverParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Receiver Party"
-            value={value.ReceiverParty?.[0]}
-            meta={TransportExecutionPlanRequestFieldMeta.ReceiverParty}
-          />
+    [
+      TransportExecutionPlanRequestField.TransportUserParty,
+      { meta: TransportExecutionPlanRequestFieldMeta.TransportUserParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={TransportExecutionPlanRequestField.TransportUserParty}
+          meta={TransportExecutionPlanRequestFieldMeta.TransportUserParty}
+          fieldConfig={fieldConfig}
+          party={value?.TransportUserParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Transport User Party"
-            value={value.TransportUserParty?.[0]}
-            meta={TransportExecutionPlanRequestFieldMeta.TransportUserParty}
-          />
+    [
+      TransportExecutionPlanRequestField.TransportServiceProviderParty,
+      { meta: TransportExecutionPlanRequestFieldMeta.TransportServiceProviderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={TransportExecutionPlanRequestField.TransportServiceProviderParty}
+          meta={TransportExecutionPlanRequestFieldMeta.TransportServiceProviderParty}
+          fieldConfig={fieldConfig}
+          party={value?.TransportServiceProviderParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Transport Service Provider Party"
-            value={value.TransportServiceProviderParty?.[0]}
-            meta={TransportExecutionPlanRequestFieldMeta.TransportServiceProviderParty}
-          />
+    [
+      TransportExecutionPlanRequestField.PayeeParty,
+      { meta: TransportExecutionPlanRequestFieldMeta.PayeeParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={TransportExecutionPlanRequestField.PayeeParty}
+          meta={TransportExecutionPlanRequestFieldMeta.PayeeParty}
+          fieldConfig={fieldConfig}
+          party={value?.PayeeParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Payee Party"
-            value={value.PayeeParty?.[0]}
-            meta={TransportExecutionPlanRequestFieldMeta.PayeeParty}
-          />
+    [
+      TransportExecutionPlanRequestField.Signature,
+      { meta: TransportExecutionPlanRequestFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={TransportExecutionPlanRequestField.Signature}
+          meta={TransportExecutionPlanRequestFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={TransportExecutionPlanRequestFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={TransportExecutionPlanRequestFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      TransportExecutionPlanRequestField.TransportExecutionPlanDocumentReference,
+      { meta: TransportExecutionPlanRequestFieldMeta.TransportExecutionPlanDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={TransportExecutionPlanRequestField.TransportExecutionPlanDocumentReference}
+          meta={TransportExecutionPlanRequestFieldMeta.TransportExecutionPlanDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.TransportExecutionPlanDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DocumentReferenceDisplay
-            label="Transport Execution Plan Document Reference"
-            value={value.TransportExecutionPlanDocumentReference?.[0]}
-            meta={TransportExecutionPlanRequestFieldMeta.TransportExecutionPlanDocumentReference}
-          />
+    [
+      TransportExecutionPlanRequestField.TransportServiceDescriptionDocumentReference,
+      { meta: TransportExecutionPlanRequestFieldMeta.TransportServiceDescriptionDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={TransportExecutionPlanRequestField.TransportServiceDescriptionDocumentReference}
+          meta={TransportExecutionPlanRequestFieldMeta.TransportServiceDescriptionDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.TransportServiceDescriptionDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DocumentReferenceDisplay
-            label="Transport Service Description Document Reference"
-            value={value.TransportServiceDescriptionDocumentReference?.[0]}
-            meta={TransportExecutionPlanRequestFieldMeta.TransportServiceDescriptionDocumentReference}
-          />
+    [
+      TransportExecutionPlanRequestField.AdditionalDocumentReference,
+      { meta: TransportExecutionPlanRequestFieldMeta.AdditionalDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={TransportExecutionPlanRequestField.AdditionalDocumentReference}
+          meta={TransportExecutionPlanRequestFieldMeta.AdditionalDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.AdditionalDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-AdditionalDocumentReference"
-            label="Additional Document Reference"
-            items={value.AdditionalDocumentReference}
-            meta={TransportExecutionPlanRequestFieldMeta.AdditionalDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Additional Document Reference"
-                value={itemValue}
-                meta={TransportExecutionPlanRequestFieldMeta.AdditionalDocumentReference}
-              />
-            }
-          />
+    [
+      TransportExecutionPlanRequestField.TransportContract,
+      { meta: TransportExecutionPlanRequestFieldMeta.TransportContract,
+        template: ({value, renderContext, fieldConfig}) => <ContractDisplay
+          key={TransportExecutionPlanRequestField.TransportContract}
+          meta={TransportExecutionPlanRequestFieldMeta.TransportContract}
+          fieldConfig={fieldConfig}
+          contract={value?.TransportContract}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ContractDisplay
-            label="Transport Contract"
-            value={value.TransportContract?.[0]}
-            meta={TransportExecutionPlanRequestFieldMeta.TransportContract}
-          />
+    [
+      TransportExecutionPlanRequestField.TransportServiceProviderResponseDeadlinePeriod,
+      { meta: TransportExecutionPlanRequestFieldMeta.TransportServiceProviderResponseDeadlinePeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={TransportExecutionPlanRequestField.TransportServiceProviderResponseDeadlinePeriod}
+          meta={TransportExecutionPlanRequestFieldMeta.TransportServiceProviderResponseDeadlinePeriod}
+          fieldConfig={fieldConfig}
+          period={value?.TransportServiceProviderResponseDeadlinePeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Period ubl-TransportServiceProviderResponseDeadlinePeriod"
-            label="Transport Service Provider Response Deadline Period"
-            items={value.TransportServiceProviderResponseDeadlinePeriod}
-            meta={TransportExecutionPlanRequestFieldMeta.TransportServiceProviderResponseDeadlinePeriod} 
-            itemDisplay={ (itemValue: Period, key: string | number) =>
-              <PeriodDisplay
-                key={key}
-                label="Transport Service Provider Response Deadline Period"
-                value={itemValue}
-                meta={TransportExecutionPlanRequestFieldMeta.TransportServiceProviderResponseDeadlinePeriod}
-              />
-            }
-          />
+    [
+      TransportExecutionPlanRequestField.MainTransportationService,
+      { meta: TransportExecutionPlanRequestFieldMeta.MainTransportationService,
+        template: ({value, renderContext, fieldConfig}) => <TransportationServiceDisplay
+          key={TransportExecutionPlanRequestField.MainTransportationService}
+          meta={TransportExecutionPlanRequestFieldMeta.MainTransportationService}
+          fieldConfig={fieldConfig}
+          transportationService={value?.MainTransportationService}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TransportationServiceDisplay
-            label="Main Transportation Service"
-            value={value.MainTransportationService?.[0]}
-            meta={TransportExecutionPlanRequestFieldMeta.MainTransportationService}
-          />
+    [
+      TransportExecutionPlanRequestField.AdditionalTransportationService,
+      { meta: TransportExecutionPlanRequestFieldMeta.AdditionalTransportationService,
+        template: ({value, renderContext, fieldConfig}) => <TransportationServiceDisplay
+          key={TransportExecutionPlanRequestField.AdditionalTransportationService}
+          meta={TransportExecutionPlanRequestFieldMeta.AdditionalTransportationService}
+          fieldConfig={fieldConfig}
+          transportationService={value?.AdditionalTransportationService}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-TransportationService ubl-AdditionalTransportationService"
-            label="Additional Transportation Service"
-            items={value.AdditionalTransportationService}
-            meta={TransportExecutionPlanRequestFieldMeta.AdditionalTransportationService} 
-            itemDisplay={ (itemValue: TransportationService, key: string | number) =>
-              <TransportationServiceDisplay
-                key={key}
-                label="Additional Transportation Service"
-                value={itemValue}
-                meta={TransportExecutionPlanRequestFieldMeta.AdditionalTransportationService}
-              />
-            }
-          />
+    [
+      TransportExecutionPlanRequestField.ServiceStartTimePeriod,
+      { meta: TransportExecutionPlanRequestFieldMeta.ServiceStartTimePeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={TransportExecutionPlanRequestField.ServiceStartTimePeriod}
+          meta={TransportExecutionPlanRequestFieldMeta.ServiceStartTimePeriod}
+          fieldConfig={fieldConfig}
+          period={value?.ServiceStartTimePeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Service Start Time Period"
-            value={value.ServiceStartTimePeriod?.[0]}
-            meta={TransportExecutionPlanRequestFieldMeta.ServiceStartTimePeriod}
-          />
+    [
+      TransportExecutionPlanRequestField.ServiceEndTimePeriod,
+      { meta: TransportExecutionPlanRequestFieldMeta.ServiceEndTimePeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={TransportExecutionPlanRequestField.ServiceEndTimePeriod}
+          meta={TransportExecutionPlanRequestFieldMeta.ServiceEndTimePeriod}
+          fieldConfig={fieldConfig}
+          period={value?.ServiceEndTimePeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Service End Time Period"
-            value={value.ServiceEndTimePeriod?.[0]}
-            meta={TransportExecutionPlanRequestFieldMeta.ServiceEndTimePeriod}
-          />
+    [
+      TransportExecutionPlanRequestField.FromLocation,
+      { meta: TransportExecutionPlanRequestFieldMeta.FromLocation,
+        template: ({value, renderContext, fieldConfig}) => <LocationDisplay
+          key={TransportExecutionPlanRequestField.FromLocation}
+          meta={TransportExecutionPlanRequestFieldMeta.FromLocation}
+          fieldConfig={fieldConfig}
+          location={value?.FromLocation}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <LocationDisplay
-            label="From Location"
-            value={value.FromLocation?.[0]}
-            meta={TransportExecutionPlanRequestFieldMeta.FromLocation}
-          />
+    [
+      TransportExecutionPlanRequestField.ToLocation,
+      { meta: TransportExecutionPlanRequestFieldMeta.ToLocation,
+        template: ({value, renderContext, fieldConfig}) => <LocationDisplay
+          key={TransportExecutionPlanRequestField.ToLocation}
+          meta={TransportExecutionPlanRequestFieldMeta.ToLocation}
+          fieldConfig={fieldConfig}
+          location={value?.ToLocation}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <LocationDisplay
-            label="To Location"
-            value={value.ToLocation?.[0]}
-            meta={TransportExecutionPlanRequestFieldMeta.ToLocation}
-          />
+    [
+      TransportExecutionPlanRequestField.AtLocation,
+      { meta: TransportExecutionPlanRequestFieldMeta.AtLocation,
+        template: ({value, renderContext, fieldConfig}) => <LocationDisplay
+          key={TransportExecutionPlanRequestField.AtLocation}
+          meta={TransportExecutionPlanRequestFieldMeta.AtLocation}
+          fieldConfig={fieldConfig}
+          location={value?.AtLocation}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <LocationDisplay
-            label="At Location"
-            value={value.AtLocation?.[0]}
-            meta={TransportExecutionPlanRequestFieldMeta.AtLocation}
-          />
+    [
+      TransportExecutionPlanRequestField.TransportExecutionTerms,
+      { meta: TransportExecutionPlanRequestFieldMeta.TransportExecutionTerms,
+        template: ({value, renderContext, fieldConfig}) => <TransportExecutionTermsDisplay
+          key={TransportExecutionPlanRequestField.TransportExecutionTerms}
+          meta={TransportExecutionPlanRequestFieldMeta.TransportExecutionTerms}
+          fieldConfig={fieldConfig}
+          transportExecutionTerms={value?.TransportExecutionTerms}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TransportExecutionTermsDisplay
-            label="Transport Execution Terms"
-            value={value.TransportExecutionTerms?.[0]}
-            meta={TransportExecutionPlanRequestFieldMeta.TransportExecutionTerms}
-          />
+    [
+      TransportExecutionPlanRequestField.Consignment,
+      { meta: TransportExecutionPlanRequestFieldMeta.Consignment,
+        template: ({value, renderContext, fieldConfig}) => <ConsignmentDisplay
+          key={TransportExecutionPlanRequestField.Consignment}
+          meta={TransportExecutionPlanRequestFieldMeta.Consignment}
+          fieldConfig={fieldConfig}
+          consignment={value?.Consignment}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Consignment"
-            label="Consignment"
-            items={value.Consignment}
-            meta={TransportExecutionPlanRequestFieldMeta.Consignment} 
-            itemDisplay={ (itemValue: Consignment, key: string | number) =>
-              <ConsignmentDisplay
-                key={key}
-                label="Consignment"
-                value={itemValue}
-                meta={TransportExecutionPlanRequestFieldMeta.Consignment}
-              />
-            }
-          />
-        </div>
-    </div>
+export function TransportExecutionPlanRequestDisplay<TFieldMeta>({ meta, fieldConfig, transportExecutionPlanRequest, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    TransportExecutionPlanRequestTypeName,
+    meta,
+    fieldConfig,
+    transportExecutionPlanRequest,
+    renderContext,
+    TransportExecutionPlanRequestSubElementsMap,
   )
 }

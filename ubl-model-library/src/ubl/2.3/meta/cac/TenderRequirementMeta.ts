@@ -1,4 +1,8 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { DocumentReferenceType } from './DocumentReferenceMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum TenderRequirementField {
   UBLExtensions = 'UBLExtensions',
@@ -10,11 +14,11 @@ export enum TenderRequirementField {
 export const TenderRequirementFieldMetaUBLExtensions = new FieldMeta<TenderRequirementField>(
   TenderRequirementField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -23,10 +27,10 @@ export const TenderRequirementFieldMetaName = new FieldMeta<TenderRequirementFie
   TenderRequirementField.Name,
   'Name',
   'Name',
-  'Text',
+  TextType.name,
   'A name of this tender requirement.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -35,10 +39,10 @@ export const TenderRequirementFieldMetaDescription = new FieldMeta<TenderRequire
   TenderRequirementField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing this tender requirement.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -47,10 +51,10 @@ export const TenderRequirementFieldMetaTemplateDocumentReference = new FieldMeta
   TenderRequirementField.TemplateDocumentReference,
   'TemplateDocumentReference',
   'Template Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to the template for a required document.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -68,3 +72,11 @@ export const TenderRequirementFieldMap = new Map([
   [TenderRequirementField.Description, TenderRequirementFieldMetaDescription],
   [TenderRequirementField.TemplateDocumentReference, TenderRequirementFieldMetaTemplateDocumentReference]
 ])
+
+export const TenderRequirementType: Type<TenderRequirementField> = {
+  name: 'TenderRequirement',
+  label: 'Tender Requirement',
+  module: TypeModule.cac,
+  definition: 'A template for a required document in a tendering process.',
+  fields: TenderRequirementFieldMap,
+}

@@ -1,155 +1,205 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { PaymentMeans } from  '../../model/cac/PaymentMeans'
-import { PaymentMeansFieldMeta } from  '../../meta/cac/PaymentMeansMeta'
-import CardAccountDisplay from './CardAccountDisplay'
-import { CardAccount } from '../../model/cac/CardAccount'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import CreditAccountDisplay from './CreditAccountDisplay'
-import { CreditAccount } from '../../model/cac/CreditAccount'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import FinancialAccountDisplay from './FinancialAccountDisplay'
-import { FinancialAccount } from '../../model/cac/FinancialAccount'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import PaymentMandateDisplay from './PaymentMandateDisplay'
-import { PaymentMandate } from '../../model/cac/PaymentMandate'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TradeFinancingDisplay from './TradeFinancingDisplay'
-import { TradeFinancing } from '../../model/cac/TradeFinancing'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { PaymentMeansField, PaymentMeansFieldMeta, PaymentMeansTypeName } from  '../../meta/cac/PaymentMeansMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CardAccountDisplay } from './CardAccountDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { CreditAccountDisplay } from './CreditAccountDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { FinancialAccountDisplay } from './FinancialAccountDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { PaymentMandateDisplay } from './PaymentMandateDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TradeFinancingDisplay } from './TradeFinancingDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: PaymentMeans | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<PaymentMeans, void>
+  paymentMeans: PaymentMeans[] | undefined
+  renderContext: RenderContext
 }
 
-export default function PaymentMeansDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const PaymentMeansSubElementsMap: SubElementsTemplatesMap<PaymentMeansField, PaymentMeans, void> = new Map([
+    [
+      PaymentMeansField.UBLExtensions,
+      { meta: PaymentMeansFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={PaymentMeansField.UBLExtensions}
+          meta={PaymentMeansFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-PaymentMeans">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={PaymentMeansFieldMeta.UBLExtensions}
-          />
+    [
+      PaymentMeansField.ID,
+      { meta: PaymentMeansFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PaymentMeansField.ID}
+          meta={PaymentMeansFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={PaymentMeansFieldMeta.ID}
-          />
+    [
+      PaymentMeansField.PaymentMeansCode,
+      { meta: PaymentMeansFieldMeta.PaymentMeansCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={PaymentMeansField.PaymentMeansCode}
+          meta={PaymentMeansFieldMeta.PaymentMeansCode}
+          fieldConfig={fieldConfig}
+          code={value?.PaymentMeansCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Payment Means Code"
-            value={value.PaymentMeansCode?.[0]}
-            meta={PaymentMeansFieldMeta.PaymentMeansCode}
-          />
+    [
+      PaymentMeansField.PaymentDueDate,
+      { meta: PaymentMeansFieldMeta.PaymentDueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={PaymentMeansField.PaymentDueDate}
+          meta={PaymentMeansFieldMeta.PaymentDueDate}
+          fieldConfig={fieldConfig}
+          date={value?.PaymentDueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Payment Due Date"
-            value={value.PaymentDueDate?.[0]}
-            meta={PaymentMeansFieldMeta.PaymentDueDate}
-          />
+    [
+      PaymentMeansField.PaymentChannelCode,
+      { meta: PaymentMeansFieldMeta.PaymentChannelCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={PaymentMeansField.PaymentChannelCode}
+          meta={PaymentMeansFieldMeta.PaymentChannelCode}
+          fieldConfig={fieldConfig}
+          code={value?.PaymentChannelCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Payment Channel Code"
-            value={value.PaymentChannelCode?.[0]}
-            meta={PaymentMeansFieldMeta.PaymentChannelCode}
-          />
+    [
+      PaymentMeansField.InstructionID,
+      { meta: PaymentMeansFieldMeta.InstructionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PaymentMeansField.InstructionID}
+          meta={PaymentMeansFieldMeta.InstructionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.InstructionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Instruction Identifier"
-            value={value.InstructionID?.[0]}
-            meta={PaymentMeansFieldMeta.InstructionID}
-          />
+    [
+      PaymentMeansField.InstructionNote,
+      { meta: PaymentMeansFieldMeta.InstructionNote,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={PaymentMeansField.InstructionNote}
+          meta={PaymentMeansFieldMeta.InstructionNote}
+          fieldConfig={fieldConfig}
+          text={value?.InstructionNote}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-InstructionNote"
-            label="Instruction Note"
-            items={value.InstructionNote}
-            meta={PaymentMeansFieldMeta.InstructionNote} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Instruction Note"
-                value={itemValue}
-                meta={PaymentMeansFieldMeta.InstructionNote}
-              />
-            }
-          />
+    [
+      PaymentMeansField.PaymentID,
+      { meta: PaymentMeansFieldMeta.PaymentID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PaymentMeansField.PaymentID}
+          meta={PaymentMeansFieldMeta.PaymentID}
+          fieldConfig={fieldConfig}
+          identifier={value?.PaymentID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Identifier ubl-PaymentID"
-            label="Payment Identifier"
-            items={value.PaymentID}
-            meta={PaymentMeansFieldMeta.PaymentID} 
-            itemDisplay={ (itemValue: Identifier, key: string | number) =>
-              <IdentifierDisplay
-                key={key}
-                label="Payment Identifier"
-                value={itemValue}
-                meta={PaymentMeansFieldMeta.PaymentID}
-              />
-            }
-          />
+    [
+      PaymentMeansField.CardAccount,
+      { meta: PaymentMeansFieldMeta.CardAccount,
+        template: ({value, renderContext, fieldConfig}) => <CardAccountDisplay
+          key={PaymentMeansField.CardAccount}
+          meta={PaymentMeansFieldMeta.CardAccount}
+          fieldConfig={fieldConfig}
+          cardAccount={value?.CardAccount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-CardAccount"
-            label="Card Account"
-            items={value.CardAccount}
-            meta={PaymentMeansFieldMeta.CardAccount} 
-            itemDisplay={ (itemValue: CardAccount, key: string | number) =>
-              <CardAccountDisplay
-                key={key}
-                label="Card Account"
-                value={itemValue}
-                meta={PaymentMeansFieldMeta.CardAccount}
-              />
-            }
-          />
+    [
+      PaymentMeansField.PayerFinancialAccount,
+      { meta: PaymentMeansFieldMeta.PayerFinancialAccount,
+        template: ({value, renderContext, fieldConfig}) => <FinancialAccountDisplay
+          key={PaymentMeansField.PayerFinancialAccount}
+          meta={PaymentMeansFieldMeta.PayerFinancialAccount}
+          fieldConfig={fieldConfig}
+          financialAccount={value?.PayerFinancialAccount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <FinancialAccountDisplay
-            label="Payer Financial Account"
-            value={value.PayerFinancialAccount?.[0]}
-            meta={PaymentMeansFieldMeta.PayerFinancialAccount}
-          />
+    [
+      PaymentMeansField.PayeeFinancialAccount,
+      { meta: PaymentMeansFieldMeta.PayeeFinancialAccount,
+        template: ({value, renderContext, fieldConfig}) => <FinancialAccountDisplay
+          key={PaymentMeansField.PayeeFinancialAccount}
+          meta={PaymentMeansFieldMeta.PayeeFinancialAccount}
+          fieldConfig={fieldConfig}
+          financialAccount={value?.PayeeFinancialAccount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <FinancialAccountDisplay
-            label="Payee Financial Account"
-            value={value.PayeeFinancialAccount?.[0]}
-            meta={PaymentMeansFieldMeta.PayeeFinancialAccount}
-          />
+    [
+      PaymentMeansField.CreditAccount,
+      { meta: PaymentMeansFieldMeta.CreditAccount,
+        template: ({value, renderContext, fieldConfig}) => <CreditAccountDisplay
+          key={PaymentMeansField.CreditAccount}
+          meta={PaymentMeansFieldMeta.CreditAccount}
+          fieldConfig={fieldConfig}
+          creditAccount={value?.CreditAccount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CreditAccountDisplay
-            label="Credit Account"
-            value={value.CreditAccount?.[0]}
-            meta={PaymentMeansFieldMeta.CreditAccount}
-          />
+    [
+      PaymentMeansField.PaymentMandate,
+      { meta: PaymentMeansFieldMeta.PaymentMandate,
+        template: ({value, renderContext, fieldConfig}) => <PaymentMandateDisplay
+          key={PaymentMeansField.PaymentMandate}
+          meta={PaymentMeansFieldMeta.PaymentMandate}
+          fieldConfig={fieldConfig}
+          paymentMandate={value?.PaymentMandate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PaymentMandateDisplay
-            label="Payment Mandate"
-            value={value.PaymentMandate?.[0]}
-            meta={PaymentMeansFieldMeta.PaymentMandate}
-          />
+    [
+      PaymentMeansField.TradeFinancing,
+      { meta: PaymentMeansFieldMeta.TradeFinancing,
+        template: ({value, renderContext, fieldConfig}) => <TradeFinancingDisplay
+          key={PaymentMeansField.TradeFinancing}
+          meta={PaymentMeansFieldMeta.TradeFinancing}
+          fieldConfig={fieldConfig}
+          tradeFinancing={value?.TradeFinancing}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <TradeFinancingDisplay
-            label="Trade Financing"
-            value={value.TradeFinancing?.[0]}
-            meta={PaymentMeansFieldMeta.TradeFinancing}
-          />
-        </div>
-    </div>
+export function PaymentMeansDisplay<TFieldMeta>({ meta, fieldConfig, paymentMeans, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    PaymentMeansTypeName,
+    meta,
+    fieldConfig,
+    paymentMeans,
+    renderContext,
+    PaymentMeansSubElementsMap,
   )
 }

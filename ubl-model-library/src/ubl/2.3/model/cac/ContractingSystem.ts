@@ -2,7 +2,6 @@ import { Code } from '../cbc/Code'
 import { Identifier } from '../cbc/Identifier'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe the contracting system. If the procedure is individual (nonrepetitive), this class should not be
  * used.

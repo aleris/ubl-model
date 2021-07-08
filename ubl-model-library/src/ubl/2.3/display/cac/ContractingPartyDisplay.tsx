@@ -1,90 +1,105 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ContractingParty } from  '../../model/cac/ContractingParty'
-import { ContractingPartyFieldMeta } from  '../../meta/cac/ContractingPartyMeta'
-import ContractingActivityDisplay from './ContractingActivityDisplay'
-import { ContractingActivity } from '../../model/cac/ContractingActivity'
-import ContractingPartyTypeDisplay from './ContractingPartyTypeDisplay'
-import { ContractingPartyType } from '../../model/cac/ContractingPartyType'
-import ContractingRepresentationTypeDisplay from './ContractingRepresentationTypeDisplay'
-import { ContractingRepresentationType } from '../../model/cac/ContractingRepresentationType'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ContractingPartyField, ContractingPartyFieldMeta, ContractingPartyTypeName } from  '../../meta/cac/ContractingPartyMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { ContractingActivityDisplay } from './ContractingActivityDisplay'
+import { ContractingPartyTypeDisplay } from './ContractingPartyTypeDisplay'
+import { ContractingRepresentationTypeDisplay } from './ContractingRepresentationTypeDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ContractingParty | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ContractingParty, void>
+  contractingParty: ContractingParty[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ContractingPartyDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ContractingPartySubElementsMap: SubElementsTemplatesMap<ContractingPartyField, ContractingParty, void> = new Map([
+    [
+      ContractingPartyField.UBLExtensions,
+      { meta: ContractingPartyFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ContractingPartyField.UBLExtensions}
+          meta={ContractingPartyFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ContractingParty">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ContractingPartyFieldMeta.UBLExtensions}
-          />
+    [
+      ContractingPartyField.BuyerProfileURI,
+      { meta: ContractingPartyFieldMeta.BuyerProfileURI,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ContractingPartyField.BuyerProfileURI}
+          meta={ContractingPartyFieldMeta.BuyerProfileURI}
+          fieldConfig={fieldConfig}
+          identifier={value?.BuyerProfileURI}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Buyer Profile URI"
-            value={value.BuyerProfileURI?.[0]}
-            meta={ContractingPartyFieldMeta.BuyerProfileURI}
-          />
+    [
+      ContractingPartyField.ContractingPartyType,
+      { meta: ContractingPartyFieldMeta.ContractingPartyType,
+        template: ({value, renderContext, fieldConfig}) => <ContractingPartyTypeDisplay
+          key={ContractingPartyField.ContractingPartyType}
+          meta={ContractingPartyFieldMeta.ContractingPartyType}
+          fieldConfig={fieldConfig}
+          contractingPartyType={value?.ContractingPartyType}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-ContractingPartyType"
-            label="Contracting Party Type"
-            items={value.ContractingPartyType}
-            meta={ContractingPartyFieldMeta.ContractingPartyType} 
-            itemDisplay={ (itemValue: ContractingPartyType, key: string | number) =>
-              <ContractingPartyTypeDisplay
-                key={key}
-                label="Contracting Party Type"
-                value={itemValue}
-                meta={ContractingPartyFieldMeta.ContractingPartyType}
-              />
-            }
-          />
+    [
+      ContractingPartyField.ContractingActivity,
+      { meta: ContractingPartyFieldMeta.ContractingActivity,
+        template: ({value, renderContext, fieldConfig}) => <ContractingActivityDisplay
+          key={ContractingPartyField.ContractingActivity}
+          meta={ContractingPartyFieldMeta.ContractingActivity}
+          fieldConfig={fieldConfig}
+          contractingActivity={value?.ContractingActivity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-ContractingActivity"
-            label="Contracting Activity"
-            items={value.ContractingActivity}
-            meta={ContractingPartyFieldMeta.ContractingActivity} 
-            itemDisplay={ (itemValue: ContractingActivity, key: string | number) =>
-              <ContractingActivityDisplay
-                key={key}
-                label="Contracting Activity"
-                value={itemValue}
-                meta={ContractingPartyFieldMeta.ContractingActivity}
-              />
-            }
-          />
+    [
+      ContractingPartyField.ContractingRepresentationType,
+      { meta: ContractingPartyFieldMeta.ContractingRepresentationType,
+        template: ({value, renderContext, fieldConfig}) => <ContractingRepresentationTypeDisplay
+          key={ContractingPartyField.ContractingRepresentationType}
+          meta={ContractingPartyFieldMeta.ContractingRepresentationType}
+          fieldConfig={fieldConfig}
+          contractingRepresentationType={value?.ContractingRepresentationType}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ContractingRepresentationTypeDisplay
-            label="Contracting Representation Type"
-            value={value.ContractingRepresentationType?.[0]}
-            meta={ContractingPartyFieldMeta.ContractingRepresentationType}
-          />
+    [
+      ContractingPartyField.Party,
+      { meta: ContractingPartyFieldMeta.Party,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ContractingPartyField.Party}
+          meta={ContractingPartyFieldMeta.Party}
+          fieldConfig={fieldConfig}
+          party={value?.Party}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <PartyDisplay
-            label="Party"
-            value={value.Party?.[0]}
-            meta={ContractingPartyFieldMeta.Party}
-          />
-        </div>
-    </div>
+export function ContractingPartyDisplay<TFieldMeta>({ meta, fieldConfig, contractingParty, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ContractingPartyTypeName,
+    meta,
+    fieldConfig,
+    contractingParty,
+    renderContext,
+    ContractingPartySubElementsMap,
   )
 }

@@ -1,94 +1,161 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { MonetaryTotal } from  '../../model/cac/MonetaryTotal'
-import { MonetaryTotalFieldMeta } from  '../../meta/cac/MonetaryTotalMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { MonetaryTotalField, MonetaryTotalFieldMeta, MonetaryTotalTypeName } from  '../../meta/cac/MonetaryTotalMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: MonetaryTotal | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<MonetaryTotal, void>
+  monetaryTotal: MonetaryTotal[] | undefined
+  renderContext: RenderContext
 }
 
-export default function MonetaryTotalDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const MonetaryTotalSubElementsMap: SubElementsTemplatesMap<MonetaryTotalField, MonetaryTotal, void> = new Map([
+    [
+      MonetaryTotalField.UBLExtensions,
+      { meta: MonetaryTotalFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={MonetaryTotalField.UBLExtensions}
+          meta={MonetaryTotalFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-MonetaryTotal">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={MonetaryTotalFieldMeta.UBLExtensions}
-          />
+    [
+      MonetaryTotalField.LineExtensionAmount,
+      { meta: MonetaryTotalFieldMeta.LineExtensionAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={MonetaryTotalField.LineExtensionAmount}
+          meta={MonetaryTotalFieldMeta.LineExtensionAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.LineExtensionAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Line Extension Amount"
-            value={value.LineExtensionAmount?.[0]}
-            meta={MonetaryTotalFieldMeta.LineExtensionAmount}
-          />
+    [
+      MonetaryTotalField.TaxExclusiveAmount,
+      { meta: MonetaryTotalFieldMeta.TaxExclusiveAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={MonetaryTotalField.TaxExclusiveAmount}
+          meta={MonetaryTotalFieldMeta.TaxExclusiveAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.TaxExclusiveAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Tax Exclusive Amount"
-            value={value.TaxExclusiveAmount?.[0]}
-            meta={MonetaryTotalFieldMeta.TaxExclusiveAmount}
-          />
+    [
+      MonetaryTotalField.TaxInclusiveAmount,
+      { meta: MonetaryTotalFieldMeta.TaxInclusiveAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={MonetaryTotalField.TaxInclusiveAmount}
+          meta={MonetaryTotalFieldMeta.TaxInclusiveAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.TaxInclusiveAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Tax Inclusive Amount"
-            value={value.TaxInclusiveAmount?.[0]}
-            meta={MonetaryTotalFieldMeta.TaxInclusiveAmount}
-          />
+    [
+      MonetaryTotalField.AllowanceTotalAmount,
+      { meta: MonetaryTotalFieldMeta.AllowanceTotalAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={MonetaryTotalField.AllowanceTotalAmount}
+          meta={MonetaryTotalFieldMeta.AllowanceTotalAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.AllowanceTotalAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Allowance Total Amount"
-            value={value.AllowanceTotalAmount?.[0]}
-            meta={MonetaryTotalFieldMeta.AllowanceTotalAmount}
-          />
+    [
+      MonetaryTotalField.ChargeTotalAmount,
+      { meta: MonetaryTotalFieldMeta.ChargeTotalAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={MonetaryTotalField.ChargeTotalAmount}
+          meta={MonetaryTotalFieldMeta.ChargeTotalAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.ChargeTotalAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Charge Total Amount"
-            value={value.ChargeTotalAmount?.[0]}
-            meta={MonetaryTotalFieldMeta.ChargeTotalAmount}
-          />
+    [
+      MonetaryTotalField.WithholdingTaxTotalAmount,
+      { meta: MonetaryTotalFieldMeta.WithholdingTaxTotalAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={MonetaryTotalField.WithholdingTaxTotalAmount}
+          meta={MonetaryTotalFieldMeta.WithholdingTaxTotalAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.WithholdingTaxTotalAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Withholding Tax Total Amount"
-            value={value.WithholdingTaxTotalAmount?.[0]}
-            meta={MonetaryTotalFieldMeta.WithholdingTaxTotalAmount}
-          />
+    [
+      MonetaryTotalField.PrepaidAmount,
+      { meta: MonetaryTotalFieldMeta.PrepaidAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={MonetaryTotalField.PrepaidAmount}
+          meta={MonetaryTotalFieldMeta.PrepaidAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.PrepaidAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Prepaid Amount"
-            value={value.PrepaidAmount?.[0]}
-            meta={MonetaryTotalFieldMeta.PrepaidAmount}
-          />
+    [
+      MonetaryTotalField.PayableRoundingAmount,
+      { meta: MonetaryTotalFieldMeta.PayableRoundingAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={MonetaryTotalField.PayableRoundingAmount}
+          meta={MonetaryTotalFieldMeta.PayableRoundingAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.PayableRoundingAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Payable Rounding Amount"
-            value={value.PayableRoundingAmount?.[0]}
-            meta={MonetaryTotalFieldMeta.PayableRoundingAmount}
-          />
+    [
+      MonetaryTotalField.PayableAmount,
+      { meta: MonetaryTotalFieldMeta.PayableAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={MonetaryTotalField.PayableAmount}
+          meta={MonetaryTotalFieldMeta.PayableAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.PayableAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Payable Amount"
-            value={value.PayableAmount?.[0]}
-            meta={MonetaryTotalFieldMeta.PayableAmount}
-          />
+    [
+      MonetaryTotalField.PayableAlternativeAmount,
+      { meta: MonetaryTotalFieldMeta.PayableAlternativeAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={MonetaryTotalField.PayableAlternativeAmount}
+          meta={MonetaryTotalFieldMeta.PayableAlternativeAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.PayableAlternativeAmount}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <AmountDisplay
-            label="Payable Alternative Amount"
-            value={value.PayableAlternativeAmount?.[0]}
-            meta={MonetaryTotalFieldMeta.PayableAlternativeAmount}
-          />
-        </div>
-    </div>
+export function MonetaryTotalDisplay<TFieldMeta>({ meta, fieldConfig, monetaryTotal, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    MonetaryTotalTypeName,
+    meta,
+    fieldConfig,
+    monetaryTotal,
+    renderContext,
+    MonetaryTotalSubElementsMap,
   )
 }

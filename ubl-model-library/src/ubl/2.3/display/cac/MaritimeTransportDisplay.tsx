@@ -1,99 +1,141 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { MaritimeTransport } from  '../../model/cac/MaritimeTransport'
-import { MaritimeTransportFieldMeta } from  '../../meta/cac/MaritimeTransportMeta'
-import DocumentReferenceDisplay from './DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import LocationDisplay from './LocationDisplay'
-import { Location } from '../../model/cac/Location'
-import MeasureDisplay from '../cbc/MeasureDisplay'
-import { Measure } from '../../model/cbc/Measure'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { MaritimeTransportField, MaritimeTransportFieldMeta, MaritimeTransportTypeName } from  '../../meta/cac/MaritimeTransportMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { DocumentReferenceDisplay } from './DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { LocationDisplay } from './LocationDisplay'
+import { MeasureDisplay } from '../cbc/MeasureDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: MaritimeTransport | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<MaritimeTransport, void>
+  maritimeTransport: MaritimeTransport[] | undefined
+  renderContext: RenderContext
 }
 
-export default function MaritimeTransportDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const MaritimeTransportSubElementsMap: SubElementsTemplatesMap<MaritimeTransportField, MaritimeTransport, void> = new Map([
+    [
+      MaritimeTransportField.UBLExtensions,
+      { meta: MaritimeTransportFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={MaritimeTransportField.UBLExtensions}
+          meta={MaritimeTransportFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-MaritimeTransport">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={MaritimeTransportFieldMeta.UBLExtensions}
-          />
+    [
+      MaritimeTransportField.VesselID,
+      { meta: MaritimeTransportFieldMeta.VesselID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={MaritimeTransportField.VesselID}
+          meta={MaritimeTransportFieldMeta.VesselID}
+          fieldConfig={fieldConfig}
+          identifier={value?.VesselID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Vessel Identifier"
-            value={value.VesselID?.[0]}
-            meta={MaritimeTransportFieldMeta.VesselID}
-          />
+    [
+      MaritimeTransportField.VesselName,
+      { meta: MaritimeTransportFieldMeta.VesselName,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={MaritimeTransportField.VesselName}
+          meta={MaritimeTransportFieldMeta.VesselName}
+          fieldConfig={fieldConfig}
+          text={value?.VesselName}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Vessel Name"
-            value={value.VesselName?.[0]}
-            meta={MaritimeTransportFieldMeta.VesselName}
-          />
+    [
+      MaritimeTransportField.RadioCallSignID,
+      { meta: MaritimeTransportFieldMeta.RadioCallSignID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={MaritimeTransportField.RadioCallSignID}
+          meta={MaritimeTransportFieldMeta.RadioCallSignID}
+          fieldConfig={fieldConfig}
+          identifier={value?.RadioCallSignID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Radio Call Sign Identifier"
-            value={value.RadioCallSignID?.[0]}
-            meta={MaritimeTransportFieldMeta.RadioCallSignID}
-          />
+    [
+      MaritimeTransportField.ShipsRequirements,
+      { meta: MaritimeTransportFieldMeta.ShipsRequirements,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={MaritimeTransportField.ShipsRequirements}
+          meta={MaritimeTransportFieldMeta.ShipsRequirements}
+          fieldConfig={fieldConfig}
+          text={value?.ShipsRequirements}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-ShipsRequirements"
-            label="Ships Requirements"
-            items={value.ShipsRequirements}
-            meta={MaritimeTransportFieldMeta.ShipsRequirements} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Ships Requirements"
-                value={itemValue}
-                meta={MaritimeTransportFieldMeta.ShipsRequirements}
-              />
-            }
-          />
+    [
+      MaritimeTransportField.GrossTonnageMeasure,
+      { meta: MaritimeTransportFieldMeta.GrossTonnageMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={MaritimeTransportField.GrossTonnageMeasure}
+          meta={MaritimeTransportFieldMeta.GrossTonnageMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.GrossTonnageMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Gross Tonnage"
-            value={value.GrossTonnageMeasure?.[0]}
-            meta={MaritimeTransportFieldMeta.GrossTonnageMeasure}
-          />
+    [
+      MaritimeTransportField.NetTonnageMeasure,
+      { meta: MaritimeTransportFieldMeta.NetTonnageMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={MaritimeTransportField.NetTonnageMeasure}
+          meta={MaritimeTransportFieldMeta.NetTonnageMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.NetTonnageMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Net Tonnage"
-            value={value.NetTonnageMeasure?.[0]}
-            meta={MaritimeTransportFieldMeta.NetTonnageMeasure}
-          />
+    [
+      MaritimeTransportField.RegistryCertificateDocumentReference,
+      { meta: MaritimeTransportFieldMeta.RegistryCertificateDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={MaritimeTransportField.RegistryCertificateDocumentReference}
+          meta={MaritimeTransportFieldMeta.RegistryCertificateDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.RegistryCertificateDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DocumentReferenceDisplay
-            label="Registry Certificate Document Reference"
-            value={value.RegistryCertificateDocumentReference?.[0]}
-            meta={MaritimeTransportFieldMeta.RegistryCertificateDocumentReference}
-          />
+    [
+      MaritimeTransportField.RegistryPortLocation,
+      { meta: MaritimeTransportFieldMeta.RegistryPortLocation,
+        template: ({value, renderContext, fieldConfig}) => <LocationDisplay
+          key={MaritimeTransportField.RegistryPortLocation}
+          meta={MaritimeTransportFieldMeta.RegistryPortLocation}
+          fieldConfig={fieldConfig}
+          location={value?.RegistryPortLocation}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <LocationDisplay
-            label="Registry Port Location"
-            value={value.RegistryPortLocation?.[0]}
-            meta={MaritimeTransportFieldMeta.RegistryPortLocation}
-          />
-        </div>
-    </div>
+export function MaritimeTransportDisplay<TFieldMeta>({ meta, fieldConfig, maritimeTransport, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    MaritimeTransportTypeName,
+    meta,
+    fieldConfig,
+    maritimeTransport,
+    renderContext,
+    MaritimeTransportSubElementsMap,
   )
 }

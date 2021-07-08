@@ -13,7 +13,6 @@ import { Time } from '../cbc/Time'
 import { TransportEvent } from './TransportEvent'
 import { TransportMeans } from './TransportMeans'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe one stage of movement in a transport of goods.
  */

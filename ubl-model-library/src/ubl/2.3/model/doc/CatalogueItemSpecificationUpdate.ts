@@ -14,7 +14,6 @@ import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { TradingTerms } from '../cac/TradingTerms'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A document used to update information (e.g., technical descriptions and properties) about Items in an existing
  * Catalogue.

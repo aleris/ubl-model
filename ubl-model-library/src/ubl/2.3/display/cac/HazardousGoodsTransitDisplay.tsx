@@ -1,78 +1,126 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { HazardousGoodsTransit } from  '../../model/cac/HazardousGoodsTransit'
-import { HazardousGoodsTransitFieldMeta } from  '../../meta/cac/HazardousGoodsTransitMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import TemperatureDisplay from './TemperatureDisplay'
-import { Temperature } from '../../model/cac/Temperature'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { HazardousGoodsTransitField, HazardousGoodsTransitFieldMeta, HazardousGoodsTransitTypeName } from  '../../meta/cac/HazardousGoodsTransitMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { TemperatureDisplay } from './TemperatureDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: HazardousGoodsTransit | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<HazardousGoodsTransit, void>
+  hazardousGoodsTransit: HazardousGoodsTransit[] | undefined
+  renderContext: RenderContext
 }
 
-export default function HazardousGoodsTransitDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const HazardousGoodsTransitSubElementsMap: SubElementsTemplatesMap<HazardousGoodsTransitField, HazardousGoodsTransit, void> = new Map([
+    [
+      HazardousGoodsTransitField.UBLExtensions,
+      { meta: HazardousGoodsTransitFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={HazardousGoodsTransitField.UBLExtensions}
+          meta={HazardousGoodsTransitFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-HazardousGoodsTransit">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={HazardousGoodsTransitFieldMeta.UBLExtensions}
-          />
+    [
+      HazardousGoodsTransitField.TransportEmergencyCardCode,
+      { meta: HazardousGoodsTransitFieldMeta.TransportEmergencyCardCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={HazardousGoodsTransitField.TransportEmergencyCardCode}
+          meta={HazardousGoodsTransitFieldMeta.TransportEmergencyCardCode}
+          fieldConfig={fieldConfig}
+          code={value?.TransportEmergencyCardCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Transport Emergency Card Code"
-            value={value.TransportEmergencyCardCode?.[0]}
-            meta={HazardousGoodsTransitFieldMeta.TransportEmergencyCardCode}
-          />
+    [
+      HazardousGoodsTransitField.PackingCriteriaCode,
+      { meta: HazardousGoodsTransitFieldMeta.PackingCriteriaCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={HazardousGoodsTransitField.PackingCriteriaCode}
+          meta={HazardousGoodsTransitFieldMeta.PackingCriteriaCode}
+          fieldConfig={fieldConfig}
+          code={value?.PackingCriteriaCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Packing Criteria Code"
-            value={value.PackingCriteriaCode?.[0]}
-            meta={HazardousGoodsTransitFieldMeta.PackingCriteriaCode}
-          />
+    [
+      HazardousGoodsTransitField.HazardousRegulationCode,
+      { meta: HazardousGoodsTransitFieldMeta.HazardousRegulationCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={HazardousGoodsTransitField.HazardousRegulationCode}
+          meta={HazardousGoodsTransitFieldMeta.HazardousRegulationCode}
+          fieldConfig={fieldConfig}
+          code={value?.HazardousRegulationCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Hazardous Regulation Code"
-            value={value.HazardousRegulationCode?.[0]}
-            meta={HazardousGoodsTransitFieldMeta.HazardousRegulationCode}
-          />
+    [
+      HazardousGoodsTransitField.InhalationToxicityZoneCode,
+      { meta: HazardousGoodsTransitFieldMeta.InhalationToxicityZoneCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={HazardousGoodsTransitField.InhalationToxicityZoneCode}
+          meta={HazardousGoodsTransitFieldMeta.InhalationToxicityZoneCode}
+          fieldConfig={fieldConfig}
+          code={value?.InhalationToxicityZoneCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Inhalation Toxicity Zone Code"
-            value={value.InhalationToxicityZoneCode?.[0]}
-            meta={HazardousGoodsTransitFieldMeta.InhalationToxicityZoneCode}
-          />
+    [
+      HazardousGoodsTransitField.TransportAuthorizationCode,
+      { meta: HazardousGoodsTransitFieldMeta.TransportAuthorizationCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={HazardousGoodsTransitField.TransportAuthorizationCode}
+          meta={HazardousGoodsTransitFieldMeta.TransportAuthorizationCode}
+          fieldConfig={fieldConfig}
+          code={value?.TransportAuthorizationCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Transport Authorization Code"
-            value={value.TransportAuthorizationCode?.[0]}
-            meta={HazardousGoodsTransitFieldMeta.TransportAuthorizationCode}
-          />
+    [
+      HazardousGoodsTransitField.MaximumTemperature,
+      { meta: HazardousGoodsTransitFieldMeta.MaximumTemperature,
+        template: ({value, renderContext, fieldConfig}) => <TemperatureDisplay
+          key={HazardousGoodsTransitField.MaximumTemperature}
+          meta={HazardousGoodsTransitFieldMeta.MaximumTemperature}
+          fieldConfig={fieldConfig}
+          temperature={value?.MaximumTemperature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TemperatureDisplay
-            label="Maximum Temperature"
-            value={value.MaximumTemperature?.[0]}
-            meta={HazardousGoodsTransitFieldMeta.MaximumTemperature}
-          />
+    [
+      HazardousGoodsTransitField.MinimumTemperature,
+      { meta: HazardousGoodsTransitFieldMeta.MinimumTemperature,
+        template: ({value, renderContext, fieldConfig}) => <TemperatureDisplay
+          key={HazardousGoodsTransitField.MinimumTemperature}
+          meta={HazardousGoodsTransitFieldMeta.MinimumTemperature}
+          fieldConfig={fieldConfig}
+          temperature={value?.MinimumTemperature}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <TemperatureDisplay
-            label="Minimum Temperature"
-            value={value.MinimumTemperature?.[0]}
-            meta={HazardousGoodsTransitFieldMeta.MinimumTemperature}
-          />
-        </div>
-    </div>
+export function HazardousGoodsTransitDisplay<TFieldMeta>({ meta, fieldConfig, hazardousGoodsTransit, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    HazardousGoodsTransitTypeName,
+    meta,
+    fieldConfig,
+    hazardousGoodsTransit,
+    renderContext,
+    HazardousGoodsTransitSubElementsMap,
   )
 }

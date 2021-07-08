@@ -3,7 +3,6 @@ import { Location } from './Location'
 import { Numeric } from '../cbc/Numeric'
 import { RetailPlannedImpact } from './RetailPlannedImpact'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to define a line item describing the expected impacts associated with a retail event involving a specific
  * product at a specific location.

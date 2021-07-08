@@ -20,7 +20,6 @@ import { TransportationService } from './TransportationService'
 import { TransportEvent } from './TransportEvent'
 import { TransportHandlingUnit } from './TransportHandlingUnit'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe an identifiable collection of one or more goods items to be transported between the consignor and
  * the consignee. This information may be defined within a transport contract. A consignment may comprise more than one

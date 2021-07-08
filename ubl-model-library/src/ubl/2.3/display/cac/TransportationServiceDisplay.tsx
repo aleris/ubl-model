@@ -1,299 +1,331 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TransportationService } from  '../../model/cac/TransportationService'
-import { TransportationServiceFieldMeta } from  '../../meta/cac/TransportationServiceMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import CommodityClassificationDisplay from './CommodityClassificationDisplay'
-import { CommodityClassification } from '../../model/cac/CommodityClassification'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DimensionDisplay from './DimensionDisplay'
-import { Dimension } from '../../model/cac/Dimension'
-import EnvironmentalEmissionDisplay from './EnvironmentalEmissionDisplay'
-import { EnvironmentalEmission } from '../../model/cac/EnvironmentalEmission'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import ServiceFrequencyDisplay from './ServiceFrequencyDisplay'
-import { ServiceFrequency } from '../../model/cac/ServiceFrequency'
-import ShipmentStageDisplay from './ShipmentStageDisplay'
-import { ShipmentStage } from '../../model/cac/ShipmentStage'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import TransportEquipmentDisplay from './TransportEquipmentDisplay'
-import { TransportEquipment } from '../../model/cac/TransportEquipment'
-import TransportEventDisplay from './TransportEventDisplay'
-import { TransportEvent } from '../../model/cac/TransportEvent'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { TransportationServiceField, TransportationServiceFieldMeta, TransportationServiceTypeName } from  '../../meta/cac/TransportationServiceMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { CommodityClassificationDisplay } from './CommodityClassificationDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DimensionDisplay } from './DimensionDisplay'
+import { EnvironmentalEmissionDisplay } from './EnvironmentalEmissionDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { ServiceFrequencyDisplay } from './ServiceFrequencyDisplay'
+import { ShipmentStageDisplay } from './ShipmentStageDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { TransportEquipmentDisplay } from './TransportEquipmentDisplay'
+import { TransportEventDisplay } from './TransportEventDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: TransportationService | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<TransportationService, void>
+  transportationService: TransportationService[] | undefined
+  renderContext: RenderContext
 }
 
-export default function TransportationServiceDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const TransportationServiceSubElementsMap: SubElementsTemplatesMap<TransportationServiceField, TransportationService, void> = new Map([
+    [
+      TransportationServiceField.UBLExtensions,
+      { meta: TransportationServiceFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={TransportationServiceField.UBLExtensions}
+          meta={TransportationServiceFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-TransportationService">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={TransportationServiceFieldMeta.UBLExtensions}
-          />
+    [
+      TransportationServiceField.TransportServiceCode,
+      { meta: TransportationServiceFieldMeta.TransportServiceCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TransportationServiceField.TransportServiceCode}
+          meta={TransportationServiceFieldMeta.TransportServiceCode}
+          fieldConfig={fieldConfig}
+          code={value?.TransportServiceCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Transport Service Code"
-            value={value.TransportServiceCode?.[0]}
-            meta={TransportationServiceFieldMeta.TransportServiceCode}
-          />
+    [
+      TransportationServiceField.TariffClassCode,
+      { meta: TransportationServiceFieldMeta.TariffClassCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TransportationServiceField.TariffClassCode}
+          meta={TransportationServiceFieldMeta.TariffClassCode}
+          fieldConfig={fieldConfig}
+          code={value?.TariffClassCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Tariff Class Code"
-            value={value.TariffClassCode?.[0]}
-            meta={TransportationServiceFieldMeta.TariffClassCode}
-          />
+    [
+      TransportationServiceField.Priority,
+      { meta: TransportationServiceFieldMeta.Priority,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TransportationServiceField.Priority}
+          meta={TransportationServiceFieldMeta.Priority}
+          fieldConfig={fieldConfig}
+          text={value?.Priority}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Priority"
-            value={value.Priority?.[0]}
-            meta={TransportationServiceFieldMeta.Priority}
-          />
+    [
+      TransportationServiceField.FreightRateClassCode,
+      { meta: TransportationServiceFieldMeta.FreightRateClassCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TransportationServiceField.FreightRateClassCode}
+          meta={TransportationServiceFieldMeta.FreightRateClassCode}
+          fieldConfig={fieldConfig}
+          code={value?.FreightRateClassCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Freight Rate Class Code"
-            value={value.FreightRateClassCode?.[0]}
-            meta={TransportationServiceFieldMeta.FreightRateClassCode}
-          />
+    [
+      TransportationServiceField.TransportationServiceDescription,
+      { meta: TransportationServiceFieldMeta.TransportationServiceDescription,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TransportationServiceField.TransportationServiceDescription}
+          meta={TransportationServiceFieldMeta.TransportationServiceDescription}
+          fieldConfig={fieldConfig}
+          text={value?.TransportationServiceDescription}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-TransportationServiceDescription"
-            label="Transportation Service Description"
-            items={value.TransportationServiceDescription}
-            meta={TransportationServiceFieldMeta.TransportationServiceDescription} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Transportation Service Description"
-                value={itemValue}
-                meta={TransportationServiceFieldMeta.TransportationServiceDescription}
-              />
-            }
-          />
+    [
+      TransportationServiceField.TransportationServiceDetailsURI,
+      { meta: TransportationServiceFieldMeta.TransportationServiceDetailsURI,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TransportationServiceField.TransportationServiceDetailsURI}
+          meta={TransportationServiceFieldMeta.TransportationServiceDetailsURI}
+          fieldConfig={fieldConfig}
+          identifier={value?.TransportationServiceDetailsURI}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Transportation Service Details URI"
-            value={value.TransportationServiceDetailsURI?.[0]}
-            meta={TransportationServiceFieldMeta.TransportationServiceDetailsURI}
-          />
+    [
+      TransportationServiceField.NominationDate,
+      { meta: TransportationServiceFieldMeta.NominationDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={TransportationServiceField.NominationDate}
+          meta={TransportationServiceFieldMeta.NominationDate}
+          fieldConfig={fieldConfig}
+          date={value?.NominationDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Nomination Date"
-            value={value.NominationDate?.[0]}
-            meta={TransportationServiceFieldMeta.NominationDate}
-          />
+    [
+      TransportationServiceField.NominationTime,
+      { meta: TransportationServiceFieldMeta.NominationTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={TransportationServiceField.NominationTime}
+          meta={TransportationServiceFieldMeta.NominationTime}
+          fieldConfig={fieldConfig}
+          time={value?.NominationTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Nomination Time"
-            value={value.NominationTime?.[0]}
-            meta={TransportationServiceFieldMeta.NominationTime}
-          />
+    [
+      TransportationServiceField.Name,
+      { meta: TransportationServiceFieldMeta.Name,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TransportationServiceField.Name}
+          meta={TransportationServiceFieldMeta.Name}
+          fieldConfig={fieldConfig}
+          text={value?.Name}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Name"
-            value={value.Name?.[0]}
-            meta={TransportationServiceFieldMeta.Name}
-          />
+    [
+      TransportationServiceField.SequenceNumeric,
+      { meta: TransportationServiceFieldMeta.SequenceNumeric,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={TransportationServiceField.SequenceNumeric}
+          meta={TransportationServiceFieldMeta.SequenceNumeric}
+          fieldConfig={fieldConfig}
+          numeric={value?.SequenceNumeric}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Sequence"
-            value={value.SequenceNumeric?.[0]}
-            meta={TransportationServiceFieldMeta.SequenceNumeric}
-          />
+    [
+      TransportationServiceField.TransportEquipment,
+      { meta: TransportationServiceFieldMeta.TransportEquipment,
+        template: ({value, renderContext, fieldConfig}) => <TransportEquipmentDisplay
+          key={TransportationServiceField.TransportEquipment}
+          meta={TransportationServiceFieldMeta.TransportEquipment}
+          fieldConfig={fieldConfig}
+          transportEquipment={value?.TransportEquipment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TransportEquipment"
-            label="Transport Equipment"
-            items={value.TransportEquipment}
-            meta={TransportationServiceFieldMeta.TransportEquipment} 
-            itemDisplay={ (itemValue: TransportEquipment, key: string | number) =>
-              <TransportEquipmentDisplay
-                key={key}
-                label="Transport Equipment"
-                value={itemValue}
-                meta={TransportationServiceFieldMeta.TransportEquipment}
-              />
-            }
-          />
+    [
+      TransportationServiceField.SupportedTransportEquipment,
+      { meta: TransportationServiceFieldMeta.SupportedTransportEquipment,
+        template: ({value, renderContext, fieldConfig}) => <TransportEquipmentDisplay
+          key={TransportationServiceField.SupportedTransportEquipment}
+          meta={TransportationServiceFieldMeta.SupportedTransportEquipment}
+          fieldConfig={fieldConfig}
+          transportEquipment={value?.SupportedTransportEquipment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TransportEquipment ubl-SupportedTransportEquipment"
-            label="Supported Transport Equipment"
-            items={value.SupportedTransportEquipment}
-            meta={TransportationServiceFieldMeta.SupportedTransportEquipment} 
-            itemDisplay={ (itemValue: TransportEquipment, key: string | number) =>
-              <TransportEquipmentDisplay
-                key={key}
-                label="Supported Transport Equipment"
-                value={itemValue}
-                meta={TransportationServiceFieldMeta.SupportedTransportEquipment}
-              />
-            }
-          />
+    [
+      TransportationServiceField.UnsupportedTransportEquipment,
+      { meta: TransportationServiceFieldMeta.UnsupportedTransportEquipment,
+        template: ({value, renderContext, fieldConfig}) => <TransportEquipmentDisplay
+          key={TransportationServiceField.UnsupportedTransportEquipment}
+          meta={TransportationServiceFieldMeta.UnsupportedTransportEquipment}
+          fieldConfig={fieldConfig}
+          transportEquipment={value?.UnsupportedTransportEquipment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TransportEquipment ubl-UnsupportedTransportEquipment"
-            label="Unsupported Transport Equipment"
-            items={value.UnsupportedTransportEquipment}
-            meta={TransportationServiceFieldMeta.UnsupportedTransportEquipment} 
-            itemDisplay={ (itemValue: TransportEquipment, key: string | number) =>
-              <TransportEquipmentDisplay
-                key={key}
-                label="Unsupported Transport Equipment"
-                value={itemValue}
-                meta={TransportationServiceFieldMeta.UnsupportedTransportEquipment}
-              />
-            }
-          />
+    [
+      TransportationServiceField.CommodityClassification,
+      { meta: TransportationServiceFieldMeta.CommodityClassification,
+        template: ({value, renderContext, fieldConfig}) => <CommodityClassificationDisplay
+          key={TransportationServiceField.CommodityClassification}
+          meta={TransportationServiceFieldMeta.CommodityClassification}
+          fieldConfig={fieldConfig}
+          commodityClassification={value?.CommodityClassification}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-CommodityClassification"
-            label="Commodity Classification"
-            items={value.CommodityClassification}
-            meta={TransportationServiceFieldMeta.CommodityClassification} 
-            itemDisplay={ (itemValue: CommodityClassification, key: string | number) =>
-              <CommodityClassificationDisplay
-                key={key}
-                label="Commodity Classification"
-                value={itemValue}
-                meta={TransportationServiceFieldMeta.CommodityClassification}
-              />
-            }
-          />
+    [
+      TransportationServiceField.SupportedCommodityClassification,
+      { meta: TransportationServiceFieldMeta.SupportedCommodityClassification,
+        template: ({value, renderContext, fieldConfig}) => <CommodityClassificationDisplay
+          key={TransportationServiceField.SupportedCommodityClassification}
+          meta={TransportationServiceFieldMeta.SupportedCommodityClassification}
+          fieldConfig={fieldConfig}
+          commodityClassification={value?.SupportedCommodityClassification}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-CommodityClassification ubl-SupportedCommodityClassification"
-            label="Supported Commodity Classification"
-            items={value.SupportedCommodityClassification}
-            meta={TransportationServiceFieldMeta.SupportedCommodityClassification} 
-            itemDisplay={ (itemValue: CommodityClassification, key: string | number) =>
-              <CommodityClassificationDisplay
-                key={key}
-                label="Supported Commodity Classification"
-                value={itemValue}
-                meta={TransportationServiceFieldMeta.SupportedCommodityClassification}
-              />
-            }
-          />
+    [
+      TransportationServiceField.UnsupportedCommodityClassification,
+      { meta: TransportationServiceFieldMeta.UnsupportedCommodityClassification,
+        template: ({value, renderContext, fieldConfig}) => <CommodityClassificationDisplay
+          key={TransportationServiceField.UnsupportedCommodityClassification}
+          meta={TransportationServiceFieldMeta.UnsupportedCommodityClassification}
+          fieldConfig={fieldConfig}
+          commodityClassification={value?.UnsupportedCommodityClassification}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-CommodityClassification ubl-UnsupportedCommodityClassification"
-            label="Unsupported Commodity Classification"
-            items={value.UnsupportedCommodityClassification}
-            meta={TransportationServiceFieldMeta.UnsupportedCommodityClassification} 
-            itemDisplay={ (itemValue: CommodityClassification, key: string | number) =>
-              <CommodityClassificationDisplay
-                key={key}
-                label="Unsupported Commodity Classification"
-                value={itemValue}
-                meta={TransportationServiceFieldMeta.UnsupportedCommodityClassification}
-              />
-            }
-          />
+    [
+      TransportationServiceField.TotalCapacityDimension,
+      { meta: TransportationServiceFieldMeta.TotalCapacityDimension,
+        template: ({value, renderContext, fieldConfig}) => <DimensionDisplay
+          key={TransportationServiceField.TotalCapacityDimension}
+          meta={TransportationServiceFieldMeta.TotalCapacityDimension}
+          fieldConfig={fieldConfig}
+          dimension={value?.TotalCapacityDimension}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DimensionDisplay
-            label="Total Capacity Dimension"
-            value={value.TotalCapacityDimension?.[0]}
-            meta={TransportationServiceFieldMeta.TotalCapacityDimension}
-          />
+    [
+      TransportationServiceField.ShipmentStage,
+      { meta: TransportationServiceFieldMeta.ShipmentStage,
+        template: ({value, renderContext, fieldConfig}) => <ShipmentStageDisplay
+          key={TransportationServiceField.ShipmentStage}
+          meta={TransportationServiceFieldMeta.ShipmentStage}
+          fieldConfig={fieldConfig}
+          shipmentStage={value?.ShipmentStage}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-ShipmentStage"
-            label="Shipment Stage"
-            items={value.ShipmentStage}
-            meta={TransportationServiceFieldMeta.ShipmentStage} 
-            itemDisplay={ (itemValue: ShipmentStage, key: string | number) =>
-              <ShipmentStageDisplay
-                key={key}
-                label="Shipment Stage"
-                value={itemValue}
-                meta={TransportationServiceFieldMeta.ShipmentStage}
-              />
-            }
-          />
+    [
+      TransportationServiceField.TransportEvent,
+      { meta: TransportationServiceFieldMeta.TransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={TransportationServiceField.TransportEvent}
+          meta={TransportationServiceFieldMeta.TransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.TransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TransportEvent"
-            label="Transport Event"
-            items={value.TransportEvent}
-            meta={TransportationServiceFieldMeta.TransportEvent} 
-            itemDisplay={ (itemValue: TransportEvent, key: string | number) =>
-              <TransportEventDisplay
-                key={key}
-                label="Transport Event"
-                value={itemValue}
-                meta={TransportationServiceFieldMeta.TransportEvent}
-              />
-            }
-          />
+    [
+      TransportationServiceField.ResponsibleTransportServiceProviderParty,
+      { meta: TransportationServiceFieldMeta.ResponsibleTransportServiceProviderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={TransportationServiceField.ResponsibleTransportServiceProviderParty}
+          meta={TransportationServiceFieldMeta.ResponsibleTransportServiceProviderParty}
+          fieldConfig={fieldConfig}
+          party={value?.ResponsibleTransportServiceProviderParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Responsible Transport Service Provider Party"
-            value={value.ResponsibleTransportServiceProviderParty?.[0]}
-            meta={TransportationServiceFieldMeta.ResponsibleTransportServiceProviderParty}
-          />
+    [
+      TransportationServiceField.EnvironmentalEmission,
+      { meta: TransportationServiceFieldMeta.EnvironmentalEmission,
+        template: ({value, renderContext, fieldConfig}) => <EnvironmentalEmissionDisplay
+          key={TransportationServiceField.EnvironmentalEmission}
+          meta={TransportationServiceFieldMeta.EnvironmentalEmission}
+          fieldConfig={fieldConfig}
+          environmentalEmission={value?.EnvironmentalEmission}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-EnvironmentalEmission"
-            label="Environmental Emission"
-            items={value.EnvironmentalEmission}
-            meta={TransportationServiceFieldMeta.EnvironmentalEmission} 
-            itemDisplay={ (itemValue: EnvironmentalEmission, key: string | number) =>
-              <EnvironmentalEmissionDisplay
-                key={key}
-                label="Environmental Emission"
-                value={itemValue}
-                meta={TransportationServiceFieldMeta.EnvironmentalEmission}
-              />
-            }
-          />
+    [
+      TransportationServiceField.EstimatedDurationPeriod,
+      { meta: TransportationServiceFieldMeta.EstimatedDurationPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={TransportationServiceField.EstimatedDurationPeriod}
+          meta={TransportationServiceFieldMeta.EstimatedDurationPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.EstimatedDurationPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Estimated Duration Period"
-            value={value.EstimatedDurationPeriod?.[0]}
-            meta={TransportationServiceFieldMeta.EstimatedDurationPeriod}
-          />
+    [
+      TransportationServiceField.ScheduledServiceFrequency,
+      { meta: TransportationServiceFieldMeta.ScheduledServiceFrequency,
+        template: ({value, renderContext, fieldConfig}) => <ServiceFrequencyDisplay
+          key={TransportationServiceField.ScheduledServiceFrequency}
+          meta={TransportationServiceFieldMeta.ScheduledServiceFrequency}
+          fieldConfig={fieldConfig}
+          serviceFrequency={value?.ScheduledServiceFrequency}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-ServiceFrequency ubl-ScheduledServiceFrequency"
-            label="Scheduled Service Frequency"
-            items={value.ScheduledServiceFrequency}
-            meta={TransportationServiceFieldMeta.ScheduledServiceFrequency} 
-            itemDisplay={ (itemValue: ServiceFrequency, key: string | number) =>
-              <ServiceFrequencyDisplay
-                key={key}
-                label="Scheduled Service Frequency"
-                value={itemValue}
-                meta={TransportationServiceFieldMeta.ScheduledServiceFrequency}
-              />
-            }
-          />
-        </div>
-    </div>
+export function TransportationServiceDisplay<TFieldMeta>({ meta, fieldConfig, transportationService, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    TransportationServiceTypeName,
+    meta,
+    fieldConfig,
+    transportationService,
+    renderContext,
+    TransportationServiceSubElementsMap,
   )
 }

@@ -2,7 +2,6 @@ import { Code } from '../cbc/Code'
 import { Date } from '../cbc/Date'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * As explained in Exception Criteria Line: Three types of exception criteria can be defined, Operational, Metric or
  * Forecast Exceptions. This class provides criteria for forecast exception type: the identification of the purpose of

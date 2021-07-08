@@ -2,7 +2,6 @@ import { Identifier } from '../cbc/Identifier'
 import { Quantity } from '../cbc/Quantity'
 import { TransportEquipment } from './TransportEquipment'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class defining how goods items are split across transport equipment.
  */

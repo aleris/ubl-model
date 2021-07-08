@@ -3,7 +3,6 @@ import { FinancialInstitution } from './FinancialInstitution'
 import { Identifier } from '../cbc/Identifier'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a branch or a division of an organization.
  */

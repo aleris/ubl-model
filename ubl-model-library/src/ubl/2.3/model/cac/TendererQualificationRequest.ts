@@ -6,7 +6,6 @@ import { Quantity } from '../cbc/Quantity'
 import { TendererRequirement } from './TendererRequirement'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * The evaluation that the Contracting Authority party requests to fulfill to the tenderers.
  */

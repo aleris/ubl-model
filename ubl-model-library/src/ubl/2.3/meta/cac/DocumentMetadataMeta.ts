@@ -1,4 +1,8 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum DocumentMetadataField {
   UBLExtensions = 'UBLExtensions',
@@ -12,11 +16,11 @@ export enum DocumentMetadataField {
 export const DocumentMetadataFieldMetaUBLExtensions = new FieldMeta<DocumentMetadataField>(
   DocumentMetadataField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -25,10 +29,10 @@ export const DocumentMetadataFieldMetaID = new FieldMeta<DocumentMetadataField>(
   DocumentMetadataField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -37,10 +41,10 @@ export const DocumentMetadataFieldMetaFormatID = new FieldMeta<DocumentMetadataF
   DocumentMetadataField.FormatID,
   'FormatID',
   'Format Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the document format (e.g. standard business vocabularies).',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   'UBL, ISO20022, EDIFACT'
 )
@@ -49,10 +53,10 @@ export const DocumentMetadataFieldMetaVersionID = new FieldMeta<DocumentMetadata
   DocumentMetadataField.VersionID,
   'VersionID',
   'Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for a precise version of a document format.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   '2.2'
 )
@@ -61,10 +65,10 @@ export const DocumentMetadataFieldMetaSchemaURI = new FieldMeta<DocumentMetadata
   DocumentMetadataField.SchemaURI,
   'SchemaURI',
   'Schema URI',
-  'Identifier',
+  IdentifierType.name,
   'The Uniform Resource Identifier (URI) of a schema definition for the business document (e.g. a namespace URI for XML schemas, a message ID for non-xml legacy documents).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'urn:oasis:names:specification:ubl:schema:xsd:Invoice-2, INVOIC'
 )
@@ -73,10 +77,10 @@ export const DocumentMetadataFieldMetaDocumentTypeCode = new FieldMeta<DocumentM
   DocumentMetadataField.DocumentTypeCode,
   'DocumentTypeCode',
   'Document Type Code',
-  'Code',
+  CodeType.name,
   'The type of document, expressed as a code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -98,3 +102,11 @@ export const DocumentMetadataFieldMap = new Map([
   [DocumentMetadataField.SchemaURI, DocumentMetadataFieldMetaSchemaURI],
   [DocumentMetadataField.DocumentTypeCode, DocumentMetadataFieldMetaDocumentTypeCode]
 ])
+
+export const DocumentMetadataType: Type<DocumentMetadataField> = {
+  name: 'DocumentMetadata',
+  label: 'Document Metadata',
+  module: TypeModule.cac,
+  definition: 'A class to describe the metadata of a specific business document based on any document format (e.g. UBL, EDIFACT, ...).',
+  fields: DocumentMetadataFieldMap,
+}

@@ -1,113 +1,130 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Certificate } from  '../../model/cac/Certificate'
-import { CertificateFieldMeta } from  '../../meta/cac/CertificateMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DocumentReferenceDisplay from './DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import SignatureDisplay from './SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { CertificateField, CertificateFieldMeta, CertificateTypeName } from  '../../meta/cac/CertificateMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DocumentReferenceDisplay } from './DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { SignatureDisplay } from './SignatureDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: Certificate | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<Certificate, void>
+  certificate: Certificate[] | undefined
+  renderContext: RenderContext
 }
 
-export default function CertificateDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const CertificateSubElementsMap: SubElementsTemplatesMap<CertificateField, Certificate, void> = new Map([
+    [
+      CertificateField.UBLExtensions,
+      { meta: CertificateFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={CertificateField.UBLExtensions}
+          meta={CertificateFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-Certificate">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={CertificateFieldMeta.UBLExtensions}
-          />
+    [
+      CertificateField.ID,
+      { meta: CertificateFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CertificateField.ID}
+          meta={CertificateFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={CertificateFieldMeta.ID}
-          />
+    [
+      CertificateField.CertificateTypeCode,
+      { meta: CertificateFieldMeta.CertificateTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={CertificateField.CertificateTypeCode}
+          meta={CertificateFieldMeta.CertificateTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.CertificateTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Certificate Type Code"
-            value={value.CertificateTypeCode?.[0]}
-            meta={CertificateFieldMeta.CertificateTypeCode}
-          />
+    [
+      CertificateField.CertificateType,
+      { meta: CertificateFieldMeta.CertificateType,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={CertificateField.CertificateType}
+          meta={CertificateFieldMeta.CertificateType}
+          fieldConfig={fieldConfig}
+          text={value?.CertificateType}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Certificate Type"
-            value={value.CertificateType?.[0]}
-            meta={CertificateFieldMeta.CertificateType}
-          />
+    [
+      CertificateField.Remarks,
+      { meta: CertificateFieldMeta.Remarks,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={CertificateField.Remarks}
+          meta={CertificateFieldMeta.Remarks}
+          fieldConfig={fieldConfig}
+          text={value?.Remarks}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Remarks"
-            label="Remarks"
-            items={value.Remarks}
-            meta={CertificateFieldMeta.Remarks} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Remarks"
-                value={itemValue}
-                meta={CertificateFieldMeta.Remarks}
-              />
-            }
-          />
+    [
+      CertificateField.IssuerParty,
+      { meta: CertificateFieldMeta.IssuerParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={CertificateField.IssuerParty}
+          meta={CertificateFieldMeta.IssuerParty}
+          fieldConfig={fieldConfig}
+          party={value?.IssuerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Issuer Party"
-            value={value.IssuerParty?.[0]}
-            meta={CertificateFieldMeta.IssuerParty}
-          />
+    [
+      CertificateField.DocumentReference,
+      { meta: CertificateFieldMeta.DocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={CertificateField.DocumentReference}
+          meta={CertificateFieldMeta.DocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.DocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentReference"
-            label="Document Reference"
-            items={value.DocumentReference}
-            meta={CertificateFieldMeta.DocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Document Reference"
-                value={itemValue}
-                meta={CertificateFieldMeta.DocumentReference}
-              />
-            }
-          />
+    [
+      CertificateField.Signature,
+      { meta: CertificateFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={CertificateField.Signature}
+          meta={CertificateFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={CertificateFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={CertificateFieldMeta.Signature}
-              />
-            }
-          />
-        </div>
-    </div>
+export function CertificateDisplay<TFieldMeta>({ meta, fieldConfig, certificate, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    CertificateTypeName,
+    meta,
+    fieldConfig,
+    certificate,
+    renderContext,
+    CertificateSubElementsMap,
   )
 }

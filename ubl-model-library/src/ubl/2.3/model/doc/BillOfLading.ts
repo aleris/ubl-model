@@ -12,7 +12,6 @@ import { Signature } from '../cac/Signature'
 import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A document issued by the party who acts as an agent for a transportation carrier or other agents to the party who
  * gives instructions for the transportation services (shipper, consignor, etc.) stating the details of the

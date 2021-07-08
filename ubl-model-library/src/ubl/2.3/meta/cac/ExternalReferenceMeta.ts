@@ -1,4 +1,11 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { DateType } from '../cbc/DateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ExternalReferenceField {
   UBLExtensions = 'UBLExtensions',
@@ -18,11 +25,11 @@ export enum ExternalReferenceField {
 export const ExternalReferenceFieldMetaUBLExtensions = new FieldMeta<ExternalReferenceField>(
   ExternalReferenceField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -31,10 +38,10 @@ export const ExternalReferenceFieldMetaURI = new FieldMeta<ExternalReferenceFiel
   ExternalReferenceField.URI,
   'URI',
   'URI',
-  'Identifier',
+  IdentifierType.name,
   'The Uniform Resource Identifier (URI) that identifies the external object as an Internet resource.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -43,10 +50,10 @@ export const ExternalReferenceFieldMetaDocumentHash = new FieldMeta<ExternalRefe
   ExternalReferenceField.DocumentHash,
   'DocumentHash',
   'Document Hash',
-  'Text',
+  TextType.name,
   'A hash value for the externally stored object.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -55,10 +62,10 @@ export const ExternalReferenceFieldMetaHashAlgorithmMethod = new FieldMeta<Exter
   ExternalReferenceField.HashAlgorithmMethod,
   'HashAlgorithmMethod',
   'Hash Algorithm Method',
-  'Text',
+  TextType.name,
   'A hash algorithm used to calculate the hash value of the externally stored object.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -67,10 +74,10 @@ export const ExternalReferenceFieldMetaExpiryDate = new FieldMeta<ExternalRefere
   ExternalReferenceField.ExpiryDate,
   'ExpiryDate',
   'Expiry Date',
-  'Date',
+  DateType.name,
   'The date on which availability of the resource can no longer be relied upon.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -79,10 +86,10 @@ export const ExternalReferenceFieldMetaExpiryTime = new FieldMeta<ExternalRefere
   ExternalReferenceField.ExpiryTime,
   'ExpiryTime',
   'Expiry Time',
-  'Time',
+  TimeType.name,
   'The time after which availability of the resource can no longer be relied upon.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -91,10 +98,10 @@ export const ExternalReferenceFieldMetaMimeCode = new FieldMeta<ExternalReferenc
   ExternalReferenceField.MimeCode,
   'MimeCode',
   'Mime Code',
-  'Code',
+  CodeType.name,
   'A code signifying the mime type of the external object.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -103,10 +110,10 @@ export const ExternalReferenceFieldMetaFormatCode = new FieldMeta<ExternalRefere
   ExternalReferenceField.FormatCode,
   'FormatCode',
   'Format Code',
-  'Code',
+  CodeType.name,
   'A code signifying the format of the external object.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -115,10 +122,10 @@ export const ExternalReferenceFieldMetaEncodingCode = new FieldMeta<ExternalRefe
   ExternalReferenceField.EncodingCode,
   'EncodingCode',
   'Encoding Code',
-  'Code',
+  CodeType.name,
   'A code signifying the encoding/decoding algorithm used with the external object.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -127,10 +134,10 @@ export const ExternalReferenceFieldMetaCharacterSetCode = new FieldMeta<External
   ExternalReferenceField.CharacterSetCode,
   'CharacterSetCode',
   'Character Set Code',
-  'Code',
+  CodeType.name,
   'A code signifying the character set of an external document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -139,10 +146,10 @@ export const ExternalReferenceFieldMetaFileName = new FieldMeta<ExternalReferenc
   ExternalReferenceField.FileName,
   'FileName',
   'File Name',
-  'Text',
+  TextType.name,
   'The file name of the external object.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -151,10 +158,10 @@ export const ExternalReferenceFieldMetaDescription = new FieldMeta<ExternalRefer
   ExternalReferenceField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing the external object.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   'computer accessories for laptops'
 )
@@ -188,3 +195,11 @@ export const ExternalReferenceFieldMap = new Map([
   [ExternalReferenceField.FileName, ExternalReferenceFieldMetaFileName],
   [ExternalReferenceField.Description, ExternalReferenceFieldMetaDescription]
 ])
+
+export const ExternalReferenceType: Type<ExternalReferenceField> = {
+  name: 'ExternalReference',
+  label: 'External Reference',
+  module: TypeModule.cac,
+  definition: 'A class to describe an external object, such as a document stored at a remote location.',
+  fields: ExternalReferenceFieldMap,
+}

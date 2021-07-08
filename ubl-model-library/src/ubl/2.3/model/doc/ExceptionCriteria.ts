@@ -11,7 +11,6 @@ import { SupplierParty } from '../cac/SupplierParty'
 import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A document used to specify the thresholds for forecast variance, product activity, and performance history beyond
  * which exceptions should be triggered.

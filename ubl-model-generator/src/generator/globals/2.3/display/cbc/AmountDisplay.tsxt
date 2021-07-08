@@ -1,18 +1,25 @@
 import React from 'react'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Amount } from '../../model/cbc/Amount'
-import FieldDisplay from '../FieldDisplay'
+import { FieldConfig } from '../FieldConfig'
+import { FieldDisplay } from '../FieldDisplay'
 
 type Props = {
-  label: string
-  value: Amount | undefined
+  className: string
+  label?: string
+  amount: Amount | undefined
   meta: FieldMeta<any>
+  fieldConfig?: FieldConfig
 }
 
-export default function AmountDisplay({ label, value, meta }: Props) {
-  if (value === undefined) {
+export function AmountDisplay({ className, label, amount, meta, fieldConfig }: Props) {
+  if (amount === undefined) {
     return null
   }
-  const stringValue = `${value._}`
-  return <div className="ubl-cbc ubl-Amount"><FieldDisplay label={label} value={stringValue} /></div>
+  const stringValue = `${amount._}`
+  return (
+    <div className={className}>
+      <FieldDisplay label={label} value={stringValue} config={fieldConfig} />
+    </div>
+  )
 }

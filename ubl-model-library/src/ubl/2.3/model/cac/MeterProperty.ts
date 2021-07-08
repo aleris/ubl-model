@@ -2,7 +2,6 @@ import { Code } from '../cbc/Code'
 import { Quantity } from '../cbc/Quantity'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * The name of this meter property.
  */

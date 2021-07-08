@@ -1,4 +1,10 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { TaxCategoryType } from './TaxCategoryMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum RequestedTenderTotalField {
   UBLExtensions = 'UBLExtensions',
@@ -16,11 +22,11 @@ export enum RequestedTenderTotalField {
 export const RequestedTenderTotalFieldMetaUBLExtensions = new FieldMeta<RequestedTenderTotalField>(
   RequestedTenderTotalField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -29,10 +35,10 @@ export const RequestedTenderTotalFieldMetaEstimatedOverallContractAmount = new F
   RequestedTenderTotalField.EstimatedOverallContractAmount,
   'EstimatedOverallContractAmount',
   'Estimated Overall Contract',
-  'Amount',
+  AmountType.name,
   'The estimated overall monetary amount of a contract.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -41,10 +47,10 @@ export const RequestedTenderTotalFieldMetaEstimatedOverallFrameworkContractsAmou
   RequestedTenderTotalField.EstimatedOverallFrameworkContractsAmount,
   'EstimatedOverallFrameworkContractsAmount',
   'Estimated Overall Framework Contracts',
-  'Amount',
+  AmountType.name,
   'The estimated overall monetary amount of subsequent framework contracts.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -53,10 +59,10 @@ export const RequestedTenderTotalFieldMetaTotalAmount = new FieldMeta<RequestedT
   RequestedTenderTotalField.TotalAmount,
   'TotalAmount',
   'Total Amount',
-  'Amount',
+  AmountType.name,
   'The monetary amount of the total budget including net amount, taxes, and material and instalment costs.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -65,10 +71,10 @@ export const RequestedTenderTotalFieldMetaTaxIncludedIndicator = new FieldMeta<R
   RequestedTenderTotalField.TaxIncludedIndicator,
   'TaxIncludedIndicator',
   'Tax Included Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether the amounts are taxes included (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -77,10 +83,10 @@ export const RequestedTenderTotalFieldMetaMinimumAmount = new FieldMeta<Requeste
   RequestedTenderTotalField.MinimumAmount,
   'MinimumAmount',
   'Minimum Amount',
-  'Amount',
+  AmountType.name,
   'The minimum monetary amount of the budget.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -89,10 +95,10 @@ export const RequestedTenderTotalFieldMetaMaximumAmount = new FieldMeta<Requeste
   RequestedTenderTotalField.MaximumAmount,
   'MaximumAmount',
   'Maximum Amount',
-  'Amount',
+  AmountType.name,
   'The maximum monetary amount of the budget.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -101,10 +107,10 @@ export const RequestedTenderTotalFieldMetaMonetaryScope = new FieldMeta<Requeste
   RequestedTenderTotalField.MonetaryScope,
   'MonetaryScope',
   'Monetary Scope',
-  'Text',
+  TextType.name,
   'A description of the monetary scope of the budget.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -113,10 +119,10 @@ export const RequestedTenderTotalFieldMetaAverageSubsequentContractAmount = new 
   RequestedTenderTotalField.AverageSubsequentContractAmount,
   'AverageSubsequentContractAmount',
   'Average Subsequent Contract',
-  'Amount',
+  AmountType.name,
   'The average monetary amount for the subsequent contracts following this budget amount.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -125,10 +131,10 @@ export const RequestedTenderTotalFieldMetaApplicableTaxCategory = new FieldMeta<
   RequestedTenderTotalField.ApplicableTaxCategory,
   'ApplicableTaxCategory',
   'Applicable Tax Category',
-  'TaxCategory',
+  TaxCategoryType.name,
   'Describes the categories of taxes that apply to the budget amount.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -158,3 +164,11 @@ export const RequestedTenderTotalFieldMap = new Map([
   [RequestedTenderTotalField.AverageSubsequentContractAmount, RequestedTenderTotalFieldMetaAverageSubsequentContractAmount],
   [RequestedTenderTotalField.ApplicableTaxCategory, RequestedTenderTotalFieldMetaApplicableTaxCategory]
 ])
+
+export const RequestedTenderTotalType: Type<RequestedTenderTotalField> = {
+  name: 'RequestedTenderTotal',
+  label: 'Requested Tender Total',
+  module: TypeModule.cac,
+  definition: 'A class defining budgeted monetary amounts.',
+  fields: RequestedTenderTotalFieldMap,
+}

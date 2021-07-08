@@ -1,215 +1,289 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { PackingList } from  '../../model/doc/PackingList'
-import { PackingListFieldMeta } from  '../../meta/doc/PackingListMeta'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentDistributionDisplay from '../cac/DocumentDistributionDisplay'
-import { DocumentDistribution } from '../../model/cac/DocumentDistribution'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import ShipmentDisplay from '../cac/ShipmentDisplay'
-import { Shipment } from '../../model/cac/Shipment'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { PackingListField, PackingListFieldMeta, PackingListTypeName } from  '../../meta/doc/PackingListMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentDistributionDisplay } from '../cac/DocumentDistributionDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { ShipmentDisplay } from '../cac/ShipmentDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: PackingList | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<PackingList, void>
+  packingList: PackingList[] | undefined
+  renderContext: RenderContext
 }
 
-export default function PackingListDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const PackingListSubElementsMap: SubElementsTemplatesMap<PackingListField, PackingList, void> = new Map([
+    [
+      PackingListField.UBLExtensions,
+      { meta: PackingListFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={PackingListField.UBLExtensions}
+          meta={PackingListFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-PackingList">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={PackingListFieldMeta.UBLExtensions}
-          />
+    [
+      PackingListField.UBLVersionID,
+      { meta: PackingListFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PackingListField.UBLVersionID}
+          meta={PackingListFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={PackingListFieldMeta.UBLVersionID}
-          />
+    [
+      PackingListField.CustomizationID,
+      { meta: PackingListFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PackingListField.CustomizationID}
+          meta={PackingListFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={PackingListFieldMeta.CustomizationID}
-          />
+    [
+      PackingListField.ProfileID,
+      { meta: PackingListFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PackingListField.ProfileID}
+          meta={PackingListFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={PackingListFieldMeta.ProfileID}
-          />
+    [
+      PackingListField.ProfileExecutionID,
+      { meta: PackingListFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PackingListField.ProfileExecutionID}
+          meta={PackingListFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={PackingListFieldMeta.ProfileExecutionID}
-          />
+    [
+      PackingListField.ID,
+      { meta: PackingListFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PackingListField.ID}
+          meta={PackingListFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={PackingListFieldMeta.ID}
-          />
+    [
+      PackingListField.UUID,
+      { meta: PackingListFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PackingListField.UUID}
+          meta={PackingListFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={PackingListFieldMeta.UUID}
-          />
+    [
+      PackingListField.IssueDate,
+      { meta: PackingListFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={PackingListField.IssueDate}
+          meta={PackingListFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={PackingListFieldMeta.IssueDate}
-          />
+    [
+      PackingListField.IssueTime,
+      { meta: PackingListFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={PackingListField.IssueTime}
+          meta={PackingListFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={PackingListFieldMeta.IssueTime}
-          />
+    [
+      PackingListField.Name,
+      { meta: PackingListFieldMeta.Name,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={PackingListField.Name}
+          meta={PackingListFieldMeta.Name}
+          fieldConfig={fieldConfig}
+          text={value?.Name}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Name"
-            value={value.Name?.[0]}
-            meta={PackingListFieldMeta.Name}
-          />
+    [
+      PackingListField.Description,
+      { meta: PackingListFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={PackingListField.Description}
+          meta={PackingListFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={PackingListFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={PackingListFieldMeta.Description}
-              />
-            }
-          />
+    [
+      PackingListField.Note,
+      { meta: PackingListFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={PackingListField.Note}
+          meta={PackingListFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={PackingListFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={PackingListFieldMeta.Note}
-              />
-            }
-          />
+    [
+      PackingListField.VersionID,
+      { meta: PackingListFieldMeta.VersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PackingListField.VersionID}
+          meta={PackingListFieldMeta.VersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.VersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Version"
-            value={value.VersionID?.[0]}
-            meta={PackingListFieldMeta.VersionID}
-          />
+    [
+      PackingListField.OtherInstruction,
+      { meta: PackingListFieldMeta.OtherInstruction,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={PackingListField.OtherInstruction}
+          meta={PackingListFieldMeta.OtherInstruction}
+          fieldConfig={fieldConfig}
+          text={value?.OtherInstruction}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Other Instruction"
-            value={value.OtherInstruction?.[0]}
-            meta={PackingListFieldMeta.OtherInstruction}
-          />
+    [
+      PackingListField.ConsignorParty,
+      { meta: PackingListFieldMeta.ConsignorParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={PackingListField.ConsignorParty}
+          meta={PackingListFieldMeta.ConsignorParty}
+          fieldConfig={fieldConfig}
+          party={value?.ConsignorParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Consignor Party"
-            value={value.ConsignorParty?.[0]}
-            meta={PackingListFieldMeta.ConsignorParty}
-          />
+    [
+      PackingListField.CarrierParty,
+      { meta: PackingListFieldMeta.CarrierParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={PackingListField.CarrierParty}
+          meta={PackingListFieldMeta.CarrierParty}
+          fieldConfig={fieldConfig}
+          party={value?.CarrierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Carrier Party"
-            value={value.CarrierParty?.[0]}
-            meta={PackingListFieldMeta.CarrierParty}
-          />
+    [
+      PackingListField.FreightForwarderParty,
+      { meta: PackingListFieldMeta.FreightForwarderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={PackingListField.FreightForwarderParty}
+          meta={PackingListFieldMeta.FreightForwarderParty}
+          fieldConfig={fieldConfig}
+          party={value?.FreightForwarderParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Freight Forwarder Party"
-            value={value.FreightForwarderParty?.[0]}
-            meta={PackingListFieldMeta.FreightForwarderParty}
-          />
+    [
+      PackingListField.Shipment,
+      { meta: PackingListFieldMeta.Shipment,
+        template: ({value, renderContext, fieldConfig}) => <ShipmentDisplay
+          key={PackingListField.Shipment}
+          meta={PackingListFieldMeta.Shipment}
+          fieldConfig={fieldConfig}
+          shipment={value?.Shipment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ShipmentDisplay
-            label="Shipment"
-            value={value.Shipment?.[0]}
-            meta={PackingListFieldMeta.Shipment}
-          />
+    [
+      PackingListField.DocumentReference,
+      { meta: PackingListFieldMeta.DocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={PackingListField.DocumentReference}
+          meta={PackingListFieldMeta.DocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.DocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference"
-            label="Document Reference"
-            items={value.DocumentReference}
-            meta={PackingListFieldMeta.DocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Document Reference"
-                value={itemValue}
-                meta={PackingListFieldMeta.DocumentReference}
-              />
-            }
-          />
+    [
+      PackingListField.DocumentDistribution,
+      { meta: PackingListFieldMeta.DocumentDistribution,
+        template: ({value, renderContext, fieldConfig}) => <DocumentDistributionDisplay
+          key={PackingListField.DocumentDistribution}
+          meta={PackingListFieldMeta.DocumentDistribution}
+          fieldConfig={fieldConfig}
+          documentDistribution={value?.DocumentDistribution}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentDistribution"
-            label="Document Distribution"
-            items={value.DocumentDistribution}
-            meta={PackingListFieldMeta.DocumentDistribution} 
-            itemDisplay={ (itemValue: DocumentDistribution, key: string | number) =>
-              <DocumentDistributionDisplay
-                key={key}
-                label="Document Distribution"
-                value={itemValue}
-                meta={PackingListFieldMeta.DocumentDistribution}
-              />
-            }
-          />
+    [
+      PackingListField.Signature,
+      { meta: PackingListFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={PackingListField.Signature}
+          meta={PackingListFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={PackingListFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={PackingListFieldMeta.Signature}
-              />
-            }
-          />
-        </div>
-    </div>
+export function PackingListDisplay<TFieldMeta>({ meta, fieldConfig, packingList, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    PackingListTypeName,
+    meta,
+    fieldConfig,
+    packingList,
+    renderContext,
+    PackingListSubElementsMap,
   )
 }

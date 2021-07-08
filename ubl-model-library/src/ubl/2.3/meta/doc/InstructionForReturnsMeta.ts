@@ -1,4 +1,18 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CustomerPartyType } from '../cac/CustomerPartyMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { InstructionForReturnsLineType } from '../cac/InstructionForReturnsLineMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { ShipmentType } from '../cac/ShipmentMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { SupplierPartyType } from '../cac/SupplierPartyMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum InstructionForReturnsField {
   UBLExtensions = 'UBLExtensions',
@@ -24,11 +38,11 @@ export enum InstructionForReturnsField {
 export const InstructionForReturnsFieldMetaUBLExtensions = new FieldMeta<InstructionForReturnsField>(
   InstructionForReturnsField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -37,10 +51,10 @@ export const InstructionForReturnsFieldMetaUBLVersionID = new FieldMeta<Instruct
   InstructionForReturnsField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.0.5'
 )
@@ -49,10 +63,10 @@ export const InstructionForReturnsFieldMetaCustomizationID = new FieldMeta<Instr
   InstructionForReturnsField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -61,10 +75,10 @@ export const InstructionForReturnsFieldMetaProfileID = new FieldMeta<Instruction
   InstructionForReturnsField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BasicProcurementProcess'
 )
@@ -73,10 +87,10 @@ export const InstructionForReturnsFieldMetaProfileExecutionID = new FieldMeta<In
   InstructionForReturnsField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BPP-1001'
 )
@@ -85,10 +99,10 @@ export const InstructionForReturnsFieldMetaID = new FieldMeta<InstructionForRetu
   InstructionForReturnsField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   'Document Number, Instruction for Returns Number',
   undefined
 )
@@ -97,10 +111,10 @@ export const InstructionForReturnsFieldMetaCopyIndicator = new FieldMeta<Instruc
   InstructionForReturnsField.CopyIndicator,
   'CopyIndicator',
   'Copy Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this document is a copy (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -109,10 +123,10 @@ export const InstructionForReturnsFieldMetaUUID = new FieldMeta<InstructionForRe
   InstructionForReturnsField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -121,10 +135,10 @@ export const InstructionForReturnsFieldMetaIssueDate = new FieldMeta<Instruction
   InstructionForReturnsField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -133,10 +147,10 @@ export const InstructionForReturnsFieldMetaIssueTime = new FieldMeta<Instruction
   InstructionForReturnsField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -145,10 +159,10 @@ export const InstructionForReturnsFieldMetaNote = new FieldMeta<InstructionForRe
   InstructionForReturnsField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -157,10 +171,10 @@ export const InstructionForReturnsFieldMetaDocumentReference = new FieldMeta<Ins
   InstructionForReturnsField.DocumentReference,
   'DocumentReference',
   'Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to another document associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -169,10 +183,10 @@ export const InstructionForReturnsFieldMetaSignature = new FieldMeta<Instruction
   InstructionForReturnsField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -181,10 +195,10 @@ export const InstructionForReturnsFieldMetaSellerSupplierParty = new FieldMeta<I
   InstructionForReturnsField.SellerSupplierParty,
   'SellerSupplierParty',
   'Seller Supplier Party',
-  'SupplierParty',
+  SupplierPartyType.name,
   'The seller.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -193,10 +207,10 @@ export const InstructionForReturnsFieldMetaRetailerCustomerParty = new FieldMeta
   InstructionForReturnsField.RetailerCustomerParty,
   'RetailerCustomerParty',
   'Retailer Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The retailer.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -205,10 +219,10 @@ export const InstructionForReturnsFieldMetaManufacturerParty = new FieldMeta<Ins
   InstructionForReturnsField.ManufacturerParty,
   'ManufacturerParty',
   'Manufacturer Party',
-  'Party',
+  PartyType.name,
   'The manufacturer.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -217,10 +231,10 @@ export const InstructionForReturnsFieldMetaShipment = new FieldMeta<InstructionF
   InstructionForReturnsField.Shipment,
   'Shipment',
   'Shipment',
-  'Shipment',
+  ShipmentType.name,
   'The shipment.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -229,10 +243,10 @@ export const InstructionForReturnsFieldMetaInstructionForReturnsLine = new Field
   InstructionForReturnsField.InstructionForReturnsLine,
   'InstructionForReturnsLine',
   'Instruction For Returns Line',
-  'InstructionForReturnsLine',
+  InstructionForReturnsLineType.name,
   'A line providing details about one type of article to be returned.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -278,3 +292,11 @@ export const InstructionForReturnsFieldMap = new Map([
   [InstructionForReturnsField.Shipment, InstructionForReturnsFieldMetaShipment],
   [InstructionForReturnsField.InstructionForReturnsLine, InstructionForReturnsFieldMetaInstructionForReturnsLine]
 ])
+
+export const InstructionForReturnsType: Type<InstructionForReturnsField> = {
+  name: 'InstructionForReturns',
+  label: 'Instruction For Returns',
+  module: TypeModule.doc,
+  definition: 'A document used to initiate a return of goods. The producer is requesting the return of products that are not selling well, either to use in other places or to free up rack or shelf space.',
+  fields: InstructionForReturnsFieldMap,
+}

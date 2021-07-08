@@ -1,4 +1,17 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { AwardingCriterionResponseType } from './AwardingCriterionResponseMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { DocumentReferenceType } from './DocumentReferenceMeta'
+import { FeeType } from './FeeMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { MonetaryTotalType } from './MonetaryTotalMeta'
+import { ProcurementProjectLotType } from './ProcurementProjectLotMeta'
+import { TaxTotalType } from './TaxTotalMeta'
+import { TenderLineType } from './TenderLineMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum TenderedProjectField {
   UBLExtensions = 'UBLExtensions',
@@ -19,11 +32,11 @@ export enum TenderedProjectField {
 export const TenderedProjectFieldMetaUBLExtensions = new FieldMeta<TenderedProjectField>(
   TenderedProjectField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -32,10 +45,10 @@ export const TenderedProjectFieldMetaVariantID = new FieldMeta<TenderedProjectFi
   TenderedProjectField.VariantID,
   'VariantID',
   'Variant',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this variant of a tendered project.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -44,10 +57,10 @@ export const TenderedProjectFieldMetaFeeAmount = new FieldMeta<TenderedProjectFi
   TenderedProjectField.FeeAmount,
   'FeeAmount',
   'Fee',
-  'Amount',
+  AmountType.name,
   'The fee amount for tendered projects.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -56,10 +69,10 @@ export const TenderedProjectFieldMetaFeeDescription = new FieldMeta<TenderedProj
   TenderedProjectField.FeeDescription,
   'FeeDescription',
   'Fee Description',
-  'Text',
+  TextType.name,
   'Text describing the fee amount for tendered projects.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -68,10 +81,10 @@ export const TenderedProjectFieldMetaTenderEnvelopeID = new FieldMeta<TenderedPr
   TenderedProjectField.TenderEnvelopeID,
   'TenderEnvelopeID',
   'Tender Envelope Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the tender envelope this tendered project belongs to.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -80,10 +93,10 @@ export const TenderedProjectFieldMetaTenderEnvelopeTypeCode = new FieldMeta<Tend
   TenderedProjectField.TenderEnvelopeTypeCode,
   'TenderEnvelopeTypeCode',
   'Tender Envelope Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of tender envelope this tendered project belongs to.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -92,10 +105,10 @@ export const TenderedProjectFieldMetaProcurementProjectLot = new FieldMeta<Tende
   TenderedProjectField.ProcurementProjectLot,
   'ProcurementProjectLot',
   'Procurement Project Lot',
-  'ProcurementProjectLot',
+  ProcurementProjectLotType.name,
   'The procurement project lot to which this Tender Line refers to. If there are no lots, this should not be defined.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -104,10 +117,10 @@ export const TenderedProjectFieldMetaEvidenceDocumentReference = new FieldMeta<T
   TenderedProjectField.EvidenceDocumentReference,
   'EvidenceDocumentReference',
   'Evidence Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a non-structured evidentiary document supporting this tendered project.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -116,10 +129,10 @@ export const TenderedProjectFieldMetaTaxTotal = new FieldMeta<TenderedProjectFie
   TenderedProjectField.TaxTotal,
   'TaxTotal',
   'Tax Total',
-  'TaxTotal',
+  TaxTotalType.name,
   'A total amount of taxes of a particular kind applicable to the monetary total for this tendered project.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -128,10 +141,10 @@ export const TenderedProjectFieldMetaLegalMonetaryTotal = new FieldMeta<Tendered
   TenderedProjectField.LegalMonetaryTotal,
   'LegalMonetaryTotal',
   'Legal Monetary Total',
-  'MonetaryTotal',
+  MonetaryTotalType.name,
   'The total amount for this tendered project.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -140,10 +153,10 @@ export const TenderedProjectFieldMetaTenderLine = new FieldMeta<TenderedProjectF
   TenderedProjectField.TenderLine,
   'TenderLine',
   'Tender Line',
-  'TenderLine',
+  TenderLineType.name,
   'A line in the tender for this tendered project.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -152,10 +165,10 @@ export const TenderedProjectFieldMetaAwardingCriterionResponse = new FieldMeta<T
   TenderedProjectField.AwardingCriterionResponse,
   'AwardingCriterionResponse',
   'Awarding Criterion Response',
-  'AwardingCriterionResponse',
+  AwardingCriterionResponseType.name,
   'An association to an Awarding Criterion Response.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -164,10 +177,10 @@ export const TenderedProjectFieldMetaAdditionalFee = new FieldMeta<TenderedProje
   TenderedProjectField.AdditionalFee,
   'AdditionalFee',
   'Additional Fee',
-  'Fee',
+  FeeType.name,
   'An additional fee for this tendered project.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -203,3 +216,11 @@ export const TenderedProjectFieldMap = new Map([
   [TenderedProjectField.AwardingCriterionResponse, TenderedProjectFieldMetaAwardingCriterionResponse],
   [TenderedProjectField.AdditionalFee, TenderedProjectFieldMetaAdditionalFee]
 ])
+
+export const TenderedProjectType: Type<TenderedProjectField> = {
+  name: 'TenderedProject',
+  label: 'Tendered Project',
+  module: TypeModule.cac,
+  definition: 'A class to describe a tendered project or project lot.',
+  fields: TenderedProjectFieldMap,
+}

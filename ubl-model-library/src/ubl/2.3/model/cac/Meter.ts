@@ -4,7 +4,6 @@ import { MeterReading } from './MeterReading'
 import { Quantity } from '../cbc/Quantity'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a meter and its readings.
  */

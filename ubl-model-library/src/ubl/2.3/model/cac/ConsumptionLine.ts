@@ -9,7 +9,6 @@ import { TaxTotal } from './TaxTotal'
 import { UBLExtensions } from '../ext/UBLExtensions'
 import { UnstructuredPrice } from './UnstructuredPrice'
 import { UtilityItem } from './UtilityItem'
-
 /**
  * A class to describe a line item for utility consumption. To specify more than one utility item, use separate
  * consumption lines.

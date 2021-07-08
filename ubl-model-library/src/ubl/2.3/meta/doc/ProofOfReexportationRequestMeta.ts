@@ -1,4 +1,13 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ProofOfReexportationRequestField {
   UBLExtensions = 'UBLExtensions',
@@ -22,11 +31,11 @@ export enum ProofOfReexportationRequestField {
 export const ProofOfReexportationRequestFieldMetaUBLExtensions = new FieldMeta<ProofOfReexportationRequestField>(
   ProofOfReexportationRequestField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -35,10 +44,10 @@ export const ProofOfReexportationRequestFieldMetaUBLVersionID = new FieldMeta<Pr
   ProofOfReexportationRequestField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.3'
 )
@@ -47,10 +56,10 @@ export const ProofOfReexportationRequestFieldMetaCustomizationID = new FieldMeta
   ProofOfReexportationRequestField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -59,10 +68,10 @@ export const ProofOfReexportationRequestFieldMetaProfileID = new FieldMeta<Proof
   ProofOfReexportationRequestField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -71,10 +80,10 @@ export const ProofOfReexportationRequestFieldMetaProfileExecutionID = new FieldM
   ProofOfReexportationRequestField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BPP-1001'
 )
@@ -83,10 +92,10 @@ export const ProofOfReexportationRequestFieldMetaID = new FieldMeta<ProofOfReexp
   ProofOfReexportationRequestField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -95,10 +104,10 @@ export const ProofOfReexportationRequestFieldMetaUUID = new FieldMeta<ProofOfRee
   ProofOfReexportationRequestField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -107,10 +116,10 @@ export const ProofOfReexportationRequestFieldMetaIssueDate = new FieldMeta<Proof
   ProofOfReexportationRequestField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -119,10 +128,10 @@ export const ProofOfReexportationRequestFieldMetaIssueTime = new FieldMeta<Proof
   ProofOfReexportationRequestField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -131,10 +140,10 @@ export const ProofOfReexportationRequestFieldMetaNote = new FieldMeta<ProofOfRee
   ProofOfReexportationRequestField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -143,10 +152,10 @@ export const ProofOfReexportationRequestFieldMetaVersionID = new FieldMeta<Proof
   ProofOfReexportationRequestField.VersionID,
   'VersionID',
   'Version',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the current version of this request for proof',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -155,10 +164,10 @@ export const ProofOfReexportationRequestFieldMetaGoodsItemPassportID = new Field
   ProofOfReexportationRequestField.GoodsItemPassportID,
   'GoodsItemPassportID',
   'Goods Item Passport',
-  'Identifier',
+  IdentifierType.name,
   'The identifier of the goods item passport or ATA Carnet of the goods',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   'ATA Carnet number',
   undefined
 )
@@ -167,10 +176,10 @@ export const ProofOfReexportationRequestFieldMetaGoodsItemPassportCounterfoilID 
   ProofOfReexportationRequestField.GoodsItemPassportCounterfoilID,
   'GoodsItemPassportCounterfoilID',
   'Goods Item Passport Counterfoil',
-  'Identifier',
+  IdentifierType.name,
   'A reference to a counterfoil of the goods item passport or ATA Carnet',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'ATA Carnet counterfoil number',
   undefined
 )
@@ -179,10 +188,10 @@ export const ProofOfReexportationRequestFieldMetaIssuerParty = new FieldMeta<Pro
   ProofOfReexportationRequestField.IssuerParty,
   'IssuerParty',
   'Issuer Party',
-  'Party',
+  PartyType.name,
   'The party issuing this request for proof of re-exportation',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -191,10 +200,10 @@ export const ProofOfReexportationRequestFieldMetaAdditionalDocumentReference = n
   ProofOfReexportationRequestField.AdditionalDocumentReference,
   'AdditionalDocumentReference',
   'Additional Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'One or more references to additional documents related to this request',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -203,10 +212,10 @@ export const ProofOfReexportationRequestFieldMetaSignature = new FieldMeta<Proof
   ProofOfReexportationRequestField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -248,3 +257,11 @@ export const ProofOfReexportationRequestFieldMap = new Map([
   [ProofOfReexportationRequestField.AdditionalDocumentReference, ProofOfReexportationRequestFieldMetaAdditionalDocumentReference],
   [ProofOfReexportationRequestField.Signature, ProofOfReexportationRequestFieldMetaSignature]
 ])
+
+export const ProofOfReexportationRequestType: Type<ProofOfReexportationRequestField> = {
+  name: 'ProofOfReexportationRequest',
+  label: 'Proof Of Reexportation Request',
+  module: TypeModule.doc,
+  definition: 'A document requesting the status or proof that goods have been re-exported',
+  fields: ProofOfReexportationRequestFieldMap,
+}

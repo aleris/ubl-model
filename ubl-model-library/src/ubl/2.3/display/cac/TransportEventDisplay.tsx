@@ -1,164 +1,196 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TransportEvent } from  '../../model/cac/TransportEvent'
-import { TransportEventFieldMeta } from  '../../meta/cac/TransportEventMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import ContactDisplay from './ContactDisplay'
-import { Contact } from '../../model/cac/Contact'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import LocationDisplay from './LocationDisplay'
-import { Location } from '../../model/cac/Location'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import ShipmentDisplay from './ShipmentDisplay'
-import { Shipment } from '../../model/cac/Shipment'
-import SignatureDisplay from './SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import StatusDisplay from './StatusDisplay'
-import { Status } from '../../model/cac/Status'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { TransportEventField, TransportEventFieldMeta, TransportEventTypeName } from  '../../meta/cac/TransportEventMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { ContactDisplay } from './ContactDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { LocationDisplay } from './LocationDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { ShipmentDisplay } from './ShipmentDisplay'
+import { SignatureDisplay } from './SignatureDisplay'
+import { StatusDisplay } from './StatusDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: TransportEvent | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<TransportEvent, void>
+  transportEvent: TransportEvent[] | undefined
+  renderContext: RenderContext
 }
 
-export default function TransportEventDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const TransportEventSubElementsMap: SubElementsTemplatesMap<TransportEventField, TransportEvent, void> = new Map([
+    [
+      TransportEventField.UBLExtensions,
+      { meta: TransportEventFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={TransportEventField.UBLExtensions}
+          meta={TransportEventFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-TransportEvent">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={TransportEventFieldMeta.UBLExtensions}
-          />
+    [
+      TransportEventField.IdentificationID,
+      { meta: TransportEventFieldMeta.IdentificationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TransportEventField.IdentificationID}
+          meta={TransportEventFieldMeta.IdentificationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.IdentificationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identification"
-            value={value.IdentificationID?.[0]}
-            meta={TransportEventFieldMeta.IdentificationID}
-          />
+    [
+      TransportEventField.OccurrenceDate,
+      { meta: TransportEventFieldMeta.OccurrenceDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={TransportEventField.OccurrenceDate}
+          meta={TransportEventFieldMeta.OccurrenceDate}
+          fieldConfig={fieldConfig}
+          date={value?.OccurrenceDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Occurrence Date"
-            value={value.OccurrenceDate?.[0]}
-            meta={TransportEventFieldMeta.OccurrenceDate}
-          />
+    [
+      TransportEventField.OccurrenceTime,
+      { meta: TransportEventFieldMeta.OccurrenceTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={TransportEventField.OccurrenceTime}
+          meta={TransportEventFieldMeta.OccurrenceTime}
+          fieldConfig={fieldConfig}
+          time={value?.OccurrenceTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Occurrence Time"
-            value={value.OccurrenceTime?.[0]}
-            meta={TransportEventFieldMeta.OccurrenceTime}
-          />
+    [
+      TransportEventField.TransportEventTypeCode,
+      { meta: TransportEventFieldMeta.TransportEventTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TransportEventField.TransportEventTypeCode}
+          meta={TransportEventFieldMeta.TransportEventTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.TransportEventTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Transport Event Type Code"
-            value={value.TransportEventTypeCode?.[0]}
-            meta={TransportEventFieldMeta.TransportEventTypeCode}
-          />
+    [
+      TransportEventField.Description,
+      { meta: TransportEventFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TransportEventField.Description}
+          meta={TransportEventFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={TransportEventFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={TransportEventFieldMeta.Description}
-              />
-            }
-          />
+    [
+      TransportEventField.CompletionIndicator,
+      { meta: TransportEventFieldMeta.CompletionIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={TransportEventField.CompletionIndicator}
+          meta={TransportEventFieldMeta.CompletionIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.CompletionIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Completion Indicator"
-            value={value.CompletionIndicator?.[0]}
-            meta={TransportEventFieldMeta.CompletionIndicator}
-          />
+    [
+      TransportEventField.ReportedShipment,
+      { meta: TransportEventFieldMeta.ReportedShipment,
+        template: ({value, renderContext, fieldConfig}) => <ShipmentDisplay
+          key={TransportEventField.ReportedShipment}
+          meta={TransportEventFieldMeta.ReportedShipment}
+          fieldConfig={fieldConfig}
+          shipment={value?.ReportedShipment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ShipmentDisplay
-            label="Reported Shipment"
-            value={value.ReportedShipment?.[0]}
-            meta={TransportEventFieldMeta.ReportedShipment}
-          />
+    [
+      TransportEventField.CurrentStatus,
+      { meta: TransportEventFieldMeta.CurrentStatus,
+        template: ({value, renderContext, fieldConfig}) => <StatusDisplay
+          key={TransportEventField.CurrentStatus}
+          meta={TransportEventFieldMeta.CurrentStatus}
+          fieldConfig={fieldConfig}
+          status={value?.CurrentStatus}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Status ubl-CurrentStatus"
-            label="Current Status"
-            items={value.CurrentStatus}
-            meta={TransportEventFieldMeta.CurrentStatus} 
-            itemDisplay={ (itemValue: Status, key: string | number) =>
-              <StatusDisplay
-                key={key}
-                label="Current Status"
-                value={itemValue}
-                meta={TransportEventFieldMeta.CurrentStatus}
-              />
-            }
-          />
+    [
+      TransportEventField.Contact,
+      { meta: TransportEventFieldMeta.Contact,
+        template: ({value, renderContext, fieldConfig}) => <ContactDisplay
+          key={TransportEventField.Contact}
+          meta={TransportEventFieldMeta.Contact}
+          fieldConfig={fieldConfig}
+          contact={value?.Contact}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Contact"
-            label="Contact"
-            items={value.Contact}
-            meta={TransportEventFieldMeta.Contact} 
-            itemDisplay={ (itemValue: Contact, key: string | number) =>
-              <ContactDisplay
-                key={key}
-                label="Contact"
-                value={itemValue}
-                meta={TransportEventFieldMeta.Contact}
-              />
-            }
-          />
+    [
+      TransportEventField.Location,
+      { meta: TransportEventFieldMeta.Location,
+        template: ({value, renderContext, fieldConfig}) => <LocationDisplay
+          key={TransportEventField.Location}
+          meta={TransportEventFieldMeta.Location}
+          fieldConfig={fieldConfig}
+          location={value?.Location}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <LocationDisplay
-            label="Location"
-            value={value.Location?.[0]}
-            meta={TransportEventFieldMeta.Location}
-          />
+    [
+      TransportEventField.Signature,
+      { meta: TransportEventFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={TransportEventField.Signature}
+          meta={TransportEventFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <SignatureDisplay
-            label="Signature"
-            value={value.Signature?.[0]}
-            meta={TransportEventFieldMeta.Signature}
-          />
+    [
+      TransportEventField.Period,
+      { meta: TransportEventFieldMeta.Period,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={TransportEventField.Period}
+          meta={TransportEventFieldMeta.Period}
+          fieldConfig={fieldConfig}
+          period={value?.Period}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Period"
-            label="Period"
-            items={value.Period}
-            meta={TransportEventFieldMeta.Period} 
-            itemDisplay={ (itemValue: Period, key: string | number) =>
-              <PeriodDisplay
-                key={key}
-                label="Period"
-                value={itemValue}
-                meta={TransportEventFieldMeta.Period}
-              />
-            }
-          />
-        </div>
-    </div>
+export function TransportEventDisplay<TFieldMeta>({ meta, fieldConfig, transportEvent, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    TransportEventTypeName,
+    meta,
+    fieldConfig,
+    transportEvent,
+    renderContext,
+    TransportEventSubElementsMap,
   )
 }

@@ -4,7 +4,6 @@ import { Numeric } from '../cbc/Numeric'
 import { TaxCategory } from './TaxCategory'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to define the subtotal for a particular tax category within a particular taxation scheme, such as standard
  * rate within VAT.

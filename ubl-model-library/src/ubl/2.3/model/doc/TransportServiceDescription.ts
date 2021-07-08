@@ -11,7 +11,6 @@ import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { TransportationService } from '../cac/TransportationService'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A document sent by a transport service provider to announce the availability of a transport service.
  */

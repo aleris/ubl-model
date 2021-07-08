@@ -2,7 +2,6 @@ import { Identifier } from '../cbc/Identifier'
 import { Indicator } from '../cbc/Indicator'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe the terms to be fulfilled by tenderers if an auction is to be executed before the awarding of a
  * tender.

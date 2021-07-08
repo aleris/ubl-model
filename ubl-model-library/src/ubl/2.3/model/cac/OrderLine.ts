@@ -5,7 +5,6 @@ import { LineReference } from './LineReference'
 import { OrderLineReference } from './OrderLineReference'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to define a line in an order document (e.g., Order, Order Change, or Order Response) describing an item being
  * ordered.

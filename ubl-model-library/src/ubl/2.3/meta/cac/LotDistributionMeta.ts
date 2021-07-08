@@ -1,4 +1,9 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { LotsGroupType } from './LotsGroupMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum LotDistributionField {
   UBLExtensions = 'UBLExtensions',
@@ -11,11 +16,11 @@ export enum LotDistributionField {
 export const LotDistributionFieldMetaUBLExtensions = new FieldMeta<LotDistributionField>(
   LotDistributionField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -24,10 +29,10 @@ export const LotDistributionFieldMetaMaximumLotsAwardedNumeric = new FieldMeta<L
   LotDistributionField.MaximumLotsAwardedNumeric,
   'MaximumLotsAwardedNumeric',
   'Maximum Lots Awarded',
-  'Numeric',
+  NumericType.name,
   'The maximum number of lots that can be awarded to a single tenderer.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -36,10 +41,10 @@ export const LotDistributionFieldMetaMaximumLotsSubmittedNumeric = new FieldMeta
   LotDistributionField.MaximumLotsSubmittedNumeric,
   'MaximumLotsSubmittedNumeric',
   'Maximum Lots Submitted',
-  'Numeric',
+  NumericType.name,
   'The maximum number of lots to which a tenderer can submit an offer to.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -48,10 +53,10 @@ export const LotDistributionFieldMetaGroupingLots = new FieldMeta<LotDistributio
   LotDistributionField.GroupingLots,
   'GroupingLots',
   'Grouping Lots',
-  'Text',
+  TextType.name,
   'Description on how to combine lots when submitting a tender.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -60,10 +65,10 @@ export const LotDistributionFieldMetaLotsGroup = new FieldMeta<LotDistributionFi
   LotDistributionField.LotsGroup,
   'LotsGroup',
   'Lots Group',
-  'LotsGroup',
+  LotsGroupType.name,
   'A combination of lots used when evaluating a tender.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -83,3 +88,11 @@ export const LotDistributionFieldMap = new Map([
   [LotDistributionField.GroupingLots, LotDistributionFieldMetaGroupingLots],
   [LotDistributionField.LotsGroup, LotDistributionFieldMetaLotsGroup]
 ])
+
+export const LotDistributionType: Type<LotDistributionField> = {
+  name: 'LotDistribution',
+  label: 'Lot Distribution',
+  module: TypeModule.cac,
+  definition: 'A class defining how to treat different lots in a single procurement.',
+  fields: LotDistributionFieldMap,
+}

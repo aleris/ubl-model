@@ -1,167 +1,229 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TransportProgressStatusRequest } from  '../../model/doc/TransportProgressStatusRequest'
-import { TransportProgressStatusRequestFieldMeta } from  '../../meta/doc/TransportProgressStatusRequestMeta'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import LocationDisplay from '../cac/LocationDisplay'
-import { Location } from '../../model/cac/Location'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import TransportMeansDisplay from '../cac/TransportMeansDisplay'
-import { TransportMeans } from '../../model/cac/TransportMeans'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { TransportProgressStatusRequestField, TransportProgressStatusRequestFieldMeta, TransportProgressStatusRequestTypeName } from  '../../meta/doc/TransportProgressStatusRequestMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { LocationDisplay } from '../cac/LocationDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { TransportMeansDisplay } from '../cac/TransportMeansDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: TransportProgressStatusRequest | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<TransportProgressStatusRequest, void>
+  transportProgressStatusRequest: TransportProgressStatusRequest[] | undefined
+  renderContext: RenderContext
 }
 
-export default function TransportProgressStatusRequestDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const TransportProgressStatusRequestSubElementsMap: SubElementsTemplatesMap<TransportProgressStatusRequestField, TransportProgressStatusRequest, void> = new Map([
+    [
+      TransportProgressStatusRequestField.UBLExtensions,
+      { meta: TransportProgressStatusRequestFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={TransportProgressStatusRequestField.UBLExtensions}
+          meta={TransportProgressStatusRequestFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-TransportProgressStatusRequest">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={TransportProgressStatusRequestFieldMeta.UBLExtensions}
-          />
+    [
+      TransportProgressStatusRequestField.UBLVersionID,
+      { meta: TransportProgressStatusRequestFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TransportProgressStatusRequestField.UBLVersionID}
+          meta={TransportProgressStatusRequestFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={TransportProgressStatusRequestFieldMeta.UBLVersionID}
-          />
+    [
+      TransportProgressStatusRequestField.CustomizationID,
+      { meta: TransportProgressStatusRequestFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TransportProgressStatusRequestField.CustomizationID}
+          meta={TransportProgressStatusRequestFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={TransportProgressStatusRequestFieldMeta.CustomizationID}
-          />
+    [
+      TransportProgressStatusRequestField.ProfileID,
+      { meta: TransportProgressStatusRequestFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TransportProgressStatusRequestField.ProfileID}
+          meta={TransportProgressStatusRequestFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={TransportProgressStatusRequestFieldMeta.ProfileID}
-          />
+    [
+      TransportProgressStatusRequestField.ProfileExecutionID,
+      { meta: TransportProgressStatusRequestFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TransportProgressStatusRequestField.ProfileExecutionID}
+          meta={TransportProgressStatusRequestFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={TransportProgressStatusRequestFieldMeta.ProfileExecutionID}
-          />
+    [
+      TransportProgressStatusRequestField.ID,
+      { meta: TransportProgressStatusRequestFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TransportProgressStatusRequestField.ID}
+          meta={TransportProgressStatusRequestFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={TransportProgressStatusRequestFieldMeta.ID}
-          />
+    [
+      TransportProgressStatusRequestField.CopyIndicator,
+      { meta: TransportProgressStatusRequestFieldMeta.CopyIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={TransportProgressStatusRequestField.CopyIndicator}
+          meta={TransportProgressStatusRequestFieldMeta.CopyIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.CopyIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Copy Indicator"
-            value={value.CopyIndicator?.[0]}
-            meta={TransportProgressStatusRequestFieldMeta.CopyIndicator}
-          />
+    [
+      TransportProgressStatusRequestField.UUID,
+      { meta: TransportProgressStatusRequestFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TransportProgressStatusRequestField.UUID}
+          meta={TransportProgressStatusRequestFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={TransportProgressStatusRequestFieldMeta.UUID}
-          />
+    [
+      TransportProgressStatusRequestField.IssueDate,
+      { meta: TransportProgressStatusRequestFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={TransportProgressStatusRequestField.IssueDate}
+          meta={TransportProgressStatusRequestFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={TransportProgressStatusRequestFieldMeta.IssueDate}
-          />
+    [
+      TransportProgressStatusRequestField.IssueTime,
+      { meta: TransportProgressStatusRequestFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={TransportProgressStatusRequestField.IssueTime}
+          meta={TransportProgressStatusRequestFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={TransportProgressStatusRequestFieldMeta.IssueTime}
-          />
+    [
+      TransportProgressStatusRequestField.Note,
+      { meta: TransportProgressStatusRequestFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TransportProgressStatusRequestField.Note}
+          meta={TransportProgressStatusRequestFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={TransportProgressStatusRequestFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={TransportProgressStatusRequestFieldMeta.Note}
-              />
-            }
-          />
+    [
+      TransportProgressStatusRequestField.Signature,
+      { meta: TransportProgressStatusRequestFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={TransportProgressStatusRequestField.Signature}
+          meta={TransportProgressStatusRequestFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={TransportProgressStatusRequestFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={TransportProgressStatusRequestFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      TransportProgressStatusRequestField.SenderParty,
+      { meta: TransportProgressStatusRequestFieldMeta.SenderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={TransportProgressStatusRequestField.SenderParty}
+          meta={TransportProgressStatusRequestFieldMeta.SenderParty}
+          fieldConfig={fieldConfig}
+          party={value?.SenderParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Sender Party"
-            value={value.SenderParty?.[0]}
-            meta={TransportProgressStatusRequestFieldMeta.SenderParty}
-          />
+    [
+      TransportProgressStatusRequestField.ReceiverParty,
+      { meta: TransportProgressStatusRequestFieldMeta.ReceiverParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={TransportProgressStatusRequestField.ReceiverParty}
+          meta={TransportProgressStatusRequestFieldMeta.ReceiverParty}
+          fieldConfig={fieldConfig}
+          party={value?.ReceiverParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Receiver Party"
-            value={value.ReceiverParty?.[0]}
-            meta={TransportProgressStatusRequestFieldMeta.ReceiverParty}
-          />
+    [
+      TransportProgressStatusRequestField.TransportMeans,
+      { meta: TransportProgressStatusRequestFieldMeta.TransportMeans,
+        template: ({value, renderContext, fieldConfig}) => <TransportMeansDisplay
+          key={TransportProgressStatusRequestField.TransportMeans}
+          meta={TransportProgressStatusRequestFieldMeta.TransportMeans}
+          fieldConfig={fieldConfig}
+          transportMeans={value?.TransportMeans}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TransportMeansDisplay
-            label="Transport Means"
-            value={value.TransportMeans?.[0]}
-            meta={TransportProgressStatusRequestFieldMeta.TransportMeans}
-          />
+    [
+      TransportProgressStatusRequestField.StatusLocation,
+      { meta: TransportProgressStatusRequestFieldMeta.StatusLocation,
+        template: ({value, renderContext, fieldConfig}) => <LocationDisplay
+          key={TransportProgressStatusRequestField.StatusLocation}
+          meta={TransportProgressStatusRequestFieldMeta.StatusLocation}
+          fieldConfig={fieldConfig}
+          location={value?.StatusLocation}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Location ubl-StatusLocation"
-            label="Status Location"
-            items={value.StatusLocation}
-            meta={TransportProgressStatusRequestFieldMeta.StatusLocation} 
-            itemDisplay={ (itemValue: Location, key: string | number) =>
-              <LocationDisplay
-                key={key}
-                label="Status Location"
-                value={itemValue}
-                meta={TransportProgressStatusRequestFieldMeta.StatusLocation}
-              />
-            }
-          />
-        </div>
-    </div>
+export function TransportProgressStatusRequestDisplay<TFieldMeta>({ meta, fieldConfig, transportProgressStatusRequest, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    TransportProgressStatusRequestTypeName,
+    meta,
+    fieldConfig,
+    transportProgressStatusRequest,
+    renderContext,
+    TransportProgressStatusRequestSubElementsMap,
   )
 }

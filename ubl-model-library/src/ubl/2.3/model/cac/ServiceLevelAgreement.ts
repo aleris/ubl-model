@@ -6,7 +6,6 @@ import { Numeric } from '../cbc/Numeric'
 import { Period } from './Period'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a service level agreement which regulates the quality, availability and responsibilities of
  * digital services.

@@ -1,218 +1,340 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Delivery } from  '../../model/cac/Delivery'
-import { DeliveryFieldMeta } from  '../../meta/cac/DeliveryMeta'
-import AddressDisplay from './AddressDisplay'
-import { Address } from '../../model/cac/Address'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DeliveryTermsDisplay from './DeliveryTermsDisplay'
-import { DeliveryTerms } from '../../model/cac/DeliveryTerms'
-import DeliveryUnitDisplay from './DeliveryUnitDisplay'
-import { DeliveryUnit } from '../../model/cac/DeliveryUnit'
-import DespatchDisplay from './DespatchDisplay'
-import { Despatch } from '../../model/cac/Despatch'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import LocationDisplay from './LocationDisplay'
-import { Location } from '../../model/cac/Location'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import ShipmentDisplay from './ShipmentDisplay'
-import { Shipment } from '../../model/cac/Shipment'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { DeliveryField, DeliveryFieldMeta, DeliveryTypeName } from  '../../meta/cac/DeliveryMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AddressDisplay } from './AddressDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DeliveryTermsDisplay } from './DeliveryTermsDisplay'
+import { DeliveryUnitDisplay } from './DeliveryUnitDisplay'
+import { DespatchDisplay } from './DespatchDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { LocationDisplay } from './LocationDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { ShipmentDisplay } from './ShipmentDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: Delivery | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<Delivery, void>
+  delivery: Delivery[] | undefined
+  renderContext: RenderContext
 }
 
-export default function DeliveryDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const DeliverySubElementsMap: SubElementsTemplatesMap<DeliveryField, Delivery, void> = new Map([
+    [
+      DeliveryField.UBLExtensions,
+      { meta: DeliveryFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={DeliveryField.UBLExtensions}
+          meta={DeliveryFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-Delivery">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={DeliveryFieldMeta.UBLExtensions}
-          />
+    [
+      DeliveryField.ID,
+      { meta: DeliveryFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DeliveryField.ID}
+          meta={DeliveryFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={DeliveryFieldMeta.ID}
-          />
+    [
+      DeliveryField.Quantity,
+      { meta: DeliveryFieldMeta.Quantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={DeliveryField.Quantity}
+          meta={DeliveryFieldMeta.Quantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.Quantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Quantity"
-            value={value.Quantity?.[0]}
-            meta={DeliveryFieldMeta.Quantity}
-          />
+    [
+      DeliveryField.MinimumQuantity,
+      { meta: DeliveryFieldMeta.MinimumQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={DeliveryField.MinimumQuantity}
+          meta={DeliveryFieldMeta.MinimumQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.MinimumQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Minimum Quantity"
-            value={value.MinimumQuantity?.[0]}
-            meta={DeliveryFieldMeta.MinimumQuantity}
-          />
+    [
+      DeliveryField.MaximumQuantity,
+      { meta: DeliveryFieldMeta.MaximumQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={DeliveryField.MaximumQuantity}
+          meta={DeliveryFieldMeta.MaximumQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.MaximumQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Maximum Quantity"
-            value={value.MaximumQuantity?.[0]}
-            meta={DeliveryFieldMeta.MaximumQuantity}
-          />
+    [
+      DeliveryField.ActualDeliveryDate,
+      { meta: DeliveryFieldMeta.ActualDeliveryDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={DeliveryField.ActualDeliveryDate}
+          meta={DeliveryFieldMeta.ActualDeliveryDate}
+          fieldConfig={fieldConfig}
+          date={value?.ActualDeliveryDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Actual Delivery Date"
-            value={value.ActualDeliveryDate?.[0]}
-            meta={DeliveryFieldMeta.ActualDeliveryDate}
-          />
+    [
+      DeliveryField.ActualDeliveryTime,
+      { meta: DeliveryFieldMeta.ActualDeliveryTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={DeliveryField.ActualDeliveryTime}
+          meta={DeliveryFieldMeta.ActualDeliveryTime}
+          fieldConfig={fieldConfig}
+          time={value?.ActualDeliveryTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Actual Delivery Time"
-            value={value.ActualDeliveryTime?.[0]}
-            meta={DeliveryFieldMeta.ActualDeliveryTime}
-          />
+    [
+      DeliveryField.LatestDeliveryDate,
+      { meta: DeliveryFieldMeta.LatestDeliveryDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={DeliveryField.LatestDeliveryDate}
+          meta={DeliveryFieldMeta.LatestDeliveryDate}
+          fieldConfig={fieldConfig}
+          date={value?.LatestDeliveryDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Latest Delivery Date"
-            value={value.LatestDeliveryDate?.[0]}
-            meta={DeliveryFieldMeta.LatestDeliveryDate}
-          />
+    [
+      DeliveryField.LatestDeliveryTime,
+      { meta: DeliveryFieldMeta.LatestDeliveryTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={DeliveryField.LatestDeliveryTime}
+          meta={DeliveryFieldMeta.LatestDeliveryTime}
+          fieldConfig={fieldConfig}
+          time={value?.LatestDeliveryTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Latest Delivery Time"
-            value={value.LatestDeliveryTime?.[0]}
-            meta={DeliveryFieldMeta.LatestDeliveryTime}
-          />
+    [
+      DeliveryField.ReleaseID,
+      { meta: DeliveryFieldMeta.ReleaseID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DeliveryField.ReleaseID}
+          meta={DeliveryFieldMeta.ReleaseID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ReleaseID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Release"
-            value={value.ReleaseID?.[0]}
-            meta={DeliveryFieldMeta.ReleaseID}
-          />
+    [
+      DeliveryField.TrackingID,
+      { meta: DeliveryFieldMeta.TrackingID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DeliveryField.TrackingID}
+          meta={DeliveryFieldMeta.TrackingID}
+          fieldConfig={fieldConfig}
+          identifier={value?.TrackingID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Tracking Identifier"
-            value={value.TrackingID?.[0]}
-            meta={DeliveryFieldMeta.TrackingID}
-          />
+    [
+      DeliveryField.DeliveryAddress,
+      { meta: DeliveryFieldMeta.DeliveryAddress,
+        template: ({value, renderContext, fieldConfig}) => <AddressDisplay
+          key={DeliveryField.DeliveryAddress}
+          meta={DeliveryFieldMeta.DeliveryAddress}
+          fieldConfig={fieldConfig}
+          address={value?.DeliveryAddress}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AddressDisplay
-            label="Delivery Address"
-            value={value.DeliveryAddress?.[0]}
-            meta={DeliveryFieldMeta.DeliveryAddress}
-          />
+    [
+      DeliveryField.DeliveryLocation,
+      { meta: DeliveryFieldMeta.DeliveryLocation,
+        template: ({value, renderContext, fieldConfig}) => <LocationDisplay
+          key={DeliveryField.DeliveryLocation}
+          meta={DeliveryFieldMeta.DeliveryLocation}
+          fieldConfig={fieldConfig}
+          location={value?.DeliveryLocation}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <LocationDisplay
-            label="Delivery Location"
-            value={value.DeliveryLocation?.[0]}
-            meta={DeliveryFieldMeta.DeliveryLocation}
-          />
+    [
+      DeliveryField.AlternativeDeliveryLocation,
+      { meta: DeliveryFieldMeta.AlternativeDeliveryLocation,
+        template: ({value, renderContext, fieldConfig}) => <LocationDisplay
+          key={DeliveryField.AlternativeDeliveryLocation}
+          meta={DeliveryFieldMeta.AlternativeDeliveryLocation}
+          fieldConfig={fieldConfig}
+          location={value?.AlternativeDeliveryLocation}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <LocationDisplay
-            label="Alternative Delivery Location"
-            value={value.AlternativeDeliveryLocation?.[0]}
-            meta={DeliveryFieldMeta.AlternativeDeliveryLocation}
-          />
+    [
+      DeliveryField.RequestedDeliveryPeriod,
+      { meta: DeliveryFieldMeta.RequestedDeliveryPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={DeliveryField.RequestedDeliveryPeriod}
+          meta={DeliveryFieldMeta.RequestedDeliveryPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.RequestedDeliveryPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Requested Delivery Period"
-            value={value.RequestedDeliveryPeriod?.[0]}
-            meta={DeliveryFieldMeta.RequestedDeliveryPeriod}
-          />
+    [
+      DeliveryField.PromisedDeliveryPeriod,
+      { meta: DeliveryFieldMeta.PromisedDeliveryPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={DeliveryField.PromisedDeliveryPeriod}
+          meta={DeliveryFieldMeta.PromisedDeliveryPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.PromisedDeliveryPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Promised Delivery Period"
-            value={value.PromisedDeliveryPeriod?.[0]}
-            meta={DeliveryFieldMeta.PromisedDeliveryPeriod}
-          />
+    [
+      DeliveryField.EstimatedDeliveryPeriod,
+      { meta: DeliveryFieldMeta.EstimatedDeliveryPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={DeliveryField.EstimatedDeliveryPeriod}
+          meta={DeliveryFieldMeta.EstimatedDeliveryPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.EstimatedDeliveryPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Estimated Delivery Period"
-            value={value.EstimatedDeliveryPeriod?.[0]}
-            meta={DeliveryFieldMeta.EstimatedDeliveryPeriod}
-          />
+    [
+      DeliveryField.CarrierParty,
+      { meta: DeliveryFieldMeta.CarrierParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={DeliveryField.CarrierParty}
+          meta={DeliveryFieldMeta.CarrierParty}
+          fieldConfig={fieldConfig}
+          party={value?.CarrierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Carrier Party"
-            value={value.CarrierParty?.[0]}
-            meta={DeliveryFieldMeta.CarrierParty}
-          />
+    [
+      DeliveryField.DeliveryParty,
+      { meta: DeliveryFieldMeta.DeliveryParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={DeliveryField.DeliveryParty}
+          meta={DeliveryFieldMeta.DeliveryParty}
+          fieldConfig={fieldConfig}
+          party={value?.DeliveryParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Delivery Party"
-            value={value.DeliveryParty?.[0]}
-            meta={DeliveryFieldMeta.DeliveryParty}
-          />
+    [
+      DeliveryField.NotifyParty,
+      { meta: DeliveryFieldMeta.NotifyParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={DeliveryField.NotifyParty}
+          meta={DeliveryFieldMeta.NotifyParty}
+          fieldConfig={fieldConfig}
+          party={value?.NotifyParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Party ubl-NotifyParty"
-            label="Notify Party"
-            items={value.NotifyParty}
-            meta={DeliveryFieldMeta.NotifyParty} 
-            itemDisplay={ (itemValue: Party, key: string | number) =>
-              <PartyDisplay
-                key={key}
-                label="Notify Party"
-                value={itemValue}
-                meta={DeliveryFieldMeta.NotifyParty}
-              />
-            }
-          />
+    [
+      DeliveryField.Despatch,
+      { meta: DeliveryFieldMeta.Despatch,
+        template: ({value, renderContext, fieldConfig}) => <DespatchDisplay
+          key={DeliveryField.Despatch}
+          meta={DeliveryFieldMeta.Despatch}
+          fieldConfig={fieldConfig}
+          despatch={value?.Despatch}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DespatchDisplay
-            label="Despatch"
-            value={value.Despatch?.[0]}
-            meta={DeliveryFieldMeta.Despatch}
-          />
+    [
+      DeliveryField.DeliveryTerms,
+      { meta: DeliveryFieldMeta.DeliveryTerms,
+        template: ({value, renderContext, fieldConfig}) => <DeliveryTermsDisplay
+          key={DeliveryField.DeliveryTerms}
+          meta={DeliveryFieldMeta.DeliveryTerms}
+          fieldConfig={fieldConfig}
+          deliveryTerms={value?.DeliveryTerms}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DeliveryTerms"
-            label="Delivery Terms"
-            items={value.DeliveryTerms}
-            meta={DeliveryFieldMeta.DeliveryTerms} 
-            itemDisplay={ (itemValue: DeliveryTerms, key: string | number) =>
-              <DeliveryTermsDisplay
-                key={key}
-                label="Delivery Terms"
-                value={itemValue}
-                meta={DeliveryFieldMeta.DeliveryTerms}
-              />
-            }
-          />
+    [
+      DeliveryField.MinimumDeliveryUnit,
+      { meta: DeliveryFieldMeta.MinimumDeliveryUnit,
+        template: ({value, renderContext, fieldConfig}) => <DeliveryUnitDisplay
+          key={DeliveryField.MinimumDeliveryUnit}
+          meta={DeliveryFieldMeta.MinimumDeliveryUnit}
+          fieldConfig={fieldConfig}
+          deliveryUnit={value?.MinimumDeliveryUnit}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DeliveryUnitDisplay
-            label="Minimum Delivery Unit"
-            value={value.MinimumDeliveryUnit?.[0]}
-            meta={DeliveryFieldMeta.MinimumDeliveryUnit}
-          />
+    [
+      DeliveryField.MaximumDeliveryUnit,
+      { meta: DeliveryFieldMeta.MaximumDeliveryUnit,
+        template: ({value, renderContext, fieldConfig}) => <DeliveryUnitDisplay
+          key={DeliveryField.MaximumDeliveryUnit}
+          meta={DeliveryFieldMeta.MaximumDeliveryUnit}
+          fieldConfig={fieldConfig}
+          deliveryUnit={value?.MaximumDeliveryUnit}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DeliveryUnitDisplay
-            label="Maximum Delivery Unit"
-            value={value.MaximumDeliveryUnit?.[0]}
-            meta={DeliveryFieldMeta.MaximumDeliveryUnit}
-          />
+    [
+      DeliveryField.Shipment,
+      { meta: DeliveryFieldMeta.Shipment,
+        template: ({value, renderContext, fieldConfig}) => <ShipmentDisplay
+          key={DeliveryField.Shipment}
+          meta={DeliveryFieldMeta.Shipment}
+          fieldConfig={fieldConfig}
+          shipment={value?.Shipment}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ShipmentDisplay
-            label="Shipment"
-            value={value.Shipment?.[0]}
-            meta={DeliveryFieldMeta.Shipment}
-          />
-        </div>
-    </div>
+export function DeliveryDisplay<TFieldMeta>({ meta, fieldConfig, delivery, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    DeliveryTypeName,
+    meta,
+    fieldConfig,
+    delivery,
+    renderContext,
+    DeliverySubElementsMap,
   )
 }

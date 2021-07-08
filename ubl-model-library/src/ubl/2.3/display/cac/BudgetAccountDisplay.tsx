@@ -1,56 +1,79 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { BudgetAccount } from  '../../model/cac/BudgetAccount'
-import { BudgetAccountFieldMeta } from  '../../meta/cac/BudgetAccountMeta'
-import ClassificationSchemeDisplay from './ClassificationSchemeDisplay'
-import { ClassificationScheme } from '../../model/cac/ClassificationScheme'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { BudgetAccountField, BudgetAccountFieldMeta, BudgetAccountTypeName } from  '../../meta/cac/BudgetAccountMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { ClassificationSchemeDisplay } from './ClassificationSchemeDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: BudgetAccount | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<BudgetAccount, void>
+  budgetAccount: BudgetAccount[] | undefined
+  renderContext: RenderContext
 }
 
-export default function BudgetAccountDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const BudgetAccountSubElementsMap: SubElementsTemplatesMap<BudgetAccountField, BudgetAccount, void> = new Map([
+    [
+      BudgetAccountField.UBLExtensions,
+      { meta: BudgetAccountFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={BudgetAccountField.UBLExtensions}
+          meta={BudgetAccountFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-BudgetAccount">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={BudgetAccountFieldMeta.UBLExtensions}
-          />
+    [
+      BudgetAccountField.ID,
+      { meta: BudgetAccountFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={BudgetAccountField.ID}
+          meta={BudgetAccountFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={BudgetAccountFieldMeta.ID}
-          />
+    [
+      BudgetAccountField.BudgetYearNumeric,
+      { meta: BudgetAccountFieldMeta.BudgetYearNumeric,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={BudgetAccountField.BudgetYearNumeric}
+          meta={BudgetAccountFieldMeta.BudgetYearNumeric}
+          fieldConfig={fieldConfig}
+          numeric={value?.BudgetYearNumeric}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Budget Year"
-            value={value.BudgetYearNumeric?.[0]}
-            meta={BudgetAccountFieldMeta.BudgetYearNumeric}
-          />
+    [
+      BudgetAccountField.RequiredClassificationScheme,
+      { meta: BudgetAccountFieldMeta.RequiredClassificationScheme,
+        template: ({value, renderContext, fieldConfig}) => <ClassificationSchemeDisplay
+          key={BudgetAccountField.RequiredClassificationScheme}
+          meta={BudgetAccountFieldMeta.RequiredClassificationScheme}
+          fieldConfig={fieldConfig}
+          classificationScheme={value?.RequiredClassificationScheme}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ClassificationSchemeDisplay
-            label="Required Classification Scheme"
-            value={value.RequiredClassificationScheme?.[0]}
-            meta={BudgetAccountFieldMeta.RequiredClassificationScheme}
-          />
-        </div>
-    </div>
+export function BudgetAccountDisplay<TFieldMeta>({ meta, fieldConfig, budgetAccount, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    BudgetAccountTypeName,
+    meta,
+    fieldConfig,
+    budgetAccount,
+    renderContext,
+    BudgetAccountSubElementsMap,
   )
 }

@@ -1,261 +1,294 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ProcurementProject } from  '../../model/cac/ProcurementProject'
-import { ProcurementProjectFieldMeta } from  '../../meta/cac/ProcurementProjectMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import CommodityClassificationDisplay from './CommodityClassificationDisplay'
-import { CommodityClassification } from '../../model/cac/CommodityClassification'
-import ContractExtensionDisplay from './ContractExtensionDisplay'
-import { ContractExtension } from '../../model/cac/ContractExtension'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import LocationDisplay from './LocationDisplay'
-import { Location } from '../../model/cac/Location'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import ProcurementAdditionalTypeDisplay from './ProcurementAdditionalTypeDisplay'
-import { ProcurementAdditionalType } from '../../model/cac/ProcurementAdditionalType'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import RequestedTenderTotalDisplay from './RequestedTenderTotalDisplay'
-import { RequestedTenderTotal } from '../../model/cac/RequestedTenderTotal'
-import RequestForTenderLineDisplay from './RequestForTenderLineDisplay'
-import { RequestForTenderLine } from '../../model/cac/RequestForTenderLine'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ProcurementProjectField, ProcurementProjectFieldMeta, ProcurementProjectTypeName } from  '../../meta/cac/ProcurementProjectMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { CommodityClassificationDisplay } from './CommodityClassificationDisplay'
+import { ContractExtensionDisplay } from './ContractExtensionDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { LocationDisplay } from './LocationDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { ProcurementAdditionalTypeDisplay } from './ProcurementAdditionalTypeDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { RequestedTenderTotalDisplay } from './RequestedTenderTotalDisplay'
+import { RequestForTenderLineDisplay } from './RequestForTenderLineDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ProcurementProject | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ProcurementProject, void>
+  procurementProject: ProcurementProject[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ProcurementProjectDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ProcurementProjectSubElementsMap: SubElementsTemplatesMap<ProcurementProjectField, ProcurementProject, void> = new Map([
+    [
+      ProcurementProjectField.UBLExtensions,
+      { meta: ProcurementProjectFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ProcurementProjectField.UBLExtensions}
+          meta={ProcurementProjectFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ProcurementProject">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ProcurementProjectFieldMeta.UBLExtensions}
-          />
+    [
+      ProcurementProjectField.ID,
+      { meta: ProcurementProjectFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ProcurementProjectField.ID}
+          meta={ProcurementProjectFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={ProcurementProjectFieldMeta.ID}
-          />
+    [
+      ProcurementProjectField.Name,
+      { meta: ProcurementProjectFieldMeta.Name,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ProcurementProjectField.Name}
+          meta={ProcurementProjectFieldMeta.Name}
+          fieldConfig={fieldConfig}
+          text={value?.Name}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Name"
-            label="Name"
-            items={value.Name}
-            meta={ProcurementProjectFieldMeta.Name} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Name"
-                value={itemValue}
-                meta={ProcurementProjectFieldMeta.Name}
-              />
-            }
-          />
+    [
+      ProcurementProjectField.Description,
+      { meta: ProcurementProjectFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ProcurementProjectField.Description}
+          meta={ProcurementProjectFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={ProcurementProjectFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={ProcurementProjectFieldMeta.Description}
-              />
-            }
-          />
+    [
+      ProcurementProjectField.ProcurementTypeCode,
+      { meta: ProcurementProjectFieldMeta.ProcurementTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ProcurementProjectField.ProcurementTypeCode}
+          meta={ProcurementProjectFieldMeta.ProcurementTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.ProcurementTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Procurement Type Code"
-            value={value.ProcurementTypeCode?.[0]}
-            meta={ProcurementProjectFieldMeta.ProcurementTypeCode}
-          />
+    [
+      ProcurementProjectField.ProcurementSubTypeCode,
+      { meta: ProcurementProjectFieldMeta.ProcurementSubTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ProcurementProjectField.ProcurementSubTypeCode}
+          meta={ProcurementProjectFieldMeta.ProcurementSubTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.ProcurementSubTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Procurement Sub Type Code"
-            value={value.ProcurementSubTypeCode?.[0]}
-            meta={ProcurementProjectFieldMeta.ProcurementSubTypeCode}
-          />
+    [
+      ProcurementProjectField.QualityControlCode,
+      { meta: ProcurementProjectFieldMeta.QualityControlCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ProcurementProjectField.QualityControlCode}
+          meta={ProcurementProjectFieldMeta.QualityControlCode}
+          fieldConfig={fieldConfig}
+          code={value?.QualityControlCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Quality Control Code"
-            value={value.QualityControlCode?.[0]}
-            meta={ProcurementProjectFieldMeta.QualityControlCode}
-          />
+    [
+      ProcurementProjectField.RequiredFeeAmount,
+      { meta: ProcurementProjectFieldMeta.RequiredFeeAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={ProcurementProjectField.RequiredFeeAmount}
+          meta={ProcurementProjectFieldMeta.RequiredFeeAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.RequiredFeeAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Required Fee"
-            value={value.RequiredFeeAmount?.[0]}
-            meta={ProcurementProjectFieldMeta.RequiredFeeAmount}
-          />
+    [
+      ProcurementProjectField.FeeDescription,
+      { meta: ProcurementProjectFieldMeta.FeeDescription,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ProcurementProjectField.FeeDescription}
+          meta={ProcurementProjectFieldMeta.FeeDescription}
+          fieldConfig={fieldConfig}
+          text={value?.FeeDescription}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-FeeDescription"
-            label="Fee Description"
-            items={value.FeeDescription}
-            meta={ProcurementProjectFieldMeta.FeeDescription} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Fee Description"
-                value={itemValue}
-                meta={ProcurementProjectFieldMeta.FeeDescription}
-              />
-            }
-          />
+    [
+      ProcurementProjectField.RequestedDeliveryDate,
+      { meta: ProcurementProjectFieldMeta.RequestedDeliveryDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={ProcurementProjectField.RequestedDeliveryDate}
+          meta={ProcurementProjectFieldMeta.RequestedDeliveryDate}
+          fieldConfig={fieldConfig}
+          date={value?.RequestedDeliveryDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Requested Delivery Date"
-            value={value.RequestedDeliveryDate?.[0]}
-            meta={ProcurementProjectFieldMeta.RequestedDeliveryDate}
-          />
+    [
+      ProcurementProjectField.EstimatedOverallContractQuantity,
+      { meta: ProcurementProjectFieldMeta.EstimatedOverallContractQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={ProcurementProjectField.EstimatedOverallContractQuantity}
+          meta={ProcurementProjectFieldMeta.EstimatedOverallContractQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.EstimatedOverallContractQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Estimated Overall Contract"
-            value={value.EstimatedOverallContractQuantity?.[0]}
-            meta={ProcurementProjectFieldMeta.EstimatedOverallContractQuantity}
-          />
+    [
+      ProcurementProjectField.Note,
+      { meta: ProcurementProjectFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ProcurementProjectField.Note}
+          meta={ProcurementProjectFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={ProcurementProjectFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={ProcurementProjectFieldMeta.Note}
-              />
-            }
-          />
+    [
+      ProcurementProjectField.SMESuitableIndicator,
+      { meta: ProcurementProjectFieldMeta.SMESuitableIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ProcurementProjectField.SMESuitableIndicator}
+          meta={ProcurementProjectFieldMeta.SMESuitableIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.SMESuitableIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="SME Suitable"
-            value={value.SMESuitableIndicator?.[0]}
-            meta={ProcurementProjectFieldMeta.SMESuitableIndicator}
-          />
+    [
+      ProcurementProjectField.RequestedTenderTotal,
+      { meta: ProcurementProjectFieldMeta.RequestedTenderTotal,
+        template: ({value, renderContext, fieldConfig}) => <RequestedTenderTotalDisplay
+          key={ProcurementProjectField.RequestedTenderTotal}
+          meta={ProcurementProjectFieldMeta.RequestedTenderTotal}
+          fieldConfig={fieldConfig}
+          requestedTenderTotal={value?.RequestedTenderTotal}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <RequestedTenderTotalDisplay
-            label="Requested Tender Total"
-            value={value.RequestedTenderTotal?.[0]}
-            meta={ProcurementProjectFieldMeta.RequestedTenderTotal}
-          />
+    [
+      ProcurementProjectField.MainCommodityClassification,
+      { meta: ProcurementProjectFieldMeta.MainCommodityClassification,
+        template: ({value, renderContext, fieldConfig}) => <CommodityClassificationDisplay
+          key={ProcurementProjectField.MainCommodityClassification}
+          meta={ProcurementProjectFieldMeta.MainCommodityClassification}
+          fieldConfig={fieldConfig}
+          commodityClassification={value?.MainCommodityClassification}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-CommodityClassification ubl-MainCommodityClassification"
-            label="Main Commodity Classification"
-            items={value.MainCommodityClassification}
-            meta={ProcurementProjectFieldMeta.MainCommodityClassification} 
-            itemDisplay={ (itemValue: CommodityClassification, key: string | number) =>
-              <CommodityClassificationDisplay
-                key={key}
-                label="Main Commodity Classification"
-                value={itemValue}
-                meta={ProcurementProjectFieldMeta.MainCommodityClassification}
-              />
-            }
-          />
+    [
+      ProcurementProjectField.AdditionalCommodityClassification,
+      { meta: ProcurementProjectFieldMeta.AdditionalCommodityClassification,
+        template: ({value, renderContext, fieldConfig}) => <CommodityClassificationDisplay
+          key={ProcurementProjectField.AdditionalCommodityClassification}
+          meta={ProcurementProjectFieldMeta.AdditionalCommodityClassification}
+          fieldConfig={fieldConfig}
+          commodityClassification={value?.AdditionalCommodityClassification}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-CommodityClassification ubl-AdditionalCommodityClassification"
-            label="Additional Commodity Classification"
-            items={value.AdditionalCommodityClassification}
-            meta={ProcurementProjectFieldMeta.AdditionalCommodityClassification} 
-            itemDisplay={ (itemValue: CommodityClassification, key: string | number) =>
-              <CommodityClassificationDisplay
-                key={key}
-                label="Additional Commodity Classification"
-                value={itemValue}
-                meta={ProcurementProjectFieldMeta.AdditionalCommodityClassification}
-              />
-            }
-          />
+    [
+      ProcurementProjectField.ProcurementAdditionalType,
+      { meta: ProcurementProjectFieldMeta.ProcurementAdditionalType,
+        template: ({value, renderContext, fieldConfig}) => <ProcurementAdditionalTypeDisplay
+          key={ProcurementProjectField.ProcurementAdditionalType}
+          meta={ProcurementProjectFieldMeta.ProcurementAdditionalType}
+          fieldConfig={fieldConfig}
+          procurementAdditionalType={value?.ProcurementAdditionalType}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-ProcurementAdditionalType"
-            label="Procurement Additional Type"
-            items={value.ProcurementAdditionalType}
-            meta={ProcurementProjectFieldMeta.ProcurementAdditionalType} 
-            itemDisplay={ (itemValue: ProcurementAdditionalType, key: string | number) =>
-              <ProcurementAdditionalTypeDisplay
-                key={key}
-                label="Procurement Additional Type"
-                value={itemValue}
-                meta={ProcurementProjectFieldMeta.ProcurementAdditionalType}
-              />
-            }
-          />
+    [
+      ProcurementProjectField.RealizedLocation,
+      { meta: ProcurementProjectFieldMeta.RealizedLocation,
+        template: ({value, renderContext, fieldConfig}) => <LocationDisplay
+          key={ProcurementProjectField.RealizedLocation}
+          meta={ProcurementProjectFieldMeta.RealizedLocation}
+          fieldConfig={fieldConfig}
+          location={value?.RealizedLocation}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Location ubl-RealizedLocation"
-            label="Realized Location"
-            items={value.RealizedLocation}
-            meta={ProcurementProjectFieldMeta.RealizedLocation} 
-            itemDisplay={ (itemValue: Location, key: string | number) =>
-              <LocationDisplay
-                key={key}
-                label="Realized Location"
-                value={itemValue}
-                meta={ProcurementProjectFieldMeta.RealizedLocation}
-              />
-            }
-          />
+    [
+      ProcurementProjectField.PlannedPeriod,
+      { meta: ProcurementProjectFieldMeta.PlannedPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={ProcurementProjectField.PlannedPeriod}
+          meta={ProcurementProjectFieldMeta.PlannedPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.PlannedPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Planned Period"
-            value={value.PlannedPeriod?.[0]}
-            meta={ProcurementProjectFieldMeta.PlannedPeriod}
-          />
+    [
+      ProcurementProjectField.ContractExtension,
+      { meta: ProcurementProjectFieldMeta.ContractExtension,
+        template: ({value, renderContext, fieldConfig}) => <ContractExtensionDisplay
+          key={ProcurementProjectField.ContractExtension}
+          meta={ProcurementProjectFieldMeta.ContractExtension}
+          fieldConfig={fieldConfig}
+          contractExtension={value?.ContractExtension}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ContractExtensionDisplay
-            label="Contract Extension"
-            value={value.ContractExtension?.[0]}
-            meta={ProcurementProjectFieldMeta.ContractExtension}
-          />
+    [
+      ProcurementProjectField.RequestForTenderLine,
+      { meta: ProcurementProjectFieldMeta.RequestForTenderLine,
+        template: ({value, renderContext, fieldConfig}) => <RequestForTenderLineDisplay
+          key={ProcurementProjectField.RequestForTenderLine}
+          meta={ProcurementProjectFieldMeta.RequestForTenderLine}
+          fieldConfig={fieldConfig}
+          requestForTenderLine={value?.RequestForTenderLine}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-RequestForTenderLine"
-            label="Request For Tender Line"
-            items={value.RequestForTenderLine}
-            meta={ProcurementProjectFieldMeta.RequestForTenderLine} 
-            itemDisplay={ (itemValue: RequestForTenderLine, key: string | number) =>
-              <RequestForTenderLineDisplay
-                key={key}
-                label="Request For Tender Line"
-                value={itemValue}
-                meta={ProcurementProjectFieldMeta.RequestForTenderLine}
-              />
-            }
-          />
-        </div>
-    </div>
+export function ProcurementProjectDisplay<TFieldMeta>({ meta, fieldConfig, procurementProject, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ProcurementProjectTypeName,
+    meta,
+    fieldConfig,
+    procurementProject,
+    renderContext,
+    ProcurementProjectSubElementsMap,
   )
 }

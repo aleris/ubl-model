@@ -8,7 +8,6 @@ import { Quantity } from '../cbc/Quantity'
 import { SupplierConsumption } from './SupplierConsumption'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * The consumption for a specific party for given consumption point provided by a numbers of suppliers. An enterprise
  * can have one utility statement for several parties (e.g. a ministry of defence receiving a telephone bill). In this

@@ -1,4 +1,15 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CardAccountType } from './CardAccountMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { CreditAccountType } from './CreditAccountMeta'
+import { DateType } from '../cbc/DateMeta'
+import { FinancialAccountType } from './FinancialAccountMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { PaymentMandateType } from './PaymentMandateMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TradeFinancingType } from './TradeFinancingMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum PaymentMeansField {
   UBLExtensions = 'UBLExtensions',
@@ -20,11 +31,11 @@ export enum PaymentMeansField {
 export const PaymentMeansFieldMetaUBLExtensions = new FieldMeta<PaymentMeansField>(
   PaymentMeansField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -33,10 +44,10 @@ export const PaymentMeansFieldMetaID = new FieldMeta<PaymentMeansField>(
   PaymentMeansField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this means of payment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -45,10 +56,10 @@ export const PaymentMeansFieldMetaPaymentMeansCode = new FieldMeta<PaymentMeansF
   PaymentMeansField.PaymentMeansCode,
   'PaymentMeansCode',
   'Payment Means Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of this means of payment.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -57,10 +68,10 @@ export const PaymentMeansFieldMetaPaymentDueDate = new FieldMeta<PaymentMeansFie
   PaymentMeansField.PaymentDueDate,
   'PaymentDueDate',
   'Payment Due Date',
-  'Date',
+  DateType.name,
   'The date on which payment is due for this means of payment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -69,10 +80,10 @@ export const PaymentMeansFieldMetaPaymentChannelCode = new FieldMeta<PaymentMean
   PaymentMeansField.PaymentChannelCode,
   'PaymentChannelCode',
   'Payment Channel Code',
-  'Code',
+  CodeType.name,
   'A code signifying the payment channel for this means of payment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -81,10 +92,10 @@ export const PaymentMeansFieldMetaInstructionID = new FieldMeta<PaymentMeansFiel
   PaymentMeansField.InstructionID,
   'InstructionID',
   'Instruction Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the payment instruction.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -93,10 +104,10 @@ export const PaymentMeansFieldMetaInstructionNote = new FieldMeta<PaymentMeansFi
   PaymentMeansField.InstructionNote,
   'InstructionNote',
   'Instruction Note',
-  'Text',
+  TextType.name,
   'Free-form text conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -105,10 +116,10 @@ export const PaymentMeansFieldMetaPaymentID = new FieldMeta<PaymentMeansField>(
   PaymentMeansField.PaymentID,
   'PaymentID',
   'Payment Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for a payment made using this means of payment.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -117,10 +128,10 @@ export const PaymentMeansFieldMetaCardAccount = new FieldMeta<PaymentMeansField>
   PaymentMeansField.CardAccount,
   'CardAccount',
   'Card Account',
-  'CardAccount',
+  CardAccountType.name,
   'A credit card, debit card, or charge card account that constitutes this means of payment.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -129,10 +140,10 @@ export const PaymentMeansFieldMetaPayerFinancialAccount = new FieldMeta<PaymentM
   PaymentMeansField.PayerFinancialAccount,
   'PayerFinancialAccount',
   'Payer Financial Account',
-  'FinancialAccount',
+  FinancialAccountType.name,
   'The payer\'s financial account.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -141,10 +152,10 @@ export const PaymentMeansFieldMetaPayeeFinancialAccount = new FieldMeta<PaymentM
   PaymentMeansField.PayeeFinancialAccount,
   'PayeeFinancialAccount',
   'Payee Financial Account',
-  'FinancialAccount',
+  FinancialAccountType.name,
   'The payee\'s financial account.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -153,10 +164,10 @@ export const PaymentMeansFieldMetaCreditAccount = new FieldMeta<PaymentMeansFiel
   PaymentMeansField.CreditAccount,
   'CreditAccount',
   'Credit Account',
-  'CreditAccount',
+  CreditAccountType.name,
   'A credit account associated with this means of payment.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -165,10 +176,10 @@ export const PaymentMeansFieldMetaPaymentMandate = new FieldMeta<PaymentMeansFie
   PaymentMeansField.PaymentMandate,
   'PaymentMandate',
   'Payment Mandate',
-  'PaymentMandate',
+  PaymentMandateType.name,
   'The payment mandate associated with this means of payment.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -177,10 +188,10 @@ export const PaymentMeansFieldMetaTradeFinancing = new FieldMeta<PaymentMeansFie
   PaymentMeansField.TradeFinancing,
   'TradeFinancing',
   'Trade Financing',
-  'TradeFinancing',
+  TradeFinancingType.name,
   'A trade finance agreement applicable to this means of payment.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -218,3 +229,11 @@ export const PaymentMeansFieldMap = new Map([
   [PaymentMeansField.PaymentMandate, PaymentMeansFieldMetaPaymentMandate],
   [PaymentMeansField.TradeFinancing, PaymentMeansFieldMetaTradeFinancing]
 ])
+
+export const PaymentMeansType: Type<PaymentMeansField> = {
+  name: 'PaymentMeans',
+  label: 'Payment Means',
+  module: TypeModule.cac,
+  definition: 'A class to describe a means of payment.',
+  fields: PaymentMeansFieldMap,
+}

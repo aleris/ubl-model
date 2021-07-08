@@ -2,7 +2,6 @@ import { Code } from '../cbc/Code'
 import { Identifier } from '../cbc/Identifier'
 import { Period } from './Period'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a price list.
  */

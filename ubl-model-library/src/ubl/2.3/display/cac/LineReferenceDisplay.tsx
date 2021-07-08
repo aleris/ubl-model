@@ -1,62 +1,91 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { LineReference } from  '../../model/cac/LineReference'
-import { LineReferenceFieldMeta } from  '../../meta/cac/LineReferenceMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DocumentReferenceDisplay from './DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { LineReferenceField, LineReferenceFieldMeta, LineReferenceTypeName } from  '../../meta/cac/LineReferenceMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DocumentReferenceDisplay } from './DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: LineReference | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<LineReference, void>
+  lineReference: LineReference[] | undefined
+  renderContext: RenderContext
 }
 
-export default function LineReferenceDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const LineReferenceSubElementsMap: SubElementsTemplatesMap<LineReferenceField, LineReference, void> = new Map([
+    [
+      LineReferenceField.UBLExtensions,
+      { meta: LineReferenceFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={LineReferenceField.UBLExtensions}
+          meta={LineReferenceFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-LineReference">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={LineReferenceFieldMeta.UBLExtensions}
-          />
+    [
+      LineReferenceField.LineID,
+      { meta: LineReferenceFieldMeta.LineID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={LineReferenceField.LineID}
+          meta={LineReferenceFieldMeta.LineID}
+          fieldConfig={fieldConfig}
+          identifier={value?.LineID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Line Identifier"
-            value={value.LineID?.[0]}
-            meta={LineReferenceFieldMeta.LineID}
-          />
+    [
+      LineReferenceField.UUID,
+      { meta: LineReferenceFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={LineReferenceField.UUID}
+          meta={LineReferenceFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={LineReferenceFieldMeta.UUID}
-          />
+    [
+      LineReferenceField.LineStatusCode,
+      { meta: LineReferenceFieldMeta.LineStatusCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={LineReferenceField.LineStatusCode}
+          meta={LineReferenceFieldMeta.LineStatusCode}
+          fieldConfig={fieldConfig}
+          code={value?.LineStatusCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Line Status Code"
-            value={value.LineStatusCode?.[0]}
-            meta={LineReferenceFieldMeta.LineStatusCode}
-          />
+    [
+      LineReferenceField.DocumentReference,
+      { meta: LineReferenceFieldMeta.DocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={LineReferenceField.DocumentReference}
+          meta={LineReferenceFieldMeta.DocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.DocumentReference}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <DocumentReferenceDisplay
-            label="Document Reference"
-            value={value.DocumentReference?.[0]}
-            meta={LineReferenceFieldMeta.DocumentReference}
-          />
-        </div>
-    </div>
+export function LineReferenceDisplay<TFieldMeta>({ meta, fieldConfig, lineReference, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    LineReferenceTypeName,
+    meta,
+    fieldConfig,
+    lineReference,
+    renderContext,
+    LineReferenceSubElementsMap,
   )
 }

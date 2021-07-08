@@ -1,46 +1,65 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ActivityProperty } from  '../../model/cac/ActivityProperty'
-import { ActivityPropertyFieldMeta } from  '../../meta/cac/ActivityPropertyMeta'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ActivityPropertyField, ActivityPropertyFieldMeta, ActivityPropertyTypeName } from  '../../meta/cac/ActivityPropertyMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ActivityProperty | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ActivityProperty, void>
+  activityProperty: ActivityProperty[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ActivityPropertyDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ActivityPropertySubElementsMap: SubElementsTemplatesMap<ActivityPropertyField, ActivityProperty, void> = new Map([
+    [
+      ActivityPropertyField.UBLExtensions,
+      { meta: ActivityPropertyFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ActivityPropertyField.UBLExtensions}
+          meta={ActivityPropertyFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ActivityProperty">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ActivityPropertyFieldMeta.UBLExtensions}
-          />
+    [
+      ActivityPropertyField.Name,
+      { meta: ActivityPropertyFieldMeta.Name,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ActivityPropertyField.Name}
+          meta={ActivityPropertyFieldMeta.Name}
+          fieldConfig={fieldConfig}
+          text={value?.Name}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Name"
-            value={value.Name?.[0]}
-            meta={ActivityPropertyFieldMeta.Name}
-          />
+    [
+      ActivityPropertyField.Value,
+      { meta: ActivityPropertyFieldMeta.Value,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ActivityPropertyField.Value}
+          meta={ActivityPropertyFieldMeta.Value}
+          fieldConfig={fieldConfig}
+          text={value?.Value}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <TextDisplay
-            label="Value"
-            value={value.Value?.[0]}
-            meta={ActivityPropertyFieldMeta.Value}
-          />
-        </div>
-    </div>
+export function ActivityPropertyDisplay<TFieldMeta>({ meta, fieldConfig, activityProperty, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ActivityPropertyTypeName,
+    meta,
+    fieldConfig,
+    activityProperty,
+    renderContext,
+    ActivityPropertySubElementsMap,
   )
 }

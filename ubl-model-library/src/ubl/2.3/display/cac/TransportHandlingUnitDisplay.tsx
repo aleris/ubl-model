@@ -1,374 +1,382 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TransportHandlingUnit } from  '../../model/cac/TransportHandlingUnit'
-import { TransportHandlingUnitFieldMeta } from  '../../meta/cac/TransportHandlingUnitMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import CustomsDeclarationDisplay from './CustomsDeclarationDisplay'
-import { CustomsDeclaration } from '../../model/cac/CustomsDeclaration'
-import DespatchLineDisplay from './DespatchLineDisplay'
-import { DespatchLine } from '../../model/cac/DespatchLine'
-import DimensionDisplay from './DimensionDisplay'
-import { Dimension } from '../../model/cac/Dimension'
-import DocumentReferenceDisplay from './DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import GoodsItemDisplay from './GoodsItemDisplay'
-import { GoodsItem } from '../../model/cac/GoodsItem'
-import HazardousGoodsTransitDisplay from './HazardousGoodsTransitDisplay'
-import { HazardousGoodsTransit } from '../../model/cac/HazardousGoodsTransit'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import PackageDisplay from './PackageDisplay'
-import { Package } from '../../model/cac/Package'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import ReceiptLineDisplay from './ReceiptLineDisplay'
-import { ReceiptLine } from '../../model/cac/ReceiptLine'
-import ShipmentDisplay from './ShipmentDisplay'
-import { Shipment } from '../../model/cac/Shipment'
-import StatusDisplay from './StatusDisplay'
-import { Status } from '../../model/cac/Status'
-import TemperatureDisplay from './TemperatureDisplay'
-import { Temperature } from '../../model/cac/Temperature'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TransportEquipmentDisplay from './TransportEquipmentDisplay'
-import { TransportEquipment } from '../../model/cac/TransportEquipment'
-import TransportMeansDisplay from './TransportMeansDisplay'
-import { TransportMeans } from '../../model/cac/TransportMeans'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { TransportHandlingUnitField, TransportHandlingUnitFieldMeta, TransportHandlingUnitTypeName } from  '../../meta/cac/TransportHandlingUnitMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { CustomsDeclarationDisplay } from './CustomsDeclarationDisplay'
+import { DespatchLineDisplay } from './DespatchLineDisplay'
+import { DimensionDisplay } from './DimensionDisplay'
+import { DocumentReferenceDisplay } from './DocumentReferenceDisplay'
+import { GoodsItemDisplay } from './GoodsItemDisplay'
+import { HazardousGoodsTransitDisplay } from './HazardousGoodsTransitDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { PackageDisplay } from './PackageDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { ReceiptLineDisplay } from './ReceiptLineDisplay'
+import { ShipmentDisplay } from './ShipmentDisplay'
+import { StatusDisplay } from './StatusDisplay'
+import { TemperatureDisplay } from './TemperatureDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TransportEquipmentDisplay } from './TransportEquipmentDisplay'
+import { TransportMeansDisplay } from './TransportMeansDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: TransportHandlingUnit | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<TransportHandlingUnit, void>
+  transportHandlingUnit: TransportHandlingUnit[] | undefined
+  renderContext: RenderContext
 }
 
-export default function TransportHandlingUnitDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const TransportHandlingUnitSubElementsMap: SubElementsTemplatesMap<TransportHandlingUnitField, TransportHandlingUnit, void> = new Map([
+    [
+      TransportHandlingUnitField.UBLExtensions,
+      { meta: TransportHandlingUnitFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={TransportHandlingUnitField.UBLExtensions}
+          meta={TransportHandlingUnitFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-TransportHandlingUnit">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={TransportHandlingUnitFieldMeta.UBLExtensions}
-          />
+    [
+      TransportHandlingUnitField.ID,
+      { meta: TransportHandlingUnitFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TransportHandlingUnitField.ID}
+          meta={TransportHandlingUnitFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={TransportHandlingUnitFieldMeta.ID}
-          />
+    [
+      TransportHandlingUnitField.TransportHandlingUnitTypeCode,
+      { meta: TransportHandlingUnitFieldMeta.TransportHandlingUnitTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TransportHandlingUnitField.TransportHandlingUnitTypeCode}
+          meta={TransportHandlingUnitFieldMeta.TransportHandlingUnitTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.TransportHandlingUnitTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Transport Handling Unit Type Code"
-            value={value.TransportHandlingUnitTypeCode?.[0]}
-            meta={TransportHandlingUnitFieldMeta.TransportHandlingUnitTypeCode}
-          />
+    [
+      TransportHandlingUnitField.HandlingCode,
+      { meta: TransportHandlingUnitFieldMeta.HandlingCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TransportHandlingUnitField.HandlingCode}
+          meta={TransportHandlingUnitFieldMeta.HandlingCode}
+          fieldConfig={fieldConfig}
+          code={value?.HandlingCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Handling Code"
-            value={value.HandlingCode?.[0]}
-            meta={TransportHandlingUnitFieldMeta.HandlingCode}
-          />
+    [
+      TransportHandlingUnitField.HandlingInstructions,
+      { meta: TransportHandlingUnitFieldMeta.HandlingInstructions,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TransportHandlingUnitField.HandlingInstructions}
+          meta={TransportHandlingUnitFieldMeta.HandlingInstructions}
+          fieldConfig={fieldConfig}
+          text={value?.HandlingInstructions}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-HandlingInstructions"
-            label="Handling Instructions"
-            items={value.HandlingInstructions}
-            meta={TransportHandlingUnitFieldMeta.HandlingInstructions} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Handling Instructions"
-                value={itemValue}
-                meta={TransportHandlingUnitFieldMeta.HandlingInstructions}
-              />
-            }
-          />
+    [
+      TransportHandlingUnitField.HazardousRiskIndicator,
+      { meta: TransportHandlingUnitFieldMeta.HazardousRiskIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={TransportHandlingUnitField.HazardousRiskIndicator}
+          meta={TransportHandlingUnitFieldMeta.HazardousRiskIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.HazardousRiskIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Hazardous Risk Indicator"
-            value={value.HazardousRiskIndicator?.[0]}
-            meta={TransportHandlingUnitFieldMeta.HazardousRiskIndicator}
-          />
+    [
+      TransportHandlingUnitField.TotalGoodsItemQuantity,
+      { meta: TransportHandlingUnitFieldMeta.TotalGoodsItemQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={TransportHandlingUnitField.TotalGoodsItemQuantity}
+          meta={TransportHandlingUnitFieldMeta.TotalGoodsItemQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.TotalGoodsItemQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Total Goods Item Quantity"
-            value={value.TotalGoodsItemQuantity?.[0]}
-            meta={TransportHandlingUnitFieldMeta.TotalGoodsItemQuantity}
-          />
+    [
+      TransportHandlingUnitField.TotalPackageQuantity,
+      { meta: TransportHandlingUnitFieldMeta.TotalPackageQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={TransportHandlingUnitField.TotalPackageQuantity}
+          meta={TransportHandlingUnitFieldMeta.TotalPackageQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.TotalPackageQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Total Package Quantity"
-            value={value.TotalPackageQuantity?.[0]}
-            meta={TransportHandlingUnitFieldMeta.TotalPackageQuantity}
-          />
+    [
+      TransportHandlingUnitField.DamageRemarks,
+      { meta: TransportHandlingUnitFieldMeta.DamageRemarks,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TransportHandlingUnitField.DamageRemarks}
+          meta={TransportHandlingUnitFieldMeta.DamageRemarks}
+          fieldConfig={fieldConfig}
+          text={value?.DamageRemarks}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-DamageRemarks"
-            label="Damage Remarks"
-            items={value.DamageRemarks}
-            meta={TransportHandlingUnitFieldMeta.DamageRemarks} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Damage Remarks"
-                value={itemValue}
-                meta={TransportHandlingUnitFieldMeta.DamageRemarks}
-              />
-            }
-          />
+    [
+      TransportHandlingUnitField.ShippingMarks,
+      { meta: TransportHandlingUnitFieldMeta.ShippingMarks,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TransportHandlingUnitField.ShippingMarks}
+          meta={TransportHandlingUnitFieldMeta.ShippingMarks}
+          fieldConfig={fieldConfig}
+          text={value?.ShippingMarks}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-ShippingMarks"
-            label="Shipping Marks"
-            items={value.ShippingMarks}
-            meta={TransportHandlingUnitFieldMeta.ShippingMarks} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Shipping Marks"
-                value={itemValue}
-                meta={TransportHandlingUnitFieldMeta.ShippingMarks}
-              />
-            }
-          />
+    [
+      TransportHandlingUnitField.TraceID,
+      { meta: TransportHandlingUnitFieldMeta.TraceID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TransportHandlingUnitField.TraceID}
+          meta={TransportHandlingUnitFieldMeta.TraceID}
+          fieldConfig={fieldConfig}
+          identifier={value?.TraceID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Trace Identifier"
-            value={value.TraceID?.[0]}
-            meta={TransportHandlingUnitFieldMeta.TraceID}
-          />
+    [
+      TransportHandlingUnitField.HandlingUnitDespatchLine,
+      { meta: TransportHandlingUnitFieldMeta.HandlingUnitDespatchLine,
+        template: ({value, renderContext, fieldConfig}) => <DespatchLineDisplay
+          key={TransportHandlingUnitField.HandlingUnitDespatchLine}
+          meta={TransportHandlingUnitFieldMeta.HandlingUnitDespatchLine}
+          fieldConfig={fieldConfig}
+          despatchLine={value?.HandlingUnitDespatchLine}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DespatchLine ubl-HandlingUnitDespatchLine"
-            label="Handling Unit Despatch Line"
-            items={value.HandlingUnitDespatchLine}
-            meta={TransportHandlingUnitFieldMeta.HandlingUnitDespatchLine} 
-            itemDisplay={ (itemValue: DespatchLine, key: string | number) =>
-              <DespatchLineDisplay
-                key={key}
-                label="Handling Unit Despatch Line"
-                value={itemValue}
-                meta={TransportHandlingUnitFieldMeta.HandlingUnitDespatchLine}
-              />
-            }
-          />
+    [
+      TransportHandlingUnitField.ActualPackage,
+      { meta: TransportHandlingUnitFieldMeta.ActualPackage,
+        template: ({value, renderContext, fieldConfig}) => <PackageDisplay
+          key={TransportHandlingUnitField.ActualPackage}
+          meta={TransportHandlingUnitFieldMeta.ActualPackage}
+          fieldConfig={fieldConfig}
+          packageValue={value?.ActualPackage}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Package ubl-ActualPackage"
-            label="Actual Package"
-            items={value.ActualPackage}
-            meta={TransportHandlingUnitFieldMeta.ActualPackage} 
-            itemDisplay={ (itemValue: Package, key: string | number) =>
-              <PackageDisplay
-                key={key}
-                label="Actual Package"
-                value={itemValue}
-                meta={TransportHandlingUnitFieldMeta.ActualPackage}
-              />
-            }
-          />
+    [
+      TransportHandlingUnitField.ReceivedHandlingUnitReceiptLine,
+      { meta: TransportHandlingUnitFieldMeta.ReceivedHandlingUnitReceiptLine,
+        template: ({value, renderContext, fieldConfig}) => <ReceiptLineDisplay
+          key={TransportHandlingUnitField.ReceivedHandlingUnitReceiptLine}
+          meta={TransportHandlingUnitFieldMeta.ReceivedHandlingUnitReceiptLine}
+          fieldConfig={fieldConfig}
+          receiptLine={value?.ReceivedHandlingUnitReceiptLine}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-ReceiptLine ubl-ReceivedHandlingUnitReceiptLine"
-            label="Received Handling Unit Receipt Line"
-            items={value.ReceivedHandlingUnitReceiptLine}
-            meta={TransportHandlingUnitFieldMeta.ReceivedHandlingUnitReceiptLine} 
-            itemDisplay={ (itemValue: ReceiptLine, key: string | number) =>
-              <ReceiptLineDisplay
-                key={key}
-                label="Received Handling Unit Receipt Line"
-                value={itemValue}
-                meta={TransportHandlingUnitFieldMeta.ReceivedHandlingUnitReceiptLine}
-              />
-            }
-          />
+    [
+      TransportHandlingUnitField.TransportEquipment,
+      { meta: TransportHandlingUnitFieldMeta.TransportEquipment,
+        template: ({value, renderContext, fieldConfig}) => <TransportEquipmentDisplay
+          key={TransportHandlingUnitField.TransportEquipment}
+          meta={TransportHandlingUnitFieldMeta.TransportEquipment}
+          fieldConfig={fieldConfig}
+          transportEquipment={value?.TransportEquipment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TransportEquipment"
-            label="Transport Equipment"
-            items={value.TransportEquipment}
-            meta={TransportHandlingUnitFieldMeta.TransportEquipment} 
-            itemDisplay={ (itemValue: TransportEquipment, key: string | number) =>
-              <TransportEquipmentDisplay
-                key={key}
-                label="Transport Equipment"
-                value={itemValue}
-                meta={TransportHandlingUnitFieldMeta.TransportEquipment}
-              />
-            }
-          />
+    [
+      TransportHandlingUnitField.TransportMeans,
+      { meta: TransportHandlingUnitFieldMeta.TransportMeans,
+        template: ({value, renderContext, fieldConfig}) => <TransportMeansDisplay
+          key={TransportHandlingUnitField.TransportMeans}
+          meta={TransportHandlingUnitFieldMeta.TransportMeans}
+          fieldConfig={fieldConfig}
+          transportMeans={value?.TransportMeans}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TransportMeans"
-            label="Transport Means"
-            items={value.TransportMeans}
-            meta={TransportHandlingUnitFieldMeta.TransportMeans} 
-            itemDisplay={ (itemValue: TransportMeans, key: string | number) =>
-              <TransportMeansDisplay
-                key={key}
-                label="Transport Means"
-                value={itemValue}
-                meta={TransportHandlingUnitFieldMeta.TransportMeans}
-              />
-            }
-          />
+    [
+      TransportHandlingUnitField.HazardousGoodsTransit,
+      { meta: TransportHandlingUnitFieldMeta.HazardousGoodsTransit,
+        template: ({value, renderContext, fieldConfig}) => <HazardousGoodsTransitDisplay
+          key={TransportHandlingUnitField.HazardousGoodsTransit}
+          meta={TransportHandlingUnitFieldMeta.HazardousGoodsTransit}
+          fieldConfig={fieldConfig}
+          hazardousGoodsTransit={value?.HazardousGoodsTransit}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-HazardousGoodsTransit"
-            label="Hazardous Goods Transit"
-            items={value.HazardousGoodsTransit}
-            meta={TransportHandlingUnitFieldMeta.HazardousGoodsTransit} 
-            itemDisplay={ (itemValue: HazardousGoodsTransit, key: string | number) =>
-              <HazardousGoodsTransitDisplay
-                key={key}
-                label="Hazardous Goods Transit"
-                value={itemValue}
-                meta={TransportHandlingUnitFieldMeta.HazardousGoodsTransit}
-              />
-            }
-          />
+    [
+      TransportHandlingUnitField.MeasurementDimension,
+      { meta: TransportHandlingUnitFieldMeta.MeasurementDimension,
+        template: ({value, renderContext, fieldConfig}) => <DimensionDisplay
+          key={TransportHandlingUnitField.MeasurementDimension}
+          meta={TransportHandlingUnitFieldMeta.MeasurementDimension}
+          fieldConfig={fieldConfig}
+          dimension={value?.MeasurementDimension}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Dimension ubl-MeasurementDimension"
-            label="Measurement Dimension"
-            items={value.MeasurementDimension}
-            meta={TransportHandlingUnitFieldMeta.MeasurementDimension} 
-            itemDisplay={ (itemValue: Dimension, key: string | number) =>
-              <DimensionDisplay
-                key={key}
-                label="Measurement Dimension"
-                value={itemValue}
-                meta={TransportHandlingUnitFieldMeta.MeasurementDimension}
-              />
-            }
-          />
+    [
+      TransportHandlingUnitField.MinimumTemperature,
+      { meta: TransportHandlingUnitFieldMeta.MinimumTemperature,
+        template: ({value, renderContext, fieldConfig}) => <TemperatureDisplay
+          key={TransportHandlingUnitField.MinimumTemperature}
+          meta={TransportHandlingUnitFieldMeta.MinimumTemperature}
+          fieldConfig={fieldConfig}
+          temperature={value?.MinimumTemperature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TemperatureDisplay
-            label="Minimum Temperature"
-            value={value.MinimumTemperature?.[0]}
-            meta={TransportHandlingUnitFieldMeta.MinimumTemperature}
-          />
+    [
+      TransportHandlingUnitField.MaximumTemperature,
+      { meta: TransportHandlingUnitFieldMeta.MaximumTemperature,
+        template: ({value, renderContext, fieldConfig}) => <TemperatureDisplay
+          key={TransportHandlingUnitField.MaximumTemperature}
+          meta={TransportHandlingUnitFieldMeta.MaximumTemperature}
+          fieldConfig={fieldConfig}
+          temperature={value?.MaximumTemperature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TemperatureDisplay
-            label="Maximum Temperature"
-            value={value.MaximumTemperature?.[0]}
-            meta={TransportHandlingUnitFieldMeta.MaximumTemperature}
-          />
+    [
+      TransportHandlingUnitField.GoodsItem,
+      { meta: TransportHandlingUnitFieldMeta.GoodsItem,
+        template: ({value, renderContext, fieldConfig}) => <GoodsItemDisplay
+          key={TransportHandlingUnitField.GoodsItem}
+          meta={TransportHandlingUnitFieldMeta.GoodsItem}
+          fieldConfig={fieldConfig}
+          goodsItem={value?.GoodsItem}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-GoodsItem"
-            label="Goods Item"
-            items={value.GoodsItem}
-            meta={TransportHandlingUnitFieldMeta.GoodsItem} 
-            itemDisplay={ (itemValue: GoodsItem, key: string | number) =>
-              <GoodsItemDisplay
-                key={key}
-                label="Goods Item"
-                value={itemValue}
-                meta={TransportHandlingUnitFieldMeta.GoodsItem}
-              />
-            }
-          />
+    [
+      TransportHandlingUnitField.FloorSpaceMeasurementDimension,
+      { meta: TransportHandlingUnitFieldMeta.FloorSpaceMeasurementDimension,
+        template: ({value, renderContext, fieldConfig}) => <DimensionDisplay
+          key={TransportHandlingUnitField.FloorSpaceMeasurementDimension}
+          meta={TransportHandlingUnitFieldMeta.FloorSpaceMeasurementDimension}
+          fieldConfig={fieldConfig}
+          dimension={value?.FloorSpaceMeasurementDimension}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DimensionDisplay
-            label="Floor Space Measurement Dimension"
-            value={value.FloorSpaceMeasurementDimension?.[0]}
-            meta={TransportHandlingUnitFieldMeta.FloorSpaceMeasurementDimension}
-          />
+    [
+      TransportHandlingUnitField.PalletSpaceMeasurementDimension,
+      { meta: TransportHandlingUnitFieldMeta.PalletSpaceMeasurementDimension,
+        template: ({value, renderContext, fieldConfig}) => <DimensionDisplay
+          key={TransportHandlingUnitField.PalletSpaceMeasurementDimension}
+          meta={TransportHandlingUnitFieldMeta.PalletSpaceMeasurementDimension}
+          fieldConfig={fieldConfig}
+          dimension={value?.PalletSpaceMeasurementDimension}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DimensionDisplay
-            label="Pallet Space Measurement Dimension"
-            value={value.PalletSpaceMeasurementDimension?.[0]}
-            meta={TransportHandlingUnitFieldMeta.PalletSpaceMeasurementDimension}
-          />
+    [
+      TransportHandlingUnitField.ShipmentDocumentReference,
+      { meta: TransportHandlingUnitFieldMeta.ShipmentDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={TransportHandlingUnitField.ShipmentDocumentReference}
+          meta={TransportHandlingUnitFieldMeta.ShipmentDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.ShipmentDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentReference ubl-ShipmentDocumentReference"
-            label="Shipment Document Reference"
-            items={value.ShipmentDocumentReference}
-            meta={TransportHandlingUnitFieldMeta.ShipmentDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Shipment Document Reference"
-                value={itemValue}
-                meta={TransportHandlingUnitFieldMeta.ShipmentDocumentReference}
-              />
-            }
-          />
+    [
+      TransportHandlingUnitField.Status,
+      { meta: TransportHandlingUnitFieldMeta.Status,
+        template: ({value, renderContext, fieldConfig}) => <StatusDisplay
+          key={TransportHandlingUnitField.Status}
+          meta={TransportHandlingUnitFieldMeta.Status}
+          fieldConfig={fieldConfig}
+          status={value?.Status}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Status"
-            label="Status"
-            items={value.Status}
-            meta={TransportHandlingUnitFieldMeta.Status} 
-            itemDisplay={ (itemValue: Status, key: string | number) =>
-              <StatusDisplay
-                key={key}
-                label="Status"
-                value={itemValue}
-                meta={TransportHandlingUnitFieldMeta.Status}
-              />
-            }
-          />
+    [
+      TransportHandlingUnitField.CustomsDeclaration,
+      { meta: TransportHandlingUnitFieldMeta.CustomsDeclaration,
+        template: ({value, renderContext, fieldConfig}) => <CustomsDeclarationDisplay
+          key={TransportHandlingUnitField.CustomsDeclaration}
+          meta={TransportHandlingUnitFieldMeta.CustomsDeclaration}
+          fieldConfig={fieldConfig}
+          customsDeclaration={value?.CustomsDeclaration}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-CustomsDeclaration"
-            label="Customs Declaration"
-            items={value.CustomsDeclaration}
-            meta={TransportHandlingUnitFieldMeta.CustomsDeclaration} 
-            itemDisplay={ (itemValue: CustomsDeclaration, key: string | number) =>
-              <CustomsDeclarationDisplay
-                key={key}
-                label="Customs Declaration"
-                value={itemValue}
-                meta={TransportHandlingUnitFieldMeta.CustomsDeclaration}
-              />
-            }
-          />
+    [
+      TransportHandlingUnitField.ReferencedShipment,
+      { meta: TransportHandlingUnitFieldMeta.ReferencedShipment,
+        template: ({value, renderContext, fieldConfig}) => <ShipmentDisplay
+          key={TransportHandlingUnitField.ReferencedShipment}
+          meta={TransportHandlingUnitFieldMeta.ReferencedShipment}
+          fieldConfig={fieldConfig}
+          shipment={value?.ReferencedShipment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Shipment ubl-ReferencedShipment"
-            label="Referenced Shipment"
-            items={value.ReferencedShipment}
-            meta={TransportHandlingUnitFieldMeta.ReferencedShipment} 
-            itemDisplay={ (itemValue: Shipment, key: string | number) =>
-              <ShipmentDisplay
-                key={key}
-                label="Referenced Shipment"
-                value={itemValue}
-                meta={TransportHandlingUnitFieldMeta.ReferencedShipment}
-              />
-            }
-          />
+    [
+      TransportHandlingUnitField.Package,
+      { meta: TransportHandlingUnitFieldMeta.Package,
+        template: ({value, renderContext, fieldConfig}) => <PackageDisplay
+          key={TransportHandlingUnitField.Package}
+          meta={TransportHandlingUnitFieldMeta.Package}
+          fieldConfig={fieldConfig}
+          packageValue={value?.Package}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Package"
-            label="Package"
-            items={value.Package}
-            meta={TransportHandlingUnitFieldMeta.Package} 
-            itemDisplay={ (itemValue: Package, key: string | number) =>
-              <PackageDisplay
-                key={key}
-                label="Package"
-                value={itemValue}
-                meta={TransportHandlingUnitFieldMeta.Package}
-              />
-            }
-          />
-        </div>
-    </div>
+export function TransportHandlingUnitDisplay<TFieldMeta>({ meta, fieldConfig, transportHandlingUnit, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    TransportHandlingUnitTypeName,
+    meta,
+    fieldConfig,
+    transportHandlingUnit,
+    renderContext,
+    TransportHandlingUnitSubElementsMap,
   )
 }

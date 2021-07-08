@@ -1,4 +1,11 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AttestationLineType } from './AttestationLineMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { PartyType } from './PartyMeta'
+import { PeriodType } from './PeriodMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum AttestationField {
   UBLExtensions = 'UBLExtensions',
@@ -13,11 +20,11 @@ export enum AttestationField {
 export const AttestationFieldMetaUBLExtensions = new FieldMeta<AttestationField>(
   AttestationField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -26,10 +33,10 @@ export const AttestationFieldMetaID = new FieldMeta<AttestationField>(
   AttestationField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this attestation',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -38,10 +45,10 @@ export const AttestationFieldMetaDescription = new FieldMeta<AttestationField>(
   AttestationField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'A textual description of this attestation',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -50,10 +57,10 @@ export const AttestationFieldMetaNote = new FieldMeta<AttestationField>(
   AttestationField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -62,10 +69,10 @@ export const AttestationFieldMetaValidityPeriod = new FieldMeta<AttestationField
   AttestationField.ValidityPeriod,
   'ValidityPeriod',
   'Validity Period',
-  'Period',
+  PeriodType.name,
   'The period during which this attestation is valid',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -74,10 +81,10 @@ export const AttestationFieldMetaIssuerParty = new FieldMeta<AttestationField>(
   AttestationField.IssuerParty,
   'IssuerParty',
   'Issuer Party',
-  'Party',
+  PartyType.name,
   'The party issuing this attestation',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -86,10 +93,10 @@ export const AttestationFieldMetaAttestationLine = new FieldMeta<AttestationFiel
   AttestationField.AttestationLine,
   'AttestationLine',
   'Attestation Line',
-  'AttestationLine',
+  AttestationLineType.name,
   'An attestation or statement made and which forms part of this attestation',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -113,3 +120,11 @@ export const AttestationFieldMap = new Map([
   [AttestationField.IssuerParty, AttestationFieldMetaIssuerParty],
   [AttestationField.AttestationLine, AttestationFieldMetaAttestationLine]
 ])
+
+export const AttestationType: Type<AttestationField> = {
+  name: 'Attestation',
+  label: 'Attestation',
+  module: TypeModule.cac,
+  definition: 'A class describing an attestation made for an item',
+  fields: AttestationFieldMap,
+}

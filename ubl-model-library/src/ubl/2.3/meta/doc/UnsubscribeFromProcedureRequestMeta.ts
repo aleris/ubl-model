@@ -1,4 +1,16 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { ContractingPartyType } from '../cac/ContractingPartyMeta'
+import { DateType } from '../cbc/DateMeta'
+import { EconomicOperatorPartyType } from '../cac/EconomicOperatorPartyMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { ProcurementProjectType } from '../cac/ProcurementProjectMeta'
+import { ProcurementProjectLotReferenceType } from '../cac/ProcurementProjectLotReferenceMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum UnsubscribeFromProcedureRequestField {
   UBLExtensions = 'UBLExtensions',
@@ -23,11 +35,11 @@ export enum UnsubscribeFromProcedureRequestField {
 export const UnsubscribeFromProcedureRequestFieldMetaUBLExtensions = new FieldMeta<UnsubscribeFromProcedureRequestField>(
   UnsubscribeFromProcedureRequestField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -36,10 +48,10 @@ export const UnsubscribeFromProcedureRequestFieldMetaUBLVersionID = new FieldMet
   UnsubscribeFromProcedureRequestField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'The earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -48,10 +60,10 @@ export const UnsubscribeFromProcedureRequestFieldMetaCustomizationID = new Field
   UnsubscribeFromProcedureRequestField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -60,10 +72,10 @@ export const UnsubscribeFromProcedureRequestFieldMetaProfileID = new FieldMeta<U
   UnsubscribeFromProcedureRequestField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -72,10 +84,10 @@ export const UnsubscribeFromProcedureRequestFieldMetaProfileExecutionID = new Fi
   UnsubscribeFromProcedureRequestField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -84,10 +96,10 @@ export const UnsubscribeFromProcedureRequestFieldMetaID = new FieldMeta<Unsubscr
   UnsubscribeFromProcedureRequestField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -96,10 +108,10 @@ export const UnsubscribeFromProcedureRequestFieldMetaCopyIndicator = new FieldMe
   UnsubscribeFromProcedureRequestField.CopyIndicator,
   'CopyIndicator',
   'Copy Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this document is a copy (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -108,10 +120,10 @@ export const UnsubscribeFromProcedureRequestFieldMetaUUID = new FieldMeta<Unsubs
   UnsubscribeFromProcedureRequestField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -120,10 +132,10 @@ export const UnsubscribeFromProcedureRequestFieldMetaContractFolderID = new Fiel
   UnsubscribeFromProcedureRequestField.ContractFolderID,
   'ContractFolderID',
   'Contract Folder Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier, assigned by the sender, for the process file (i.e., record) to which this document belongs.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -132,10 +144,10 @@ export const UnsubscribeFromProcedureRequestFieldMetaIssueDate = new FieldMeta<U
   UnsubscribeFromProcedureRequestField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -144,10 +156,10 @@ export const UnsubscribeFromProcedureRequestFieldMetaIssueTime = new FieldMeta<U
   UnsubscribeFromProcedureRequestField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -156,10 +168,10 @@ export const UnsubscribeFromProcedureRequestFieldMetaNote = new FieldMeta<Unsubs
   UnsubscribeFromProcedureRequestField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -168,10 +180,10 @@ export const UnsubscribeFromProcedureRequestFieldMetaSignature = new FieldMeta<U
   UnsubscribeFromProcedureRequestField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -180,10 +192,10 @@ export const UnsubscribeFromProcedureRequestFieldMetaEconomicOperatorParty = new
   UnsubscribeFromProcedureRequestField.EconomicOperatorParty,
   'EconomicOperatorParty',
   'Economic Operator Party',
-  'EconomicOperatorParty',
+  EconomicOperatorPartyType.name,
   'The Economic Operator issuing this unsubscribe request.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -192,10 +204,10 @@ export const UnsubscribeFromProcedureRequestFieldMetaContractingParty = new Fiel
   UnsubscribeFromProcedureRequestField.ContractingParty,
   'ContractingParty',
   'Contracting Party',
-  'ContractingParty',
+  ContractingPartyType.name,
   'The Contracting Party.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -204,10 +216,10 @@ export const UnsubscribeFromProcedureRequestFieldMetaProcurementProject = new Fi
   UnsubscribeFromProcedureRequestField.ProcurementProject,
   'ProcurementProject',
   'Procurement Project',
-  'ProcurementProject',
+  ProcurementProjectType.name,
   'An overall definition of this procurement project.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -216,10 +228,10 @@ export const UnsubscribeFromProcedureRequestFieldMetaProcurementProjectLotRefere
   UnsubscribeFromProcedureRequestField.ProcurementProjectLotReference,
   'ProcurementProjectLotReference',
   'Procurement Project Lot Reference',
-  'ProcurementProjectLotReference',
+  ProcurementProjectLotReferenceType.name,
   'One of the procurement project lots into which this contract can be split.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -263,3 +275,11 @@ export const UnsubscribeFromProcedureRequestFieldMap = new Map([
   [UnsubscribeFromProcedureRequestField.ProcurementProject, UnsubscribeFromProcedureRequestFieldMetaProcurementProject],
   [UnsubscribeFromProcedureRequestField.ProcurementProjectLotReference, UnsubscribeFromProcedureRequestFieldMetaProcurementProjectLotReference]
 ])
+
+export const UnsubscribeFromProcedureRequestType: Type<UnsubscribeFromProcedureRequestField> = {
+  name: 'UnsubscribeFromProcedureRequest',
+  label: 'Unsubscribe From Procedure Request',
+  module: TypeModule.doc,
+  definition: 'A request to unsubscribe from a tendering procedure. Economic Operators can subscribe to a tendering procedure using the Expression Of Interest. Upon subscription, the Economic Operator keeps receiving relevant documentation for the tendering process. The unsubscribe to procedure document allows the Economic Operator to be removed from the list of interested parties.',
+  fields: UnsubscribeFromProcedureRequestFieldMap,
+}

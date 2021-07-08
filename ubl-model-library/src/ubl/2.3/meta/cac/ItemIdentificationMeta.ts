@@ -1,4 +1,10 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { DimensionType } from './DimensionMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { PartyType } from './PartyMeta'
+import { PhysicalAttributeType } from './PhysicalAttributeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ItemIdentificationField {
   UBLExtensions = 'UBLExtensions',
@@ -14,11 +20,11 @@ export enum ItemIdentificationField {
 export const ItemIdentificationFieldMetaUBLExtensions = new FieldMeta<ItemIdentificationField>(
   ItemIdentificationField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -27,10 +33,10 @@ export const ItemIdentificationFieldMetaID = new FieldMeta<ItemIdentificationFie
   ItemIdentificationField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the item.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   'CUST001 3333-44-123'
 )
@@ -39,10 +45,10 @@ export const ItemIdentificationFieldMetaExtendedID = new FieldMeta<ItemIdentific
   ItemIdentificationField.ExtendedID,
   'ExtendedID',
   'Extended Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An extended identifier for the item that identifies the item with specific properties, e.g., Item 123 = Chair / Item 123 Ext 45 = brown chair. Two chairs can have the same item number, but one is brown. The other is white.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -51,10 +57,10 @@ export const ItemIdentificationFieldMetaBarcodeSymbologyID = new FieldMeta<ItemI
   ItemIdentificationField.BarcodeSymbologyID,
   'BarcodeSymbologyID',
   'Barcode Symbology Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for a system of barcodes.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -63,10 +69,10 @@ export const ItemIdentificationFieldMetaIssuerScopeID = new FieldMeta<ItemIdenti
   ItemIdentificationField.IssuerScopeID,
   'IssuerScopeID',
   'Issuer Scope Identifier',
-  'Identifier',
+  IdentifierType.name,
   'A scope within which the issuer has assigned this identifier.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -75,10 +81,10 @@ export const ItemIdentificationFieldMetaPhysicalAttribute = new FieldMeta<ItemId
   ItemIdentificationField.PhysicalAttribute,
   'PhysicalAttribute',
   'Physical Attribute',
-  'PhysicalAttribute',
+  PhysicalAttributeType.name,
   'A physical attribute of the item.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -87,10 +93,10 @@ export const ItemIdentificationFieldMetaMeasurementDimension = new FieldMeta<Ite
   ItemIdentificationField.MeasurementDimension,
   'MeasurementDimension',
   'Measurement Dimension',
-  'Dimension',
+  DimensionType.name,
   'A measurable dimension (length, mass, weight, or volume) of the item.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -99,10 +105,10 @@ export const ItemIdentificationFieldMetaIssuerParty = new FieldMeta<ItemIdentifi
   ItemIdentificationField.IssuerParty,
   'IssuerParty',
   'Issuer Party',
-  'Party',
+  PartyType.name,
   'The party that issued this item identification.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -128,3 +134,11 @@ export const ItemIdentificationFieldMap = new Map([
   [ItemIdentificationField.MeasurementDimension, ItemIdentificationFieldMetaMeasurementDimension],
   [ItemIdentificationField.IssuerParty, ItemIdentificationFieldMetaIssuerParty]
 ])
+
+export const ItemIdentificationType: Type<ItemIdentificationField> = {
+  name: 'ItemIdentification',
+  label: 'Item Identification',
+  module: TypeModule.cac,
+  definition: 'A class for assigning identifying information to an item.',
+  fields: ItemIdentificationFieldMap,
+}

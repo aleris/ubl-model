@@ -1,167 +1,229 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ExceptionNotificationLine } from  '../../model/cac/ExceptionNotificationLine'
-import { ExceptionNotificationLineFieldMeta } from  '../../meta/cac/ExceptionNotificationLineMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DocumentReferenceDisplay from './DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import ForecastExceptionDisplay from './ForecastExceptionDisplay'
-import { ForecastException } from '../../model/cac/ForecastException'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import ItemDisplay from './ItemDisplay'
-import { Item } from '../../model/cac/Item'
-import MeasureDisplay from '../cbc/MeasureDisplay'
-import { Measure } from '../../model/cbc/Measure'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ExceptionNotificationLineField, ExceptionNotificationLineFieldMeta, ExceptionNotificationLineTypeName } from  '../../meta/cac/ExceptionNotificationLineMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DocumentReferenceDisplay } from './DocumentReferenceDisplay'
+import { ForecastExceptionDisplay } from './ForecastExceptionDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { ItemDisplay } from './ItemDisplay'
+import { MeasureDisplay } from '../cbc/MeasureDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ExceptionNotificationLine | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ExceptionNotificationLine, void>
+  exceptionNotificationLine: ExceptionNotificationLine[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ExceptionNotificationLineDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ExceptionNotificationLineSubElementsMap: SubElementsTemplatesMap<ExceptionNotificationLineField, ExceptionNotificationLine, void> = new Map([
+    [
+      ExceptionNotificationLineField.UBLExtensions,
+      { meta: ExceptionNotificationLineFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ExceptionNotificationLineField.UBLExtensions}
+          meta={ExceptionNotificationLineFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ExceptionNotificationLine">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ExceptionNotificationLineFieldMeta.UBLExtensions}
-          />
+    [
+      ExceptionNotificationLineField.ID,
+      { meta: ExceptionNotificationLineFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ExceptionNotificationLineField.ID}
+          meta={ExceptionNotificationLineFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={ExceptionNotificationLineFieldMeta.ID}
-          />
+    [
+      ExceptionNotificationLineField.Note,
+      { meta: ExceptionNotificationLineFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ExceptionNotificationLineField.Note}
+          meta={ExceptionNotificationLineFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={ExceptionNotificationLineFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={ExceptionNotificationLineFieldMeta.Note}
-              />
-            }
-          />
+    [
+      ExceptionNotificationLineField.Description,
+      { meta: ExceptionNotificationLineFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ExceptionNotificationLineField.Description}
+          meta={ExceptionNotificationLineFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={ExceptionNotificationLineFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={ExceptionNotificationLineFieldMeta.Description}
-              />
-            }
-          />
+    [
+      ExceptionNotificationLineField.ExceptionStatusCode,
+      { meta: ExceptionNotificationLineFieldMeta.ExceptionStatusCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ExceptionNotificationLineField.ExceptionStatusCode}
+          meta={ExceptionNotificationLineFieldMeta.ExceptionStatusCode}
+          fieldConfig={fieldConfig}
+          code={value?.ExceptionStatusCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Exception Status Code"
-            value={value.ExceptionStatusCode?.[0]}
-            meta={ExceptionNotificationLineFieldMeta.ExceptionStatusCode}
-          />
+    [
+      ExceptionNotificationLineField.CollaborationPriorityCode,
+      { meta: ExceptionNotificationLineFieldMeta.CollaborationPriorityCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ExceptionNotificationLineField.CollaborationPriorityCode}
+          meta={ExceptionNotificationLineFieldMeta.CollaborationPriorityCode}
+          fieldConfig={fieldConfig}
+          code={value?.CollaborationPriorityCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Collaboration Priority Code"
-            value={value.CollaborationPriorityCode?.[0]}
-            meta={ExceptionNotificationLineFieldMeta.CollaborationPriorityCode}
-          />
+    [
+      ExceptionNotificationLineField.ResolutionCode,
+      { meta: ExceptionNotificationLineFieldMeta.ResolutionCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ExceptionNotificationLineField.ResolutionCode}
+          meta={ExceptionNotificationLineFieldMeta.ResolutionCode}
+          fieldConfig={fieldConfig}
+          code={value?.ResolutionCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Resolution Code"
-            value={value.ResolutionCode?.[0]}
-            meta={ExceptionNotificationLineFieldMeta.ResolutionCode}
-          />
+    [
+      ExceptionNotificationLineField.ComparedValueMeasure,
+      { meta: ExceptionNotificationLineFieldMeta.ComparedValueMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={ExceptionNotificationLineField.ComparedValueMeasure}
+          meta={ExceptionNotificationLineFieldMeta.ComparedValueMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.ComparedValueMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Compared Value"
-            value={value.ComparedValueMeasure?.[0]}
-            meta={ExceptionNotificationLineFieldMeta.ComparedValueMeasure}
-          />
+    [
+      ExceptionNotificationLineField.SourceValueMeasure,
+      { meta: ExceptionNotificationLineFieldMeta.SourceValueMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={ExceptionNotificationLineField.SourceValueMeasure}
+          meta={ExceptionNotificationLineFieldMeta.SourceValueMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.SourceValueMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Source Value"
-            value={value.SourceValueMeasure?.[0]}
-            meta={ExceptionNotificationLineFieldMeta.SourceValueMeasure}
-          />
+    [
+      ExceptionNotificationLineField.VarianceQuantity,
+      { meta: ExceptionNotificationLineFieldMeta.VarianceQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={ExceptionNotificationLineField.VarianceQuantity}
+          meta={ExceptionNotificationLineFieldMeta.VarianceQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.VarianceQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Variance"
-            value={value.VarianceQuantity?.[0]}
-            meta={ExceptionNotificationLineFieldMeta.VarianceQuantity}
-          />
+    [
+      ExceptionNotificationLineField.SupplyChainActivityTypeCode,
+      { meta: ExceptionNotificationLineFieldMeta.SupplyChainActivityTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ExceptionNotificationLineField.SupplyChainActivityTypeCode}
+          meta={ExceptionNotificationLineFieldMeta.SupplyChainActivityTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.SupplyChainActivityTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Supply Chain Activity Type Code"
-            value={value.SupplyChainActivityTypeCode?.[0]}
-            meta={ExceptionNotificationLineFieldMeta.SupplyChainActivityTypeCode}
-          />
+    [
+      ExceptionNotificationLineField.PerformanceMetricTypeCode,
+      { meta: ExceptionNotificationLineFieldMeta.PerformanceMetricTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ExceptionNotificationLineField.PerformanceMetricTypeCode}
+          meta={ExceptionNotificationLineFieldMeta.PerformanceMetricTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.PerformanceMetricTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Performance Metric Type Code"
-            value={value.PerformanceMetricTypeCode?.[0]}
-            meta={ExceptionNotificationLineFieldMeta.PerformanceMetricTypeCode}
-          />
+    [
+      ExceptionNotificationLineField.ExceptionObservationPeriod,
+      { meta: ExceptionNotificationLineFieldMeta.ExceptionObservationPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={ExceptionNotificationLineField.ExceptionObservationPeriod}
+          meta={ExceptionNotificationLineFieldMeta.ExceptionObservationPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.ExceptionObservationPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Exception Observation Period"
-            value={value.ExceptionObservationPeriod?.[0]}
-            meta={ExceptionNotificationLineFieldMeta.ExceptionObservationPeriod}
-          />
+    [
+      ExceptionNotificationLineField.DocumentReference,
+      { meta: ExceptionNotificationLineFieldMeta.DocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={ExceptionNotificationLineField.DocumentReference}
+          meta={ExceptionNotificationLineFieldMeta.DocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.DocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentReference"
-            label="Document Reference"
-            items={value.DocumentReference}
-            meta={ExceptionNotificationLineFieldMeta.DocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Document Reference"
-                value={itemValue}
-                meta={ExceptionNotificationLineFieldMeta.DocumentReference}
-              />
-            }
-          />
+    [
+      ExceptionNotificationLineField.ForecastException,
+      { meta: ExceptionNotificationLineFieldMeta.ForecastException,
+        template: ({value, renderContext, fieldConfig}) => <ForecastExceptionDisplay
+          key={ExceptionNotificationLineField.ForecastException}
+          meta={ExceptionNotificationLineFieldMeta.ForecastException}
+          fieldConfig={fieldConfig}
+          forecastException={value?.ForecastException}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ForecastExceptionDisplay
-            label="Forecast Exception"
-            value={value.ForecastException?.[0]}
-            meta={ExceptionNotificationLineFieldMeta.ForecastException}
-          />
+    [
+      ExceptionNotificationLineField.SupplyItem,
+      { meta: ExceptionNotificationLineFieldMeta.SupplyItem,
+        template: ({value, renderContext, fieldConfig}) => <ItemDisplay
+          key={ExceptionNotificationLineField.SupplyItem}
+          meta={ExceptionNotificationLineFieldMeta.SupplyItem}
+          fieldConfig={fieldConfig}
+          item={value?.SupplyItem}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ItemDisplay
-            label="Supply Item"
-            value={value.SupplyItem?.[0]}
-            meta={ExceptionNotificationLineFieldMeta.SupplyItem}
-          />
-        </div>
-    </div>
+export function ExceptionNotificationLineDisplay<TFieldMeta>({ meta, fieldConfig, exceptionNotificationLine, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ExceptionNotificationLineTypeName,
+    meta,
+    fieldConfig,
+    exceptionNotificationLine,
+    renderContext,
+    ExceptionNotificationLineSubElementsMap,
   )
 }

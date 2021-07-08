@@ -1,4 +1,7 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum EventTacticEnumerationField {
   UBLExtensions = 'UBLExtensions',
@@ -11,11 +14,11 @@ export enum EventTacticEnumerationField {
 export const EventTacticEnumerationFieldMetaUBLExtensions = new FieldMeta<EventTacticEnumerationField>(
   EventTacticEnumerationField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -24,10 +27,10 @@ export const EventTacticEnumerationFieldMetaConsumerIncentiveTacticTypeCode = ne
   EventTacticEnumerationField.ConsumerIncentiveTacticTypeCode,
   'ConsumerIncentiveTacticTypeCode',
   'Consumer Incentive Tactic Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of consumer incentive. Examples include:Free Item, Temporary Price reduction',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -36,10 +39,10 @@ export const EventTacticEnumerationFieldMetaDisplayTacticTypeCode = new FieldMet
   EventTacticEnumerationField.DisplayTacticTypeCode,
   'DisplayTacticTypeCode',
   'Display Tactic Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of display. Examples Include: ON_COUNTER_DISPLAY, FLOOR_GRAPHICS FLOOR_STACK_DISPLAY',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -48,10 +51,10 @@ export const EventTacticEnumerationFieldMetaFeatureTacticTypeCode = new FieldMet
   EventTacticEnumerationField.FeatureTacticTypeCode,
   'FeatureTacticTypeCode',
   'Feature Tactic Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying a special feature. Examples Include: BILLBOARD DIRECT_MAIL_AD, FLYER',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -60,10 +63,10 @@ export const EventTacticEnumerationFieldMetaTradeItemPackingLabelingTypeCode = n
   EventTacticEnumerationField.TradeItemPackingLabelingTypeCode,
   'TradeItemPackingLabelingTypeCode',
   'Trade Item Packing Labeling Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of trade item packing and labeling. Examples Include: BONUS_SIZE CO_BRANDED_TRADE_ITEM',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -83,3 +86,11 @@ export const EventTacticEnumerationFieldMap = new Map([
   [EventTacticEnumerationField.FeatureTacticTypeCode, EventTacticEnumerationFieldMetaFeatureTacticTypeCode],
   [EventTacticEnumerationField.TradeItemPackingLabelingTypeCode, EventTacticEnumerationFieldMetaTradeItemPackingLabelingTypeCode]
 ])
+
+export const EventTacticEnumerationType: Type<EventTacticEnumerationField> = {
+  name: 'EventTacticEnumeration',
+  label: 'Event Tactic Enumeration',
+  module: TypeModule.cac,
+  definition: 'A class to define a set of codes that describes a retail tactic.',
+  fields: EventTacticEnumerationFieldMap,
+}

@@ -1,206 +1,280 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ExceptionCriteria } from  '../../model/doc/ExceptionCriteria'
-import { ExceptionCriteriaFieldMeta } from  '../../meta/doc/ExceptionCriteriaMeta'
-import CustomerPartyDisplay from '../cac/CustomerPartyDisplay'
-import { CustomerParty } from '../../model/cac/CustomerParty'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import ExceptionCriteriaLineDisplay from '../cac/ExceptionCriteriaLineDisplay'
-import { ExceptionCriteriaLine } from '../../model/cac/ExceptionCriteriaLine'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PeriodDisplay from '../cac/PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import SupplierPartyDisplay from '../cac/SupplierPartyDisplay'
-import { SupplierParty } from '../../model/cac/SupplierParty'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ExceptionCriteriaField, ExceptionCriteriaFieldMeta, ExceptionCriteriaTypeName } from  '../../meta/doc/ExceptionCriteriaMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CustomerPartyDisplay } from '../cac/CustomerPartyDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { ExceptionCriteriaLineDisplay } from '../cac/ExceptionCriteriaLineDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { PeriodDisplay } from '../cac/PeriodDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { SupplierPartyDisplay } from '../cac/SupplierPartyDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ExceptionCriteria | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ExceptionCriteria, void>
+  exceptionCriteria: ExceptionCriteria[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ExceptionCriteriaDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ExceptionCriteriaSubElementsMap: SubElementsTemplatesMap<ExceptionCriteriaField, ExceptionCriteria, void> = new Map([
+    [
+      ExceptionCriteriaField.UBLExtensions,
+      { meta: ExceptionCriteriaFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ExceptionCriteriaField.UBLExtensions}
+          meta={ExceptionCriteriaFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-ExceptionCriteria">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ExceptionCriteriaFieldMeta.UBLExtensions}
-          />
+    [
+      ExceptionCriteriaField.UBLVersionID,
+      { meta: ExceptionCriteriaFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ExceptionCriteriaField.UBLVersionID}
+          meta={ExceptionCriteriaFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={ExceptionCriteriaFieldMeta.UBLVersionID}
-          />
+    [
+      ExceptionCriteriaField.CustomizationID,
+      { meta: ExceptionCriteriaFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ExceptionCriteriaField.CustomizationID}
+          meta={ExceptionCriteriaFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={ExceptionCriteriaFieldMeta.CustomizationID}
-          />
+    [
+      ExceptionCriteriaField.ProfileID,
+      { meta: ExceptionCriteriaFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ExceptionCriteriaField.ProfileID}
+          meta={ExceptionCriteriaFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={ExceptionCriteriaFieldMeta.ProfileID}
-          />
+    [
+      ExceptionCriteriaField.ProfileExecutionID,
+      { meta: ExceptionCriteriaFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ExceptionCriteriaField.ProfileExecutionID}
+          meta={ExceptionCriteriaFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={ExceptionCriteriaFieldMeta.ProfileExecutionID}
-          />
+    [
+      ExceptionCriteriaField.ID,
+      { meta: ExceptionCriteriaFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ExceptionCriteriaField.ID}
+          meta={ExceptionCriteriaFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={ExceptionCriteriaFieldMeta.ID}
-          />
+    [
+      ExceptionCriteriaField.CopyIndicator,
+      { meta: ExceptionCriteriaFieldMeta.CopyIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ExceptionCriteriaField.CopyIndicator}
+          meta={ExceptionCriteriaFieldMeta.CopyIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.CopyIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Copy Indicator"
-            value={value.CopyIndicator?.[0]}
-            meta={ExceptionCriteriaFieldMeta.CopyIndicator}
-          />
+    [
+      ExceptionCriteriaField.UUID,
+      { meta: ExceptionCriteriaFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ExceptionCriteriaField.UUID}
+          meta={ExceptionCriteriaFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={ExceptionCriteriaFieldMeta.UUID}
-          />
+    [
+      ExceptionCriteriaField.IssueDate,
+      { meta: ExceptionCriteriaFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={ExceptionCriteriaField.IssueDate}
+          meta={ExceptionCriteriaFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={ExceptionCriteriaFieldMeta.IssueDate}
-          />
+    [
+      ExceptionCriteriaField.IssueTime,
+      { meta: ExceptionCriteriaFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={ExceptionCriteriaField.IssueTime}
+          meta={ExceptionCriteriaFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={ExceptionCriteriaFieldMeta.IssueTime}
-          />
+    [
+      ExceptionCriteriaField.Note,
+      { meta: ExceptionCriteriaFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ExceptionCriteriaField.Note}
+          meta={ExceptionCriteriaFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={ExceptionCriteriaFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={ExceptionCriteriaFieldMeta.Note}
-              />
-            }
-          />
+    [
+      ExceptionCriteriaField.VersionID,
+      { meta: ExceptionCriteriaFieldMeta.VersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ExceptionCriteriaField.VersionID}
+          meta={ExceptionCriteriaFieldMeta.VersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.VersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Version"
-            value={value.VersionID?.[0]}
-            meta={ExceptionCriteriaFieldMeta.VersionID}
-          />
+    [
+      ExceptionCriteriaField.ValidityPeriod,
+      { meta: ExceptionCriteriaFieldMeta.ValidityPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={ExceptionCriteriaField.ValidityPeriod}
+          meta={ExceptionCriteriaFieldMeta.ValidityPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.ValidityPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Validity Period"
-            value={value.ValidityPeriod?.[0]}
-            meta={ExceptionCriteriaFieldMeta.ValidityPeriod}
-          />
+    [
+      ExceptionCriteriaField.DocumentReference,
+      { meta: ExceptionCriteriaFieldMeta.DocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={ExceptionCriteriaField.DocumentReference}
+          meta={ExceptionCriteriaFieldMeta.DocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.DocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference"
-            label="Document Reference"
-            items={value.DocumentReference}
-            meta={ExceptionCriteriaFieldMeta.DocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Document Reference"
-                value={itemValue}
-                meta={ExceptionCriteriaFieldMeta.DocumentReference}
-              />
-            }
-          />
+    [
+      ExceptionCriteriaField.Signature,
+      { meta: ExceptionCriteriaFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={ExceptionCriteriaField.Signature}
+          meta={ExceptionCriteriaFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={ExceptionCriteriaFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={ExceptionCriteriaFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      ExceptionCriteriaField.SenderParty,
+      { meta: ExceptionCriteriaFieldMeta.SenderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ExceptionCriteriaField.SenderParty}
+          meta={ExceptionCriteriaFieldMeta.SenderParty}
+          fieldConfig={fieldConfig}
+          party={value?.SenderParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Sender Party"
-            value={value.SenderParty?.[0]}
-            meta={ExceptionCriteriaFieldMeta.SenderParty}
-          />
+    [
+      ExceptionCriteriaField.ReceiverParty,
+      { meta: ExceptionCriteriaFieldMeta.ReceiverParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ExceptionCriteriaField.ReceiverParty}
+          meta={ExceptionCriteriaFieldMeta.ReceiverParty}
+          fieldConfig={fieldConfig}
+          party={value?.ReceiverParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Receiver Party"
-            value={value.ReceiverParty?.[0]}
-            meta={ExceptionCriteriaFieldMeta.ReceiverParty}
-          />
+    [
+      ExceptionCriteriaField.BuyerCustomerParty,
+      { meta: ExceptionCriteriaFieldMeta.BuyerCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={ExceptionCriteriaField.BuyerCustomerParty}
+          meta={ExceptionCriteriaFieldMeta.BuyerCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.BuyerCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomerPartyDisplay
-            label="Buyer Customer Party"
-            value={value.BuyerCustomerParty?.[0]}
-            meta={ExceptionCriteriaFieldMeta.BuyerCustomerParty}
-          />
+    [
+      ExceptionCriteriaField.SellerSupplierParty,
+      { meta: ExceptionCriteriaFieldMeta.SellerSupplierParty,
+        template: ({value, renderContext, fieldConfig}) => <SupplierPartyDisplay
+          key={ExceptionCriteriaField.SellerSupplierParty}
+          meta={ExceptionCriteriaFieldMeta.SellerSupplierParty}
+          fieldConfig={fieldConfig}
+          supplierParty={value?.SellerSupplierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <SupplierPartyDisplay
-            label="Seller Supplier Party"
-            value={value.SellerSupplierParty?.[0]}
-            meta={ExceptionCriteriaFieldMeta.SellerSupplierParty}
-          />
+    [
+      ExceptionCriteriaField.ExceptionCriteriaLine,
+      { meta: ExceptionCriteriaFieldMeta.ExceptionCriteriaLine,
+        template: ({value, renderContext, fieldConfig}) => <ExceptionCriteriaLineDisplay
+          key={ExceptionCriteriaField.ExceptionCriteriaLine}
+          meta={ExceptionCriteriaFieldMeta.ExceptionCriteriaLine}
+          fieldConfig={fieldConfig}
+          exceptionCriteriaLine={value?.ExceptionCriteriaLine}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-ExceptionCriteriaLine"
-            label="Exception Criteria Line"
-            items={value.ExceptionCriteriaLine}
-            meta={ExceptionCriteriaFieldMeta.ExceptionCriteriaLine} 
-            itemDisplay={ (itemValue: ExceptionCriteriaLine, key: string | number) =>
-              <ExceptionCriteriaLineDisplay
-                key={key}
-                label="Exception Criteria Line"
-                value={itemValue}
-                meta={ExceptionCriteriaFieldMeta.ExceptionCriteriaLine}
-              />
-            }
-          />
-        </div>
-    </div>
+export function ExceptionCriteriaDisplay<TFieldMeta>({ meta, fieldConfig, exceptionCriteria, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ExceptionCriteriaTypeName,
+    meta,
+    fieldConfig,
+    exceptionCriteria,
+    renderContext,
+    ExceptionCriteriaSubElementsMap,
   )
 }

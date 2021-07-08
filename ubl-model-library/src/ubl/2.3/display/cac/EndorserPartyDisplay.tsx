@@ -1,64 +1,92 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { EndorserParty } from  '../../model/cac/EndorserParty'
-import { EndorserPartyFieldMeta } from  '../../meta/cac/EndorserPartyMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import ContactDisplay from './ContactDisplay'
-import { Contact } from '../../model/cac/Contact'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { EndorserPartyField, EndorserPartyFieldMeta, EndorserPartyTypeName } from  '../../meta/cac/EndorserPartyMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { ContactDisplay } from './ContactDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: EndorserParty | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<EndorserParty, void>
+  endorserParty: EndorserParty[] | undefined
+  renderContext: RenderContext
 }
 
-export default function EndorserPartyDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const EndorserPartySubElementsMap: SubElementsTemplatesMap<EndorserPartyField, EndorserParty, void> = new Map([
+    [
+      EndorserPartyField.UBLExtensions,
+      { meta: EndorserPartyFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={EndorserPartyField.UBLExtensions}
+          meta={EndorserPartyFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-EndorserParty">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={EndorserPartyFieldMeta.UBLExtensions}
-          />
+    [
+      EndorserPartyField.RoleCode,
+      { meta: EndorserPartyFieldMeta.RoleCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={EndorserPartyField.RoleCode}
+          meta={EndorserPartyFieldMeta.RoleCode}
+          fieldConfig={fieldConfig}
+          code={value?.RoleCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Role Code"
-            value={value.RoleCode?.[0]}
-            meta={EndorserPartyFieldMeta.RoleCode}
-          />
+    [
+      EndorserPartyField.SequenceNumeric,
+      { meta: EndorserPartyFieldMeta.SequenceNumeric,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={EndorserPartyField.SequenceNumeric}
+          meta={EndorserPartyFieldMeta.SequenceNumeric}
+          fieldConfig={fieldConfig}
+          numeric={value?.SequenceNumeric}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Sequence"
-            value={value.SequenceNumeric?.[0]}
-            meta={EndorserPartyFieldMeta.SequenceNumeric}
-          />
+    [
+      EndorserPartyField.Party,
+      { meta: EndorserPartyFieldMeta.Party,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={EndorserPartyField.Party}
+          meta={EndorserPartyFieldMeta.Party}
+          fieldConfig={fieldConfig}
+          party={value?.Party}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Party"
-            value={value.Party?.[0]}
-            meta={EndorserPartyFieldMeta.Party}
-          />
+    [
+      EndorserPartyField.SignatoryContact,
+      { meta: EndorserPartyFieldMeta.SignatoryContact,
+        template: ({value, renderContext, fieldConfig}) => <ContactDisplay
+          key={EndorserPartyField.SignatoryContact}
+          meta={EndorserPartyFieldMeta.SignatoryContact}
+          fieldConfig={fieldConfig}
+          contact={value?.SignatoryContact}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ContactDisplay
-            label="Signatory Contact"
-            value={value.SignatoryContact?.[0]}
-            meta={EndorserPartyFieldMeta.SignatoryContact}
-          />
-        </div>
-    </div>
+export function EndorserPartyDisplay<TFieldMeta>({ meta, fieldConfig, endorserParty, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    EndorserPartyTypeName,
+    meta,
+    fieldConfig,
+    endorserParty,
+    renderContext,
+    EndorserPartySubElementsMap,
   )
 }

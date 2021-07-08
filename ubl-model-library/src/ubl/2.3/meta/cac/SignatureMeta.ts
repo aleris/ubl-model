@@ -1,4 +1,14 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AttachmentType } from './AttachmentMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from './DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { PartyType } from './PartyMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum SignatureField {
   UBLExtensions = 'UBLExtensions',
@@ -18,11 +28,11 @@ export enum SignatureField {
 export const SignatureFieldMetaUBLExtensions = new FieldMeta<SignatureField>(
   SignatureField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -31,10 +41,10 @@ export const SignatureFieldMetaID = new FieldMeta<SignatureField>(
   SignatureField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this signature.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -43,10 +53,10 @@ export const SignatureFieldMetaReasonCode = new FieldMeta<SignatureField>(
   SignatureField.ReasonCode,
   'ReasonCode',
   'Reason',
-  'Code',
+  CodeType.name,
   'A code defining the reason or purpose of this signature',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -55,10 +65,10 @@ export const SignatureFieldMetaNote = new FieldMeta<SignatureField>(
   SignatureField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text conveying information that is not contained explicitly in other structures; in particular, information regarding the circumstances in which the signature is being used.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -67,10 +77,10 @@ export const SignatureFieldMetaValidationDate = new FieldMeta<SignatureField>(
   SignatureField.ValidationDate,
   'ValidationDate',
   'Validation Date',
-  'Date',
+  DateType.name,
   'The date upon which this signature was verified.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -79,10 +89,10 @@ export const SignatureFieldMetaValidationTime = new FieldMeta<SignatureField>(
   SignatureField.ValidationTime,
   'ValidationTime',
   'Validation Time',
-  'Time',
+  TimeType.name,
   'The time at which this signature was verified.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -91,10 +101,10 @@ export const SignatureFieldMetaValidatorID = new FieldMeta<SignatureField>(
   SignatureField.ValidatorID,
   'ValidatorID',
   'Validator',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the organization, person, service, or server that verified this signature.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -103,10 +113,10 @@ export const SignatureFieldMetaCanonicalizationMethod = new FieldMeta<SignatureF
   SignatureField.CanonicalizationMethod,
   'CanonicalizationMethod',
   'Canonicalization Method',
-  'Text',
+  TextType.name,
   'The method used to perform XML canonicalization of this signature.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -115,10 +125,10 @@ export const SignatureFieldMetaSignatureMethod = new FieldMeta<SignatureField>(
   SignatureField.SignatureMethod,
   'SignatureMethod',
   'Signature Method',
-  'Text',
+  TextType.name,
   'Text describing the method of signature.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -127,10 +137,10 @@ export const SignatureFieldMetaSignatoryParty = new FieldMeta<SignatureField>(
   SignatureField.SignatoryParty,
   'SignatoryParty',
   'Signatory Party',
-  'Party',
+  PartyType.name,
   'The signing party.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -139,10 +149,10 @@ export const SignatureFieldMetaDigitalSignatureAttachment = new FieldMeta<Signat
   SignatureField.DigitalSignatureAttachment,
   'DigitalSignatureAttachment',
   'Digital Signature Attachment',
-  'Attachment',
+  AttachmentType.name,
   'The actual encoded signature (e.g., in XMLDsig format).',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -151,10 +161,10 @@ export const SignatureFieldMetaOriginalDocumentReference = new FieldMeta<Signatu
   SignatureField.OriginalDocumentReference,
   'OriginalDocumentReference',
   'Original Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to the document that the signature applies to. For evidentiary purposes, this may be the document image that the signatory party saw when applying their signature.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -188,3 +198,11 @@ export const SignatureFieldMap = new Map([
   [SignatureField.DigitalSignatureAttachment, SignatureFieldMetaDigitalSignatureAttachment],
   [SignatureField.OriginalDocumentReference, SignatureFieldMetaOriginalDocumentReference]
 ])
+
+export const SignatureType: Type<SignatureField> = {
+  name: 'Signature',
+  label: 'Signature',
+  module: TypeModule.cac,
+  definition: 'A class to define a signature.',
+  fields: SignatureFieldMap,
+}

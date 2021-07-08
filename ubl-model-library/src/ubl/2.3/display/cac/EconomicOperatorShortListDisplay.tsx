@@ -1,86 +1,103 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { EconomicOperatorShortList } from  '../../model/cac/EconomicOperatorShortList'
-import { EconomicOperatorShortListFieldMeta } from  '../../meta/cac/EconomicOperatorShortListMeta'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { EconomicOperatorShortListField, EconomicOperatorShortListFieldMeta, EconomicOperatorShortListTypeName } from  '../../meta/cac/EconomicOperatorShortListMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { PartyDisplay } from './PartyDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: EconomicOperatorShortList | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<EconomicOperatorShortList, void>
+  economicOperatorShortList: EconomicOperatorShortList[] | undefined
+  renderContext: RenderContext
 }
 
-export default function EconomicOperatorShortListDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const EconomicOperatorShortListSubElementsMap: SubElementsTemplatesMap<EconomicOperatorShortListField, EconomicOperatorShortList, void> = new Map([
+    [
+      EconomicOperatorShortListField.UBLExtensions,
+      { meta: EconomicOperatorShortListFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={EconomicOperatorShortListField.UBLExtensions}
+          meta={EconomicOperatorShortListFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-EconomicOperatorShortList">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={EconomicOperatorShortListFieldMeta.UBLExtensions}
-          />
+    [
+      EconomicOperatorShortListField.LimitationDescription,
+      { meta: EconomicOperatorShortListFieldMeta.LimitationDescription,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={EconomicOperatorShortListField.LimitationDescription}
+          meta={EconomicOperatorShortListFieldMeta.LimitationDescription}
+          fieldConfig={fieldConfig}
+          text={value?.LimitationDescription}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-LimitationDescription"
-            label="Limitation Description"
-            items={value.LimitationDescription}
-            meta={EconomicOperatorShortListFieldMeta.LimitationDescription} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Limitation Description"
-                value={itemValue}
-                meta={EconomicOperatorShortListFieldMeta.LimitationDescription}
-              />
-            }
-          />
+    [
+      EconomicOperatorShortListField.ExpectedQuantity,
+      { meta: EconomicOperatorShortListFieldMeta.ExpectedQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={EconomicOperatorShortListField.ExpectedQuantity}
+          meta={EconomicOperatorShortListFieldMeta.ExpectedQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.ExpectedQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Expected Quantity"
-            value={value.ExpectedQuantity?.[0]}
-            meta={EconomicOperatorShortListFieldMeta.ExpectedQuantity}
-          />
+    [
+      EconomicOperatorShortListField.MaximumQuantity,
+      { meta: EconomicOperatorShortListFieldMeta.MaximumQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={EconomicOperatorShortListField.MaximumQuantity}
+          meta={EconomicOperatorShortListFieldMeta.MaximumQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.MaximumQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Maximum Quantity"
-            value={value.MaximumQuantity?.[0]}
-            meta={EconomicOperatorShortListFieldMeta.MaximumQuantity}
-          />
+    [
+      EconomicOperatorShortListField.MinimumQuantity,
+      { meta: EconomicOperatorShortListFieldMeta.MinimumQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={EconomicOperatorShortListField.MinimumQuantity}
+          meta={EconomicOperatorShortListFieldMeta.MinimumQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.MinimumQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Minimum Quantity"
-            value={value.MinimumQuantity?.[0]}
-            meta={EconomicOperatorShortListFieldMeta.MinimumQuantity}
-          />
+    [
+      EconomicOperatorShortListField.PreSelectedParty,
+      { meta: EconomicOperatorShortListFieldMeta.PreSelectedParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={EconomicOperatorShortListField.PreSelectedParty}
+          meta={EconomicOperatorShortListFieldMeta.PreSelectedParty}
+          fieldConfig={fieldConfig}
+          party={value?.PreSelectedParty}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Party ubl-PreSelectedParty"
-            label="Pre Selected Party"
-            items={value.PreSelectedParty}
-            meta={EconomicOperatorShortListFieldMeta.PreSelectedParty} 
-            itemDisplay={ (itemValue: Party, key: string | number) =>
-              <PartyDisplay
-                key={key}
-                label="Pre Selected Party"
-                value={itemValue}
-                meta={EconomicOperatorShortListFieldMeta.PreSelectedParty}
-              />
-            }
-          />
-        </div>
-    </div>
+export function EconomicOperatorShortListDisplay<TFieldMeta>({ meta, fieldConfig, economicOperatorShortList, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    EconomicOperatorShortListTypeName,
+    meta,
+    fieldConfig,
+    economicOperatorShortList,
+    renderContext,
+    EconomicOperatorShortListSubElementsMap,
   )
 }

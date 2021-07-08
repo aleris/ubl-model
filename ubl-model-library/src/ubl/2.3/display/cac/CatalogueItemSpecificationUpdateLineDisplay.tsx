@@ -1,64 +1,92 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { CatalogueItemSpecificationUpdateLine } from  '../../model/cac/CatalogueItemSpecificationUpdateLine'
-import { CatalogueItemSpecificationUpdateLineFieldMeta } from  '../../meta/cac/CatalogueItemSpecificationUpdateLineMeta'
-import CustomerPartyDisplay from './CustomerPartyDisplay'
-import { CustomerParty } from '../../model/cac/CustomerParty'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import ItemDisplay from './ItemDisplay'
-import { Item } from '../../model/cac/Item'
-import SupplierPartyDisplay from './SupplierPartyDisplay'
-import { SupplierParty } from '../../model/cac/SupplierParty'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { CatalogueItemSpecificationUpdateLineField, CatalogueItemSpecificationUpdateLineFieldMeta, CatalogueItemSpecificationUpdateLineTypeName } from  '../../meta/cac/CatalogueItemSpecificationUpdateLineMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CustomerPartyDisplay } from './CustomerPartyDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { ItemDisplay } from './ItemDisplay'
+import { SupplierPartyDisplay } from './SupplierPartyDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: CatalogueItemSpecificationUpdateLine | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<CatalogueItemSpecificationUpdateLine, void>
+  catalogueItemSpecificationUpdateLine: CatalogueItemSpecificationUpdateLine[] | undefined
+  renderContext: RenderContext
 }
 
-export default function CatalogueItemSpecificationUpdateLineDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const CatalogueItemSpecificationUpdateLineSubElementsMap: SubElementsTemplatesMap<CatalogueItemSpecificationUpdateLineField, CatalogueItemSpecificationUpdateLine, void> = new Map([
+    [
+      CatalogueItemSpecificationUpdateLineField.UBLExtensions,
+      { meta: CatalogueItemSpecificationUpdateLineFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={CatalogueItemSpecificationUpdateLineField.UBLExtensions}
+          meta={CatalogueItemSpecificationUpdateLineFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-CatalogueItemSpecificationUpdateLine">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={CatalogueItemSpecificationUpdateLineFieldMeta.UBLExtensions}
-          />
+    [
+      CatalogueItemSpecificationUpdateLineField.ID,
+      { meta: CatalogueItemSpecificationUpdateLineFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CatalogueItemSpecificationUpdateLineField.ID}
+          meta={CatalogueItemSpecificationUpdateLineFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={CatalogueItemSpecificationUpdateLineFieldMeta.ID}
-          />
+    [
+      CatalogueItemSpecificationUpdateLineField.ContractorCustomerParty,
+      { meta: CatalogueItemSpecificationUpdateLineFieldMeta.ContractorCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={CatalogueItemSpecificationUpdateLineField.ContractorCustomerParty}
+          meta={CatalogueItemSpecificationUpdateLineFieldMeta.ContractorCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.ContractorCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomerPartyDisplay
-            label="Contractor Customer Party"
-            value={value.ContractorCustomerParty?.[0]}
-            meta={CatalogueItemSpecificationUpdateLineFieldMeta.ContractorCustomerParty}
-          />
+    [
+      CatalogueItemSpecificationUpdateLineField.SellerSupplierParty,
+      { meta: CatalogueItemSpecificationUpdateLineFieldMeta.SellerSupplierParty,
+        template: ({value, renderContext, fieldConfig}) => <SupplierPartyDisplay
+          key={CatalogueItemSpecificationUpdateLineField.SellerSupplierParty}
+          meta={CatalogueItemSpecificationUpdateLineFieldMeta.SellerSupplierParty}
+          fieldConfig={fieldConfig}
+          supplierParty={value?.SellerSupplierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <SupplierPartyDisplay
-            label="Seller Supplier Party"
-            value={value.SellerSupplierParty?.[0]}
-            meta={CatalogueItemSpecificationUpdateLineFieldMeta.SellerSupplierParty}
-          />
+    [
+      CatalogueItemSpecificationUpdateLineField.Item,
+      { meta: CatalogueItemSpecificationUpdateLineFieldMeta.Item,
+        template: ({value, renderContext, fieldConfig}) => <ItemDisplay
+          key={CatalogueItemSpecificationUpdateLineField.Item}
+          meta={CatalogueItemSpecificationUpdateLineFieldMeta.Item}
+          fieldConfig={fieldConfig}
+          item={value?.Item}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ItemDisplay
-            label="Item"
-            value={value.Item?.[0]}
-            meta={CatalogueItemSpecificationUpdateLineFieldMeta.Item}
-          />
-        </div>
-    </div>
+export function CatalogueItemSpecificationUpdateLineDisplay<TFieldMeta>({ meta, fieldConfig, catalogueItemSpecificationUpdateLine, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    CatalogueItemSpecificationUpdateLineTypeName,
+    meta,
+    fieldConfig,
+    catalogueItemSpecificationUpdateLine,
+    renderContext,
+    CatalogueItemSpecificationUpdateLineSubElementsMap,
   )
 }

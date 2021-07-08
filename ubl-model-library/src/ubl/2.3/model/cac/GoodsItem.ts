@@ -18,7 +18,6 @@ import { Quantity } from '../cbc/Quantity'
 import { Temperature } from './Temperature'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a separately identifiable quantity of goods of a single product type.
  */

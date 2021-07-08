@@ -1,81 +1,105 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { InstructionForReturnsLine } from  '../../model/cac/InstructionForReturnsLine'
-import { InstructionForReturnsLineFieldMeta } from  '../../meta/cac/InstructionForReturnsLineMeta'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import ItemDisplay from './ItemDisplay'
-import { Item } from '../../model/cac/Item'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { InstructionForReturnsLineField, InstructionForReturnsLineFieldMeta, InstructionForReturnsLineTypeName } from  '../../meta/cac/InstructionForReturnsLineMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { ItemDisplay } from './ItemDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: InstructionForReturnsLine | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<InstructionForReturnsLine, void>
+  instructionForReturnsLine: InstructionForReturnsLine[] | undefined
+  renderContext: RenderContext
 }
 
-export default function InstructionForReturnsLineDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const InstructionForReturnsLineSubElementsMap: SubElementsTemplatesMap<InstructionForReturnsLineField, InstructionForReturnsLine, void> = new Map([
+    [
+      InstructionForReturnsLineField.UBLExtensions,
+      { meta: InstructionForReturnsLineFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={InstructionForReturnsLineField.UBLExtensions}
+          meta={InstructionForReturnsLineFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-InstructionForReturnsLine">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={InstructionForReturnsLineFieldMeta.UBLExtensions}
-          />
+    [
+      InstructionForReturnsLineField.ID,
+      { meta: InstructionForReturnsLineFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={InstructionForReturnsLineField.ID}
+          meta={InstructionForReturnsLineFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={InstructionForReturnsLineFieldMeta.ID}
-          />
+    [
+      InstructionForReturnsLineField.Note,
+      { meta: InstructionForReturnsLineFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={InstructionForReturnsLineField.Note}
+          meta={InstructionForReturnsLineFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={InstructionForReturnsLineFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={InstructionForReturnsLineFieldMeta.Note}
-              />
-            }
-          />
+    [
+      InstructionForReturnsLineField.Quantity,
+      { meta: InstructionForReturnsLineFieldMeta.Quantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={InstructionForReturnsLineField.Quantity}
+          meta={InstructionForReturnsLineFieldMeta.Quantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.Quantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Quantity"
-            value={value.Quantity?.[0]}
-            meta={InstructionForReturnsLineFieldMeta.Quantity}
-          />
+    [
+      InstructionForReturnsLineField.ManufacturerParty,
+      { meta: InstructionForReturnsLineFieldMeta.ManufacturerParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={InstructionForReturnsLineField.ManufacturerParty}
+          meta={InstructionForReturnsLineFieldMeta.ManufacturerParty}
+          fieldConfig={fieldConfig}
+          party={value?.ManufacturerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Manufacturer Party"
-            value={value.ManufacturerParty?.[0]}
-            meta={InstructionForReturnsLineFieldMeta.ManufacturerParty}
-          />
+    [
+      InstructionForReturnsLineField.Item,
+      { meta: InstructionForReturnsLineFieldMeta.Item,
+        template: ({value, renderContext, fieldConfig}) => <ItemDisplay
+          key={InstructionForReturnsLineField.Item}
+          meta={InstructionForReturnsLineFieldMeta.Item}
+          fieldConfig={fieldConfig}
+          item={value?.Item}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ItemDisplay
-            label="Item"
-            value={value.Item?.[0]}
-            meta={InstructionForReturnsLineFieldMeta.Item}
-          />
-        </div>
-    </div>
+export function InstructionForReturnsLineDisplay<TFieldMeta>({ meta, fieldConfig, instructionForReturnsLine, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    InstructionForReturnsLineTypeName,
+    meta,
+    fieldConfig,
+    instructionForReturnsLine,
+    renderContext,
+    InstructionForReturnsLineSubElementsMap,
   )
 }

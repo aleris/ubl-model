@@ -1,97 +1,131 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { StockAvailabilityReportLine } from  '../../model/cac/StockAvailabilityReportLine'
-import { StockAvailabilityReportLineFieldMeta } from  '../../meta/cac/StockAvailabilityReportLineMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import ItemDisplay from './ItemDisplay'
-import { Item } from '../../model/cac/Item'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { StockAvailabilityReportLineField, StockAvailabilityReportLineFieldMeta, StockAvailabilityReportLineTypeName } from  '../../meta/cac/StockAvailabilityReportLineMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { ItemDisplay } from './ItemDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: StockAvailabilityReportLine | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<StockAvailabilityReportLine, void>
+  stockAvailabilityReportLine: StockAvailabilityReportLine[] | undefined
+  renderContext: RenderContext
 }
 
-export default function StockAvailabilityReportLineDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const StockAvailabilityReportLineSubElementsMap: SubElementsTemplatesMap<StockAvailabilityReportLineField, StockAvailabilityReportLine, void> = new Map([
+    [
+      StockAvailabilityReportLineField.UBLExtensions,
+      { meta: StockAvailabilityReportLineFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={StockAvailabilityReportLineField.UBLExtensions}
+          meta={StockAvailabilityReportLineFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-StockAvailabilityReportLine">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={StockAvailabilityReportLineFieldMeta.UBLExtensions}
-          />
+    [
+      StockAvailabilityReportLineField.ID,
+      { meta: StockAvailabilityReportLineFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={StockAvailabilityReportLineField.ID}
+          meta={StockAvailabilityReportLineFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={StockAvailabilityReportLineFieldMeta.ID}
-          />
+    [
+      StockAvailabilityReportLineField.Note,
+      { meta: StockAvailabilityReportLineFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={StockAvailabilityReportLineField.Note}
+          meta={StockAvailabilityReportLineFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={StockAvailabilityReportLineFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={StockAvailabilityReportLineFieldMeta.Note}
-              />
-            }
-          />
+    [
+      StockAvailabilityReportLineField.Quantity,
+      { meta: StockAvailabilityReportLineFieldMeta.Quantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={StockAvailabilityReportLineField.Quantity}
+          meta={StockAvailabilityReportLineFieldMeta.Quantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.Quantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Quantity"
-            value={value.Quantity?.[0]}
-            meta={StockAvailabilityReportLineFieldMeta.Quantity}
-          />
+    [
+      StockAvailabilityReportLineField.ValueAmount,
+      { meta: StockAvailabilityReportLineFieldMeta.ValueAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={StockAvailabilityReportLineField.ValueAmount}
+          meta={StockAvailabilityReportLineFieldMeta.ValueAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.ValueAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Value"
-            value={value.ValueAmount?.[0]}
-            meta={StockAvailabilityReportLineFieldMeta.ValueAmount}
-          />
+    [
+      StockAvailabilityReportLineField.AvailabilityDate,
+      { meta: StockAvailabilityReportLineFieldMeta.AvailabilityDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={StockAvailabilityReportLineField.AvailabilityDate}
+          meta={StockAvailabilityReportLineFieldMeta.AvailabilityDate}
+          fieldConfig={fieldConfig}
+          date={value?.AvailabilityDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Availability Date"
-            value={value.AvailabilityDate?.[0]}
-            meta={StockAvailabilityReportLineFieldMeta.AvailabilityDate}
-          />
+    [
+      StockAvailabilityReportLineField.AvailabilityStatusCode,
+      { meta: StockAvailabilityReportLineFieldMeta.AvailabilityStatusCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={StockAvailabilityReportLineField.AvailabilityStatusCode}
+          meta={StockAvailabilityReportLineFieldMeta.AvailabilityStatusCode}
+          fieldConfig={fieldConfig}
+          code={value?.AvailabilityStatusCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Availability Status Code"
-            value={value.AvailabilityStatusCode?.[0]}
-            meta={StockAvailabilityReportLineFieldMeta.AvailabilityStatusCode}
-          />
+    [
+      StockAvailabilityReportLineField.Item,
+      { meta: StockAvailabilityReportLineFieldMeta.Item,
+        template: ({value, renderContext, fieldConfig}) => <ItemDisplay
+          key={StockAvailabilityReportLineField.Item}
+          meta={StockAvailabilityReportLineFieldMeta.Item}
+          fieldConfig={fieldConfig}
+          item={value?.Item}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ItemDisplay
-            label="Item"
-            value={value.Item?.[0]}
-            meta={StockAvailabilityReportLineFieldMeta.Item}
-          />
-        </div>
-    </div>
+export function StockAvailabilityReportLineDisplay<TFieldMeta>({ meta, fieldConfig, stockAvailabilityReportLine, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    StockAvailabilityReportLineTypeName,
+    meta,
+    fieldConfig,
+    stockAvailabilityReportLine,
+    renderContext,
+    StockAvailabilityReportLineSubElementsMap,
   )
 }

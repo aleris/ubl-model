@@ -1,4 +1,7 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ClassificationCategoryField {
   UBLExtensions = 'UBLExtensions',
@@ -11,11 +14,11 @@ export enum ClassificationCategoryField {
 export const ClassificationCategoryFieldMetaUBLExtensions = new FieldMeta<ClassificationCategoryField>(
   ClassificationCategoryField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -24,10 +27,10 @@ export const ClassificationCategoryFieldMetaName = new FieldMeta<ClassificationC
   ClassificationCategoryField.Name,
   'Name',
   'Name',
-  'Text',
+  TextType.name,
   'The name of this category within the classification scheme.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Code List Name',
   'UNSPSC Class , UNSPSC Segment , UNSPSC Family'
 )
@@ -36,10 +39,10 @@ export const ClassificationCategoryFieldMetaCodeValue = new FieldMeta<Classifica
   ClassificationCategoryField.CodeValue,
   'CodeValue',
   'Code Value',
-  'Text',
+  TextType.name,
   'The value of a code used to identify this category within the classification scheme.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Code Value',
   '3420001, 3273666, HSJJD-213'
 )
@@ -48,10 +51,10 @@ export const ClassificationCategoryFieldMetaDescription = new FieldMeta<Classifi
   ClassificationCategoryField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing this category.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   'Code Name',
   'Electrical Goods , Wooden Toys'
 )
@@ -60,10 +63,10 @@ export const ClassificationCategoryFieldMetaCategorizesClassificationCategory = 
   ClassificationCategoryField.CategorizesClassificationCategory,
   'CategorizesClassificationCategory',
   'Categorizes Classification Category',
-  'ClassificationCategory',
+  ClassificationCategoryType.name,
   'A recursive description of a subcategory of this category.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -83,3 +86,11 @@ export const ClassificationCategoryFieldMap = new Map([
   [ClassificationCategoryField.Description, ClassificationCategoryFieldMetaDescription],
   [ClassificationCategoryField.CategorizesClassificationCategory, ClassificationCategoryFieldMetaCategorizesClassificationCategory]
 ])
+
+export const ClassificationCategoryType: Type<ClassificationCategoryField> = {
+  name: 'ClassificationCategory',
+  label: 'Classification Category',
+  module: TypeModule.cac,
+  definition: 'A class to define a category within a classification scheme.',
+  fields: ClassificationCategoryFieldMap,
+}

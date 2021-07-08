@@ -1,121 +1,188 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ConsumptionCorrection } from  '../../model/cac/ConsumptionCorrection'
-import { ConsumptionCorrectionFieldMeta } from  '../../meta/cac/ConsumptionCorrectionMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ConsumptionCorrectionField, ConsumptionCorrectionFieldMeta, ConsumptionCorrectionTypeName } from  '../../meta/cac/ConsumptionCorrectionMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ConsumptionCorrection | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ConsumptionCorrection, void>
+  consumptionCorrection: ConsumptionCorrection[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ConsumptionCorrectionDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ConsumptionCorrectionSubElementsMap: SubElementsTemplatesMap<ConsumptionCorrectionField, ConsumptionCorrection, void> = new Map([
+    [
+      ConsumptionCorrectionField.UBLExtensions,
+      { meta: ConsumptionCorrectionFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ConsumptionCorrectionField.UBLExtensions}
+          meta={ConsumptionCorrectionFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ConsumptionCorrection">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ConsumptionCorrectionFieldMeta.UBLExtensions}
-          />
+    [
+      ConsumptionCorrectionField.CorrectionType,
+      { meta: ConsumptionCorrectionFieldMeta.CorrectionType,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ConsumptionCorrectionField.CorrectionType}
+          meta={ConsumptionCorrectionFieldMeta.CorrectionType}
+          fieldConfig={fieldConfig}
+          text={value?.CorrectionType}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Correction Type"
-            value={value.CorrectionType?.[0]}
-            meta={ConsumptionCorrectionFieldMeta.CorrectionType}
-          />
+    [
+      ConsumptionCorrectionField.CorrectionTypeCode,
+      { meta: ConsumptionCorrectionFieldMeta.CorrectionTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ConsumptionCorrectionField.CorrectionTypeCode}
+          meta={ConsumptionCorrectionFieldMeta.CorrectionTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.CorrectionTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Correction Type Code"
-            value={value.CorrectionTypeCode?.[0]}
-            meta={ConsumptionCorrectionFieldMeta.CorrectionTypeCode}
-          />
+    [
+      ConsumptionCorrectionField.MeterNumber,
+      { meta: ConsumptionCorrectionFieldMeta.MeterNumber,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ConsumptionCorrectionField.MeterNumber}
+          meta={ConsumptionCorrectionFieldMeta.MeterNumber}
+          fieldConfig={fieldConfig}
+          text={value?.MeterNumber}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Meter Number"
-            value={value.MeterNumber?.[0]}
-            meta={ConsumptionCorrectionFieldMeta.MeterNumber}
-          />
+    [
+      ConsumptionCorrectionField.GasPressureQuantity,
+      { meta: ConsumptionCorrectionFieldMeta.GasPressureQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={ConsumptionCorrectionField.GasPressureQuantity}
+          meta={ConsumptionCorrectionFieldMeta.GasPressureQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.GasPressureQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Gas Pressure"
-            value={value.GasPressureQuantity?.[0]}
-            meta={ConsumptionCorrectionFieldMeta.GasPressureQuantity}
-          />
+    [
+      ConsumptionCorrectionField.ActualTemperatureReductionQuantity,
+      { meta: ConsumptionCorrectionFieldMeta.ActualTemperatureReductionQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={ConsumptionCorrectionField.ActualTemperatureReductionQuantity}
+          meta={ConsumptionCorrectionFieldMeta.ActualTemperatureReductionQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.ActualTemperatureReductionQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Actual Temperature Reduction"
-            value={value.ActualTemperatureReductionQuantity?.[0]}
-            meta={ConsumptionCorrectionFieldMeta.ActualTemperatureReductionQuantity}
-          />
+    [
+      ConsumptionCorrectionField.NormalTemperatureReductionQuantity,
+      { meta: ConsumptionCorrectionFieldMeta.NormalTemperatureReductionQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={ConsumptionCorrectionField.NormalTemperatureReductionQuantity}
+          meta={ConsumptionCorrectionFieldMeta.NormalTemperatureReductionQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.NormalTemperatureReductionQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Normal Temperature Reduction"
-            value={value.NormalTemperatureReductionQuantity?.[0]}
-            meta={ConsumptionCorrectionFieldMeta.NormalTemperatureReductionQuantity}
-          />
+    [
+      ConsumptionCorrectionField.DifferenceTemperatureReductionQuantity,
+      { meta: ConsumptionCorrectionFieldMeta.DifferenceTemperatureReductionQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={ConsumptionCorrectionField.DifferenceTemperatureReductionQuantity}
+          meta={ConsumptionCorrectionFieldMeta.DifferenceTemperatureReductionQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.DifferenceTemperatureReductionQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Difference Temperature Reduction"
-            value={value.DifferenceTemperatureReductionQuantity?.[0]}
-            meta={ConsumptionCorrectionFieldMeta.DifferenceTemperatureReductionQuantity}
-          />
+    [
+      ConsumptionCorrectionField.Description,
+      { meta: ConsumptionCorrectionFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ConsumptionCorrectionField.Description}
+          meta={ConsumptionCorrectionFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={ConsumptionCorrectionFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={ConsumptionCorrectionFieldMeta.Description}
-              />
-            }
-          />
+    [
+      ConsumptionCorrectionField.CorrectionUnitAmount,
+      { meta: ConsumptionCorrectionFieldMeta.CorrectionUnitAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={ConsumptionCorrectionField.CorrectionUnitAmount}
+          meta={ConsumptionCorrectionFieldMeta.CorrectionUnitAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.CorrectionUnitAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Correction Unit Amount"
-            value={value.CorrectionUnitAmount?.[0]}
-            meta={ConsumptionCorrectionFieldMeta.CorrectionUnitAmount}
-          />
+    [
+      ConsumptionCorrectionField.ConsumptionEnergyQuantity,
+      { meta: ConsumptionCorrectionFieldMeta.ConsumptionEnergyQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={ConsumptionCorrectionField.ConsumptionEnergyQuantity}
+          meta={ConsumptionCorrectionFieldMeta.ConsumptionEnergyQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.ConsumptionEnergyQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Consumption Energy"
-            value={value.ConsumptionEnergyQuantity?.[0]}
-            meta={ConsumptionCorrectionFieldMeta.ConsumptionEnergyQuantity}
-          />
+    [
+      ConsumptionCorrectionField.ConsumptionWaterQuantity,
+      { meta: ConsumptionCorrectionFieldMeta.ConsumptionWaterQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={ConsumptionCorrectionField.ConsumptionWaterQuantity}
+          meta={ConsumptionCorrectionFieldMeta.ConsumptionWaterQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.ConsumptionWaterQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Consumption Water"
-            value={value.ConsumptionWaterQuantity?.[0]}
-            meta={ConsumptionCorrectionFieldMeta.ConsumptionWaterQuantity}
-          />
+    [
+      ConsumptionCorrectionField.CorrectionAmount,
+      { meta: ConsumptionCorrectionFieldMeta.CorrectionAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={ConsumptionCorrectionField.CorrectionAmount}
+          meta={ConsumptionCorrectionFieldMeta.CorrectionAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.CorrectionAmount}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <AmountDisplay
-            label="Correction Amount"
-            value={value.CorrectionAmount?.[0]}
-            meta={ConsumptionCorrectionFieldMeta.CorrectionAmount}
-          />
-        </div>
-    </div>
+export function ConsumptionCorrectionDisplay<TFieldMeta>({ meta, fieldConfig, consumptionCorrection, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ConsumptionCorrectionTypeName,
+    meta,
+    fieldConfig,
+    consumptionCorrection,
+    renderContext,
+    ConsumptionCorrectionSubElementsMap,
   )
 }

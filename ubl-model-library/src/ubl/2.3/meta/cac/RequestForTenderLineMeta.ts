@@ -1,4 +1,15 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { DocumentReferenceType } from './DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { ItemType } from './ItemMeta'
+import { ItemLocationQuantityType } from './ItemLocationQuantityMeta'
+import { PeriodType } from './PeriodMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum RequestForTenderLineField {
   UBLExtensions = 'UBLExtensions',
@@ -23,11 +34,11 @@ export enum RequestForTenderLineField {
 export const RequestForTenderLineFieldMetaUBLExtensions = new FieldMeta<RequestForTenderLineField>(
   RequestForTenderLineField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -36,10 +47,10 @@ export const RequestForTenderLineFieldMetaID = new FieldMeta<RequestForTenderLin
   RequestForTenderLineField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this request for tender line.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -48,10 +59,10 @@ export const RequestForTenderLineFieldMetaUUID = new FieldMeta<RequestForTenderL
   RequestForTenderLineField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for this request for tender line.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -60,10 +71,10 @@ export const RequestForTenderLineFieldMetaNote = new FieldMeta<RequestForTenderL
   RequestForTenderLineField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -72,10 +83,10 @@ export const RequestForTenderLineFieldMetaQuantity = new FieldMeta<RequestForTen
   RequestForTenderLineField.Quantity,
   'Quantity',
   'Quantity',
-  'Quantity',
+  QuantityType.name,
   'The quantity of the item for which a tender is requested in this line.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -84,10 +95,10 @@ export const RequestForTenderLineFieldMetaMinimumQuantity = new FieldMeta<Reques
   RequestForTenderLineField.MinimumQuantity,
   'MinimumQuantity',
   'Minimum Quantity',
-  'Quantity',
+  QuantityType.name,
   'The minimum quantity of the item associated with this request for tender line.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -96,10 +107,10 @@ export const RequestForTenderLineFieldMetaMaximumQuantity = new FieldMeta<Reques
   RequestForTenderLineField.MaximumQuantity,
   'MaximumQuantity',
   'Maximum Quantity',
-  'Quantity',
+  QuantityType.name,
   'The maximum quantity of the item associated with this request for tender line.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -108,10 +119,10 @@ export const RequestForTenderLineFieldMetaTaxIncludedIndicator = new FieldMeta<R
   RequestForTenderLineField.TaxIncludedIndicator,
   'TaxIncludedIndicator',
   'Tax Included Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether the amounts are taxes included (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -120,10 +131,10 @@ export const RequestForTenderLineFieldMetaMinimumAmount = new FieldMeta<RequestF
   RequestForTenderLineField.MinimumAmount,
   'MinimumAmount',
   'Minimum Amount',
-  'Amount',
+  AmountType.name,
   'The minimum amount allowed for this deliverable.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -132,10 +143,10 @@ export const RequestForTenderLineFieldMetaMaximumAmount = new FieldMeta<RequestF
   RequestForTenderLineField.MaximumAmount,
   'MaximumAmount',
   'Maximum Amount',
-  'Amount',
+  AmountType.name,
   'The maximum amount allowed for this deliverable.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -144,10 +155,10 @@ export const RequestForTenderLineFieldMetaEstimatedAmount = new FieldMeta<Reques
   RequestForTenderLineField.EstimatedAmount,
   'EstimatedAmount',
   'Estimated Amount',
-  'Amount',
+  AmountType.name,
   'The estimated total amount of the deliverable.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -156,10 +167,10 @@ export const RequestForTenderLineFieldMetaDocumentReference = new FieldMeta<Requ
   RequestForTenderLineField.DocumentReference,
   'DocumentReference',
   'Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a document associated with this request for tender line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -168,10 +179,10 @@ export const RequestForTenderLineFieldMetaDeliveryPeriod = new FieldMeta<Request
   RequestForTenderLineField.DeliveryPeriod,
   'DeliveryPeriod',
   'Delivery Period',
-  'Period',
+  PeriodType.name,
   'An applicable period for the deliverable or set of deliverables in this tendering process.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -180,10 +191,10 @@ export const RequestForTenderLineFieldMetaRequiredItemLocationQuantity = new Fie
   RequestForTenderLineField.RequiredItemLocationQuantity,
   'RequiredItemLocationQuantity',
   'Required Item Location Quantity',
-  'ItemLocationQuantity',
+  ItemLocationQuantityType.name,
   'Properties of the item specified in this request for tender line that are dependent on location and quantity.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -192,10 +203,10 @@ export const RequestForTenderLineFieldMetaWarrantyValidityPeriod = new FieldMeta
   RequestForTenderLineField.WarrantyValidityPeriod,
   'WarrantyValidityPeriod',
   'Warranty Validity Period',
-  'Period',
+  PeriodType.name,
   'The period during which a warranty to be associated with this request for tender line must apply.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -204,10 +215,10 @@ export const RequestForTenderLineFieldMetaItem = new FieldMeta<RequestForTenderL
   RequestForTenderLineField.Item,
   'Item',
   'Item',
-  'Item',
+  ItemType.name,
   'An item for which a tender is requested.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -216,10 +227,10 @@ export const RequestForTenderLineFieldMetaSubRequestForTenderLine = new FieldMet
   RequestForTenderLineField.SubRequestForTenderLine,
   'SubRequestForTenderLine',
   'Sub Request For Tender Line',
-  'RequestForTenderLine',
+  RequestForTenderLineType.name,
   'A subsidiary request for tender line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -263,3 +274,11 @@ export const RequestForTenderLineFieldMap = new Map([
   [RequestForTenderLineField.Item, RequestForTenderLineFieldMetaItem],
   [RequestForTenderLineField.SubRequestForTenderLine, RequestForTenderLineFieldMetaSubRequestForTenderLine]
 ])
+
+export const RequestForTenderLineType: Type<RequestForTenderLineField> = {
+  name: 'RequestForTenderLine',
+  label: 'Request For Tender Line',
+  module: TypeModule.cac,
+  definition: 'A class to define a line in a Request for Tender describing an item of goods or a service solicited in the Request for Tender.',
+  fields: RequestForTenderLineFieldMap,
+}

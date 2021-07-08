@@ -3,7 +3,6 @@ import { Identifier } from '../cbc/Identifier'
 import { Item } from './Item'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class describing a criteria
  */

@@ -8,7 +8,6 @@ import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { TransportationService } from '../cac/TransportationService'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A document requesting a Transport Service Description, sent from a party with a transport demand (transport user) to
  * a party providing transport services (transport service provider).

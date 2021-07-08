@@ -1,102 +1,165 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TaxSubtotal } from  '../../model/cac/TaxSubtotal'
-import { TaxSubtotalFieldMeta } from  '../../meta/cac/TaxSubtotalMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import MeasureDisplay from '../cbc/MeasureDisplay'
-import { Measure } from '../../model/cbc/Measure'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import TaxCategoryDisplay from './TaxCategoryDisplay'
-import { TaxCategory } from '../../model/cac/TaxCategory'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { TaxSubtotalField, TaxSubtotalFieldMeta, TaxSubtotalTypeName } from  '../../meta/cac/TaxSubtotalMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { MeasureDisplay } from '../cbc/MeasureDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { TaxCategoryDisplay } from './TaxCategoryDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: TaxSubtotal | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<TaxSubtotal, void>
+  taxSubtotal: TaxSubtotal[] | undefined
+  renderContext: RenderContext
 }
 
-export default function TaxSubtotalDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const TaxSubtotalSubElementsMap: SubElementsTemplatesMap<TaxSubtotalField, TaxSubtotal, void> = new Map([
+    [
+      TaxSubtotalField.UBLExtensions,
+      { meta: TaxSubtotalFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={TaxSubtotalField.UBLExtensions}
+          meta={TaxSubtotalFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-TaxSubtotal">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={TaxSubtotalFieldMeta.UBLExtensions}
-          />
+    [
+      TaxSubtotalField.TaxableAmount,
+      { meta: TaxSubtotalFieldMeta.TaxableAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={TaxSubtotalField.TaxableAmount}
+          meta={TaxSubtotalFieldMeta.TaxableAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.TaxableAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Taxable Amount"
-            value={value.TaxableAmount?.[0]}
-            meta={TaxSubtotalFieldMeta.TaxableAmount}
-          />
+    [
+      TaxSubtotalField.TaxAmount,
+      { meta: TaxSubtotalFieldMeta.TaxAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={TaxSubtotalField.TaxAmount}
+          meta={TaxSubtotalFieldMeta.TaxAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.TaxAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Tax Amount"
-            value={value.TaxAmount?.[0]}
-            meta={TaxSubtotalFieldMeta.TaxAmount}
-          />
+    [
+      TaxSubtotalField.CalculationSequenceNumeric,
+      { meta: TaxSubtotalFieldMeta.CalculationSequenceNumeric,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={TaxSubtotalField.CalculationSequenceNumeric}
+          meta={TaxSubtotalFieldMeta.CalculationSequenceNumeric}
+          fieldConfig={fieldConfig}
+          numeric={value?.CalculationSequenceNumeric}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Calculation Sequence"
-            value={value.CalculationSequenceNumeric?.[0]}
-            meta={TaxSubtotalFieldMeta.CalculationSequenceNumeric}
-          />
+    [
+      TaxSubtotalField.TransactionCurrencyTaxAmount,
+      { meta: TaxSubtotalFieldMeta.TransactionCurrencyTaxAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={TaxSubtotalField.TransactionCurrencyTaxAmount}
+          meta={TaxSubtotalFieldMeta.TransactionCurrencyTaxAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.TransactionCurrencyTaxAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Transaction Currency Tax Amount"
-            value={value.TransactionCurrencyTaxAmount?.[0]}
-            meta={TaxSubtotalFieldMeta.TransactionCurrencyTaxAmount}
-          />
+    [
+      TaxSubtotalField.Percent,
+      { meta: TaxSubtotalFieldMeta.Percent,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={TaxSubtotalField.Percent}
+          meta={TaxSubtotalFieldMeta.Percent}
+          fieldConfig={fieldConfig}
+          numeric={value?.Percent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Percent"
-            value={value.Percent?.[0]}
-            meta={TaxSubtotalFieldMeta.Percent}
-          />
+    [
+      TaxSubtotalField.BaseUnitMeasure,
+      { meta: TaxSubtotalFieldMeta.BaseUnitMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={TaxSubtotalField.BaseUnitMeasure}
+          meta={TaxSubtotalFieldMeta.BaseUnitMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.BaseUnitMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Base Unit Measure"
-            value={value.BaseUnitMeasure?.[0]}
-            meta={TaxSubtotalFieldMeta.BaseUnitMeasure}
-          />
+    [
+      TaxSubtotalField.PerUnitAmount,
+      { meta: TaxSubtotalFieldMeta.PerUnitAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={TaxSubtotalField.PerUnitAmount}
+          meta={TaxSubtotalFieldMeta.PerUnitAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.PerUnitAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Per Unit Amount"
-            value={value.PerUnitAmount?.[0]}
-            meta={TaxSubtotalFieldMeta.PerUnitAmount}
-          />
+    [
+      TaxSubtotalField.TierRange,
+      { meta: TaxSubtotalFieldMeta.TierRange,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TaxSubtotalField.TierRange}
+          meta={TaxSubtotalFieldMeta.TierRange}
+          fieldConfig={fieldConfig}
+          text={value?.TierRange}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Tier Range"
-            value={value.TierRange?.[0]}
-            meta={TaxSubtotalFieldMeta.TierRange}
-          />
+    [
+      TaxSubtotalField.TierRatePercent,
+      { meta: TaxSubtotalFieldMeta.TierRatePercent,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={TaxSubtotalField.TierRatePercent}
+          meta={TaxSubtotalFieldMeta.TierRatePercent}
+          fieldConfig={fieldConfig}
+          numeric={value?.TierRatePercent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Tier Rate"
-            value={value.TierRatePercent?.[0]}
-            meta={TaxSubtotalFieldMeta.TierRatePercent}
-          />
+    [
+      TaxSubtotalField.TaxCategory,
+      { meta: TaxSubtotalFieldMeta.TaxCategory,
+        template: ({value, renderContext, fieldConfig}) => <TaxCategoryDisplay
+          key={TaxSubtotalField.TaxCategory}
+          meta={TaxSubtotalFieldMeta.TaxCategory}
+          fieldConfig={fieldConfig}
+          taxCategory={value?.TaxCategory}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <TaxCategoryDisplay
-            label="Tax Category"
-            value={value.TaxCategory?.[0]}
-            meta={TaxSubtotalFieldMeta.TaxCategory}
-          />
-        </div>
-    </div>
+export function TaxSubtotalDisplay<TFieldMeta>({ meta, fieldConfig, taxSubtotal, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    TaxSubtotalTypeName,
+    meta,
+    fieldConfig,
+    taxSubtotal,
+    renderContext,
+    TaxSubtotalSubElementsMap,
   )
 }

@@ -5,7 +5,6 @@ import { Party } from '../cac/Party'
 import { Signature } from '../cac/Signature'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A document used to provide information about a business party and its digital trade capabilities.
  */

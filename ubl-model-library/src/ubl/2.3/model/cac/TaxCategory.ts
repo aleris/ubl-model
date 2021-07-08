@@ -6,7 +6,6 @@ import { Numeric } from '../cbc/Numeric'
 import { TaxScheme } from './TaxScheme'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe one of the tax categories within a taxation scheme (e.g., High Rate VAT, Low Rate VAT).
  */

@@ -1,7 +1,6 @@
 import { ItemLocationQuantity } from './ItemLocationQuantity'
 import { Price } from './Price'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A reference to the basis for pricing. This may be based on a catalogue or a quoted amount from a price list and
  * include some alternative pricing conditions.

@@ -1,4 +1,13 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { DateType } from '../cbc/DateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { ShipmentType } from '../cac/ShipmentMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum WeightStatementField {
   UBLExtensions = 'UBLExtensions',
@@ -23,11 +32,11 @@ export enum WeightStatementField {
 export const WeightStatementFieldMetaUBLExtensions = new FieldMeta<WeightStatementField>(
   WeightStatementField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -36,10 +45,10 @@ export const WeightStatementFieldMetaUBLVersionID = new FieldMeta<WeightStatemen
   WeightStatementField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.2'
 )
@@ -48,10 +57,10 @@ export const WeightStatementFieldMetaCustomizationID = new FieldMeta<WeightState
   WeightStatementField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'SMDG'
 )
@@ -60,10 +69,10 @@ export const WeightStatementFieldMetaProfileID = new FieldMeta<WeightStatementFi
   WeightStatementField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'SOLAS'
 )
@@ -72,10 +81,10 @@ export const WeightStatementFieldMetaProfileExecutionID = new FieldMeta<WeightSt
   WeightStatementField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BPP-1001'
 )
@@ -84,10 +93,10 @@ export const WeightStatementFieldMetaID = new FieldMeta<WeightStatementField>(
   WeightStatementField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -96,10 +105,10 @@ export const WeightStatementFieldMetaUUID = new FieldMeta<WeightStatementField>(
   WeightStatementField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -108,10 +117,10 @@ export const WeightStatementFieldMetaIssueDate = new FieldMeta<WeightStatementFi
   WeightStatementField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -120,10 +129,10 @@ export const WeightStatementFieldMetaIssueTime = new FieldMeta<WeightStatementFi
   WeightStatementField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -132,10 +141,10 @@ export const WeightStatementFieldMetaWeightStatementTypeCode = new FieldMeta<Wei
   WeightStatementField.WeightStatementTypeCode,
   'WeightStatementTypeCode',
   'Weight Statement Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of Weight Statement.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'VGM, WeightCertificate'
 )
@@ -144,10 +153,10 @@ export const WeightStatementFieldMetaSignature = new FieldMeta<WeightStatementFi
   WeightStatementField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -156,10 +165,10 @@ export const WeightStatementFieldMetaSenderParty = new FieldMeta<WeightStatement
   WeightStatementField.SenderParty,
   'SenderParty',
   'Sender Party',
-  'Party',
+  PartyType.name,
   'The party sending this weight statement (e.g. Weighing Station, Shipper, Freight Forwarder, Carrier, ...).',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -168,10 +177,10 @@ export const WeightStatementFieldMetaReceiverParty = new FieldMeta<WeightStateme
   WeightStatementField.ReceiverParty,
   'ReceiverParty',
   'Receiver Party',
-  'Party',
+  PartyType.name,
   'The party receiving this weight statement (e.g. Carrier, Terminal Operator, ...).',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -180,10 +189,10 @@ export const WeightStatementFieldMetaWeighingParty = new FieldMeta<WeightStateme
   WeightStatementField.WeighingParty,
   'WeighingParty',
   'Weighing Party',
-  'Party',
+  PartyType.name,
   'The party executing the weight measure (e.g. Weighing Station).',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -192,10 +201,10 @@ export const WeightStatementFieldMetaShipperParty = new FieldMeta<WeightStatemen
   WeightStatementField.ShipperParty,
   'ShipperParty',
   'Shipper Party',
-  'Party',
+  PartyType.name,
   'The party playing the role of the Shipper (BCO, FF or NVOCC) who is responsible for the VGM (e.g. according the SOLAS Convention).',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -204,10 +213,10 @@ export const WeightStatementFieldMetaResponsibleParty = new FieldMeta<WeightStat
   WeightStatementField.ResponsibleParty,
   'ResponsibleParty',
   'Responsible Party',
-  'Party',
+  PartyType.name,
   'The party responsible for signing the VGM on behalf of the Shipper.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -216,10 +225,10 @@ export const WeightStatementFieldMetaShipment = new FieldMeta<WeightStatementFie
   WeightStatementField.Shipment,
   'Shipment',
   'Shipment',
-  'Shipment',
+  ShipmentType.name,
   'The relevant shipment information with details on the transport equipment weight or mass measurements, including verified gross mass (VGM) information.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -263,3 +272,11 @@ export const WeightStatementFieldMap = new Map([
   [WeightStatementField.ResponsibleParty, WeightStatementFieldMetaResponsibleParty],
   [WeightStatementField.Shipment, WeightStatementFieldMetaShipment]
 ])
+
+export const WeightStatementType: Type<WeightStatementField> = {
+  name: 'WeightStatement',
+  label: 'Weight Statement',
+  module: TypeModule.doc,
+  definition: 'A document used to report weight or verified mass measurements in the transport chain.',
+  fields: WeightStatementFieldMap,
+}

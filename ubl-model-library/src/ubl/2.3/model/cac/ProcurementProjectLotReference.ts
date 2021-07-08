@@ -1,6 +1,5 @@
 import { Identifier } from '../cbc/Identifier'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to reference to a lot identifier.
  */

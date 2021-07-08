@@ -1,18 +1,39 @@
 import React from 'react'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Identifier } from '../../model/cbc/Identifier'
-import FieldDisplay from '../FieldDisplay'
+import { classNames } from '../classNames'
+import { FieldConfig } from '../FieldConfig'
+import { FieldDisplay } from '../FieldDisplay'
+import './IdentifierDisplay.scss'
 
 type Props = {
-  label: string
-  value: Identifier | undefined
+  className: string
+  label?: string
+  identifier: Identifier | undefined
   meta: FieldMeta<any>
+  fieldConfig?: FieldConfig
 }
 
-export default function IdentifierDisplay({ label, value, meta }: Props) {
-  if (value === undefined) {
+export function IdentifierDisplay({ className, label, identifier, meta, fieldConfig }: Props) {
+  if (identifier === undefined) {
     return null
   }
-  const stringValue = value.schemeID ? `${value.schemeID}:${value._}` : value._
-  return <div className="ubl-cbc ubl-Identifier"><FieldDisplay label={label} value={stringValue} /></div>
+  const content = (
+    <>
+      {identifier.schemeID !== undefined
+        ? (
+          <span className="Identifier--Scheme">
+            <span className="Identifier--Scheme--Text">{identifier.schemeID}</span>
+            <span className="Identifier--Scheme--Separator">:</span>
+          </span>
+        )
+        : null}
+      <span className="Identifier--Content">{identifier._}</span>
+    </>
+  )
+  return (
+    <div className={classNames('Identifier', className)}>
+      <FieldDisplay label={label} value={content} config={fieldConfig} />
+    </div>
+  )
 }

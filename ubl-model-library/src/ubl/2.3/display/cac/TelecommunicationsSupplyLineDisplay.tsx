@@ -1,145 +1,155 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TelecommunicationsSupplyLine } from  '../../model/cac/TelecommunicationsSupplyLine'
-import { TelecommunicationsSupplyLineFieldMeta } from  '../../meta/cac/TelecommunicationsSupplyLineMeta'
-import AllowanceChargeDisplay from './AllowanceChargeDisplay'
-import { AllowanceCharge } from '../../model/cac/AllowanceCharge'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import ExchangeRateDisplay from './ExchangeRateDisplay'
-import { ExchangeRate } from '../../model/cac/ExchangeRate'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import TaxTotalDisplay from './TaxTotalDisplay'
-import { TaxTotal } from '../../model/cac/TaxTotal'
-import TelecommunicationsServiceDisplay from './TelecommunicationsServiceDisplay'
-import { TelecommunicationsService } from '../../model/cac/TelecommunicationsService'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { TelecommunicationsSupplyLineField, TelecommunicationsSupplyLineFieldMeta, TelecommunicationsSupplyLineTypeName } from  '../../meta/cac/TelecommunicationsSupplyLineMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AllowanceChargeDisplay } from './AllowanceChargeDisplay'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { ExchangeRateDisplay } from './ExchangeRateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { TaxTotalDisplay } from './TaxTotalDisplay'
+import { TelecommunicationsServiceDisplay } from './TelecommunicationsServiceDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: TelecommunicationsSupplyLine | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<TelecommunicationsSupplyLine, void>
+  telecommunicationsSupplyLine: TelecommunicationsSupplyLine[] | undefined
+  renderContext: RenderContext
 }
 
-export default function TelecommunicationsSupplyLineDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const TelecommunicationsSupplyLineSubElementsMap: SubElementsTemplatesMap<TelecommunicationsSupplyLineField, TelecommunicationsSupplyLine, void> = new Map([
+    [
+      TelecommunicationsSupplyLineField.UBLExtensions,
+      { meta: TelecommunicationsSupplyLineFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={TelecommunicationsSupplyLineField.UBLExtensions}
+          meta={TelecommunicationsSupplyLineFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-TelecommunicationsSupplyLine">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={TelecommunicationsSupplyLineFieldMeta.UBLExtensions}
-          />
+    [
+      TelecommunicationsSupplyLineField.ID,
+      { meta: TelecommunicationsSupplyLineFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TelecommunicationsSupplyLineField.ID}
+          meta={TelecommunicationsSupplyLineFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={TelecommunicationsSupplyLineFieldMeta.ID}
-          />
+    [
+      TelecommunicationsSupplyLineField.PhoneNumber,
+      { meta: TelecommunicationsSupplyLineFieldMeta.PhoneNumber,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TelecommunicationsSupplyLineField.PhoneNumber}
+          meta={TelecommunicationsSupplyLineFieldMeta.PhoneNumber}
+          fieldConfig={fieldConfig}
+          text={value?.PhoneNumber}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Phone Number"
-            value={value.PhoneNumber?.[0]}
-            meta={TelecommunicationsSupplyLineFieldMeta.PhoneNumber}
-          />
+    [
+      TelecommunicationsSupplyLineField.Description,
+      { meta: TelecommunicationsSupplyLineFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TelecommunicationsSupplyLineField.Description}
+          meta={TelecommunicationsSupplyLineFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={TelecommunicationsSupplyLineFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={TelecommunicationsSupplyLineFieldMeta.Description}
-              />
-            }
-          />
+    [
+      TelecommunicationsSupplyLineField.LineExtensionAmount,
+      { meta: TelecommunicationsSupplyLineFieldMeta.LineExtensionAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={TelecommunicationsSupplyLineField.LineExtensionAmount}
+          meta={TelecommunicationsSupplyLineFieldMeta.LineExtensionAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.LineExtensionAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Line Extension Amount"
-            value={value.LineExtensionAmount?.[0]}
-            meta={TelecommunicationsSupplyLineFieldMeta.LineExtensionAmount}
-          />
+    [
+      TelecommunicationsSupplyLineField.TaxInclusiveLineExtensionAmount,
+      { meta: TelecommunicationsSupplyLineFieldMeta.TaxInclusiveLineExtensionAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={TelecommunicationsSupplyLineField.TaxInclusiveLineExtensionAmount}
+          meta={TelecommunicationsSupplyLineFieldMeta.TaxInclusiveLineExtensionAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.TaxInclusiveLineExtensionAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Tax Inclusive Line Extension Amount"
-            value={value.TaxInclusiveLineExtensionAmount?.[0]}
-            meta={TelecommunicationsSupplyLineFieldMeta.TaxInclusiveLineExtensionAmount}
-          />
+    [
+      TelecommunicationsSupplyLineField.ExchangeRate,
+      { meta: TelecommunicationsSupplyLineFieldMeta.ExchangeRate,
+        template: ({value, renderContext, fieldConfig}) => <ExchangeRateDisplay
+          key={TelecommunicationsSupplyLineField.ExchangeRate}
+          meta={TelecommunicationsSupplyLineFieldMeta.ExchangeRate}
+          fieldConfig={fieldConfig}
+          exchangeRate={value?.ExchangeRate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-ExchangeRate"
-            label="Exchange Rate"
-            items={value.ExchangeRate}
-            meta={TelecommunicationsSupplyLineFieldMeta.ExchangeRate} 
-            itemDisplay={ (itemValue: ExchangeRate, key: string | number) =>
-              <ExchangeRateDisplay
-                key={key}
-                label="Exchange Rate"
-                value={itemValue}
-                meta={TelecommunicationsSupplyLineFieldMeta.ExchangeRate}
-              />
-            }
-          />
+    [
+      TelecommunicationsSupplyLineField.AllowanceCharge,
+      { meta: TelecommunicationsSupplyLineFieldMeta.AllowanceCharge,
+        template: ({value, renderContext, fieldConfig}) => <AllowanceChargeDisplay
+          key={TelecommunicationsSupplyLineField.AllowanceCharge}
+          meta={TelecommunicationsSupplyLineFieldMeta.AllowanceCharge}
+          fieldConfig={fieldConfig}
+          allowanceCharge={value?.AllowanceCharge}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-AllowanceCharge"
-            label="Allowance Charge"
-            items={value.AllowanceCharge}
-            meta={TelecommunicationsSupplyLineFieldMeta.AllowanceCharge} 
-            itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-              <AllowanceChargeDisplay
-                key={key}
-                label="Allowance Charge"
-                value={itemValue}
-                meta={TelecommunicationsSupplyLineFieldMeta.AllowanceCharge}
-              />
-            }
-          />
+    [
+      TelecommunicationsSupplyLineField.TaxTotal,
+      { meta: TelecommunicationsSupplyLineFieldMeta.TaxTotal,
+        template: ({value, renderContext, fieldConfig}) => <TaxTotalDisplay
+          key={TelecommunicationsSupplyLineField.TaxTotal}
+          meta={TelecommunicationsSupplyLineFieldMeta.TaxTotal}
+          fieldConfig={fieldConfig}
+          taxTotal={value?.TaxTotal}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TaxTotal"
-            label="Tax Total"
-            items={value.TaxTotal}
-            meta={TelecommunicationsSupplyLineFieldMeta.TaxTotal} 
-            itemDisplay={ (itemValue: TaxTotal, key: string | number) =>
-              <TaxTotalDisplay
-                key={key}
-                label="Tax Total"
-                value={itemValue}
-                meta={TelecommunicationsSupplyLineFieldMeta.TaxTotal}
-              />
-            }
-          />
+    [
+      TelecommunicationsSupplyLineField.TelecommunicationsService,
+      { meta: TelecommunicationsSupplyLineFieldMeta.TelecommunicationsService,
+        template: ({value, renderContext, fieldConfig}) => <TelecommunicationsServiceDisplay
+          key={TelecommunicationsSupplyLineField.TelecommunicationsService}
+          meta={TelecommunicationsSupplyLineFieldMeta.TelecommunicationsService}
+          fieldConfig={fieldConfig}
+          telecommunicationsService={value?.TelecommunicationsService}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TelecommunicationsService"
-            label="Telecommunications Service"
-            items={value.TelecommunicationsService}
-            meta={TelecommunicationsSupplyLineFieldMeta.TelecommunicationsService} 
-            itemDisplay={ (itemValue: TelecommunicationsService, key: string | number) =>
-              <TelecommunicationsServiceDisplay
-                key={key}
-                label="Telecommunications Service"
-                value={itemValue}
-                meta={TelecommunicationsSupplyLineFieldMeta.TelecommunicationsService}
-              />
-            }
-          />
-        </div>
-    </div>
+export function TelecommunicationsSupplyLineDisplay<TFieldMeta>({ meta, fieldConfig, telecommunicationsSupplyLine, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    TelecommunicationsSupplyLineTypeName,
+    meta,
+    fieldConfig,
+    telecommunicationsSupplyLine,
+    renderContext,
+    TelecommunicationsSupplyLineSubElementsMap,
   )
 }

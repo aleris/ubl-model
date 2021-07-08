@@ -8,7 +8,6 @@ import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { TransportMeans } from '../cac/TransportMeans'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A document sent from a transport service provider to a transportation network manager requesting a Transport Progress
  * Status.

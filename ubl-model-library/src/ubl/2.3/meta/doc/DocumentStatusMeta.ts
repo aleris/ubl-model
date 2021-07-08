@@ -1,4 +1,14 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentResponseType } from '../cac/DocumentResponseMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum DocumentStatusField {
   UBLExtensions = 'UBLExtensions',
@@ -22,11 +32,11 @@ export enum DocumentStatusField {
 export const DocumentStatusFieldMetaUBLExtensions = new FieldMeta<DocumentStatusField>(
   DocumentStatusField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -35,10 +45,10 @@ export const DocumentStatusFieldMetaUBLVersionID = new FieldMeta<DocumentStatusF
   DocumentStatusField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.0.5'
 )
@@ -47,10 +57,10 @@ export const DocumentStatusFieldMetaCustomizationID = new FieldMeta<DocumentStat
   DocumentStatusField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -59,10 +69,10 @@ export const DocumentStatusFieldMetaProfileID = new FieldMeta<DocumentStatusFiel
   DocumentStatusField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BasicProcurementProcess'
 )
@@ -71,10 +81,10 @@ export const DocumentStatusFieldMetaProfileExecutionID = new FieldMeta<DocumentS
   DocumentStatusField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BPP-1001'
 )
@@ -83,10 +93,10 @@ export const DocumentStatusFieldMetaID = new FieldMeta<DocumentStatusField>(
   DocumentStatusField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -95,10 +105,10 @@ export const DocumentStatusFieldMetaCopyIndicator = new FieldMeta<DocumentStatus
   DocumentStatusField.CopyIndicator,
   'CopyIndicator',
   'Copy Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this document is a copy (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -107,10 +117,10 @@ export const DocumentStatusFieldMetaUUID = new FieldMeta<DocumentStatusField>(
   DocumentStatusField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -119,10 +129,10 @@ export const DocumentStatusFieldMetaIssueDate = new FieldMeta<DocumentStatusFiel
   DocumentStatusField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -131,10 +141,10 @@ export const DocumentStatusFieldMetaIssueTime = new FieldMeta<DocumentStatusFiel
   DocumentStatusField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -143,10 +153,10 @@ export const DocumentStatusFieldMetaNote = new FieldMeta<DocumentStatusField>(
   DocumentStatusField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -155,10 +165,10 @@ export const DocumentStatusFieldMetaSignature = new FieldMeta<DocumentStatusFiel
   DocumentStatusField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -167,10 +177,10 @@ export const DocumentStatusFieldMetaSenderParty = new FieldMeta<DocumentStatusFi
   DocumentStatusField.SenderParty,
   'SenderParty',
   'Sender Party',
-  'Party',
+  PartyType.name,
   'The party sending this document.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -179,10 +189,10 @@ export const DocumentStatusFieldMetaReceiverParty = new FieldMeta<DocumentStatus
   DocumentStatusField.ReceiverParty,
   'ReceiverParty',
   'Receiver Party',
-  'Party',
+  PartyType.name,
   'The party receiving this document.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -191,10 +201,10 @@ export const DocumentStatusFieldMetaDocumentResponse = new FieldMeta<DocumentSta
   DocumentStatusField.DocumentResponse,
   'DocumentResponse',
   'Document Response',
-  'DocumentResponse',
+  DocumentResponseType.name,
   'A response to the document.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -203,10 +213,10 @@ export const DocumentStatusFieldMetaAdditionalDocumentResponse = new FieldMeta<D
   DocumentStatusField.AdditionalDocumentResponse,
   'AdditionalDocumentResponse',
   'Additional Document Response',
-  'DocumentResponse',
+  DocumentResponseType.name,
   'A document linked or related to the document for which the status was requested.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -248,3 +258,11 @@ export const DocumentStatusFieldMap = new Map([
   [DocumentStatusField.DocumentResponse, DocumentStatusFieldMetaDocumentResponse],
   [DocumentStatusField.AdditionalDocumentResponse, DocumentStatusFieldMetaAdditionalDocumentResponse]
 ])
+
+export const DocumentStatusType: Type<DocumentStatusField> = {
+  name: 'DocumentStatus',
+  label: 'Document Status',
+  module: TypeModule.doc,
+  definition: 'A document used to provide information about the status of a collaboration/process associated with a document.',
+  fields: DocumentStatusFieldMap,
+}

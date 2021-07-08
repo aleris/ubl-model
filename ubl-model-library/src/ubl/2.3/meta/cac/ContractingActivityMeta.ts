@@ -1,4 +1,8 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ContractingActivityField {
   UBLExtensions = 'UBLExtensions',
@@ -9,11 +13,11 @@ export enum ContractingActivityField {
 export const ContractingActivityFieldMetaUBLExtensions = new FieldMeta<ContractingActivityField>(
   ContractingActivityField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -22,10 +26,10 @@ export const ContractingActivityFieldMetaActivityTypeCode = new FieldMeta<Contra
   ContractingActivityField.ActivityTypeCode,
   'ActivityTypeCode',
   'Activity Type Code',
-  'Code',
+  CodeType.name,
   'A code specifying the nature of the type of business of the organization.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -34,10 +38,10 @@ export const ContractingActivityFieldMetaActivityType = new FieldMeta<Contractin
   ContractingActivityField.ActivityType,
   'ActivityType',
   'Activity Type',
-  'Text',
+  TextType.name,
   'The nature of the type of business of the organization, expressed as text.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -53,3 +57,11 @@ export const ContractingActivityFieldMap = new Map([
   [ContractingActivityField.ActivityTypeCode, ContractingActivityFieldMetaActivityTypeCode],
   [ContractingActivityField.ActivityType, ContractingActivityFieldMetaActivityType]
 ])
+
+export const ContractingActivityType: Type<ContractingActivityField> = {
+  name: 'ContractingActivity',
+  label: 'Contracting Activity',
+  module: TypeModule.cac,
+  definition: 'The nature of the type of business of the organization.',
+  fields: ContractingActivityFieldMap,
+}

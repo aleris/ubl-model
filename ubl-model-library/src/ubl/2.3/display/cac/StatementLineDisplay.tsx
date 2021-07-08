@@ -1,259 +1,320 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { StatementLine } from  '../../model/cac/StatementLine'
-import { StatementLineFieldMeta } from  '../../meta/cac/StatementLineMeta'
-import AllowanceChargeDisplay from './AllowanceChargeDisplay'
-import { AllowanceCharge } from '../../model/cac/AllowanceCharge'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import BillingReferenceDisplay from './BillingReferenceDisplay'
-import { BillingReference } from '../../model/cac/BillingReference'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import CustomerPartyDisplay from './CustomerPartyDisplay'
-import { CustomerParty } from '../../model/cac/CustomerParty'
-import DocumentReferenceDisplay from './DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import ExchangeRateDisplay from './ExchangeRateDisplay'
-import { ExchangeRate } from '../../model/cac/ExchangeRate'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PaymentDisplay from './PaymentDisplay'
-import { Payment } from '../../model/cac/Payment'
-import PaymentMeansDisplay from './PaymentMeansDisplay'
-import { PaymentMeans } from '../../model/cac/PaymentMeans'
-import PaymentTermsDisplay from './PaymentTermsDisplay'
-import { PaymentTerms } from '../../model/cac/PaymentTerms'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import SupplierPartyDisplay from './SupplierPartyDisplay'
-import { SupplierParty } from '../../model/cac/SupplierParty'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { StatementLineField, StatementLineFieldMeta, StatementLineTypeName } from  '../../meta/cac/StatementLineMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AllowanceChargeDisplay } from './AllowanceChargeDisplay'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { BillingReferenceDisplay } from './BillingReferenceDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { CustomerPartyDisplay } from './CustomerPartyDisplay'
+import { DocumentReferenceDisplay } from './DocumentReferenceDisplay'
+import { ExchangeRateDisplay } from './ExchangeRateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { PaymentDisplay } from './PaymentDisplay'
+import { PaymentMeansDisplay } from './PaymentMeansDisplay'
+import { PaymentTermsDisplay } from './PaymentTermsDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { SupplierPartyDisplay } from './SupplierPartyDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: StatementLine | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<StatementLine, void>
+  statementLine: StatementLine[] | undefined
+  renderContext: RenderContext
 }
 
-export default function StatementLineDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const StatementLineSubElementsMap: SubElementsTemplatesMap<StatementLineField, StatementLine, void> = new Map([
+    [
+      StatementLineField.UBLExtensions,
+      { meta: StatementLineFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={StatementLineField.UBLExtensions}
+          meta={StatementLineFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-StatementLine">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={StatementLineFieldMeta.UBLExtensions}
-          />
+    [
+      StatementLineField.ID,
+      { meta: StatementLineFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={StatementLineField.ID}
+          meta={StatementLineFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={StatementLineFieldMeta.ID}
-          />
+    [
+      StatementLineField.Note,
+      { meta: StatementLineFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={StatementLineField.Note}
+          meta={StatementLineFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={StatementLineFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={StatementLineFieldMeta.Note}
-              />
-            }
-          />
+    [
+      StatementLineField.UUID,
+      { meta: StatementLineFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={StatementLineField.UUID}
+          meta={StatementLineFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={StatementLineFieldMeta.UUID}
-          />
+    [
+      StatementLineField.BalanceBroughtForwardIndicator,
+      { meta: StatementLineFieldMeta.BalanceBroughtForwardIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={StatementLineField.BalanceBroughtForwardIndicator}
+          meta={StatementLineFieldMeta.BalanceBroughtForwardIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.BalanceBroughtForwardIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Balance Brought Forward Indicator"
-            value={value.BalanceBroughtForwardIndicator?.[0]}
-            meta={StatementLineFieldMeta.BalanceBroughtForwardIndicator}
-          />
+    [
+      StatementLineField.DebitLineAmount,
+      { meta: StatementLineFieldMeta.DebitLineAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={StatementLineField.DebitLineAmount}
+          meta={StatementLineFieldMeta.DebitLineAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.DebitLineAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Debit Line Amount"
-            value={value.DebitLineAmount?.[0]}
-            meta={StatementLineFieldMeta.DebitLineAmount}
-          />
+    [
+      StatementLineField.CreditLineAmount,
+      { meta: StatementLineFieldMeta.CreditLineAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={StatementLineField.CreditLineAmount}
+          meta={StatementLineFieldMeta.CreditLineAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.CreditLineAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Credit Line Amount"
-            value={value.CreditLineAmount?.[0]}
-            meta={StatementLineFieldMeta.CreditLineAmount}
-          />
+    [
+      StatementLineField.BalanceAmount,
+      { meta: StatementLineFieldMeta.BalanceAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={StatementLineField.BalanceAmount}
+          meta={StatementLineFieldMeta.BalanceAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.BalanceAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Balance Amount"
-            value={value.BalanceAmount?.[0]}
-            meta={StatementLineFieldMeta.BalanceAmount}
-          />
+    [
+      StatementLineField.PaymentPurposeCode,
+      { meta: StatementLineFieldMeta.PaymentPurposeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={StatementLineField.PaymentPurposeCode}
+          meta={StatementLineFieldMeta.PaymentPurposeCode}
+          fieldConfig={fieldConfig}
+          code={value?.PaymentPurposeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Payment Purpose Code"
-            value={value.PaymentPurposeCode?.[0]}
-            meta={StatementLineFieldMeta.PaymentPurposeCode}
-          />
+    [
+      StatementLineField.PaymentMeans,
+      { meta: StatementLineFieldMeta.PaymentMeans,
+        template: ({value, renderContext, fieldConfig}) => <PaymentMeansDisplay
+          key={StatementLineField.PaymentMeans}
+          meta={StatementLineFieldMeta.PaymentMeans}
+          fieldConfig={fieldConfig}
+          paymentMeans={value?.PaymentMeans}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PaymentMeansDisplay
-            label="Payment Means"
-            value={value.PaymentMeans?.[0]}
-            meta={StatementLineFieldMeta.PaymentMeans}
-          />
+    [
+      StatementLineField.PaymentTerms,
+      { meta: StatementLineFieldMeta.PaymentTerms,
+        template: ({value, renderContext, fieldConfig}) => <PaymentTermsDisplay
+          key={StatementLineField.PaymentTerms}
+          meta={StatementLineFieldMeta.PaymentTerms}
+          fieldConfig={fieldConfig}
+          paymentTerms={value?.PaymentTerms}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-PaymentTerms"
-            label="Payment Terms"
-            items={value.PaymentTerms}
-            meta={StatementLineFieldMeta.PaymentTerms} 
-            itemDisplay={ (itemValue: PaymentTerms, key: string | number) =>
-              <PaymentTermsDisplay
-                key={key}
-                label="Payment Terms"
-                value={itemValue}
-                meta={StatementLineFieldMeta.PaymentTerms}
-              />
-            }
-          />
+    [
+      StatementLineField.BuyerCustomerParty,
+      { meta: StatementLineFieldMeta.BuyerCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={StatementLineField.BuyerCustomerParty}
+          meta={StatementLineFieldMeta.BuyerCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.BuyerCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomerPartyDisplay
-            label="Buyer Customer Party"
-            value={value.BuyerCustomerParty?.[0]}
-            meta={StatementLineFieldMeta.BuyerCustomerParty}
-          />
+    [
+      StatementLineField.SellerSupplierParty,
+      { meta: StatementLineFieldMeta.SellerSupplierParty,
+        template: ({value, renderContext, fieldConfig}) => <SupplierPartyDisplay
+          key={StatementLineField.SellerSupplierParty}
+          meta={StatementLineFieldMeta.SellerSupplierParty}
+          fieldConfig={fieldConfig}
+          supplierParty={value?.SellerSupplierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <SupplierPartyDisplay
-            label="Seller Supplier Party"
-            value={value.SellerSupplierParty?.[0]}
-            meta={StatementLineFieldMeta.SellerSupplierParty}
-          />
+    [
+      StatementLineField.OriginatorCustomerParty,
+      { meta: StatementLineFieldMeta.OriginatorCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={StatementLineField.OriginatorCustomerParty}
+          meta={StatementLineFieldMeta.OriginatorCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.OriginatorCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomerPartyDisplay
-            label="Originator Customer Party"
-            value={value.OriginatorCustomerParty?.[0]}
-            meta={StatementLineFieldMeta.OriginatorCustomerParty}
-          />
+    [
+      StatementLineField.AccountingCustomerParty,
+      { meta: StatementLineFieldMeta.AccountingCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={StatementLineField.AccountingCustomerParty}
+          meta={StatementLineFieldMeta.AccountingCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.AccountingCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomerPartyDisplay
-            label="Accounting Customer Party"
-            value={value.AccountingCustomerParty?.[0]}
-            meta={StatementLineFieldMeta.AccountingCustomerParty}
-          />
+    [
+      StatementLineField.AccountingSupplierParty,
+      { meta: StatementLineFieldMeta.AccountingSupplierParty,
+        template: ({value, renderContext, fieldConfig}) => <SupplierPartyDisplay
+          key={StatementLineField.AccountingSupplierParty}
+          meta={StatementLineFieldMeta.AccountingSupplierParty}
+          fieldConfig={fieldConfig}
+          supplierParty={value?.AccountingSupplierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <SupplierPartyDisplay
-            label="Accounting Supplier Party"
-            value={value.AccountingSupplierParty?.[0]}
-            meta={StatementLineFieldMeta.AccountingSupplierParty}
-          />
+    [
+      StatementLineField.PayeeParty,
+      { meta: StatementLineFieldMeta.PayeeParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={StatementLineField.PayeeParty}
+          meta={StatementLineFieldMeta.PayeeParty}
+          fieldConfig={fieldConfig}
+          party={value?.PayeeParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Payee Party"
-            value={value.PayeeParty?.[0]}
-            meta={StatementLineFieldMeta.PayeeParty}
-          />
+    [
+      StatementLineField.InvoicePeriod,
+      { meta: StatementLineFieldMeta.InvoicePeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={StatementLineField.InvoicePeriod}
+          meta={StatementLineFieldMeta.InvoicePeriod}
+          fieldConfig={fieldConfig}
+          period={value?.InvoicePeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Period ubl-InvoicePeriod"
-            label="Invoice Period"
-            items={value.InvoicePeriod}
-            meta={StatementLineFieldMeta.InvoicePeriod} 
-            itemDisplay={ (itemValue: Period, key: string | number) =>
-              <PeriodDisplay
-                key={key}
-                label="Invoice Period"
-                value={itemValue}
-                meta={StatementLineFieldMeta.InvoicePeriod}
-              />
-            }
-          />
+    [
+      StatementLineField.BillingReference,
+      { meta: StatementLineFieldMeta.BillingReference,
+        template: ({value, renderContext, fieldConfig}) => <BillingReferenceDisplay
+          key={StatementLineField.BillingReference}
+          meta={StatementLineFieldMeta.BillingReference}
+          fieldConfig={fieldConfig}
+          billingReference={value?.BillingReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-BillingReference"
-            label="Billing Reference"
-            items={value.BillingReference}
-            meta={StatementLineFieldMeta.BillingReference} 
-            itemDisplay={ (itemValue: BillingReference, key: string | number) =>
-              <BillingReferenceDisplay
-                key={key}
-                label="Billing Reference"
-                value={itemValue}
-                meta={StatementLineFieldMeta.BillingReference}
-              />
-            }
-          />
+    [
+      StatementLineField.DocumentReference,
+      { meta: StatementLineFieldMeta.DocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={StatementLineField.DocumentReference}
+          meta={StatementLineFieldMeta.DocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.DocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentReference"
-            label="Document Reference"
-            items={value.DocumentReference}
-            meta={StatementLineFieldMeta.DocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Document Reference"
-                value={itemValue}
-                meta={StatementLineFieldMeta.DocumentReference}
-              />
-            }
-          />
+    [
+      StatementLineField.ExchangeRate,
+      { meta: StatementLineFieldMeta.ExchangeRate,
+        template: ({value, renderContext, fieldConfig}) => <ExchangeRateDisplay
+          key={StatementLineField.ExchangeRate}
+          meta={StatementLineFieldMeta.ExchangeRate}
+          fieldConfig={fieldConfig}
+          exchangeRate={value?.ExchangeRate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ExchangeRateDisplay
-            label="Exchange Rate"
-            value={value.ExchangeRate?.[0]}
-            meta={StatementLineFieldMeta.ExchangeRate}
-          />
+    [
+      StatementLineField.AllowanceCharge,
+      { meta: StatementLineFieldMeta.AllowanceCharge,
+        template: ({value, renderContext, fieldConfig}) => <AllowanceChargeDisplay
+          key={StatementLineField.AllowanceCharge}
+          meta={StatementLineFieldMeta.AllowanceCharge}
+          fieldConfig={fieldConfig}
+          allowanceCharge={value?.AllowanceCharge}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-AllowanceCharge"
-            label="Allowance Charge"
-            items={value.AllowanceCharge}
-            meta={StatementLineFieldMeta.AllowanceCharge} 
-            itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-              <AllowanceChargeDisplay
-                key={key}
-                label="Allowance Charge"
-                value={itemValue}
-                meta={StatementLineFieldMeta.AllowanceCharge}
-              />
-            }
-          />
+    [
+      StatementLineField.CollectedPayment,
+      { meta: StatementLineFieldMeta.CollectedPayment,
+        template: ({value, renderContext, fieldConfig}) => <PaymentDisplay
+          key={StatementLineField.CollectedPayment}
+          meta={StatementLineFieldMeta.CollectedPayment}
+          fieldConfig={fieldConfig}
+          payment={value?.CollectedPayment}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Payment ubl-CollectedPayment"
-            label="Collected Payment"
-            items={value.CollectedPayment}
-            meta={StatementLineFieldMeta.CollectedPayment} 
-            itemDisplay={ (itemValue: Payment, key: string | number) =>
-              <PaymentDisplay
-                key={key}
-                label="Collected Payment"
-                value={itemValue}
-                meta={StatementLineFieldMeta.CollectedPayment}
-              />
-            }
-          />
-        </div>
-    </div>
+export function StatementLineDisplay<TFieldMeta>({ meta, fieldConfig, statementLine, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    StatementLineTypeName,
+    meta,
+    fieldConfig,
+    statementLine,
+    renderContext,
+    StatementLineSubElementsMap,
   )
 }

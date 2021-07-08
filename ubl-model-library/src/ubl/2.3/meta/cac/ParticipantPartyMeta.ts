@@ -1,4 +1,9 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { ContactType } from './ContactMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { PartyType } from './PartyMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ParticipantPartyField {
   UBLExtensions = 'UBLExtensions',
@@ -16,11 +21,11 @@ export enum ParticipantPartyField {
 export const ParticipantPartyFieldMetaUBLExtensions = new FieldMeta<ParticipantPartyField>(
   ParticipantPartyField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -29,10 +34,10 @@ export const ParticipantPartyFieldMetaInitiatingPartyIndicator = new FieldMeta<P
   ParticipantPartyField.InitiatingPartyIndicator,
   'InitiatingPartyIndicator',
   'Initiating Party Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indicator that this party is playing the role of the initiator within a transaction (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -41,10 +46,10 @@ export const ParticipantPartyFieldMetaPrivatePartyIndicator = new FieldMeta<Part
   ParticipantPartyField.PrivatePartyIndicator,
   'PrivatePartyIndicator',
   'Private Party Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indicator that this party is a private entity (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -53,10 +58,10 @@ export const ParticipantPartyFieldMetaPublicPartyIndicator = new FieldMeta<Parti
   ParticipantPartyField.PublicPartyIndicator,
   'PublicPartyIndicator',
   'Public Party Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indicator that this party is a public (governmental) entity (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -65,10 +70,10 @@ export const ParticipantPartyFieldMetaServiceProviderPartyIndicator = new FieldM
   ParticipantPartyField.ServiceProviderPartyIndicator,
   'ServiceProviderPartyIndicator',
   'Service Provider Party Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indicator that this party is a service provider (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -77,10 +82,10 @@ export const ParticipantPartyFieldMetaParty = new FieldMeta<ParticipantPartyFiel
   ParticipantPartyField.Party,
   'Party',
   'Party',
-  'Party',
+  PartyType.name,
   'The participant party itself.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -89,10 +94,10 @@ export const ParticipantPartyFieldMetaLegalContact = new FieldMeta<ParticipantPa
   ParticipantPartyField.LegalContact,
   'LegalContact',
   'Legal Contact',
-  'Contact',
+  ContactType.name,
   'A legal contact associated to this participant for sending legal notices.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -101,10 +106,10 @@ export const ParticipantPartyFieldMetaTechnicalContact = new FieldMeta<Participa
   ParticipantPartyField.TechnicalContact,
   'TechnicalContact',
   'Technical Contact',
-  'Contact',
+  ContactType.name,
   'A technical contact associated to this participant.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -113,10 +118,10 @@ export const ParticipantPartyFieldMetaSupportContact = new FieldMeta<Participant
   ParticipantPartyField.SupportContact,
   'SupportContact',
   'Support Contact',
-  'Contact',
+  ContactType.name,
   'A support contact associated to this participant.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -125,10 +130,10 @@ export const ParticipantPartyFieldMetaCommercialContact = new FieldMeta<Particip
   ParticipantPartyField.CommercialContact,
   'CommercialContact',
   'Commercial Contact',
-  'Contact',
+  ContactType.name,
   'A commercial contact associated to this participant.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -158,3 +163,11 @@ export const ParticipantPartyFieldMap = new Map([
   [ParticipantPartyField.SupportContact, ParticipantPartyFieldMetaSupportContact],
   [ParticipantPartyField.CommercialContact, ParticipantPartyFieldMetaCommercialContact]
 ])
+
+export const ParticipantPartyType: Type<ParticipantPartyField> = {
+  name: 'ParticipantParty',
+  label: 'Participant Party',
+  module: TypeModule.cac,
+  definition: 'A class to describe a participant party.',
+  fields: ParticipantPartyFieldMap,
+}

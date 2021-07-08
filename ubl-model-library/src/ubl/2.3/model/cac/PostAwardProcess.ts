@@ -1,6 +1,5 @@
 import { Indicator } from '../cbc/Indicator'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a post award process. These processes following the agreement on a contract for supply of goods
  * or services ( for example, after the awarding of a tender).

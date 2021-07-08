@@ -1,89 +1,91 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Declaration } from  '../../model/cac/Declaration'
-import { DeclarationFieldMeta } from  '../../meta/cac/DeclarationMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import EvidenceSuppliedDisplay from './EvidenceSuppliedDisplay'
-import { EvidenceSupplied } from '../../model/cac/EvidenceSupplied'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { DeclarationField, DeclarationFieldMeta, DeclarationTypeName } from  '../../meta/cac/DeclarationMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { EvidenceSuppliedDisplay } from './EvidenceSuppliedDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: Declaration | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<Declaration, void>
+  declaration: Declaration[] | undefined
+  renderContext: RenderContext
 }
 
-export default function DeclarationDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const DeclarationSubElementsMap: SubElementsTemplatesMap<DeclarationField, Declaration, void> = new Map([
+    [
+      DeclarationField.UBLExtensions,
+      { meta: DeclarationFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={DeclarationField.UBLExtensions}
+          meta={DeclarationFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-Declaration">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={DeclarationFieldMeta.UBLExtensions}
-          />
+    [
+      DeclarationField.Name,
+      { meta: DeclarationFieldMeta.Name,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={DeclarationField.Name}
+          meta={DeclarationFieldMeta.Name}
+          fieldConfig={fieldConfig}
+          text={value?.Name}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Name"
-            label="Name"
-            items={value.Name}
-            meta={DeclarationFieldMeta.Name} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Name"
-                value={itemValue}
-                meta={DeclarationFieldMeta.Name}
-              />
-            }
-          />
+    [
+      DeclarationField.DeclarationTypeCode,
+      { meta: DeclarationFieldMeta.DeclarationTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={DeclarationField.DeclarationTypeCode}
+          meta={DeclarationFieldMeta.DeclarationTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.DeclarationTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Declaration Type Code"
-            value={value.DeclarationTypeCode?.[0]}
-            meta={DeclarationFieldMeta.DeclarationTypeCode}
-          />
+    [
+      DeclarationField.Description,
+      { meta: DeclarationFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={DeclarationField.Description}
+          meta={DeclarationFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={DeclarationFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={DeclarationFieldMeta.Description}
-              />
-            }
-          />
+    [
+      DeclarationField.EvidenceSupplied,
+      { meta: DeclarationFieldMeta.EvidenceSupplied,
+        template: ({value, renderContext, fieldConfig}) => <EvidenceSuppliedDisplay
+          key={DeclarationField.EvidenceSupplied}
+          meta={DeclarationFieldMeta.EvidenceSupplied}
+          fieldConfig={fieldConfig}
+          evidenceSupplied={value?.EvidenceSupplied}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-EvidenceSupplied"
-            label="Evidence Supplied"
-            items={value.EvidenceSupplied}
-            meta={DeclarationFieldMeta.EvidenceSupplied} 
-            itemDisplay={ (itemValue: EvidenceSupplied, key: string | number) =>
-              <EvidenceSuppliedDisplay
-                key={key}
-                label="Evidence Supplied"
-                value={itemValue}
-                meta={DeclarationFieldMeta.EvidenceSupplied}
-              />
-            }
-          />
-        </div>
-    </div>
+export function DeclarationDisplay<TFieldMeta>({ meta, fieldConfig, declaration, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    DeclarationTypeName,
+    meta,
+    fieldConfig,
+    declaration,
+    renderContext,
+    DeclarationSubElementsMap,
   )
 }

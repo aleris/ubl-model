@@ -1,4 +1,22 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AddressType } from './AddressMeta'
+import { AllowanceChargeType } from './AllowanceChargeMeta'
+import { AmountType } from '../cbc/AmountMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { ConsignmentType } from './ConsignmentMeta'
+import { CountryType } from './CountryMeta'
+import { DeliveryType } from './DeliveryMeta'
+import { GoodsItemType } from './GoodsItemMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { LocationType } from './LocationMeta'
+import { MeasureType } from '../cbc/MeasureMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { ShipmentStageType } from './ShipmentStageMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TransportHandlingUnitType } from './TransportHandlingUnitMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ShipmentField {
   UBLExtensions = 'UBLExtensions',
@@ -39,11 +57,11 @@ export enum ShipmentField {
 export const ShipmentFieldMetaUBLExtensions = new FieldMeta<ShipmentField>(
   ShipmentField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -52,10 +70,10 @@ export const ShipmentFieldMetaID = new FieldMeta<ShipmentField>(
   ShipmentField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this shipment.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   'Waybill Number',
   undefined
 )
@@ -64,10 +82,10 @@ export const ShipmentFieldMetaShippingPriorityLevelCode = new FieldMeta<Shipment
   ShipmentField.ShippingPriorityLevelCode,
   'ShippingPriorityLevelCode',
   'Shipping Priority Level Code',
-  'Code',
+  CodeType.name,
   'A code signifying the priority or level of service required for this shipment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Service Level, Service Priority',
   undefined
 )
@@ -76,10 +94,10 @@ export const ShipmentFieldMetaHandlingCode = new FieldMeta<ShipmentField>(
   ShipmentField.HandlingCode,
   'HandlingCode',
   'Handling Code',
-  'Code',
+  CodeType.name,
   'The handling required for this shipment, expressed as a code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Special Handling',
   undefined
 )
@@ -88,10 +106,10 @@ export const ShipmentFieldMetaHandlingInstructions = new FieldMeta<ShipmentField
   ShipmentField.HandlingInstructions,
   'HandlingInstructions',
   'Handling Instructions',
-  'Text',
+  TextType.name,
   'The handling required for this shipment, expressed as text.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -100,10 +118,10 @@ export const ShipmentFieldMetaInformation = new FieldMeta<ShipmentField>(
   ShipmentField.Information,
   'Information',
   'Information',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this shipment, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -112,10 +130,10 @@ export const ShipmentFieldMetaGrossWeightMeasure = new FieldMeta<ShipmentField>(
   ShipmentField.GrossWeightMeasure,
   'GrossWeightMeasure',
   'Gross Weight',
-  'Measure',
+  MeasureType.name,
   'The total gross weight of a shipment; the weight of the goods plus packaging plus transport equipment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -124,10 +142,10 @@ export const ShipmentFieldMetaNetWeightMeasure = new FieldMeta<ShipmentField>(
   ShipmentField.NetWeightMeasure,
   'NetWeightMeasure',
   'Net Weight',
-  'Measure',
+  MeasureType.name,
   'The net weight of this shipment, excluding packaging.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -136,10 +154,10 @@ export const ShipmentFieldMetaNetNetWeightMeasure = new FieldMeta<ShipmentField>
   ShipmentField.NetNetWeightMeasure,
   'NetNetWeightMeasure',
   'Net Net Weight',
-  'Measure',
+  MeasureType.name,
   'The total net weight of this shipment, excluding packaging and transport equipment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -148,10 +166,10 @@ export const ShipmentFieldMetaGrossVolumeMeasure = new FieldMeta<ShipmentField>(
   ShipmentField.GrossVolumeMeasure,
   'GrossVolumeMeasure',
   'Gross Volume',
-  'Measure',
+  MeasureType.name,
   'The total volume of the goods in this shipment, including packaging.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -160,10 +178,10 @@ export const ShipmentFieldMetaNetVolumeMeasure = new FieldMeta<ShipmentField>(
   ShipmentField.NetVolumeMeasure,
   'NetVolumeMeasure',
   'Net Volume',
-  'Measure',
+  MeasureType.name,
   'The total volume of the goods in this shipment, excluding packaging and transport equipment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -172,10 +190,10 @@ export const ShipmentFieldMetaTotalGoodsItemQuantity = new FieldMeta<ShipmentFie
   ShipmentField.TotalGoodsItemQuantity,
   'TotalGoodsItemQuantity',
   'Total Goods Item Quantity',
-  'Quantity',
+  QuantityType.name,
   'The total number of goods items in this shipment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -184,10 +202,10 @@ export const ShipmentFieldMetaTotalTransportHandlingUnitQuantity = new FieldMeta
   ShipmentField.TotalTransportHandlingUnitQuantity,
   'TotalTransportHandlingUnitQuantity',
   'Total Transport Handling Unit Quantity',
-  'Quantity',
+  QuantityType.name,
   'The number of pieces of transport handling equipment (pallets, boxes, cases, etc.) in this shipment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Number of THUs',
   undefined
 )
@@ -196,10 +214,10 @@ export const ShipmentFieldMetaInsuranceValueAmount = new FieldMeta<ShipmentField
   ShipmentField.InsuranceValueAmount,
   'InsuranceValueAmount',
   'Insurance Value',
-  'Amount',
+  AmountType.name,
   'The amount covered by insurance for this shipment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Value Insured',
   undefined
 )
@@ -208,10 +226,10 @@ export const ShipmentFieldMetaDeclaredCustomsValueAmount = new FieldMeta<Shipmen
   ShipmentField.DeclaredCustomsValueAmount,
   'DeclaredCustomsValueAmount',
   'Declared Customs Value',
-  'Amount',
+  AmountType.name,
   'The total declared value for customs purposes of those goods in this shipment that are subject to the same customs procedure and have the same tariff/statistical heading, country information, and duty regime.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -220,10 +238,10 @@ export const ShipmentFieldMetaDeclaredForCarriageValueAmount = new FieldMeta<Shi
   ShipmentField.DeclaredForCarriageValueAmount,
   'DeclaredForCarriageValueAmount',
   'Declared For Carriage Value',
-  'Amount',
+  AmountType.name,
   'The value of this shipment, declared by the shipper or his agent solely for the purpose of varying the carrier\'s level of liability from that provided in the contract of carriage, in case of loss or damage to goods or delayed delivery.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Declared value for carriage, Interest in delivery',
   undefined
 )
@@ -232,10 +250,10 @@ export const ShipmentFieldMetaDeclaredStatisticsValueAmount = new FieldMeta<Ship
   ShipmentField.DeclaredStatisticsValueAmount,
   'DeclaredStatisticsValueAmount',
   'Declared Statistics Value',
-  'Amount',
+  AmountType.name,
   'The value, declared for statistical purposes, of those goods in this shipment that have the same statistical heading.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Statistical Value',
   undefined
 )
@@ -244,10 +262,10 @@ export const ShipmentFieldMetaFreeOnBoardValueAmount = new FieldMeta<ShipmentFie
   ShipmentField.FreeOnBoardValueAmount,
   'FreeOnBoardValueAmount',
   'Free On Board Value',
-  'Amount',
+  AmountType.name,
   'The monetary amount that has to be or has been paid as calculated under the applicable trade delivery.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'FOB Value',
   undefined
 )
@@ -256,10 +274,10 @@ export const ShipmentFieldMetaSpecialInstructions = new FieldMeta<ShipmentField>
   ShipmentField.SpecialInstructions,
   'SpecialInstructions',
   'Special Instructions',
-  'Text',
+  TextType.name,
   'Special instructions relating to this shipment.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -268,10 +286,10 @@ export const ShipmentFieldMetaDeliveryInstructions = new FieldMeta<ShipmentField
   ShipmentField.DeliveryInstructions,
   'DeliveryInstructions',
   'Delivery Instructions',
-  'Text',
+  TextType.name,
   'Delivery instructions relating to this shipment.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -280,10 +298,10 @@ export const ShipmentFieldMetaSplitConsignmentIndicator = new FieldMeta<Shipment
   ShipmentField.SplitConsignmentIndicator,
   'SplitConsignmentIndicator',
   'Split Consignment Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indicator that the consignment has been split in transit (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -292,10 +310,10 @@ export const ShipmentFieldMetaConsignmentQuantity = new FieldMeta<ShipmentField>
   ShipmentField.ConsignmentQuantity,
   'ConsignmentQuantity',
   'Consignment Quantity',
-  'Quantity',
+  QuantityType.name,
   'The total number of consignments within this shipment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -304,10 +322,10 @@ export const ShipmentFieldMetaConsignment = new FieldMeta<ShipmentField>(
   ShipmentField.Consignment,
   'Consignment',
   'Consignment',
-  'Consignment',
+  ConsignmentType.name,
   'A consignment covering this shipment.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -316,10 +334,10 @@ export const ShipmentFieldMetaGoodsItem = new FieldMeta<ShipmentField>(
   ShipmentField.GoodsItem,
   'GoodsItem',
   'Goods Item',
-  'GoodsItem',
+  GoodsItemType.name,
   'A goods item included in this shipment.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -328,10 +346,10 @@ export const ShipmentFieldMetaShipmentStage = new FieldMeta<ShipmentField>(
   ShipmentField.ShipmentStage,
   'ShipmentStage',
   'Shipment Stage',
-  'ShipmentStage',
+  ShipmentStageType.name,
   'A stage in the transport movement of this shipment.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -340,10 +358,10 @@ export const ShipmentFieldMetaDelivery = new FieldMeta<ShipmentField>(
   ShipmentField.Delivery,
   'Delivery',
   'Delivery',
-  'Delivery',
+  DeliveryType.name,
   'The delivery of this shipment.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -352,10 +370,10 @@ export const ShipmentFieldMetaTransportHandlingUnit = new FieldMeta<ShipmentFiel
   ShipmentField.TransportHandlingUnit,
   'TransportHandlingUnit',
   'Transport Handling Unit',
-  'TransportHandlingUnit',
+  TransportHandlingUnitType.name,
   'A transport handling unit associated with this shipment.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -364,10 +382,10 @@ export const ShipmentFieldMetaReturnAddress = new FieldMeta<ShipmentField>(
   ShipmentField.ReturnAddress,
   'ReturnAddress',
   'Return Address',
-  'Address',
+  AddressType.name,
   'The address to which a shipment should be returned.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -376,10 +394,10 @@ export const ShipmentFieldMetaOriginAddress = new FieldMeta<ShipmentField>(
   ShipmentField.OriginAddress,
   'OriginAddress',
   'Origin Address',
-  'Address',
+  AddressType.name,
   'The region in which the goods have been produced or manufactured, according to criteria laid down for the purposes of application of the customs tariff, or of quantitative restrictions, or of any other measure related to trade.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -388,10 +406,10 @@ export const ShipmentFieldMetaFirstArrivalPortLocation = new FieldMeta<ShipmentF
   ShipmentField.FirstArrivalPortLocation,
   'FirstArrivalPortLocation',
   'First Arrival Port Location',
-  'Location',
+  LocationType.name,
   'The first arrival location of a shipment. This would be a port for sea, an airport for air, a terminal for rail, or a border post for land crossing.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -400,10 +418,10 @@ export const ShipmentFieldMetaLastExitPortLocation = new FieldMeta<ShipmentField
   ShipmentField.LastExitPortLocation,
   'LastExitPortLocation',
   'Last Exit Port Location',
-  'Location',
+  LocationType.name,
   'The final exporting location for a shipment. This would be a port for sea, an airport for air, a terminal for rail, or a border post for land crossing.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -412,10 +430,10 @@ export const ShipmentFieldMetaExportCountry = new FieldMeta<ShipmentField>(
   ShipmentField.ExportCountry,
   'ExportCountry',
   'Export Country',
-  'Country',
+  CountryType.name,
   'The country from which the goods were originally exported, without any commercial transaction taking place in intermediate countries.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   'Country of exportation (WCO ID 062)',
   undefined
 )
@@ -424,10 +442,10 @@ export const ShipmentFieldMetaFreightAllowanceCharge = new FieldMeta<ShipmentFie
   ShipmentField.FreightAllowanceCharge,
   'FreightAllowanceCharge',
   'Freight Allowance Charge',
-  'AllowanceCharge',
+  AllowanceChargeType.name,
   'A cost incurred by the shipper in moving goods, by whatever means, from one place to another under the terms of the contract of carriage. In addition to transport costs, this may include such elements as packing, documentation, loading, unloading, and insurance to the extent that they relate to the freight costs.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   'Freight Costs',
   undefined
 )
@@ -503,3 +521,11 @@ export const ShipmentFieldMap = new Map([
   [ShipmentField.ExportCountry, ShipmentFieldMetaExportCountry],
   [ShipmentField.FreightAllowanceCharge, ShipmentFieldMetaFreightAllowanceCharge]
 ])
+
+export const ShipmentType: Type<ShipmentField> = {
+  name: 'Shipment',
+  label: 'Shipment',
+  module: TypeModule.cac,
+  definition: 'A class defining an identifiable collection of one or more goods items to be transported between the seller party and the buyer party. This information may be defined within a commercial contract. A shipment can be transported in different consignments (e.g., split for logistical purposes).',
+  fields: ShipmentFieldMap,
+}

@@ -3,7 +3,6 @@ import { Identifier } from '../cbc/Identifier'
 import { ItemLocationQuantity } from './ItemLocationQuantity'
 import { SupplierParty } from './SupplierParty'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to define a line describing a pricing update to a catalogue line.
  */

@@ -1,4 +1,10 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { DeliveryChannelType } from './DeliveryChannelMeta'
+import { DocumentMetadataType } from './DocumentMetadataMeta'
+import { DocumentReferenceType } from './DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum DigitalServiceField {
   UBLExtensions = 'UBLExtensions',
@@ -12,11 +18,11 @@ export enum DigitalServiceField {
 export const DigitalServiceFieldMetaUBLExtensions = new FieldMeta<DigitalServiceField>(
   DigitalServiceField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -25,10 +31,10 @@ export const DigitalServiceFieldMetaID = new FieldMeta<DigitalServiceField>(
   DigitalServiceField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the digital service (aka transaction ID).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'urn:www.cenbii.eu:transaction:biitrns010:ver2.0'
 )
@@ -37,10 +43,10 @@ export const DigitalServiceFieldMetaCustomizationID = new FieldMeta<DigitalServi
   DigitalServiceField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of this digital service (e.g. a PEPPOL customization).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'urn:www.cenbii.eu:transaction:biitrns010:ver2.0:extended:urn:www.peppol.eu:bis:peppol5a:ver2.0'
 )
@@ -49,10 +55,10 @@ export const DigitalServiceFieldMetaDigitalDocumentMetadata = new FieldMeta<Digi
   DigitalServiceField.DigitalDocumentMetadata,
   'DigitalDocumentMetadata',
   'Digital Document Metadata',
-  'DocumentMetadata',
+  DocumentMetadataType.name,
   'The digital document metadata associated with this digital service.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -61,10 +67,10 @@ export const DigitalServiceFieldMetaDigitalDeliveryChannel = new FieldMeta<Digit
   DigitalServiceField.DigitalDeliveryChannel,
   'DigitalDeliveryChannel',
   'Digital Delivery Channel',
-  'DeliveryChannel',
+  DeliveryChannelType.name,
   'The digital delivery channel associated with this digital service.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -73,10 +79,10 @@ export const DigitalServiceFieldMetaCertificationDocumentReference = new FieldMe
   DigitalServiceField.CertificationDocumentReference,
   'CertificationDocumentReference',
   'Certification Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a certification document associated with this digital service.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -98,3 +104,11 @@ export const DigitalServiceFieldMap = new Map([
   [DigitalServiceField.DigitalDeliveryChannel, DigitalServiceFieldMetaDigitalDeliveryChannel],
   [DigitalServiceField.CertificationDocumentReference, DigitalServiceFieldMetaCertificationDocumentReference]
 ])
+
+export const DigitalServiceType: Type<DigitalServiceField> = {
+  name: 'DigitalService',
+  label: 'Digital Service',
+  module: TypeModule.cac,
+  definition: 'A class to describe a specific digital trade service supported by an organization for either sending or receiving business documents on different formats (e.g. UBL, ISO20022, EDIFACT, ...).',
+  fields: DigitalServiceFieldMap,
+}

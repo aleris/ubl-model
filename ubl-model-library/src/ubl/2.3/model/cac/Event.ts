@@ -8,7 +8,6 @@ import { Status } from './Status'
 import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a significant occurrence relating to an object, process, or person.
  */

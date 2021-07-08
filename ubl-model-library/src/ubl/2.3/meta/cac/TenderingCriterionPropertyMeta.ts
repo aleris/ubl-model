@@ -1,4 +1,15 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { EvidenceType } from './EvidenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { PeriodType } from './PeriodMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum TenderingCriterionPropertyField {
   UBLExtensions = 'UBLExtensions',
@@ -32,11 +43,11 @@ export enum TenderingCriterionPropertyField {
 export const TenderingCriterionPropertyFieldMetaUBLExtensions = new FieldMeta<TenderingCriterionPropertyField>(
   TenderingCriterionPropertyField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -45,10 +56,10 @@ export const TenderingCriterionPropertyFieldMetaID = new FieldMeta<TenderingCrit
   TenderingCriterionPropertyField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier to refer to the criterion property.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -57,10 +68,10 @@ export const TenderingCriterionPropertyFieldMetaName = new FieldMeta<TenderingCr
   TenderingCriterionPropertyField.Name,
   'Name',
   'Name',
-  'Text',
+  TextType.name,
   'The name of the criterion property.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -69,10 +80,10 @@ export const TenderingCriterionPropertyFieldMetaDescription = new FieldMeta<Tend
   TenderingCriterionPropertyField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'A description of the criterion property.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -81,10 +92,10 @@ export const TenderingCriterionPropertyFieldMetaTypeCode = new FieldMeta<Tenderi
   TenderingCriterionPropertyField.TypeCode,
   'TypeCode',
   'Type Code',
-  'Code',
+  CodeType.name,
   'A mutually agreed code signifying the type of the property.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -93,10 +104,10 @@ export const TenderingCriterionPropertyFieldMetaValueDataTypeCode = new FieldMet
   TenderingCriterionPropertyField.ValueDataTypeCode,
   'ValueDataTypeCode',
   'Value Data Type Code',
-  'Code',
+  CodeType.name,
   'The data type of the numeric value and any constraints on the data type metadata.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -105,10 +116,10 @@ export const TenderingCriterionPropertyFieldMetaValueUnitCode = new FieldMeta<Te
   TenderingCriterionPropertyField.ValueUnitCode,
   'ValueUnitCode',
   'Value Unit Code',
-  'Code',
+  CodeType.name,
   'The unit of measure of the numeric value as a quantity or measure.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -117,10 +128,10 @@ export const TenderingCriterionPropertyFieldMetaValueCurrencyCode = new FieldMet
   TenderingCriterionPropertyField.ValueCurrencyCode,
   'ValueCurrencyCode',
   'Value Currency Code',
-  'Code',
+  CodeType.name,
   'The currency of the numeric value as an amount.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -129,10 +140,10 @@ export const TenderingCriterionPropertyFieldMetaExpectedAmount = new FieldMeta<T
   TenderingCriterionPropertyField.ExpectedAmount,
   'ExpectedAmount',
   'Expected Amount',
-  'Amount',
+  AmountType.name,
   'The expected amount that the responder has to provide in the criterion response.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -141,10 +152,10 @@ export const TenderingCriterionPropertyFieldMetaExpectedID = new FieldMeta<Tende
   TenderingCriterionPropertyField.ExpectedID,
   'ExpectedID',
   'Expected Identifier',
-  'Identifier',
+  IdentifierType.name,
   'The expected identifier that the responder has to provide in the criterion response.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -153,10 +164,10 @@ export const TenderingCriterionPropertyFieldMetaExpectedIndicator = new FieldMet
   TenderingCriterionPropertyField.ExpectedIndicator,
   'ExpectedIndicator',
   'Expected Indicator',
-  'Indicator',
+  IndicatorType.name,
   'The expected indicator (true or false) that the responder has to provide in the criterion response.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -165,10 +176,10 @@ export const TenderingCriterionPropertyFieldMetaExpectedCode = new FieldMeta<Ten
   TenderingCriterionPropertyField.ExpectedCode,
   'ExpectedCode',
   'Expected Code',
-  'Code',
+  CodeType.name,
   'The expected code that the responder has to provide in the criterion response.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -177,10 +188,10 @@ export const TenderingCriterionPropertyFieldMetaExpectedValueNumeric = new Field
   TenderingCriterionPropertyField.ExpectedValueNumeric,
   'ExpectedValueNumeric',
   'Expected Value',
-  'Numeric',
+  NumericType.name,
   'The expected value that the responder has to provide in the criterion response.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -189,10 +200,10 @@ export const TenderingCriterionPropertyFieldMetaExpectedDescription = new FieldM
   TenderingCriterionPropertyField.ExpectedDescription,
   'ExpectedDescription',
   'Expected Description',
-  'Text',
+  TextType.name,
   'The description of the of the expected',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -201,10 +212,10 @@ export const TenderingCriterionPropertyFieldMetaExpectedURI = new FieldMeta<Tend
   TenderingCriterionPropertyField.ExpectedURI,
   'ExpectedURI',
   'Expected URI',
-  'Identifier',
+  IdentifierType.name,
   'The expected URL that the responder has to provide in the criterion response.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -213,10 +224,10 @@ export const TenderingCriterionPropertyFieldMetaMaximumAmount = new FieldMeta<Te
   TenderingCriterionPropertyField.MaximumAmount,
   'MaximumAmount',
   'Maximum Amount',
-  'Amount',
+  AmountType.name,
   'The maximum amount the response must have.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -225,10 +236,10 @@ export const TenderingCriterionPropertyFieldMetaMinimumAmount = new FieldMeta<Te
   TenderingCriterionPropertyField.MinimumAmount,
   'MinimumAmount',
   'Minimum Amount',
-  'Amount',
+  AmountType.name,
   'The minimum amount the response must have.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -237,10 +248,10 @@ export const TenderingCriterionPropertyFieldMetaMaximumValueNumeric = new FieldM
   TenderingCriterionPropertyField.MaximumValueNumeric,
   'MaximumValueNumeric',
   'Maximum Value',
-  'Numeric',
+  NumericType.name,
   'The maximum value the response must have.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -249,10 +260,10 @@ export const TenderingCriterionPropertyFieldMetaMinimumValueNumeric = new FieldM
   TenderingCriterionPropertyField.MinimumValueNumeric,
   'MinimumValueNumeric',
   'Minimum Value',
-  'Numeric',
+  NumericType.name,
   'The minimum value the response must have.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -261,10 +272,10 @@ export const TenderingCriterionPropertyFieldMetaMaximumQuantity = new FieldMeta<
   TenderingCriterionPropertyField.MaximumQuantity,
   'MaximumQuantity',
   'Maximum Quantity',
-  'Quantity',
+  QuantityType.name,
   'The maximum quantity value the response must have.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -273,10 +284,10 @@ export const TenderingCriterionPropertyFieldMetaMinimumQuantity = new FieldMeta<
   TenderingCriterionPropertyField.MinimumQuantity,
   'MinimumQuantity',
   'Minimum Quantity',
-  'Quantity',
+  QuantityType.name,
   'The minimum quantity value the response must have.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -285,10 +296,10 @@ export const TenderingCriterionPropertyFieldMetaTranslationTypeCode = new FieldM
   TenderingCriterionPropertyField.TranslationTypeCode,
   'TranslationTypeCode',
   'Translation Type Code',
-  'Code',
+  CodeType.name,
   'The type of Transation that the requirement shall be translated for example certified translation',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -297,10 +308,10 @@ export const TenderingCriterionPropertyFieldMetaCertificationLevelDescription = 
   TenderingCriterionPropertyField.CertificationLevelDescription,
   'CertificationLevelDescription',
   'Certification Level Description',
-  'Text',
+  TextType.name,
   'The description of the level of the expected certification',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -309,10 +320,10 @@ export const TenderingCriterionPropertyFieldMetaCopyQualityTypeCode = new FieldM
   TenderingCriterionPropertyField.CopyQualityTypeCode,
   'CopyQualityTypeCode',
   'Copy Quality Type Code',
-  'Code',
+  CodeType.name,
   'The type of Copy quality, expressed as a code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -321,10 +332,10 @@ export const TenderingCriterionPropertyFieldMetaApplicablePeriod = new FieldMeta
   TenderingCriterionPropertyField.ApplicablePeriod,
   'ApplicablePeriod',
   'Applicable Period',
-  'Period',
+  PeriodType.name,
   'The period to which this criterion property shall apply.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -333,10 +344,10 @@ export const TenderingCriterionPropertyFieldMetaTemplateEvidence = new FieldMeta
   TenderingCriterionPropertyField.TemplateEvidence,
   'TemplateEvidence',
   'Template Evidence',
-  'Evidence',
+  EvidenceType.name,
   'An evidence that can be used to meet this criterion property.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -398,3 +409,11 @@ export const TenderingCriterionPropertyFieldMap = new Map([
   [TenderingCriterionPropertyField.ApplicablePeriod, TenderingCriterionPropertyFieldMetaApplicablePeriod],
   [TenderingCriterionPropertyField.TemplateEvidence, TenderingCriterionPropertyFieldMetaTemplateEvidence]
 ])
+
+export const TenderingCriterionPropertyType: Type<TenderingCriterionPropertyField> = {
+  name: 'TenderingCriterionProperty',
+  label: 'Tendering Criterion Property',
+  module: TypeModule.cac,
+  definition: 'A class to describe the criterion properties.',
+  fields: TenderingCriterionPropertyFieldMap,
+}

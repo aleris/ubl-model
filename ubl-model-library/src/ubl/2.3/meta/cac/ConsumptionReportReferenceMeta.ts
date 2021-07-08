@@ -1,4 +1,11 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { PeriodType } from './PeriodMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ConsumptionReportReferenceField {
   UBLExtensions = 'UBLExtensions',
@@ -12,11 +19,11 @@ export enum ConsumptionReportReferenceField {
 export const ConsumptionReportReferenceFieldMetaUBLExtensions = new FieldMeta<ConsumptionReportReferenceField>(
   ConsumptionReportReferenceField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -25,10 +32,10 @@ export const ConsumptionReportReferenceFieldMetaConsumptionReportID = new FieldM
   ConsumptionReportReferenceField.ConsumptionReportID,
   'ConsumptionReportID',
   'Consumption Report Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the referenced consumption report.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   'n/a'
 )
@@ -37,10 +44,10 @@ export const ConsumptionReportReferenceFieldMetaConsumptionType = new FieldMeta<
   ConsumptionReportReferenceField.ConsumptionType,
   'ConsumptionType',
   'Consumption Type',
-  'Text',
+  TextType.name,
   'The reported consumption type, expressed as text.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Consumption'
 )
@@ -49,10 +56,10 @@ export const ConsumptionReportReferenceFieldMetaConsumptionTypeCode = new FieldM
   ConsumptionReportReferenceField.ConsumptionTypeCode,
   'ConsumptionTypeCode',
   'Consumption Type Code',
-  'Code',
+  CodeType.name,
   'The reported consumption type, expressed as a code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Consumption'
 )
@@ -61,10 +68,10 @@ export const ConsumptionReportReferenceFieldMetaTotalConsumedQuantity = new Fiel
   ConsumptionReportReferenceField.TotalConsumedQuantity,
   'TotalConsumedQuantity',
   'Total Consumed Quantity',
-  'Quantity',
+  QuantityType.name,
   'The total quantity consumed during the period of the referenced report.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   '20479.00'
 )
@@ -73,10 +80,10 @@ export const ConsumptionReportReferenceFieldMetaPeriod = new FieldMeta<Consumpti
   ConsumptionReportReferenceField.Period,
   'Period',
   'Period',
-  'Period',
+  PeriodType.name,
   'The period of consumption covered by the referenced report.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -98,3 +105,11 @@ export const ConsumptionReportReferenceFieldMap = new Map([
   [ConsumptionReportReferenceField.TotalConsumedQuantity, ConsumptionReportReferenceFieldMetaTotalConsumedQuantity],
   [ConsumptionReportReferenceField.Period, ConsumptionReportReferenceFieldMetaPeriod]
 ])
+
+export const ConsumptionReportReferenceType: Type<ConsumptionReportReferenceField> = {
+  name: 'ConsumptionReportReference',
+  label: 'Consumption Report Reference',
+  module: TypeModule.cac,
+  definition: 'A class to define a reference to an earlier consumption report (e.g., last year\'s consumption).',
+  fields: ConsumptionReportReferenceFieldMap,
+}

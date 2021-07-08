@@ -1,220 +1,305 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ForecastRevision } from  '../../model/doc/ForecastRevision'
-import { ForecastRevisionFieldMeta } from  '../../meta/doc/ForecastRevisionMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import CustomerPartyDisplay from '../cac/CustomerPartyDisplay'
-import { CustomerParty } from '../../model/cac/CustomerParty'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import ForecastRevisionLineDisplay from '../cac/ForecastRevisionLineDisplay'
-import { ForecastRevisionLine } from '../../model/cac/ForecastRevisionLine'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PeriodDisplay from '../cac/PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import SupplierPartyDisplay from '../cac/SupplierPartyDisplay'
-import { SupplierParty } from '../../model/cac/SupplierParty'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ForecastRevisionField, ForecastRevisionFieldMeta, ForecastRevisionTypeName } from  '../../meta/doc/ForecastRevisionMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { CustomerPartyDisplay } from '../cac/CustomerPartyDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { ForecastRevisionLineDisplay } from '../cac/ForecastRevisionLineDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { PeriodDisplay } from '../cac/PeriodDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { SupplierPartyDisplay } from '../cac/SupplierPartyDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ForecastRevision | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ForecastRevision, void>
+  forecastRevision: ForecastRevision[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ForecastRevisionDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ForecastRevisionSubElementsMap: SubElementsTemplatesMap<ForecastRevisionField, ForecastRevision, void> = new Map([
+    [
+      ForecastRevisionField.UBLExtensions,
+      { meta: ForecastRevisionFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ForecastRevisionField.UBLExtensions}
+          meta={ForecastRevisionFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-ForecastRevision">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ForecastRevisionFieldMeta.UBLExtensions}
-          />
+    [
+      ForecastRevisionField.UBLVersionID,
+      { meta: ForecastRevisionFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ForecastRevisionField.UBLVersionID}
+          meta={ForecastRevisionFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={ForecastRevisionFieldMeta.UBLVersionID}
-          />
+    [
+      ForecastRevisionField.CustomizationID,
+      { meta: ForecastRevisionFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ForecastRevisionField.CustomizationID}
+          meta={ForecastRevisionFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={ForecastRevisionFieldMeta.CustomizationID}
-          />
+    [
+      ForecastRevisionField.ProfileID,
+      { meta: ForecastRevisionFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ForecastRevisionField.ProfileID}
+          meta={ForecastRevisionFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={ForecastRevisionFieldMeta.ProfileID}
-          />
+    [
+      ForecastRevisionField.ProfileExecutionID,
+      { meta: ForecastRevisionFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ForecastRevisionField.ProfileExecutionID}
+          meta={ForecastRevisionFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={ForecastRevisionFieldMeta.ProfileExecutionID}
-          />
+    [
+      ForecastRevisionField.ID,
+      { meta: ForecastRevisionFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ForecastRevisionField.ID}
+          meta={ForecastRevisionFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={ForecastRevisionFieldMeta.ID}
-          />
+    [
+      ForecastRevisionField.CopyIndicator,
+      { meta: ForecastRevisionFieldMeta.CopyIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ForecastRevisionField.CopyIndicator}
+          meta={ForecastRevisionFieldMeta.CopyIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.CopyIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Copy Indicator"
-            value={value.CopyIndicator?.[0]}
-            meta={ForecastRevisionFieldMeta.CopyIndicator}
-          />
+    [
+      ForecastRevisionField.UUID,
+      { meta: ForecastRevisionFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ForecastRevisionField.UUID}
+          meta={ForecastRevisionFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={ForecastRevisionFieldMeta.UUID}
-          />
+    [
+      ForecastRevisionField.IssueDate,
+      { meta: ForecastRevisionFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={ForecastRevisionField.IssueDate}
+          meta={ForecastRevisionFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={ForecastRevisionFieldMeta.IssueDate}
-          />
+    [
+      ForecastRevisionField.IssueTime,
+      { meta: ForecastRevisionFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={ForecastRevisionField.IssueTime}
+          meta={ForecastRevisionFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={ForecastRevisionFieldMeta.IssueTime}
-          />
+    [
+      ForecastRevisionField.Note,
+      { meta: ForecastRevisionFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ForecastRevisionField.Note}
+          meta={ForecastRevisionFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={ForecastRevisionFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={ForecastRevisionFieldMeta.Note}
-              />
-            }
-          />
+    [
+      ForecastRevisionField.SequenceNumberID,
+      { meta: ForecastRevisionFieldMeta.SequenceNumberID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ForecastRevisionField.SequenceNumberID}
+          meta={ForecastRevisionFieldMeta.SequenceNumberID}
+          fieldConfig={fieldConfig}
+          identifier={value?.SequenceNumberID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Sequence Number"
-            value={value.SequenceNumberID?.[0]}
-            meta={ForecastRevisionFieldMeta.SequenceNumberID}
-          />
+    [
+      ForecastRevisionField.RevisionStatusCode,
+      { meta: ForecastRevisionFieldMeta.RevisionStatusCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ForecastRevisionField.RevisionStatusCode}
+          meta={ForecastRevisionFieldMeta.RevisionStatusCode}
+          fieldConfig={fieldConfig}
+          code={value?.RevisionStatusCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Revision Status Code"
-            value={value.RevisionStatusCode?.[0]}
-            meta={ForecastRevisionFieldMeta.RevisionStatusCode}
-          />
+    [
+      ForecastRevisionField.PurposeCode,
+      { meta: ForecastRevisionFieldMeta.PurposeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ForecastRevisionField.PurposeCode}
+          meta={ForecastRevisionFieldMeta.PurposeCode}
+          fieldConfig={fieldConfig}
+          code={value?.PurposeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Purpose Code"
-            value={value.PurposeCode?.[0]}
-            meta={ForecastRevisionFieldMeta.PurposeCode}
-          />
+    [
+      ForecastRevisionField.ForecastPeriod,
+      { meta: ForecastRevisionFieldMeta.ForecastPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={ForecastRevisionField.ForecastPeriod}
+          meta={ForecastRevisionFieldMeta.ForecastPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.ForecastPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Forecast Period"
-            value={value.ForecastPeriod?.[0]}
-            meta={ForecastRevisionFieldMeta.ForecastPeriod}
-          />
+    [
+      ForecastRevisionField.OriginalDocumentReference,
+      { meta: ForecastRevisionFieldMeta.OriginalDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={ForecastRevisionField.OriginalDocumentReference}
+          meta={ForecastRevisionFieldMeta.OriginalDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.OriginalDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-OriginalDocumentReference"
-            label="Original Document Reference"
-            items={value.OriginalDocumentReference}
-            meta={ForecastRevisionFieldMeta.OriginalDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Original Document Reference"
-                value={itemValue}
-                meta={ForecastRevisionFieldMeta.OriginalDocumentReference}
-              />
-            }
-          />
+    [
+      ForecastRevisionField.Signature,
+      { meta: ForecastRevisionFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={ForecastRevisionField.Signature}
+          meta={ForecastRevisionFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={ForecastRevisionFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={ForecastRevisionFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      ForecastRevisionField.SenderParty,
+      { meta: ForecastRevisionFieldMeta.SenderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ForecastRevisionField.SenderParty}
+          meta={ForecastRevisionFieldMeta.SenderParty}
+          fieldConfig={fieldConfig}
+          party={value?.SenderParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Sender Party"
-            value={value.SenderParty?.[0]}
-            meta={ForecastRevisionFieldMeta.SenderParty}
-          />
+    [
+      ForecastRevisionField.ReceiverParty,
+      { meta: ForecastRevisionFieldMeta.ReceiverParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ForecastRevisionField.ReceiverParty}
+          meta={ForecastRevisionFieldMeta.ReceiverParty}
+          fieldConfig={fieldConfig}
+          party={value?.ReceiverParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Receiver Party"
-            value={value.ReceiverParty?.[0]}
-            meta={ForecastRevisionFieldMeta.ReceiverParty}
-          />
+    [
+      ForecastRevisionField.BuyerCustomerParty,
+      { meta: ForecastRevisionFieldMeta.BuyerCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={ForecastRevisionField.BuyerCustomerParty}
+          meta={ForecastRevisionFieldMeta.BuyerCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.BuyerCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomerPartyDisplay
-            label="Buyer Customer Party"
-            value={value.BuyerCustomerParty?.[0]}
-            meta={ForecastRevisionFieldMeta.BuyerCustomerParty}
-          />
+    [
+      ForecastRevisionField.SellerSupplierParty,
+      { meta: ForecastRevisionFieldMeta.SellerSupplierParty,
+        template: ({value, renderContext, fieldConfig}) => <SupplierPartyDisplay
+          key={ForecastRevisionField.SellerSupplierParty}
+          meta={ForecastRevisionFieldMeta.SellerSupplierParty}
+          fieldConfig={fieldConfig}
+          supplierParty={value?.SellerSupplierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <SupplierPartyDisplay
-            label="Seller Supplier Party"
-            value={value.SellerSupplierParty?.[0]}
-            meta={ForecastRevisionFieldMeta.SellerSupplierParty}
-          />
+    [
+      ForecastRevisionField.ForecastRevisionLine,
+      { meta: ForecastRevisionFieldMeta.ForecastRevisionLine,
+        template: ({value, renderContext, fieldConfig}) => <ForecastRevisionLineDisplay
+          key={ForecastRevisionField.ForecastRevisionLine}
+          meta={ForecastRevisionFieldMeta.ForecastRevisionLine}
+          fieldConfig={fieldConfig}
+          forecastRevisionLine={value?.ForecastRevisionLine}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-ForecastRevisionLine"
-            label="Forecast Revision Line"
-            items={value.ForecastRevisionLine}
-            meta={ForecastRevisionFieldMeta.ForecastRevisionLine} 
-            itemDisplay={ (itemValue: ForecastRevisionLine, key: string | number) =>
-              <ForecastRevisionLineDisplay
-                key={key}
-                label="Forecast Revision Line"
-                value={itemValue}
-                meta={ForecastRevisionFieldMeta.ForecastRevisionLine}
-              />
-            }
-          />
-        </div>
-    </div>
+export function ForecastRevisionDisplay<TFieldMeta>({ meta, fieldConfig, forecastRevision, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ForecastRevisionTypeName,
+    meta,
+    fieldConfig,
+    forecastRevision,
+    renderContext,
+    ForecastRevisionSubElementsMap,
   )
 }

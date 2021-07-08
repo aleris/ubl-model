@@ -4,7 +4,6 @@ import { Numeric } from '../cbc/Numeric'
 import { Period } from './Period'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe the bond guarantee of a tenderer or bid submitter's actual entry into a contract in the event
  * that it is the successful bidder.

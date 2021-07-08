@@ -11,7 +11,6 @@ import { SupplierParty } from '../cac/SupplierParty'
 import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A document used to notify an exception in forecast variance, product activity, or performance history.
  */

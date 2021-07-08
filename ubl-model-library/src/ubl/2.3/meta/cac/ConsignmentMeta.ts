@@ -1,4 +1,27 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AllowanceChargeType } from './AllowanceChargeMeta'
+import { AmountType } from '../cbc/AmountMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { ContractType } from './ContractMeta'
+import { CountryType } from './CountryMeta'
+import { CustomsDeclarationType } from './CustomsDeclarationMeta'
+import { DeliveryTermsType } from './DeliveryTermsMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { LocationType } from './LocationMeta'
+import { MeasureType } from '../cbc/MeasureMeta'
+import { PartyType } from './PartyMeta'
+import { PaymentTermsType } from './PaymentTermsMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { ShipmentType } from './ShipmentMeta'
+import { ShipmentStageType } from './ShipmentStageMeta'
+import { StatusType } from './StatusMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TransportationServiceType } from './TransportationServiceMeta'
+import { TransportEventType } from './TransportEventMeta'
+import { TransportHandlingUnitType } from './TransportHandlingUnitMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ConsignmentField {
   UBLExtensions = 'UBLExtensions',
@@ -109,11 +132,11 @@ export enum ConsignmentField {
 export const ConsignmentFieldMetaUBLExtensions = new FieldMeta<ConsignmentField>(
   ConsignmentField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -122,10 +145,10 @@ export const ConsignmentFieldMetaID = new FieldMeta<ConsignmentField>(
   ConsignmentField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier assigned to a collection of goods for both import and export.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   'Unique consignment reference number (UCR)',
   undefined
 )
@@ -134,10 +157,10 @@ export const ConsignmentFieldMetaCarrierAssignedID = new FieldMeta<ConsignmentFi
   ConsignmentField.CarrierAssignedID,
   'CarrierAssignedID',
   'Carrier Assigned Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this consignment, assigned by the carrier.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -146,10 +169,10 @@ export const ConsignmentFieldMetaConsigneeAssignedID = new FieldMeta<Consignment
   ConsignmentField.ConsigneeAssignedID,
   'ConsigneeAssignedID',
   'Consignee Assigned Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this consignment, assigned by the consignee.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -158,10 +181,10 @@ export const ConsignmentFieldMetaConsignorAssignedID = new FieldMeta<Consignment
   ConsignmentField.ConsignorAssignedID,
   'ConsignorAssignedID',
   'Consignor Assigned Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this consignment, assigned by the consignor.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -170,10 +193,10 @@ export const ConsignmentFieldMetaFreightForwarderAssignedID = new FieldMeta<Cons
   ConsignmentField.FreightForwarderAssignedID,
   'FreightForwarderAssignedID',
   'Freight Forwarder Assigned Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this consignment, assigned by the freight forwarder.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -182,10 +205,10 @@ export const ConsignmentFieldMetaBrokerAssignedID = new FieldMeta<ConsignmentFie
   ConsignmentField.BrokerAssignedID,
   'BrokerAssignedID',
   'Broker Assigned Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this consignment, assigned by the broker.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -194,10 +217,10 @@ export const ConsignmentFieldMetaContractedCarrierAssignedID = new FieldMeta<Con
   ConsignmentField.ContractedCarrierAssignedID,
   'ContractedCarrierAssignedID',
   'Contracted Carrier Assigned Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this consignment, assigned by the contracted carrier.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -206,10 +229,10 @@ export const ConsignmentFieldMetaPerformingCarrierAssignedID = new FieldMeta<Con
   ConsignmentField.PerformingCarrierAssignedID,
   'PerformingCarrierAssignedID',
   'Performing Carrier Assigned Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this consignment, assigned by the performing carrier.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -218,10 +241,10 @@ export const ConsignmentFieldMetaSummaryDescription = new FieldMeta<ConsignmentF
   ConsignmentField.SummaryDescription,
   'SummaryDescription',
   'Summary Description',
-  'Text',
+  TextType.name,
   'A textual summary description of the consignment.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -230,10 +253,10 @@ export const ConsignmentFieldMetaTotalInvoiceAmount = new FieldMeta<ConsignmentF
   ConsignmentField.TotalInvoiceAmount,
   'TotalInvoiceAmount',
   'Total Invoice Amount',
-  'Amount',
+  AmountType.name,
   'The total of all invoice amounts declared in this consignment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -242,10 +265,10 @@ export const ConsignmentFieldMetaDeclaredCustomsValueAmount = new FieldMeta<Cons
   ConsignmentField.DeclaredCustomsValueAmount,
   'DeclaredCustomsValueAmount',
   'Declared Customs Value',
-  'Amount',
+  AmountType.name,
   'The total declared value for customs purposes of all the goods in this consignment, regardless of whether they are subject to the same customs procedure, tariff/statistical categorization, country information, or duty regime.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -254,10 +277,10 @@ export const ConsignmentFieldMetaTariffDescription = new FieldMeta<ConsignmentFi
   ConsignmentField.TariffDescription,
   'TariffDescription',
   'Tariff Description',
-  'Text',
+  TextType.name,
   'Text describing the tariff applied to this consignment.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -266,10 +289,10 @@ export const ConsignmentFieldMetaTariffCode = new FieldMeta<ConsignmentField>(
   ConsignmentField.TariffCode,
   'TariffCode',
   'Tariff Code',
-  'Code',
+  CodeType.name,
   'A code signifying the tariff applied to this consignment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Tariff code number (WCO ID 145)',
   undefined
 )
@@ -278,10 +301,10 @@ export const ConsignmentFieldMetaInsurancePremiumAmount = new FieldMeta<Consignm
   ConsignmentField.InsurancePremiumAmount,
   'InsurancePremiumAmount',
   'Insurance Premium Amount',
-  'Amount',
+  AmountType.name,
   'The amount of the premium payable to an insurance company for insuring the goods contained in this consignment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Insurance Cost',
   undefined
 )
@@ -290,10 +313,10 @@ export const ConsignmentFieldMetaGrossWeightMeasure = new FieldMeta<ConsignmentF
   ConsignmentField.GrossWeightMeasure,
   'GrossWeightMeasure',
   'Gross Weight',
-  'Measure',
+  MeasureType.name,
   'The total declared weight of the goods in this consignment, including packaging but excluding the carrier\'s equipment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Total gross weight (WCO ID 131)',
   'Total cube of all goods items referred to as one consignment.'
 )
@@ -302,10 +325,10 @@ export const ConsignmentFieldMetaNetWeightMeasure = new FieldMeta<ConsignmentFie
   ConsignmentField.NetWeightMeasure,
   'NetWeightMeasure',
   'Net Weight',
-  'Measure',
+  MeasureType.name,
   'The total net weight of all the goods items referred to as one consignment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -314,10 +337,10 @@ export const ConsignmentFieldMetaNetNetWeightMeasure = new FieldMeta<Consignment
   ConsignmentField.NetNetWeightMeasure,
   'NetNetWeightMeasure',
   'Net Net Weight',
-  'Measure',
+  MeasureType.name,
   'The total net weight of the goods in this consignment, exclusive of packaging.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -326,10 +349,10 @@ export const ConsignmentFieldMetaChargeableWeightMeasure = new FieldMeta<Consign
   ConsignmentField.ChargeableWeightMeasure,
   'ChargeableWeightMeasure',
   'Chargeable Weight',
-  'Measure',
+  MeasureType.name,
   'The weight upon which a charge is to be based.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Chargeable Weight. Basis.Measure',
   undefined
 )
@@ -338,10 +361,10 @@ export const ConsignmentFieldMetaGrossVolumeMeasure = new FieldMeta<ConsignmentF
   ConsignmentField.GrossVolumeMeasure,
   'GrossVolumeMeasure',
   'Gross Volume',
-  'Measure',
+  MeasureType.name,
   'The total volume of the goods referred to as one consignment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Cube',
   undefined
 )
@@ -350,10 +373,10 @@ export const ConsignmentFieldMetaNetVolumeMeasure = new FieldMeta<ConsignmentFie
   ConsignmentField.NetVolumeMeasure,
   'NetVolumeMeasure',
   'Net Volume',
-  'Measure',
+  MeasureType.name,
   'The total net volume of all goods items referred to as one consignment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -362,10 +385,10 @@ export const ConsignmentFieldMetaLoadingLengthMeasure = new FieldMeta<Consignmen
   ConsignmentField.LoadingLengthMeasure,
   'LoadingLengthMeasure',
   'Loading Length',
-  'Measure',
+  MeasureType.name,
   'The total length in a means of transport or a piece of transport equipment which, given the width and height of the transport means, will accommodate all of the consignments in a single consolidation.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -374,10 +397,10 @@ export const ConsignmentFieldMetaRemarks = new FieldMeta<ConsignmentField>(
   ConsignmentField.Remarks,
   'Remarks',
   'Remarks',
-  'Text',
+  TextType.name,
   'Remarks concerning the complete consignment, to be printed on the transport document.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -386,10 +409,10 @@ export const ConsignmentFieldMetaHazardousRiskIndicator = new FieldMeta<Consignm
   ConsignmentField.HazardousRiskIndicator,
   'HazardousRiskIndicator',
   'Hazardous Risk Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indication that the transported goods in this consignment are subject to an international regulation concerning the carriage of dangerous goods (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Dangerous Goods RID Indicator',
   'default is negative'
 )
@@ -398,10 +421,10 @@ export const ConsignmentFieldMetaAnimalFoodIndicator = new FieldMeta<Consignment
   ConsignmentField.AnimalFoodIndicator,
   'AnimalFoodIndicator',
   'Animal Food Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indication that the transported goods in this consignment are animal foodstuffs (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'default is negative'
 )
@@ -410,10 +433,10 @@ export const ConsignmentFieldMetaHumanFoodIndicator = new FieldMeta<ConsignmentF
   ConsignmentField.HumanFoodIndicator,
   'HumanFoodIndicator',
   'Human Food Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indication that the transported goods in this consignment are for human consumption (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'default is negative'
 )
@@ -422,10 +445,10 @@ export const ConsignmentFieldMetaLivestockIndicator = new FieldMeta<ConsignmentF
   ConsignmentField.LivestockIndicator,
   'LivestockIndicator',
   'Livestock Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indication that the transported goods are livestock (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'default is negative'
 )
@@ -434,10 +457,10 @@ export const ConsignmentFieldMetaBulkCargoIndicator = new FieldMeta<ConsignmentF
   ConsignmentField.BulkCargoIndicator,
   'BulkCargoIndicator',
   'Bulk Cargo Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indication that the transported goods in this consignment are bulk cargoes (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'default is negative'
 )
@@ -446,10 +469,10 @@ export const ConsignmentFieldMetaContainerizedIndicator = new FieldMeta<Consignm
   ConsignmentField.ContainerizedIndicator,
   'ContainerizedIndicator',
   'Containerized Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indication that the transported goods in this consignment are containerized cargoes (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'default is negative'
 )
@@ -458,10 +481,10 @@ export const ConsignmentFieldMetaGeneralCargoIndicator = new FieldMeta<Consignme
   ConsignmentField.GeneralCargoIndicator,
   'GeneralCargoIndicator',
   'General Cargo Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indication that the transported goods in this consignment are general cargoes (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'default is negative'
 )
@@ -470,10 +493,10 @@ export const ConsignmentFieldMetaSpecialSecurityIndicator = new FieldMeta<Consig
   ConsignmentField.SpecialSecurityIndicator,
   'SpecialSecurityIndicator',
   'Special Security Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indication that the transported goods in this consignment require special security (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'default is negative'
 )
@@ -482,10 +505,10 @@ export const ConsignmentFieldMetaThirdPartyPayerIndicator = new FieldMeta<Consig
   ConsignmentField.ThirdPartyPayerIndicator,
   'ThirdPartyPayerIndicator',
   'Third Party Payer Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indication that this consignment will be paid for by a third party (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'default is negative'
 )
@@ -494,10 +517,10 @@ export const ConsignmentFieldMetaCarrierServiceInstructions = new FieldMeta<Cons
   ConsignmentField.CarrierServiceInstructions,
   'CarrierServiceInstructions',
   'Carrier Service Instructions',
-  'Text',
+  TextType.name,
   'Service instructions to the carrier, expressed as text.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -506,10 +529,10 @@ export const ConsignmentFieldMetaCustomsClearanceServiceInstructions = new Field
   ConsignmentField.CustomsClearanceServiceInstructions,
   'CustomsClearanceServiceInstructions',
   'Customs Clearance Service Instructions',
-  'Text',
+  TextType.name,
   'Service instructions for customs clearance, expressed as text.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -518,10 +541,10 @@ export const ConsignmentFieldMetaForwarderServiceInstructions = new FieldMeta<Co
   ConsignmentField.ForwarderServiceInstructions,
   'ForwarderServiceInstructions',
   'Forwarder Service Instructions',
-  'Text',
+  TextType.name,
   'Service instructions for the forwarder, expressed as text.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -530,10 +553,10 @@ export const ConsignmentFieldMetaSpecialServiceInstructions = new FieldMeta<Cons
   ConsignmentField.SpecialServiceInstructions,
   'SpecialServiceInstructions',
   'Special Service Instructions',
-  'Text',
+  TextType.name,
   'Special service instructions, expressed as text.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -542,10 +565,10 @@ export const ConsignmentFieldMetaSequenceID = new FieldMeta<ConsignmentField>(
   ConsignmentField.SequenceID,
   'SequenceID',
   'Sequence Identifier',
-  'Identifier',
+  IdentifierType.name,
   'A sequence identifier for this consignment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -554,10 +577,10 @@ export const ConsignmentFieldMetaShippingPriorityLevelCode = new FieldMeta<Consi
   ConsignmentField.ShippingPriorityLevelCode,
   'ShippingPriorityLevelCode',
   'Shipping Priority Level Code',
-  'Code',
+  CodeType.name,
   'A code signifying the priority or level of service required for this consignment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -566,10 +589,10 @@ export const ConsignmentFieldMetaHandlingCode = new FieldMeta<ConsignmentField>(
   ConsignmentField.HandlingCode,
   'HandlingCode',
   'Handling Code',
-  'Code',
+  CodeType.name,
   'The handling required for this consignment, expressed as a code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Special Handling',
   undefined
 )
@@ -578,10 +601,10 @@ export const ConsignmentFieldMetaHandlingInstructions = new FieldMeta<Consignmen
   ConsignmentField.HandlingInstructions,
   'HandlingInstructions',
   'Handling Instructions',
-  'Text',
+  TextType.name,
   'The handling required for this consignment, expressed as text.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -590,10 +613,10 @@ export const ConsignmentFieldMetaInformation = new FieldMeta<ConsignmentField>(
   ConsignmentField.Information,
   'Information',
   'Information',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this consignment, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -602,10 +625,10 @@ export const ConsignmentFieldMetaTotalGoodsItemQuantity = new FieldMeta<Consignm
   ConsignmentField.TotalGoodsItemQuantity,
   'TotalGoodsItemQuantity',
   'Total Goods Item Quantity',
-  'Quantity',
+  QuantityType.name,
   'The total number of goods items in this consignment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -614,10 +637,10 @@ export const ConsignmentFieldMetaTotalTransportHandlingUnitQuantity = new FieldM
   ConsignmentField.TotalTransportHandlingUnitQuantity,
   'TotalTransportHandlingUnitQuantity',
   'Total Transport Handling Unit Quantity',
-  'Quantity',
+  QuantityType.name,
   'The number of pieces of transport handling equipment (pallets, boxes, cases, etc.) in this consignment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Number of THUs',
   undefined
 )
@@ -626,10 +649,10 @@ export const ConsignmentFieldMetaInsuranceValueAmount = new FieldMeta<Consignmen
   ConsignmentField.InsuranceValueAmount,
   'InsuranceValueAmount',
   'Insurance Value',
-  'Amount',
+  AmountType.name,
   'The amount covered by insurance for this consignment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Value Insured',
   undefined
 )
@@ -638,10 +661,10 @@ export const ConsignmentFieldMetaDeclaredForCarriageValueAmount = new FieldMeta<
   ConsignmentField.DeclaredForCarriageValueAmount,
   'DeclaredForCarriageValueAmount',
   'Declared For Carriage Value',
-  'Amount',
+  AmountType.name,
   'The value of this consignment, declared by the shipper or his agent solely for the purpose of varying the carrier\'s level of liability from that provided in the contract of carriage, in case of loss or damage to goods or delayed delivery.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Declared value for carriage, Interest in delivery',
   undefined
 )
@@ -650,10 +673,10 @@ export const ConsignmentFieldMetaDeclaredStatisticsValueAmount = new FieldMeta<C
   ConsignmentField.DeclaredStatisticsValueAmount,
   'DeclaredStatisticsValueAmount',
   'Declared Statistics Value',
-  'Amount',
+  AmountType.name,
   'The value, declared for statistical purposes, of those goods in this consignment that have the same statistical heading.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Statistical Value',
   undefined
 )
@@ -662,10 +685,10 @@ export const ConsignmentFieldMetaFreeOnBoardValueAmount = new FieldMeta<Consignm
   ConsignmentField.FreeOnBoardValueAmount,
   'FreeOnBoardValueAmount',
   'Free On Board Value',
-  'Amount',
+  AmountType.name,
   'The monetary amount that has to be or has been paid as calculated under the applicable trade delivery.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'FOB Value',
   undefined
 )
@@ -674,10 +697,10 @@ export const ConsignmentFieldMetaSpecialInstructions = new FieldMeta<Consignment
   ConsignmentField.SpecialInstructions,
   'SpecialInstructions',
   'Special Instructions',
-  'Text',
+  TextType.name,
   'Special instructions relating to this consignment.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -686,10 +709,10 @@ export const ConsignmentFieldMetaSplitConsignmentIndicator = new FieldMeta<Consi
   ConsignmentField.SplitConsignmentIndicator,
   'SplitConsignmentIndicator',
   'Split Consignment Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indicator that this consignment has been split in transit (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -698,10 +721,10 @@ export const ConsignmentFieldMetaDeliveryInstructions = new FieldMeta<Consignmen
   ConsignmentField.DeliveryInstructions,
   'DeliveryInstructions',
   'Delivery Instructions',
-  'Text',
+  TextType.name,
   'A set of delivery instructions relating to this consignment.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -710,10 +733,10 @@ export const ConsignmentFieldMetaConsignmentQuantity = new FieldMeta<Consignment
   ConsignmentField.ConsignmentQuantity,
   'ConsignmentQuantity',
   'Consignment Quantity',
-  'Quantity',
+  QuantityType.name,
   'The count in this consignment considering goods items, child consignments, shipments',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -722,10 +745,10 @@ export const ConsignmentFieldMetaConsolidatableIndicator = new FieldMeta<Consign
   ConsignmentField.ConsolidatableIndicator,
   'ConsolidatableIndicator',
   'Consolidatable Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indicator that this consignment can be consolidated (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'default is negative'
 )
@@ -734,10 +757,10 @@ export const ConsignmentFieldMetaHaulageInstructions = new FieldMeta<Consignment
   ConsignmentField.HaulageInstructions,
   'HaulageInstructions',
   'Haulage Instructions',
-  'Text',
+  TextType.name,
   'Instructions regarding haulage of this consignment, expressed as text.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -746,10 +769,10 @@ export const ConsignmentFieldMetaLoadingSequenceID = new FieldMeta<ConsignmentFi
   ConsignmentField.LoadingSequenceID,
   'LoadingSequenceID',
   'Loading Sequence Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the loading sequence of this consignment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -758,10 +781,10 @@ export const ConsignmentFieldMetaChildConsignmentQuantity = new FieldMeta<Consig
   ConsignmentField.ChildConsignmentQuantity,
   'ChildConsignmentQuantity',
   'Child Consignment Quantity',
-  'Quantity',
+  QuantityType.name,
   'The quantity of (consolidated) child consignments',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -770,10 +793,10 @@ export const ConsignmentFieldMetaTotalPackagesQuantity = new FieldMeta<Consignme
   ConsignmentField.TotalPackagesQuantity,
   'TotalPackagesQuantity',
   'Total Packages Quantity',
-  'Quantity',
+  QuantityType.name,
   'The total number of packages associated with a Consignment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -782,10 +805,10 @@ export const ConsignmentFieldMetaConsolidatedShipment = new FieldMeta<Consignmen
   ConsignmentField.ConsolidatedShipment,
   'ConsolidatedShipment',
   'Consolidated Shipment',
-  'Shipment',
+  ShipmentType.name,
   'A consolidated shipment (a shipment created by an act of consolidation).',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -794,10 +817,10 @@ export const ConsignmentFieldMetaCustomsDeclaration = new FieldMeta<ConsignmentF
   ConsignmentField.CustomsDeclaration,
   'CustomsDeclaration',
   'Customs Declaration',
-  'CustomsDeclaration',
+  CustomsDeclarationType.name,
   'A class describing identifiers or references relating to customs procedures.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -806,10 +829,10 @@ export const ConsignmentFieldMetaRequestedPickupTransportEvent = new FieldMeta<C
   ConsignmentField.RequestedPickupTransportEvent,
   'RequestedPickupTransportEvent',
   'Requested Pickup Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'The pickup of this consignment requested by the party requesting a transportation service (the transport user).',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -818,10 +841,10 @@ export const ConsignmentFieldMetaRequestedDeliveryTransportEvent = new FieldMeta
   ConsignmentField.RequestedDeliveryTransportEvent,
   'RequestedDeliveryTransportEvent',
   'Requested Delivery Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'The delivery of this consignment requested by the party requesting a transportation service (the transport user).',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -830,10 +853,10 @@ export const ConsignmentFieldMetaPlannedPickupTransportEvent = new FieldMeta<Con
   ConsignmentField.PlannedPickupTransportEvent,
   'PlannedPickupTransportEvent',
   'Planned Pickup Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'The pickup of this consignment planned by the party responsible for providing the transportation service (the transport service provider).',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -842,10 +865,10 @@ export const ConsignmentFieldMetaPlannedDeliveryTransportEvent = new FieldMeta<C
   ConsignmentField.PlannedDeliveryTransportEvent,
   'PlannedDeliveryTransportEvent',
   'Planned Delivery Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'The delivery of this consignment planned by the party responsible for providing the transportation service (the transport service provider).',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -854,10 +877,10 @@ export const ConsignmentFieldMetaActualPickupTransportEvent = new FieldMeta<Cons
   ConsignmentField.ActualPickupTransportEvent,
   'ActualPickupTransportEvent',
   'Actual Pickup Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'The actual pickup of this consignment by the party responsible for providing the transportation service (the transport service provider).',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -866,10 +889,10 @@ export const ConsignmentFieldMetaActualDeliveryTransportEvent = new FieldMeta<Co
   ConsignmentField.ActualDeliveryTransportEvent,
   'ActualDeliveryTransportEvent',
   'Actual Delivery Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'The actual delivery of this consignment by the party responsible for providing the transportation service (the transport service provider).',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -878,10 +901,10 @@ export const ConsignmentFieldMetaStatus = new FieldMeta<ConsignmentField>(
   ConsignmentField.Status,
   'Status',
   'Status',
-  'Status',
+  StatusType.name,
   'The status of a particular condition associated with this consignment.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -890,10 +913,10 @@ export const ConsignmentFieldMetaChildConsignment = new FieldMeta<ConsignmentFie
   ConsignmentField.ChildConsignment,
   'ChildConsignment',
   'Child Consignment',
-  'Consignment',
+  ConsignmentType.name,
   'One of the child consignments of which a consolidated consignment is composed.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -902,10 +925,10 @@ export const ConsignmentFieldMetaConsigneeParty = new FieldMeta<ConsignmentField
   ConsignmentField.ConsigneeParty,
   'ConsigneeParty',
   'Consignee Party',
-  'Party',
+  PartyType.name,
   'A party to which goods are consigned.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   'Consignee (WCO ID 51 and 52)',
   undefined
 )
@@ -914,10 +937,10 @@ export const ConsignmentFieldMetaExporterParty = new FieldMeta<ConsignmentField>
   ConsignmentField.ExporterParty,
   'ExporterParty',
   'Exporter Party',
-  'Party',
+  PartyType.name,
   'The party that makes the export declaration, or on behalf of which the export declaration is made, and that is the owner of the goods in this consignment or has similar right of disposal over them at the time when the declaration is accepted.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   'Exporter (WCO ID 41 and 42)',
   undefined
 )
@@ -926,10 +949,10 @@ export const ConsignmentFieldMetaConsignorParty = new FieldMeta<ConsignmentField
   ConsignmentField.ConsignorParty,
   'ConsignorParty',
   'Consignor Party',
-  'Party',
+  PartyType.name,
   'The party consigning goods, as stipulated in the transport contract by the party ordering transport.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   'Consignor (WCO ID 71 and 72)',
   undefined
 )
@@ -938,10 +961,10 @@ export const ConsignmentFieldMetaImporterParty = new FieldMeta<ConsignmentField>
   ConsignmentField.ImporterParty,
   'ImporterParty',
   'Importer Party',
-  'Party',
+  PartyType.name,
   'The party that makes an import declaration regarding this consignment, or on behalf of which a customs clearing agent or other authorized person makes an import declaration regarding this consignment. This may include a person who has possession of the goods or to whom the goods are consigned.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   'Importer (WCO ID 39 and 40)',
   undefined
 )
@@ -950,10 +973,10 @@ export const ConsignmentFieldMetaCarrierParty = new FieldMeta<ConsignmentField>(
   ConsignmentField.CarrierParty,
   'CarrierParty',
   'Carrier Party',
-  'Party',
+  PartyType.name,
   'The party providing the transport of goods in this consignment between named points.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   'Transport Company, Shipping Line, NVOCC, Airline, Haulier, Courier, Carrier (WCO ID 49 and 50)',
   undefined
 )
@@ -962,10 +985,10 @@ export const ConsignmentFieldMetaFreightForwarderParty = new FieldMeta<Consignme
   ConsignmentField.FreightForwarderParty,
   'FreightForwarderParty',
   'Freight Forwarder Party',
-  'Party',
+  PartyType.name,
   'The party combining individual smaller consignments into a single larger shipment (the consolidated shipment), which is sent to a counterpart that mirrors the consolidator\'s activity by dividing the consolidated consignment into its original components.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   'Consolidator (WCO ID 192 AND 193)',
   undefined
 )
@@ -974,10 +997,10 @@ export const ConsignmentFieldMetaNotifyParty = new FieldMeta<ConsignmentField>(
   ConsignmentField.NotifyParty,
   'NotifyParty',
   'Notify Party',
-  'Party',
+  PartyType.name,
   'The party to be notified upon arrival of goods and when special occurrences (usually pre-defined) take place during a transportation service.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   'WCO ID 57 and 58',
   undefined
 )
@@ -986,10 +1009,10 @@ export const ConsignmentFieldMetaOriginalDespatchParty = new FieldMeta<Consignme
   ConsignmentField.OriginalDespatchParty,
   'OriginalDespatchParty',
   'Original Despatch Party',
-  'Party',
+  PartyType.name,
   'The original despatch (sender) party for this consignment.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -998,10 +1021,10 @@ export const ConsignmentFieldMetaFinalDeliveryParty = new FieldMeta<ConsignmentF
   ConsignmentField.FinalDeliveryParty,
   'FinalDeliveryParty',
   'Final Delivery Party',
-  'Party',
+  PartyType.name,
   'The final delivery party for this consignment.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -1010,10 +1033,10 @@ export const ConsignmentFieldMetaPerformingCarrierParty = new FieldMeta<Consignm
   ConsignmentField.PerformingCarrierParty,
   'PerformingCarrierParty',
   'Performing Carrier Party',
-  'Party',
+  PartyType.name,
   'The party performing the carriage of this consignment.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -1022,10 +1045,10 @@ export const ConsignmentFieldMetaSubstituteCarrierParty = new FieldMeta<Consignm
   ConsignmentField.SubstituteCarrierParty,
   'SubstituteCarrierParty',
   'Substitute Carrier Party',
-  'Party',
+  PartyType.name,
   'A substitute party performing the carriage of this consignment.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -1034,10 +1057,10 @@ export const ConsignmentFieldMetaLogisticsOperatorParty = new FieldMeta<Consignm
   ConsignmentField.LogisticsOperatorParty,
   'LogisticsOperatorParty',
   'Logistics Operator Party',
-  'Party',
+  PartyType.name,
   'The logistics operator party for this consignment.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -1046,10 +1069,10 @@ export const ConsignmentFieldMetaTransportAdvisorParty = new FieldMeta<Consignme
   ConsignmentField.TransportAdvisorParty,
   'TransportAdvisorParty',
   'Transport Advisor Party',
-  'Party',
+  PartyType.name,
   'The party providing transport advice this consignment.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -1058,10 +1081,10 @@ export const ConsignmentFieldMetaHazardousItemNotificationParty = new FieldMeta<
   ConsignmentField.HazardousItemNotificationParty,
   'HazardousItemNotificationParty',
   'Hazardous Item Notification Party',
-  'Party',
+  PartyType.name,
   'The party that would be notified of a hazardous item in this consignment.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -1070,10 +1093,10 @@ export const ConsignmentFieldMetaInsuranceParty = new FieldMeta<ConsignmentField
   ConsignmentField.InsuranceParty,
   'InsuranceParty',
   'Insurance Party',
-  'Party',
+  PartyType.name,
   'The party holding the insurance for this consignment.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -1082,10 +1105,10 @@ export const ConsignmentFieldMetaMortgageHolderParty = new FieldMeta<Consignment
   ConsignmentField.MortgageHolderParty,
   'MortgageHolderParty',
   'Mortgage Holder Party',
-  'Party',
+  PartyType.name,
   'The party holding the mortgage for this consignment.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -1094,10 +1117,10 @@ export const ConsignmentFieldMetaBillOfLadingHolderParty = new FieldMeta<Consign
   ConsignmentField.BillOfLadingHolderParty,
   'BillOfLadingHolderParty',
   'Bill Of Lading Holder Party',
-  'Party',
+  PartyType.name,
   'The party holding the bill of lading for this consignment.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -1106,10 +1129,10 @@ export const ConsignmentFieldMetaOriginalDepartureCountry = new FieldMeta<Consig
   ConsignmentField.OriginalDepartureCountry,
   'OriginalDepartureCountry',
   'Original Departure Country',
-  'Country',
+  CountryType.name,
   'The country from which the goods in this consignment were originally exported, without any commercial transaction taking place in intermediate countries.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   'Country of origin (WCO ID 062)',
   undefined
 )
@@ -1118,10 +1141,10 @@ export const ConsignmentFieldMetaFinalDestinationCountry = new FieldMeta<Consign
   ConsignmentField.FinalDestinationCountry,
   'FinalDestinationCountry',
   'Final Destination Country',
-  'Country',
+  CountryType.name,
   'The country in which the goods in this consignment are to be delivered to the final consignee or buyer.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   'Ultimate Destination Country, Country of Final Arrival, Country of Destination',
   undefined
 )
@@ -1130,10 +1153,10 @@ export const ConsignmentFieldMetaTransitCountry = new FieldMeta<ConsignmentField
   ConsignmentField.TransitCountry,
   'TransitCountry',
   'Transit Country',
-  'Country',
+  CountryType.name,
   'One of the countries through which goods or passengers in this consignment are routed between the country of original departure and the country of final destination.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   'Country(ies) of routing (WCO ID 064)',
   undefined
 )
@@ -1142,10 +1165,10 @@ export const ConsignmentFieldMetaTransportContract = new FieldMeta<ConsignmentFi
   ConsignmentField.TransportContract,
   'TransportContract',
   'Transport Contract',
-  'Contract',
+  ContractType.name,
   'A transport contract relating to this consignment.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -1154,10 +1177,10 @@ export const ConsignmentFieldMetaTransportEvent = new FieldMeta<ConsignmentField
   ConsignmentField.TransportEvent,
   'TransportEvent',
   'Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'A class describing a significant occurrence or happening related to the transportation of goods.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -1166,10 +1189,10 @@ export const ConsignmentFieldMetaOriginalDespatchTransportationService = new Fie
   ConsignmentField.OriginalDespatchTransportationService,
   'OriginalDespatchTransportationService',
   'Original Despatch Transportation Service',
-  'TransportationService',
+  TransportationServiceType.name,
   'The service for pickup from the consignor under the transport contract for this consignment.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   'Door-to-door , Pier-to-door'
 )
@@ -1178,10 +1201,10 @@ export const ConsignmentFieldMetaFinalDeliveryTransportationService = new FieldM
   ConsignmentField.FinalDeliveryTransportationService,
   'FinalDeliveryTransportationService',
   'Final Delivery Transportation Service',
-  'TransportationService',
+  TransportationServiceType.name,
   'The service for delivery to the consignee under the transport contract for this consignment.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   'Door-to-door , Pier-to-door'
 )
@@ -1190,10 +1213,10 @@ export const ConsignmentFieldMetaDeliveryTerms = new FieldMeta<ConsignmentField>
   ConsignmentField.DeliveryTerms,
   'DeliveryTerms',
   'Delivery Terms',
-  'DeliveryTerms',
+  DeliveryTermsType.name,
   'The conditions agreed upon between a seller and a buyer with regard to the delivery of goods and/or services (e.g., CIF, FOB, or EXW from the INCOTERMS Terms of Delivery).',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   'Trade Terms, INCOTERMS',
   undefined
 )
@@ -1202,10 +1225,10 @@ export const ConsignmentFieldMetaPaymentTerms = new FieldMeta<ConsignmentField>(
   ConsignmentField.PaymentTerms,
   'PaymentTerms',
   'Payment Terms',
-  'PaymentTerms',
+  PaymentTermsType.name,
   'The terms of payment between the parties (such as logistics service client, logistics service provider) in a transaction.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -1214,10 +1237,10 @@ export const ConsignmentFieldMetaCollectPaymentTerms = new FieldMeta<Consignment
   ConsignmentField.CollectPaymentTerms,
   'CollectPaymentTerms',
   'Collect Payment Terms',
-  'PaymentTerms',
+  PaymentTermsType.name,
   'The terms of payment that apply to the collection of this consignment.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -1226,10 +1249,10 @@ export const ConsignmentFieldMetaDisbursementPaymentTerms = new FieldMeta<Consig
   ConsignmentField.DisbursementPaymentTerms,
   'DisbursementPaymentTerms',
   'Disbursement Payment Terms',
-  'PaymentTerms',
+  PaymentTermsType.name,
   'The terms of payment for disbursement.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -1238,10 +1261,10 @@ export const ConsignmentFieldMetaPrepaidPaymentTerms = new FieldMeta<Consignment
   ConsignmentField.PrepaidPaymentTerms,
   'PrepaidPaymentTerms',
   'Prepaid Payment Terms',
-  'PaymentTerms',
+  PaymentTermsType.name,
   'The terms of payment for prepayment.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -1250,10 +1273,10 @@ export const ConsignmentFieldMetaFreightAllowanceCharge = new FieldMeta<Consignm
   ConsignmentField.FreightAllowanceCharge,
   'FreightAllowanceCharge',
   'Freight Allowance Charge',
-  'AllowanceCharge',
+  AllowanceChargeType.name,
   'A cost incurred by the shipper in moving goods, by whatever means, from one place to another under the terms of the contract of carriage for this consignment. In addition to transport costs, this may include such elements as packing, documentation, loading, unloading, and insurance to the extent that they relate to the freight costs.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   'Freight Costs',
   undefined
 )
@@ -1262,10 +1285,10 @@ export const ConsignmentFieldMetaExtraAllowanceCharge = new FieldMeta<Consignmen
   ConsignmentField.ExtraAllowanceCharge,
   'ExtraAllowanceCharge',
   'Extra Allowance Charge',
-  'AllowanceCharge',
+  AllowanceChargeType.name,
   'A charge for extra allowance.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -1274,10 +1297,10 @@ export const ConsignmentFieldMetaMainCarriageShipmentStage = new FieldMeta<Consi
   ConsignmentField.MainCarriageShipmentStage,
   'MainCarriageShipmentStage',
   'Main Carriage Shipment Stage',
-  'ShipmentStage',
+  ShipmentStageType.name,
   'A shipment stage during main carriage.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -1286,10 +1309,10 @@ export const ConsignmentFieldMetaPreCarriageShipmentStage = new FieldMeta<Consig
   ConsignmentField.PreCarriageShipmentStage,
   'PreCarriageShipmentStage',
   'Pre Carriage Shipment Stage',
-  'ShipmentStage',
+  ShipmentStageType.name,
   'A shipment stage during precarriage (usually refers to movement activity that takes place prior to the container being loaded at a port of loading).',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -1298,10 +1321,10 @@ export const ConsignmentFieldMetaOnCarriageShipmentStage = new FieldMeta<Consign
   ConsignmentField.OnCarriageShipmentStage,
   'OnCarriageShipmentStage',
   'On Carriage Shipment Stage',
-  'ShipmentStage',
+  ShipmentStageType.name,
   'A shipment stage during on-carriage (usually refers to movement activity that takes place after the container is discharged at a port of discharge).',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -1310,10 +1333,10 @@ export const ConsignmentFieldMetaTransportHandlingUnit = new FieldMeta<Consignme
   ConsignmentField.TransportHandlingUnit,
   'TransportHandlingUnit',
   'Transport Handling Unit',
-  'TransportHandlingUnit',
+  TransportHandlingUnitType.name,
   'A transport handling unit used for loose and containerized goods.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -1322,10 +1345,10 @@ export const ConsignmentFieldMetaFirstArrivalPortLocation = new FieldMeta<Consig
   ConsignmentField.FirstArrivalPortLocation,
   'FirstArrivalPortLocation',
   'First Arrival Port Location',
-  'Location',
+  LocationType.name,
   'The first arrival location in a transport. This would be a port for sea, an airport for air, a terminal for rail, or a border post for land crossing.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -1334,10 +1357,10 @@ export const ConsignmentFieldMetaLastExitPortLocation = new FieldMeta<Consignmen
   ConsignmentField.LastExitPortLocation,
   'LastExitPortLocation',
   'Last Exit Port Location',
-  'Location',
+  LocationType.name,
   'The final exporting location in a transport. This would be a port for sea, an airport for air, a terminal for rail, or a border post for land crossing.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -1553,3 +1576,11 @@ export const ConsignmentFieldMap = new Map([
   [ConsignmentField.FirstArrivalPortLocation, ConsignmentFieldMetaFirstArrivalPortLocation],
   [ConsignmentField.LastExitPortLocation, ConsignmentFieldMetaLastExitPortLocation]
 ])
+
+export const ConsignmentType: Type<ConsignmentField> = {
+  name: 'Consignment',
+  label: 'Consignment',
+  module: TypeModule.cac,
+  definition: 'A class to describe an identifiable collection of one or more goods items to be transported between the consignor and the consignee. This information may be defined within a transport contract. A consignment may comprise more than one shipment (e.g., when consolidated by a freight forwarder).',
+  fields: ConsignmentFieldMap,
+}

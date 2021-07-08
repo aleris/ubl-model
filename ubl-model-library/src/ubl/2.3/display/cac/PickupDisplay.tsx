@@ -1,96 +1,153 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Pickup } from  '../../model/cac/Pickup'
-import { PickupFieldMeta } from  '../../meta/cac/PickupMeta'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import LocationDisplay from './LocationDisplay'
-import { Location } from '../../model/cac/Location'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { PickupField, PickupFieldMeta, PickupTypeName } from  '../../meta/cac/PickupMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { LocationDisplay } from './LocationDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: Pickup | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<Pickup, void>
+  pickup: Pickup[] | undefined
+  renderContext: RenderContext
 }
 
-export default function PickupDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const PickupSubElementsMap: SubElementsTemplatesMap<PickupField, Pickup, void> = new Map([
+    [
+      PickupField.UBLExtensions,
+      { meta: PickupFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={PickupField.UBLExtensions}
+          meta={PickupFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-Pickup">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={PickupFieldMeta.UBLExtensions}
-          />
+    [
+      PickupField.ID,
+      { meta: PickupFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PickupField.ID}
+          meta={PickupFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={PickupFieldMeta.ID}
-          />
+    [
+      PickupField.ActualPickupDate,
+      { meta: PickupFieldMeta.ActualPickupDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={PickupField.ActualPickupDate}
+          meta={PickupFieldMeta.ActualPickupDate}
+          fieldConfig={fieldConfig}
+          date={value?.ActualPickupDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Actual Pickup Date"
-            value={value.ActualPickupDate?.[0]}
-            meta={PickupFieldMeta.ActualPickupDate}
-          />
+    [
+      PickupField.ActualPickupTime,
+      { meta: PickupFieldMeta.ActualPickupTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={PickupField.ActualPickupTime}
+          meta={PickupFieldMeta.ActualPickupTime}
+          fieldConfig={fieldConfig}
+          time={value?.ActualPickupTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Actual Pickup Time"
-            value={value.ActualPickupTime?.[0]}
-            meta={PickupFieldMeta.ActualPickupTime}
-          />
+    [
+      PickupField.EarliestPickupDate,
+      { meta: PickupFieldMeta.EarliestPickupDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={PickupField.EarliestPickupDate}
+          meta={PickupFieldMeta.EarliestPickupDate}
+          fieldConfig={fieldConfig}
+          date={value?.EarliestPickupDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Earliest Pickup Date"
-            value={value.EarliestPickupDate?.[0]}
-            meta={PickupFieldMeta.EarliestPickupDate}
-          />
+    [
+      PickupField.EarliestPickupTime,
+      { meta: PickupFieldMeta.EarliestPickupTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={PickupField.EarliestPickupTime}
+          meta={PickupFieldMeta.EarliestPickupTime}
+          fieldConfig={fieldConfig}
+          time={value?.EarliestPickupTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Earliest Pickup Time"
-            value={value.EarliestPickupTime?.[0]}
-            meta={PickupFieldMeta.EarliestPickupTime}
-          />
+    [
+      PickupField.LatestPickupDate,
+      { meta: PickupFieldMeta.LatestPickupDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={PickupField.LatestPickupDate}
+          meta={PickupFieldMeta.LatestPickupDate}
+          fieldConfig={fieldConfig}
+          date={value?.LatestPickupDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Latest Pickup Date"
-            value={value.LatestPickupDate?.[0]}
-            meta={PickupFieldMeta.LatestPickupDate}
-          />
+    [
+      PickupField.LatestPickupTime,
+      { meta: PickupFieldMeta.LatestPickupTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={PickupField.LatestPickupTime}
+          meta={PickupFieldMeta.LatestPickupTime}
+          fieldConfig={fieldConfig}
+          time={value?.LatestPickupTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Latest Pickup Time"
-            value={value.LatestPickupTime?.[0]}
-            meta={PickupFieldMeta.LatestPickupTime}
-          />
+    [
+      PickupField.PickupLocation,
+      { meta: PickupFieldMeta.PickupLocation,
+        template: ({value, renderContext, fieldConfig}) => <LocationDisplay
+          key={PickupField.PickupLocation}
+          meta={PickupFieldMeta.PickupLocation}
+          fieldConfig={fieldConfig}
+          location={value?.PickupLocation}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <LocationDisplay
-            label="Pickup Location"
-            value={value.PickupLocation?.[0]}
-            meta={PickupFieldMeta.PickupLocation}
-          />
+    [
+      PickupField.PickupParty,
+      { meta: PickupFieldMeta.PickupParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={PickupField.PickupParty}
+          meta={PickupFieldMeta.PickupParty}
+          fieldConfig={fieldConfig}
+          party={value?.PickupParty}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <PartyDisplay
-            label="Pickup Party"
-            value={value.PickupParty?.[0]}
-            meta={PickupFieldMeta.PickupParty}
-          />
-        </div>
-    </div>
+export function PickupDisplay<TFieldMeta>({ meta, fieldConfig, pickup, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    PickupTypeName,
+    meta,
+    fieldConfig,
+    pickup,
+    renderContext,
+    PickupSubElementsMap,
   )
 }

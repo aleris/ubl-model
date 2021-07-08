@@ -25,7 +25,6 @@ import { TendererQualificationRequest } from './TendererQualificationRequest'
 import { TenderPreparation } from './TenderPreparation'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe tendering terms for a tendering process.
  */

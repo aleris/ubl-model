@@ -12,7 +12,6 @@ import { TenderedProject } from '../cac/TenderedProject'
 import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A document whereby an economic operator (the tenderer) makes a formal offer (the tender) to a contracting authority
  * to execute an order for the supply or purchase of goods, or for the execution of work, according to the terms of a

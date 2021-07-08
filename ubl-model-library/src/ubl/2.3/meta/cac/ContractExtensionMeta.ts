@@ -1,4 +1,11 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { PeriodType } from './PeriodMeta'
+import { RenewalType } from './RenewalMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ContractExtensionField {
   UBLExtensions = 'UBLExtensions',
@@ -13,11 +20,11 @@ export enum ContractExtensionField {
 export const ContractExtensionFieldMetaUBLExtensions = new FieldMeta<ContractExtensionField>(
   ContractExtensionField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -26,10 +33,10 @@ export const ContractExtensionFieldMetaOptionsDescription = new FieldMeta<Contra
   ContractExtensionField.OptionsDescription,
   'OptionsDescription',
   'Options Description',
-  'Text',
+  TextType.name,
   'A description for the possible options that can be carried out during the execution of the contract.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -38,10 +45,10 @@ export const ContractExtensionFieldMetaMinimumNumberNumeric = new FieldMeta<Cont
   ContractExtensionField.MinimumNumberNumeric,
   'MinimumNumberNumeric',
   'Minimum Number',
-  'Numeric',
+  NumericType.name,
   'The fixed minimum number of contract extensions or renewals.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -50,10 +57,10 @@ export const ContractExtensionFieldMetaMaximumNumberNumeric = new FieldMeta<Cont
   ContractExtensionField.MaximumNumberNumeric,
   'MaximumNumberNumeric',
   'Maximum Number',
-  'Numeric',
+  NumericType.name,
   'The maximum allowed number of contract extensions.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -62,10 +69,10 @@ export const ContractExtensionFieldMetaRenewalsIndicator = new FieldMeta<Contrac
   ContractExtensionField.RenewalsIndicator,
   'RenewalsIndicator',
   'Renewals',
-  'Indicator',
+  IndicatorType.name,
   'Indicates that the contract can be extended using renewals.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -74,10 +81,10 @@ export const ContractExtensionFieldMetaOptionValidityPeriod = new FieldMeta<Cont
   ContractExtensionField.OptionValidityPeriod,
   'OptionValidityPeriod',
   'Option Validity Period',
-  'Period',
+  PeriodType.name,
   'The period during which the option for extending the contract is available.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -86,10 +93,10 @@ export const ContractExtensionFieldMetaRenewal = new FieldMeta<ContractExtension
   ContractExtensionField.Renewal,
   'Renewal',
   'Renewal',
-  'Renewal',
+  RenewalType.name,
   'The period allowed for each contract extension.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -113,3 +120,11 @@ export const ContractExtensionFieldMap = new Map([
   [ContractExtensionField.OptionValidityPeriod, ContractExtensionFieldMetaOptionValidityPeriod],
   [ContractExtensionField.Renewal, ContractExtensionFieldMetaRenewal]
 ])
+
+export const ContractExtensionType: Type<ContractExtensionField> = {
+  name: 'ContractExtension',
+  label: 'Contract Extension',
+  module: TypeModule.cac,
+  definition: 'A class to describe possible extensions to a contract.',
+  fields: ContractExtensionFieldMap,
+}

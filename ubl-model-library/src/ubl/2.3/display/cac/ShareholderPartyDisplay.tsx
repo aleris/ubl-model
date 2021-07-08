@@ -1,48 +1,66 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ShareholderParty } from  '../../model/cac/ShareholderParty'
-import { ShareholderPartyFieldMeta } from  '../../meta/cac/ShareholderPartyMeta'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ShareholderPartyField, ShareholderPartyFieldMeta, ShareholderPartyTypeName } from  '../../meta/cac/ShareholderPartyMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ShareholderParty | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ShareholderParty, void>
+  shareholderParty: ShareholderParty[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ShareholderPartyDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ShareholderPartySubElementsMap: SubElementsTemplatesMap<ShareholderPartyField, ShareholderParty, void> = new Map([
+    [
+      ShareholderPartyField.UBLExtensions,
+      { meta: ShareholderPartyFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ShareholderPartyField.UBLExtensions}
+          meta={ShareholderPartyFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ShareholderParty">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ShareholderPartyFieldMeta.UBLExtensions}
-          />
+    [
+      ShareholderPartyField.PartecipationPercent,
+      { meta: ShareholderPartyFieldMeta.PartecipationPercent,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={ShareholderPartyField.PartecipationPercent}
+          meta={ShareholderPartyFieldMeta.PartecipationPercent}
+          fieldConfig={fieldConfig}
+          numeric={value?.PartecipationPercent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Partecipation"
-            value={value.PartecipationPercent?.[0]}
-            meta={ShareholderPartyFieldMeta.PartecipationPercent}
-          />
+    [
+      ShareholderPartyField.Party,
+      { meta: ShareholderPartyFieldMeta.Party,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ShareholderPartyField.Party}
+          meta={ShareholderPartyFieldMeta.Party}
+          fieldConfig={fieldConfig}
+          party={value?.Party}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <PartyDisplay
-            label="Party"
-            value={value.Party?.[0]}
-            meta={ShareholderPartyFieldMeta.Party}
-          />
-        </div>
-    </div>
+export function ShareholderPartyDisplay<TFieldMeta>({ meta, fieldConfig, shareholderParty, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ShareholderPartyTypeName,
+    meta,
+    fieldConfig,
+    shareholderParty,
+    renderContext,
+    ShareholderPartySubElementsMap,
   )
 }

@@ -1,4 +1,8 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum SecurityClearanceTermField {
   UBLExtensions = 'UBLExtensions',
@@ -9,11 +13,11 @@ export enum SecurityClearanceTermField {
 export const SecurityClearanceTermFieldMetaUBLExtensions = new FieldMeta<SecurityClearanceTermField>(
   SecurityClearanceTermField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -22,10 +26,10 @@ export const SecurityClearanceTermFieldMetaCode = new FieldMeta<SecurityClearanc
   SecurityClearanceTermField.Code,
   'Code',
   'Code',
-  'Code',
+  CodeType.name,
   'A code signifying the security clearance requirement.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -34,10 +38,10 @@ export const SecurityClearanceTermFieldMetaDescription = new FieldMeta<SecurityC
   SecurityClearanceTermField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'A description of the security clearance requirement.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -53,3 +57,11 @@ export const SecurityClearanceTermFieldMap = new Map([
   [SecurityClearanceTermField.Code, SecurityClearanceTermFieldMetaCode],
   [SecurityClearanceTermField.Description, SecurityClearanceTermFieldMetaDescription]
 ])
+
+export const SecurityClearanceTermType: Type<SecurityClearanceTermField> = {
+  name: 'SecurityClearanceTerm',
+  label: 'Security Clearance Term',
+  module: TypeModule.cac,
+  definition: 'A class to specify security clearance terms.',
+  fields: SecurityClearanceTermFieldMap,
+}

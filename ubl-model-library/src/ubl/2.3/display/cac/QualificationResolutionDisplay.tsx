@@ -1,96 +1,117 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { QualificationResolution } from  '../../model/cac/QualificationResolution'
-import { QualificationResolutionFieldMeta } from  '../../meta/cac/QualificationResolutionMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import ProcurementProjectLotDisplay from './ProcurementProjectLotDisplay'
-import { ProcurementProjectLot } from '../../model/cac/ProcurementProjectLot'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { QualificationResolutionField, QualificationResolutionFieldMeta, QualificationResolutionTypeName } from  '../../meta/cac/QualificationResolutionMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { ProcurementProjectLotDisplay } from './ProcurementProjectLotDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: QualificationResolution | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<QualificationResolution, void>
+  qualificationResolution: QualificationResolution[] | undefined
+  renderContext: RenderContext
 }
 
-export default function QualificationResolutionDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const QualificationResolutionSubElementsMap: SubElementsTemplatesMap<QualificationResolutionField, QualificationResolution, void> = new Map([
+    [
+      QualificationResolutionField.UBLExtensions,
+      { meta: QualificationResolutionFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={QualificationResolutionField.UBLExtensions}
+          meta={QualificationResolutionFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-QualificationResolution">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={QualificationResolutionFieldMeta.UBLExtensions}
-          />
+    [
+      QualificationResolutionField.AdmissionCode,
+      { meta: QualificationResolutionFieldMeta.AdmissionCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={QualificationResolutionField.AdmissionCode}
+          meta={QualificationResolutionFieldMeta.AdmissionCode}
+          fieldConfig={fieldConfig}
+          code={value?.AdmissionCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Admission Code"
-            value={value.AdmissionCode?.[0]}
-            meta={QualificationResolutionFieldMeta.AdmissionCode}
-          />
+    [
+      QualificationResolutionField.ExclusionReason,
+      { meta: QualificationResolutionFieldMeta.ExclusionReason,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={QualificationResolutionField.ExclusionReason}
+          meta={QualificationResolutionFieldMeta.ExclusionReason}
+          fieldConfig={fieldConfig}
+          text={value?.ExclusionReason}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-ExclusionReason"
-            label="Exclusion Reason"
-            items={value.ExclusionReason}
-            meta={QualificationResolutionFieldMeta.ExclusionReason} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Exclusion Reason"
-                value={itemValue}
-                meta={QualificationResolutionFieldMeta.ExclusionReason}
-              />
-            }
-          />
+    [
+      QualificationResolutionField.Resolution,
+      { meta: QualificationResolutionFieldMeta.Resolution,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={QualificationResolutionField.Resolution}
+          meta={QualificationResolutionFieldMeta.Resolution}
+          fieldConfig={fieldConfig}
+          text={value?.Resolution}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Resolution"
-            label="Resolution"
-            items={value.Resolution}
-            meta={QualificationResolutionFieldMeta.Resolution} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Resolution"
-                value={itemValue}
-                meta={QualificationResolutionFieldMeta.Resolution}
-              />
-            }
-          />
+    [
+      QualificationResolutionField.ResolutionDate,
+      { meta: QualificationResolutionFieldMeta.ResolutionDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={QualificationResolutionField.ResolutionDate}
+          meta={QualificationResolutionFieldMeta.ResolutionDate}
+          fieldConfig={fieldConfig}
+          date={value?.ResolutionDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Resolution Date"
-            value={value.ResolutionDate?.[0]}
-            meta={QualificationResolutionFieldMeta.ResolutionDate}
-          />
+    [
+      QualificationResolutionField.ResolutionTime,
+      { meta: QualificationResolutionFieldMeta.ResolutionTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={QualificationResolutionField.ResolutionTime}
+          meta={QualificationResolutionFieldMeta.ResolutionTime}
+          fieldConfig={fieldConfig}
+          time={value?.ResolutionTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Resolution Time"
-            value={value.ResolutionTime?.[0]}
-            meta={QualificationResolutionFieldMeta.ResolutionTime}
-          />
+    [
+      QualificationResolutionField.ProcurementProjectLot,
+      { meta: QualificationResolutionFieldMeta.ProcurementProjectLot,
+        template: ({value, renderContext, fieldConfig}) => <ProcurementProjectLotDisplay
+          key={QualificationResolutionField.ProcurementProjectLot}
+          meta={QualificationResolutionFieldMeta.ProcurementProjectLot}
+          fieldConfig={fieldConfig}
+          procurementProjectLot={value?.ProcurementProjectLot}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ProcurementProjectLotDisplay
-            label="Procurement Project Lot"
-            value={value.ProcurementProjectLot?.[0]}
-            meta={QualificationResolutionFieldMeta.ProcurementProjectLot}
-          />
-        </div>
-    </div>
+export function QualificationResolutionDisplay<TFieldMeta>({ meta, fieldConfig, qualificationResolution, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    QualificationResolutionTypeName,
+    meta,
+    fieldConfig,
+    qualificationResolution,
+    renderContext,
+    QualificationResolutionSubElementsMap,
   )
 }

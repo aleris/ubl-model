@@ -1,54 +1,78 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { MessageDelivery } from  '../../model/cac/MessageDelivery'
-import { MessageDeliveryFieldMeta } from  '../../meta/cac/MessageDeliveryMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { MessageDeliveryField, MessageDeliveryFieldMeta, MessageDeliveryTypeName } from  '../../meta/cac/MessageDeliveryMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: MessageDelivery | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<MessageDelivery, void>
+  messageDelivery: MessageDelivery[] | undefined
+  renderContext: RenderContext
 }
 
-export default function MessageDeliveryDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const MessageDeliverySubElementsMap: SubElementsTemplatesMap<MessageDeliveryField, MessageDelivery, void> = new Map([
+    [
+      MessageDeliveryField.UBLExtensions,
+      { meta: MessageDeliveryFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={MessageDeliveryField.UBLExtensions}
+          meta={MessageDeliveryFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-MessageDelivery">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={MessageDeliveryFieldMeta.UBLExtensions}
-          />
+    [
+      MessageDeliveryField.ProtocolID,
+      { meta: MessageDeliveryFieldMeta.ProtocolID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={MessageDeliveryField.ProtocolID}
+          meta={MessageDeliveryFieldMeta.ProtocolID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProtocolID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Protocol Identifier"
-            value={value.ProtocolID?.[0]}
-            meta={MessageDeliveryFieldMeta.ProtocolID}
-          />
+    [
+      MessageDeliveryField.EnvelopeTypeCode,
+      { meta: MessageDeliveryFieldMeta.EnvelopeTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={MessageDeliveryField.EnvelopeTypeCode}
+          meta={MessageDeliveryFieldMeta.EnvelopeTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.EnvelopeTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Envelope Type Code"
-            value={value.EnvelopeTypeCode?.[0]}
-            meta={MessageDeliveryFieldMeta.EnvelopeTypeCode}
-          />
+    [
+      MessageDeliveryField.EndpointURI,
+      { meta: MessageDeliveryFieldMeta.EndpointURI,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={MessageDeliveryField.EndpointURI}
+          meta={MessageDeliveryFieldMeta.EndpointURI}
+          fieldConfig={fieldConfig}
+          identifier={value?.EndpointURI}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <IdentifierDisplay
-            label="Endpoint URI"
-            value={value.EndpointURI?.[0]}
-            meta={MessageDeliveryFieldMeta.EndpointURI}
-          />
-        </div>
-    </div>
+export function MessageDeliveryDisplay<TFieldMeta>({ meta, fieldConfig, messageDelivery, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    MessageDeliveryTypeName,
+    meta,
+    fieldConfig,
+    messageDelivery,
+    renderContext,
+    MessageDeliverySubElementsMap,
   )
 }

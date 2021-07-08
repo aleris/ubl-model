@@ -1,7 +1,6 @@
 import { Code } from '../cbc/Code'
 import { Identifier } from '../cbc/Identifier'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe the metadata of a specific business document based on any document format (e.g. UBL, EDIFACT,
  * ...).

@@ -1,4 +1,9 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { EventTacticType } from './EventTacticMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { PromotionalEventLineItemType } from './PromotionalEventLineItemMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum PromotionalSpecificationField {
   UBLExtensions = 'UBLExtensions',
@@ -10,11 +15,11 @@ export enum PromotionalSpecificationField {
 export const PromotionalSpecificationFieldMetaUBLExtensions = new FieldMeta<PromotionalSpecificationField>(
   PromotionalSpecificationField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -23,10 +28,10 @@ export const PromotionalSpecificationFieldMetaSpecificationID = new FieldMeta<Pr
   PromotionalSpecificationField.SpecificationID,
   'SpecificationID',
   'Specification Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this promotional specification.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -35,10 +40,10 @@ export const PromotionalSpecificationFieldMetaPromotionalEventLineItem = new Fie
   PromotionalSpecificationField.PromotionalEventLineItem,
   'PromotionalEventLineItem',
   'Promotional Event Line Item',
-  'PromotionalEventLineItem',
+  PromotionalEventLineItemType.name,
   'A line item for a promotional event involving a specific product at a specific location; it describes the expected impacts associated with the event and specifies the promotional price of the item."',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -47,10 +52,10 @@ export const PromotionalSpecificationFieldMetaEventTactic = new FieldMeta<Promot
   PromotionalSpecificationField.EventTactic,
   'EventTactic',
   'Event Tactic',
-  'EventTactic',
+  EventTacticType.name,
   'An event tactic associated with this promotion.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -68,3 +73,11 @@ export const PromotionalSpecificationFieldMap = new Map([
   [PromotionalSpecificationField.PromotionalEventLineItem, PromotionalSpecificationFieldMetaPromotionalEventLineItem],
   [PromotionalSpecificationField.EventTactic, PromotionalSpecificationFieldMetaEventTactic]
 ])
+
+export const PromotionalSpecificationType: Type<PromotionalSpecificationField> = {
+  name: 'PromotionalSpecification',
+  label: 'Promotional Specification',
+  module: TypeModule.cac,
+  definition: 'A class to describe a promotional event as a set of item locations that share a set of promotional tactics.',
+  fields: PromotionalSpecificationFieldMap,
+}

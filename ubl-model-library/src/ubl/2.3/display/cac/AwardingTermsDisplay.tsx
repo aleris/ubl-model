@@ -1,177 +1,189 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { AwardingTerms } from  '../../model/cac/AwardingTerms'
-import { AwardingTermsFieldMeta } from  '../../meta/cac/AwardingTermsMeta'
-import AwardingCriterionDisplay from './AwardingCriterionDisplay'
-import { AwardingCriterion } from '../../model/cac/AwardingCriterion'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import PersonDisplay from './PersonDisplay'
-import { Person } from '../../model/cac/Person'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { AwardingTermsField, AwardingTermsFieldMeta, AwardingTermsTypeName } from  '../../meta/cac/AwardingTermsMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AwardingCriterionDisplay } from './AwardingCriterionDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { PersonDisplay } from './PersonDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: AwardingTerms | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<AwardingTerms, void>
+  awardingTerms: AwardingTerms[] | undefined
+  renderContext: RenderContext
 }
 
-export default function AwardingTermsDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const AwardingTermsSubElementsMap: SubElementsTemplatesMap<AwardingTermsField, AwardingTerms, void> = new Map([
+    [
+      AwardingTermsField.UBLExtensions,
+      { meta: AwardingTermsFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={AwardingTermsField.UBLExtensions}
+          meta={AwardingTermsFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-AwardingTerms">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={AwardingTermsFieldMeta.UBLExtensions}
-          />
+    [
+      AwardingTermsField.WeightingAlgorithmCode,
+      { meta: AwardingTermsFieldMeta.WeightingAlgorithmCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={AwardingTermsField.WeightingAlgorithmCode}
+          meta={AwardingTermsFieldMeta.WeightingAlgorithmCode}
+          fieldConfig={fieldConfig}
+          code={value?.WeightingAlgorithmCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Weighting Algorithm Code"
-            value={value.WeightingAlgorithmCode?.[0]}
-            meta={AwardingTermsFieldMeta.WeightingAlgorithmCode}
-          />
+    [
+      AwardingTermsField.Description,
+      { meta: AwardingTermsFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={AwardingTermsField.Description}
+          meta={AwardingTermsFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={AwardingTermsFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={AwardingTermsFieldMeta.Description}
-              />
-            }
-          />
+    [
+      AwardingTermsField.TechnicalCommitteeDescription,
+      { meta: AwardingTermsFieldMeta.TechnicalCommitteeDescription,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={AwardingTermsField.TechnicalCommitteeDescription}
+          meta={AwardingTermsFieldMeta.TechnicalCommitteeDescription}
+          fieldConfig={fieldConfig}
+          text={value?.TechnicalCommitteeDescription}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-TechnicalCommitteeDescription"
-            label="Technical Committee Description"
-            items={value.TechnicalCommitteeDescription}
-            meta={AwardingTermsFieldMeta.TechnicalCommitteeDescription} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Technical Committee Description"
-                value={itemValue}
-                meta={AwardingTermsFieldMeta.TechnicalCommitteeDescription}
-              />
-            }
-          />
+    [
+      AwardingTermsField.LowTendersDescription,
+      { meta: AwardingTermsFieldMeta.LowTendersDescription,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={AwardingTermsField.LowTendersDescription}
+          meta={AwardingTermsFieldMeta.LowTendersDescription}
+          fieldConfig={fieldConfig}
+          text={value?.LowTendersDescription}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-LowTendersDescription"
-            label="Low Tenders Description"
-            items={value.LowTendersDescription}
-            meta={AwardingTermsFieldMeta.LowTendersDescription} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Low Tenders Description"
-                value={itemValue}
-                meta={AwardingTermsFieldMeta.LowTendersDescription}
-              />
-            }
-          />
+    [
+      AwardingTermsField.PrizeIndicator,
+      { meta: AwardingTermsFieldMeta.PrizeIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={AwardingTermsField.PrizeIndicator}
+          meta={AwardingTermsFieldMeta.PrizeIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.PrizeIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Prize Indicator"
-            value={value.PrizeIndicator?.[0]}
-            meta={AwardingTermsFieldMeta.PrizeIndicator}
-          />
+    [
+      AwardingTermsField.PrizeDescription,
+      { meta: AwardingTermsFieldMeta.PrizeDescription,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={AwardingTermsField.PrizeDescription}
+          meta={AwardingTermsFieldMeta.PrizeDescription}
+          fieldConfig={fieldConfig}
+          text={value?.PrizeDescription}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-PrizeDescription"
-            label="Prize Description"
-            items={value.PrizeDescription}
-            meta={AwardingTermsFieldMeta.PrizeDescription} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Prize Description"
-                value={itemValue}
-                meta={AwardingTermsFieldMeta.PrizeDescription}
-              />
-            }
-          />
+    [
+      AwardingTermsField.PaymentDescription,
+      { meta: AwardingTermsFieldMeta.PaymentDescription,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={AwardingTermsField.PaymentDescription}
+          meta={AwardingTermsFieldMeta.PaymentDescription}
+          fieldConfig={fieldConfig}
+          text={value?.PaymentDescription}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-PaymentDescription"
-            label="Payment Description"
-            items={value.PaymentDescription}
-            meta={AwardingTermsFieldMeta.PaymentDescription} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Payment Description"
-                value={itemValue}
-                meta={AwardingTermsFieldMeta.PaymentDescription}
-              />
-            }
-          />
+    [
+      AwardingTermsField.FollowupContractIndicator,
+      { meta: AwardingTermsFieldMeta.FollowupContractIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={AwardingTermsField.FollowupContractIndicator}
+          meta={AwardingTermsFieldMeta.FollowupContractIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.FollowupContractIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Followup Contract Indicator"
-            value={value.FollowupContractIndicator?.[0]}
-            meta={AwardingTermsFieldMeta.FollowupContractIndicator}
-          />
+    [
+      AwardingTermsField.BindingOnBuyerIndicator,
+      { meta: AwardingTermsFieldMeta.BindingOnBuyerIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={AwardingTermsField.BindingOnBuyerIndicator}
+          meta={AwardingTermsFieldMeta.BindingOnBuyerIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.BindingOnBuyerIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Binding On Buyer Indicator"
-            value={value.BindingOnBuyerIndicator?.[0]}
-            meta={AwardingTermsFieldMeta.BindingOnBuyerIndicator}
-          />
+    [
+      AwardingTermsField.NoFurtherNegotiationIndicator,
+      { meta: AwardingTermsFieldMeta.NoFurtherNegotiationIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={AwardingTermsField.NoFurtherNegotiationIndicator}
+          meta={AwardingTermsFieldMeta.NoFurtherNegotiationIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.NoFurtherNegotiationIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="No Further Negotiation Indicator"
-            value={value.NoFurtherNegotiationIndicator?.[0]}
-            meta={AwardingTermsFieldMeta.NoFurtherNegotiationIndicator}
-          />
+    [
+      AwardingTermsField.AwardingCriterion,
+      { meta: AwardingTermsFieldMeta.AwardingCriterion,
+        template: ({value, renderContext, fieldConfig}) => <AwardingCriterionDisplay
+          key={AwardingTermsField.AwardingCriterion}
+          meta={AwardingTermsFieldMeta.AwardingCriterion}
+          fieldConfig={fieldConfig}
+          awardingCriterion={value?.AwardingCriterion}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-AwardingCriterion"
-            label="Awarding Criterion"
-            items={value.AwardingCriterion}
-            meta={AwardingTermsFieldMeta.AwardingCriterion} 
-            itemDisplay={ (itemValue: AwardingCriterion, key: string | number) =>
-              <AwardingCriterionDisplay
-                key={key}
-                label="Awarding Criterion"
-                value={itemValue}
-                meta={AwardingTermsFieldMeta.AwardingCriterion}
-              />
-            }
-          />
+    [
+      AwardingTermsField.TechnicalCommitteePerson,
+      { meta: AwardingTermsFieldMeta.TechnicalCommitteePerson,
+        template: ({value, renderContext, fieldConfig}) => <PersonDisplay
+          key={AwardingTermsField.TechnicalCommitteePerson}
+          meta={AwardingTermsFieldMeta.TechnicalCommitteePerson}
+          fieldConfig={fieldConfig}
+          person={value?.TechnicalCommitteePerson}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Person ubl-TechnicalCommitteePerson"
-            label="Technical Committee Person"
-            items={value.TechnicalCommitteePerson}
-            meta={AwardingTermsFieldMeta.TechnicalCommitteePerson} 
-            itemDisplay={ (itemValue: Person, key: string | number) =>
-              <PersonDisplay
-                key={key}
-                label="Technical Committee Person"
-                value={itemValue}
-                meta={AwardingTermsFieldMeta.TechnicalCommitteePerson}
-              />
-            }
-          />
-        </div>
-    </div>
+export function AwardingTermsDisplay<TFieldMeta>({ meta, fieldConfig, awardingTerms, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    AwardingTermsTypeName,
+    meta,
+    fieldConfig,
+    awardingTerms,
+    renderContext,
+    AwardingTermsSubElementsMap,
   )
 }

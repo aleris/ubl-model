@@ -2,7 +2,6 @@ import { Party } from './Party'
 import { Quantity } from '../cbc/Quantity'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to provide information about the preselection of a short list of economic operators for consideration as
  * possible candidates in a tendering process.

@@ -1,244 +1,317 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TenderLine } from  '../../model/cac/TenderLine'
-import { TenderLineFieldMeta } from  '../../meta/cac/TenderLineMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DocumentReferenceDisplay from './DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import ItemDisplay from './ItemDisplay'
-import { Item } from '../../model/cac/Item'
-import ItemLocationQuantityDisplay from './ItemLocationQuantityDisplay'
-import { ItemLocationQuantity } from '../../model/cac/ItemLocationQuantity'
-import LineReferenceDisplay from './LineReferenceDisplay'
-import { LineReference } from '../../model/cac/LineReference'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import RelatedItemDisplay from './RelatedItemDisplay'
-import { RelatedItem } from '../../model/cac/RelatedItem'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { TenderLineField, TenderLineFieldMeta, TenderLineTypeName } from  '../../meta/cac/TenderLineMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DocumentReferenceDisplay } from './DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { ItemDisplay } from './ItemDisplay'
+import { ItemLocationQuantityDisplay } from './ItemLocationQuantityDisplay'
+import { LineReferenceDisplay } from './LineReferenceDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { RelatedItemDisplay } from './RelatedItemDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: TenderLine | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<TenderLine, void>
+  tenderLine: TenderLine[] | undefined
+  renderContext: RenderContext
 }
 
-export default function TenderLineDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const TenderLineSubElementsMap: SubElementsTemplatesMap<TenderLineField, TenderLine, void> = new Map([
+    [
+      TenderLineField.UBLExtensions,
+      { meta: TenderLineFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={TenderLineField.UBLExtensions}
+          meta={TenderLineFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-TenderLine">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={TenderLineFieldMeta.UBLExtensions}
-          />
+    [
+      TenderLineField.ID,
+      { meta: TenderLineFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TenderLineField.ID}
+          meta={TenderLineFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={TenderLineFieldMeta.ID}
-          />
+    [
+      TenderLineField.Note,
+      { meta: TenderLineFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TenderLineField.Note}
+          meta={TenderLineFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={TenderLineFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={TenderLineFieldMeta.Note}
-              />
-            }
-          />
+    [
+      TenderLineField.Quantity,
+      { meta: TenderLineFieldMeta.Quantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={TenderLineField.Quantity}
+          meta={TenderLineFieldMeta.Quantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.Quantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Quantity"
-            value={value.Quantity?.[0]}
-            meta={TenderLineFieldMeta.Quantity}
-          />
+    [
+      TenderLineField.LineExtensionAmount,
+      { meta: TenderLineFieldMeta.LineExtensionAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={TenderLineField.LineExtensionAmount}
+          meta={TenderLineFieldMeta.LineExtensionAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.LineExtensionAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Line Extension Amount"
-            value={value.LineExtensionAmount?.[0]}
-            meta={TenderLineFieldMeta.LineExtensionAmount}
-          />
+    [
+      TenderLineField.TaxInclusiveLineExtensionAmount,
+      { meta: TenderLineFieldMeta.TaxInclusiveLineExtensionAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={TenderLineField.TaxInclusiveLineExtensionAmount}
+          meta={TenderLineFieldMeta.TaxInclusiveLineExtensionAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.TaxInclusiveLineExtensionAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Tax Inclusive Line Extension Amount"
-            value={value.TaxInclusiveLineExtensionAmount?.[0]}
-            meta={TenderLineFieldMeta.TaxInclusiveLineExtensionAmount}
-          />
+    [
+      TenderLineField.TotalTaxAmount,
+      { meta: TenderLineFieldMeta.TotalTaxAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={TenderLineField.TotalTaxAmount}
+          meta={TenderLineFieldMeta.TotalTaxAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.TotalTaxAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Total Tax Amount"
-            value={value.TotalTaxAmount?.[0]}
-            meta={TenderLineFieldMeta.TotalTaxAmount}
-          />
+    [
+      TenderLineField.OrderableUnit,
+      { meta: TenderLineFieldMeta.OrderableUnit,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TenderLineField.OrderableUnit}
+          meta={TenderLineFieldMeta.OrderableUnit}
+          fieldConfig={fieldConfig}
+          text={value?.OrderableUnit}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Orderable Unit"
-            value={value.OrderableUnit?.[0]}
-            meta={TenderLineFieldMeta.OrderableUnit}
-          />
+    [
+      TenderLineField.ContentUnitQuantity,
+      { meta: TenderLineFieldMeta.ContentUnitQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={TenderLineField.ContentUnitQuantity}
+          meta={TenderLineFieldMeta.ContentUnitQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.ContentUnitQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Content Unit"
-            value={value.ContentUnitQuantity?.[0]}
-            meta={TenderLineFieldMeta.ContentUnitQuantity}
-          />
+    [
+      TenderLineField.OrderQuantityIncrementNumeric,
+      { meta: TenderLineFieldMeta.OrderQuantityIncrementNumeric,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={TenderLineField.OrderQuantityIncrementNumeric}
+          meta={TenderLineFieldMeta.OrderQuantityIncrementNumeric}
+          fieldConfig={fieldConfig}
+          numeric={value?.OrderQuantityIncrementNumeric}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Order Quantity Increment"
-            value={value.OrderQuantityIncrementNumeric?.[0]}
-            meta={TenderLineFieldMeta.OrderQuantityIncrementNumeric}
-          />
+    [
+      TenderLineField.MinimumOrderQuantity,
+      { meta: TenderLineFieldMeta.MinimumOrderQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={TenderLineField.MinimumOrderQuantity}
+          meta={TenderLineFieldMeta.MinimumOrderQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.MinimumOrderQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Minimum Order Quantity"
-            value={value.MinimumOrderQuantity?.[0]}
-            meta={TenderLineFieldMeta.MinimumOrderQuantity}
-          />
+    [
+      TenderLineField.MaximumOrderQuantity,
+      { meta: TenderLineFieldMeta.MaximumOrderQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={TenderLineField.MaximumOrderQuantity}
+          meta={TenderLineFieldMeta.MaximumOrderQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.MaximumOrderQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Maximum Order Quantity"
-            value={value.MaximumOrderQuantity?.[0]}
-            meta={TenderLineFieldMeta.MaximumOrderQuantity}
-          />
+    [
+      TenderLineField.WarrantyInformation,
+      { meta: TenderLineFieldMeta.WarrantyInformation,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TenderLineField.WarrantyInformation}
+          meta={TenderLineFieldMeta.WarrantyInformation}
+          fieldConfig={fieldConfig}
+          text={value?.WarrantyInformation}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-WarrantyInformation"
-            label="Warranty Information"
-            items={value.WarrantyInformation}
-            meta={TenderLineFieldMeta.WarrantyInformation} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Warranty Information"
-                value={itemValue}
-                meta={TenderLineFieldMeta.WarrantyInformation}
-              />
-            }
-          />
+    [
+      TenderLineField.PackLevelCode,
+      { meta: TenderLineFieldMeta.PackLevelCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TenderLineField.PackLevelCode}
+          meta={TenderLineFieldMeta.PackLevelCode}
+          fieldConfig={fieldConfig}
+          code={value?.PackLevelCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Pack Level Code"
-            value={value.PackLevelCode?.[0]}
-            meta={TenderLineFieldMeta.PackLevelCode}
-          />
+    [
+      TenderLineField.DocumentReference,
+      { meta: TenderLineFieldMeta.DocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={TenderLineField.DocumentReference}
+          meta={TenderLineFieldMeta.DocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.DocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentReference"
-            label="Document Reference"
-            items={value.DocumentReference}
-            meta={TenderLineFieldMeta.DocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Document Reference"
-                value={itemValue}
-                meta={TenderLineFieldMeta.DocumentReference}
-              />
-            }
-          />
+    [
+      TenderLineField.Item,
+      { meta: TenderLineFieldMeta.Item,
+        template: ({value, renderContext, fieldConfig}) => <ItemDisplay
+          key={TenderLineField.Item}
+          meta={TenderLineFieldMeta.Item}
+          fieldConfig={fieldConfig}
+          item={value?.Item}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ItemDisplay
-            label="Item"
-            value={value.Item?.[0]}
-            meta={TenderLineFieldMeta.Item}
-          />
+    [
+      TenderLineField.OfferedItemLocationQuantity,
+      { meta: TenderLineFieldMeta.OfferedItemLocationQuantity,
+        template: ({value, renderContext, fieldConfig}) => <ItemLocationQuantityDisplay
+          key={TenderLineField.OfferedItemLocationQuantity}
+          meta={TenderLineFieldMeta.OfferedItemLocationQuantity}
+          fieldConfig={fieldConfig}
+          itemLocationQuantity={value?.OfferedItemLocationQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-ItemLocationQuantity ubl-OfferedItemLocationQuantity"
-            label="Offered Item Location Quantity"
-            items={value.OfferedItemLocationQuantity}
-            meta={TenderLineFieldMeta.OfferedItemLocationQuantity} 
-            itemDisplay={ (itemValue: ItemLocationQuantity, key: string | number) =>
-              <ItemLocationQuantityDisplay
-                key={key}
-                label="Offered Item Location Quantity"
-                value={itemValue}
-                meta={TenderLineFieldMeta.OfferedItemLocationQuantity}
-              />
-            }
-          />
+    [
+      TenderLineField.ReplacementRelatedItem,
+      { meta: TenderLineFieldMeta.ReplacementRelatedItem,
+        template: ({value, renderContext, fieldConfig}) => <RelatedItemDisplay
+          key={TenderLineField.ReplacementRelatedItem}
+          meta={TenderLineFieldMeta.ReplacementRelatedItem}
+          fieldConfig={fieldConfig}
+          relatedItem={value?.ReplacementRelatedItem}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-RelatedItem ubl-ReplacementRelatedItem"
-            label="Replacement Related Item"
-            items={value.ReplacementRelatedItem}
-            meta={TenderLineFieldMeta.ReplacementRelatedItem} 
-            itemDisplay={ (itemValue: RelatedItem, key: string | number) =>
-              <RelatedItemDisplay
-                key={key}
-                label="Replacement Related Item"
-                value={itemValue}
-                meta={TenderLineFieldMeta.ReplacementRelatedItem}
-              />
-            }
-          />
+    [
+      TenderLineField.WarrantyParty,
+      { meta: TenderLineFieldMeta.WarrantyParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={TenderLineField.WarrantyParty}
+          meta={TenderLineFieldMeta.WarrantyParty}
+          fieldConfig={fieldConfig}
+          party={value?.WarrantyParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Warranty Party"
-            value={value.WarrantyParty?.[0]}
-            meta={TenderLineFieldMeta.WarrantyParty}
-          />
+    [
+      TenderLineField.WarrantyValidityPeriod,
+      { meta: TenderLineFieldMeta.WarrantyValidityPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={TenderLineField.WarrantyValidityPeriod}
+          meta={TenderLineFieldMeta.WarrantyValidityPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.WarrantyValidityPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Warranty Validity Period"
-            value={value.WarrantyValidityPeriod?.[0]}
-            meta={TenderLineFieldMeta.WarrantyValidityPeriod}
-          />
+    [
+      TenderLineField.SubTenderLine,
+      { meta: TenderLineFieldMeta.SubTenderLine,
+        template: ({value, renderContext, fieldConfig}) => <TenderLineDisplay
+          key={TenderLineField.SubTenderLine}
+          meta={TenderLineFieldMeta.SubTenderLine}
+          fieldConfig={fieldConfig}
+          tenderLine={value?.SubTenderLine}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TenderLine ubl-SubTenderLine"
-            label="Sub Tender Line"
-            items={value.SubTenderLine}
-            meta={TenderLineFieldMeta.SubTenderLine} 
-            itemDisplay={ (itemValue: TenderLine, key: string | number) =>
-              <TenderLineDisplay
-                key={key}
-                label="Sub Tender Line"
-                value={itemValue}
-                meta={TenderLineFieldMeta.SubTenderLine}
-              />
-            }
-          />
+    [
+      TenderLineField.CallForTendersLineReference,
+      { meta: TenderLineFieldMeta.CallForTendersLineReference,
+        template: ({value, renderContext, fieldConfig}) => <LineReferenceDisplay
+          key={TenderLineField.CallForTendersLineReference}
+          meta={TenderLineFieldMeta.CallForTendersLineReference}
+          fieldConfig={fieldConfig}
+          lineReference={value?.CallForTendersLineReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <LineReferenceDisplay
-            label="Call For Tenders Line Reference"
-            value={value.CallForTendersLineReference?.[0]}
-            meta={TenderLineFieldMeta.CallForTendersLineReference}
-          />
+    [
+      TenderLineField.CallForTendersDocumentReference,
+      { meta: TenderLineFieldMeta.CallForTendersDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={TenderLineField.CallForTendersDocumentReference}
+          meta={TenderLineFieldMeta.CallForTendersDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.CallForTendersDocumentReference}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <DocumentReferenceDisplay
-            label="Call For Tenders Document Reference"
-            value={value.CallForTendersDocumentReference?.[0]}
-            meta={TenderLineFieldMeta.CallForTendersDocumentReference}
-          />
-        </div>
-    </div>
+export function TenderLineDisplay<TFieldMeta>({ meta, fieldConfig, tenderLine, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    TenderLineTypeName,
+    meta,
+    fieldConfig,
+    tenderLine,
+    renderContext,
+    TenderLineSubElementsMap,
   )
 }

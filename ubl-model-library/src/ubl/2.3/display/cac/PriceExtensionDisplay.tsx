@@ -1,57 +1,66 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { PriceExtension } from  '../../model/cac/PriceExtension'
-import { PriceExtensionFieldMeta } from  '../../meta/cac/PriceExtensionMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import TaxTotalDisplay from './TaxTotalDisplay'
-import { TaxTotal } from '../../model/cac/TaxTotal'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { PriceExtensionField, PriceExtensionFieldMeta, PriceExtensionTypeName } from  '../../meta/cac/PriceExtensionMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { TaxTotalDisplay } from './TaxTotalDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: PriceExtension | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<PriceExtension, void>
+  priceExtension: PriceExtension[] | undefined
+  renderContext: RenderContext
 }
 
-export default function PriceExtensionDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const PriceExtensionSubElementsMap: SubElementsTemplatesMap<PriceExtensionField, PriceExtension, void> = new Map([
+    [
+      PriceExtensionField.UBLExtensions,
+      { meta: PriceExtensionFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={PriceExtensionField.UBLExtensions}
+          meta={PriceExtensionFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-PriceExtension">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={PriceExtensionFieldMeta.UBLExtensions}
-          />
+    [
+      PriceExtensionField.Amount,
+      { meta: PriceExtensionFieldMeta.Amount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={PriceExtensionField.Amount}
+          meta={PriceExtensionFieldMeta.Amount}
+          fieldConfig={fieldConfig}
+          amount={value?.Amount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Amount"
-            value={value.Amount?.[0]}
-            meta={PriceExtensionFieldMeta.Amount}
-          />
+    [
+      PriceExtensionField.TaxTotal,
+      { meta: PriceExtensionFieldMeta.TaxTotal,
+        template: ({value, renderContext, fieldConfig}) => <TaxTotalDisplay
+          key={PriceExtensionField.TaxTotal}
+          meta={PriceExtensionFieldMeta.TaxTotal}
+          fieldConfig={fieldConfig}
+          taxTotal={value?.TaxTotal}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TaxTotal"
-            label="Tax Total"
-            items={value.TaxTotal}
-            meta={PriceExtensionFieldMeta.TaxTotal} 
-            itemDisplay={ (itemValue: TaxTotal, key: string | number) =>
-              <TaxTotalDisplay
-                key={key}
-                label="Tax Total"
-                value={itemValue}
-                meta={PriceExtensionFieldMeta.TaxTotal}
-              />
-            }
-          />
-        </div>
-    </div>
+export function PriceExtensionDisplay<TFieldMeta>({ meta, fieldConfig, priceExtension, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    PriceExtensionTypeName,
+    meta,
+    fieldConfig,
+    priceExtension,
+    renderContext,
+    PriceExtensionSubElementsMap,
   )
 }

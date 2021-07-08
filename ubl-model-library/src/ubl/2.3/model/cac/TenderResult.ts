@@ -11,7 +11,6 @@ import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
 import { WinningParty } from './WinningParty'
-
 /**
  * A class to describe the awarding of a tender in a tendering process.
  */

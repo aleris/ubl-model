@@ -1,4 +1,27 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AllowanceChargeType } from '../cac/AllowanceChargeMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { CustomerPartyType } from '../cac/CustomerPartyMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { ExchangeRateType } from '../cac/ExchangeRateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { MonetaryTotalType } from '../cac/MonetaryTotalMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { PaymentType } from '../cac/PaymentMeta'
+import { PaymentMeansType } from '../cac/PaymentMeansMeta'
+import { PaymentTermsType } from '../cac/PaymentTermsMeta'
+import { PeriodType } from '../cac/PeriodMeta'
+import { ReminderLineType } from '../cac/ReminderLineMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { SupplierPartyType } from '../cac/SupplierPartyMeta'
+import { TaxTotalType } from '../cac/TaxTotalMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ReminderField {
   UBLExtensions = 'UBLExtensions',
@@ -46,11 +69,11 @@ export enum ReminderField {
 export const ReminderFieldMetaUBLExtensions = new FieldMeta<ReminderField>(
   ReminderField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -59,10 +82,10 @@ export const ReminderFieldMetaUBLVersionID = new FieldMeta<ReminderField>(
   ReminderField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.0.5'
 )
@@ -71,10 +94,10 @@ export const ReminderFieldMetaCustomizationID = new FieldMeta<ReminderField>(
   ReminderField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -83,10 +106,10 @@ export const ReminderFieldMetaProfileID = new FieldMeta<ReminderField>(
   ReminderField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BasicProcurementProcess'
 )
@@ -95,10 +118,10 @@ export const ReminderFieldMetaProfileExecutionID = new FieldMeta<ReminderField>(
   ReminderField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BPP-1001'
 )
@@ -107,10 +130,10 @@ export const ReminderFieldMetaID = new FieldMeta<ReminderField>(
   ReminderField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   'Invoice Number',
   undefined
 )
@@ -119,10 +142,10 @@ export const ReminderFieldMetaCopyIndicator = new FieldMeta<ReminderField>(
   ReminderField.CopyIndicator,
   'CopyIndicator',
   'Copy Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this document is a copy (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -131,10 +154,10 @@ export const ReminderFieldMetaUUID = new FieldMeta<ReminderField>(
   ReminderField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -143,10 +166,10 @@ export const ReminderFieldMetaIssueDate = new FieldMeta<ReminderField>(
   ReminderField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   'Invoice Date',
   undefined
 )
@@ -155,10 +178,10 @@ export const ReminderFieldMetaIssueTime = new FieldMeta<ReminderField>(
   ReminderField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -167,10 +190,10 @@ export const ReminderFieldMetaReminderTypeCode = new FieldMeta<ReminderField>(
   ReminderField.ReminderTypeCode,
   'ReminderTypeCode',
   'Reminder Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of the Reminder.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -179,10 +202,10 @@ export const ReminderFieldMetaReminderSequenceNumeric = new FieldMeta<ReminderFi
   ReminderField.ReminderSequenceNumeric,
   'ReminderSequenceNumeric',
   'Reminder Sequence',
-  'Numeric',
+  NumericType.name,
   'The number of the current Reminder in the sequence of reminders relating to the specified payments; the number of reminders previously sent plus one.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -191,10 +214,10 @@ export const ReminderFieldMetaNote = new FieldMeta<ReminderField>(
   ReminderField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -203,10 +226,10 @@ export const ReminderFieldMetaTaxPointDate = new FieldMeta<ReminderField>(
   ReminderField.TaxPointDate,
   'TaxPointDate',
   'Tax Point Date',
-  'Date',
+  DateType.name,
   'The date of the Reminder, used to indicate the point at which tax becomes applicable.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -215,10 +238,10 @@ export const ReminderFieldMetaDocumentCurrencyCode = new FieldMeta<ReminderField
   ReminderField.DocumentCurrencyCode,
   'DocumentCurrencyCode',
   'Document Currency Code',
-  'Code',
+  CodeType.name,
   'A code signifying the default currency for this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -227,10 +250,10 @@ export const ReminderFieldMetaTaxCurrencyCode = new FieldMeta<ReminderField>(
   ReminderField.TaxCurrencyCode,
   'TaxCurrencyCode',
   'Tax Currency Code',
-  'Code',
+  CodeType.name,
   'A code signifying the currency used for tax amounts in the Reminder.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -239,10 +262,10 @@ export const ReminderFieldMetaPricingCurrencyCode = new FieldMeta<ReminderField>
   ReminderField.PricingCurrencyCode,
   'PricingCurrencyCode',
   'Pricing Currency Code',
-  'Code',
+  CodeType.name,
   'A code signifying the currency used for prices in the Reminder.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -251,10 +274,10 @@ export const ReminderFieldMetaPaymentCurrencyCode = new FieldMeta<ReminderField>
   ReminderField.PaymentCurrencyCode,
   'PaymentCurrencyCode',
   'Payment Currency Code',
-  'Code',
+  CodeType.name,
   'A code signifying the currency used for payment in the Reminder.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -263,10 +286,10 @@ export const ReminderFieldMetaPaymentAlternativeCurrencyCode = new FieldMeta<Rem
   ReminderField.PaymentAlternativeCurrencyCode,
   'PaymentAlternativeCurrencyCode',
   'Payment Alternative Currency Code',
-  'Code',
+  CodeType.name,
   'A code signifying the alternative currency used for payment in the Reminder.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -275,10 +298,10 @@ export const ReminderFieldMetaAccountingCostCode = new FieldMeta<ReminderField>(
   ReminderField.AccountingCostCode,
   'AccountingCostCode',
   'Accounting Cost Code',
-  'Code',
+  CodeType.name,
   'The buyer\'s accounting code, applied to the Reminder as a whole.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -287,10 +310,10 @@ export const ReminderFieldMetaAccountingCost = new FieldMeta<ReminderField>(
   ReminderField.AccountingCost,
   'AccountingCost',
   'Accounting Cost',
-  'Text',
+  TextType.name,
   'The buyer\'s accounting code, applied to the Reminder as a whole, expressed as text.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -299,10 +322,10 @@ export const ReminderFieldMetaLineCountNumeric = new FieldMeta<ReminderField>(
   ReminderField.LineCountNumeric,
   'LineCountNumeric',
   'Line Count',
-  'Numeric',
+  NumericType.name,
   'The number of Reminder Lines in this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -311,10 +334,10 @@ export const ReminderFieldMetaReminderPeriod = new FieldMeta<ReminderField>(
   ReminderField.ReminderPeriod,
   'ReminderPeriod',
   'Reminder Period',
-  'Period',
+  PeriodType.name,
   'The periods to which the Reminder applies.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -323,10 +346,10 @@ export const ReminderFieldMetaAdditionalDocumentReference = new FieldMeta<Remind
   ReminderField.AdditionalDocumentReference,
   'AdditionalDocumentReference',
   'Additional Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to an additional document associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -335,10 +358,10 @@ export const ReminderFieldMetaSignature = new FieldMeta<ReminderField>(
   ReminderField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -347,10 +370,10 @@ export const ReminderFieldMetaAccountingSupplierParty = new FieldMeta<ReminderFi
   ReminderField.AccountingSupplierParty,
   'AccountingSupplierParty',
   'Accounting Supplier Party',
-  'SupplierParty',
+  SupplierPartyType.name,
   'The accounting supplier party.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -359,10 +382,10 @@ export const ReminderFieldMetaAccountingCustomerParty = new FieldMeta<ReminderFi
   ReminderField.AccountingCustomerParty,
   'AccountingCustomerParty',
   'Accounting Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The accounting customer party.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -371,10 +394,10 @@ export const ReminderFieldMetaPayeeParty = new FieldMeta<ReminderField>(
   ReminderField.PayeeParty,
   'PayeeParty',
   'Payee Party',
-  'Party',
+  PartyType.name,
   'The payee.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -383,10 +406,10 @@ export const ReminderFieldMetaTaxRepresentativeParty = new FieldMeta<ReminderFie
   ReminderField.TaxRepresentativeParty,
   'TaxRepresentativeParty',
   'Tax Representative Party',
-  'Party',
+  PartyType.name,
   'The tax representative.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -395,10 +418,10 @@ export const ReminderFieldMetaPaymentMeans = new FieldMeta<ReminderField>(
   ReminderField.PaymentMeans,
   'PaymentMeans',
   'Payment Means',
-  'PaymentMeans',
+  PaymentMeansType.name,
   'Expected means of payment.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -407,10 +430,10 @@ export const ReminderFieldMetaPaymentTerms = new FieldMeta<ReminderField>(
   ReminderField.PaymentTerms,
   'PaymentTerms',
   'Payment Terms',
-  'PaymentTerms',
+  PaymentTermsType.name,
   'A set of payment terms associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -419,10 +442,10 @@ export const ReminderFieldMetaPrepaidPayment = new FieldMeta<ReminderField>(
   ReminderField.PrepaidPayment,
   'PrepaidPayment',
   'Prepaid Payment',
-  'Payment',
+  PaymentType.name,
   'A prepaid payment.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -431,10 +454,10 @@ export const ReminderFieldMetaAllowanceCharge = new FieldMeta<ReminderField>(
   ReminderField.AllowanceCharge,
   'AllowanceCharge',
   'Allowance Charge',
-  'AllowanceCharge',
+  AllowanceChargeType.name,
   'A discount or charge that applies to a price component.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -443,10 +466,10 @@ export const ReminderFieldMetaTaxExchangeRate = new FieldMeta<ReminderField>(
   ReminderField.TaxExchangeRate,
   'TaxExchangeRate',
   'Tax Exchange Rate',
-  'ExchangeRate',
+  ExchangeRateType.name,
   'The exchange rate between the document currency and the tax currency.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -455,10 +478,10 @@ export const ReminderFieldMetaPricingExchangeRate = new FieldMeta<ReminderField>
   ReminderField.PricingExchangeRate,
   'PricingExchangeRate',
   'Pricing Exchange Rate',
-  'ExchangeRate',
+  ExchangeRateType.name,
   'The exchange rate between the document currency and the pricing currency.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -467,10 +490,10 @@ export const ReminderFieldMetaPaymentExchangeRate = new FieldMeta<ReminderField>
   ReminderField.PaymentExchangeRate,
   'PaymentExchangeRate',
   'Payment Exchange Rate',
-  'ExchangeRate',
+  ExchangeRateType.name,
   'The exchange rate between the document currency and the payment currency.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -479,10 +502,10 @@ export const ReminderFieldMetaPaymentAlternativeExchangeRate = new FieldMeta<Rem
   ReminderField.PaymentAlternativeExchangeRate,
   'PaymentAlternativeExchangeRate',
   'Payment Alternative Exchange Rate',
-  'ExchangeRate',
+  ExchangeRateType.name,
   'The exchange rate between the document currency and the payment alternative currency.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -491,10 +514,10 @@ export const ReminderFieldMetaTaxTotal = new FieldMeta<ReminderField>(
   ReminderField.TaxTotal,
   'TaxTotal',
   'Tax Total',
-  'TaxTotal',
+  TaxTotalType.name,
   'The total amount of a specific type of tax.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -503,10 +526,10 @@ export const ReminderFieldMetaLegalMonetaryTotal = new FieldMeta<ReminderField>(
   ReminderField.LegalMonetaryTotal,
   'LegalMonetaryTotal',
   'Legal Monetary Total',
-  'MonetaryTotal',
+  MonetaryTotalType.name,
   'The total amount payable on the Invoice, including Allowances, Charges, and Taxes.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -515,10 +538,10 @@ export const ReminderFieldMetaReminderLine = new FieldMeta<ReminderField>(
   ReminderField.ReminderLine,
   'ReminderLine',
   'Reminder Line',
-  'ReminderLine',
+  ReminderLineType.name,
   'A line describing a payment past due.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -608,3 +631,11 @@ export const ReminderFieldMap = new Map([
   [ReminderField.LegalMonetaryTotal, ReminderFieldMetaLegalMonetaryTotal],
   [ReminderField.ReminderLine, ReminderFieldMetaReminderLine]
 ])
+
+export const ReminderType: Type<ReminderField> = {
+  name: 'Reminder',
+  label: 'Reminder',
+  module: TypeModule.doc,
+  definition: 'A document used to remind a customer of payments past due.',
+  fields: ReminderFieldMap,
+}

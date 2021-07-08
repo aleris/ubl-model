@@ -1,239 +1,328 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { UtilityStatement } from  '../../model/doc/UtilityStatement'
-import { UtilityStatementFieldMeta } from  '../../meta/doc/UtilityStatementMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import CustomerPartyDisplay from '../cac/CustomerPartyDisplay'
-import { CustomerParty } from '../../model/cac/CustomerParty'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import OnAccountPaymentDisplay from '../cac/OnAccountPaymentDisplay'
-import { OnAccountPayment } from '../../model/cac/OnAccountPayment'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import SubscriberConsumptionDisplay from '../cac/SubscriberConsumptionDisplay'
-import { SubscriberConsumption } from '../../model/cac/SubscriberConsumption'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { UtilityStatementField, UtilityStatementFieldMeta, UtilityStatementTypeName } from  '../../meta/doc/UtilityStatementMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { CustomerPartyDisplay } from '../cac/CustomerPartyDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { OnAccountPaymentDisplay } from '../cac/OnAccountPaymentDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { SubscriberConsumptionDisplay } from '../cac/SubscriberConsumptionDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: UtilityStatement | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<UtilityStatement, void>
+  utilityStatement: UtilityStatement[] | undefined
+  renderContext: RenderContext
 }
 
-export default function UtilityStatementDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const UtilityStatementSubElementsMap: SubElementsTemplatesMap<UtilityStatementField, UtilityStatement, void> = new Map([
+    [
+      UtilityStatementField.UBLExtensions,
+      { meta: UtilityStatementFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={UtilityStatementField.UBLExtensions}
+          meta={UtilityStatementFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-UtilityStatement">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={UtilityStatementFieldMeta.UBLExtensions}
-          />
+    [
+      UtilityStatementField.UBLVersionID,
+      { meta: UtilityStatementFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={UtilityStatementField.UBLVersionID}
+          meta={UtilityStatementFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={UtilityStatementFieldMeta.UBLVersionID}
-          />
+    [
+      UtilityStatementField.CustomizationID,
+      { meta: UtilityStatementFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={UtilityStatementField.CustomizationID}
+          meta={UtilityStatementFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={UtilityStatementFieldMeta.CustomizationID}
-          />
+    [
+      UtilityStatementField.ProfileID,
+      { meta: UtilityStatementFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={UtilityStatementField.ProfileID}
+          meta={UtilityStatementFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={UtilityStatementFieldMeta.ProfileID}
-          />
+    [
+      UtilityStatementField.ProfileExecutionID,
+      { meta: UtilityStatementFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={UtilityStatementField.ProfileExecutionID}
+          meta={UtilityStatementFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={UtilityStatementFieldMeta.ProfileExecutionID}
-          />
+    [
+      UtilityStatementField.ID,
+      { meta: UtilityStatementFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={UtilityStatementField.ID}
+          meta={UtilityStatementFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={UtilityStatementFieldMeta.ID}
-          />
+    [
+      UtilityStatementField.CopyIndicator,
+      { meta: UtilityStatementFieldMeta.CopyIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={UtilityStatementField.CopyIndicator}
+          meta={UtilityStatementFieldMeta.CopyIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.CopyIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Copy Indicator"
-            value={value.CopyIndicator?.[0]}
-            meta={UtilityStatementFieldMeta.CopyIndicator}
-          />
+    [
+      UtilityStatementField.UUID,
+      { meta: UtilityStatementFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={UtilityStatementField.UUID}
+          meta={UtilityStatementFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={UtilityStatementFieldMeta.UUID}
-          />
+    [
+      UtilityStatementField.IssueDate,
+      { meta: UtilityStatementFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={UtilityStatementField.IssueDate}
+          meta={UtilityStatementFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={UtilityStatementFieldMeta.IssueDate}
-          />
+    [
+      UtilityStatementField.IssueTime,
+      { meta: UtilityStatementFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={UtilityStatementField.IssueTime}
+          meta={UtilityStatementFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={UtilityStatementFieldMeta.IssueTime}
-          />
+    [
+      UtilityStatementField.UtilityStatementTypeCode,
+      { meta: UtilityStatementFieldMeta.UtilityStatementTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={UtilityStatementField.UtilityStatementTypeCode}
+          meta={UtilityStatementFieldMeta.UtilityStatementTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.UtilityStatementTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Utility Statement Type Code"
-            value={value.UtilityStatementTypeCode?.[0]}
-            meta={UtilityStatementFieldMeta.UtilityStatementTypeCode}
-          />
+    [
+      UtilityStatementField.Note,
+      { meta: UtilityStatementFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={UtilityStatementField.Note}
+          meta={UtilityStatementFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={UtilityStatementFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={UtilityStatementFieldMeta.Note}
-              />
-            }
-          />
+    [
+      UtilityStatementField.DocumentCurrencyCode,
+      { meta: UtilityStatementFieldMeta.DocumentCurrencyCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={UtilityStatementField.DocumentCurrencyCode}
+          meta={UtilityStatementFieldMeta.DocumentCurrencyCode}
+          fieldConfig={fieldConfig}
+          code={value?.DocumentCurrencyCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Document Currency Code"
-            value={value.DocumentCurrencyCode?.[0]}
-            meta={UtilityStatementFieldMeta.DocumentCurrencyCode}
-          />
+    [
+      UtilityStatementField.AccountingCostCode,
+      { meta: UtilityStatementFieldMeta.AccountingCostCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={UtilityStatementField.AccountingCostCode}
+          meta={UtilityStatementFieldMeta.AccountingCostCode}
+          fieldConfig={fieldConfig}
+          code={value?.AccountingCostCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Accounting Cost Code"
-            value={value.AccountingCostCode?.[0]}
-            meta={UtilityStatementFieldMeta.AccountingCostCode}
-          />
+    [
+      UtilityStatementField.AccountingCost,
+      { meta: UtilityStatementFieldMeta.AccountingCost,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={UtilityStatementField.AccountingCost}
+          meta={UtilityStatementFieldMeta.AccountingCost}
+          fieldConfig={fieldConfig}
+          text={value?.AccountingCost}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Accounting Cost"
-            value={value.AccountingCost?.[0]}
-            meta={UtilityStatementFieldMeta.AccountingCost}
-          />
+    [
+      UtilityStatementField.ParentDocumentReference,
+      { meta: UtilityStatementFieldMeta.ParentDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={UtilityStatementField.ParentDocumentReference}
+          meta={UtilityStatementFieldMeta.ParentDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.ParentDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DocumentReferenceDisplay
-            label="Parent Document Reference"
-            value={value.ParentDocumentReference?.[0]}
-            meta={UtilityStatementFieldMeta.ParentDocumentReference}
-          />
+    [
+      UtilityStatementField.AdditionalDocumentReference,
+      { meta: UtilityStatementFieldMeta.AdditionalDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={UtilityStatementField.AdditionalDocumentReference}
+          meta={UtilityStatementFieldMeta.AdditionalDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.AdditionalDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-AdditionalDocumentReference"
-            label="Additional Document Reference"
-            items={value.AdditionalDocumentReference}
-            meta={UtilityStatementFieldMeta.AdditionalDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Additional Document Reference"
-                value={itemValue}
-                meta={UtilityStatementFieldMeta.AdditionalDocumentReference}
-              />
-            }
-          />
+    [
+      UtilityStatementField.Signature,
+      { meta: UtilityStatementFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={UtilityStatementField.Signature}
+          meta={UtilityStatementFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={UtilityStatementFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={UtilityStatementFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      UtilityStatementField.SenderParty,
+      { meta: UtilityStatementFieldMeta.SenderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={UtilityStatementField.SenderParty}
+          meta={UtilityStatementFieldMeta.SenderParty}
+          fieldConfig={fieldConfig}
+          party={value?.SenderParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Sender Party"
-            value={value.SenderParty?.[0]}
-            meta={UtilityStatementFieldMeta.SenderParty}
-          />
+    [
+      UtilityStatementField.ReceiverParty,
+      { meta: UtilityStatementFieldMeta.ReceiverParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={UtilityStatementField.ReceiverParty}
+          meta={UtilityStatementFieldMeta.ReceiverParty}
+          fieldConfig={fieldConfig}
+          party={value?.ReceiverParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Receiver Party"
-            value={value.ReceiverParty?.[0]}
-            meta={UtilityStatementFieldMeta.ReceiverParty}
-          />
+    [
+      UtilityStatementField.CustomerParty,
+      { meta: UtilityStatementFieldMeta.CustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={UtilityStatementField.CustomerParty}
+          meta={UtilityStatementFieldMeta.CustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.CustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomerPartyDisplay
-            label="Customer Party"
-            value={value.CustomerParty?.[0]}
-            meta={UtilityStatementFieldMeta.CustomerParty}
-          />
+    [
+      UtilityStatementField.SubscriberParty,
+      { meta: UtilityStatementFieldMeta.SubscriberParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={UtilityStatementField.SubscriberParty}
+          meta={UtilityStatementFieldMeta.SubscriberParty}
+          fieldConfig={fieldConfig}
+          party={value?.SubscriberParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Subscriber Party"
-            value={value.SubscriberParty?.[0]}
-            meta={UtilityStatementFieldMeta.SubscriberParty}
-          />
+    [
+      UtilityStatementField.MainOnAccountPayment,
+      { meta: UtilityStatementFieldMeta.MainOnAccountPayment,
+        template: ({value, renderContext, fieldConfig}) => <OnAccountPaymentDisplay
+          key={UtilityStatementField.MainOnAccountPayment}
+          meta={UtilityStatementFieldMeta.MainOnAccountPayment}
+          fieldConfig={fieldConfig}
+          onAccountPayment={value?.MainOnAccountPayment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-OnAccountPayment ubl-MainOnAccountPayment"
-            label="Main On Account Payment"
-            items={value.MainOnAccountPayment}
-            meta={UtilityStatementFieldMeta.MainOnAccountPayment} 
-            itemDisplay={ (itemValue: OnAccountPayment, key: string | number) =>
-              <OnAccountPaymentDisplay
-                key={key}
-                label="Main On Account Payment"
-                value={itemValue}
-                meta={UtilityStatementFieldMeta.MainOnAccountPayment}
-              />
-            }
-          />
+    [
+      UtilityStatementField.SubscriberConsumption,
+      { meta: UtilityStatementFieldMeta.SubscriberConsumption,
+        template: ({value, renderContext, fieldConfig}) => <SubscriberConsumptionDisplay
+          key={UtilityStatementField.SubscriberConsumption}
+          meta={UtilityStatementFieldMeta.SubscriberConsumption}
+          fieldConfig={fieldConfig}
+          subscriberConsumption={value?.SubscriberConsumption}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-SubscriberConsumption"
-            label="Subscriber Consumption"
-            items={value.SubscriberConsumption}
-            meta={UtilityStatementFieldMeta.SubscriberConsumption} 
-            itemDisplay={ (itemValue: SubscriberConsumption, key: string | number) =>
-              <SubscriberConsumptionDisplay
-                key={key}
-                label="Subscriber Consumption"
-                value={itemValue}
-                meta={UtilityStatementFieldMeta.SubscriberConsumption}
-              />
-            }
-          />
-        </div>
-    </div>
+export function UtilityStatementDisplay<TFieldMeta>({ meta, fieldConfig, utilityStatement, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    UtilityStatementTypeName,
+    meta,
+    fieldConfig,
+    utilityStatement,
+    renderContext,
+    UtilityStatementSubElementsMap,
   )
 }

@@ -5,7 +5,6 @@ import { Party } from './Party'
 import { Signature } from './Signature'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to define a certificate applied to the item. Certificated can be a requirement to sell goods or services in a
  * jurisdiction.

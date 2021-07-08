@@ -1,4 +1,16 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { CountryType } from './CountryMeta'
+import { DocumentDistributionType } from './DocumentDistributionMeta'
+import { DocumentReferenceType } from './DocumentReferenceMeta'
+import { EndorserPartyType } from './EndorserPartyMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { PartyType } from './PartyMeta'
+import { ShipmentType } from './ShipmentMeta'
+import { SignatureType } from './SignatureMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum CertificateOfOriginApplicationField {
   UBLExtensions = 'UBLExtensions',
@@ -23,11 +35,11 @@ export enum CertificateOfOriginApplicationField {
 export const CertificateOfOriginApplicationFieldMetaUBLExtensions = new FieldMeta<CertificateOfOriginApplicationField>(
   CertificateOfOriginApplicationField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -36,10 +48,10 @@ export const CertificateOfOriginApplicationFieldMetaReferenceID = new FieldMeta<
   CertificateOfOriginApplicationField.ReferenceID,
   'ReferenceID',
   'Reference',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for a reference as part of the CoO application.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -48,10 +60,10 @@ export const CertificateOfOriginApplicationFieldMetaCertificateType = new FieldM
   CertificateOfOriginApplicationField.CertificateType,
   'CertificateType',
   'Certificate Type',
-  'Text',
+  TextType.name,
   'The type of CoO being applied for (Ordinary, Re-export, Commonwealth Preferential, etc.).',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -60,10 +72,10 @@ export const CertificateOfOriginApplicationFieldMetaApplicationStatusCode = new 
   CertificateOfOriginApplicationField.ApplicationStatusCode,
   'ApplicationStatusCode',
   'Application Status Code',
-  'Code',
+  CodeType.name,
   'A code signifying the status of the application (revision, replacement, etc.).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -72,10 +84,10 @@ export const CertificateOfOriginApplicationFieldMetaOriginalJobID = new FieldMet
   CertificateOfOriginApplicationField.OriginalJobID,
   'OriginalJobID',
   'Original Job Identifier',
-  'Identifier',
+  IdentifierType.name,
   'The latest job number given to the CoO application. This is used by the system to keep track of amendments to or cancellation of any earlier applications.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -84,10 +96,10 @@ export const CertificateOfOriginApplicationFieldMetaPreviousJobID = new FieldMet
   CertificateOfOriginApplicationField.PreviousJobID,
   'PreviousJobID',
   'Previous Job Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the previous job used in case the application requires query or change.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -96,10 +108,10 @@ export const CertificateOfOriginApplicationFieldMetaRemarks = new FieldMeta<Cert
   CertificateOfOriginApplicationField.Remarks,
   'Remarks',
   'Remarks',
-  'Text',
+  TextType.name,
   'Remarks by the applicant for the CoO.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -108,10 +120,10 @@ export const CertificateOfOriginApplicationFieldMetaShipment = new FieldMeta<Cer
   CertificateOfOriginApplicationField.Shipment,
   'Shipment',
   'Shipment',
-  'Shipment',
+  ShipmentType.name,
   'The shipment of goods covered by the CoO.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -120,10 +132,10 @@ export const CertificateOfOriginApplicationFieldMetaEndorserParty = new FieldMet
   CertificateOfOriginApplicationField.EndorserParty,
   'EndorserParty',
   'Endorser Party',
-  'EndorserParty',
+  EndorserPartyType.name,
   'A party providing an endorsement to the CoO.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -132,10 +144,10 @@ export const CertificateOfOriginApplicationFieldMetaPreparationParty = new Field
   CertificateOfOriginApplicationField.PreparationParty,
   'PreparationParty',
   'Preparation Party',
-  'Party',
+  PartyType.name,
   'The party (individual, group, or body) that prepared this CoO application.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -144,10 +156,10 @@ export const CertificateOfOriginApplicationFieldMetaIssuerParty = new FieldMeta<
   CertificateOfOriginApplicationField.IssuerParty,
   'IssuerParty',
   'Issuer Party',
-  'Party',
+  PartyType.name,
   'The organization authorized to issue the CoO requested by this application.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -156,10 +168,10 @@ export const CertificateOfOriginApplicationFieldMetaExporterParty = new FieldMet
   CertificateOfOriginApplicationField.ExporterParty,
   'ExporterParty',
   'Exporter Party',
-  'Party',
+  PartyType.name,
   'The party making an export declaration, or on behalf of which the export declaration is made, and that is the owner of the goods or has similar right of disposal over them at the time when the declaration is accepted.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   'Exporter (WCO ID 41 and 42)',
   undefined
 )
@@ -168,10 +180,10 @@ export const CertificateOfOriginApplicationFieldMetaImporterParty = new FieldMet
   CertificateOfOriginApplicationField.ImporterParty,
   'ImporterParty',
   'Importer Party',
-  'Party',
+  PartyType.name,
   'The party making an import declaration, or on behalf of which a customs clearing agent or other authorized person makes an import declaration. This may include a person who has possession of the goods or to whom the goods are consigned.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   'Importer (WCO ID 39 and 40)',
   undefined
 )
@@ -180,10 +192,10 @@ export const CertificateOfOriginApplicationFieldMetaIssuingCountry = new FieldMe
   CertificateOfOriginApplicationField.IssuingCountry,
   'IssuingCountry',
   'Issuing Country',
-  'Country',
+  CountryType.name,
   'The country where the requested CoO will be issued.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -192,10 +204,10 @@ export const CertificateOfOriginApplicationFieldMetaDocumentDistribution = new F
   CertificateOfOriginApplicationField.DocumentDistribution,
   'DocumentDistribution',
   'Document Distribution',
-  'DocumentDistribution',
+  DocumentDistributionType.name,
   'An interested party to which the CoO is to be distributed.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -204,10 +216,10 @@ export const CertificateOfOriginApplicationFieldMetaSupportingDocumentReference 
   CertificateOfOriginApplicationField.SupportingDocumentReference,
   'SupportingDocumentReference',
   'Supporting Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a document supporting this application.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -216,10 +228,10 @@ export const CertificateOfOriginApplicationFieldMetaSignature = new FieldMeta<Ce
   CertificateOfOriginApplicationField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this application.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -263,3 +275,11 @@ export const CertificateOfOriginApplicationFieldMap = new Map([
   [CertificateOfOriginApplicationField.SupportingDocumentReference, CertificateOfOriginApplicationFieldMetaSupportingDocumentReference],
   [CertificateOfOriginApplicationField.Signature, CertificateOfOriginApplicationFieldMetaSignature]
 ])
+
+export const CertificateOfOriginApplicationType: Type<CertificateOfOriginApplicationField> = {
+  name: 'CertificateOfOriginApplication',
+  label: 'Certificate Of Origin Application',
+  module: TypeModule.cac,
+  definition: 'A class to define an application for a Certificate of Origin (CoO).',
+  fields: CertificateOfOriginApplicationFieldMap,
+}

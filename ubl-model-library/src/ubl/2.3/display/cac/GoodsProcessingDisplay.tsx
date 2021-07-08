@@ -1,128 +1,142 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { GoodsProcessing } from  '../../model/cac/GoodsProcessing'
-import { GoodsProcessingFieldMeta } from  '../../meta/cac/GoodsProcessingMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import CriterionItemDisplay from './CriterionItemDisplay'
-import { CriterionItem } from '../../model/cac/CriterionItem'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { GoodsProcessingField, GoodsProcessingFieldMeta, GoodsProcessingTypeName } from  '../../meta/cac/GoodsProcessingMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { CriterionItemDisplay } from './CriterionItemDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: GoodsProcessing | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<GoodsProcessing, void>
+  goodsProcessing: GoodsProcessing[] | undefined
+  renderContext: RenderContext
 }
 
-export default function GoodsProcessingDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const GoodsProcessingSubElementsMap: SubElementsTemplatesMap<GoodsProcessingField, GoodsProcessing, void> = new Map([
+    [
+      GoodsProcessingField.UBLExtensions,
+      { meta: GoodsProcessingFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={GoodsProcessingField.UBLExtensions}
+          meta={GoodsProcessingFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-GoodsProcessing">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={GoodsProcessingFieldMeta.UBLExtensions}
-          />
+    [
+      GoodsProcessingField.ID,
+      { meta: GoodsProcessingFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={GoodsProcessingField.ID}
+          meta={GoodsProcessingFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={GoodsProcessingFieldMeta.ID}
-          />
+    [
+      GoodsProcessingField.TypeCode,
+      { meta: GoodsProcessingFieldMeta.TypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={GoodsProcessingField.TypeCode}
+          meta={GoodsProcessingFieldMeta.TypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.TypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Type"
-            value={value.TypeCode?.[0]}
-            meta={GoodsProcessingFieldMeta.TypeCode}
-          />
+    [
+      GoodsProcessingField.Description,
+      { meta: GoodsProcessingFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={GoodsProcessingField.Description}
+          meta={GoodsProcessingFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={GoodsProcessingFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={GoodsProcessingFieldMeta.Description}
-              />
-            }
-          />
+    [
+      GoodsProcessingField.Note,
+      { meta: GoodsProcessingFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={GoodsProcessingField.Note}
+          meta={GoodsProcessingFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={GoodsProcessingFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={GoodsProcessingFieldMeta.Note}
-              />
-            }
-          />
+    [
+      GoodsProcessingField.Period,
+      { meta: GoodsProcessingFieldMeta.Period,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={GoodsProcessingField.Period}
+          meta={GoodsProcessingFieldMeta.Period}
+          fieldConfig={fieldConfig}
+          period={value?.Period}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Period"
-            value={value.Period?.[0]}
-            meta={GoodsProcessingFieldMeta.Period}
-          />
+    [
+      GoodsProcessingField.ProcessingParty,
+      { meta: GoodsProcessingFieldMeta.ProcessingParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={GoodsProcessingField.ProcessingParty}
+          meta={GoodsProcessingFieldMeta.ProcessingParty}
+          fieldConfig={fieldConfig}
+          party={value?.ProcessingParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Processing Party"
-            value={value.ProcessingParty?.[0]}
-            meta={GoodsProcessingFieldMeta.ProcessingParty}
-          />
+    [
+      GoodsProcessingField.CriterionItem,
+      { meta: GoodsProcessingFieldMeta.CriterionItem,
+        template: ({value, renderContext, fieldConfig}) => <CriterionItemDisplay
+          key={GoodsProcessingField.CriterionItem}
+          meta={GoodsProcessingFieldMeta.CriterionItem}
+          fieldConfig={fieldConfig}
+          criterionItem={value?.CriterionItem}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-CriterionItem"
-            label="Criterion Item"
-            items={value.CriterionItem}
-            meta={GoodsProcessingFieldMeta.CriterionItem} 
-            itemDisplay={ (itemValue: CriterionItem, key: string | number) =>
-              <CriterionItemDisplay
-                key={key}
-                label="Criterion Item"
-                value={itemValue}
-                meta={GoodsProcessingFieldMeta.CriterionItem}
-              />
-            }
-          />
+    [
+      GoodsProcessingField.SubGoodsProcessing,
+      { meta: GoodsProcessingFieldMeta.SubGoodsProcessing,
+        template: ({value, renderContext, fieldConfig}) => <GoodsProcessingDisplay
+          key={GoodsProcessingField.SubGoodsProcessing}
+          meta={GoodsProcessingFieldMeta.SubGoodsProcessing}
+          fieldConfig={fieldConfig}
+          goodsProcessing={value?.SubGoodsProcessing}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-GoodsProcessing ubl-SubGoodsProcessing"
-            label="Sub Goods Processing"
-            items={value.SubGoodsProcessing}
-            meta={GoodsProcessingFieldMeta.SubGoodsProcessing} 
-            itemDisplay={ (itemValue: GoodsProcessing, key: string | number) =>
-              <GoodsProcessingDisplay
-                key={key}
-                label="Sub Goods Processing"
-                value={itemValue}
-                meta={GoodsProcessingFieldMeta.SubGoodsProcessing}
-              />
-            }
-          />
-        </div>
-    </div>
+export function GoodsProcessingDisplay<TFieldMeta>({ meta, fieldConfig, goodsProcessing, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    GoodsProcessingTypeName,
+    meta,
+    fieldConfig,
+    goodsProcessing,
+    renderContext,
+    GoodsProcessingSubElementsMap,
   )
 }

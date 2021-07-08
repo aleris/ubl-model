@@ -1,6 +1,5 @@
 import { Identifier } from '../cbc/Identifier'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to identify a specific aircraft used for transportation.
  */

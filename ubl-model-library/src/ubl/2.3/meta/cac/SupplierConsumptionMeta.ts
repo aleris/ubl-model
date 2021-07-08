@@ -1,4 +1,11 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { ConsumptionType } from './ConsumptionMeta'
+import { ConsumptionLineType } from './ConsumptionLineMeta'
+import { ContractType } from './ContractMeta'
+import { PartyType } from './PartyMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum SupplierConsumptionField {
   UBLExtensions = 'UBLExtensions',
@@ -13,11 +20,11 @@ export enum SupplierConsumptionField {
 export const SupplierConsumptionFieldMetaUBLExtensions = new FieldMeta<SupplierConsumptionField>(
   SupplierConsumptionField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -26,10 +33,10 @@ export const SupplierConsumptionFieldMetaDescription = new FieldMeta<SupplierCon
   SupplierConsumptionField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Free-form text conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   'This is what you pay for electricity to DONG Energy North Utility'
 )
@@ -38,10 +45,10 @@ export const SupplierConsumptionFieldMetaUtilitySupplierParty = new FieldMeta<Su
   SupplierConsumptionField.UtilitySupplierParty,
   'UtilitySupplierParty',
   'Utility Supplier Party',
-  'Party',
+  PartyType.name,
   'The party supplying the utility.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -50,10 +57,10 @@ export const SupplierConsumptionFieldMetaUtilityCustomerParty = new FieldMeta<Su
   SupplierConsumptionField.UtilityCustomerParty,
   'UtilityCustomerParty',
   'Utility Customer Party',
-  'Party',
+  PartyType.name,
   'The utility customer.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -62,10 +69,10 @@ export const SupplierConsumptionFieldMetaConsumption = new FieldMeta<SupplierCon
   SupplierConsumptionField.Consumption,
   'Consumption',
   'Consumption',
-  'Consumption',
+  ConsumptionType.name,
   'The consumption regarding this supplier',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -74,10 +81,10 @@ export const SupplierConsumptionFieldMetaContract = new FieldMeta<SupplierConsum
   SupplierConsumptionField.Contract,
   'Contract',
   'Contract',
-  'Contract',
+  ContractType.name,
   'A contract setting forth conditions regulating the consumption.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -86,10 +93,10 @@ export const SupplierConsumptionFieldMetaConsumptionLine = new FieldMeta<Supplie
   SupplierConsumptionField.ConsumptionLine,
   'ConsumptionLine',
   'Consumption Line',
-  'ConsumptionLine',
+  ConsumptionLineType.name,
   'The consumption of a utility product.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -113,3 +120,11 @@ export const SupplierConsumptionFieldMap = new Map([
   [SupplierConsumptionField.Contract, SupplierConsumptionFieldMetaContract],
   [SupplierConsumptionField.ConsumptionLine, SupplierConsumptionFieldMetaConsumptionLine]
 ])
+
+export const SupplierConsumptionType: Type<SupplierConsumptionField> = {
+  name: 'SupplierConsumption',
+  label: 'Supplier Consumption',
+  module: TypeModule.cac,
+  definition: 'The consumption in case the consumption is for one and only one supplier.',
+  fields: SupplierConsumptionFieldMap,
+}

@@ -1,4 +1,15 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AttachmentType } from '../cac/AttachmentMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { DateType } from '../cbc/DateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { LineReferenceType } from '../cac/LineReferenceMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum AttachedDocumentField {
   UBLExtensions = 'UBLExtensions',
@@ -26,11 +37,11 @@ export enum AttachedDocumentField {
 export const AttachedDocumentFieldMetaUBLExtensions = new FieldMeta<AttachedDocumentField>(
   AttachedDocumentField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -39,10 +50,10 @@ export const AttachedDocumentFieldMetaUBLVersionID = new FieldMeta<AttachedDocum
   AttachedDocumentField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.0.5'
 )
@@ -51,10 +62,10 @@ export const AttachedDocumentFieldMetaCustomizationID = new FieldMeta<AttachedDo
   AttachedDocumentField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -63,10 +74,10 @@ export const AttachedDocumentFieldMetaProfileID = new FieldMeta<AttachedDocument
   AttachedDocumentField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BasicProcurementProcess'
 )
@@ -75,10 +86,10 @@ export const AttachedDocumentFieldMetaProfileExecutionID = new FieldMeta<Attache
   AttachedDocumentField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -87,10 +98,10 @@ export const AttachedDocumentFieldMetaID = new FieldMeta<AttachedDocumentField>(
   AttachedDocumentField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -99,10 +110,10 @@ export const AttachedDocumentFieldMetaUUID = new FieldMeta<AttachedDocumentField
   AttachedDocumentField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -111,10 +122,10 @@ export const AttachedDocumentFieldMetaIssueDate = new FieldMeta<AttachedDocument
   AttachedDocumentField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -123,10 +134,10 @@ export const AttachedDocumentFieldMetaIssueTime = new FieldMeta<AttachedDocument
   AttachedDocumentField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -135,10 +146,10 @@ export const AttachedDocumentFieldMetaNote = new FieldMeta<AttachedDocumentField
   AttachedDocumentField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -147,10 +158,10 @@ export const AttachedDocumentFieldMetaDocumentTypeCode = new FieldMeta<AttachedD
   AttachedDocumentField.DocumentTypeCode,
   'DocumentTypeCode',
   'Document Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -159,10 +170,10 @@ export const AttachedDocumentFieldMetaDocumentType = new FieldMeta<AttachedDocum
   AttachedDocumentField.DocumentType,
   'DocumentType',
   'Document Type',
-  'Text',
+  TextType.name,
   'Text specifying the type of document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -171,10 +182,10 @@ export const AttachedDocumentFieldMetaParentDocumentID = new FieldMeta<AttachedD
   AttachedDocumentField.ParentDocumentID,
   'ParentDocumentID',
   'Parent Document Identifier',
-  'Identifier',
+  IdentifierType.name,
   'The Identifier of the parent document.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -183,10 +194,10 @@ export const AttachedDocumentFieldMetaParentDocumentTypeCode = new FieldMeta<Att
   AttachedDocumentField.ParentDocumentTypeCode,
   'ParentDocumentTypeCode',
   'Parent Document Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of parent document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -195,10 +206,10 @@ export const AttachedDocumentFieldMetaParentDocumentVersionID = new FieldMeta<At
   AttachedDocumentField.ParentDocumentVersionID,
   'ParentDocumentVersionID',
   'Parent Document Version',
-  'Identifier',
+  IdentifierType.name,
   'Indicates the current version of the referred document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '1.1'
 )
@@ -207,10 +218,10 @@ export const AttachedDocumentFieldMetaSignature = new FieldMeta<AttachedDocument
   AttachedDocumentField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -219,10 +230,10 @@ export const AttachedDocumentFieldMetaSenderParty = new FieldMeta<AttachedDocume
   AttachedDocumentField.SenderParty,
   'SenderParty',
   'Sender Party',
-  'Party',
+  PartyType.name,
   'The party sending this document.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -231,10 +242,10 @@ export const AttachedDocumentFieldMetaReceiverParty = new FieldMeta<AttachedDocu
   AttachedDocumentField.ReceiverParty,
   'ReceiverParty',
   'Receiver Party',
-  'Party',
+  PartyType.name,
   'The party receiving this document.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -243,10 +254,10 @@ export const AttachedDocumentFieldMetaAttachment = new FieldMeta<AttachedDocumen
   AttachedDocumentField.Attachment,
   'Attachment',
   'Attachment',
-  'Attachment',
+  AttachmentType.name,
   'An attachment containing the document content.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -255,10 +266,10 @@ export const AttachedDocumentFieldMetaParentDocumentLineReference = new FieldMet
   AttachedDocumentField.ParentDocumentLineReference,
   'ParentDocumentLineReference',
   'Parent Document Line Reference',
-  'LineReference',
+  LineReferenceType.name,
   'A reference to a line in the attached document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -308,3 +319,11 @@ export const AttachedDocumentFieldMap = new Map([
   [AttachedDocumentField.Attachment, AttachedDocumentFieldMetaAttachment],
   [AttachedDocumentField.ParentDocumentLineReference, AttachedDocumentFieldMetaParentDocumentLineReference]
 ])
+
+export const AttachedDocumentType: Type<AttachedDocumentField> = {
+  name: 'AttachedDocument',
+  label: 'Attached Document',
+  module: TypeModule.doc,
+  definition: 'A wrapper that allows a document of any kind to be packaged with the UBL document that references it.',
+  fields: AttachedDocumentFieldMap,
+}

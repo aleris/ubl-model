@@ -1,4 +1,20 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { ContractingPartyType } from '../cac/ContractingPartyMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { EconomicOperatorPartyType } from '../cac/EconomicOperatorPartyMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { PeriodType } from '../cac/PeriodMeta'
+import { ProcurementProjectType } from '../cac/ProcurementProjectMeta'
+import { ProcurementProjectLotType } from '../cac/ProcurementProjectLotMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum TenderStatusField {
   UBLExtensions = 'UBLExtensions',
@@ -35,11 +51,11 @@ export enum TenderStatusField {
 export const TenderStatusFieldMetaUBLExtensions = new FieldMeta<TenderStatusField>(
   TenderStatusField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -48,10 +64,10 @@ export const TenderStatusFieldMetaUBLVersionID = new FieldMeta<TenderStatusField
   TenderStatusField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.0.5'
 )
@@ -60,10 +76,10 @@ export const TenderStatusFieldMetaCustomizationID = new FieldMeta<TenderStatusFi
   TenderStatusField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -72,10 +88,10 @@ export const TenderStatusFieldMetaProfileID = new FieldMeta<TenderStatusField>(
   TenderStatusField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BasicProcurementProcess'
 )
@@ -84,10 +100,10 @@ export const TenderStatusFieldMetaProfileExecutionID = new FieldMeta<TenderStatu
   TenderStatusField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BPP-1001'
 )
@@ -96,10 +112,10 @@ export const TenderStatusFieldMetaID = new FieldMeta<TenderStatusField>(
   TenderStatusField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -108,10 +124,10 @@ export const TenderStatusFieldMetaCopyIndicator = new FieldMeta<TenderStatusFiel
   TenderStatusField.CopyIndicator,
   'CopyIndicator',
   'Copy Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this document is a copy (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -120,10 +136,10 @@ export const TenderStatusFieldMetaUUID = new FieldMeta<TenderStatusField>(
   TenderStatusField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -132,10 +148,10 @@ export const TenderStatusFieldMetaContractFolderID = new FieldMeta<TenderStatusF
   TenderStatusField.ContractFolderID,
   'ContractFolderID',
   'Contract Folder Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier, assigned by the sender, for the process file (i.e., record) to which this document belongs.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -144,10 +160,10 @@ export const TenderStatusFieldMetaIssueDate = new FieldMeta<TenderStatusField>(
   TenderStatusField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -156,10 +172,10 @@ export const TenderStatusFieldMetaIssueTime = new FieldMeta<TenderStatusField>(
   TenderStatusField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -168,10 +184,10 @@ export const TenderStatusFieldMetaContractName = new FieldMeta<TenderStatusField
   TenderStatusField.ContractName,
   'ContractName',
   'Contract Name',
-  'Text',
+  TextType.name,
   'Short title of a contract associated with this Tender.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -180,10 +196,10 @@ export const TenderStatusFieldMetaNote = new FieldMeta<TenderStatusField>(
   TenderStatusField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -192,10 +208,10 @@ export const TenderStatusFieldMetaProcedureCode = new FieldMeta<TenderStatusFiel
   TenderStatusField.ProcedureCode,
   'ProcedureCode',
   'Procedure Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of this tendering procedure.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Open, Restricted, Negotiated'
 )
@@ -204,10 +220,10 @@ export const TenderStatusFieldMetaTenderSubmissionDeadlinePeriod = new FieldMeta
   TenderStatusField.TenderSubmissionDeadlinePeriod,
   'TenderSubmissionDeadlinePeriod',
   'Tender Submission Deadline Period',
-  'Period',
+  PeriodType.name,
   'The period during which tenders must be delivered.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -216,10 +232,10 @@ export const TenderStatusFieldMetaInvitationSubmissionPeriod = new FieldMeta<Ten
   TenderStatusField.InvitationSubmissionPeriod,
   'InvitationSubmissionPeriod',
   'Invitation Submission Period',
-  'Period',
+  PeriodType.name,
   'The period during which invitations to tender must be completed and delivered.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -228,10 +244,10 @@ export const TenderStatusFieldMetaParticipationRequestReceptionPeriod = new Fiel
   TenderStatusField.ParticipationRequestReceptionPeriod,
   'ParticipationRequestReceptionPeriod',
   'Participation Request Reception Period',
-  'Period',
+  PeriodType.name,
   'The period during which requests for participation must be completed and delivered.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -240,10 +256,10 @@ export const TenderStatusFieldMetaProcurementLegislationDocumentReference = new 
   TenderStatusField.ProcurementLegislationDocumentReference,
   'ProcurementLegislationDocumentReference',
   'Procurement Legislation Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a document providing references to procurement legislation applicable to the tendering process.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -252,10 +268,10 @@ export const TenderStatusFieldMetaFiscalLegislationDocumentReference = new Field
   TenderStatusField.FiscalLegislationDocumentReference,
   'FiscalLegislationDocumentReference',
   'Fiscal Legislation Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a document providing references to fiscal legislation applicable to the tendering process.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -264,10 +280,10 @@ export const TenderStatusFieldMetaEnvironmentalLegislationDocumentReference = ne
   TenderStatusField.EnvironmentalLegislationDocumentReference,
   'EnvironmentalLegislationDocumentReference',
   'Environmental Legislation Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a document providing references to environmental legislation applicable to the tendering process.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -276,10 +292,10 @@ export const TenderStatusFieldMetaEmploymentLegislationDocumentReference = new F
   TenderStatusField.EmploymentLegislationDocumentReference,
   'EmploymentLegislationDocumentReference',
   'Employment Legislation Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a document providing references to employment legislation applicable to the tendering process.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -288,10 +304,10 @@ export const TenderStatusFieldMetaTenderStatusInquiryDocumentReference = new Fie
   TenderStatusField.TenderStatusInquiryDocumentReference,
   'TenderStatusInquiryDocumentReference',
   'Tender Status Inquiry Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a received Tender status inquiry.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -300,10 +316,10 @@ export const TenderStatusFieldMetaSignature = new FieldMeta<TenderStatusField>(
   TenderStatusField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -312,10 +328,10 @@ export const TenderStatusFieldMetaContractingParty = new FieldMeta<TenderStatusF
   TenderStatusField.ContractingParty,
   'ContractingParty',
   'Contracting Party',
-  'ContractingParty',
+  ContractingPartyType.name,
   'The Contracting Party issuing the information about the tender status.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -324,10 +340,10 @@ export const TenderStatusFieldMetaEconomicOperatorParty = new FieldMeta<TenderSt
   TenderStatusField.EconomicOperatorParty,
   'EconomicOperatorParty',
   'Economic Operator Party',
-  'EconomicOperatorParty',
+  EconomicOperatorPartyType.name,
   'The Economic Operator receiving the tender status information.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -336,10 +352,10 @@ export const TenderStatusFieldMetaDocumentProviderParty = new FieldMeta<TenderSt
   TenderStatusField.DocumentProviderParty,
   'DocumentProviderParty',
   'Document Provider Party',
-  'Party',
+  PartyType.name,
   'The party that has the contract documents for the tendering process.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -348,10 +364,10 @@ export const TenderStatusFieldMetaTenderRecipientParty = new FieldMeta<TenderSta
   TenderStatusField.TenderRecipientParty,
   'TenderRecipientParty',
   'Tender Recipient Party',
-  'Party',
+  PartyType.name,
   'The party to which tenders should be presented.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -360,10 +376,10 @@ export const TenderStatusFieldMetaProcurementProject = new FieldMeta<TenderStatu
   TenderStatusField.ProcurementProject,
   'ProcurementProject',
   'Procurement Project',
-  'ProcurementProject',
+  ProcurementProjectType.name,
   'An overall definition of this procurement project.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -372,10 +388,10 @@ export const TenderStatusFieldMetaProcurementProjectLot = new FieldMeta<TenderSt
   TenderStatusField.ProcurementProjectLot,
   'ProcurementProjectLot',
   'Procurement Project Lot',
-  'ProcurementProjectLot',
+  ProcurementProjectLotType.name,
   'One of the procurement project lots into which this contract can be split.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -443,3 +459,11 @@ export const TenderStatusFieldMap = new Map([
   [TenderStatusField.ProcurementProject, TenderStatusFieldMetaProcurementProject],
   [TenderStatusField.ProcurementProjectLot, TenderStatusFieldMetaProcurementProjectLot]
 ])
+
+export const TenderStatusType: Type<TenderStatusField> = {
+  name: 'TenderStatus',
+  label: 'Tender Status',
+  module: TypeModule.doc,
+  definition: 'A document sent by the Contracting Party to an Economic Operator describing the status of a tendering procedure.',
+  fields: TenderStatusFieldMap,
+}

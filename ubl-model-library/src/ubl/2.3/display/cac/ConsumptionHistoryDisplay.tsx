@@ -1,93 +1,129 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ConsumptionHistory } from  '../../model/cac/ConsumptionHistory'
-import { ConsumptionHistoryFieldMeta } from  '../../meta/cac/ConsumptionHistoryMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ConsumptionHistoryField, ConsumptionHistoryFieldMeta, ConsumptionHistoryTypeName } from  '../../meta/cac/ConsumptionHistoryMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ConsumptionHistory | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ConsumptionHistory, void>
+  consumptionHistory: ConsumptionHistory[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ConsumptionHistoryDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ConsumptionHistorySubElementsMap: SubElementsTemplatesMap<ConsumptionHistoryField, ConsumptionHistory, void> = new Map([
+    [
+      ConsumptionHistoryField.UBLExtensions,
+      { meta: ConsumptionHistoryFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ConsumptionHistoryField.UBLExtensions}
+          meta={ConsumptionHistoryFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ConsumptionHistory">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ConsumptionHistoryFieldMeta.UBLExtensions}
-          />
+    [
+      ConsumptionHistoryField.MeterNumber,
+      { meta: ConsumptionHistoryFieldMeta.MeterNumber,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ConsumptionHistoryField.MeterNumber}
+          meta={ConsumptionHistoryFieldMeta.MeterNumber}
+          fieldConfig={fieldConfig}
+          text={value?.MeterNumber}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Meter Number"
-            value={value.MeterNumber?.[0]}
-            meta={ConsumptionHistoryFieldMeta.MeterNumber}
-          />
+    [
+      ConsumptionHistoryField.Quantity,
+      { meta: ConsumptionHistoryFieldMeta.Quantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={ConsumptionHistoryField.Quantity}
+          meta={ConsumptionHistoryFieldMeta.Quantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.Quantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Quantity"
-            value={value.Quantity?.[0]}
-            meta={ConsumptionHistoryFieldMeta.Quantity}
-          />
+    [
+      ConsumptionHistoryField.Amount,
+      { meta: ConsumptionHistoryFieldMeta.Amount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={ConsumptionHistoryField.Amount}
+          meta={ConsumptionHistoryFieldMeta.Amount}
+          fieldConfig={fieldConfig}
+          amount={value?.Amount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Amount"
-            value={value.Amount?.[0]}
-            meta={ConsumptionHistoryFieldMeta.Amount}
-          />
+    [
+      ConsumptionHistoryField.ConsumptionLevelCode,
+      { meta: ConsumptionHistoryFieldMeta.ConsumptionLevelCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ConsumptionHistoryField.ConsumptionLevelCode}
+          meta={ConsumptionHistoryFieldMeta.ConsumptionLevelCode}
+          fieldConfig={fieldConfig}
+          code={value?.ConsumptionLevelCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Consumption Level Code"
-            value={value.ConsumptionLevelCode?.[0]}
-            meta={ConsumptionHistoryFieldMeta.ConsumptionLevelCode}
-          />
+    [
+      ConsumptionHistoryField.ConsumptionLevel,
+      { meta: ConsumptionHistoryFieldMeta.ConsumptionLevel,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ConsumptionHistoryField.ConsumptionLevel}
+          meta={ConsumptionHistoryFieldMeta.ConsumptionLevel}
+          fieldConfig={fieldConfig}
+          text={value?.ConsumptionLevel}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Consumption Level Text"
-            value={value.ConsumptionLevel?.[0]}
-            meta={ConsumptionHistoryFieldMeta.ConsumptionLevel}
-          />
+    [
+      ConsumptionHistoryField.Description,
+      { meta: ConsumptionHistoryFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ConsumptionHistoryField.Description}
+          meta={ConsumptionHistoryFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={ConsumptionHistoryFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={ConsumptionHistoryFieldMeta.Description}
-              />
-            }
-          />
+    [
+      ConsumptionHistoryField.Period,
+      { meta: ConsumptionHistoryFieldMeta.Period,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={ConsumptionHistoryField.Period}
+          meta={ConsumptionHistoryFieldMeta.Period}
+          fieldConfig={fieldConfig}
+          period={value?.Period}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <PeriodDisplay
-            label="Period"
-            value={value.Period?.[0]}
-            meta={ConsumptionHistoryFieldMeta.Period}
-          />
-        </div>
-    </div>
+export function ConsumptionHistoryDisplay<TFieldMeta>({ meta, fieldConfig, consumptionHistory, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ConsumptionHistoryTypeName,
+    meta,
+    fieldConfig,
+    consumptionHistory,
+    renderContext,
+    ConsumptionHistorySubElementsMap,
   )
 }

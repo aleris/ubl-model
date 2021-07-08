@@ -1,48 +1,66 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { UnstructuredPrice } from  '../../model/cac/UnstructuredPrice'
-import { UnstructuredPriceFieldMeta } from  '../../meta/cac/UnstructuredPriceMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { UnstructuredPriceField, UnstructuredPriceFieldMeta, UnstructuredPriceTypeName } from  '../../meta/cac/UnstructuredPriceMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: UnstructuredPrice | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<UnstructuredPrice, void>
+  unstructuredPrice: UnstructuredPrice[] | undefined
+  renderContext: RenderContext
 }
 
-export default function UnstructuredPriceDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const UnstructuredPriceSubElementsMap: SubElementsTemplatesMap<UnstructuredPriceField, UnstructuredPrice, void> = new Map([
+    [
+      UnstructuredPriceField.UBLExtensions,
+      { meta: UnstructuredPriceFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={UnstructuredPriceField.UBLExtensions}
+          meta={UnstructuredPriceFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-UnstructuredPrice">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={UnstructuredPriceFieldMeta.UBLExtensions}
-          />
+    [
+      UnstructuredPriceField.PriceAmount,
+      { meta: UnstructuredPriceFieldMeta.PriceAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={UnstructuredPriceField.PriceAmount}
+          meta={UnstructuredPriceFieldMeta.PriceAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.PriceAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Price Amount"
-            value={value.PriceAmount?.[0]}
-            meta={UnstructuredPriceFieldMeta.PriceAmount}
-          />
+    [
+      UnstructuredPriceField.TimeAmount,
+      { meta: UnstructuredPriceFieldMeta.TimeAmount,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={UnstructuredPriceField.TimeAmount}
+          meta={UnstructuredPriceFieldMeta.TimeAmount}
+          fieldConfig={fieldConfig}
+          text={value?.TimeAmount}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <TextDisplay
-            label="Time Amount"
-            value={value.TimeAmount?.[0]}
-            meta={UnstructuredPriceFieldMeta.TimeAmount}
-          />
-        </div>
-    </div>
+export function UnstructuredPriceDisplay<TFieldMeta>({ meta, fieldConfig, unstructuredPrice, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    UnstructuredPriceTypeName,
+    meta,
+    fieldConfig,
+    unstructuredPrice,
+    renderContext,
+    UnstructuredPriceSubElementsMap,
   )
 }

@@ -1,213 +1,279 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { DigitalAgreement } from  '../../model/doc/DigitalAgreement'
-import { DigitalAgreementFieldMeta } from  '../../meta/doc/DigitalAgreementMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import CountryDisplay from '../cac/CountryDisplay'
-import { Country } from '../../model/cac/Country'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DigitalAgreementTermsDisplay from '../cac/DigitalAgreementTermsDisplay'
-import { DigitalAgreementTerms } from '../../model/cac/DigitalAgreementTerms'
-import DigitalProcessDisplay from '../cac/DigitalProcessDisplay'
-import { DigitalProcess } from '../../model/cac/DigitalProcess'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import ParticipantPartyDisplay from '../cac/ParticipantPartyDisplay'
-import { ParticipantParty } from '../../model/cac/ParticipantParty'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { DigitalAgreementField, DigitalAgreementFieldMeta, DigitalAgreementTypeName } from  '../../meta/doc/DigitalAgreementMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { CountryDisplay } from '../cac/CountryDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DigitalAgreementTermsDisplay } from '../cac/DigitalAgreementTermsDisplay'
+import { DigitalProcessDisplay } from '../cac/DigitalProcessDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { ParticipantPartyDisplay } from '../cac/ParticipantPartyDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: DigitalAgreement | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<DigitalAgreement, void>
+  digitalAgreement: DigitalAgreement[] | undefined
+  renderContext: RenderContext
 }
 
-export default function DigitalAgreementDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const DigitalAgreementSubElementsMap: SubElementsTemplatesMap<DigitalAgreementField, DigitalAgreement, void> = new Map([
+    [
+      DigitalAgreementField.UBLExtensions,
+      { meta: DigitalAgreementFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={DigitalAgreementField.UBLExtensions}
+          meta={DigitalAgreementFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-DigitalAgreement">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={DigitalAgreementFieldMeta.UBLExtensions}
-          />
+    [
+      DigitalAgreementField.UBLVersionID,
+      { meta: DigitalAgreementFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DigitalAgreementField.UBLVersionID}
+          meta={DigitalAgreementFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={DigitalAgreementFieldMeta.UBLVersionID}
-          />
+    [
+      DigitalAgreementField.CustomizationID,
+      { meta: DigitalAgreementFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DigitalAgreementField.CustomizationID}
+          meta={DigitalAgreementFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={DigitalAgreementFieldMeta.CustomizationID}
-          />
+    [
+      DigitalAgreementField.ProfileID,
+      { meta: DigitalAgreementFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DigitalAgreementField.ProfileID}
+          meta={DigitalAgreementFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={DigitalAgreementFieldMeta.ProfileID}
-          />
+    [
+      DigitalAgreementField.ProfileExecutionID,
+      { meta: DigitalAgreementFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DigitalAgreementField.ProfileExecutionID}
+          meta={DigitalAgreementFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={DigitalAgreementFieldMeta.ProfileExecutionID}
-          />
+    [
+      DigitalAgreementField.ID,
+      { meta: DigitalAgreementFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DigitalAgreementField.ID}
+          meta={DigitalAgreementFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={DigitalAgreementFieldMeta.ID}
-          />
+    [
+      DigitalAgreementField.UUID,
+      { meta: DigitalAgreementFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DigitalAgreementField.UUID}
+          meta={DigitalAgreementFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={DigitalAgreementFieldMeta.UUID}
-          />
+    [
+      DigitalAgreementField.IssueDate,
+      { meta: DigitalAgreementFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={DigitalAgreementField.IssueDate}
+          meta={DigitalAgreementFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={DigitalAgreementFieldMeta.IssueDate}
-          />
+    [
+      DigitalAgreementField.IssueTime,
+      { meta: DigitalAgreementFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={DigitalAgreementField.IssueTime}
+          meta={DigitalAgreementFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={DigitalAgreementFieldMeta.IssueTime}
-          />
+    [
+      DigitalAgreementField.AgreementTypeCode,
+      { meta: DigitalAgreementFieldMeta.AgreementTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={DigitalAgreementField.AgreementTypeCode}
+          meta={DigitalAgreementFieldMeta.AgreementTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.AgreementTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Agreement Type Code"
-            value={value.AgreementTypeCode?.[0]}
-            meta={DigitalAgreementFieldMeta.AgreementTypeCode}
-          />
+    [
+      DigitalAgreementField.VersionID,
+      { meta: DigitalAgreementFieldMeta.VersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DigitalAgreementField.VersionID}
+          meta={DigitalAgreementFieldMeta.VersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.VersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Version Identifier"
-            value={value.VersionID?.[0]}
-            meta={DigitalAgreementFieldMeta.VersionID}
-          />
+    [
+      DigitalAgreementField.PreviousVersionID,
+      { meta: DigitalAgreementFieldMeta.PreviousVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DigitalAgreementField.PreviousVersionID}
+          meta={DigitalAgreementFieldMeta.PreviousVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.PreviousVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Previous Version Identifier"
-            value={value.PreviousVersionID?.[0]}
-            meta={DigitalAgreementFieldMeta.PreviousVersionID}
-          />
+    [
+      DigitalAgreementField.RequiredResponseMessageLevelCode,
+      { meta: DigitalAgreementFieldMeta.RequiredResponseMessageLevelCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={DigitalAgreementField.RequiredResponseMessageLevelCode}
+          meta={DigitalAgreementFieldMeta.RequiredResponseMessageLevelCode}
+          fieldConfig={fieldConfig}
+          code={value?.RequiredResponseMessageLevelCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Required Response Message Level Code"
-            value={value.RequiredResponseMessageLevelCode?.[0]}
-            meta={DigitalAgreementFieldMeta.RequiredResponseMessageLevelCode}
-          />
+    [
+      DigitalAgreementField.Signature,
+      { meta: DigitalAgreementFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={DigitalAgreementField.Signature}
+          meta={DigitalAgreementFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={DigitalAgreementFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={DigitalAgreementFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      DigitalAgreementField.GovernorParty,
+      { meta: DigitalAgreementFieldMeta.GovernorParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={DigitalAgreementField.GovernorParty}
+          meta={DigitalAgreementFieldMeta.GovernorParty}
+          fieldConfig={fieldConfig}
+          party={value?.GovernorParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Governor Party"
-            value={value.GovernorParty?.[0]}
-            meta={DigitalAgreementFieldMeta.GovernorParty}
-          />
+    [
+      DigitalAgreementField.ParticipantParty,
+      { meta: DigitalAgreementFieldMeta.ParticipantParty,
+        template: ({value, renderContext, fieldConfig}) => <ParticipantPartyDisplay
+          key={DigitalAgreementField.ParticipantParty}
+          meta={DigitalAgreementFieldMeta.ParticipantParty}
+          fieldConfig={fieldConfig}
+          participantParty={value?.ParticipantParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-ParticipantParty"
-            label="Participant Party"
-            items={value.ParticipantParty}
-            meta={DigitalAgreementFieldMeta.ParticipantParty} 
-            itemDisplay={ (itemValue: ParticipantParty, key: string | number) =>
-              <ParticipantPartyDisplay
-                key={key}
-                label="Participant Party"
-                value={itemValue}
-                meta={DigitalAgreementFieldMeta.ParticipantParty}
-              />
-            }
-          />
+    [
+      DigitalAgreementField.AgreementCountry,
+      { meta: DigitalAgreementFieldMeta.AgreementCountry,
+        template: ({value, renderContext, fieldConfig}) => <CountryDisplay
+          key={DigitalAgreementField.AgreementCountry}
+          meta={DigitalAgreementFieldMeta.AgreementCountry}
+          fieldConfig={fieldConfig}
+          country={value?.AgreementCountry}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Country ubl-AgreementCountry"
-            label="Agreement Country"
-            items={value.AgreementCountry}
-            meta={DigitalAgreementFieldMeta.AgreementCountry} 
-            itemDisplay={ (itemValue: Country, key: string | number) =>
-              <CountryDisplay
-                key={key}
-                label="Agreement Country"
-                value={itemValue}
-                meta={DigitalAgreementFieldMeta.AgreementCountry}
-              />
-            }
-          />
+    [
+      DigitalAgreementField.RequiredCertificationDocumentReference,
+      { meta: DigitalAgreementFieldMeta.RequiredCertificationDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={DigitalAgreementField.RequiredCertificationDocumentReference}
+          meta={DigitalAgreementFieldMeta.RequiredCertificationDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.RequiredCertificationDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-RequiredCertificationDocumentReference"
-            label="Required Certification Document Reference"
-            items={value.RequiredCertificationDocumentReference}
-            meta={DigitalAgreementFieldMeta.RequiredCertificationDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Required Certification Document Reference"
-                value={itemValue}
-                meta={DigitalAgreementFieldMeta.RequiredCertificationDocumentReference}
-              />
-            }
-          />
+    [
+      DigitalAgreementField.DigitalAgreementTerms,
+      { meta: DigitalAgreementFieldMeta.DigitalAgreementTerms,
+        template: ({value, renderContext, fieldConfig}) => <DigitalAgreementTermsDisplay
+          key={DigitalAgreementField.DigitalAgreementTerms}
+          meta={DigitalAgreementFieldMeta.DigitalAgreementTerms}
+          fieldConfig={fieldConfig}
+          digitalAgreementTerms={value?.DigitalAgreementTerms}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DigitalAgreementTermsDisplay
-            label="Digital Agreement Terms"
-            value={value.DigitalAgreementTerms?.[0]}
-            meta={DigitalAgreementFieldMeta.DigitalAgreementTerms}
-          />
+    [
+      DigitalAgreementField.DigitalProcess,
+      { meta: DigitalAgreementFieldMeta.DigitalProcess,
+        template: ({value, renderContext, fieldConfig}) => <DigitalProcessDisplay
+          key={DigitalAgreementField.DigitalProcess}
+          meta={DigitalAgreementFieldMeta.DigitalProcess}
+          fieldConfig={fieldConfig}
+          digitalProcess={value?.DigitalProcess}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DigitalProcess"
-            label="Digital Process"
-            items={value.DigitalProcess}
-            meta={DigitalAgreementFieldMeta.DigitalProcess} 
-            itemDisplay={ (itemValue: DigitalProcess, key: string | number) =>
-              <DigitalProcessDisplay
-                key={key}
-                label="Digital Process"
-                value={itemValue}
-                meta={DigitalAgreementFieldMeta.DigitalProcess}
-              />
-            }
-          />
-        </div>
-    </div>
+export function DigitalAgreementDisplay<TFieldMeta>({ meta, fieldConfig, digitalAgreement, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    DigitalAgreementTypeName,
+    meta,
+    fieldConfig,
+    digitalAgreement,
+    renderContext,
+    DigitalAgreementSubElementsMap,
   )
 }

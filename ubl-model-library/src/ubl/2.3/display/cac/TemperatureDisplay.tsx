@@ -1,65 +1,79 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Temperature } from  '../../model/cac/Temperature'
-import { TemperatureFieldMeta } from  '../../meta/cac/TemperatureMeta'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import MeasureDisplay from '../cbc/MeasureDisplay'
-import { Measure } from '../../model/cbc/Measure'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { TemperatureField, TemperatureFieldMeta, TemperatureTypeName } from  '../../meta/cac/TemperatureMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { MeasureDisplay } from '../cbc/MeasureDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: Temperature | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<Temperature, void>
+  temperature: Temperature[] | undefined
+  renderContext: RenderContext
 }
 
-export default function TemperatureDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const TemperatureSubElementsMap: SubElementsTemplatesMap<TemperatureField, Temperature, void> = new Map([
+    [
+      TemperatureField.UBLExtensions,
+      { meta: TemperatureFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={TemperatureField.UBLExtensions}
+          meta={TemperatureFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-Temperature">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={TemperatureFieldMeta.UBLExtensions}
-          />
+    [
+      TemperatureField.AttributeID,
+      { meta: TemperatureFieldMeta.AttributeID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TemperatureField.AttributeID}
+          meta={TemperatureFieldMeta.AttributeID}
+          fieldConfig={fieldConfig}
+          identifier={value?.AttributeID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Attribute Identifier"
-            value={value.AttributeID?.[0]}
-            meta={TemperatureFieldMeta.AttributeID}
-          />
+    [
+      TemperatureField.Measure,
+      { meta: TemperatureFieldMeta.Measure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={TemperatureField.Measure}
+          meta={TemperatureFieldMeta.Measure}
+          fieldConfig={fieldConfig}
+          measure={value?.Measure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Measure"
-            value={value.Measure?.[0]}
-            meta={TemperatureFieldMeta.Measure}
-          />
+    [
+      TemperatureField.Description,
+      { meta: TemperatureFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TemperatureField.Description}
+          meta={TemperatureFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={TemperatureFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={TemperatureFieldMeta.Description}
-              />
-            }
-          />
-        </div>
-    </div>
+export function TemperatureDisplay<TFieldMeta>({ meta, fieldConfig, temperature, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    TemperatureTypeName,
+    meta,
+    fieldConfig,
+    temperature,
+    renderContext,
+    TemperatureSubElementsMap,
   )
 }

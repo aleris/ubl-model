@@ -15,7 +15,6 @@ import { Response } from './Response'
 import { TaxTotal } from './TaxTotal'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to define a line in a Debit Note.
  */

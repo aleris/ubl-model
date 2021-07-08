@@ -1,7 +1,6 @@
 import { Amount } from '../cbc/Amount'
 import { EventLineItem } from './EventLineItem'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a line item associated with a promotional event.
  */

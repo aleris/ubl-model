@@ -1,0 +1,20 @@
+@import "../variables";
+
+.FieldLabel {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: $font-size-small-label;
+  color: $field-color-label;
+
+  &.Big {
+    font-size: $font-size-normal-label
+  }
+
+  &.Small {
+    font-size: $font-size-small-label;
+  }
+
+  &--Colon {
+    padding: 2pt;
+  }
+}

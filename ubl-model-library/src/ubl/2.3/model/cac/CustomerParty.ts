@@ -2,7 +2,6 @@ import { Contact } from './Contact'
 import { Identifier } from '../cbc/Identifier'
 import { Party } from './Party'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a customer party.
  */

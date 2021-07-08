@@ -7,7 +7,6 @@ import { Quantity } from '../cbc/Quantity'
 import { Shipment } from './Shipment'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to define a line in a Despatch Advice.
  */

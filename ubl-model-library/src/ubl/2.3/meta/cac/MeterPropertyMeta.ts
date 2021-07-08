@@ -1,4 +1,9 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum MeterPropertyField {
   UBLExtensions = 'UBLExtensions',
@@ -12,11 +17,11 @@ export enum MeterPropertyField {
 export const MeterPropertyFieldMetaUBLExtensions = new FieldMeta<MeterPropertyField>(
   MeterPropertyField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -25,10 +30,10 @@ export const MeterPropertyFieldMetaName = new FieldMeta<MeterPropertyField>(
   MeterPropertyField.Name,
   'Name',
   'Name',
-  'Text',
+  TextType.name,
   'The name of this meter property, expressed as a code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Energy Rating , Collar Size , Fat Content'
 )
@@ -37,10 +42,10 @@ export const MeterPropertyFieldMetaNameCode = new FieldMeta<MeterPropertyField>(
   MeterPropertyField.NameCode,
   'NameCode',
   'Name Code',
-  'Code',
+  CodeType.name,
   'The value of this meter property, expressed as text.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -49,10 +54,10 @@ export const MeterPropertyFieldMetaValue = new FieldMeta<MeterPropertyField>(
   MeterPropertyField.Value,
   'Value',
   'Value',
-  'Text',
+  TextType.name,
   'The value of this meter property, expressed as a quantity.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '100 watts , 15 European , 20% +/- 5%'
 )
@@ -61,10 +66,10 @@ export const MeterPropertyFieldMetaValueQuantity = new FieldMeta<MeterPropertyFi
   MeterPropertyField.ValueQuantity,
   'ValueQuantity',
   'Value Quantity',
-  'Quantity',
+  QuantityType.name,
   'The value of this meter property, expressed as a quantity.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -73,10 +78,10 @@ export const MeterPropertyFieldMetaValueQualifier = new FieldMeta<MeterPropertyF
   MeterPropertyField.ValueQualifier,
   'ValueQualifier',
   'Value Qualifier',
-  'Text',
+  TextType.name,
   'An additional value to qualify the value of the meter',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -98,3 +103,11 @@ export const MeterPropertyFieldMap = new Map([
   [MeterPropertyField.ValueQuantity, MeterPropertyFieldMetaValueQuantity],
   [MeterPropertyField.ValueQualifier, MeterPropertyFieldMetaValueQualifier]
 ])
+
+export const MeterPropertyType: Type<MeterPropertyField> = {
+  name: 'MeterProperty',
+  label: 'Meter Property',
+  module: TypeModule.cac,
+  definition: 'The name of this meter property.',
+  fields: MeterPropertyFieldMap,
+}

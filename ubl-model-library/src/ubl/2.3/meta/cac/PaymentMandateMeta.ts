@@ -1,4 +1,14 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { ClauseType } from './ClauseMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { FinancialAccountType } from './FinancialAccountMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { PartyType } from './PartyMeta'
+import { PeriodType } from './PeriodMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum PaymentMandateField {
   UBLExtensions = 'UBLExtensions',
@@ -17,11 +27,11 @@ export enum PaymentMandateField {
 export const PaymentMandateFieldMetaUBLExtensions = new FieldMeta<PaymentMandateField>(
   PaymentMandateField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -30,10 +40,10 @@ export const PaymentMandateFieldMetaID = new FieldMeta<PaymentMandateField>(
   PaymentMandateField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this payment mandate.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -42,10 +52,10 @@ export const PaymentMandateFieldMetaMandateTypeCode = new FieldMeta<PaymentManda
   PaymentMandateField.MandateTypeCode,
   'MandateTypeCode',
   'Mandate Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of this payment mandate.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -54,10 +64,10 @@ export const PaymentMandateFieldMetaMaximumPaymentInstructionsNumeric = new Fiel
   PaymentMandateField.MaximumPaymentInstructionsNumeric,
   'MaximumPaymentInstructionsNumeric',
   'Maximum Payment Instructions',
-  'Numeric',
+  NumericType.name,
   'The number of maximum payment instructions allowed within the validity period.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -66,10 +76,10 @@ export const PaymentMandateFieldMetaMaximumPaidAmount = new FieldMeta<PaymentMan
   PaymentMandateField.MaximumPaidAmount,
   'MaximumPaidAmount',
   'Maximum Paid Amount',
-  'Amount',
+  AmountType.name,
   'The maximum amount to be paid within a single instruction.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -78,10 +88,10 @@ export const PaymentMandateFieldMetaSignatureID = new FieldMeta<PaymentMandateFi
   PaymentMandateField.SignatureID,
   'SignatureID',
   'Signature Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for a signature applied by a signatory party.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -90,10 +100,10 @@ export const PaymentMandateFieldMetaPayerParty = new FieldMeta<PaymentMandateFie
   PaymentMandateField.PayerParty,
   'PayerParty',
   'Payer Party',
-  'Party',
+  PartyType.name,
   'The payer party (if different from the debtor).',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -102,10 +112,10 @@ export const PaymentMandateFieldMetaPayerFinancialAccount = new FieldMeta<Paymen
   PaymentMandateField.PayerFinancialAccount,
   'PayerFinancialAccount',
   'Payer Financial Account',
-  'FinancialAccount',
+  FinancialAccountType.name,
   'The payer\'s financial account.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -114,10 +124,10 @@ export const PaymentMandateFieldMetaValidityPeriod = new FieldMeta<PaymentMandat
   PaymentMandateField.ValidityPeriod,
   'ValidityPeriod',
   'Validity Period',
-  'Period',
+  PeriodType.name,
   'The period during which this mandate is valid.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -126,10 +136,10 @@ export const PaymentMandateFieldMetaPaymentReversalPeriod = new FieldMeta<Paymen
   PaymentMandateField.PaymentReversalPeriod,
   'PaymentReversalPeriod',
   'Payment Reversal Period',
-  'Period',
+  PeriodType.name,
   'The period of the reverse payment.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -138,10 +148,10 @@ export const PaymentMandateFieldMetaClause = new FieldMeta<PaymentMandateField>(
   PaymentMandateField.Clause,
   'Clause',
   'Clause',
-  'Clause',
+  ClauseType.name,
   'A clause applicable to this payment mandate.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -173,3 +183,11 @@ export const PaymentMandateFieldMap = new Map([
   [PaymentMandateField.PaymentReversalPeriod, PaymentMandateFieldMetaPaymentReversalPeriod],
   [PaymentMandateField.Clause, PaymentMandateFieldMetaClause]
 ])
+
+export const PaymentMandateType: Type<PaymentMandateField> = {
+  name: 'PaymentMandate',
+  label: 'Payment Mandate',
+  module: TypeModule.cac,
+  definition: 'A class to describe a payment mandate.',
+  fields: PaymentMandateFieldMap,
+}

@@ -1,6 +1,5 @@
 import { Identifier } from '../cbc/Identifier'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to define an identifier for a party.
  */

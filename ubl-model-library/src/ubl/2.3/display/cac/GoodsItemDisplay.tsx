@@ -1,391 +1,539 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { GoodsItem } from  '../../model/cac/GoodsItem'
-import { GoodsItemFieldMeta } from  '../../meta/cac/GoodsItemMeta'
-import AddressDisplay from './AddressDisplay'
-import { Address } from '../../model/cac/Address'
-import AllowanceChargeDisplay from './AllowanceChargeDisplay'
-import { AllowanceCharge } from '../../model/cac/AllowanceCharge'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DeliveryDisplay from './DeliveryDisplay'
-import { Delivery } from '../../model/cac/Delivery'
-import DespatchDisplay from './DespatchDisplay'
-import { Despatch } from '../../model/cac/Despatch'
-import DimensionDisplay from './DimensionDisplay'
-import { Dimension } from '../../model/cac/Dimension'
-import DocumentReferenceDisplay from './DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import GoodsItemContainerDisplay from './GoodsItemContainerDisplay'
-import { GoodsItemContainer } from '../../model/cac/GoodsItemContainer'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import InvoiceLineDisplay from './InvoiceLineDisplay'
-import { InvoiceLine } from '../../model/cac/InvoiceLine'
-import ItemDisplay from './ItemDisplay'
-import { Item } from '../../model/cac/Item'
-import MeasureDisplay from '../cbc/MeasureDisplay'
-import { Measure } from '../../model/cbc/Measure'
-import PackageDisplay from './PackageDisplay'
-import { Package } from '../../model/cac/Package'
-import PickupDisplay from './PickupDisplay'
-import { Pickup } from '../../model/cac/Pickup'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import TemperatureDisplay from './TemperatureDisplay'
-import { Temperature } from '../../model/cac/Temperature'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { GoodsItemField, GoodsItemFieldMeta, GoodsItemTypeName } from  '../../meta/cac/GoodsItemMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AddressDisplay } from './AddressDisplay'
+import { AllowanceChargeDisplay } from './AllowanceChargeDisplay'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DeliveryDisplay } from './DeliveryDisplay'
+import { DespatchDisplay } from './DespatchDisplay'
+import { DimensionDisplay } from './DimensionDisplay'
+import { DocumentReferenceDisplay } from './DocumentReferenceDisplay'
+import { GoodsItemContainerDisplay } from './GoodsItemContainerDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { InvoiceLineDisplay } from './InvoiceLineDisplay'
+import { ItemDisplay } from './ItemDisplay'
+import { MeasureDisplay } from '../cbc/MeasureDisplay'
+import { PackageDisplay } from './PackageDisplay'
+import { PickupDisplay } from './PickupDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { TemperatureDisplay } from './TemperatureDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: GoodsItem | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<GoodsItem, void>
+  goodsItem: GoodsItem[] | undefined
+  renderContext: RenderContext
 }
 
-export default function GoodsItemDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const GoodsItemSubElementsMap: SubElementsTemplatesMap<GoodsItemField, GoodsItem, void> = new Map([
+    [
+      GoodsItemField.UBLExtensions,
+      { meta: GoodsItemFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={GoodsItemField.UBLExtensions}
+          meta={GoodsItemFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-GoodsItem">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={GoodsItemFieldMeta.UBLExtensions}
-          />
+    [
+      GoodsItemField.ID,
+      { meta: GoodsItemFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={GoodsItemField.ID}
+          meta={GoodsItemFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={GoodsItemFieldMeta.ID}
-          />
+    [
+      GoodsItemField.SequenceNumberID,
+      { meta: GoodsItemFieldMeta.SequenceNumberID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={GoodsItemField.SequenceNumberID}
+          meta={GoodsItemFieldMeta.SequenceNumberID}
+          fieldConfig={fieldConfig}
+          identifier={value?.SequenceNumberID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Sequence Number"
-            value={value.SequenceNumberID?.[0]}
-            meta={GoodsItemFieldMeta.SequenceNumberID}
-          />
+    [
+      GoodsItemField.Description,
+      { meta: GoodsItemFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={GoodsItemField.Description}
+          meta={GoodsItemFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={GoodsItemFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={GoodsItemFieldMeta.Description}
-              />
-            }
-          />
+    [
+      GoodsItemField.HazardousRiskIndicator,
+      { meta: GoodsItemFieldMeta.HazardousRiskIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={GoodsItemField.HazardousRiskIndicator}
+          meta={GoodsItemFieldMeta.HazardousRiskIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.HazardousRiskIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Hazardous Risk Indicator"
-            value={value.HazardousRiskIndicator?.[0]}
-            meta={GoodsItemFieldMeta.HazardousRiskIndicator}
-          />
+    [
+      GoodsItemField.DeclaredCustomsValueAmount,
+      { meta: GoodsItemFieldMeta.DeclaredCustomsValueAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={GoodsItemField.DeclaredCustomsValueAmount}
+          meta={GoodsItemFieldMeta.DeclaredCustomsValueAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.DeclaredCustomsValueAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Declared Customs Value"
-            value={value.DeclaredCustomsValueAmount?.[0]}
-            meta={GoodsItemFieldMeta.DeclaredCustomsValueAmount}
-          />
+    [
+      GoodsItemField.DeclaredForCarriageValueAmount,
+      { meta: GoodsItemFieldMeta.DeclaredForCarriageValueAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={GoodsItemField.DeclaredForCarriageValueAmount}
+          meta={GoodsItemFieldMeta.DeclaredForCarriageValueAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.DeclaredForCarriageValueAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Declared For Carriage Value"
-            value={value.DeclaredForCarriageValueAmount?.[0]}
-            meta={GoodsItemFieldMeta.DeclaredForCarriageValueAmount}
-          />
+    [
+      GoodsItemField.DeclaredStatisticsValueAmount,
+      { meta: GoodsItemFieldMeta.DeclaredStatisticsValueAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={GoodsItemField.DeclaredStatisticsValueAmount}
+          meta={GoodsItemFieldMeta.DeclaredStatisticsValueAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.DeclaredStatisticsValueAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Declared Statistics Value"
-            value={value.DeclaredStatisticsValueAmount?.[0]}
-            meta={GoodsItemFieldMeta.DeclaredStatisticsValueAmount}
-          />
+    [
+      GoodsItemField.FreeOnBoardValueAmount,
+      { meta: GoodsItemFieldMeta.FreeOnBoardValueAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={GoodsItemField.FreeOnBoardValueAmount}
+          meta={GoodsItemFieldMeta.FreeOnBoardValueAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.FreeOnBoardValueAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Free On Board Value"
-            value={value.FreeOnBoardValueAmount?.[0]}
-            meta={GoodsItemFieldMeta.FreeOnBoardValueAmount}
-          />
+    [
+      GoodsItemField.InsuranceValueAmount,
+      { meta: GoodsItemFieldMeta.InsuranceValueAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={GoodsItemField.InsuranceValueAmount}
+          meta={GoodsItemFieldMeta.InsuranceValueAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.InsuranceValueAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Insurance Value"
-            value={value.InsuranceValueAmount?.[0]}
-            meta={GoodsItemFieldMeta.InsuranceValueAmount}
-          />
+    [
+      GoodsItemField.ValueAmount,
+      { meta: GoodsItemFieldMeta.ValueAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={GoodsItemField.ValueAmount}
+          meta={GoodsItemFieldMeta.ValueAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.ValueAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Value"
-            value={value.ValueAmount?.[0]}
-            meta={GoodsItemFieldMeta.ValueAmount}
-          />
+    [
+      GoodsItemField.GrossWeightMeasure,
+      { meta: GoodsItemFieldMeta.GrossWeightMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={GoodsItemField.GrossWeightMeasure}
+          meta={GoodsItemFieldMeta.GrossWeightMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.GrossWeightMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Gross Weight"
-            value={value.GrossWeightMeasure?.[0]}
-            meta={GoodsItemFieldMeta.GrossWeightMeasure}
-          />
+    [
+      GoodsItemField.NetWeightMeasure,
+      { meta: GoodsItemFieldMeta.NetWeightMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={GoodsItemField.NetWeightMeasure}
+          meta={GoodsItemFieldMeta.NetWeightMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.NetWeightMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Net Weight"
-            value={value.NetWeightMeasure?.[0]}
-            meta={GoodsItemFieldMeta.NetWeightMeasure}
-          />
+    [
+      GoodsItemField.NetNetWeightMeasure,
+      { meta: GoodsItemFieldMeta.NetNetWeightMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={GoodsItemField.NetNetWeightMeasure}
+          meta={GoodsItemFieldMeta.NetNetWeightMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.NetNetWeightMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Net Net Weight"
-            value={value.NetNetWeightMeasure?.[0]}
-            meta={GoodsItemFieldMeta.NetNetWeightMeasure}
-          />
+    [
+      GoodsItemField.ChargeableWeightMeasure,
+      { meta: GoodsItemFieldMeta.ChargeableWeightMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={GoodsItemField.ChargeableWeightMeasure}
+          meta={GoodsItemFieldMeta.ChargeableWeightMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.ChargeableWeightMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Chargeable Weight"
-            value={value.ChargeableWeightMeasure?.[0]}
-            meta={GoodsItemFieldMeta.ChargeableWeightMeasure}
-          />
+    [
+      GoodsItemField.GrossVolumeMeasure,
+      { meta: GoodsItemFieldMeta.GrossVolumeMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={GoodsItemField.GrossVolumeMeasure}
+          meta={GoodsItemFieldMeta.GrossVolumeMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.GrossVolumeMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Gross Volume"
-            value={value.GrossVolumeMeasure?.[0]}
-            meta={GoodsItemFieldMeta.GrossVolumeMeasure}
-          />
+    [
+      GoodsItemField.NetVolumeMeasure,
+      { meta: GoodsItemFieldMeta.NetVolumeMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={GoodsItemField.NetVolumeMeasure}
+          meta={GoodsItemFieldMeta.NetVolumeMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.NetVolumeMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Net Volume"
-            value={value.NetVolumeMeasure?.[0]}
-            meta={GoodsItemFieldMeta.NetVolumeMeasure}
-          />
+    [
+      GoodsItemField.Quantity,
+      { meta: GoodsItemFieldMeta.Quantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={GoodsItemField.Quantity}
+          meta={GoodsItemFieldMeta.Quantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.Quantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Quantity"
-            value={value.Quantity?.[0]}
-            meta={GoodsItemFieldMeta.Quantity}
-          />
+    [
+      GoodsItemField.PreferenceCriterionCode,
+      { meta: GoodsItemFieldMeta.PreferenceCriterionCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={GoodsItemField.PreferenceCriterionCode}
+          meta={GoodsItemFieldMeta.PreferenceCriterionCode}
+          fieldConfig={fieldConfig}
+          code={value?.PreferenceCriterionCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Preference Criterion Code"
-            value={value.PreferenceCriterionCode?.[0]}
-            meta={GoodsItemFieldMeta.PreferenceCriterionCode}
-          />
+    [
+      GoodsItemField.RequiredCustomsID,
+      { meta: GoodsItemFieldMeta.RequiredCustomsID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={GoodsItemField.RequiredCustomsID}
+          meta={GoodsItemFieldMeta.RequiredCustomsID}
+          fieldConfig={fieldConfig}
+          identifier={value?.RequiredCustomsID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Required Customs Identifier"
-            value={value.RequiredCustomsID?.[0]}
-            meta={GoodsItemFieldMeta.RequiredCustomsID}
-          />
+    [
+      GoodsItemField.CustomsStatusCode,
+      { meta: GoodsItemFieldMeta.CustomsStatusCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={GoodsItemField.CustomsStatusCode}
+          meta={GoodsItemFieldMeta.CustomsStatusCode}
+          fieldConfig={fieldConfig}
+          code={value?.CustomsStatusCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Customs Status Code"
-            value={value.CustomsStatusCode?.[0]}
-            meta={GoodsItemFieldMeta.CustomsStatusCode}
-          />
+    [
+      GoodsItemField.CustomsTariffQuantity,
+      { meta: GoodsItemFieldMeta.CustomsTariffQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={GoodsItemField.CustomsTariffQuantity}
+          meta={GoodsItemFieldMeta.CustomsTariffQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.CustomsTariffQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Customs Tariff Quantity"
-            value={value.CustomsTariffQuantity?.[0]}
-            meta={GoodsItemFieldMeta.CustomsTariffQuantity}
-          />
+    [
+      GoodsItemField.CustomsImportClassifiedIndicator,
+      { meta: GoodsItemFieldMeta.CustomsImportClassifiedIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={GoodsItemField.CustomsImportClassifiedIndicator}
+          meta={GoodsItemFieldMeta.CustomsImportClassifiedIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.CustomsImportClassifiedIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Customs Import Classified Indicator"
-            value={value.CustomsImportClassifiedIndicator?.[0]}
-            meta={GoodsItemFieldMeta.CustomsImportClassifiedIndicator}
-          />
+    [
+      GoodsItemField.ChargeableQuantity,
+      { meta: GoodsItemFieldMeta.ChargeableQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={GoodsItemField.ChargeableQuantity}
+          meta={GoodsItemFieldMeta.ChargeableQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.ChargeableQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Chargeable Quantity"
-            value={value.ChargeableQuantity?.[0]}
-            meta={GoodsItemFieldMeta.ChargeableQuantity}
-          />
+    [
+      GoodsItemField.ReturnableQuantity,
+      { meta: GoodsItemFieldMeta.ReturnableQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={GoodsItemField.ReturnableQuantity}
+          meta={GoodsItemFieldMeta.ReturnableQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.ReturnableQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Returnable Quantity"
-            value={value.ReturnableQuantity?.[0]}
-            meta={GoodsItemFieldMeta.ReturnableQuantity}
-          />
+    [
+      GoodsItemField.TraceID,
+      { meta: GoodsItemFieldMeta.TraceID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={GoodsItemField.TraceID}
+          meta={GoodsItemFieldMeta.TraceID}
+          fieldConfig={fieldConfig}
+          identifier={value?.TraceID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Trace Identifier"
-            value={value.TraceID?.[0]}
-            meta={GoodsItemFieldMeta.TraceID}
-          />
+    [
+      GoodsItemField.Item,
+      { meta: GoodsItemFieldMeta.Item,
+        template: ({value, renderContext, fieldConfig}) => <ItemDisplay
+          key={GoodsItemField.Item}
+          meta={GoodsItemFieldMeta.Item}
+          fieldConfig={fieldConfig}
+          item={value?.Item}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Item"
-            label="Item"
-            items={value.Item}
-            meta={GoodsItemFieldMeta.Item} 
-            itemDisplay={ (itemValue: Item, key: string | number) =>
-              <ItemDisplay
-                key={key}
-                label="Item"
-                value={itemValue}
-                meta={GoodsItemFieldMeta.Item}
-              />
-            }
-          />
+    [
+      GoodsItemField.GoodsItemContainer,
+      { meta: GoodsItemFieldMeta.GoodsItemContainer,
+        template: ({value, renderContext, fieldConfig}) => <GoodsItemContainerDisplay
+          key={GoodsItemField.GoodsItemContainer}
+          meta={GoodsItemFieldMeta.GoodsItemContainer}
+          fieldConfig={fieldConfig}
+          goodsItemContainer={value?.GoodsItemContainer}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-GoodsItemContainer"
-            label="Goods Item Container"
-            items={value.GoodsItemContainer}
-            meta={GoodsItemFieldMeta.GoodsItemContainer} 
-            itemDisplay={ (itemValue: GoodsItemContainer, key: string | number) =>
-              <GoodsItemContainerDisplay
-                key={key}
-                label="Goods Item Container"
-                value={itemValue}
-                meta={GoodsItemFieldMeta.GoodsItemContainer}
-              />
-            }
-          />
+    [
+      GoodsItemField.FreightAllowanceCharge,
+      { meta: GoodsItemFieldMeta.FreightAllowanceCharge,
+        template: ({value, renderContext, fieldConfig}) => <AllowanceChargeDisplay
+          key={GoodsItemField.FreightAllowanceCharge}
+          meta={GoodsItemFieldMeta.FreightAllowanceCharge}
+          fieldConfig={fieldConfig}
+          allowanceCharge={value?.FreightAllowanceCharge}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-AllowanceCharge ubl-FreightAllowanceCharge"
-            label="Freight Allowance Charge"
-            items={value.FreightAllowanceCharge}
-            meta={GoodsItemFieldMeta.FreightAllowanceCharge} 
-            itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-              <AllowanceChargeDisplay
-                key={key}
-                label="Freight Allowance Charge"
-                value={itemValue}
-                meta={GoodsItemFieldMeta.FreightAllowanceCharge}
-              />
-            }
-          />
+    [
+      GoodsItemField.InvoiceLine,
+      { meta: GoodsItemFieldMeta.InvoiceLine,
+        template: ({value, renderContext, fieldConfig}) => <InvoiceLineDisplay
+          key={GoodsItemField.InvoiceLine}
+          meta={GoodsItemFieldMeta.InvoiceLine}
+          fieldConfig={fieldConfig}
+          invoiceLine={value?.InvoiceLine}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-InvoiceLine"
-            label="Invoice Line"
-            items={value.InvoiceLine}
-            meta={GoodsItemFieldMeta.InvoiceLine} 
-            itemDisplay={ (itemValue: InvoiceLine, key: string | number) =>
-              <InvoiceLineDisplay
-                key={key}
-                label="Invoice Line"
-                value={itemValue}
-                meta={GoodsItemFieldMeta.InvoiceLine}
-              />
-            }
-          />
+    [
+      GoodsItemField.Temperature,
+      { meta: GoodsItemFieldMeta.Temperature,
+        template: ({value, renderContext, fieldConfig}) => <TemperatureDisplay
+          key={GoodsItemField.Temperature}
+          meta={GoodsItemFieldMeta.Temperature}
+          fieldConfig={fieldConfig}
+          temperature={value?.Temperature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Temperature"
-            label="Temperature"
-            items={value.Temperature}
-            meta={GoodsItemFieldMeta.Temperature} 
-            itemDisplay={ (itemValue: Temperature, key: string | number) =>
-              <TemperatureDisplay
-                key={key}
-                label="Temperature"
-                value={itemValue}
-                meta={GoodsItemFieldMeta.Temperature}
-              />
-            }
-          />
+    [
+      GoodsItemField.ContainedGoodsItem,
+      { meta: GoodsItemFieldMeta.ContainedGoodsItem,
+        template: ({value, renderContext, fieldConfig}) => <GoodsItemDisplay
+          key={GoodsItemField.ContainedGoodsItem}
+          meta={GoodsItemFieldMeta.ContainedGoodsItem}
+          fieldConfig={fieldConfig}
+          goodsItem={value?.ContainedGoodsItem}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-GoodsItem ubl-ContainedGoodsItem"
-            label="Contained Goods Item"
-            items={value.ContainedGoodsItem}
-            meta={GoodsItemFieldMeta.ContainedGoodsItem} 
-            itemDisplay={ (itemValue: GoodsItem, key: string | number) =>
-              <GoodsItemDisplay
-                key={key}
-                label="Contained Goods Item"
-                value={itemValue}
-                meta={GoodsItemFieldMeta.ContainedGoodsItem}
-              />
-            }
-          />
+    [
+      GoodsItemField.OriginAddress,
+      { meta: GoodsItemFieldMeta.OriginAddress,
+        template: ({value, renderContext, fieldConfig}) => <AddressDisplay
+          key={GoodsItemField.OriginAddress}
+          meta={GoodsItemFieldMeta.OriginAddress}
+          fieldConfig={fieldConfig}
+          address={value?.OriginAddress}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AddressDisplay
-            label="Origin Address"
-            value={value.OriginAddress?.[0]}
-            meta={GoodsItemFieldMeta.OriginAddress}
-          />
+    [
+      GoodsItemField.Delivery,
+      { meta: GoodsItemFieldMeta.Delivery,
+        template: ({value, renderContext, fieldConfig}) => <DeliveryDisplay
+          key={GoodsItemField.Delivery}
+          meta={GoodsItemFieldMeta.Delivery}
+          fieldConfig={fieldConfig}
+          delivery={value?.Delivery}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DeliveryDisplay
-            label="Delivery"
-            value={value.Delivery?.[0]}
-            meta={GoodsItemFieldMeta.Delivery}
-          />
+    [
+      GoodsItemField.Pickup,
+      { meta: GoodsItemFieldMeta.Pickup,
+        template: ({value, renderContext, fieldConfig}) => <PickupDisplay
+          key={GoodsItemField.Pickup}
+          meta={GoodsItemFieldMeta.Pickup}
+          fieldConfig={fieldConfig}
+          pickup={value?.Pickup}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PickupDisplay
-            label="Pickup"
-            value={value.Pickup?.[0]}
-            meta={GoodsItemFieldMeta.Pickup}
-          />
+    [
+      GoodsItemField.Despatch,
+      { meta: GoodsItemFieldMeta.Despatch,
+        template: ({value, renderContext, fieldConfig}) => <DespatchDisplay
+          key={GoodsItemField.Despatch}
+          meta={GoodsItemFieldMeta.Despatch}
+          fieldConfig={fieldConfig}
+          despatch={value?.Despatch}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DespatchDisplay
-            label="Despatch"
-            value={value.Despatch?.[0]}
-            meta={GoodsItemFieldMeta.Despatch}
-          />
+    [
+      GoodsItemField.MeasurementDimension,
+      { meta: GoodsItemFieldMeta.MeasurementDimension,
+        template: ({value, renderContext, fieldConfig}) => <DimensionDisplay
+          key={GoodsItemField.MeasurementDimension}
+          meta={GoodsItemFieldMeta.MeasurementDimension}
+          fieldConfig={fieldConfig}
+          dimension={value?.MeasurementDimension}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Dimension ubl-MeasurementDimension"
-            label="Measurement Dimension"
-            items={value.MeasurementDimension}
-            meta={GoodsItemFieldMeta.MeasurementDimension} 
-            itemDisplay={ (itemValue: Dimension, key: string | number) =>
-              <DimensionDisplay
-                key={key}
-                label="Measurement Dimension"
-                value={itemValue}
-                meta={GoodsItemFieldMeta.MeasurementDimension}
-              />
-            }
-          />
+    [
+      GoodsItemField.ContainingPackage,
+      { meta: GoodsItemFieldMeta.ContainingPackage,
+        template: ({value, renderContext, fieldConfig}) => <PackageDisplay
+          key={GoodsItemField.ContainingPackage}
+          meta={GoodsItemFieldMeta.ContainingPackage}
+          fieldConfig={fieldConfig}
+          packageValue={value?.ContainingPackage}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Package ubl-ContainingPackage"
-            label="Containing Package"
-            items={value.ContainingPackage}
-            meta={GoodsItemFieldMeta.ContainingPackage} 
-            itemDisplay={ (itemValue: Package, key: string | number) =>
-              <PackageDisplay
-                key={key}
-                label="Containing Package"
-                value={itemValue}
-                meta={GoodsItemFieldMeta.ContainingPackage}
-              />
-            }
-          />
+    [
+      GoodsItemField.ShipmentDocumentReference,
+      { meta: GoodsItemFieldMeta.ShipmentDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={GoodsItemField.ShipmentDocumentReference}
+          meta={GoodsItemFieldMeta.ShipmentDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.ShipmentDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DocumentReferenceDisplay
-            label="Shipment Document Reference"
-            value={value.ShipmentDocumentReference?.[0]}
-            meta={GoodsItemFieldMeta.ShipmentDocumentReference}
-          />
+    [
+      GoodsItemField.MinimumTemperature,
+      { meta: GoodsItemFieldMeta.MinimumTemperature,
+        template: ({value, renderContext, fieldConfig}) => <TemperatureDisplay
+          key={GoodsItemField.MinimumTemperature}
+          meta={GoodsItemFieldMeta.MinimumTemperature}
+          fieldConfig={fieldConfig}
+          temperature={value?.MinimumTemperature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TemperatureDisplay
-            label="Minimum Temperature"
-            value={value.MinimumTemperature?.[0]}
-            meta={GoodsItemFieldMeta.MinimumTemperature}
-          />
+    [
+      GoodsItemField.MaximumTemperature,
+      { meta: GoodsItemFieldMeta.MaximumTemperature,
+        template: ({value, renderContext, fieldConfig}) => <TemperatureDisplay
+          key={GoodsItemField.MaximumTemperature}
+          meta={GoodsItemFieldMeta.MaximumTemperature}
+          fieldConfig={fieldConfig}
+          temperature={value?.MaximumTemperature}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <TemperatureDisplay
-            label="Maximum Temperature"
-            value={value.MaximumTemperature?.[0]}
-            meta={GoodsItemFieldMeta.MaximumTemperature}
-          />
-        </div>
-    </div>
+export function GoodsItemDisplay<TFieldMeta>({ meta, fieldConfig, goodsItem, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    GoodsItemTypeName,
+    meta,
+    fieldConfig,
+    goodsItem,
+    renderContext,
+    GoodsItemSubElementsMap,
   )
 }

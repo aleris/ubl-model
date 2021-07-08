@@ -6,7 +6,6 @@ import { Period } from './Period'
 import { TaxTotal } from './TaxTotal'
 import { TelecommunicationsSupply } from './TelecommunicationsSupply'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe the consumption of a utility.
  */

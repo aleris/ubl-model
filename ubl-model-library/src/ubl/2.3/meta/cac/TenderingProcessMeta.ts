@@ -1,4 +1,18 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AuctionTermsType } from './AuctionTermsMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { ContractingSystemType } from './ContractingSystemMeta'
+import { DocumentReferenceType } from './DocumentReferenceMeta'
+import { EconomicOperatorShortListType } from './EconomicOperatorShortListMeta'
+import { EventType } from './EventMeta'
+import { FrameworkAgreementType } from './FrameworkAgreementMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { PeriodType } from './PeriodMeta'
+import { ProcessJustificationType } from './ProcessJustificationMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum TenderingProcessField {
   UBLExtensions = 'UBLExtensions',
@@ -35,11 +49,11 @@ export enum TenderingProcessField {
 export const TenderingProcessFieldMetaUBLExtensions = new FieldMeta<TenderingProcessField>(
   TenderingProcessField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -48,10 +62,10 @@ export const TenderingProcessFieldMetaID = new FieldMeta<TenderingProcessField>(
   TenderingProcessField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this tendering process.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -60,10 +74,10 @@ export const TenderingProcessFieldMetaOriginalContractingSystemID = new FieldMet
   TenderingProcessField.OriginalContractingSystemID,
   'OriginalContractingSystemID',
   'Original Contracting System',
-  'Identifier',
+  IdentifierType.name,
   'When reopening a tendering process, the identifier of the original framework agreement or dynamic purchasing system.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -72,10 +86,10 @@ export const TenderingProcessFieldMetaDescription = new FieldMeta<TenderingProce
   TenderingProcessField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing the tendering process.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -84,10 +98,10 @@ export const TenderingProcessFieldMetaNegotiationDescription = new FieldMeta<Ten
   TenderingProcessField.NegotiationDescription,
   'NegotiationDescription',
   'Negotiation Description',
-  'Text',
+  TextType.name,
   'Text describing the negotiation to be followed during the tendering process.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -96,10 +110,10 @@ export const TenderingProcessFieldMetaProcedureCode = new FieldMeta<TenderingPro
   TenderingProcessField.ProcedureCode,
   'ProcedureCode',
   'Procedure Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of this tendering procedure.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Open, Restricted, Negotiated'
 )
@@ -108,10 +122,10 @@ export const TenderingProcessFieldMetaUrgencyCode = new FieldMeta<TenderingProce
   TenderingProcessField.UrgencyCode,
   'UrgencyCode',
   'Urgency Code',
-  'Code',
+  CodeType.name,
   'A code signifying the urgency of this tendering process.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Urgent, Normal, Emergency'
 )
@@ -120,10 +134,10 @@ export const TenderingProcessFieldMetaExpenseCode = new FieldMeta<TenderingProce
   TenderingProcessField.ExpenseCode,
   'ExpenseCode',
   'Expense Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of expense for this tendering process.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Normal, Anticipated'
 )
@@ -132,10 +146,10 @@ export const TenderingProcessFieldMetaPartPresentationCode = new FieldMeta<Tende
   TenderingProcessField.PartPresentationCode,
   'PartPresentationCode',
   'Part Presentation Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of presentation of tenders required (e.g., one lot, multiple lots, or all the lots).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'One Lot, Multiple Lots, All Lots'
 )
@@ -144,10 +158,10 @@ export const TenderingProcessFieldMetaContractingSystemCode = new FieldMeta<Tend
   TenderingProcessField.ContractingSystemCode,
   'ContractingSystemCode',
   'Contracting System Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of contracting system (e.g., framework agreement, dynamic purchasing system). If the procedure is individual (nonrepetitive), this code should be omitted.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Framework Agreement, Dynamic Purchasing System'
 )
@@ -156,10 +170,10 @@ export const TenderingProcessFieldMetaSubmissionMethodCode = new FieldMeta<Tende
   TenderingProcessField.SubmissionMethodCode,
   'SubmissionMethodCode',
   'Submission Method Code',
-  'Code',
+  CodeType.name,
   'A code signifying the method to be followed in submitting tenders.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Manual, Electronically, etc.'
 )
@@ -168,10 +182,10 @@ export const TenderingProcessFieldMetaCandidateReductionConstraintIndicator = ne
   TenderingProcessField.CandidateReductionConstraintIndicator,
   'CandidateReductionConstraintIndicator',
   'Candidate Reduction Constraint',
-  'Indicator',
+  IndicatorType.name,
   'An indicator that the number of candidates participating in this process has been reduced (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -180,10 +194,10 @@ export const TenderingProcessFieldMetaGovernmentAgreementConstraintIndicator = n
   TenderingProcessField.GovernmentAgreementConstraintIndicator,
   'GovernmentAgreementConstraintIndicator',
   'Government Agreement Constraint',
-  'Indicator',
+  IndicatorType.name,
   'An indicator that the project associated with this tendering process is constrained by a government procurement agreement (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -192,10 +206,10 @@ export const TenderingProcessFieldMetaAccessToolsURI = new FieldMeta<TenderingPr
   TenderingProcessField.AccessToolsURI,
   'AccessToolsURI',
   'Access Tools URI',
-  'Identifier',
+  IdentifierType.name,
   'The URI where the tools for electronic communication related with the tendering process can be found.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -204,10 +218,10 @@ export const TenderingProcessFieldMetaTerminatedIndicator = new FieldMeta<Tender
   TenderingProcessField.TerminatedIndicator,
   'TerminatedIndicator',
   'Terminated',
-  'Indicator',
+  IndicatorType.name,
   'An indicator that the competition launched is terminated.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'PIN call for competition is terminated.'
 )
@@ -216,10 +230,10 @@ export const TenderingProcessFieldMetaDocumentAvailabilityPeriod = new FieldMeta
   TenderingProcessField.DocumentAvailabilityPeriod,
   'DocumentAvailabilityPeriod',
   'Document Availability Period',
-  'Period',
+  PeriodType.name,
   'The period during which documents relating to this tendering process must be completed.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -228,10 +242,10 @@ export const TenderingProcessFieldMetaTenderSubmissionDeadlinePeriod = new Field
   TenderingProcessField.TenderSubmissionDeadlinePeriod,
   'TenderSubmissionDeadlinePeriod',
   'Tender Submission Deadline Period',
-  'Period',
+  PeriodType.name,
   'The period during which tenders must be delivered.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -240,10 +254,10 @@ export const TenderingProcessFieldMetaInvitationSubmissionPeriod = new FieldMeta
   TenderingProcessField.InvitationSubmissionPeriod,
   'InvitationSubmissionPeriod',
   'Invitation Submission Period',
-  'Period',
+  PeriodType.name,
   'The period during which invitations to tender must be completed and delivered.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -252,10 +266,10 @@ export const TenderingProcessFieldMetaParticipationInvitationPeriod = new FieldM
   TenderingProcessField.ParticipationInvitationPeriod,
   'ParticipationInvitationPeriod',
   'Participation Invitation Period',
-  'Period',
+  PeriodType.name,
   'The period during which the invitation to participate must be sent.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -264,10 +278,10 @@ export const TenderingProcessFieldMetaParticipationRequestReceptionPeriod = new 
   TenderingProcessField.ParticipationRequestReceptionPeriod,
   'ParticipationRequestReceptionPeriod',
   'Participation Request Reception Period',
-  'Period',
+  PeriodType.name,
   'The period during which requests for participation must be completed and delivered.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -276,10 +290,10 @@ export const TenderingProcessFieldMetaAdditionalInformationRequestPeriod = new F
   TenderingProcessField.AdditionalInformationRequestPeriod,
   'AdditionalInformationRequestPeriod',
   'Additional Information Request Period',
-  'Period',
+  PeriodType.name,
   'The period during which additional information about the procurement can be requested.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -288,10 +302,10 @@ export const TenderingProcessFieldMetaNoticeDocumentReference = new FieldMeta<Te
   TenderingProcessField.NoticeDocumentReference,
   'NoticeDocumentReference',
   'Notice Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a notice pertaining to this tendering process.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -300,10 +314,10 @@ export const TenderingProcessFieldMetaAdditionalDocumentReference = new FieldMet
   TenderingProcessField.AdditionalDocumentReference,
   'AdditionalDocumentReference',
   'Additional Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to an additional document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -312,10 +326,10 @@ export const TenderingProcessFieldMetaProcessJustification = new FieldMeta<Tende
   TenderingProcessField.ProcessJustification,
   'ProcessJustification',
   'Process Justification',
-  'ProcessJustification',
+  ProcessJustificationType.name,
   'A justification for the selection of this tendering process.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -324,10 +338,10 @@ export const TenderingProcessFieldMetaEconomicOperatorShortList = new FieldMeta<
   TenderingProcessField.EconomicOperatorShortList,
   'EconomicOperatorShortList',
   'Economic Operator Short List',
-  'EconomicOperatorShortList',
+  EconomicOperatorShortListType.name,
   'A set of criteria used to create a short list of candidates.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -336,10 +350,10 @@ export const TenderingProcessFieldMetaOpenTenderEvent = new FieldMeta<TenderingP
   TenderingProcessField.OpenTenderEvent,
   'OpenTenderEvent',
   'Open Tender Event',
-  'Event',
+  EventType.name,
   'Textual description of the legal form required for potential tenderers.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -348,10 +362,10 @@ export const TenderingProcessFieldMetaAuctionTerms = new FieldMeta<TenderingProc
   TenderingProcessField.AuctionTerms,
   'AuctionTerms',
   'Auction Terms',
-  'AuctionTerms',
+  AuctionTermsType.name,
   'The terms to be fulfilled by tenderers if an auction is to be executed before the awarding of a tender.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -360,10 +374,10 @@ export const TenderingProcessFieldMetaFrameworkAgreement = new FieldMeta<Tenderi
   TenderingProcessField.FrameworkAgreement,
   'FrameworkAgreement',
   'Framework Agreement',
-  'FrameworkAgreement',
+  FrameworkAgreementType.name,
   'A tendering framework agreement.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -372,10 +386,10 @@ export const TenderingProcessFieldMetaContractingSystem = new FieldMeta<Tenderin
   TenderingProcessField.ContractingSystem,
   'ContractingSystem',
   'Contracting System',
-  'ContractingSystem',
+  ContractingSystemType.name,
   'A reference to a contracting system. Only when the procedure is repetitive.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -443,3 +457,11 @@ export const TenderingProcessFieldMap = new Map([
   [TenderingProcessField.FrameworkAgreement, TenderingProcessFieldMetaFrameworkAgreement],
   [TenderingProcessField.ContractingSystem, TenderingProcessFieldMetaContractingSystem]
 ])
+
+export const TenderingProcessType: Type<TenderingProcessField> = {
+  name: 'TenderingProcess',
+  label: 'Tendering Process',
+  module: TypeModule.cac,
+  definition: 'A class to describe the process of a formal offer and response to execute work or supply goods at a stated price.',
+  fields: TenderingProcessFieldMap,
+}

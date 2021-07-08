@@ -1,4 +1,19 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { CustomerPartyType } from '../cac/CustomerPartyMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { InventoryReportLineType } from '../cac/InventoryReportLineMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { PeriodType } from '../cac/PeriodMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { SupplierPartyType } from '../cac/SupplierPartyMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum InventoryReportField {
   UBLExtensions = 'UBLExtensions',
@@ -25,11 +40,11 @@ export enum InventoryReportField {
 export const InventoryReportFieldMetaUBLExtensions = new FieldMeta<InventoryReportField>(
   InventoryReportField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -38,10 +53,10 @@ export const InventoryReportFieldMetaUBLVersionID = new FieldMeta<InventoryRepor
   InventoryReportField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.0.5'
 )
@@ -50,10 +65,10 @@ export const InventoryReportFieldMetaCustomizationID = new FieldMeta<InventoryRe
   InventoryReportField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -62,10 +77,10 @@ export const InventoryReportFieldMetaProfileID = new FieldMeta<InventoryReportFi
   InventoryReportField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BasicProcurementProcess'
 )
@@ -74,10 +89,10 @@ export const InventoryReportFieldMetaProfileExecutionID = new FieldMeta<Inventor
   InventoryReportField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BPP-1001'
 )
@@ -86,10 +101,10 @@ export const InventoryReportFieldMetaID = new FieldMeta<InventoryReportField>(
   InventoryReportField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the Inventory Report, assigned by the Issuer.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   'Document Number, Inventory Report Number',
   undefined
 )
@@ -98,10 +113,10 @@ export const InventoryReportFieldMetaCopyIndicator = new FieldMeta<InventoryRepo
   InventoryReportField.CopyIndicator,
   'CopyIndicator',
   'Copy Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this document is a copy (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -110,10 +125,10 @@ export const InventoryReportFieldMetaUUID = new FieldMeta<InventoryReportField>(
   InventoryReportField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -122,10 +137,10 @@ export const InventoryReportFieldMetaIssueDate = new FieldMeta<InventoryReportFi
   InventoryReportField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -134,10 +149,10 @@ export const InventoryReportFieldMetaIssueTime = new FieldMeta<InventoryReportFi
   InventoryReportField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time at which the Inventory Report was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -146,10 +161,10 @@ export const InventoryReportFieldMetaNote = new FieldMeta<InventoryReportField>(
   InventoryReportField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -158,10 +173,10 @@ export const InventoryReportFieldMetaDocumentCurrencyCode = new FieldMeta<Invent
   InventoryReportField.DocumentCurrencyCode,
   'DocumentCurrencyCode',
   'Document Currency Code',
-  'Code',
+  CodeType.name,
   'A code signifying the currency in which the Document is presented. This may be the same currency as the pricing or as the tax.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -170,10 +185,10 @@ export const InventoryReportFieldMetaInventoryPeriod = new FieldMeta<InventoryRe
   InventoryReportField.InventoryPeriod,
   'InventoryPeriod',
   'Inventory Period',
-  'Period',
+  PeriodType.name,
   'The period covered by this report.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -182,10 +197,10 @@ export const InventoryReportFieldMetaDocumentReference = new FieldMeta<Inventory
   InventoryReportField.DocumentReference,
   'DocumentReference',
   'Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to another document associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -194,10 +209,10 @@ export const InventoryReportFieldMetaSignature = new FieldMeta<InventoryReportFi
   InventoryReportField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -206,10 +221,10 @@ export const InventoryReportFieldMetaRetailerCustomerParty = new FieldMeta<Inven
   InventoryReportField.RetailerCustomerParty,
   'RetailerCustomerParty',
   'Retailer Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The retailer, who sends this message.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -218,10 +233,10 @@ export const InventoryReportFieldMetaInventoryReportingParty = new FieldMeta<Inv
   InventoryReportField.InventoryReportingParty,
   'InventoryReportingParty',
   'Inventory Reporting Party',
-  'Party',
+  PartyType.name,
   'An association to the Party that will really use the Inventory report (normally the branch for which the stock is reported).',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -230,10 +245,10 @@ export const InventoryReportFieldMetaSellerSupplierParty = new FieldMeta<Invento
   InventoryReportField.SellerSupplierParty,
   'SellerSupplierParty',
   'Seller Supplier Party',
-  'SupplierParty',
+  SupplierPartyType.name,
   'The seller.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -242,10 +257,10 @@ export const InventoryReportFieldMetaInventoryReportLine = new FieldMeta<Invento
   InventoryReportField.InventoryReportLine,
   'InventoryReportLine',
   'Inventory Report Line',
-  'InventoryReportLine',
+  InventoryReportLineType.name,
   'A line representing a particular item of sale and associated with a line in the Catalogue.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -293,3 +308,11 @@ export const InventoryReportFieldMap = new Map([
   [InventoryReportField.SellerSupplierParty, InventoryReportFieldMetaSellerSupplierParty],
   [InventoryReportField.InventoryReportLine, InventoryReportFieldMetaInventoryReportLine]
 ])
+
+export const InventoryReportType: Type<InventoryReportField> = {
+  name: 'InventoryReport',
+  label: 'Inventory Report',
+  module: TypeModule.doc,
+  definition: 'A report on the quantities of each item that are, or will be, in stock. This document is sent by a Buyer (for example a retailer) to a Seller (for example a producer).',
+  fields: InventoryReportFieldMap,
+}

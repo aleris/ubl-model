@@ -1,109 +1,128 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { AwardingCriterionResponse } from  '../../model/cac/AwardingCriterionResponse'
-import { AwardingCriterionResponseFieldMeta } from  '../../meta/cac/AwardingCriterionResponseMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { AwardingCriterionResponseField, AwardingCriterionResponseFieldMeta, AwardingCriterionResponseTypeName } from  '../../meta/cac/AwardingCriterionResponseMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: AwardingCriterionResponse | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<AwardingCriterionResponse, void>
+  awardingCriterionResponse: AwardingCriterionResponse[] | undefined
+  renderContext: RenderContext
 }
 
-export default function AwardingCriterionResponseDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const AwardingCriterionResponseSubElementsMap: SubElementsTemplatesMap<AwardingCriterionResponseField, AwardingCriterionResponse, void> = new Map([
+    [
+      AwardingCriterionResponseField.UBLExtensions,
+      { meta: AwardingCriterionResponseFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={AwardingCriterionResponseField.UBLExtensions}
+          meta={AwardingCriterionResponseFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-AwardingCriterionResponse">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={AwardingCriterionResponseFieldMeta.UBLExtensions}
-          />
+    [
+      AwardingCriterionResponseField.ID,
+      { meta: AwardingCriterionResponseFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={AwardingCriterionResponseField.ID}
+          meta={AwardingCriterionResponseFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={AwardingCriterionResponseFieldMeta.ID}
-          />
+    [
+      AwardingCriterionResponseField.AwardingCriterionID,
+      { meta: AwardingCriterionResponseFieldMeta.AwardingCriterionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={AwardingCriterionResponseField.AwardingCriterionID}
+          meta={AwardingCriterionResponseFieldMeta.AwardingCriterionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.AwardingCriterionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Awarding Criterion Identifier"
-            value={value.AwardingCriterionID?.[0]}
-            meta={AwardingCriterionResponseFieldMeta.AwardingCriterionID}
-          />
+    [
+      AwardingCriterionResponseField.AwardingCriterionDescription,
+      { meta: AwardingCriterionResponseFieldMeta.AwardingCriterionDescription,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={AwardingCriterionResponseField.AwardingCriterionDescription}
+          meta={AwardingCriterionResponseFieldMeta.AwardingCriterionDescription}
+          fieldConfig={fieldConfig}
+          text={value?.AwardingCriterionDescription}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-AwardingCriterionDescription"
-            label="Awarding Criterion Description"
-            items={value.AwardingCriterionDescription}
-            meta={AwardingCriterionResponseFieldMeta.AwardingCriterionDescription} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Awarding Criterion Description"
-                value={itemValue}
-                meta={AwardingCriterionResponseFieldMeta.AwardingCriterionDescription}
-              />
-            }
-          />
+    [
+      AwardingCriterionResponseField.Description,
+      { meta: AwardingCriterionResponseFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={AwardingCriterionResponseField.Description}
+          meta={AwardingCriterionResponseFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={AwardingCriterionResponseFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={AwardingCriterionResponseFieldMeta.Description}
-              />
-            }
-          />
+    [
+      AwardingCriterionResponseField.Quantity,
+      { meta: AwardingCriterionResponseFieldMeta.Quantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={AwardingCriterionResponseField.Quantity}
+          meta={AwardingCriterionResponseFieldMeta.Quantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.Quantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Quantity"
-            value={value.Quantity?.[0]}
-            meta={AwardingCriterionResponseFieldMeta.Quantity}
-          />
+    [
+      AwardingCriterionResponseField.Amount,
+      { meta: AwardingCriterionResponseFieldMeta.Amount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={AwardingCriterionResponseField.Amount}
+          meta={AwardingCriterionResponseFieldMeta.Amount}
+          fieldConfig={fieldConfig}
+          amount={value?.Amount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Amount"
-            value={value.Amount?.[0]}
-            meta={AwardingCriterionResponseFieldMeta.Amount}
-          />
+    [
+      AwardingCriterionResponseField.SubordinateAwardingCriterionResponse,
+      { meta: AwardingCriterionResponseFieldMeta.SubordinateAwardingCriterionResponse,
+        template: ({value, renderContext, fieldConfig}) => <AwardingCriterionResponseDisplay
+          key={AwardingCriterionResponseField.SubordinateAwardingCriterionResponse}
+          meta={AwardingCriterionResponseFieldMeta.SubordinateAwardingCriterionResponse}
+          fieldConfig={fieldConfig}
+          awardingCriterionResponse={value?.SubordinateAwardingCriterionResponse}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-AwardingCriterionResponse ubl-SubordinateAwardingCriterionResponse"
-            label="Subordinate Awarding Criterion Response"
-            items={value.SubordinateAwardingCriterionResponse}
-            meta={AwardingCriterionResponseFieldMeta.SubordinateAwardingCriterionResponse} 
-            itemDisplay={ (itemValue: AwardingCriterionResponse, key: string | number) =>
-              <AwardingCriterionResponseDisplay
-                key={key}
-                label="Subordinate Awarding Criterion Response"
-                value={itemValue}
-                meta={AwardingCriterionResponseFieldMeta.SubordinateAwardingCriterionResponse}
-              />
-            }
-          />
-        </div>
-    </div>
+export function AwardingCriterionResponseDisplay<TFieldMeta>({ meta, fieldConfig, awardingCriterionResponse, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    AwardingCriterionResponseTypeName,
+    meta,
+    fieldConfig,
+    awardingCriterionResponse,
+    renderContext,
+    AwardingCriterionResponseSubElementsMap,
   )
 }

@@ -1,117 +1,168 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { PaymentMandate } from  '../../model/cac/PaymentMandate'
-import { PaymentMandateFieldMeta } from  '../../meta/cac/PaymentMandateMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import ClauseDisplay from './ClauseDisplay'
-import { Clause } from '../../model/cac/Clause'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import FinancialAccountDisplay from './FinancialAccountDisplay'
-import { FinancialAccount } from '../../model/cac/FinancialAccount'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { PaymentMandateField, PaymentMandateFieldMeta, PaymentMandateTypeName } from  '../../meta/cac/PaymentMandateMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { ClauseDisplay } from './ClauseDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { FinancialAccountDisplay } from './FinancialAccountDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: PaymentMandate | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<PaymentMandate, void>
+  paymentMandate: PaymentMandate[] | undefined
+  renderContext: RenderContext
 }
 
-export default function PaymentMandateDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const PaymentMandateSubElementsMap: SubElementsTemplatesMap<PaymentMandateField, PaymentMandate, void> = new Map([
+    [
+      PaymentMandateField.UBLExtensions,
+      { meta: PaymentMandateFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={PaymentMandateField.UBLExtensions}
+          meta={PaymentMandateFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-PaymentMandate">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={PaymentMandateFieldMeta.UBLExtensions}
-          />
+    [
+      PaymentMandateField.ID,
+      { meta: PaymentMandateFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PaymentMandateField.ID}
+          meta={PaymentMandateFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={PaymentMandateFieldMeta.ID}
-          />
+    [
+      PaymentMandateField.MandateTypeCode,
+      { meta: PaymentMandateFieldMeta.MandateTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={PaymentMandateField.MandateTypeCode}
+          meta={PaymentMandateFieldMeta.MandateTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.MandateTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Mandate Type Code"
-            value={value.MandateTypeCode?.[0]}
-            meta={PaymentMandateFieldMeta.MandateTypeCode}
-          />
+    [
+      PaymentMandateField.MaximumPaymentInstructionsNumeric,
+      { meta: PaymentMandateFieldMeta.MaximumPaymentInstructionsNumeric,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={PaymentMandateField.MaximumPaymentInstructionsNumeric}
+          meta={PaymentMandateFieldMeta.MaximumPaymentInstructionsNumeric}
+          fieldConfig={fieldConfig}
+          numeric={value?.MaximumPaymentInstructionsNumeric}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Maximum Payment Instructions"
-            value={value.MaximumPaymentInstructionsNumeric?.[0]}
-            meta={PaymentMandateFieldMeta.MaximumPaymentInstructionsNumeric}
-          />
+    [
+      PaymentMandateField.MaximumPaidAmount,
+      { meta: PaymentMandateFieldMeta.MaximumPaidAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={PaymentMandateField.MaximumPaidAmount}
+          meta={PaymentMandateFieldMeta.MaximumPaidAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.MaximumPaidAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Maximum Paid Amount"
-            value={value.MaximumPaidAmount?.[0]}
-            meta={PaymentMandateFieldMeta.MaximumPaidAmount}
-          />
+    [
+      PaymentMandateField.SignatureID,
+      { meta: PaymentMandateFieldMeta.SignatureID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PaymentMandateField.SignatureID}
+          meta={PaymentMandateFieldMeta.SignatureID}
+          fieldConfig={fieldConfig}
+          identifier={value?.SignatureID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Signature Identifier"
-            value={value.SignatureID?.[0]}
-            meta={PaymentMandateFieldMeta.SignatureID}
-          />
+    [
+      PaymentMandateField.PayerParty,
+      { meta: PaymentMandateFieldMeta.PayerParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={PaymentMandateField.PayerParty}
+          meta={PaymentMandateFieldMeta.PayerParty}
+          fieldConfig={fieldConfig}
+          party={value?.PayerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Payer Party"
-            value={value.PayerParty?.[0]}
-            meta={PaymentMandateFieldMeta.PayerParty}
-          />
+    [
+      PaymentMandateField.PayerFinancialAccount,
+      { meta: PaymentMandateFieldMeta.PayerFinancialAccount,
+        template: ({value, renderContext, fieldConfig}) => <FinancialAccountDisplay
+          key={PaymentMandateField.PayerFinancialAccount}
+          meta={PaymentMandateFieldMeta.PayerFinancialAccount}
+          fieldConfig={fieldConfig}
+          financialAccount={value?.PayerFinancialAccount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <FinancialAccountDisplay
-            label="Payer Financial Account"
-            value={value.PayerFinancialAccount?.[0]}
-            meta={PaymentMandateFieldMeta.PayerFinancialAccount}
-          />
+    [
+      PaymentMandateField.ValidityPeriod,
+      { meta: PaymentMandateFieldMeta.ValidityPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={PaymentMandateField.ValidityPeriod}
+          meta={PaymentMandateFieldMeta.ValidityPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.ValidityPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Validity Period"
-            value={value.ValidityPeriod?.[0]}
-            meta={PaymentMandateFieldMeta.ValidityPeriod}
-          />
+    [
+      PaymentMandateField.PaymentReversalPeriod,
+      { meta: PaymentMandateFieldMeta.PaymentReversalPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={PaymentMandateField.PaymentReversalPeriod}
+          meta={PaymentMandateFieldMeta.PaymentReversalPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.PaymentReversalPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Payment Reversal Period"
-            value={value.PaymentReversalPeriod?.[0]}
-            meta={PaymentMandateFieldMeta.PaymentReversalPeriod}
-          />
+    [
+      PaymentMandateField.Clause,
+      { meta: PaymentMandateFieldMeta.Clause,
+        template: ({value, renderContext, fieldConfig}) => <ClauseDisplay
+          key={PaymentMandateField.Clause}
+          meta={PaymentMandateFieldMeta.Clause}
+          fieldConfig={fieldConfig}
+          clause={value?.Clause}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Clause"
-            label="Clause"
-            items={value.Clause}
-            meta={PaymentMandateFieldMeta.Clause} 
-            itemDisplay={ (itemValue: Clause, key: string | number) =>
-              <ClauseDisplay
-                key={key}
-                label="Clause"
-                value={itemValue}
-                meta={PaymentMandateFieldMeta.Clause}
-              />
-            }
-          />
-        </div>
-    </div>
+export function PaymentMandateDisplay<TFieldMeta>({ meta, fieldConfig, paymentMandate, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    PaymentMandateTypeName,
+    meta,
+    fieldConfig,
+    paymentMandate,
+    renderContext,
+    PaymentMandateSubElementsMap,
   )
 }

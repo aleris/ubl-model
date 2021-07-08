@@ -1,102 +1,129 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { CompletedTask } from  '../../model/cac/CompletedTask'
-import { CompletedTaskFieldMeta } from  '../../meta/cac/CompletedTaskMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import CustomerPartyDisplay from './CustomerPartyDisplay'
-import { CustomerParty } from '../../model/cac/CustomerParty'
-import EvidenceSuppliedDisplay from './EvidenceSuppliedDisplay'
-import { EvidenceSupplied } from '../../model/cac/EvidenceSupplied'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { CompletedTaskField, CompletedTaskFieldMeta, CompletedTaskTypeName } from  '../../meta/cac/CompletedTaskMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { CustomerPartyDisplay } from './CustomerPartyDisplay'
+import { EvidenceSuppliedDisplay } from './EvidenceSuppliedDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: CompletedTask | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<CompletedTask, void>
+  completedTask: CompletedTask[] | undefined
+  renderContext: RenderContext
 }
 
-export default function CompletedTaskDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const CompletedTaskSubElementsMap: SubElementsTemplatesMap<CompletedTaskField, CompletedTask, void> = new Map([
+    [
+      CompletedTaskField.UBLExtensions,
+      { meta: CompletedTaskFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={CompletedTaskField.UBLExtensions}
+          meta={CompletedTaskFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-CompletedTask">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={CompletedTaskFieldMeta.UBLExtensions}
-          />
+    [
+      CompletedTaskField.AnnualAverageAmount,
+      { meta: CompletedTaskFieldMeta.AnnualAverageAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={CompletedTaskField.AnnualAverageAmount}
+          meta={CompletedTaskFieldMeta.AnnualAverageAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.AnnualAverageAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Annual Average"
-            value={value.AnnualAverageAmount?.[0]}
-            meta={CompletedTaskFieldMeta.AnnualAverageAmount}
-          />
+    [
+      CompletedTaskField.TotalTaskAmount,
+      { meta: CompletedTaskFieldMeta.TotalTaskAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={CompletedTaskField.TotalTaskAmount}
+          meta={CompletedTaskFieldMeta.TotalTaskAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.TotalTaskAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Total Task"
-            value={value.TotalTaskAmount?.[0]}
-            meta={CompletedTaskFieldMeta.TotalTaskAmount}
-          />
+    [
+      CompletedTaskField.PartyCapacityAmount,
+      { meta: CompletedTaskFieldMeta.PartyCapacityAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={CompletedTaskField.PartyCapacityAmount}
+          meta={CompletedTaskFieldMeta.PartyCapacityAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.PartyCapacityAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Party Capacity"
-            value={value.PartyCapacityAmount?.[0]}
-            meta={CompletedTaskFieldMeta.PartyCapacityAmount}
-          />
+    [
+      CompletedTaskField.Description,
+      { meta: CompletedTaskFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={CompletedTaskField.Description}
+          meta={CompletedTaskFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={CompletedTaskFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={CompletedTaskFieldMeta.Description}
-              />
-            }
-          />
+    [
+      CompletedTaskField.EvidenceSupplied,
+      { meta: CompletedTaskFieldMeta.EvidenceSupplied,
+        template: ({value, renderContext, fieldConfig}) => <EvidenceSuppliedDisplay
+          key={CompletedTaskField.EvidenceSupplied}
+          meta={CompletedTaskFieldMeta.EvidenceSupplied}
+          fieldConfig={fieldConfig}
+          evidenceSupplied={value?.EvidenceSupplied}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-EvidenceSupplied"
-            label="Evidence Supplied"
-            items={value.EvidenceSupplied}
-            meta={CompletedTaskFieldMeta.EvidenceSupplied} 
-            itemDisplay={ (itemValue: EvidenceSupplied, key: string | number) =>
-              <EvidenceSuppliedDisplay
-                key={key}
-                label="Evidence Supplied"
-                value={itemValue}
-                meta={CompletedTaskFieldMeta.EvidenceSupplied}
-              />
-            }
-          />
+    [
+      CompletedTaskField.Period,
+      { meta: CompletedTaskFieldMeta.Period,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={CompletedTaskField.Period}
+          meta={CompletedTaskFieldMeta.Period}
+          fieldConfig={fieldConfig}
+          period={value?.Period}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Period"
-            value={value.Period?.[0]}
-            meta={CompletedTaskFieldMeta.Period}
-          />
+    [
+      CompletedTaskField.RecipientCustomerParty,
+      { meta: CompletedTaskFieldMeta.RecipientCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={CompletedTaskField.RecipientCustomerParty}
+          meta={CompletedTaskFieldMeta.RecipientCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.RecipientCustomerParty}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <CustomerPartyDisplay
-            label="Recipient Customer Party"
-            value={value.RecipientCustomerParty?.[0]}
-            meta={CompletedTaskFieldMeta.RecipientCustomerParty}
-          />
-        </div>
-    </div>
+export function CompletedTaskDisplay<TFieldMeta>({ meta, fieldConfig, completedTask, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    CompletedTaskTypeName,
+    meta,
+    fieldConfig,
+    completedTask,
+    renderContext,
+    CompletedTaskSubElementsMap,
   )
 }

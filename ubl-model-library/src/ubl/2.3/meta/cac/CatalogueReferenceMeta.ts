@@ -1,4 +1,10 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { DateType } from '../cbc/DateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum CatalogueReferenceField {
   UBLExtensions = 'UBLExtensions',
@@ -17,11 +23,11 @@ export enum CatalogueReferenceField {
 export const CatalogueReferenceFieldMetaUBLExtensions = new FieldMeta<CatalogueReferenceField>(
   CatalogueReferenceField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -30,10 +36,10 @@ export const CatalogueReferenceFieldMetaID = new FieldMeta<CatalogueReferenceFie
   CatalogueReferenceField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for a specific catalogue.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -42,10 +48,10 @@ export const CatalogueReferenceFieldMetaUUID = new FieldMeta<CatalogueReferenceF
   CatalogueReferenceField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for a specific catalogue.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -54,10 +60,10 @@ export const CatalogueReferenceFieldMetaIssueDate = new FieldMeta<CatalogueRefer
   CatalogueReferenceField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date on which the catalogue was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -66,10 +72,10 @@ export const CatalogueReferenceFieldMetaIssueTime = new FieldMeta<CatalogueRefer
   CatalogueReferenceField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time at which the catalogue was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -78,10 +84,10 @@ export const CatalogueReferenceFieldMetaRevisionDate = new FieldMeta<CatalogueRe
   CatalogueReferenceField.RevisionDate,
   'RevisionDate',
   'Revision Date',
-  'Date',
+  DateType.name,
   'The date on which the information in the catalogue was last revised.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -90,10 +96,10 @@ export const CatalogueReferenceFieldMetaRevisionTime = new FieldMeta<CatalogueRe
   CatalogueReferenceField.RevisionTime,
   'RevisionTime',
   'Revision Time',
-  'Time',
+  TimeType.name,
   'The time at which the information in the catalogue was last revised.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -102,10 +108,10 @@ export const CatalogueReferenceFieldMetaNote = new FieldMeta<CatalogueReferenceF
   CatalogueReferenceField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -114,10 +120,10 @@ export const CatalogueReferenceFieldMetaDescription = new FieldMeta<CatalogueRef
   CatalogueReferenceField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing the catalogue.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   'computer accessories for laptops'
 )
@@ -126,10 +132,10 @@ export const CatalogueReferenceFieldMetaVersionID = new FieldMeta<CatalogueRefer
   CatalogueReferenceField.VersionID,
   'VersionID',
   'Version',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the current version of the catalogue.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '1.1'
 )
@@ -138,10 +144,10 @@ export const CatalogueReferenceFieldMetaPreviousVersionID = new FieldMeta<Catalo
   CatalogueReferenceField.PreviousVersionID,
   'PreviousVersionID',
   'Previous Version',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the previous version of the catalogue that is superseded by this version.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '1.0'
 )
@@ -173,3 +179,11 @@ export const CatalogueReferenceFieldMap = new Map([
   [CatalogueReferenceField.VersionID, CatalogueReferenceFieldMetaVersionID],
   [CatalogueReferenceField.PreviousVersionID, CatalogueReferenceFieldMetaPreviousVersionID]
 ])
+
+export const CatalogueReferenceType: Type<CatalogueReferenceField> = {
+  name: 'CatalogueReference',
+  label: 'Catalogue Reference',
+  module: TypeModule.cac,
+  definition: 'A class to define a reference to a catalogue.',
+  fields: CatalogueReferenceFieldMap,
+}

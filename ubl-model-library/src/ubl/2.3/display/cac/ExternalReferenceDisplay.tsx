@@ -1,117 +1,177 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ExternalReference } from  '../../model/cac/ExternalReference'
-import { ExternalReferenceFieldMeta } from  '../../meta/cac/ExternalReferenceMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ExternalReferenceField, ExternalReferenceFieldMeta, ExternalReferenceTypeName } from  '../../meta/cac/ExternalReferenceMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ExternalReference | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ExternalReference, void>
+  externalReference: ExternalReference[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ExternalReferenceDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ExternalReferenceSubElementsMap: SubElementsTemplatesMap<ExternalReferenceField, ExternalReference, void> = new Map([
+    [
+      ExternalReferenceField.UBLExtensions,
+      { meta: ExternalReferenceFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ExternalReferenceField.UBLExtensions}
+          meta={ExternalReferenceFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ExternalReference">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ExternalReferenceFieldMeta.UBLExtensions}
-          />
+    [
+      ExternalReferenceField.URI,
+      { meta: ExternalReferenceFieldMeta.URI,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ExternalReferenceField.URI}
+          meta={ExternalReferenceFieldMeta.URI}
+          fieldConfig={fieldConfig}
+          identifier={value?.URI}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="URI"
-            value={value.URI?.[0]}
-            meta={ExternalReferenceFieldMeta.URI}
-          />
+    [
+      ExternalReferenceField.DocumentHash,
+      { meta: ExternalReferenceFieldMeta.DocumentHash,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ExternalReferenceField.DocumentHash}
+          meta={ExternalReferenceFieldMeta.DocumentHash}
+          fieldConfig={fieldConfig}
+          text={value?.DocumentHash}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Document Hash"
-            value={value.DocumentHash?.[0]}
-            meta={ExternalReferenceFieldMeta.DocumentHash}
-          />
+    [
+      ExternalReferenceField.HashAlgorithmMethod,
+      { meta: ExternalReferenceFieldMeta.HashAlgorithmMethod,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ExternalReferenceField.HashAlgorithmMethod}
+          meta={ExternalReferenceFieldMeta.HashAlgorithmMethod}
+          fieldConfig={fieldConfig}
+          text={value?.HashAlgorithmMethod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Hash Algorithm Method"
-            value={value.HashAlgorithmMethod?.[0]}
-            meta={ExternalReferenceFieldMeta.HashAlgorithmMethod}
-          />
+    [
+      ExternalReferenceField.ExpiryDate,
+      { meta: ExternalReferenceFieldMeta.ExpiryDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={ExternalReferenceField.ExpiryDate}
+          meta={ExternalReferenceFieldMeta.ExpiryDate}
+          fieldConfig={fieldConfig}
+          date={value?.ExpiryDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Expiry Date"
-            value={value.ExpiryDate?.[0]}
-            meta={ExternalReferenceFieldMeta.ExpiryDate}
-          />
+    [
+      ExternalReferenceField.ExpiryTime,
+      { meta: ExternalReferenceFieldMeta.ExpiryTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={ExternalReferenceField.ExpiryTime}
+          meta={ExternalReferenceFieldMeta.ExpiryTime}
+          fieldConfig={fieldConfig}
+          time={value?.ExpiryTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Expiry Time"
-            value={value.ExpiryTime?.[0]}
-            meta={ExternalReferenceFieldMeta.ExpiryTime}
-          />
+    [
+      ExternalReferenceField.MimeCode,
+      { meta: ExternalReferenceFieldMeta.MimeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ExternalReferenceField.MimeCode}
+          meta={ExternalReferenceFieldMeta.MimeCode}
+          fieldConfig={fieldConfig}
+          code={value?.MimeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Mime Code"
-            value={value.MimeCode?.[0]}
-            meta={ExternalReferenceFieldMeta.MimeCode}
-          />
+    [
+      ExternalReferenceField.FormatCode,
+      { meta: ExternalReferenceFieldMeta.FormatCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ExternalReferenceField.FormatCode}
+          meta={ExternalReferenceFieldMeta.FormatCode}
+          fieldConfig={fieldConfig}
+          code={value?.FormatCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Format Code"
-            value={value.FormatCode?.[0]}
-            meta={ExternalReferenceFieldMeta.FormatCode}
-          />
+    [
+      ExternalReferenceField.EncodingCode,
+      { meta: ExternalReferenceFieldMeta.EncodingCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ExternalReferenceField.EncodingCode}
+          meta={ExternalReferenceFieldMeta.EncodingCode}
+          fieldConfig={fieldConfig}
+          code={value?.EncodingCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Encoding Code"
-            value={value.EncodingCode?.[0]}
-            meta={ExternalReferenceFieldMeta.EncodingCode}
-          />
+    [
+      ExternalReferenceField.CharacterSetCode,
+      { meta: ExternalReferenceFieldMeta.CharacterSetCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ExternalReferenceField.CharacterSetCode}
+          meta={ExternalReferenceFieldMeta.CharacterSetCode}
+          fieldConfig={fieldConfig}
+          code={value?.CharacterSetCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Character Set Code"
-            value={value.CharacterSetCode?.[0]}
-            meta={ExternalReferenceFieldMeta.CharacterSetCode}
-          />
+    [
+      ExternalReferenceField.FileName,
+      { meta: ExternalReferenceFieldMeta.FileName,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ExternalReferenceField.FileName}
+          meta={ExternalReferenceFieldMeta.FileName}
+          fieldConfig={fieldConfig}
+          text={value?.FileName}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="File Name"
-            value={value.FileName?.[0]}
-            meta={ExternalReferenceFieldMeta.FileName}
-          />
+    [
+      ExternalReferenceField.Description,
+      { meta: ExternalReferenceFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ExternalReferenceField.Description}
+          meta={ExternalReferenceFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={ExternalReferenceFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={ExternalReferenceFieldMeta.Description}
-              />
-            }
-          />
-        </div>
-    </div>
+export function ExternalReferenceDisplay<TFieldMeta>({ meta, fieldConfig, externalReference, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ExternalReferenceTypeName,
+    meta,
+    fieldConfig,
+    externalReference,
+    renderContext,
+    ExternalReferenceSubElementsMap,
   )
 }

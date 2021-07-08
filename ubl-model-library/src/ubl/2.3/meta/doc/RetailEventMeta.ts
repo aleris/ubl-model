@@ -1,4 +1,21 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { CustomerPartyType } from '../cac/CustomerPartyMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { EventCommentType } from '../cac/EventCommentMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { MiscellaneousEventType } from '../cac/MiscellaneousEventMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { PeriodType } from '../cac/PeriodMeta'
+import { PromotionalEventType } from '../cac/PromotionalEventMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { SupplierPartyType } from '../cac/SupplierPartyMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum RetailEventField {
   UBLExtensions = 'UBLExtensions',
@@ -32,11 +49,11 @@ export enum RetailEventField {
 export const RetailEventFieldMetaUBLExtensions = new FieldMeta<RetailEventField>(
   RetailEventField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -45,10 +62,10 @@ export const RetailEventFieldMetaUBLVersionID = new FieldMeta<RetailEventField>(
   RetailEventField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.0.5'
 )
@@ -57,10 +74,10 @@ export const RetailEventFieldMetaCustomizationID = new FieldMeta<RetailEventFiel
   RetailEventField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -69,10 +86,10 @@ export const RetailEventFieldMetaProfileID = new FieldMeta<RetailEventField>(
   RetailEventField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BasicProcurementProcess'
 )
@@ -81,10 +98,10 @@ export const RetailEventFieldMetaProfileExecutionID = new FieldMeta<RetailEventF
   RetailEventField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BPP-1001'
 )
@@ -93,10 +110,10 @@ export const RetailEventFieldMetaID = new FieldMeta<RetailEventField>(
   RetailEventField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   'Retail Event Number',
   undefined
 )
@@ -105,10 +122,10 @@ export const RetailEventFieldMetaCopyIndicator = new FieldMeta<RetailEventField>
   RetailEventField.CopyIndicator,
   'CopyIndicator',
   'Copy Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this document is a copy (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -117,10 +134,10 @@ export const RetailEventFieldMetaUUID = new FieldMeta<RetailEventField>(
   RetailEventField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -129,10 +146,10 @@ export const RetailEventFieldMetaIssueDate = new FieldMeta<RetailEventField>(
   RetailEventField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Retail Event Date',
   undefined
 )
@@ -141,10 +158,10 @@ export const RetailEventFieldMetaIssueTime = new FieldMeta<RetailEventField>(
   RetailEventField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -153,10 +170,10 @@ export const RetailEventFieldMetaNote = new FieldMeta<RetailEventField>(
   RetailEventField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -165,10 +182,10 @@ export const RetailEventFieldMetaRetailEventName = new FieldMeta<RetailEventFiel
   RetailEventField.RetailEventName,
   'RetailEventName',
   'Retail Event Name',
-  'Text',
+  TextType.name,
   'A title, theme, slogan, or other identifier for the event for use by trading partners.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -177,10 +194,10 @@ export const RetailEventFieldMetaRetailEventStatusCode = new FieldMeta<RetailEve
   RetailEventField.RetailEventStatusCode,
   'RetailEventStatusCode',
   'Retail Event Status Code',
-  'Code',
+  CodeType.name,
   'Describes the logical state of the discrete activity affecting supply or demand in the supply chain',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -189,10 +206,10 @@ export const RetailEventFieldMetaSellerEventID = new FieldMeta<RetailEventField>
   RetailEventField.SellerEventID,
   'SellerEventID',
   'Seller Event Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An event tracking identifier assigned by the seller.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -201,10 +218,10 @@ export const RetailEventFieldMetaBuyerEventID = new FieldMeta<RetailEventField>(
   RetailEventField.BuyerEventID,
   'BuyerEventID',
   'Buyer Event Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An event tracking identifier assigned by the buyer.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -213,10 +230,10 @@ export const RetailEventFieldMetaDescription = new FieldMeta<RetailEventField>(
   RetailEventField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Definition of the discrete activity affecting supply or demand in the supply chain',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -225,10 +242,10 @@ export const RetailEventFieldMetaPeriod = new FieldMeta<RetailEventField>(
   RetailEventField.Period,
   'Period',
   'Period',
-  'Period',
+  PeriodType.name,
   'The period during which the event takes place.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -237,10 +254,10 @@ export const RetailEventFieldMetaOriginalDocumentReference = new FieldMeta<Retai
   RetailEventField.OriginalDocumentReference,
   'OriginalDocumentReference',
   'Original Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a Forecast document associated with this event.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -249,10 +266,10 @@ export const RetailEventFieldMetaSignature = new FieldMeta<RetailEventField>(
   RetailEventField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -261,10 +278,10 @@ export const RetailEventFieldMetaSenderParty = new FieldMeta<RetailEventField>(
   RetailEventField.SenderParty,
   'SenderParty',
   'Sender Party',
-  'Party',
+  PartyType.name,
   'The party sending this document.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -273,10 +290,10 @@ export const RetailEventFieldMetaReceiverParty = new FieldMeta<RetailEventField>
   RetailEventField.ReceiverParty,
   'ReceiverParty',
   'Receiver Party',
-  'Party',
+  PartyType.name,
   'The party receiving this document.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -285,10 +302,10 @@ export const RetailEventFieldMetaBuyerCustomerParty = new FieldMeta<RetailEventF
   RetailEventField.BuyerCustomerParty,
   'BuyerCustomerParty',
   'Buyer Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The buyer.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -297,10 +314,10 @@ export const RetailEventFieldMetaSellerSupplierParty = new FieldMeta<RetailEvent
   RetailEventField.SellerSupplierParty,
   'SellerSupplierParty',
   'Seller Supplier Party',
-  'SupplierParty',
+  SupplierPartyType.name,
   'The seller.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -309,10 +326,10 @@ export const RetailEventFieldMetaEventComment = new FieldMeta<RetailEventField>(
   RetailEventField.EventComment,
   'EventComment',
   'Event Comment',
-  'EventComment',
+  EventCommentType.name,
   'A comment regarding the event.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -321,10 +338,10 @@ export const RetailEventFieldMetaPromotionalEvent = new FieldMeta<RetailEventFie
   RetailEventField.PromotionalEvent,
   'PromotionalEvent',
   'Promotional Event',
-  'PromotionalEvent',
+  PromotionalEventType.name,
   'The description of a promotional event associated with this event.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -333,10 +350,10 @@ export const RetailEventFieldMetaMiscellaneousEvent = new FieldMeta<RetailEventF
   RetailEventField.MiscellaneousEvent,
   'MiscellaneousEvent',
   'Miscellaneous Event',
-  'MiscellaneousEvent',
+  MiscellaneousEventType.name,
   'A miscellaneous event associated with this event.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -398,3 +415,11 @@ export const RetailEventFieldMap = new Map([
   [RetailEventField.PromotionalEvent, RetailEventFieldMetaPromotionalEvent],
   [RetailEventField.MiscellaneousEvent, RetailEventFieldMetaMiscellaneousEvent]
 ])
+
+export const RetailEventType: Type<RetailEventField> = {
+  name: 'RetailEvent',
+  label: 'Retail Event',
+  module: TypeModule.doc,
+  definition: 'A document used to specify basic information about retail events (such as promotions, product introductions, and community or environmental events) that affect supply or demand.',
+  fields: RetailEventFieldMap,
+}

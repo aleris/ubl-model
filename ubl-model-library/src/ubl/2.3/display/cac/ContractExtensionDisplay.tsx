@@ -1,96 +1,117 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ContractExtension } from  '../../model/cac/ContractExtension'
-import { ContractExtensionFieldMeta } from  '../../meta/cac/ContractExtensionMeta'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import RenewalDisplay from './RenewalDisplay'
-import { Renewal } from '../../model/cac/Renewal'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ContractExtensionField, ContractExtensionFieldMeta, ContractExtensionTypeName } from  '../../meta/cac/ContractExtensionMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { RenewalDisplay } from './RenewalDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ContractExtension | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ContractExtension, void>
+  contractExtension: ContractExtension[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ContractExtensionDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ContractExtensionSubElementsMap: SubElementsTemplatesMap<ContractExtensionField, ContractExtension, void> = new Map([
+    [
+      ContractExtensionField.UBLExtensions,
+      { meta: ContractExtensionFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ContractExtensionField.UBLExtensions}
+          meta={ContractExtensionFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ContractExtension">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ContractExtensionFieldMeta.UBLExtensions}
-          />
+    [
+      ContractExtensionField.OptionsDescription,
+      { meta: ContractExtensionFieldMeta.OptionsDescription,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ContractExtensionField.OptionsDescription}
+          meta={ContractExtensionFieldMeta.OptionsDescription}
+          fieldConfig={fieldConfig}
+          text={value?.OptionsDescription}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-OptionsDescription"
-            label="Options Description"
-            items={value.OptionsDescription}
-            meta={ContractExtensionFieldMeta.OptionsDescription} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Options Description"
-                value={itemValue}
-                meta={ContractExtensionFieldMeta.OptionsDescription}
-              />
-            }
-          />
+    [
+      ContractExtensionField.MinimumNumberNumeric,
+      { meta: ContractExtensionFieldMeta.MinimumNumberNumeric,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={ContractExtensionField.MinimumNumberNumeric}
+          meta={ContractExtensionFieldMeta.MinimumNumberNumeric}
+          fieldConfig={fieldConfig}
+          numeric={value?.MinimumNumberNumeric}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Minimum Number"
-            value={value.MinimumNumberNumeric?.[0]}
-            meta={ContractExtensionFieldMeta.MinimumNumberNumeric}
-          />
+    [
+      ContractExtensionField.MaximumNumberNumeric,
+      { meta: ContractExtensionFieldMeta.MaximumNumberNumeric,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={ContractExtensionField.MaximumNumberNumeric}
+          meta={ContractExtensionFieldMeta.MaximumNumberNumeric}
+          fieldConfig={fieldConfig}
+          numeric={value?.MaximumNumberNumeric}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Maximum Number"
-            value={value.MaximumNumberNumeric?.[0]}
-            meta={ContractExtensionFieldMeta.MaximumNumberNumeric}
-          />
+    [
+      ContractExtensionField.RenewalsIndicator,
+      { meta: ContractExtensionFieldMeta.RenewalsIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ContractExtensionField.RenewalsIndicator}
+          meta={ContractExtensionFieldMeta.RenewalsIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.RenewalsIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Renewals"
-            value={value.RenewalsIndicator?.[0]}
-            meta={ContractExtensionFieldMeta.RenewalsIndicator}
-          />
+    [
+      ContractExtensionField.OptionValidityPeriod,
+      { meta: ContractExtensionFieldMeta.OptionValidityPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={ContractExtensionField.OptionValidityPeriod}
+          meta={ContractExtensionFieldMeta.OptionValidityPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.OptionValidityPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Option Validity Period"
-            value={value.OptionValidityPeriod?.[0]}
-            meta={ContractExtensionFieldMeta.OptionValidityPeriod}
-          />
+    [
+      ContractExtensionField.Renewal,
+      { meta: ContractExtensionFieldMeta.Renewal,
+        template: ({value, renderContext, fieldConfig}) => <RenewalDisplay
+          key={ContractExtensionField.Renewal}
+          meta={ContractExtensionFieldMeta.Renewal}
+          fieldConfig={fieldConfig}
+          renewal={value?.Renewal}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Renewal"
-            label="Renewal"
-            items={value.Renewal}
-            meta={ContractExtensionFieldMeta.Renewal} 
-            itemDisplay={ (itemValue: Renewal, key: string | number) =>
-              <RenewalDisplay
-                key={key}
-                label="Renewal"
-                value={itemValue}
-                meta={ContractExtensionFieldMeta.Renewal}
-              />
-            }
-          />
-        </div>
-    </div>
+export function ContractExtensionDisplay<TFieldMeta>({ meta, fieldConfig, contractExtension, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ContractExtensionTypeName,
+    meta,
+    fieldConfig,
+    contractExtension,
+    renderContext,
+    ContractExtensionSubElementsMap,
   )
 }

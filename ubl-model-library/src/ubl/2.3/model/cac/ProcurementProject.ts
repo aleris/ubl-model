@@ -13,7 +13,6 @@ import { RequestedTenderTotal } from './RequestedTenderTotal'
 import { RequestForTenderLine } from './RequestForTenderLine'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a project to procure goods, works, or services.
  */

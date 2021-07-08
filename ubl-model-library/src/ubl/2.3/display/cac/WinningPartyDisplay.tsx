@@ -1,48 +1,66 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { WinningParty } from  '../../model/cac/WinningParty'
-import { WinningPartyFieldMeta } from  '../../meta/cac/WinningPartyMeta'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { WinningPartyField, WinningPartyFieldMeta, WinningPartyTypeName } from  '../../meta/cac/WinningPartyMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { PartyDisplay } from './PartyDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: WinningParty | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<WinningParty, void>
+  winningParty: WinningParty[] | undefined
+  renderContext: RenderContext
 }
 
-export default function WinningPartyDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const WinningPartySubElementsMap: SubElementsTemplatesMap<WinningPartyField, WinningParty, void> = new Map([
+    [
+      WinningPartyField.UBLExtensions,
+      { meta: WinningPartyFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={WinningPartyField.UBLExtensions}
+          meta={WinningPartyFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-WinningParty">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={WinningPartyFieldMeta.UBLExtensions}
-          />
+    [
+      WinningPartyField.Rank,
+      { meta: WinningPartyFieldMeta.Rank,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={WinningPartyField.Rank}
+          meta={WinningPartyFieldMeta.Rank}
+          fieldConfig={fieldConfig}
+          text={value?.Rank}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Rank"
-            value={value.Rank?.[0]}
-            meta={WinningPartyFieldMeta.Rank}
-          />
+    [
+      WinningPartyField.Party,
+      { meta: WinningPartyFieldMeta.Party,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={WinningPartyField.Party}
+          meta={WinningPartyFieldMeta.Party}
+          fieldConfig={fieldConfig}
+          party={value?.Party}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <PartyDisplay
-            label="Party"
-            value={value.Party?.[0]}
-            meta={WinningPartyFieldMeta.Party}
-          />
-        </div>
-    </div>
+export function WinningPartyDisplay<TFieldMeta>({ meta, fieldConfig, winningParty, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    WinningPartyTypeName,
+    meta,
+    fieldConfig,
+    winningParty,
+    renderContext,
+    WinningPartySubElementsMap,
   )
 }

@@ -1,91 +1,128 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { SupplierParty } from  '../../model/cac/SupplierParty'
-import { SupplierPartyFieldMeta } from  '../../meta/cac/SupplierPartyMeta'
-import ContactDisplay from './ContactDisplay'
-import { Contact } from '../../model/cac/Contact'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { SupplierPartyField, SupplierPartyFieldMeta, SupplierPartyTypeName } from  '../../meta/cac/SupplierPartyMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { ContactDisplay } from './ContactDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: SupplierParty | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<SupplierParty, void>
+  supplierParty: SupplierParty[] | undefined
+  renderContext: RenderContext
 }
 
-export default function SupplierPartyDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const SupplierPartySubElementsMap: SubElementsTemplatesMap<SupplierPartyField, SupplierParty, void> = new Map([
+    [
+      SupplierPartyField.UBLExtensions,
+      { meta: SupplierPartyFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={SupplierPartyField.UBLExtensions}
+          meta={SupplierPartyFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-SupplierParty">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={SupplierPartyFieldMeta.UBLExtensions}
-          />
+    [
+      SupplierPartyField.CustomerAssignedAccountID,
+      { meta: SupplierPartyFieldMeta.CustomerAssignedAccountID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={SupplierPartyField.CustomerAssignedAccountID}
+          meta={SupplierPartyFieldMeta.CustomerAssignedAccountID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomerAssignedAccountID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customer Assigned Account Identifier"
-            value={value.CustomerAssignedAccountID?.[0]}
-            meta={SupplierPartyFieldMeta.CustomerAssignedAccountID}
-          />
+    [
+      SupplierPartyField.AdditionalAccountID,
+      { meta: SupplierPartyFieldMeta.AdditionalAccountID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={SupplierPartyField.AdditionalAccountID}
+          meta={SupplierPartyFieldMeta.AdditionalAccountID}
+          fieldConfig={fieldConfig}
+          identifier={value?.AdditionalAccountID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Identifier ubl-AdditionalAccountID"
-            label="Additional Account Identifier"
-            items={value.AdditionalAccountID}
-            meta={SupplierPartyFieldMeta.AdditionalAccountID} 
-            itemDisplay={ (itemValue: Identifier, key: string | number) =>
-              <IdentifierDisplay
-                key={key}
-                label="Additional Account Identifier"
-                value={itemValue}
-                meta={SupplierPartyFieldMeta.AdditionalAccountID}
-              />
-            }
-          />
+    [
+      SupplierPartyField.DataSendingCapability,
+      { meta: SupplierPartyFieldMeta.DataSendingCapability,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={SupplierPartyField.DataSendingCapability}
+          meta={SupplierPartyFieldMeta.DataSendingCapability}
+          fieldConfig={fieldConfig}
+          text={value?.DataSendingCapability}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Data Sending Capability"
-            value={value.DataSendingCapability?.[0]}
-            meta={SupplierPartyFieldMeta.DataSendingCapability}
-          />
+    [
+      SupplierPartyField.Party,
+      { meta: SupplierPartyFieldMeta.Party,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={SupplierPartyField.Party}
+          meta={SupplierPartyFieldMeta.Party}
+          fieldConfig={fieldConfig}
+          party={value?.Party}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Party"
-            value={value.Party?.[0]}
-            meta={SupplierPartyFieldMeta.Party}
-          />
+    [
+      SupplierPartyField.DespatchContact,
+      { meta: SupplierPartyFieldMeta.DespatchContact,
+        template: ({value, renderContext, fieldConfig}) => <ContactDisplay
+          key={SupplierPartyField.DespatchContact}
+          meta={SupplierPartyFieldMeta.DespatchContact}
+          fieldConfig={fieldConfig}
+          contact={value?.DespatchContact}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ContactDisplay
-            label="Despatch Contact"
-            value={value.DespatchContact?.[0]}
-            meta={SupplierPartyFieldMeta.DespatchContact}
-          />
+    [
+      SupplierPartyField.AccountingContact,
+      { meta: SupplierPartyFieldMeta.AccountingContact,
+        template: ({value, renderContext, fieldConfig}) => <ContactDisplay
+          key={SupplierPartyField.AccountingContact}
+          meta={SupplierPartyFieldMeta.AccountingContact}
+          fieldConfig={fieldConfig}
+          contact={value?.AccountingContact}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ContactDisplay
-            label="Accounting Contact"
-            value={value.AccountingContact?.[0]}
-            meta={SupplierPartyFieldMeta.AccountingContact}
-          />
+    [
+      SupplierPartyField.SellerContact,
+      { meta: SupplierPartyFieldMeta.SellerContact,
+        template: ({value, renderContext, fieldConfig}) => <ContactDisplay
+          key={SupplierPartyField.SellerContact}
+          meta={SupplierPartyFieldMeta.SellerContact}
+          fieldConfig={fieldConfig}
+          contact={value?.SellerContact}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ContactDisplay
-            label="Seller Contact"
-            value={value.SellerContact?.[0]}
-            meta={SupplierPartyFieldMeta.SellerContact}
-          />
-        </div>
-    </div>
+export function SupplierPartyDisplay<TFieldMeta>({ meta, fieldConfig, supplierParty, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    SupplierPartyTypeName,
+    meta,
+    fieldConfig,
+    supplierParty,
+    renderContext,
+    SupplierPartySubElementsMap,
   )
 }

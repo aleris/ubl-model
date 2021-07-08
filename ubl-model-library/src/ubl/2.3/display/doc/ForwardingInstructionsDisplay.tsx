@@ -1,277 +1,365 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ForwardingInstructions } from  '../../model/doc/ForwardingInstructions'
-import { ForwardingInstructionsFieldMeta } from  '../../meta/doc/ForwardingInstructionsMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentDistributionDisplay from '../cac/DocumentDistributionDisplay'
-import { DocumentDistribution } from '../../model/cac/DocumentDistribution'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import ExchangeRateDisplay from '../cac/ExchangeRateDisplay'
-import { ExchangeRate } from '../../model/cac/ExchangeRate'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import ShipmentDisplay from '../cac/ShipmentDisplay'
-import { Shipment } from '../../model/cac/Shipment'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ForwardingInstructionsField, ForwardingInstructionsFieldMeta, ForwardingInstructionsTypeName } from  '../../meta/doc/ForwardingInstructionsMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentDistributionDisplay } from '../cac/DocumentDistributionDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { ExchangeRateDisplay } from '../cac/ExchangeRateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { ShipmentDisplay } from '../cac/ShipmentDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ForwardingInstructions | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ForwardingInstructions, void>
+  forwardingInstructions: ForwardingInstructions[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ForwardingInstructionsDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ForwardingInstructionsSubElementsMap: SubElementsTemplatesMap<ForwardingInstructionsField, ForwardingInstructions, void> = new Map([
+    [
+      ForwardingInstructionsField.UBLExtensions,
+      { meta: ForwardingInstructionsFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ForwardingInstructionsField.UBLExtensions}
+          meta={ForwardingInstructionsFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-ForwardingInstructions">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ForwardingInstructionsFieldMeta.UBLExtensions}
-          />
+    [
+      ForwardingInstructionsField.UBLVersionID,
+      { meta: ForwardingInstructionsFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ForwardingInstructionsField.UBLVersionID}
+          meta={ForwardingInstructionsFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={ForwardingInstructionsFieldMeta.UBLVersionID}
-          />
+    [
+      ForwardingInstructionsField.CustomizationID,
+      { meta: ForwardingInstructionsFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ForwardingInstructionsField.CustomizationID}
+          meta={ForwardingInstructionsFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={ForwardingInstructionsFieldMeta.CustomizationID}
-          />
+    [
+      ForwardingInstructionsField.ProfileID,
+      { meta: ForwardingInstructionsFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ForwardingInstructionsField.ProfileID}
+          meta={ForwardingInstructionsFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={ForwardingInstructionsFieldMeta.ProfileID}
-          />
+    [
+      ForwardingInstructionsField.ProfileExecutionID,
+      { meta: ForwardingInstructionsFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ForwardingInstructionsField.ProfileExecutionID}
+          meta={ForwardingInstructionsFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={ForwardingInstructionsFieldMeta.ProfileExecutionID}
-          />
+    [
+      ForwardingInstructionsField.ID,
+      { meta: ForwardingInstructionsFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ForwardingInstructionsField.ID}
+          meta={ForwardingInstructionsFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={ForwardingInstructionsFieldMeta.ID}
-          />
+    [
+      ForwardingInstructionsField.CarrierAssignedID,
+      { meta: ForwardingInstructionsFieldMeta.CarrierAssignedID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ForwardingInstructionsField.CarrierAssignedID}
+          meta={ForwardingInstructionsFieldMeta.CarrierAssignedID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CarrierAssignedID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Carrier Assigned Identifier"
-            value={value.CarrierAssignedID?.[0]}
-            meta={ForwardingInstructionsFieldMeta.CarrierAssignedID}
-          />
+    [
+      ForwardingInstructionsField.UUID,
+      { meta: ForwardingInstructionsFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ForwardingInstructionsField.UUID}
+          meta={ForwardingInstructionsFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={ForwardingInstructionsFieldMeta.UUID}
-          />
+    [
+      ForwardingInstructionsField.IssueDate,
+      { meta: ForwardingInstructionsFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={ForwardingInstructionsField.IssueDate}
+          meta={ForwardingInstructionsFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={ForwardingInstructionsFieldMeta.IssueDate}
-          />
+    [
+      ForwardingInstructionsField.IssueTime,
+      { meta: ForwardingInstructionsFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={ForwardingInstructionsField.IssueTime}
+          meta={ForwardingInstructionsFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={ForwardingInstructionsFieldMeta.IssueTime}
-          />
+    [
+      ForwardingInstructionsField.Name,
+      { meta: ForwardingInstructionsFieldMeta.Name,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ForwardingInstructionsField.Name}
+          meta={ForwardingInstructionsFieldMeta.Name}
+          fieldConfig={fieldConfig}
+          text={value?.Name}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Name"
-            value={value.Name?.[0]}
-            meta={ForwardingInstructionsFieldMeta.Name}
-          />
+    [
+      ForwardingInstructionsField.Description,
+      { meta: ForwardingInstructionsFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ForwardingInstructionsField.Description}
+          meta={ForwardingInstructionsFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={ForwardingInstructionsFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={ForwardingInstructionsFieldMeta.Description}
-              />
-            }
-          />
+    [
+      ForwardingInstructionsField.Note,
+      { meta: ForwardingInstructionsFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ForwardingInstructionsField.Note}
+          meta={ForwardingInstructionsFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={ForwardingInstructionsFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={ForwardingInstructionsFieldMeta.Note}
-              />
-            }
-          />
+    [
+      ForwardingInstructionsField.DocumentStatusCode,
+      { meta: ForwardingInstructionsFieldMeta.DocumentStatusCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ForwardingInstructionsField.DocumentStatusCode}
+          meta={ForwardingInstructionsFieldMeta.DocumentStatusCode}
+          fieldConfig={fieldConfig}
+          code={value?.DocumentStatusCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Document Status Code"
-            value={value.DocumentStatusCode?.[0]}
-            meta={ForwardingInstructionsFieldMeta.DocumentStatusCode}
-          />
+    [
+      ForwardingInstructionsField.ShippingOrderID,
+      { meta: ForwardingInstructionsFieldMeta.ShippingOrderID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ForwardingInstructionsField.ShippingOrderID}
+          meta={ForwardingInstructionsFieldMeta.ShippingOrderID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ShippingOrderID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Shipping Order Identifier"
-            value={value.ShippingOrderID?.[0]}
-            meta={ForwardingInstructionsFieldMeta.ShippingOrderID}
-          />
+    [
+      ForwardingInstructionsField.ToOrderIndicator,
+      { meta: ForwardingInstructionsFieldMeta.ToOrderIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ForwardingInstructionsField.ToOrderIndicator}
+          meta={ForwardingInstructionsFieldMeta.ToOrderIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.ToOrderIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="To Order Indicator"
-            value={value.ToOrderIndicator?.[0]}
-            meta={ForwardingInstructionsFieldMeta.ToOrderIndicator}
-          />
+    [
+      ForwardingInstructionsField.AdValoremIndicator,
+      { meta: ForwardingInstructionsFieldMeta.AdValoremIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ForwardingInstructionsField.AdValoremIndicator}
+          meta={ForwardingInstructionsFieldMeta.AdValoremIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.AdValoremIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Ad Valorem Indicator"
-            value={value.AdValoremIndicator?.[0]}
-            meta={ForwardingInstructionsFieldMeta.AdValoremIndicator}
-          />
+    [
+      ForwardingInstructionsField.DeclaredCarriageValueAmount,
+      { meta: ForwardingInstructionsFieldMeta.DeclaredCarriageValueAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={ForwardingInstructionsField.DeclaredCarriageValueAmount}
+          meta={ForwardingInstructionsFieldMeta.DeclaredCarriageValueAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.DeclaredCarriageValueAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Declared Carriage Value"
-            value={value.DeclaredCarriageValueAmount?.[0]}
-            meta={ForwardingInstructionsFieldMeta.DeclaredCarriageValueAmount}
-          />
+    [
+      ForwardingInstructionsField.OtherInstruction,
+      { meta: ForwardingInstructionsFieldMeta.OtherInstruction,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ForwardingInstructionsField.OtherInstruction}
+          meta={ForwardingInstructionsFieldMeta.OtherInstruction}
+          fieldConfig={fieldConfig}
+          text={value?.OtherInstruction}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-OtherInstruction"
-            label="Other Instruction"
-            items={value.OtherInstruction}
-            meta={ForwardingInstructionsFieldMeta.OtherInstruction} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Other Instruction"
-                value={itemValue}
-                meta={ForwardingInstructionsFieldMeta.OtherInstruction}
-              />
-            }
-          />
+    [
+      ForwardingInstructionsField.ConsignorParty,
+      { meta: ForwardingInstructionsFieldMeta.ConsignorParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ForwardingInstructionsField.ConsignorParty}
+          meta={ForwardingInstructionsFieldMeta.ConsignorParty}
+          fieldConfig={fieldConfig}
+          party={value?.ConsignorParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Consignor Party"
-            value={value.ConsignorParty?.[0]}
-            meta={ForwardingInstructionsFieldMeta.ConsignorParty}
-          />
+    [
+      ForwardingInstructionsField.CarrierParty,
+      { meta: ForwardingInstructionsFieldMeta.CarrierParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ForwardingInstructionsField.CarrierParty}
+          meta={ForwardingInstructionsFieldMeta.CarrierParty}
+          fieldConfig={fieldConfig}
+          party={value?.CarrierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Carrier Party"
-            value={value.CarrierParty?.[0]}
-            meta={ForwardingInstructionsFieldMeta.CarrierParty}
-          />
+    [
+      ForwardingInstructionsField.FreightForwarderParty,
+      { meta: ForwardingInstructionsFieldMeta.FreightForwarderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ForwardingInstructionsField.FreightForwarderParty}
+          meta={ForwardingInstructionsFieldMeta.FreightForwarderParty}
+          fieldConfig={fieldConfig}
+          party={value?.FreightForwarderParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Freight Forwarder Party"
-            value={value.FreightForwarderParty?.[0]}
-            meta={ForwardingInstructionsFieldMeta.FreightForwarderParty}
-          />
+    [
+      ForwardingInstructionsField.Shipment,
+      { meta: ForwardingInstructionsFieldMeta.Shipment,
+        template: ({value, renderContext, fieldConfig}) => <ShipmentDisplay
+          key={ForwardingInstructionsField.Shipment}
+          meta={ForwardingInstructionsFieldMeta.Shipment}
+          fieldConfig={fieldConfig}
+          shipment={value?.Shipment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ShipmentDisplay
-            label="Shipment"
-            value={value.Shipment?.[0]}
-            meta={ForwardingInstructionsFieldMeta.Shipment}
-          />
+    [
+      ForwardingInstructionsField.DocumentReference,
+      { meta: ForwardingInstructionsFieldMeta.DocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={ForwardingInstructionsField.DocumentReference}
+          meta={ForwardingInstructionsFieldMeta.DocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.DocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference"
-            label="Document Reference"
-            items={value.DocumentReference}
-            meta={ForwardingInstructionsFieldMeta.DocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Document Reference"
-                value={itemValue}
-                meta={ForwardingInstructionsFieldMeta.DocumentReference}
-              />
-            }
-          />
+    [
+      ForwardingInstructionsField.ExchangeRate,
+      { meta: ForwardingInstructionsFieldMeta.ExchangeRate,
+        template: ({value, renderContext, fieldConfig}) => <ExchangeRateDisplay
+          key={ForwardingInstructionsField.ExchangeRate}
+          meta={ForwardingInstructionsFieldMeta.ExchangeRate}
+          fieldConfig={fieldConfig}
+          exchangeRate={value?.ExchangeRate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-ExchangeRate"
-            label="Exchange Rate"
-            items={value.ExchangeRate}
-            meta={ForwardingInstructionsFieldMeta.ExchangeRate} 
-            itemDisplay={ (itemValue: ExchangeRate, key: string | number) =>
-              <ExchangeRateDisplay
-                key={key}
-                label="Exchange Rate"
-                value={itemValue}
-                meta={ForwardingInstructionsFieldMeta.ExchangeRate}
-              />
-            }
-          />
+    [
+      ForwardingInstructionsField.DocumentDistribution,
+      { meta: ForwardingInstructionsFieldMeta.DocumentDistribution,
+        template: ({value, renderContext, fieldConfig}) => <DocumentDistributionDisplay
+          key={ForwardingInstructionsField.DocumentDistribution}
+          meta={ForwardingInstructionsFieldMeta.DocumentDistribution}
+          fieldConfig={fieldConfig}
+          documentDistribution={value?.DocumentDistribution}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentDistribution"
-            label="Document Distribution"
-            items={value.DocumentDistribution}
-            meta={ForwardingInstructionsFieldMeta.DocumentDistribution} 
-            itemDisplay={ (itemValue: DocumentDistribution, key: string | number) =>
-              <DocumentDistributionDisplay
-                key={key}
-                label="Document Distribution"
-                value={itemValue}
-                meta={ForwardingInstructionsFieldMeta.DocumentDistribution}
-              />
-            }
-          />
+    [
+      ForwardingInstructionsField.Signature,
+      { meta: ForwardingInstructionsFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={ForwardingInstructionsField.Signature}
+          meta={ForwardingInstructionsFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={ForwardingInstructionsFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={ForwardingInstructionsFieldMeta.Signature}
-              />
-            }
-          />
-        </div>
-    </div>
+export function ForwardingInstructionsDisplay<TFieldMeta>({ meta, fieldConfig, forwardingInstructions, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ForwardingInstructionsTypeName,
+    meta,
+    fieldConfig,
+    forwardingInstructions,
+    renderContext,
+    ForwardingInstructionsSubElementsMap,
   )
 }

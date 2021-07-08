@@ -1,205 +1,266 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TendererQualification } from  '../../model/doc/TendererQualification'
-import { TendererQualificationFieldMeta } from  '../../meta/doc/TendererQualificationMeta'
-import ContractingPartyDisplay from '../cac/ContractingPartyDisplay'
-import { ContractingParty } from '../../model/cac/ContractingParty'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import EvidenceDisplay from '../cac/EvidenceDisplay'
-import { Evidence } from '../../model/cac/Evidence'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import TendererPartyQualificationDisplay from '../cac/TendererPartyQualificationDisplay'
-import { TendererPartyQualification } from '../../model/cac/TendererPartyQualification'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { TendererQualificationField, TendererQualificationFieldMeta, TendererQualificationTypeName } from  '../../meta/doc/TendererQualificationMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { ContractingPartyDisplay } from '../cac/ContractingPartyDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { EvidenceDisplay } from '../cac/EvidenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { TendererPartyQualificationDisplay } from '../cac/TendererPartyQualificationDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: TendererQualification | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<TendererQualification, void>
+  tendererQualification: TendererQualification[] | undefined
+  renderContext: RenderContext
 }
 
-export default function TendererQualificationDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const TendererQualificationSubElementsMap: SubElementsTemplatesMap<TendererQualificationField, TendererQualification, void> = new Map([
+    [
+      TendererQualificationField.UBLExtensions,
+      { meta: TendererQualificationFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={TendererQualificationField.UBLExtensions}
+          meta={TendererQualificationFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-TendererQualification">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={TendererQualificationFieldMeta.UBLExtensions}
-          />
+    [
+      TendererQualificationField.UBLVersionID,
+      { meta: TendererQualificationFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TendererQualificationField.UBLVersionID}
+          meta={TendererQualificationFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={TendererQualificationFieldMeta.UBLVersionID}
-          />
+    [
+      TendererQualificationField.CustomizationID,
+      { meta: TendererQualificationFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TendererQualificationField.CustomizationID}
+          meta={TendererQualificationFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={TendererQualificationFieldMeta.CustomizationID}
-          />
+    [
+      TendererQualificationField.ProfileID,
+      { meta: TendererQualificationFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TendererQualificationField.ProfileID}
+          meta={TendererQualificationFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={TendererQualificationFieldMeta.ProfileID}
-          />
+    [
+      TendererQualificationField.ProfileExecutionID,
+      { meta: TendererQualificationFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TendererQualificationField.ProfileExecutionID}
+          meta={TendererQualificationFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={TendererQualificationFieldMeta.ProfileExecutionID}
-          />
+    [
+      TendererQualificationField.ID,
+      { meta: TendererQualificationFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TendererQualificationField.ID}
+          meta={TendererQualificationFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={TendererQualificationFieldMeta.ID}
-          />
+    [
+      TendererQualificationField.CopyIndicator,
+      { meta: TendererQualificationFieldMeta.CopyIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={TendererQualificationField.CopyIndicator}
+          meta={TendererQualificationFieldMeta.CopyIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.CopyIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Copy Indicator"
-            value={value.CopyIndicator?.[0]}
-            meta={TendererQualificationFieldMeta.CopyIndicator}
-          />
+    [
+      TendererQualificationField.UUID,
+      { meta: TendererQualificationFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TendererQualificationField.UUID}
+          meta={TendererQualificationFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={TendererQualificationFieldMeta.UUID}
-          />
+    [
+      TendererQualificationField.ContractFolderID,
+      { meta: TendererQualificationFieldMeta.ContractFolderID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TendererQualificationField.ContractFolderID}
+          meta={TendererQualificationFieldMeta.ContractFolderID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ContractFolderID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Contract Folder Identifier"
-            value={value.ContractFolderID?.[0]}
-            meta={TendererQualificationFieldMeta.ContractFolderID}
-          />
+    [
+      TendererQualificationField.IssueDate,
+      { meta: TendererQualificationFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={TendererQualificationField.IssueDate}
+          meta={TendererQualificationFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={TendererQualificationFieldMeta.IssueDate}
-          />
+    [
+      TendererQualificationField.IssueTime,
+      { meta: TendererQualificationFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={TendererQualificationField.IssueTime}
+          meta={TendererQualificationFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={TendererQualificationFieldMeta.IssueTime}
-          />
+    [
+      TendererQualificationField.Note,
+      { meta: TendererQualificationFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TendererQualificationField.Note}
+          meta={TendererQualificationFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={TendererQualificationFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={TendererQualificationFieldMeta.Note}
-              />
-            }
-          />
+    [
+      TendererQualificationField.VersionID,
+      { meta: TendererQualificationFieldMeta.VersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TendererQualificationField.VersionID}
+          meta={TendererQualificationFieldMeta.VersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.VersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Version"
-            value={value.VersionID?.[0]}
-            meta={TendererQualificationFieldMeta.VersionID}
-          />
+    [
+      TendererQualificationField.PreviousVersionID,
+      { meta: TendererQualificationFieldMeta.PreviousVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TendererQualificationField.PreviousVersionID}
+          meta={TendererQualificationFieldMeta.PreviousVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.PreviousVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Previous Version"
-            value={value.PreviousVersionID?.[0]}
-            meta={TendererQualificationFieldMeta.PreviousVersionID}
-          />
+    [
+      TendererQualificationField.Signature,
+      { meta: TendererQualificationFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={TendererQualificationField.Signature}
+          meta={TendererQualificationFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={TendererQualificationFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={TendererQualificationFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      TendererQualificationField.TendererPartyQualification,
+      { meta: TendererQualificationFieldMeta.TendererPartyQualification,
+        template: ({value, renderContext, fieldConfig}) => <TendererPartyQualificationDisplay
+          key={TendererQualificationField.TendererPartyQualification}
+          meta={TendererQualificationFieldMeta.TendererPartyQualification}
+          fieldConfig={fieldConfig}
+          tendererPartyQualification={value?.TendererPartyQualification}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-TendererPartyQualification"
-            label="Tenderer Party Qualification"
-            items={value.TendererPartyQualification}
-            meta={TendererQualificationFieldMeta.TendererPartyQualification} 
-            itemDisplay={ (itemValue: TendererPartyQualification, key: string | number) =>
-              <TendererPartyQualificationDisplay
-                key={key}
-                label="Tenderer Party Qualification"
-                value={itemValue}
-                meta={TendererQualificationFieldMeta.TendererPartyQualification}
-              />
-            }
-          />
+    [
+      TendererQualificationField.ContractingParty,
+      { meta: TendererQualificationFieldMeta.ContractingParty,
+        template: ({value, renderContext, fieldConfig}) => <ContractingPartyDisplay
+          key={TendererQualificationField.ContractingParty}
+          meta={TendererQualificationFieldMeta.ContractingParty}
+          fieldConfig={fieldConfig}
+          contractingParty={value?.ContractingParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ContractingPartyDisplay
-            label="Contracting Party"
-            value={value.ContractingParty?.[0]}
-            meta={TendererQualificationFieldMeta.ContractingParty}
-          />
+    [
+      TendererQualificationField.Evidence,
+      { meta: TendererQualificationFieldMeta.Evidence,
+        template: ({value, renderContext, fieldConfig}) => <EvidenceDisplay
+          key={TendererQualificationField.Evidence}
+          meta={TendererQualificationFieldMeta.Evidence}
+          fieldConfig={fieldConfig}
+          evidence={value?.Evidence}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Evidence"
-            label="Evidence"
-            items={value.Evidence}
-            meta={TendererQualificationFieldMeta.Evidence} 
-            itemDisplay={ (itemValue: Evidence, key: string | number) =>
-              <EvidenceDisplay
-                key={key}
-                label="Evidence"
-                value={itemValue}
-                meta={TendererQualificationFieldMeta.Evidence}
-              />
-            }
-          />
+    [
+      TendererQualificationField.AdditionalDocumentReference,
+      { meta: TendererQualificationFieldMeta.AdditionalDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={TendererQualificationField.AdditionalDocumentReference}
+          meta={TendererQualificationFieldMeta.AdditionalDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.AdditionalDocumentReference}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-AdditionalDocumentReference"
-            label="Additional Document Reference"
-            items={value.AdditionalDocumentReference}
-            meta={TendererQualificationFieldMeta.AdditionalDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Additional Document Reference"
-                value={itemValue}
-                meta={TendererQualificationFieldMeta.AdditionalDocumentReference}
-              />
-            }
-          />
-        </div>
-    </div>
+export function TendererQualificationDisplay<TFieldMeta>({ meta, fieldConfig, tendererQualification, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    TendererQualificationTypeName,
+    meta,
+    fieldConfig,
+    tendererQualification,
+    renderContext,
+    TendererQualificationSubElementsMap,
   )
 }

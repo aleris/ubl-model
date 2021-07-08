@@ -3,7 +3,6 @@ import { Identifier } from '../cbc/Identifier'
 import { Item } from './Item'
 import { SupplierParty } from './SupplierParty'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to define a line describing the transaction that updates the specification of an item in a catalogue.
  */

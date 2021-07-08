@@ -1,100 +1,92 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { EnergyWaterSupply } from  '../../model/cac/EnergyWaterSupply'
-import { EnergyWaterSupplyFieldMeta } from  '../../meta/cac/EnergyWaterSupplyMeta'
-import ConsumptionAverageDisplay from './ConsumptionAverageDisplay'
-import { ConsumptionAverage } from '../../model/cac/ConsumptionAverage'
-import ConsumptionCorrectionDisplay from './ConsumptionCorrectionDisplay'
-import { ConsumptionCorrection } from '../../model/cac/ConsumptionCorrection'
-import ConsumptionReportDisplay from './ConsumptionReportDisplay'
-import { ConsumptionReport } from '../../model/cac/ConsumptionReport'
-import EnergyTaxReportDisplay from './EnergyTaxReportDisplay'
-import { EnergyTaxReport } from '../../model/cac/EnergyTaxReport'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { EnergyWaterSupplyField, EnergyWaterSupplyFieldMeta, EnergyWaterSupplyTypeName } from  '../../meta/cac/EnergyWaterSupplyMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { ConsumptionAverageDisplay } from './ConsumptionAverageDisplay'
+import { ConsumptionCorrectionDisplay } from './ConsumptionCorrectionDisplay'
+import { ConsumptionReportDisplay } from './ConsumptionReportDisplay'
+import { EnergyTaxReportDisplay } from './EnergyTaxReportDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: EnergyWaterSupply | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<EnergyWaterSupply, void>
+  energyWaterSupply: EnergyWaterSupply[] | undefined
+  renderContext: RenderContext
 }
 
-export default function EnergyWaterSupplyDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const EnergyWaterSupplySubElementsMap: SubElementsTemplatesMap<EnergyWaterSupplyField, EnergyWaterSupply, void> = new Map([
+    [
+      EnergyWaterSupplyField.UBLExtensions,
+      { meta: EnergyWaterSupplyFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={EnergyWaterSupplyField.UBLExtensions}
+          meta={EnergyWaterSupplyFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-EnergyWaterSupply">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={EnergyWaterSupplyFieldMeta.UBLExtensions}
-          />
+    [
+      EnergyWaterSupplyField.ConsumptionReport,
+      { meta: EnergyWaterSupplyFieldMeta.ConsumptionReport,
+        template: ({value, renderContext, fieldConfig}) => <ConsumptionReportDisplay
+          key={EnergyWaterSupplyField.ConsumptionReport}
+          meta={EnergyWaterSupplyFieldMeta.ConsumptionReport}
+          fieldConfig={fieldConfig}
+          consumptionReport={value?.ConsumptionReport}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-ConsumptionReport"
-            label="Consumption Report"
-            items={value.ConsumptionReport}
-            meta={EnergyWaterSupplyFieldMeta.ConsumptionReport} 
-            itemDisplay={ (itemValue: ConsumptionReport, key: string | number) =>
-              <ConsumptionReportDisplay
-                key={key}
-                label="Consumption Report"
-                value={itemValue}
-                meta={EnergyWaterSupplyFieldMeta.ConsumptionReport}
-              />
-            }
-          />
+    [
+      EnergyWaterSupplyField.EnergyTaxReport,
+      { meta: EnergyWaterSupplyFieldMeta.EnergyTaxReport,
+        template: ({value, renderContext, fieldConfig}) => <EnergyTaxReportDisplay
+          key={EnergyWaterSupplyField.EnergyTaxReport}
+          meta={EnergyWaterSupplyFieldMeta.EnergyTaxReport}
+          fieldConfig={fieldConfig}
+          energyTaxReport={value?.EnergyTaxReport}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-EnergyTaxReport"
-            label="Energy Tax Report"
-            items={value.EnergyTaxReport}
-            meta={EnergyWaterSupplyFieldMeta.EnergyTaxReport} 
-            itemDisplay={ (itemValue: EnergyTaxReport, key: string | number) =>
-              <EnergyTaxReportDisplay
-                key={key}
-                label="Energy Tax Report"
-                value={itemValue}
-                meta={EnergyWaterSupplyFieldMeta.EnergyTaxReport}
-              />
-            }
-          />
+    [
+      EnergyWaterSupplyField.ConsumptionAverage,
+      { meta: EnergyWaterSupplyFieldMeta.ConsumptionAverage,
+        template: ({value, renderContext, fieldConfig}) => <ConsumptionAverageDisplay
+          key={EnergyWaterSupplyField.ConsumptionAverage}
+          meta={EnergyWaterSupplyFieldMeta.ConsumptionAverage}
+          fieldConfig={fieldConfig}
+          consumptionAverage={value?.ConsumptionAverage}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-ConsumptionAverage"
-            label="Consumption Average"
-            items={value.ConsumptionAverage}
-            meta={EnergyWaterSupplyFieldMeta.ConsumptionAverage} 
-            itemDisplay={ (itemValue: ConsumptionAverage, key: string | number) =>
-              <ConsumptionAverageDisplay
-                key={key}
-                label="Consumption Average"
-                value={itemValue}
-                meta={EnergyWaterSupplyFieldMeta.ConsumptionAverage}
-              />
-            }
-          />
+    [
+      EnergyWaterSupplyField.EnergyWaterConsumptionCorrection,
+      { meta: EnergyWaterSupplyFieldMeta.EnergyWaterConsumptionCorrection,
+        template: ({value, renderContext, fieldConfig}) => <ConsumptionCorrectionDisplay
+          key={EnergyWaterSupplyField.EnergyWaterConsumptionCorrection}
+          meta={EnergyWaterSupplyFieldMeta.EnergyWaterConsumptionCorrection}
+          fieldConfig={fieldConfig}
+          consumptionCorrection={value?.EnergyWaterConsumptionCorrection}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-ConsumptionCorrection ubl-EnergyWaterConsumptionCorrection"
-            label="Energy Water Consumption Correction"
-            items={value.EnergyWaterConsumptionCorrection}
-            meta={EnergyWaterSupplyFieldMeta.EnergyWaterConsumptionCorrection} 
-            itemDisplay={ (itemValue: ConsumptionCorrection, key: string | number) =>
-              <ConsumptionCorrectionDisplay
-                key={key}
-                label="Energy Water Consumption Correction"
-                value={itemValue}
-                meta={EnergyWaterSupplyFieldMeta.EnergyWaterConsumptionCorrection}
-              />
-            }
-          />
-        </div>
-    </div>
+export function EnergyWaterSupplyDisplay<TFieldMeta>({ meta, fieldConfig, energyWaterSupply, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    EnergyWaterSupplyTypeName,
+    meta,
+    fieldConfig,
+    energyWaterSupply,
+    renderContext,
+    EnergyWaterSupplySubElementsMap,
   )
 }

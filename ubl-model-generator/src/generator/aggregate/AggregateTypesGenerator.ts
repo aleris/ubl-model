@@ -3,6 +3,7 @@ import { CodeFileWriter } from '../CodeFileWriter'
 import { TypeResolver } from '../TypeResolver'
 import { UblModule } from '../UblModule'
 import { TypeCodeGenerator } from '../CodeGenerator'
+import { AggregateType } from './AggregateType'
 import { AggregateTypesReader } from './AggregateTypesReader'
 
 export class AggregateTypesGenerator {
@@ -21,11 +22,34 @@ export class AggregateTypesGenerator {
     console.log(`Generating ${ublModule} from ${schemaFileName}...`)
     const types = await this.aggregateTypesReader.readTypes(ublModule, schemaFileName)
     for (const codeGenerator of this.codeGenerators) {
-      const codeFiles = [...codeGenerator.globals(), ...types.map(type => codeGenerator.asCodeString(type))]
+      const codeFiles = [
+        ...codeGenerator.globals(),
+        ...types.map(type => codeGenerator.asCodeFiles(type)).reduce((acc, val) => acc.concat(val), []),
+      ]
       for (const codeFile of codeFiles) {
         this.codeFileWriter.write(codeFile)
       }
     }
     console.log(`Done generating ${ublModule} for ${schemaFileName}.`)
+  }
+
+  async generateAll(ublModule: UblModule, schemaFileName: string) {
+    console.log(`Generating ${ublModule} all types list from ${schemaFileName}...`)
+    const types = await this.aggregateTypesReader.readTypes(ublModule, schemaFileName)
+    this.codeFileWriter.write({
+      dirPath: `meta`,
+      fileName: `${ublModule}All.ts`,
+      content: this.asCodeTypeAll(ublModule, types)
+    })
+    console.log(`Done generating ${ublModule} all types list for ${schemaFileName}.`)
+  }
+
+  asCodeTypeAll(ublModule: UblModule, types: AggregateType[]) {
+    return `${types.map(type => `import { ${type.typeName}Type } from './${ublModule}/${type.typeName}Meta'`).join('\n')}
+
+export const ${ublModule}All = [
+${types.map(type => `  ${type.typeName}Type`).join(',\n')}
+]
+`
   }
 }

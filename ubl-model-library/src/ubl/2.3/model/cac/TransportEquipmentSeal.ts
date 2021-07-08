@@ -2,7 +2,6 @@ import { Code } from '../cbc/Code'
 import { Identifier } from '../cbc/Identifier'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a device (a transport equipment seal) for securing the doors of a shipping container.
  */

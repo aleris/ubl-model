@@ -4,7 +4,6 @@ import { Identifier } from '../cbc/Identifier'
 import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to define a classification scheme, such as a taxonomy for classifying goods or services.
  */

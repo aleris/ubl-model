@@ -1,4 +1,9 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { PeriodType } from './PeriodMeta'
+import { ServiceLevelAgreementType } from './ServiceLevelAgreementMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum DigitalAgreementTermsField {
   UBLExtensions = 'UBLExtensions',
@@ -11,11 +16,11 @@ export enum DigitalAgreementTermsField {
 export const DigitalAgreementTermsFieldMetaUBLExtensions = new FieldMeta<DigitalAgreementTermsField>(
   DigitalAgreementTermsField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -24,10 +29,10 @@ export const DigitalAgreementTermsFieldMetaDescription = new FieldMeta<DigitalAg
   DigitalAgreementTermsField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing the terms and conditions of a digital agreement.',
-  '1..n',
-  'cbc',
+  FieldCardinality.Multi,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -36,10 +41,10 @@ export const DigitalAgreementTermsFieldMetaValidityPeriod = new FieldMeta<Digita
   DigitalAgreementTermsField.ValidityPeriod,
   'ValidityPeriod',
   'Validity Period',
-  'Period',
+  PeriodType.name,
   'The period of time for which this digital agreement is valid.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -48,10 +53,10 @@ export const DigitalAgreementTermsFieldMetaAdoptionPeriod = new FieldMeta<Digita
   DigitalAgreementTermsField.AdoptionPeriod,
   'AdoptionPeriod',
   'Adoption Period',
-  'Period',
+  PeriodType.name,
   'The period during which a digital agreement must be adopted.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -60,10 +65,10 @@ export const DigitalAgreementTermsFieldMetaServiceLevelAgreement = new FieldMeta
   DigitalAgreementTermsField.ServiceLevelAgreement,
   'ServiceLevelAgreement',
   'Service Level Agreement',
-  'ServiceLevelAgreement',
+  ServiceLevelAgreementType.name,
   'The service level agreement which regulates the quality, availability and responsibilities of digital services.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   'SLA',
   undefined
 )
@@ -83,3 +88,11 @@ export const DigitalAgreementTermsFieldMap = new Map([
   [DigitalAgreementTermsField.AdoptionPeriod, DigitalAgreementTermsFieldMetaAdoptionPeriod],
   [DigitalAgreementTermsField.ServiceLevelAgreement, DigitalAgreementTermsFieldMetaServiceLevelAgreement]
 ])
+
+export const DigitalAgreementTermsType: Type<DigitalAgreementTermsField> = {
+  name: 'DigitalAgreementTerms',
+  label: 'Digital Agreement Terms',
+  module: TypeModule.cac,
+  definition: 'A class to describe the terms and conditions of a digital agreement.',
+  fields: DigitalAgreementTermsFieldMap,
+}

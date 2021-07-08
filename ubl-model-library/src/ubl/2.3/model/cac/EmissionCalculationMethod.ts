@@ -1,7 +1,6 @@
 import { Code } from '../cbc/Code'
 import { Location } from './Location'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to define how an environmental emission is calculated.
  */

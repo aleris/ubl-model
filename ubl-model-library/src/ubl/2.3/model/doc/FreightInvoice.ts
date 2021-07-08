@@ -24,7 +24,6 @@ import { TaxTotal } from '../cac/TaxTotal'
 import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A document stating the charges incurred for a logistics service.
  */

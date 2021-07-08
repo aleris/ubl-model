@@ -1,268 +1,365 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { GoodsItemPassport } from  '../../model/doc/GoodsItemPassport'
-import { GoodsItemPassportFieldMeta } from  '../../meta/doc/GoodsItemPassportMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentDistributionDisplay from '../cac/DocumentDistributionDisplay'
-import { DocumentDistribution } from '../../model/cac/DocumentDistribution'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import EndorsementDisplay from '../cac/EndorsementDisplay'
-import { Endorsement } from '../../model/cac/Endorsement'
-import GoodsItemPassportCounterfoilDisplay from '../cac/GoodsItemPassportCounterfoilDisplay'
-import { GoodsItemPassportCounterfoil } from '../../model/cac/GoodsItemPassportCounterfoil'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PeriodDisplay from '../cac/PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import ShipmentDisplay from '../cac/ShipmentDisplay'
-import { Shipment } from '../../model/cac/Shipment'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { GoodsItemPassportField, GoodsItemPassportFieldMeta, GoodsItemPassportTypeName } from  '../../meta/doc/GoodsItemPassportMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentDistributionDisplay } from '../cac/DocumentDistributionDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { EndorsementDisplay } from '../cac/EndorsementDisplay'
+import { GoodsItemPassportCounterfoilDisplay } from '../cac/GoodsItemPassportCounterfoilDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { PeriodDisplay } from '../cac/PeriodDisplay'
+import { ShipmentDisplay } from '../cac/ShipmentDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: GoodsItemPassport | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<GoodsItemPassport, void>
+  goodsItemPassport: GoodsItemPassport[] | undefined
+  renderContext: RenderContext
 }
 
-export default function GoodsItemPassportDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const GoodsItemPassportSubElementsMap: SubElementsTemplatesMap<GoodsItemPassportField, GoodsItemPassport, void> = new Map([
+    [
+      GoodsItemPassportField.UBLExtensions,
+      { meta: GoodsItemPassportFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={GoodsItemPassportField.UBLExtensions}
+          meta={GoodsItemPassportFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-GoodsItemPassport">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={GoodsItemPassportFieldMeta.UBLExtensions}
-          />
+    [
+      GoodsItemPassportField.UBLVersionID,
+      { meta: GoodsItemPassportFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={GoodsItemPassportField.UBLVersionID}
+          meta={GoodsItemPassportFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={GoodsItemPassportFieldMeta.UBLVersionID}
-          />
+    [
+      GoodsItemPassportField.CustomizationID,
+      { meta: GoodsItemPassportFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={GoodsItemPassportField.CustomizationID}
+          meta={GoodsItemPassportFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={GoodsItemPassportFieldMeta.CustomizationID}
-          />
+    [
+      GoodsItemPassportField.ProfileID,
+      { meta: GoodsItemPassportFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={GoodsItemPassportField.ProfileID}
+          meta={GoodsItemPassportFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={GoodsItemPassportFieldMeta.ProfileID}
-          />
+    [
+      GoodsItemPassportField.ProfileExecutionID,
+      { meta: GoodsItemPassportFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={GoodsItemPassportField.ProfileExecutionID}
+          meta={GoodsItemPassportFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={GoodsItemPassportFieldMeta.ProfileExecutionID}
-          />
+    [
+      GoodsItemPassportField.ID,
+      { meta: GoodsItemPassportFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={GoodsItemPassportField.ID}
+          meta={GoodsItemPassportFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={GoodsItemPassportFieldMeta.ID}
-          />
+    [
+      GoodsItemPassportField.UUID,
+      { meta: GoodsItemPassportFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={GoodsItemPassportField.UUID}
+          meta={GoodsItemPassportFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={GoodsItemPassportFieldMeta.UUID}
-          />
+    [
+      GoodsItemPassportField.IssueDate,
+      { meta: GoodsItemPassportFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={GoodsItemPassportField.IssueDate}
+          meta={GoodsItemPassportFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={GoodsItemPassportFieldMeta.IssueDate}
-          />
+    [
+      GoodsItemPassportField.IssueTime,
+      { meta: GoodsItemPassportFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={GoodsItemPassportField.IssueTime}
+          meta={GoodsItemPassportFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={GoodsItemPassportFieldMeta.IssueTime}
-          />
+    [
+      GoodsItemPassportField.Note,
+      { meta: GoodsItemPassportFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={GoodsItemPassportField.Note}
+          meta={GoodsItemPassportFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={GoodsItemPassportFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={GoodsItemPassportFieldMeta.Note}
-              />
-            }
-          />
+    [
+      GoodsItemPassportField.VersionID,
+      { meta: GoodsItemPassportFieldMeta.VersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={GoodsItemPassportField.VersionID}
+          meta={GoodsItemPassportFieldMeta.VersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.VersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Version"
-            value={value.VersionID?.[0]}
-            meta={GoodsItemPassportFieldMeta.VersionID}
-          />
+    [
+      GoodsItemPassportField.ExportReasonCode,
+      { meta: GoodsItemPassportFieldMeta.ExportReasonCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={GoodsItemPassportField.ExportReasonCode}
+          meta={GoodsItemPassportFieldMeta.ExportReasonCode}
+          fieldConfig={fieldConfig}
+          code={value?.ExportReasonCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Export Reason"
-            value={value.ExportReasonCode?.[0]}
-            meta={GoodsItemPassportFieldMeta.ExportReasonCode}
-          />
+    [
+      GoodsItemPassportField.ExportReason,
+      { meta: GoodsItemPassportFieldMeta.ExportReason,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={GoodsItemPassportField.ExportReason}
+          meta={GoodsItemPassportFieldMeta.ExportReason}
+          fieldConfig={fieldConfig}
+          text={value?.ExportReason}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-ExportReason"
-            label="Export Reason"
-            items={value.ExportReason}
-            meta={GoodsItemPassportFieldMeta.ExportReason} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Export Reason"
-                value={itemValue}
-                meta={GoodsItemPassportFieldMeta.ExportReason}
-              />
-            }
-          />
+    [
+      GoodsItemPassportField.ValidityPeriod,
+      { meta: GoodsItemPassportFieldMeta.ValidityPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={GoodsItemPassportField.ValidityPeriod}
+          meta={GoodsItemPassportFieldMeta.ValidityPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.ValidityPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Validity Period"
-            value={value.ValidityPeriod?.[0]}
-            meta={GoodsItemPassportFieldMeta.ValidityPeriod}
-          />
+    [
+      GoodsItemPassportField.IssuerParty,
+      { meta: GoodsItemPassportFieldMeta.IssuerParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={GoodsItemPassportField.IssuerParty}
+          meta={GoodsItemPassportFieldMeta.IssuerParty}
+          fieldConfig={fieldConfig}
+          party={value?.IssuerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Issuer Party"
-            value={value.IssuerParty?.[0]}
-            meta={GoodsItemPassportFieldMeta.IssuerParty}
-          />
+    [
+      GoodsItemPassportField.HolderParty,
+      { meta: GoodsItemPassportFieldMeta.HolderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={GoodsItemPassportField.HolderParty}
+          meta={GoodsItemPassportFieldMeta.HolderParty}
+          fieldConfig={fieldConfig}
+          party={value?.HolderParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Holder Party"
-            value={value.HolderParty?.[0]}
-            meta={GoodsItemPassportFieldMeta.HolderParty}
-          />
+    [
+      GoodsItemPassportField.RepresentativeParty,
+      { meta: GoodsItemPassportFieldMeta.RepresentativeParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={GoodsItemPassportField.RepresentativeParty}
+          meta={GoodsItemPassportFieldMeta.RepresentativeParty}
+          fieldConfig={fieldConfig}
+          party={value?.RepresentativeParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Representative Party"
-            value={value.RepresentativeParty?.[0]}
-            meta={GoodsItemPassportFieldMeta.RepresentativeParty}
-          />
+    [
+      GoodsItemPassportField.ExportingCustomsParty,
+      { meta: GoodsItemPassportFieldMeta.ExportingCustomsParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={GoodsItemPassportField.ExportingCustomsParty}
+          meta={GoodsItemPassportFieldMeta.ExportingCustomsParty}
+          fieldConfig={fieldConfig}
+          party={value?.ExportingCustomsParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Exporting Customs Party"
-            value={value.ExportingCustomsParty?.[0]}
-            meta={GoodsItemPassportFieldMeta.ExportingCustomsParty}
-          />
+    [
+      GoodsItemPassportField.ImportingCustomsParty,
+      { meta: GoodsItemPassportFieldMeta.ImportingCustomsParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={GoodsItemPassportField.ImportingCustomsParty}
+          meta={GoodsItemPassportFieldMeta.ImportingCustomsParty}
+          fieldConfig={fieldConfig}
+          party={value?.ImportingCustomsParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Importing Customs Party"
-            value={value.ImportingCustomsParty?.[0]}
-            meta={GoodsItemPassportFieldMeta.ImportingCustomsParty}
-          />
+    [
+      GoodsItemPassportField.ImportingGuarantorParty,
+      { meta: GoodsItemPassportFieldMeta.ImportingGuarantorParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={GoodsItemPassportField.ImportingGuarantorParty}
+          meta={GoodsItemPassportFieldMeta.ImportingGuarantorParty}
+          fieldConfig={fieldConfig}
+          party={value?.ImportingGuarantorParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Importing Guarantor Party"
-            value={value.ImportingGuarantorParty?.[0]}
-            meta={GoodsItemPassportFieldMeta.ImportingGuarantorParty}
-          />
+    [
+      GoodsItemPassportField.ExportingGuarantorParty,
+      { meta: GoodsItemPassportFieldMeta.ExportingGuarantorParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={GoodsItemPassportField.ExportingGuarantorParty}
+          meta={GoodsItemPassportFieldMeta.ExportingGuarantorParty}
+          fieldConfig={fieldConfig}
+          party={value?.ExportingGuarantorParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Exporting Guarantor Party"
-            value={value.ExportingGuarantorParty?.[0]}
-            meta={GoodsItemPassportFieldMeta.ExportingGuarantorParty}
-          />
+    [
+      GoodsItemPassportField.Shipment,
+      { meta: GoodsItemPassportFieldMeta.Shipment,
+        template: ({value, renderContext, fieldConfig}) => <ShipmentDisplay
+          key={GoodsItemPassportField.Shipment}
+          meta={GoodsItemPassportFieldMeta.Shipment}
+          fieldConfig={fieldConfig}
+          shipment={value?.Shipment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ShipmentDisplay
-            label="Shipment"
-            value={value.Shipment?.[0]}
-            meta={GoodsItemPassportFieldMeta.Shipment}
-          />
+    [
+      GoodsItemPassportField.GoodsItemPassportCounterfoil,
+      { meta: GoodsItemPassportFieldMeta.GoodsItemPassportCounterfoil,
+        template: ({value, renderContext, fieldConfig}) => <GoodsItemPassportCounterfoilDisplay
+          key={GoodsItemPassportField.GoodsItemPassportCounterfoil}
+          meta={GoodsItemPassportFieldMeta.GoodsItemPassportCounterfoil}
+          fieldConfig={fieldConfig}
+          goodsItemPassportCounterfoil={value?.GoodsItemPassportCounterfoil}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-GoodsItemPassportCounterfoil"
-            label="Goods Item Passport Counterfoil"
-            items={value.GoodsItemPassportCounterfoil}
-            meta={GoodsItemPassportFieldMeta.GoodsItemPassportCounterfoil} 
-            itemDisplay={ (itemValue: GoodsItemPassportCounterfoil, key: string | number) =>
-              <GoodsItemPassportCounterfoilDisplay
-                key={key}
-                label="Goods Item Passport Counterfoil"
-                value={itemValue}
-                meta={GoodsItemPassportFieldMeta.GoodsItemPassportCounterfoil}
-              />
-            }
-          />
+    [
+      GoodsItemPassportField.IssuerEndorsement,
+      { meta: GoodsItemPassportFieldMeta.IssuerEndorsement,
+        template: ({value, renderContext, fieldConfig}) => <EndorsementDisplay
+          key={GoodsItemPassportField.IssuerEndorsement}
+          meta={GoodsItemPassportFieldMeta.IssuerEndorsement}
+          fieldConfig={fieldConfig}
+          endorsement={value?.IssuerEndorsement}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <EndorsementDisplay
-            label="Issuer Endorsement"
-            value={value.IssuerEndorsement?.[0]}
-            meta={GoodsItemPassportFieldMeta.IssuerEndorsement}
-          />
+    [
+      GoodsItemPassportField.AdditionalDocumentReference,
+      { meta: GoodsItemPassportFieldMeta.AdditionalDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={GoodsItemPassportField.AdditionalDocumentReference}
+          meta={GoodsItemPassportFieldMeta.AdditionalDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.AdditionalDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-AdditionalDocumentReference"
-            label="Additional Document Reference"
-            items={value.AdditionalDocumentReference}
-            meta={GoodsItemPassportFieldMeta.AdditionalDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Additional Document Reference"
-                value={itemValue}
-                meta={GoodsItemPassportFieldMeta.AdditionalDocumentReference}
-              />
-            }
-          />
+    [
+      GoodsItemPassportField.DocumentDistribution,
+      { meta: GoodsItemPassportFieldMeta.DocumentDistribution,
+        template: ({value, renderContext, fieldConfig}) => <DocumentDistributionDisplay
+          key={GoodsItemPassportField.DocumentDistribution}
+          meta={GoodsItemPassportFieldMeta.DocumentDistribution}
+          fieldConfig={fieldConfig}
+          documentDistribution={value?.DocumentDistribution}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentDistribution"
-            label="Document Distribution"
-            items={value.DocumentDistribution}
-            meta={GoodsItemPassportFieldMeta.DocumentDistribution} 
-            itemDisplay={ (itemValue: DocumentDistribution, key: string | number) =>
-              <DocumentDistributionDisplay
-                key={key}
-                label="Document Distribution"
-                value={itemValue}
-                meta={GoodsItemPassportFieldMeta.DocumentDistribution}
-              />
-            }
-          />
+    [
+      GoodsItemPassportField.Signature,
+      { meta: GoodsItemPassportFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={GoodsItemPassportField.Signature}
+          meta={GoodsItemPassportFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={GoodsItemPassportFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={GoodsItemPassportFieldMeta.Signature}
-              />
-            }
-          />
-        </div>
-    </div>
+export function GoodsItemPassportDisplay<TFieldMeta>({ meta, fieldConfig, goodsItemPassport, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    GoodsItemPassportTypeName,
+    meta,
+    fieldConfig,
+    goodsItemPassport,
+    renderContext,
+    GoodsItemPassportSubElementsMap,
   )
 }

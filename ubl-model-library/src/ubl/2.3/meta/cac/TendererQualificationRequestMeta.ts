@@ -1,4 +1,13 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { ClassificationSchemeType } from './ClassificationSchemeMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { EconomicOperatorRoleType } from './EconomicOperatorRoleMeta'
+import { EvaluationCriterionType } from './EvaluationCriterionMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { TendererRequirementType } from './TendererRequirementMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum TendererQualificationRequestField {
   UBLExtensions = 'UBLExtensions',
@@ -18,11 +27,11 @@ export enum TendererQualificationRequestField {
 export const TendererQualificationRequestFieldMetaUBLExtensions = new FieldMeta<TendererQualificationRequestField>(
   TendererQualificationRequestField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -31,10 +40,10 @@ export const TendererQualificationRequestFieldMetaCompanyLegalFormCode = new Fie
   TendererQualificationRequestField.CompanyLegalFormCode,
   'CompanyLegalFormCode',
   'Company Legal Form Code',
-  'Code',
+  CodeType.name,
   'The legal status requested for potential tenderers, expressed as a code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -43,10 +52,10 @@ export const TendererQualificationRequestFieldMetaCompanyLegalForm = new FieldMe
   TendererQualificationRequestField.CompanyLegalForm,
   'CompanyLegalForm',
   'Company Legal Form',
-  'Text',
+  TextType.name,
   'The legal status requested for potential tenderers, expressed as text',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -55,10 +64,10 @@ export const TendererQualificationRequestFieldMetaPersonalSituation = new FieldM
   TendererQualificationRequestField.PersonalSituation,
   'PersonalSituation',
   'Personal Situation',
-  'Text',
+  TextType.name,
   'Text describing the personal situation of the economic operators in this tendering process.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -67,10 +76,10 @@ export const TendererQualificationRequestFieldMetaOperatingYearsQuantity = new F
   TendererQualificationRequestField.OperatingYearsQuantity,
   'OperatingYearsQuantity',
   'Operating Years',
-  'Quantity',
+  QuantityType.name,
   'Textual description of the legal form required for potential tenderers.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -79,10 +88,10 @@ export const TendererQualificationRequestFieldMetaEmployeeQuantity = new FieldMe
   TendererQualificationRequestField.EmployeeQuantity,
   'EmployeeQuantity',
   'Employee',
-  'Quantity',
+  QuantityType.name,
   'Textual description of the legal form required for potential tenderers.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -91,10 +100,10 @@ export const TendererQualificationRequestFieldMetaDescription = new FieldMeta<Te
   TendererQualificationRequestField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing the evaluation requirements for this tenderer.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -103,10 +112,10 @@ export const TendererQualificationRequestFieldMetaRequiredBusinessClassification
   TendererQualificationRequestField.RequiredBusinessClassificationScheme,
   'RequiredBusinessClassificationScheme',
   'Required Business Classification Scheme',
-  'ClassificationScheme',
+  ClassificationSchemeType.name,
   'A classification scheme for the business profile.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -115,10 +124,10 @@ export const TendererQualificationRequestFieldMetaTechnicalEvaluationCriterion =
   TendererQualificationRequestField.TechnicalEvaluationCriterion,
   'TechnicalEvaluationCriterion',
   'Technical Evaluation Criterion',
-  'EvaluationCriterion',
+  EvaluationCriterionType.name,
   'A technical evaluation criterion required for an economic operator in a tendering process.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -127,10 +136,10 @@ export const TendererQualificationRequestFieldMetaFinancialEvaluationCriterion =
   TendererQualificationRequestField.FinancialEvaluationCriterion,
   'FinancialEvaluationCriterion',
   'Financial Evaluation Criterion',
-  'EvaluationCriterion',
+  EvaluationCriterionType.name,
   'A financial evaluation criterion required for an economic operator in a tendering process.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -139,10 +148,10 @@ export const TendererQualificationRequestFieldMetaSpecificTendererRequirement = 
   TendererQualificationRequestField.SpecificTendererRequirement,
   'SpecificTendererRequirement',
   'Specific Tenderer Requirement',
-  'TendererRequirement',
+  TendererRequirementType.name,
   'A requirement to be met by a tenderer.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   'Preregistration in a Business Registry'
 )
@@ -151,10 +160,10 @@ export const TendererQualificationRequestFieldMetaEconomicOperatorRole = new Fie
   TendererQualificationRequestField.EconomicOperatorRole,
   'EconomicOperatorRole',
   'Economic Operator Role',
-  'EconomicOperatorRole',
+  EconomicOperatorRoleType.name,
   'A class to describe the tenderer contracting role.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -188,3 +197,11 @@ export const TendererQualificationRequestFieldMap = new Map([
   [TendererQualificationRequestField.SpecificTendererRequirement, TendererQualificationRequestFieldMetaSpecificTendererRequirement],
   [TendererQualificationRequestField.EconomicOperatorRole, TendererQualificationRequestFieldMetaEconomicOperatorRole]
 ])
+
+export const TendererQualificationRequestType: Type<TendererQualificationRequestField> = {
+  name: 'TendererQualificationRequest',
+  label: 'Tenderer Qualification Request',
+  module: TypeModule.cac,
+  definition: 'The evaluation that the Contracting Authority party requests to fulfill to the tenderers.',
+  fields: TendererQualificationRequestFieldMap,
+}

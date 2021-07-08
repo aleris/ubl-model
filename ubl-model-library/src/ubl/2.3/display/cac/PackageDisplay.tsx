@@ -1,191 +1,232 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Package } from  '../../model/cac/Package'
-import { PackageFieldMeta } from  '../../meta/cac/PackageMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DeliveryDisplay from './DeliveryDisplay'
-import { Delivery } from '../../model/cac/Delivery'
-import DeliveryUnitDisplay from './DeliveryUnitDisplay'
-import { DeliveryUnit } from '../../model/cac/DeliveryUnit'
-import DespatchDisplay from './DespatchDisplay'
-import { Despatch } from '../../model/cac/Despatch'
-import DimensionDisplay from './DimensionDisplay'
-import { Dimension } from '../../model/cac/Dimension'
-import GoodsItemDisplay from './GoodsItemDisplay'
-import { GoodsItem } from '../../model/cac/GoodsItem'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import PickupDisplay from './PickupDisplay'
-import { Pickup } from '../../model/cac/Pickup'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TransportEquipmentDisplay from './TransportEquipmentDisplay'
-import { TransportEquipment } from '../../model/cac/TransportEquipment'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { PackageField, PackageFieldMeta, PackageTypeName } from  '../../meta/cac/PackageMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DeliveryDisplay } from './DeliveryDisplay'
+import { DeliveryUnitDisplay } from './DeliveryUnitDisplay'
+import { DespatchDisplay } from './DespatchDisplay'
+import { DimensionDisplay } from './DimensionDisplay'
+import { GoodsItemDisplay } from './GoodsItemDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { PickupDisplay } from './PickupDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TransportEquipmentDisplay } from './TransportEquipmentDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: Package | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<Package, void>
+  packageValue: Package[] | undefined
+  renderContext: RenderContext
 }
 
-export default function PackageDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const PackageSubElementsMap: SubElementsTemplatesMap<PackageField, Package, void> = new Map([
+    [
+      PackageField.UBLExtensions,
+      { meta: PackageFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={PackageField.UBLExtensions}
+          meta={PackageFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-Package">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={PackageFieldMeta.UBLExtensions}
-          />
+    [
+      PackageField.ID,
+      { meta: PackageFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PackageField.ID}
+          meta={PackageFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={PackageFieldMeta.ID}
-          />
+    [
+      PackageField.Quantity,
+      { meta: PackageFieldMeta.Quantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={PackageField.Quantity}
+          meta={PackageFieldMeta.Quantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.Quantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Quantity"
-            value={value.Quantity?.[0]}
-            meta={PackageFieldMeta.Quantity}
-          />
+    [
+      PackageField.ReturnableMaterialIndicator,
+      { meta: PackageFieldMeta.ReturnableMaterialIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={PackageField.ReturnableMaterialIndicator}
+          meta={PackageFieldMeta.ReturnableMaterialIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.ReturnableMaterialIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Returnable Material Indicator"
-            value={value.ReturnableMaterialIndicator?.[0]}
-            meta={PackageFieldMeta.ReturnableMaterialIndicator}
-          />
+    [
+      PackageField.PackageLevelCode,
+      { meta: PackageFieldMeta.PackageLevelCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={PackageField.PackageLevelCode}
+          meta={PackageFieldMeta.PackageLevelCode}
+          fieldConfig={fieldConfig}
+          code={value?.PackageLevelCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Package Level Code"
-            value={value.PackageLevelCode?.[0]}
-            meta={PackageFieldMeta.PackageLevelCode}
-          />
+    [
+      PackageField.PackagingTypeCode,
+      { meta: PackageFieldMeta.PackagingTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={PackageField.PackagingTypeCode}
+          meta={PackageFieldMeta.PackagingTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.PackagingTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Packaging Type Code"
-            value={value.PackagingTypeCode?.[0]}
-            meta={PackageFieldMeta.PackagingTypeCode}
-          />
+    [
+      PackageField.PackingMaterial,
+      { meta: PackageFieldMeta.PackingMaterial,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={PackageField.PackingMaterial}
+          meta={PackageFieldMeta.PackingMaterial}
+          fieldConfig={fieldConfig}
+          text={value?.PackingMaterial}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-PackingMaterial"
-            label="Packing Material"
-            items={value.PackingMaterial}
-            meta={PackageFieldMeta.PackingMaterial} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Packing Material"
-                value={itemValue}
-                meta={PackageFieldMeta.PackingMaterial}
-              />
-            }
-          />
+    [
+      PackageField.TraceID,
+      { meta: PackageFieldMeta.TraceID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PackageField.TraceID}
+          meta={PackageFieldMeta.TraceID}
+          fieldConfig={fieldConfig}
+          identifier={value?.TraceID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Trace Identifier"
-            value={value.TraceID?.[0]}
-            meta={PackageFieldMeta.TraceID}
-          />
+    [
+      PackageField.ContainedPackage,
+      { meta: PackageFieldMeta.ContainedPackage,
+        template: ({value, renderContext, fieldConfig}) => <PackageDisplay
+          key={PackageField.ContainedPackage}
+          meta={PackageFieldMeta.ContainedPackage}
+          fieldConfig={fieldConfig}
+          packageValue={value?.ContainedPackage}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Package ubl-ContainedPackage"
-            label="Contained Package"
-            items={value.ContainedPackage}
-            meta={PackageFieldMeta.ContainedPackage} 
-            itemDisplay={ (itemValue: Package, key: string | number) =>
-              <PackageDisplay
-                key={key}
-                label="Contained Package"
-                value={itemValue}
-                meta={PackageFieldMeta.ContainedPackage}
-              />
-            }
-          />
+    [
+      PackageField.ContainingTransportEquipment,
+      { meta: PackageFieldMeta.ContainingTransportEquipment,
+        template: ({value, renderContext, fieldConfig}) => <TransportEquipmentDisplay
+          key={PackageField.ContainingTransportEquipment}
+          meta={PackageFieldMeta.ContainingTransportEquipment}
+          fieldConfig={fieldConfig}
+          transportEquipment={value?.ContainingTransportEquipment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TransportEquipmentDisplay
-            label="Containing Transport Equipment"
-            value={value.ContainingTransportEquipment?.[0]}
-            meta={PackageFieldMeta.ContainingTransportEquipment}
-          />
+    [
+      PackageField.GoodsItem,
+      { meta: PackageFieldMeta.GoodsItem,
+        template: ({value, renderContext, fieldConfig}) => <GoodsItemDisplay
+          key={PackageField.GoodsItem}
+          meta={PackageFieldMeta.GoodsItem}
+          fieldConfig={fieldConfig}
+          goodsItem={value?.GoodsItem}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-GoodsItem"
-            label="Goods Item"
-            items={value.GoodsItem}
-            meta={PackageFieldMeta.GoodsItem} 
-            itemDisplay={ (itemValue: GoodsItem, key: string | number) =>
-              <GoodsItemDisplay
-                key={key}
-                label="Goods Item"
-                value={itemValue}
-                meta={PackageFieldMeta.GoodsItem}
-              />
-            }
-          />
+    [
+      PackageField.MeasurementDimension,
+      { meta: PackageFieldMeta.MeasurementDimension,
+        template: ({value, renderContext, fieldConfig}) => <DimensionDisplay
+          key={PackageField.MeasurementDimension}
+          meta={PackageFieldMeta.MeasurementDimension}
+          fieldConfig={fieldConfig}
+          dimension={value?.MeasurementDimension}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Dimension ubl-MeasurementDimension"
-            label="Measurement Dimension"
-            items={value.MeasurementDimension}
-            meta={PackageFieldMeta.MeasurementDimension} 
-            itemDisplay={ (itemValue: Dimension, key: string | number) =>
-              <DimensionDisplay
-                key={key}
-                label="Measurement Dimension"
-                value={itemValue}
-                meta={PackageFieldMeta.MeasurementDimension}
-              />
-            }
-          />
+    [
+      PackageField.DeliveryUnit,
+      { meta: PackageFieldMeta.DeliveryUnit,
+        template: ({value, renderContext, fieldConfig}) => <DeliveryUnitDisplay
+          key={PackageField.DeliveryUnit}
+          meta={PackageFieldMeta.DeliveryUnit}
+          fieldConfig={fieldConfig}
+          deliveryUnit={value?.DeliveryUnit}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DeliveryUnit"
-            label="Delivery Unit"
-            items={value.DeliveryUnit}
-            meta={PackageFieldMeta.DeliveryUnit} 
-            itemDisplay={ (itemValue: DeliveryUnit, key: string | number) =>
-              <DeliveryUnitDisplay
-                key={key}
-                label="Delivery Unit"
-                value={itemValue}
-                meta={PackageFieldMeta.DeliveryUnit}
-              />
-            }
-          />
+    [
+      PackageField.Delivery,
+      { meta: PackageFieldMeta.Delivery,
+        template: ({value, renderContext, fieldConfig}) => <DeliveryDisplay
+          key={PackageField.Delivery}
+          meta={PackageFieldMeta.Delivery}
+          fieldConfig={fieldConfig}
+          delivery={value?.Delivery}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DeliveryDisplay
-            label="Delivery"
-            value={value.Delivery?.[0]}
-            meta={PackageFieldMeta.Delivery}
-          />
+    [
+      PackageField.Pickup,
+      { meta: PackageFieldMeta.Pickup,
+        template: ({value, renderContext, fieldConfig}) => <PickupDisplay
+          key={PackageField.Pickup}
+          meta={PackageFieldMeta.Pickup}
+          fieldConfig={fieldConfig}
+          pickup={value?.Pickup}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PickupDisplay
-            label="Pickup"
-            value={value.Pickup?.[0]}
-            meta={PackageFieldMeta.Pickup}
-          />
+    [
+      PackageField.Despatch,
+      { meta: PackageFieldMeta.Despatch,
+        template: ({value, renderContext, fieldConfig}) => <DespatchDisplay
+          key={PackageField.Despatch}
+          meta={PackageFieldMeta.Despatch}
+          fieldConfig={fieldConfig}
+          despatch={value?.Despatch}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <DespatchDisplay
-            label="Despatch"
-            value={value.Despatch?.[0]}
-            meta={PackageFieldMeta.Despatch}
-          />
-        </div>
-    </div>
+export function PackageDisplay<TFieldMeta>({ meta, fieldConfig, packageValue, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    PackageTypeName,
+    meta,
+    fieldConfig,
+    packageValue,
+    renderContext,
+    PackageSubElementsMap,
   )
 }

@@ -1,173 +1,277 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Person } from  '../../model/cac/Person'
-import { PersonFieldMeta } from  '../../meta/cac/PersonMeta'
-import AddressDisplay from './AddressDisplay'
-import { Address } from '../../model/cac/Address'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import ContactDisplay from './ContactDisplay'
-import { Contact } from '../../model/cac/Contact'
-import CountryDisplay from './CountryDisplay'
-import { Country } from '../../model/cac/Country'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentReferenceDisplay from './DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import FinancialAccountDisplay from './FinancialAccountDisplay'
-import { FinancialAccount } from '../../model/cac/FinancialAccount'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { PersonField, PersonFieldMeta, PersonTypeName } from  '../../meta/cac/PersonMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AddressDisplay } from './AddressDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { ContactDisplay } from './ContactDisplay'
+import { CountryDisplay } from './CountryDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentReferenceDisplay } from './DocumentReferenceDisplay'
+import { FinancialAccountDisplay } from './FinancialAccountDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: Person | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<Person, void>
+  person: Person[] | undefined
+  renderContext: RenderContext
 }
 
-export default function PersonDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const PersonSubElementsMap: SubElementsTemplatesMap<PersonField, Person, void> = new Map([
+    [
+      PersonField.UBLExtensions,
+      { meta: PersonFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={PersonField.UBLExtensions}
+          meta={PersonFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-Person">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={PersonFieldMeta.UBLExtensions}
-          />
+    [
+      PersonField.ID,
+      { meta: PersonFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PersonField.ID}
+          meta={PersonFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={PersonFieldMeta.ID}
-          />
+    [
+      PersonField.FirstName,
+      { meta: PersonFieldMeta.FirstName,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={PersonField.FirstName}
+          meta={PersonFieldMeta.FirstName}
+          fieldConfig={fieldConfig}
+          text={value?.FirstName}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="First Name"
-            value={value.FirstName?.[0]}
-            meta={PersonFieldMeta.FirstName}
-          />
+    [
+      PersonField.FamilyName,
+      { meta: PersonFieldMeta.FamilyName,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={PersonField.FamilyName}
+          meta={PersonFieldMeta.FamilyName}
+          fieldConfig={fieldConfig}
+          text={value?.FamilyName}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Family Name"
-            value={value.FamilyName?.[0]}
-            meta={PersonFieldMeta.FamilyName}
-          />
+    [
+      PersonField.Title,
+      { meta: PersonFieldMeta.Title,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={PersonField.Title}
+          meta={PersonFieldMeta.Title}
+          fieldConfig={fieldConfig}
+          text={value?.Title}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Title"
-            value={value.Title?.[0]}
-            meta={PersonFieldMeta.Title}
-          />
+    [
+      PersonField.MiddleName,
+      { meta: PersonFieldMeta.MiddleName,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={PersonField.MiddleName}
+          meta={PersonFieldMeta.MiddleName}
+          fieldConfig={fieldConfig}
+          text={value?.MiddleName}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Middle Name"
-            value={value.MiddleName?.[0]}
-            meta={PersonFieldMeta.MiddleName}
-          />
+    [
+      PersonField.OtherName,
+      { meta: PersonFieldMeta.OtherName,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={PersonField.OtherName}
+          meta={PersonFieldMeta.OtherName}
+          fieldConfig={fieldConfig}
+          text={value?.OtherName}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Other Name"
-            value={value.OtherName?.[0]}
-            meta={PersonFieldMeta.OtherName}
-          />
+    [
+      PersonField.NameSuffix,
+      { meta: PersonFieldMeta.NameSuffix,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={PersonField.NameSuffix}
+          meta={PersonFieldMeta.NameSuffix}
+          fieldConfig={fieldConfig}
+          text={value?.NameSuffix}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Name Suffix"
-            value={value.NameSuffix?.[0]}
-            meta={PersonFieldMeta.NameSuffix}
-          />
+    [
+      PersonField.JobTitle,
+      { meta: PersonFieldMeta.JobTitle,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={PersonField.JobTitle}
+          meta={PersonFieldMeta.JobTitle}
+          fieldConfig={fieldConfig}
+          text={value?.JobTitle}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Job Title"
-            value={value.JobTitle?.[0]}
-            meta={PersonFieldMeta.JobTitle}
-          />
+    [
+      PersonField.NationalityID,
+      { meta: PersonFieldMeta.NationalityID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PersonField.NationalityID}
+          meta={PersonFieldMeta.NationalityID}
+          fieldConfig={fieldConfig}
+          identifier={value?.NationalityID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Nationality"
-            value={value.NationalityID?.[0]}
-            meta={PersonFieldMeta.NationalityID}
-          />
+    [
+      PersonField.GenderCode,
+      { meta: PersonFieldMeta.GenderCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={PersonField.GenderCode}
+          meta={PersonFieldMeta.GenderCode}
+          fieldConfig={fieldConfig}
+          code={value?.GenderCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Gender Code"
-            value={value.GenderCode?.[0]}
-            meta={PersonFieldMeta.GenderCode}
-          />
+    [
+      PersonField.BirthDate,
+      { meta: PersonFieldMeta.BirthDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={PersonField.BirthDate}
+          meta={PersonFieldMeta.BirthDate}
+          fieldConfig={fieldConfig}
+          date={value?.BirthDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Birth Date"
-            value={value.BirthDate?.[0]}
-            meta={PersonFieldMeta.BirthDate}
-          />
+    [
+      PersonField.BirthplaceName,
+      { meta: PersonFieldMeta.BirthplaceName,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={PersonField.BirthplaceName}
+          meta={PersonFieldMeta.BirthplaceName}
+          fieldConfig={fieldConfig}
+          text={value?.BirthplaceName}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Birthplace Name"
-            value={value.BirthplaceName?.[0]}
-            meta={PersonFieldMeta.BirthplaceName}
-          />
+    [
+      PersonField.OrganizationDepartment,
+      { meta: PersonFieldMeta.OrganizationDepartment,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={PersonField.OrganizationDepartment}
+          meta={PersonFieldMeta.OrganizationDepartment}
+          fieldConfig={fieldConfig}
+          text={value?.OrganizationDepartment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Organization Department"
-            value={value.OrganizationDepartment?.[0]}
-            meta={PersonFieldMeta.OrganizationDepartment}
-          />
+    [
+      PersonField.RoleCode,
+      { meta: PersonFieldMeta.RoleCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={PersonField.RoleCode}
+          meta={PersonFieldMeta.RoleCode}
+          fieldConfig={fieldConfig}
+          code={value?.RoleCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Role Code"
-            value={value.RoleCode?.[0]}
-            meta={PersonFieldMeta.RoleCode}
-          />
+    [
+      PersonField.CitizenshipCountry,
+      { meta: PersonFieldMeta.CitizenshipCountry,
+        template: ({value, renderContext, fieldConfig}) => <CountryDisplay
+          key={PersonField.CitizenshipCountry}
+          meta={PersonFieldMeta.CitizenshipCountry}
+          fieldConfig={fieldConfig}
+          country={value?.CitizenshipCountry}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CountryDisplay
-            label="Citizenship Country"
-            value={value.CitizenshipCountry?.[0]}
-            meta={PersonFieldMeta.CitizenshipCountry}
-          />
+    [
+      PersonField.Contact,
+      { meta: PersonFieldMeta.Contact,
+        template: ({value, renderContext, fieldConfig}) => <ContactDisplay
+          key={PersonField.Contact}
+          meta={PersonFieldMeta.Contact}
+          fieldConfig={fieldConfig}
+          contact={value?.Contact}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ContactDisplay
-            label="Contact"
-            value={value.Contact?.[0]}
-            meta={PersonFieldMeta.Contact}
-          />
+    [
+      PersonField.FinancialAccount,
+      { meta: PersonFieldMeta.FinancialAccount,
+        template: ({value, renderContext, fieldConfig}) => <FinancialAccountDisplay
+          key={PersonField.FinancialAccount}
+          meta={PersonFieldMeta.FinancialAccount}
+          fieldConfig={fieldConfig}
+          financialAccount={value?.FinancialAccount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <FinancialAccountDisplay
-            label="Financial Account"
-            value={value.FinancialAccount?.[0]}
-            meta={PersonFieldMeta.FinancialAccount}
-          />
+    [
+      PersonField.IdentityDocumentReference,
+      { meta: PersonFieldMeta.IdentityDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={PersonField.IdentityDocumentReference}
+          meta={PersonFieldMeta.IdentityDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.IdentityDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentReference ubl-IdentityDocumentReference"
-            label="Identity Document Reference"
-            items={value.IdentityDocumentReference}
-            meta={PersonFieldMeta.IdentityDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Identity Document Reference"
-                value={itemValue}
-                meta={PersonFieldMeta.IdentityDocumentReference}
-              />
-            }
-          />
+    [
+      PersonField.ResidenceAddress,
+      { meta: PersonFieldMeta.ResidenceAddress,
+        template: ({value, renderContext, fieldConfig}) => <AddressDisplay
+          key={PersonField.ResidenceAddress}
+          meta={PersonFieldMeta.ResidenceAddress}
+          fieldConfig={fieldConfig}
+          address={value?.ResidenceAddress}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <AddressDisplay
-            label="Residence Address"
-            value={value.ResidenceAddress?.[0]}
-            meta={PersonFieldMeta.ResidenceAddress}
-          />
-        </div>
-    </div>
+export function PersonDisplay<TFieldMeta>({ meta, fieldConfig, person, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    PersonTypeName,
+    meta,
+    fieldConfig,
+    person,
+    renderContext,
+    PersonSubElementsMap,
   )
 }

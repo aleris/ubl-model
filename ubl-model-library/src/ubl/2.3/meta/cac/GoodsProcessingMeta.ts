@@ -1,4 +1,12 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { CriterionItemType } from './CriterionItemMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { PartyType } from './PartyMeta'
+import { PeriodType } from './PeriodMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum GoodsProcessingField {
   UBLExtensions = 'UBLExtensions',
@@ -15,11 +23,11 @@ export enum GoodsProcessingField {
 export const GoodsProcessingFieldMetaUBLExtensions = new FieldMeta<GoodsProcessingField>(
   GoodsProcessingField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -28,10 +36,10 @@ export const GoodsProcessingFieldMetaID = new FieldMeta<GoodsProcessingField>(
   GoodsProcessingField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this goods processing.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -40,10 +48,10 @@ export const GoodsProcessingFieldMetaTypeCode = new FieldMeta<GoodsProcessingFie
   GoodsProcessingField.TypeCode,
   'TypeCode',
   'Type',
-  'Code',
+  CodeType.name,
   'A type code for this goods processing.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -52,10 +60,10 @@ export const GoodsProcessingFieldMetaDescription = new FieldMeta<GoodsProcessing
   GoodsProcessingField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'A description for this goods processing expressed in one or more languages',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -64,10 +72,10 @@ export const GoodsProcessingFieldMetaNote = new FieldMeta<GoodsProcessingField>(
   GoodsProcessingField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -76,10 +84,10 @@ export const GoodsProcessingFieldMetaPeriod = new FieldMeta<GoodsProcessingField
   GoodsProcessingField.Period,
   'Period',
   'Period',
-  'Period',
+  PeriodType.name,
   'The period within this goods processing was performed',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -88,10 +96,10 @@ export const GoodsProcessingFieldMetaProcessingParty = new FieldMeta<GoodsProces
   GoodsProcessingField.ProcessingParty,
   'ProcessingParty',
   'Processing Party',
-  'Party',
+  PartyType.name,
   'The party processing the goods',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -100,10 +108,10 @@ export const GoodsProcessingFieldMetaCriterionItem = new FieldMeta<GoodsProcessi
   GoodsProcessingField.CriterionItem,
   'CriterionItem',
   'Criterion Item',
-  'CriterionItem',
+  CriterionItemType.name,
   'A reference to a criterion item that applies to this goods processing',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -112,10 +120,10 @@ export const GoodsProcessingFieldMetaSubGoodsProcessing = new FieldMeta<GoodsPro
   GoodsProcessingField.SubGoodsProcessing,
   'SubGoodsProcessing',
   'Sub Goods Processing',
-  'GoodsProcessing',
+  GoodsProcessingType.name,
   'A subordinate processing to this goods processing',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -143,3 +151,11 @@ export const GoodsProcessingFieldMap = new Map([
   [GoodsProcessingField.CriterionItem, GoodsProcessingFieldMetaCriterionItem],
   [GoodsProcessingField.SubGoodsProcessing, GoodsProcessingFieldMetaSubGoodsProcessing]
 ])
+
+export const GoodsProcessingType: Type<GoodsProcessingField> = {
+  name: 'GoodsProcessing',
+  label: 'Goods Processing',
+  module: TypeModule.cac,
+  definition: 'A class to describe the processing of goods and products',
+  fields: GoodsProcessingFieldMap,
+}

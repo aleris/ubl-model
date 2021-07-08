@@ -3,7 +3,6 @@ import { Numeric } from '../cbc/Numeric'
 import { Party } from './Party'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe the distribution of a document to an interested party.
  */

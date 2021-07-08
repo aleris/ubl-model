@@ -1,7 +1,6 @@
 import { DigitalService } from './DigitalService'
 import { Identifier } from '../cbc/Identifier'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a digital trade collaboration.
  */

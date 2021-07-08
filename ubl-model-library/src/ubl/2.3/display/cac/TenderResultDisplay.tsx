@@ -1,185 +1,256 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TenderResult } from  '../../model/cac/TenderResult'
-import { TenderResultFieldMeta } from  '../../meta/cac/TenderResultMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import ContractDisplay from './ContractDisplay'
-import { Contract } from '../../model/cac/Contract'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import SubcontractTermsDisplay from './SubcontractTermsDisplay'
-import { SubcontractTerms } from '../../model/cac/SubcontractTerms'
-import TenderedProjectDisplay from './TenderedProjectDisplay'
-import { TenderedProject } from '../../model/cac/TenderedProject'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
-import WinningPartyDisplay from './WinningPartyDisplay'
-import { WinningParty } from '../../model/cac/WinningParty'
+import { TenderResultField, TenderResultFieldMeta, TenderResultTypeName } from  '../../meta/cac/TenderResultMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { ContractDisplay } from './ContractDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { SubcontractTermsDisplay } from './SubcontractTermsDisplay'
+import { TenderedProjectDisplay } from './TenderedProjectDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
+import { WinningPartyDisplay } from './WinningPartyDisplay'
 
-type Props<T> = {
-  label: string
-  value: TenderResult | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<TenderResult, void>
+  tenderResult: TenderResult[] | undefined
+  renderContext: RenderContext
 }
 
-export default function TenderResultDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const TenderResultSubElementsMap: SubElementsTemplatesMap<TenderResultField, TenderResult, void> = new Map([
+    [
+      TenderResultField.UBLExtensions,
+      { meta: TenderResultFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={TenderResultField.UBLExtensions}
+          meta={TenderResultFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-TenderResult">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={TenderResultFieldMeta.UBLExtensions}
-          />
+    [
+      TenderResultField.AwardID,
+      { meta: TenderResultFieldMeta.AwardID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TenderResultField.AwardID}
+          meta={TenderResultFieldMeta.AwardID}
+          fieldConfig={fieldConfig}
+          identifier={value?.AwardID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Award Identifier"
-            value={value.AwardID?.[0]}
-            meta={TenderResultFieldMeta.AwardID}
-          />
+    [
+      TenderResultField.TenderResultCode,
+      { meta: TenderResultFieldMeta.TenderResultCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TenderResultField.TenderResultCode}
+          meta={TenderResultFieldMeta.TenderResultCode}
+          fieldConfig={fieldConfig}
+          code={value?.TenderResultCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Tender Result Code"
-            value={value.TenderResultCode?.[0]}
-            meta={TenderResultFieldMeta.TenderResultCode}
-          />
+    [
+      TenderResultField.Description,
+      { meta: TenderResultFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TenderResultField.Description}
+          meta={TenderResultFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={TenderResultFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={TenderResultFieldMeta.Description}
-              />
-            }
-          />
+    [
+      TenderResultField.AdvertisementAmount,
+      { meta: TenderResultFieldMeta.AdvertisementAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={TenderResultField.AdvertisementAmount}
+          meta={TenderResultFieldMeta.AdvertisementAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.AdvertisementAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Advertisement"
-            value={value.AdvertisementAmount?.[0]}
-            meta={TenderResultFieldMeta.AdvertisementAmount}
-          />
+    [
+      TenderResultField.AwardDate,
+      { meta: TenderResultFieldMeta.AwardDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={TenderResultField.AwardDate}
+          meta={TenderResultFieldMeta.AwardDate}
+          fieldConfig={fieldConfig}
+          date={value?.AwardDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Award Date"
-            value={value.AwardDate?.[0]}
-            meta={TenderResultFieldMeta.AwardDate}
-          />
+    [
+      TenderResultField.AwardTime,
+      { meta: TenderResultFieldMeta.AwardTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={TenderResultField.AwardTime}
+          meta={TenderResultFieldMeta.AwardTime}
+          fieldConfig={fieldConfig}
+          time={value?.AwardTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Award Time"
-            value={value.AwardTime?.[0]}
-            meta={TenderResultFieldMeta.AwardTime}
-          />
+    [
+      TenderResultField.ReceivedTenderQuantity,
+      { meta: TenderResultFieldMeta.ReceivedTenderQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={TenderResultField.ReceivedTenderQuantity}
+          meta={TenderResultFieldMeta.ReceivedTenderQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.ReceivedTenderQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Received Tender Quantity"
-            value={value.ReceivedTenderQuantity?.[0]}
-            meta={TenderResultFieldMeta.ReceivedTenderQuantity}
-          />
+    [
+      TenderResultField.LowerTenderAmount,
+      { meta: TenderResultFieldMeta.LowerTenderAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={TenderResultField.LowerTenderAmount}
+          meta={TenderResultFieldMeta.LowerTenderAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.LowerTenderAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Lower Tender Amount"
-            value={value.LowerTenderAmount?.[0]}
-            meta={TenderResultFieldMeta.LowerTenderAmount}
-          />
+    [
+      TenderResultField.HigherTenderAmount,
+      { meta: TenderResultFieldMeta.HigherTenderAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={TenderResultField.HigherTenderAmount}
+          meta={TenderResultFieldMeta.HigherTenderAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.HigherTenderAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Higher Tender Amount"
-            value={value.HigherTenderAmount?.[0]}
-            meta={TenderResultFieldMeta.HigherTenderAmount}
-          />
+    [
+      TenderResultField.StartDate,
+      { meta: TenderResultFieldMeta.StartDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={TenderResultField.StartDate}
+          meta={TenderResultFieldMeta.StartDate}
+          fieldConfig={fieldConfig}
+          date={value?.StartDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Start Date"
-            value={value.StartDate?.[0]}
-            meta={TenderResultFieldMeta.StartDate}
-          />
+    [
+      TenderResultField.ReceivedElectronicTenderQuantity,
+      { meta: TenderResultFieldMeta.ReceivedElectronicTenderQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={TenderResultField.ReceivedElectronicTenderQuantity}
+          meta={TenderResultFieldMeta.ReceivedElectronicTenderQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.ReceivedElectronicTenderQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Received Electronic Tender Quantity"
-            value={value.ReceivedElectronicTenderQuantity?.[0]}
-            meta={TenderResultFieldMeta.ReceivedElectronicTenderQuantity}
-          />
+    [
+      TenderResultField.ReceivedForeignTenderQuantity,
+      { meta: TenderResultFieldMeta.ReceivedForeignTenderQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={TenderResultField.ReceivedForeignTenderQuantity}
+          meta={TenderResultFieldMeta.ReceivedForeignTenderQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.ReceivedForeignTenderQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Received Foreign Tender Quantity"
-            value={value.ReceivedForeignTenderQuantity?.[0]}
-            meta={TenderResultFieldMeta.ReceivedForeignTenderQuantity}
-          />
+    [
+      TenderResultField.Contract,
+      { meta: TenderResultFieldMeta.Contract,
+        template: ({value, renderContext, fieldConfig}) => <ContractDisplay
+          key={TenderResultField.Contract}
+          meta={TenderResultFieldMeta.Contract}
+          fieldConfig={fieldConfig}
+          contract={value?.Contract}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ContractDisplay
-            label="Contract"
-            value={value.Contract?.[0]}
-            meta={TenderResultFieldMeta.Contract}
-          />
+    [
+      TenderResultField.AwardedTenderedProject,
+      { meta: TenderResultFieldMeta.AwardedTenderedProject,
+        template: ({value, renderContext, fieldConfig}) => <TenderedProjectDisplay
+          key={TenderResultField.AwardedTenderedProject}
+          meta={TenderResultFieldMeta.AwardedTenderedProject}
+          fieldConfig={fieldConfig}
+          tenderedProject={value?.AwardedTenderedProject}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TenderedProjectDisplay
-            label="Awarded Tendered Project"
-            value={value.AwardedTenderedProject?.[0]}
-            meta={TenderResultFieldMeta.AwardedTenderedProject}
-          />
+    [
+      TenderResultField.ContractFormalizationPeriod,
+      { meta: TenderResultFieldMeta.ContractFormalizationPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={TenderResultField.ContractFormalizationPeriod}
+          meta={TenderResultFieldMeta.ContractFormalizationPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.ContractFormalizationPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Contract Formalization Period"
-            value={value.ContractFormalizationPeriod?.[0]}
-            meta={TenderResultFieldMeta.ContractFormalizationPeriod}
-          />
+    [
+      TenderResultField.SubcontractTerms,
+      { meta: TenderResultFieldMeta.SubcontractTerms,
+        template: ({value, renderContext, fieldConfig}) => <SubcontractTermsDisplay
+          key={TenderResultField.SubcontractTerms}
+          meta={TenderResultFieldMeta.SubcontractTerms}
+          fieldConfig={fieldConfig}
+          subcontractTerms={value?.SubcontractTerms}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-SubcontractTerms"
-            label="Subcontract Terms"
-            items={value.SubcontractTerms}
-            meta={TenderResultFieldMeta.SubcontractTerms} 
-            itemDisplay={ (itemValue: SubcontractTerms, key: string | number) =>
-              <SubcontractTermsDisplay
-                key={key}
-                label="Subcontract Terms"
-                value={itemValue}
-                meta={TenderResultFieldMeta.SubcontractTerms}
-              />
-            }
-          />
+    [
+      TenderResultField.WinningParty,
+      { meta: TenderResultFieldMeta.WinningParty,
+        template: ({value, renderContext, fieldConfig}) => <WinningPartyDisplay
+          key={TenderResultField.WinningParty}
+          meta={TenderResultFieldMeta.WinningParty}
+          fieldConfig={fieldConfig}
+          winningParty={value?.WinningParty}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-WinningParty"
-            label="Winning Party"
-            items={value.WinningParty}
-            meta={TenderResultFieldMeta.WinningParty} 
-            itemDisplay={ (itemValue: WinningParty, key: string | number) =>
-              <WinningPartyDisplay
-                key={key}
-                label="Winning Party"
-                value={itemValue}
-                meta={TenderResultFieldMeta.WinningParty}
-              />
-            }
-          />
-        </div>
-    </div>
+export function TenderResultDisplay<TFieldMeta>({ meta, fieldConfig, tenderResult, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    TenderResultTypeName,
+    meta,
+    fieldConfig,
+    tenderResult,
+    renderContext,
+    TenderResultSubElementsMap,
   )
 }

@@ -5,7 +5,6 @@ import { Indicator } from '../cbc/Indicator'
 import { LineItem } from './LineItem'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to define a line in a Request for Quotation.
  */

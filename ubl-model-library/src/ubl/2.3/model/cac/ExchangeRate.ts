@@ -4,7 +4,6 @@ import { Date } from '../cbc/Date'
 import { Identifier } from '../cbc/Identifier'
 import { Numeric } from '../cbc/Numeric'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to define an exchange rate.
  */

@@ -1,71 +1,91 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { PriceList } from  '../../model/cac/PriceList'
-import { PriceListFieldMeta } from  '../../meta/cac/PriceListMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { PriceListField, PriceListFieldMeta, PriceListTypeName } from  '../../meta/cac/PriceListMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: PriceList | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<PriceList, void>
+  priceList: PriceList[] | undefined
+  renderContext: RenderContext
 }
 
-export default function PriceListDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const PriceListSubElementsMap: SubElementsTemplatesMap<PriceListField, PriceList, void> = new Map([
+    [
+      PriceListField.UBLExtensions,
+      { meta: PriceListFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={PriceListField.UBLExtensions}
+          meta={PriceListFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-PriceList">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={PriceListFieldMeta.UBLExtensions}
-          />
+    [
+      PriceListField.ID,
+      { meta: PriceListFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PriceListField.ID}
+          meta={PriceListFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={PriceListFieldMeta.ID}
-          />
+    [
+      PriceListField.StatusCode,
+      { meta: PriceListFieldMeta.StatusCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={PriceListField.StatusCode}
+          meta={PriceListFieldMeta.StatusCode}
+          fieldConfig={fieldConfig}
+          code={value?.StatusCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Status Code"
-            value={value.StatusCode?.[0]}
-            meta={PriceListFieldMeta.StatusCode}
-          />
+    [
+      PriceListField.ValidityPeriod,
+      { meta: PriceListFieldMeta.ValidityPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={PriceListField.ValidityPeriod}
+          meta={PriceListFieldMeta.ValidityPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.ValidityPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Period ubl-ValidityPeriod"
-            label="Validity Period"
-            items={value.ValidityPeriod}
-            meta={PriceListFieldMeta.ValidityPeriod} 
-            itemDisplay={ (itemValue: Period, key: string | number) =>
-              <PeriodDisplay
-                key={key}
-                label="Validity Period"
-                value={itemValue}
-                meta={PriceListFieldMeta.ValidityPeriod}
-              />
-            }
-          />
+    [
+      PriceListField.PreviousPriceList,
+      { meta: PriceListFieldMeta.PreviousPriceList,
+        template: ({value, renderContext, fieldConfig}) => <PriceListDisplay
+          key={PriceListField.PreviousPriceList}
+          meta={PriceListFieldMeta.PreviousPriceList}
+          fieldConfig={fieldConfig}
+          priceList={value?.PreviousPriceList}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <PriceListDisplay
-            label="Previous Price List"
-            value={value.PreviousPriceList?.[0]}
-            meta={PriceListFieldMeta.PreviousPriceList}
-          />
-        </div>
-    </div>
+export function PriceListDisplay<TFieldMeta>({ meta, fieldConfig, priceList, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    PriceListTypeName,
+    meta,
+    fieldConfig,
+    priceList,
+    renderContext,
+    PriceListSubElementsMap,
   )
 }

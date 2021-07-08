@@ -1,18 +1,25 @@
 import React from 'react'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Quantity } from '../../model/cbc/Quantity'
-import FieldDisplay from '../FieldDisplay'
+import { FieldConfig } from '../FieldConfig'
+import { FieldDisplay } from '../FieldDisplay'
 
 type Props = {
+  className: string
   label: string
-  value: Quantity | undefined
+  quantity?: Quantity | undefined
   meta: FieldMeta<any>
+  fieldConfig?: FieldConfig
 }
 
-export default function QuantityDisplay({ label, value, meta }: Props) {
-  if (value === undefined) {
+export function QuantityDisplay({ className, label, quantity, meta, fieldConfig }: Props) {
+  if (quantity === undefined) {
     return null
   }
-  const stringValue = `${value._}`
-  return <div className="ubl-cbc ubl-Quantity"><FieldDisplay label={label} value={stringValue} /></div>
+  const stringValue = `${quantity._}`
+  return (
+    <div className={className}>
+      <FieldDisplay label={label} value={stringValue} config={fieldConfig} />
+    </div>
+  )
 }

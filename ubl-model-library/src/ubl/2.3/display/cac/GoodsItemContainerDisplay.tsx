@@ -1,65 +1,79 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { GoodsItemContainer } from  '../../model/cac/GoodsItemContainer'
-import { GoodsItemContainerFieldMeta } from  '../../meta/cac/GoodsItemContainerMeta'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import TransportEquipmentDisplay from './TransportEquipmentDisplay'
-import { TransportEquipment } from '../../model/cac/TransportEquipment'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { GoodsItemContainerField, GoodsItemContainerFieldMeta, GoodsItemContainerTypeName } from  '../../meta/cac/GoodsItemContainerMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { TransportEquipmentDisplay } from './TransportEquipmentDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: GoodsItemContainer | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<GoodsItemContainer, void>
+  goodsItemContainer: GoodsItemContainer[] | undefined
+  renderContext: RenderContext
 }
 
-export default function GoodsItemContainerDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const GoodsItemContainerSubElementsMap: SubElementsTemplatesMap<GoodsItemContainerField, GoodsItemContainer, void> = new Map([
+    [
+      GoodsItemContainerField.UBLExtensions,
+      { meta: GoodsItemContainerFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={GoodsItemContainerField.UBLExtensions}
+          meta={GoodsItemContainerFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-GoodsItemContainer">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={GoodsItemContainerFieldMeta.UBLExtensions}
-          />
+    [
+      GoodsItemContainerField.ID,
+      { meta: GoodsItemContainerFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={GoodsItemContainerField.ID}
+          meta={GoodsItemContainerFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={GoodsItemContainerFieldMeta.ID}
-          />
+    [
+      GoodsItemContainerField.Quantity,
+      { meta: GoodsItemContainerFieldMeta.Quantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={GoodsItemContainerField.Quantity}
+          meta={GoodsItemContainerFieldMeta.Quantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.Quantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Quantity"
-            value={value.Quantity?.[0]}
-            meta={GoodsItemContainerFieldMeta.Quantity}
-          />
+    [
+      GoodsItemContainerField.TransportEquipment,
+      { meta: GoodsItemContainerFieldMeta.TransportEquipment,
+        template: ({value, renderContext, fieldConfig}) => <TransportEquipmentDisplay
+          key={GoodsItemContainerField.TransportEquipment}
+          meta={GoodsItemContainerFieldMeta.TransportEquipment}
+          fieldConfig={fieldConfig}
+          transportEquipment={value?.TransportEquipment}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TransportEquipment"
-            label="Transport Equipment"
-            items={value.TransportEquipment}
-            meta={GoodsItemContainerFieldMeta.TransportEquipment} 
-            itemDisplay={ (itemValue: TransportEquipment, key: string | number) =>
-              <TransportEquipmentDisplay
-                key={key}
-                label="Transport Equipment"
-                value={itemValue}
-                meta={GoodsItemContainerFieldMeta.TransportEquipment}
-              />
-            }
-          />
-        </div>
-    </div>
+export function GoodsItemContainerDisplay<TFieldMeta>({ meta, fieldConfig, goodsItemContainer, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    GoodsItemContainerTypeName,
+    meta,
+    fieldConfig,
+    goodsItemContainer,
+    renderContext,
+    GoodsItemContainerSubElementsMap,
   )
 }

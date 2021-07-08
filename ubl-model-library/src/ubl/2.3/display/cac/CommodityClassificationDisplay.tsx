@@ -1,58 +1,89 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { CommodityClassification } from  '../../model/cac/CommodityClassification'
-import { CommodityClassificationFieldMeta } from  '../../meta/cac/CommodityClassificationMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { CommodityClassificationField, CommodityClassificationFieldMeta, CommodityClassificationTypeName } from  '../../meta/cac/CommodityClassificationMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: CommodityClassification | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<CommodityClassification, void>
+  commodityClassification: CommodityClassification[] | undefined
+  renderContext: RenderContext
 }
 
-export default function CommodityClassificationDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const CommodityClassificationSubElementsMap: SubElementsTemplatesMap<CommodityClassificationField, CommodityClassification, void> = new Map([
+    [
+      CommodityClassificationField.UBLExtensions,
+      { meta: CommodityClassificationFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={CommodityClassificationField.UBLExtensions}
+          meta={CommodityClassificationFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-CommodityClassification">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={CommodityClassificationFieldMeta.UBLExtensions}
-          />
+    [
+      CommodityClassificationField.NatureCode,
+      { meta: CommodityClassificationFieldMeta.NatureCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={CommodityClassificationField.NatureCode}
+          meta={CommodityClassificationFieldMeta.NatureCode}
+          fieldConfig={fieldConfig}
+          code={value?.NatureCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Nature Code"
-            value={value.NatureCode?.[0]}
-            meta={CommodityClassificationFieldMeta.NatureCode}
-          />
+    [
+      CommodityClassificationField.CargoTypeCode,
+      { meta: CommodityClassificationFieldMeta.CargoTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={CommodityClassificationField.CargoTypeCode}
+          meta={CommodityClassificationFieldMeta.CargoTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.CargoTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Cargo Type Code"
-            value={value.CargoTypeCode?.[0]}
-            meta={CommodityClassificationFieldMeta.CargoTypeCode}
-          />
+    [
+      CommodityClassificationField.CommodityCode,
+      { meta: CommodityClassificationFieldMeta.CommodityCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={CommodityClassificationField.CommodityCode}
+          meta={CommodityClassificationFieldMeta.CommodityCode}
+          fieldConfig={fieldConfig}
+          code={value?.CommodityCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Commodity Code"
-            value={value.CommodityCode?.[0]}
-            meta={CommodityClassificationFieldMeta.CommodityCode}
-          />
+    [
+      CommodityClassificationField.ItemClassificationCode,
+      { meta: CommodityClassificationFieldMeta.ItemClassificationCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={CommodityClassificationField.ItemClassificationCode}
+          meta={CommodityClassificationFieldMeta.ItemClassificationCode}
+          fieldConfig={fieldConfig}
+          code={value?.ItemClassificationCode}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <CodeDisplay
-            label="Item Classification Code"
-            value={value.ItemClassificationCode?.[0]}
-            meta={CommodityClassificationFieldMeta.ItemClassificationCode}
-          />
-        </div>
-    </div>
+export function CommodityClassificationDisplay<TFieldMeta>({ meta, fieldConfig, commodityClassification, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    CommodityClassificationTypeName,
+    meta,
+    fieldConfig,
+    commodityClassification,
+    renderContext,
+    CommodityClassificationSubElementsMap,
   )
 }

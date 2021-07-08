@@ -1,7 +1,6 @@
 import { Party } from './Party'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A party that is identified as the awarded by a tender result.
  */

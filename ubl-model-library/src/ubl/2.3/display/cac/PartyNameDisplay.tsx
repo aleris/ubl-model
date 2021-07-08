@@ -1,40 +1,53 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { PartyName } from  '../../model/cac/PartyName'
-import { PartyNameFieldMeta } from  '../../meta/cac/PartyNameMeta'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { PartyNameField, PartyNameFieldMeta, PartyNameTypeName } from  '../../meta/cac/PartyNameMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: PartyName | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<PartyName, void>
+  partyName: PartyName[] | undefined
+  renderContext: RenderContext
 }
 
-export default function PartyNameDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const PartyNameSubElementsMap: SubElementsTemplatesMap<PartyNameField, PartyName, void> = new Map([
+    [
+      PartyNameField.UBLExtensions,
+      { meta: PartyNameFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={PartyNameField.UBLExtensions}
+          meta={PartyNameFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-PartyName">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={PartyNameFieldMeta.UBLExtensions}
-          />
+    [
+      PartyNameField.Name,
+      { meta: PartyNameFieldMeta.Name,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={PartyNameField.Name}
+          meta={PartyNameFieldMeta.Name}
+          fieldConfig={fieldConfig}
+          text={value?.Name}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <TextDisplay
-            label="Name"
-            value={value.Name?.[0]}
-            meta={PartyNameFieldMeta.Name}
-          />
-        </div>
-    </div>
+export function PartyNameDisplay<TFieldMeta>({ meta, fieldConfig, partyName, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    PartyNameTypeName,
+    meta,
+    fieldConfig,
+    partyName,
+    renderContext,
+    PartyNameSubElementsMap,
   )
 }

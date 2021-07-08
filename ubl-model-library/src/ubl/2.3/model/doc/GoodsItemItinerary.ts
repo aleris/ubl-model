@@ -11,7 +11,6 @@ import { Time } from '../cbc/Time'
 import { TransportationSegment } from '../cac/TransportationSegment'
 import { TransportEquipment } from '../cac/TransportEquipment'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A document providing details relating to a transport service, such as transport movement, identification of equipment
  * and goods, subcontracted service providers, etc.

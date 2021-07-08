@@ -1,4 +1,10 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { CriterionItemType } from './CriterionItemMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum AttestationLineField {
   UBLExtensions = 'UBLExtensions',
@@ -12,11 +18,11 @@ export enum AttestationLineField {
 export const AttestationLineFieldMetaUBLExtensions = new FieldMeta<AttestationLineField>(
   AttestationLineField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -25,10 +31,10 @@ export const AttestationLineFieldMetaID = new FieldMeta<AttestationLineField>(
   AttestationLineField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this attestation line',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -37,10 +43,10 @@ export const AttestationLineFieldMetaTypeCode = new FieldMeta<AttestationLineFie
   AttestationLineField.TypeCode,
   'TypeCode',
   'Type Code',
-  'Code',
+  CodeType.name,
   'A code describing the type of attestation line or statement',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -49,10 +55,10 @@ export const AttestationLineFieldMetaDescription = new FieldMeta<AttestationLine
   AttestationLineField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'A textual description of this attestation line',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -61,10 +67,10 @@ export const AttestationLineFieldMetaCriterionItem = new FieldMeta<AttestationLi
   AttestationLineField.CriterionItem,
   'CriterionItem',
   'Criterion Item',
-  'CriterionItem',
+  CriterionItemType.name,
   'Criterion items associated with this attestation line',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -73,10 +79,10 @@ export const AttestationLineFieldMetaSubAttestationLine = new FieldMeta<Attestat
   AttestationLineField.SubAttestationLine,
   'SubAttestationLine',
   'Sub Attestation Line',
-  'AttestationLine',
+  AttestationLineType.name,
   'An attestation line subsidiary to this attestation line',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -98,3 +104,11 @@ export const AttestationLineFieldMap = new Map([
   [AttestationLineField.CriterionItem, AttestationLineFieldMetaCriterionItem],
   [AttestationLineField.SubAttestationLine, AttestationLineFieldMetaSubAttestationLine]
 ])
+
+export const AttestationLineType: Type<AttestationLineField> = {
+  name: 'AttestationLine',
+  label: 'Attestation Line',
+  module: TypeModule.cac,
+  definition: 'A class describing an attestation line',
+  fields: AttestationLineFieldMap,
+}

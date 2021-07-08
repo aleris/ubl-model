@@ -1,4 +1,10 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CertificateType } from './CertificateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { MessageDeliveryType } from './MessageDeliveryMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum DeliveryChannelField {
   UBLExtensions = 'UBLExtensions',
@@ -12,11 +18,11 @@ export enum DeliveryChannelField {
 export const DeliveryChannelFieldMetaUBLExtensions = new FieldMeta<DeliveryChannelField>(
   DeliveryChannelField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -25,10 +31,10 @@ export const DeliveryChannelFieldMetaNetworkID = new FieldMeta<DeliveryChannelFi
   DeliveryChannelField.NetworkID,
   'NetworkID',
   'Network Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the network where messages are delivered (e.g. a business network).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'OpenPEPPOL'
 )
@@ -37,10 +43,10 @@ export const DeliveryChannelFieldMetaParticipantID = new FieldMeta<DeliveryChann
   DeliveryChannelField.ParticipantID,
   'ParticipantID',
   'Participant Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for a registered participant in the network (e.g. according a precise scheme such as IT:VAT, DK:CVR, GLN).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '5790002221134'
 )
@@ -49,10 +55,10 @@ export const DeliveryChannelFieldMetaTestIndicator = new FieldMeta<DeliveryChann
   DeliveryChannelField.TestIndicator,
   'TestIndicator',
   'Test Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indicator that the channel is a test channel (true).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -61,10 +67,10 @@ export const DeliveryChannelFieldMetaDigitalCertificate = new FieldMeta<Delivery
   DeliveryChannelField.DigitalCertificate,
   'DigitalCertificate',
   'Digital Certificate',
-  'Certificate',
+  CertificateType.name,
   'A digital certificate associated with this delivery channel.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -73,10 +79,10 @@ export const DeliveryChannelFieldMetaDigitalMessageDelivery = new FieldMeta<Deli
   DeliveryChannelField.DigitalMessageDelivery,
   'DigitalMessageDelivery',
   'Digital Message Delivery',
-  'MessageDelivery',
+  MessageDeliveryType.name,
   'A digital message delivery associated with this delivery channel (aka routing information).',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -98,3 +104,11 @@ export const DeliveryChannelFieldMap = new Map([
   [DeliveryChannelField.DigitalCertificate, DeliveryChannelFieldMetaDigitalCertificate],
   [DeliveryChannelField.DigitalMessageDelivery, DeliveryChannelFieldMetaDigitalMessageDelivery]
 ])
+
+export const DeliveryChannelType: Type<DeliveryChannelField> = {
+  name: 'DeliveryChannel',
+  label: 'Delivery Channel',
+  module: TypeModule.cac,
+  definition: 'A class to describe a delivery channel.',
+  fields: DeliveryChannelFieldMap,
+}

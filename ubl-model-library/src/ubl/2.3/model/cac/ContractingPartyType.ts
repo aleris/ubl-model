@@ -1,7 +1,6 @@
 import { Code } from '../cbc/Code'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * The type of contracting party that is independent of its role.
  */

@@ -1,4 +1,11 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { ClassificationCategoryType } from './ClassificationCategoryMeta'
+import { DateType } from '../cbc/DateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ClassificationSchemeField {
   UBLExtensions = 'UBLExtensions',
@@ -21,11 +28,11 @@ export enum ClassificationSchemeField {
 export const ClassificationSchemeFieldMetaUBLExtensions = new FieldMeta<ClassificationSchemeField>(
   ClassificationSchemeField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -34,10 +41,10 @@ export const ClassificationSchemeFieldMetaID = new FieldMeta<ClassificationSchem
   ClassificationSchemeField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this classification scheme.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -46,10 +53,10 @@ export const ClassificationSchemeFieldMetaUUID = new FieldMeta<ClassificationSch
   ClassificationSchemeField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for this classification scheme.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -58,10 +65,10 @@ export const ClassificationSchemeFieldMetaLastRevisionDate = new FieldMeta<Class
   ClassificationSchemeField.LastRevisionDate,
   'LastRevisionDate',
   'Last Revision Date',
-  'Date',
+  DateType.name,
   'The date on which this classification scheme was last revised.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -70,10 +77,10 @@ export const ClassificationSchemeFieldMetaLastRevisionTime = new FieldMeta<Class
   ClassificationSchemeField.LastRevisionTime,
   'LastRevisionTime',
   'Last Revision Time',
-  'Time',
+  TimeType.name,
   'The time at which this classification scheme was last revised.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -82,10 +89,10 @@ export const ClassificationSchemeFieldMetaNote = new FieldMeta<ClassificationSch
   ClassificationSchemeField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -94,10 +101,10 @@ export const ClassificationSchemeFieldMetaName = new FieldMeta<ClassificationSch
   ClassificationSchemeField.Name,
   'Name',
   'Name',
-  'Text',
+  TextType.name,
   'The name of this classification scheme.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'UNSPSC'
 )
@@ -106,10 +113,10 @@ export const ClassificationSchemeFieldMetaDescription = new FieldMeta<Classifica
   ClassificationSchemeField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing this classification scheme.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   'an open, global multi-sector standard for classification of products and services'
 )
@@ -118,10 +125,10 @@ export const ClassificationSchemeFieldMetaAgencyID = new FieldMeta<Classificatio
   ClassificationSchemeField.AgencyID,
   'AgencyID',
   'Agency Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the agency that maintains this classification scheme.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Defaults to the UN/EDIFACT data element 3055 code list.'
 )
@@ -130,10 +137,10 @@ export const ClassificationSchemeFieldMetaAgencyName = new FieldMeta<Classificat
   ClassificationSchemeField.AgencyName,
   'AgencyName',
   'Agency Name',
-  'Text',
+  TextType.name,
   'The name of the agency that maintains the classification scheme.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -142,10 +149,10 @@ export const ClassificationSchemeFieldMetaVersionID = new FieldMeta<Classificati
   ClassificationSchemeField.VersionID,
   'VersionID',
   'Version',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the version of this classification scheme.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -154,10 +161,10 @@ export const ClassificationSchemeFieldMetaURI = new FieldMeta<ClassificationSche
   ClassificationSchemeField.URI,
   'URI',
   'URI',
-  'Identifier',
+  IdentifierType.name,
   'The Uniform Resource Identifier (URI) of the documentation for this classification scheme.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -166,10 +173,10 @@ export const ClassificationSchemeFieldMetaSchemeURI = new FieldMeta<Classificati
   ClassificationSchemeField.SchemeURI,
   'SchemeURI',
   'Scheme URI',
-  'Identifier',
+  IdentifierType.name,
   'The Uniform Resource Identifier (URI) of this classification scheme.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -178,10 +185,10 @@ export const ClassificationSchemeFieldMetaLanguageID = new FieldMeta<Classificat
   ClassificationSchemeField.LanguageID,
   'LanguageID',
   'Language',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the language of this classification scheme.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -190,10 +197,10 @@ export const ClassificationSchemeFieldMetaClassificationCategory = new FieldMeta
   ClassificationSchemeField.ClassificationCategory,
   'ClassificationCategory',
   'Classification Category',
-  'ClassificationCategory',
+  ClassificationCategoryType.name,
   'A description of a category within this classification scheme.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -233,3 +240,11 @@ export const ClassificationSchemeFieldMap = new Map([
   [ClassificationSchemeField.LanguageID, ClassificationSchemeFieldMetaLanguageID],
   [ClassificationSchemeField.ClassificationCategory, ClassificationSchemeFieldMetaClassificationCategory]
 ])
+
+export const ClassificationSchemeType: Type<ClassificationSchemeField> = {
+  name: 'ClassificationScheme',
+  label: 'Classification Scheme',
+  module: TypeModule.cac,
+  definition: 'A class to define a classification scheme, such as a taxonomy for classifying goods or services.',
+  fields: ClassificationSchemeFieldMap,
+}

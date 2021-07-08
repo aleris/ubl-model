@@ -1,4 +1,12 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { EncryptionDataType } from './EncryptionDataMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { ProcurementProjectLotType } from './ProcurementProjectLotMeta'
+import { TenderRequirementType } from './TenderRequirementMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum TenderPreparationField {
   UBLExtensions = 'UBLExtensions',
@@ -14,11 +22,11 @@ export enum TenderPreparationField {
 export const TenderPreparationFieldMetaUBLExtensions = new FieldMeta<TenderPreparationField>(
   TenderPreparationField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -27,10 +35,10 @@ export const TenderPreparationFieldMetaTenderEnvelopeID = new FieldMeta<TenderPr
   TenderPreparationField.TenderEnvelopeID,
   'TenderEnvelopeID',
   'Tender Envelope Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the tender envelope to be used with the tender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -39,10 +47,10 @@ export const TenderPreparationFieldMetaTenderEnvelopeTypeCode = new FieldMeta<Te
   TenderPreparationField.TenderEnvelopeTypeCode,
   'TenderEnvelopeTypeCode',
   'Tender Envelope Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of tender envelope (economical or objective criteria versus technical or subjective criteria).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -51,10 +59,10 @@ export const TenderPreparationFieldMetaDescription = new FieldMeta<TenderPrepara
   TenderPreparationField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing the tender envelope.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -63,10 +71,10 @@ export const TenderPreparationFieldMetaOpenTenderID = new FieldMeta<TenderPrepar
   TenderPreparationField.OpenTenderID,
   'OpenTenderID',
   'Open Tender Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the open tender associated with this tender preparation.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -75,10 +83,10 @@ export const TenderPreparationFieldMetaProcurementProjectLot = new FieldMeta<Ten
   TenderPreparationField.ProcurementProjectLot,
   'ProcurementProjectLot',
   'Procurement Project Lot',
-  'ProcurementProjectLot',
+  ProcurementProjectLotType.name,
   'The procurement project lot associated with a particular tenderer.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -87,10 +95,10 @@ export const TenderPreparationFieldMetaDocumentTenderRequirement = new FieldMeta
   TenderPreparationField.DocumentTenderRequirement,
   'DocumentTenderRequirement',
   'Document Tender Requirement',
-  'TenderRequirement',
+  TenderRequirementType.name,
   'A reference to the template for a required document in a tendering process.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   'Curricula required, Experience required, ....'
 )
@@ -99,10 +107,10 @@ export const TenderPreparationFieldMetaTenderEncryptionData = new FieldMeta<Tend
   TenderPreparationField.TenderEncryptionData,
   'TenderEncryptionData',
   'Tender Encryption Data',
-  'EncryptionData',
+  EncryptionDataType.name,
   'A reference to the details of the encryption process used for the tender.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -128,3 +136,11 @@ export const TenderPreparationFieldMap = new Map([
   [TenderPreparationField.DocumentTenderRequirement, TenderPreparationFieldMetaDocumentTenderRequirement],
   [TenderPreparationField.TenderEncryptionData, TenderPreparationFieldMetaTenderEncryptionData]
 ])
+
+export const TenderPreparationType: Type<TenderPreparationField> = {
+  name: 'TenderPreparation',
+  label: 'Tender Preparation',
+  module: TypeModule.cac,
+  definition: 'A class to describe directions for preparing a tender.',
+  fields: TenderPreparationFieldMap,
+}

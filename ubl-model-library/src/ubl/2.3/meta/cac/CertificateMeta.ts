@@ -1,4 +1,12 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { DocumentReferenceType } from './DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { PartyType } from './PartyMeta'
+import { SignatureType } from './SignatureMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum CertificateField {
   UBLExtensions = 'UBLExtensions',
@@ -14,11 +22,11 @@ export enum CertificateField {
 export const CertificateFieldMetaUBLExtensions = new FieldMeta<CertificateField>(
   CertificateField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -27,10 +35,10 @@ export const CertificateFieldMetaID = new FieldMeta<CertificateField>(
   CertificateField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this certificate.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -39,10 +47,10 @@ export const CertificateFieldMetaCertificateTypeCode = new FieldMeta<Certificate
   CertificateField.CertificateTypeCode,
   'CertificateTypeCode',
   'Certificate Type Code',
-  'Code',
+  CodeType.name,
   'The type of this certificate, expressed as a code. The type specifies what array it belongs to, e.g.. Environmental, security, health improvement etc.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -51,10 +59,10 @@ export const CertificateFieldMetaCertificateType = new FieldMeta<CertificateFiel
   CertificateField.CertificateType,
   'CertificateType',
   'Certificate Type',
-  'Text',
+  TextType.name,
   'The type of this certificate, expressed as a code. The type specifies what array it belongs to, e.g.. Environmental, security, health improvement etc.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -63,10 +71,10 @@ export const CertificateFieldMetaRemarks = new FieldMeta<CertificateField>(
   CertificateField.Remarks,
   'Remarks',
   'Remarks',
-  'Text',
+  TextType.name,
   'Remarks by the applicant for this certificate.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -75,10 +83,10 @@ export const CertificateFieldMetaIssuerParty = new FieldMeta<CertificateField>(
   CertificateField.IssuerParty,
   'IssuerParty',
   'Issuer Party',
-  'Party',
+  PartyType.name,
   'The authorized organization that issued this certificate, the provider of the certificate.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -87,10 +95,10 @@ export const CertificateFieldMetaDocumentReference = new FieldMeta<CertificateFi
   CertificateField.DocumentReference,
   'DocumentReference',
   'Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a document relevant to this certificate or an application for this certificate.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -99,10 +107,10 @@ export const CertificateFieldMetaSignature = new FieldMeta<CertificateField>(
   CertificateField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this certificate.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -128,3 +136,11 @@ export const CertificateFieldMap = new Map([
   [CertificateField.DocumentReference, CertificateFieldMetaDocumentReference],
   [CertificateField.Signature, CertificateFieldMetaSignature]
 ])
+
+export const CertificateType: Type<CertificateField> = {
+  name: 'Certificate',
+  label: 'Certificate',
+  module: TypeModule.cac,
+  definition: 'A class to define a certificate applied to the item. Certificated can be a requirement to sell goods or services in a jurisdiction.',
+  fields: CertificateFieldMap,
+}

@@ -1,4 +1,10 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { DocumentReferenceType } from './DocumentReferenceMeta'
+import { LineResponseType } from './LineResponseMeta'
+import { PartyType } from './PartyMeta'
+import { ResponseType } from './ResponseMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum DocumentResponseField {
   UBLExtensions = 'UBLExtensions',
@@ -12,11 +18,11 @@ export enum DocumentResponseField {
 export const DocumentResponseFieldMetaUBLExtensions = new FieldMeta<DocumentResponseField>(
   DocumentResponseField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -25,10 +31,10 @@ export const DocumentResponseFieldMetaResponse = new FieldMeta<DocumentResponseF
   DocumentResponseField.Response,
   'Response',
   'Response',
-  'Response',
+  ResponseType.name,
   'A response to the document as a whole.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -37,10 +43,10 @@ export const DocumentResponseFieldMetaDocumentReference = new FieldMeta<Document
   DocumentResponseField.DocumentReference,
   'DocumentReference',
   'Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A referenced document.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -49,10 +55,10 @@ export const DocumentResponseFieldMetaIssuerParty = new FieldMeta<DocumentRespon
   DocumentResponseField.IssuerParty,
   'IssuerParty',
   'Issuer Party',
-  'Party',
+  PartyType.name,
   'The party that issued the document.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -61,10 +67,10 @@ export const DocumentResponseFieldMetaRecipientParty = new FieldMeta<DocumentRes
   DocumentResponseField.RecipientParty,
   'RecipientParty',
   'Recipient Party',
-  'Party',
+  PartyType.name,
   'The party for which the document is intended.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -73,10 +79,10 @@ export const DocumentResponseFieldMetaLineResponse = new FieldMeta<DocumentRespo
   DocumentResponseField.LineResponse,
   'LineResponse',
   'Line Response',
-  'LineResponse',
+  LineResponseType.name,
   'A response to a particular line in the document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -98,3 +104,11 @@ export const DocumentResponseFieldMap = new Map([
   [DocumentResponseField.RecipientParty, DocumentResponseFieldMetaRecipientParty],
   [DocumentResponseField.LineResponse, DocumentResponseFieldMetaLineResponse]
 ])
+
+export const DocumentResponseType: Type<DocumentResponseField> = {
+  name: 'DocumentResponse',
+  label: 'Document Response',
+  module: TypeModule.cac,
+  definition: 'A class to describe an application-level response to a document.',
+  fields: DocumentResponseFieldMap,
+}

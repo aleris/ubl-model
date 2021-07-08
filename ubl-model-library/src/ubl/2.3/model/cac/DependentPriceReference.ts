@@ -2,7 +2,6 @@ import { Address } from './Address'
 import { LineReference } from './LineReference'
 import { Numeric } from '../cbc/Numeric'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to define the price of an item as a percentage of the price of a different item.
  */

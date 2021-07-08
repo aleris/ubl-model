@@ -9,7 +9,6 @@ import { Time } from '../cbc/Time'
 import { TransportMeans } from '../cac/TransportMeans'
 import { TransportSchedule } from '../cac/TransportSchedule'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A document sent from a Transportation Network Manager to a Transport Service Provider giving the status of the
  * whereabouts and schedule of the transport means involved in a transport service.

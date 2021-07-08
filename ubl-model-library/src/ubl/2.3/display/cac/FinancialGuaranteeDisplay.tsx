@@ -1,81 +1,105 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { FinancialGuarantee } from  '../../model/cac/FinancialGuarantee'
-import { FinancialGuaranteeFieldMeta } from  '../../meta/cac/FinancialGuaranteeMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { FinancialGuaranteeField, FinancialGuaranteeFieldMeta, FinancialGuaranteeTypeName } from  '../../meta/cac/FinancialGuaranteeMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: FinancialGuarantee | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<FinancialGuarantee, void>
+  financialGuarantee: FinancialGuarantee[] | undefined
+  renderContext: RenderContext
 }
 
-export default function FinancialGuaranteeDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const FinancialGuaranteeSubElementsMap: SubElementsTemplatesMap<FinancialGuaranteeField, FinancialGuarantee, void> = new Map([
+    [
+      FinancialGuaranteeField.UBLExtensions,
+      { meta: FinancialGuaranteeFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={FinancialGuaranteeField.UBLExtensions}
+          meta={FinancialGuaranteeFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-FinancialGuarantee">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={FinancialGuaranteeFieldMeta.UBLExtensions}
-          />
+    [
+      FinancialGuaranteeField.GuaranteeTypeCode,
+      { meta: FinancialGuaranteeFieldMeta.GuaranteeTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={FinancialGuaranteeField.GuaranteeTypeCode}
+          meta={FinancialGuaranteeFieldMeta.GuaranteeTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.GuaranteeTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Guarantee Type Code"
-            value={value.GuaranteeTypeCode?.[0]}
-            meta={FinancialGuaranteeFieldMeta.GuaranteeTypeCode}
-          />
+    [
+      FinancialGuaranteeField.Description,
+      { meta: FinancialGuaranteeFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={FinancialGuaranteeField.Description}
+          meta={FinancialGuaranteeFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={FinancialGuaranteeFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={FinancialGuaranteeFieldMeta.Description}
-              />
-            }
-          />
+    [
+      FinancialGuaranteeField.LiabilityAmount,
+      { meta: FinancialGuaranteeFieldMeta.LiabilityAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={FinancialGuaranteeField.LiabilityAmount}
+          meta={FinancialGuaranteeFieldMeta.LiabilityAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.LiabilityAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Liability"
-            value={value.LiabilityAmount?.[0]}
-            meta={FinancialGuaranteeFieldMeta.LiabilityAmount}
-          />
+    [
+      FinancialGuaranteeField.AmountRate,
+      { meta: FinancialGuaranteeFieldMeta.AmountRate,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={FinancialGuaranteeField.AmountRate}
+          meta={FinancialGuaranteeFieldMeta.AmountRate}
+          fieldConfig={fieldConfig}
+          numeric={value?.AmountRate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Amount"
-            value={value.AmountRate?.[0]}
-            meta={FinancialGuaranteeFieldMeta.AmountRate}
-          />
+    [
+      FinancialGuaranteeField.ConstitutionPeriod,
+      { meta: FinancialGuaranteeFieldMeta.ConstitutionPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={FinancialGuaranteeField.ConstitutionPeriod}
+          meta={FinancialGuaranteeFieldMeta.ConstitutionPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.ConstitutionPeriod}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <PeriodDisplay
-            label="Constitution Period"
-            value={value.ConstitutionPeriod?.[0]}
-            meta={FinancialGuaranteeFieldMeta.ConstitutionPeriod}
-          />
-        </div>
-    </div>
+export function FinancialGuaranteeDisplay<TFieldMeta>({ meta, fieldConfig, financialGuarantee, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    FinancialGuaranteeTypeName,
+    meta,
+    fieldConfig,
+    financialGuarantee,
+    renderContext,
+    FinancialGuaranteeSubElementsMap,
   )
 }

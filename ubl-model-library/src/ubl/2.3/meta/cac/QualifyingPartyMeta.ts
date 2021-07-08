@@ -1,4 +1,17 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CapabilityType } from './CapabilityMeta'
+import { ClassificationSchemeType } from './ClassificationSchemeMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { CompletedTaskType } from './CompletedTaskMeta'
+import { DeclarationType } from './DeclarationMeta'
+import { EconomicOperatorRoleType } from './EconomicOperatorRoleMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { PartyType } from './PartyMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum QualifyingPartyField {
   UBLExtensions = 'UBLExtensions',
@@ -21,11 +34,11 @@ export enum QualifyingPartyField {
 export const QualifyingPartyFieldMetaUBLExtensions = new FieldMeta<QualifyingPartyField>(
   QualifyingPartyField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -34,10 +47,10 @@ export const QualifyingPartyFieldMetaParticipationPercent = new FieldMeta<Qualif
   QualifyingPartyField.ParticipationPercent,
   'ParticipationPercent',
   'Participation',
-  'Numeric',
+  NumericType.name,
   'The extent to which this party is expected to participate in the tendering process, expressed as a percentage.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -46,10 +59,10 @@ export const QualifyingPartyFieldMetaPersonalSituation = new FieldMeta<Qualifyin
   QualifyingPartyField.PersonalSituation,
   'PersonalSituation',
   'Personal Situation',
-  'Text',
+  TextType.name,
   'Text describing the personal situation of the qualifying party.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -58,10 +71,10 @@ export const QualifyingPartyFieldMetaOperatingYearsQuantity = new FieldMeta<Qual
   QualifyingPartyField.OperatingYearsQuantity,
   'OperatingYearsQuantity',
   'Operating Years',
-  'Quantity',
+  QuantityType.name,
   'The number of years that this qualifying party has been in operation.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -70,10 +83,10 @@ export const QualifyingPartyFieldMetaEmployeeQuantity = new FieldMeta<Qualifying
   QualifyingPartyField.EmployeeQuantity,
   'EmployeeQuantity',
   'Employee',
-  'Quantity',
+  QuantityType.name,
   'The number of people employed by this qualifying party.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -82,10 +95,10 @@ export const QualifyingPartyFieldMetaBusinessClassificationEvidenceID = new Fiel
   QualifyingPartyField.BusinessClassificationEvidenceID,
   'BusinessClassificationEvidenceID',
   'Business Classification Evidence',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for an item of evidence to support the classification of this qualifying party.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -94,10 +107,10 @@ export const QualifyingPartyFieldMetaBusinessIdentityEvidenceID = new FieldMeta<
   QualifyingPartyField.BusinessIdentityEvidenceID,
   'BusinessIdentityEvidenceID',
   'Business Identity Evidence',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for an item of evidence to support the business identity of this qualifying party.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -106,10 +119,10 @@ export const QualifyingPartyFieldMetaTendererRoleCode = new FieldMeta<Qualifying
   QualifyingPartyField.TendererRoleCode,
   'TendererRoleCode',
   'Tenderer Role Code',
-  'Code',
+  CodeType.name,
   'A code stating the Tenderer Role.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -118,10 +131,10 @@ export const QualifyingPartyFieldMetaBusinessClassificationScheme = new FieldMet
   QualifyingPartyField.BusinessClassificationScheme,
   'BusinessClassificationScheme',
   'Business Classification Scheme',
-  'ClassificationScheme',
+  ClassificationSchemeType.name,
   'The classification scheme used for the business profile.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -130,10 +143,10 @@ export const QualifyingPartyFieldMetaTechnicalCapability = new FieldMeta<Qualify
   QualifyingPartyField.TechnicalCapability,
   'TechnicalCapability',
   'Technical Capability',
-  'Capability',
+  CapabilityType.name,
   'A technical capability of this qualifying party.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -142,10 +155,10 @@ export const QualifyingPartyFieldMetaFinancialCapability = new FieldMeta<Qualify
   QualifyingPartyField.FinancialCapability,
   'FinancialCapability',
   'Financial Capability',
-  'Capability',
+  CapabilityType.name,
   'A financial capability of this qualifying party.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -154,10 +167,10 @@ export const QualifyingPartyFieldMetaCompletedTask = new FieldMeta<QualifyingPar
   QualifyingPartyField.CompletedTask,
   'CompletedTask',
   'Completed Task',
-  'CompletedTask',
+  CompletedTaskType.name,
   'A former task completed by this qualifying party.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -166,10 +179,10 @@ export const QualifyingPartyFieldMetaDeclaration = new FieldMeta<QualifyingParty
   QualifyingPartyField.Declaration,
   'Declaration',
   'Declaration',
-  'Declaration',
+  DeclarationType.name,
   'A declaration by this qualifying party. of certain characteristics or capabilities in fulfilment of requirements specified in a call for tenders.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -178,10 +191,10 @@ export const QualifyingPartyFieldMetaParty = new FieldMeta<QualifyingPartyField>
   QualifyingPartyField.Party,
   'Party',
   'Party',
-  'Party',
+  PartyType.name,
   'The qualifying party itself.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -190,10 +203,10 @@ export const QualifyingPartyFieldMetaEconomicOperatorRole = new FieldMeta<Qualif
   QualifyingPartyField.EconomicOperatorRole,
   'EconomicOperatorRole',
   'Economic Operator Role',
-  'EconomicOperatorRole',
+  EconomicOperatorRoleType.name,
   'A class to describe the tenderer contracting role.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -233,3 +246,11 @@ export const QualifyingPartyFieldMap = new Map([
   [QualifyingPartyField.Party, QualifyingPartyFieldMetaParty],
   [QualifyingPartyField.EconomicOperatorRole, QualifyingPartyFieldMetaEconomicOperatorRole]
 ])
+
+export const QualifyingPartyType: Type<QualifyingPartyField> = {
+  name: 'QualifyingParty',
+  label: 'Qualifying Party',
+  module: TypeModule.cac,
+  definition: 'A class to describe the distinctive features or characteristics qualifying an economic operator to be a party in a tendering process (e.g., number of employees, number of operating units, type of business, technical and financial capabilities, completed projects).',
+  fields: QualifyingPartyFieldMap,
+}

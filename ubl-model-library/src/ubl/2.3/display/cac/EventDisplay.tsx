@@ -1,131 +1,157 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Event } from  '../../model/cac/Event'
-import { EventFieldMeta } from  '../../meta/cac/EventMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import ContactDisplay from './ContactDisplay'
-import { Contact } from '../../model/cac/Contact'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import LocationDisplay from './LocationDisplay'
-import { Location } from '../../model/cac/Location'
-import StatusDisplay from './StatusDisplay'
-import { Status } from '../../model/cac/Status'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { EventField, EventFieldMeta, EventTypeName } from  '../../meta/cac/EventMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { ContactDisplay } from './ContactDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { LocationDisplay } from './LocationDisplay'
+import { StatusDisplay } from './StatusDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: Event | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<Event, void>
+  event: Event[] | undefined
+  renderContext: RenderContext
 }
 
-export default function EventDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const EventSubElementsMap: SubElementsTemplatesMap<EventField, Event, void> = new Map([
+    [
+      EventField.UBLExtensions,
+      { meta: EventFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={EventField.UBLExtensions}
+          meta={EventFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-Event">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={EventFieldMeta.UBLExtensions}
-          />
+    [
+      EventField.IdentificationID,
+      { meta: EventFieldMeta.IdentificationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={EventField.IdentificationID}
+          meta={EventFieldMeta.IdentificationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.IdentificationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identification"
-            value={value.IdentificationID?.[0]}
-            meta={EventFieldMeta.IdentificationID}
-          />
+    [
+      EventField.OccurrenceDate,
+      { meta: EventFieldMeta.OccurrenceDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={EventField.OccurrenceDate}
+          meta={EventFieldMeta.OccurrenceDate}
+          fieldConfig={fieldConfig}
+          date={value?.OccurrenceDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Occurrence Date"
-            value={value.OccurrenceDate?.[0]}
-            meta={EventFieldMeta.OccurrenceDate}
-          />
+    [
+      EventField.OccurrenceTime,
+      { meta: EventFieldMeta.OccurrenceTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={EventField.OccurrenceTime}
+          meta={EventFieldMeta.OccurrenceTime}
+          fieldConfig={fieldConfig}
+          time={value?.OccurrenceTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Occurrence Time"
-            value={value.OccurrenceTime?.[0]}
-            meta={EventFieldMeta.OccurrenceTime}
-          />
+    [
+      EventField.TypeCode,
+      { meta: EventFieldMeta.TypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={EventField.TypeCode}
+          meta={EventFieldMeta.TypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.TypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Type Code"
-            value={value.TypeCode?.[0]}
-            meta={EventFieldMeta.TypeCode}
-          />
+    [
+      EventField.Description,
+      { meta: EventFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={EventField.Description}
+          meta={EventFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={EventFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={EventFieldMeta.Description}
-              />
-            }
-          />
+    [
+      EventField.CompletionIndicator,
+      { meta: EventFieldMeta.CompletionIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={EventField.CompletionIndicator}
+          meta={EventFieldMeta.CompletionIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.CompletionIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Completion Indicator"
-            value={value.CompletionIndicator?.[0]}
-            meta={EventFieldMeta.CompletionIndicator}
-          />
+    [
+      EventField.CurrentStatus,
+      { meta: EventFieldMeta.CurrentStatus,
+        template: ({value, renderContext, fieldConfig}) => <StatusDisplay
+          key={EventField.CurrentStatus}
+          meta={EventFieldMeta.CurrentStatus}
+          fieldConfig={fieldConfig}
+          status={value?.CurrentStatus}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Status ubl-CurrentStatus"
-            label="Current Status"
-            items={value.CurrentStatus}
-            meta={EventFieldMeta.CurrentStatus} 
-            itemDisplay={ (itemValue: Status, key: string | number) =>
-              <StatusDisplay
-                key={key}
-                label="Current Status"
-                value={itemValue}
-                meta={EventFieldMeta.CurrentStatus}
-              />
-            }
-          />
+    [
+      EventField.Contact,
+      { meta: EventFieldMeta.Contact,
+        template: ({value, renderContext, fieldConfig}) => <ContactDisplay
+          key={EventField.Contact}
+          meta={EventFieldMeta.Contact}
+          fieldConfig={fieldConfig}
+          contact={value?.Contact}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Contact"
-            label="Contact"
-            items={value.Contact}
-            meta={EventFieldMeta.Contact} 
-            itemDisplay={ (itemValue: Contact, key: string | number) =>
-              <ContactDisplay
-                key={key}
-                label="Contact"
-                value={itemValue}
-                meta={EventFieldMeta.Contact}
-              />
-            }
-          />
+    [
+      EventField.OccurenceLocation,
+      { meta: EventFieldMeta.OccurenceLocation,
+        template: ({value, renderContext, fieldConfig}) => <LocationDisplay
+          key={EventField.OccurenceLocation}
+          meta={EventFieldMeta.OccurenceLocation}
+          fieldConfig={fieldConfig}
+          location={value?.OccurenceLocation}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <LocationDisplay
-            label="Occurence Location"
-            value={value.OccurenceLocation?.[0]}
-            meta={EventFieldMeta.OccurenceLocation}
-          />
-        </div>
-    </div>
+export function EventDisplay<TFieldMeta>({ meta, fieldConfig, event, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    EventTypeName,
+    meta,
+    fieldConfig,
+    event,
+    renderContext,
+    EventSubElementsMap,
   )
 }

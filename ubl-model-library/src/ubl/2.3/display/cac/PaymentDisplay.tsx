@@ -1,76 +1,116 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Payment } from  '../../model/cac/Payment'
-import { PaymentFieldMeta } from  '../../meta/cac/PaymentMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { PaymentField, PaymentFieldMeta, PaymentTypeName } from  '../../meta/cac/PaymentMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: Payment | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<Payment, void>
+  payment: Payment[] | undefined
+  renderContext: RenderContext
 }
 
-export default function PaymentDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const PaymentSubElementsMap: SubElementsTemplatesMap<PaymentField, Payment, void> = new Map([
+    [
+      PaymentField.UBLExtensions,
+      { meta: PaymentFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={PaymentField.UBLExtensions}
+          meta={PaymentFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-Payment">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={PaymentFieldMeta.UBLExtensions}
-          />
+    [
+      PaymentField.ID,
+      { meta: PaymentFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PaymentField.ID}
+          meta={PaymentFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={PaymentFieldMeta.ID}
-          />
+    [
+      PaymentField.PaidAmount,
+      { meta: PaymentFieldMeta.PaidAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={PaymentField.PaidAmount}
+          meta={PaymentFieldMeta.PaidAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.PaidAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Paid Amount"
-            value={value.PaidAmount?.[0]}
-            meta={PaymentFieldMeta.PaidAmount}
-          />
+    [
+      PaymentField.ReceivedDate,
+      { meta: PaymentFieldMeta.ReceivedDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={PaymentField.ReceivedDate}
+          meta={PaymentFieldMeta.ReceivedDate}
+          fieldConfig={fieldConfig}
+          date={value?.ReceivedDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Received Date"
-            value={value.ReceivedDate?.[0]}
-            meta={PaymentFieldMeta.ReceivedDate}
-          />
+    [
+      PaymentField.PaidDate,
+      { meta: PaymentFieldMeta.PaidDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={PaymentField.PaidDate}
+          meta={PaymentFieldMeta.PaidDate}
+          fieldConfig={fieldConfig}
+          date={value?.PaidDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Paid Date"
-            value={value.PaidDate?.[0]}
-            meta={PaymentFieldMeta.PaidDate}
-          />
+    [
+      PaymentField.PaidTime,
+      { meta: PaymentFieldMeta.PaidTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={PaymentField.PaidTime}
+          meta={PaymentFieldMeta.PaidTime}
+          fieldConfig={fieldConfig}
+          time={value?.PaidTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Paid Time"
-            value={value.PaidTime?.[0]}
-            meta={PaymentFieldMeta.PaidTime}
-          />
+    [
+      PaymentField.InstructionID,
+      { meta: PaymentFieldMeta.InstructionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PaymentField.InstructionID}
+          meta={PaymentFieldMeta.InstructionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.InstructionID}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <IdentifierDisplay
-            label="Instruction Identifier"
-            value={value.InstructionID?.[0]}
-            meta={PaymentFieldMeta.InstructionID}
-          />
-        </div>
-    </div>
+export function PaymentDisplay<TFieldMeta>({ meta, fieldConfig, payment, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    PaymentTypeName,
+    meta,
+    fieldConfig,
+    payment,
+    renderContext,
+    PaymentSubElementsMap,
   )
 }

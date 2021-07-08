@@ -1,4 +1,10 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AddressType } from './AddressMeta'
+import { FinancialInstitutionType } from './FinancialInstitutionMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum BranchField {
   UBLExtensions = 'UBLExtensions',
@@ -11,11 +17,11 @@ export enum BranchField {
 export const BranchFieldMetaUBLExtensions = new FieldMeta<BranchField>(
   BranchField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -24,10 +30,10 @@ export const BranchFieldMetaID = new FieldMeta<BranchField>(
   BranchField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this branch or division of an organization.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -36,10 +42,10 @@ export const BranchFieldMetaName = new FieldMeta<BranchField>(
   BranchField.Name,
   'Name',
   'Name',
-  'Text',
+  TextType.name,
   'The name of this branch or division of an organization.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -48,10 +54,10 @@ export const BranchFieldMetaFinancialInstitution = new FieldMeta<BranchField>(
   BranchField.FinancialInstitution,
   'FinancialInstitution',
   'Financial Institution',
-  'FinancialInstitution',
+  FinancialInstitutionType.name,
   'The financial institution that this branch belongs to (if applicable).',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -60,10 +66,10 @@ export const BranchFieldMetaAddress = new FieldMeta<BranchField>(
   BranchField.Address,
   'Address',
   'Address',
-  'Address',
+  AddressType.name,
   'The address of this branch or division.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -83,3 +89,11 @@ export const BranchFieldMap = new Map([
   [BranchField.FinancialInstitution, BranchFieldMetaFinancialInstitution],
   [BranchField.Address, BranchFieldMetaAddress]
 ])
+
+export const BranchType: Type<BranchField> = {
+  name: 'Branch',
+  label: 'Branch',
+  module: TypeModule.cac,
+  definition: 'A class to describe a branch or a division of an organization.',
+  fields: BranchFieldMap,
+}

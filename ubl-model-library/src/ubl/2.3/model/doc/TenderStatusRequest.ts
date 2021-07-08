@@ -9,7 +9,6 @@ import { Signature } from '../cac/Signature'
 import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A document sent by an Economic Operator asking about the details and status of a tendering procedure.
  */

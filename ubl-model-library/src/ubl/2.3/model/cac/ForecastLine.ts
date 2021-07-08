@@ -5,7 +5,6 @@ import { Period } from './Period'
 import { SalesItem } from './SalesItem'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * Detailed information about a particular Forecast Line within a Forecast Document
  */

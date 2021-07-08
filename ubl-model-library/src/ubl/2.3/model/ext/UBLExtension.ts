@@ -2,7 +2,6 @@ import { Code } from '../cbc/Code'
 import { ExtensionContent } from './ExtensionContent'
 import { Identifier } from '../cbc/Identifier'
 import { Text } from '../cbc/Text'
-
 /**
  * A single extension for private use.
  */

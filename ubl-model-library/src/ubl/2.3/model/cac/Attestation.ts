@@ -4,7 +4,6 @@ import { Party } from './Party'
 import { Period } from './Period'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class describing an attestation made for an item
  */

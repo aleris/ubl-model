@@ -1,4 +1,13 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { CustomerPartyType } from './CustomerPartyMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { LocationType } from './LocationMeta'
+import { PeriodType } from './PeriodMeta'
+import { SalesItemType } from './SalesItemMeta'
+import { SupplierPartyType } from './SupplierPartyMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ActivityDataLineField {
   UBLExtensions = 'UBLExtensions',
@@ -15,11 +24,11 @@ export enum ActivityDataLineField {
 export const ActivityDataLineFieldMetaUBLExtensions = new FieldMeta<ActivityDataLineField>(
   ActivityDataLineField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -28,10 +37,10 @@ export const ActivityDataLineFieldMetaID = new FieldMeta<ActivityDataLineField>(
   ActivityDataLineField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this activity data line.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -40,10 +49,10 @@ export const ActivityDataLineFieldMetaSupplyChainActivityTypeCode = new FieldMet
   ActivityDataLineField.SupplyChainActivityTypeCode,
   'SupplyChainActivityTypeCode',
   'Supply Chain Activity Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of supply chain activity.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -52,10 +61,10 @@ export const ActivityDataLineFieldMetaBuyerCustomerParty = new FieldMeta<Activit
   ActivityDataLineField.BuyerCustomerParty,
   'BuyerCustomerParty',
   'Buyer Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The buyer of the item.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -64,10 +73,10 @@ export const ActivityDataLineFieldMetaSellerSupplierParty = new FieldMeta<Activi
   ActivityDataLineField.SellerSupplierParty,
   'SellerSupplierParty',
   'Seller Supplier Party',
-  'SupplierParty',
+  SupplierPartyType.name,
   'The seller of the item.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -76,10 +85,10 @@ export const ActivityDataLineFieldMetaActivityPeriod = new FieldMeta<ActivityDat
   ActivityDataLineField.ActivityPeriod,
   'ActivityPeriod',
   'Activity Period',
-  'Period',
+  PeriodType.name,
   'The period during which the activity is realized.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -88,10 +97,10 @@ export const ActivityDataLineFieldMetaActivityOriginLocation = new FieldMeta<Act
   ActivityDataLineField.ActivityOriginLocation,
   'ActivityOriginLocation',
   'Activity Origin Location',
-  'Location',
+  LocationType.name,
   'Either the location where the movement of goods is observed or the location from which the goods are moved.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -100,10 +109,10 @@ export const ActivityDataLineFieldMetaActivityFinalLocation = new FieldMeta<Acti
   ActivityDataLineField.ActivityFinalLocation,
   'ActivityFinalLocation',
   'Activity Final Location',
-  'Location',
+  LocationType.name,
   'The location to which the goods are moved.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -112,10 +121,10 @@ export const ActivityDataLineFieldMetaSalesItem = new FieldMeta<ActivityDataLine
   ActivityDataLineField.SalesItem,
   'SalesItem',
   'Sales Item',
-  'SalesItem',
+  SalesItemType.name,
   'Sales information for an item to which this line applies.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -143,3 +152,11 @@ export const ActivityDataLineFieldMap = new Map([
   [ActivityDataLineField.ActivityFinalLocation, ActivityDataLineFieldMetaActivityFinalLocation],
   [ActivityDataLineField.SalesItem, ActivityDataLineFieldMetaSalesItem]
 ])
+
+export const ActivityDataLineType: Type<ActivityDataLineField> = {
+  name: 'ActivityDataLine',
+  label: 'Activity Data Line',
+  module: TypeModule.cac,
+  definition: 'A class to associate a time period and locations (activity data) with an item for inventory planning purposes.',
+  fields: ActivityDataLineFieldMap,
+}

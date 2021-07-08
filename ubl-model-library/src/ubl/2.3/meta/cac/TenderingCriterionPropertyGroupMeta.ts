@@ -1,4 +1,11 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { TenderingCriterionPropertyType } from './TenderingCriterionPropertyMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum TenderingCriterionPropertyGroupField {
   UBLExtensions = 'UBLExtensions',
@@ -15,11 +22,11 @@ export enum TenderingCriterionPropertyGroupField {
 export const TenderingCriterionPropertyGroupFieldMetaUBLExtensions = new FieldMeta<TenderingCriterionPropertyGroupField>(
   TenderingCriterionPropertyGroupField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -28,10 +35,10 @@ export const TenderingCriterionPropertyGroupFieldMetaID = new FieldMeta<Tenderin
   TenderingCriterionPropertyGroupField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the group of criteria.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -40,10 +47,10 @@ export const TenderingCriterionPropertyGroupFieldMetaName = new FieldMeta<Tender
   TenderingCriterionPropertyGroupField.Name,
   'Name',
   'Name',
-  'Text',
+  TextType.name,
   'The name of the group.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -52,10 +59,10 @@ export const TenderingCriterionPropertyGroupFieldMetaDescription = new FieldMeta
   TenderingCriterionPropertyGroupField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'The textual description for this group.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -64,10 +71,10 @@ export const TenderingCriterionPropertyGroupFieldMetaPropertyGroupTypeCode = new
   TenderingCriterionPropertyGroupField.PropertyGroupTypeCode,
   'PropertyGroupTypeCode',
   'Property Group Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of the property group',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -76,10 +83,10 @@ export const TenderingCriterionPropertyGroupFieldMetaFulfilmentIndicator = new F
   TenderingCriterionPropertyGroupField.FulfilmentIndicator,
   'FulfilmentIndicator',
   'Fulfilment Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indication that this group of criteria have been fulfilled.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -88,10 +95,10 @@ export const TenderingCriterionPropertyGroupFieldMetaFulfilmentIndicatorTypeCode
   TenderingCriterionPropertyGroupField.FulfilmentIndicatorTypeCode,
   'FulfilmentIndicatorTypeCode',
   'Fulfilment Indicator Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying how this group of criteria have been fulfilled.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -100,10 +107,10 @@ export const TenderingCriterionPropertyGroupFieldMetaTenderingCriterionProperty 
   TenderingCriterionPropertyGroupField.TenderingCriterionProperty,
   'TenderingCriterionProperty',
   'Tendering Criterion Property',
-  'TenderingCriterionProperty',
+  TenderingCriterionPropertyType.name,
   'All the criteria properties comprising the tendering criterion.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -112,10 +119,10 @@ export const TenderingCriterionPropertyGroupFieldMetaSubsidiaryTenderingCriterio
   TenderingCriterionPropertyGroupField.SubsidiaryTenderingCriterionPropertyGroup,
   'SubsidiaryTenderingCriterionPropertyGroup',
   'Subsidiary Tendering Criterion Property Group',
-  'TenderingCriterionPropertyGroup',
+  TenderingCriterionPropertyGroupType.name,
   'Subsidiary tendering criteria groups comprising this tendering criterion.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -143,3 +150,11 @@ export const TenderingCriterionPropertyGroupFieldMap = new Map([
   [TenderingCriterionPropertyGroupField.TenderingCriterionProperty, TenderingCriterionPropertyGroupFieldMetaTenderingCriterionProperty],
   [TenderingCriterionPropertyGroupField.SubsidiaryTenderingCriterionPropertyGroup, TenderingCriterionPropertyGroupFieldMetaSubsidiaryTenderingCriterionPropertyGroup]
 ])
+
+export const TenderingCriterionPropertyGroupType: Type<TenderingCriterionPropertyGroupField> = {
+  name: 'TenderingCriterionPropertyGroup',
+  label: 'Tendering Criterion Property Group',
+  module: TypeModule.cac,
+  definition: 'A class to describe a group of tendering criteria',
+  fields: TenderingCriterionPropertyGroupFieldMap,
+}

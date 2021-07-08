@@ -1,4 +1,9 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum LanguageField {
   UBLExtensions = 'UBLExtensions',
@@ -10,11 +15,11 @@ export enum LanguageField {
 export const LanguageFieldMetaUBLExtensions = new FieldMeta<LanguageField>(
   LanguageField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -23,10 +28,10 @@ export const LanguageFieldMetaID = new FieldMeta<LanguageField>(
   LanguageField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this language.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -35,10 +40,10 @@ export const LanguageFieldMetaName = new FieldMeta<LanguageField>(
   LanguageField.Name,
   'Name',
   'Name',
-  'Text',
+  TextType.name,
   'The name of this language.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -47,10 +52,10 @@ export const LanguageFieldMetaLocaleCode = new FieldMeta<LanguageField>(
   LanguageField.LocaleCode,
   'LocaleCode',
   'Locale Code',
-  'Code',
+  CodeType.name,
   'A code signifying the locale in which this language is used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -68,3 +73,11 @@ export const LanguageFieldMap = new Map([
   [LanguageField.Name, LanguageFieldMetaName],
   [LanguageField.LocaleCode, LanguageFieldMetaLocaleCode]
 ])
+
+export const LanguageType: Type<LanguageField> = {
+  name: 'Language',
+  label: 'Language',
+  module: TypeModule.cac,
+  definition: 'A class to describe a language.',
+  fields: LanguageFieldMap,
+}

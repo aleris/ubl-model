@@ -1,4 +1,8 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { ItemLocationQuantityType } from './ItemLocationQuantityMeta'
+import { PriceType } from './PriceMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum PricingReferenceField {
   UBLExtensions = 'UBLExtensions',
@@ -9,11 +13,11 @@ export enum PricingReferenceField {
 export const PricingReferenceFieldMetaUBLExtensions = new FieldMeta<PricingReferenceField>(
   PricingReferenceField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -22,10 +26,10 @@ export const PricingReferenceFieldMetaOriginalItemLocationQuantity = new FieldMe
   PricingReferenceField.OriginalItemLocationQuantity,
   'OriginalItemLocationQuantity',
   'Original Item Location Quantity',
-  'ItemLocationQuantity',
+  ItemLocationQuantityType.name,
   'An original set of location-specific properties (e.g., price and quantity) associated with this item.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -34,10 +38,10 @@ export const PricingReferenceFieldMetaAlternativeConditionPrice = new FieldMeta<
   PricingReferenceField.AlternativeConditionPrice,
   'AlternativeConditionPrice',
   'Alternative Condition Price',
-  'Price',
+  PriceType.name,
   'The price expressed in terms other than the actual price, e.g., the list price v. the contracted price, or the price in bags v. the price in kilos, or the list price in bags v. the contracted price in kilos.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -53,3 +57,11 @@ export const PricingReferenceFieldMap = new Map([
   [PricingReferenceField.OriginalItemLocationQuantity, PricingReferenceFieldMetaOriginalItemLocationQuantity],
   [PricingReferenceField.AlternativeConditionPrice, PricingReferenceFieldMetaAlternativeConditionPrice]
 ])
+
+export const PricingReferenceType: Type<PricingReferenceField> = {
+  name: 'PricingReference',
+  label: 'Pricing Reference',
+  module: TypeModule.cac,
+  definition: 'A reference to the basis for pricing. This may be based on a catalogue or a quoted amount from a price list and include some alternative pricing conditions.',
+  fields: PricingReferenceFieldMap,
+}

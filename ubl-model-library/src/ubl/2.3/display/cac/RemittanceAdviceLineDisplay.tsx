@@ -1,198 +1,267 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { RemittanceAdviceLine } from  '../../model/cac/RemittanceAdviceLine'
-import { RemittanceAdviceLineFieldMeta } from  '../../meta/cac/RemittanceAdviceLineMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import BillingReferenceDisplay from './BillingReferenceDisplay'
-import { BillingReference } from '../../model/cac/BillingReference'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import CustomerPartyDisplay from './CustomerPartyDisplay'
-import { CustomerParty } from '../../model/cac/CustomerParty'
-import DocumentReferenceDisplay from './DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import ExchangeRateDisplay from './ExchangeRateDisplay'
-import { ExchangeRate } from '../../model/cac/ExchangeRate'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import SupplierPartyDisplay from './SupplierPartyDisplay'
-import { SupplierParty } from '../../model/cac/SupplierParty'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { RemittanceAdviceLineField, RemittanceAdviceLineFieldMeta, RemittanceAdviceLineTypeName } from  '../../meta/cac/RemittanceAdviceLineMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { BillingReferenceDisplay } from './BillingReferenceDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { CustomerPartyDisplay } from './CustomerPartyDisplay'
+import { DocumentReferenceDisplay } from './DocumentReferenceDisplay'
+import { ExchangeRateDisplay } from './ExchangeRateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { SupplierPartyDisplay } from './SupplierPartyDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: RemittanceAdviceLine | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<RemittanceAdviceLine, void>
+  remittanceAdviceLine: RemittanceAdviceLine[] | undefined
+  renderContext: RenderContext
 }
 
-export default function RemittanceAdviceLineDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const RemittanceAdviceLineSubElementsMap: SubElementsTemplatesMap<RemittanceAdviceLineField, RemittanceAdviceLine, void> = new Map([
+    [
+      RemittanceAdviceLineField.UBLExtensions,
+      { meta: RemittanceAdviceLineFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={RemittanceAdviceLineField.UBLExtensions}
+          meta={RemittanceAdviceLineFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-RemittanceAdviceLine">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={RemittanceAdviceLineFieldMeta.UBLExtensions}
-          />
+    [
+      RemittanceAdviceLineField.ID,
+      { meta: RemittanceAdviceLineFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={RemittanceAdviceLineField.ID}
+          meta={RemittanceAdviceLineFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={RemittanceAdviceLineFieldMeta.ID}
-          />
+    [
+      RemittanceAdviceLineField.Note,
+      { meta: RemittanceAdviceLineFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={RemittanceAdviceLineField.Note}
+          meta={RemittanceAdviceLineFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={RemittanceAdviceLineFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={RemittanceAdviceLineFieldMeta.Note}
-              />
-            }
-          />
+    [
+      RemittanceAdviceLineField.UUID,
+      { meta: RemittanceAdviceLineFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={RemittanceAdviceLineField.UUID}
+          meta={RemittanceAdviceLineFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={RemittanceAdviceLineFieldMeta.UUID}
-          />
+    [
+      RemittanceAdviceLineField.DebitLineAmount,
+      { meta: RemittanceAdviceLineFieldMeta.DebitLineAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={RemittanceAdviceLineField.DebitLineAmount}
+          meta={RemittanceAdviceLineFieldMeta.DebitLineAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.DebitLineAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Debit Line Amount"
-            value={value.DebitLineAmount?.[0]}
-            meta={RemittanceAdviceLineFieldMeta.DebitLineAmount}
-          />
+    [
+      RemittanceAdviceLineField.CreditLineAmount,
+      { meta: RemittanceAdviceLineFieldMeta.CreditLineAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={RemittanceAdviceLineField.CreditLineAmount}
+          meta={RemittanceAdviceLineFieldMeta.CreditLineAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.CreditLineAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Credit Line Amount"
-            value={value.CreditLineAmount?.[0]}
-            meta={RemittanceAdviceLineFieldMeta.CreditLineAmount}
-          />
+    [
+      RemittanceAdviceLineField.BalanceAmount,
+      { meta: RemittanceAdviceLineFieldMeta.BalanceAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={RemittanceAdviceLineField.BalanceAmount}
+          meta={RemittanceAdviceLineFieldMeta.BalanceAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.BalanceAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Balance Amount"
-            value={value.BalanceAmount?.[0]}
-            meta={RemittanceAdviceLineFieldMeta.BalanceAmount}
-          />
+    [
+      RemittanceAdviceLineField.PaymentPurposeCode,
+      { meta: RemittanceAdviceLineFieldMeta.PaymentPurposeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={RemittanceAdviceLineField.PaymentPurposeCode}
+          meta={RemittanceAdviceLineFieldMeta.PaymentPurposeCode}
+          fieldConfig={fieldConfig}
+          code={value?.PaymentPurposeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Payment Purpose Code"
-            value={value.PaymentPurposeCode?.[0]}
-            meta={RemittanceAdviceLineFieldMeta.PaymentPurposeCode}
-          />
+    [
+      RemittanceAdviceLineField.InvoicingPartyReference,
+      { meta: RemittanceAdviceLineFieldMeta.InvoicingPartyReference,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={RemittanceAdviceLineField.InvoicingPartyReference}
+          meta={RemittanceAdviceLineFieldMeta.InvoicingPartyReference}
+          fieldConfig={fieldConfig}
+          text={value?.InvoicingPartyReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Invoicing Party Reference"
-            value={value.InvoicingPartyReference?.[0]}
-            meta={RemittanceAdviceLineFieldMeta.InvoicingPartyReference}
-          />
+    [
+      RemittanceAdviceLineField.AccountingSupplierParty,
+      { meta: RemittanceAdviceLineFieldMeta.AccountingSupplierParty,
+        template: ({value, renderContext, fieldConfig}) => <SupplierPartyDisplay
+          key={RemittanceAdviceLineField.AccountingSupplierParty}
+          meta={RemittanceAdviceLineFieldMeta.AccountingSupplierParty}
+          fieldConfig={fieldConfig}
+          supplierParty={value?.AccountingSupplierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <SupplierPartyDisplay
-            label="Accounting Supplier Party"
-            value={value.AccountingSupplierParty?.[0]}
-            meta={RemittanceAdviceLineFieldMeta.AccountingSupplierParty}
-          />
+    [
+      RemittanceAdviceLineField.AccountingCustomerParty,
+      { meta: RemittanceAdviceLineFieldMeta.AccountingCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={RemittanceAdviceLineField.AccountingCustomerParty}
+          meta={RemittanceAdviceLineFieldMeta.AccountingCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.AccountingCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomerPartyDisplay
-            label="Accounting Customer Party"
-            value={value.AccountingCustomerParty?.[0]}
-            meta={RemittanceAdviceLineFieldMeta.AccountingCustomerParty}
-          />
+    [
+      RemittanceAdviceLineField.BuyerCustomerParty,
+      { meta: RemittanceAdviceLineFieldMeta.BuyerCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={RemittanceAdviceLineField.BuyerCustomerParty}
+          meta={RemittanceAdviceLineFieldMeta.BuyerCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.BuyerCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomerPartyDisplay
-            label="Buyer Customer Party"
-            value={value.BuyerCustomerParty?.[0]}
-            meta={RemittanceAdviceLineFieldMeta.BuyerCustomerParty}
-          />
+    [
+      RemittanceAdviceLineField.SellerSupplierParty,
+      { meta: RemittanceAdviceLineFieldMeta.SellerSupplierParty,
+        template: ({value, renderContext, fieldConfig}) => <SupplierPartyDisplay
+          key={RemittanceAdviceLineField.SellerSupplierParty}
+          meta={RemittanceAdviceLineFieldMeta.SellerSupplierParty}
+          fieldConfig={fieldConfig}
+          supplierParty={value?.SellerSupplierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <SupplierPartyDisplay
-            label="Seller Supplier Party"
-            value={value.SellerSupplierParty?.[0]}
-            meta={RemittanceAdviceLineFieldMeta.SellerSupplierParty}
-          />
+    [
+      RemittanceAdviceLineField.OriginatorCustomerParty,
+      { meta: RemittanceAdviceLineFieldMeta.OriginatorCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={RemittanceAdviceLineField.OriginatorCustomerParty}
+          meta={RemittanceAdviceLineFieldMeta.OriginatorCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.OriginatorCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomerPartyDisplay
-            label="Originator Customer Party"
-            value={value.OriginatorCustomerParty?.[0]}
-            meta={RemittanceAdviceLineFieldMeta.OriginatorCustomerParty}
-          />
+    [
+      RemittanceAdviceLineField.PayeeParty,
+      { meta: RemittanceAdviceLineFieldMeta.PayeeParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={RemittanceAdviceLineField.PayeeParty}
+          meta={RemittanceAdviceLineFieldMeta.PayeeParty}
+          fieldConfig={fieldConfig}
+          party={value?.PayeeParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Payee Party"
-            value={value.PayeeParty?.[0]}
-            meta={RemittanceAdviceLineFieldMeta.PayeeParty}
-          />
+    [
+      RemittanceAdviceLineField.InvoicePeriod,
+      { meta: RemittanceAdviceLineFieldMeta.InvoicePeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={RemittanceAdviceLineField.InvoicePeriod}
+          meta={RemittanceAdviceLineFieldMeta.InvoicePeriod}
+          fieldConfig={fieldConfig}
+          period={value?.InvoicePeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Period ubl-InvoicePeriod"
-            label="Invoice Period"
-            items={value.InvoicePeriod}
-            meta={RemittanceAdviceLineFieldMeta.InvoicePeriod} 
-            itemDisplay={ (itemValue: Period, key: string | number) =>
-              <PeriodDisplay
-                key={key}
-                label="Invoice Period"
-                value={itemValue}
-                meta={RemittanceAdviceLineFieldMeta.InvoicePeriod}
-              />
-            }
-          />
+    [
+      RemittanceAdviceLineField.BillingReference,
+      { meta: RemittanceAdviceLineFieldMeta.BillingReference,
+        template: ({value, renderContext, fieldConfig}) => <BillingReferenceDisplay
+          key={RemittanceAdviceLineField.BillingReference}
+          meta={RemittanceAdviceLineFieldMeta.BillingReference}
+          fieldConfig={fieldConfig}
+          billingReference={value?.BillingReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-BillingReference"
-            label="Billing Reference"
-            items={value.BillingReference}
-            meta={RemittanceAdviceLineFieldMeta.BillingReference} 
-            itemDisplay={ (itemValue: BillingReference, key: string | number) =>
-              <BillingReferenceDisplay
-                key={key}
-                label="Billing Reference"
-                value={itemValue}
-                meta={RemittanceAdviceLineFieldMeta.BillingReference}
-              />
-            }
-          />
+    [
+      RemittanceAdviceLineField.DocumentReference,
+      { meta: RemittanceAdviceLineFieldMeta.DocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={RemittanceAdviceLineField.DocumentReference}
+          meta={RemittanceAdviceLineFieldMeta.DocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.DocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentReference"
-            label="Document Reference"
-            items={value.DocumentReference}
-            meta={RemittanceAdviceLineFieldMeta.DocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Document Reference"
-                value={itemValue}
-                meta={RemittanceAdviceLineFieldMeta.DocumentReference}
-              />
-            }
-          />
+    [
+      RemittanceAdviceLineField.ExchangeRate,
+      { meta: RemittanceAdviceLineFieldMeta.ExchangeRate,
+        template: ({value, renderContext, fieldConfig}) => <ExchangeRateDisplay
+          key={RemittanceAdviceLineField.ExchangeRate}
+          meta={RemittanceAdviceLineFieldMeta.ExchangeRate}
+          fieldConfig={fieldConfig}
+          exchangeRate={value?.ExchangeRate}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ExchangeRateDisplay
-            label="Exchange Rate"
-            value={value.ExchangeRate?.[0]}
-            meta={RemittanceAdviceLineFieldMeta.ExchangeRate}
-          />
-        </div>
-    </div>
+export function RemittanceAdviceLineDisplay<TFieldMeta>({ meta, fieldConfig, remittanceAdviceLine, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    RemittanceAdviceLineTypeName,
+    meta,
+    fieldConfig,
+    remittanceAdviceLine,
+    renderContext,
+    RemittanceAdviceLineSubElementsMap,
   )
 }

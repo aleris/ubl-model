@@ -1,4 +1,18 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { ConsignmentType } from '../cac/ConsignmentMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { LocationType } from '../cac/LocationMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { PeriodType } from '../cac/PeriodMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { TransportEventType } from '../cac/TransportEventMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum TransportationStatusField {
   UBLExtensions = 'UBLExtensions',
@@ -35,11 +49,11 @@ export enum TransportationStatusField {
 export const TransportationStatusFieldMetaUBLExtensions = new FieldMeta<TransportationStatusField>(
   TransportationStatusField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -48,10 +62,10 @@ export const TransportationStatusFieldMetaUBLVersionID = new FieldMeta<Transport
   TransportationStatusField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.0.5'
 )
@@ -60,10 +74,10 @@ export const TransportationStatusFieldMetaCustomizationID = new FieldMeta<Transp
   TransportationStatusField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -72,10 +86,10 @@ export const TransportationStatusFieldMetaProfileID = new FieldMeta<Transportati
   TransportationStatusField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BasicProcurementProcess'
 )
@@ -84,10 +98,10 @@ export const TransportationStatusFieldMetaProfileExecutionID = new FieldMeta<Tra
   TransportationStatusField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BPP-1001'
 )
@@ -96,10 +110,10 @@ export const TransportationStatusFieldMetaID = new FieldMeta<TransportationStatu
   TransportationStatusField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -108,10 +122,10 @@ export const TransportationStatusFieldMetaCarrierAssignedID = new FieldMeta<Tran
   TransportationStatusField.CarrierAssignedID,
   'CarrierAssignedID',
   'Carrier Assigned Identifier',
-  'Identifier',
+  IdentifierType.name,
   'A reference number assigned by a carrier or its agent to identify a specific shipment, such as a booking reference number when cargo space is reserved prior to loading.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -120,10 +134,10 @@ export const TransportationStatusFieldMetaUUID = new FieldMeta<TransportationSta
   TransportationStatusField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -132,10 +146,10 @@ export const TransportationStatusFieldMetaIssueDate = new FieldMeta<Transportati
   TransportationStatusField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -144,10 +158,10 @@ export const TransportationStatusFieldMetaIssueTime = new FieldMeta<Transportati
   TransportationStatusField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -156,10 +170,10 @@ export const TransportationStatusFieldMetaName = new FieldMeta<TransportationSta
   TransportationStatusField.Name,
   'Name',
   'Name',
-  'Text',
+  TextType.name,
   'Text, assigned by the sender, that identifies this document to business users.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -168,10 +182,10 @@ export const TransportationStatusFieldMetaDescription = new FieldMeta<Transporta
   TransportationStatusField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'A textual description of transportation status.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -180,10 +194,10 @@ export const TransportationStatusFieldMetaNote = new FieldMeta<TransportationSta
   TransportationStatusField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -192,10 +206,10 @@ export const TransportationStatusFieldMetaShippingOrderID = new FieldMeta<Transp
   TransportationStatusField.ShippingOrderID,
   'ShippingOrderID',
   'Shipping Order Identifier',
-  'Identifier',
+  IdentifierType.name,
   'A reference number for a shipping order.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -204,10 +218,10 @@ export const TransportationStatusFieldMetaOtherInstruction = new FieldMeta<Trans
   TransportationStatusField.OtherInstruction,
   'OtherInstruction',
   'Other Instruction',
-  'Text',
+  TextType.name,
   'An instruction regarding this message.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -216,10 +230,10 @@ export const TransportationStatusFieldMetaTransportationStatusTypeCode = new Fie
   TransportationStatusField.TransportationStatusTypeCode,
   'TransportationStatusTypeCode',
   'Transportation Status Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of status provided in a Transportation Status document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -228,10 +242,10 @@ export const TransportationStatusFieldMetaTransportExecutionStatusCode = new Fie
   TransportationStatusField.TransportExecutionStatusCode,
   'TransportExecutionStatusCode',
   'Transport Execution Status Code',
-  'Code',
+  CodeType.name,
   'A code signifying the overall status of transport service execution.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -240,10 +254,10 @@ export const TransportationStatusFieldMetaConsignment = new FieldMeta<Transporta
   TransportationStatusField.Consignment,
   'Consignment',
   'Consignment',
-  'Consignment',
+  ConsignmentType.name,
   'A consignment associated with this Transportation Status report.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -252,10 +266,10 @@ export const TransportationStatusFieldMetaTransportEvent = new FieldMeta<Transpo
   TransportationStatusField.TransportEvent,
   'TransportEvent',
   'Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'An event associated with this Transportation Status report.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -264,10 +278,10 @@ export const TransportationStatusFieldMetaDocumentReference = new FieldMeta<Tran
   TransportationStatusField.DocumentReference,
   'DocumentReference',
   'Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to another document associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -276,10 +290,10 @@ export const TransportationStatusFieldMetaSignature = new FieldMeta<Transportati
   TransportationStatusField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -288,10 +302,10 @@ export const TransportationStatusFieldMetaSenderParty = new FieldMeta<Transporta
   TransportationStatusField.SenderParty,
   'SenderParty',
   'Sender Party',
-  'Party',
+  PartyType.name,
   'The party sending this Transportation Status report.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -300,10 +314,10 @@ export const TransportationStatusFieldMetaReceiverParty = new FieldMeta<Transpor
   TransportationStatusField.ReceiverParty,
   'ReceiverParty',
   'Receiver Party',
-  'Party',
+  PartyType.name,
   'The party receiving this Transportation Status report.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -312,10 +326,10 @@ export const TransportationStatusFieldMetaTransportationStatusRequestDocumentRef
   TransportationStatusField.TransportationStatusRequestDocumentReference,
   'TransportationStatusRequestDocumentReference',
   'Transportation Status Request Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to the Transportation Status Request to which this report is a response.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -324,10 +338,10 @@ export const TransportationStatusFieldMetaTransportExecutionPlanDocumentReferenc
   TransportationStatusField.TransportExecutionPlanDocumentReference,
   'TransportExecutionPlanDocumentReference',
   'Transport Execution Plan Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to the Transport Execution Plan associated with the transport service whose status is being reported.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -336,10 +350,10 @@ export const TransportationStatusFieldMetaUpdatedPickupTransportEvent = new Fiel
   TransportationStatusField.UpdatedPickupTransportEvent,
   'UpdatedPickupTransportEvent',
   'Updated Pickup Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'Update of the original plan regarding a pickup of goods.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -348,10 +362,10 @@ export const TransportationStatusFieldMetaUpdatedDeliveryTransportEvent = new Fi
   TransportationStatusField.UpdatedDeliveryTransportEvent,
   'UpdatedDeliveryTransportEvent',
   'Updated Delivery Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'Update of the original plan regarding a delivery.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -360,10 +374,10 @@ export const TransportationStatusFieldMetaStatusLocation = new FieldMeta<Transpo
   TransportationStatusField.StatusLocation,
   'StatusLocation',
   'Status Location',
-  'Location',
+  LocationType.name,
   'Locations associated with this Transportation Status report.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -372,10 +386,10 @@ export const TransportationStatusFieldMetaStatusPeriod = new FieldMeta<Transport
   TransportationStatusField.StatusPeriod,
   'StatusPeriod',
   'Status Period',
-  'Period',
+  PeriodType.name,
   'A period for which status is provided.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -443,3 +457,11 @@ export const TransportationStatusFieldMap = new Map([
   [TransportationStatusField.StatusLocation, TransportationStatusFieldMetaStatusLocation],
   [TransportationStatusField.StatusPeriod, TransportationStatusFieldMetaStatusPeriod]
 ])
+
+export const TransportationStatusType: Type<TransportationStatusField> = {
+  name: 'TransportationStatus',
+  label: 'Transportation Status',
+  module: TypeModule.doc,
+  definition: 'A document to circulate reports of transportation status or changes in status (events) among a group of participants.',
+  fields: TransportationStatusFieldMap,
+}

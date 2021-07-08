@@ -3,7 +3,6 @@ import { Item } from './Item'
 import { Price } from './Price'
 import { Quantity } from '../cbc/Quantity'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe information related to an item in a sales context
  */

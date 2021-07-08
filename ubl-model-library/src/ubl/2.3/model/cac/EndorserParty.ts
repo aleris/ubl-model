@@ -3,7 +3,6 @@ import { Contact } from './Contact'
 import { Numeric } from '../cbc/Numeric'
 import { Party } from './Party'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe the party endorsing a document.
  */

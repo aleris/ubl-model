@@ -1,7 +1,6 @@
 import { Code } from '../cbc/Code'
 import { Temperature } from './Temperature'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe hazardous goods in transit.
  */

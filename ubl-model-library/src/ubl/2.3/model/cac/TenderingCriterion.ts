@@ -8,7 +8,6 @@ import { ProcurementProjectLotReference } from './ProcurementProjectLotReference
 import { TenderingCriterionPropertyGroup } from './TenderingCriterionPropertyGroup'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe an item of criterion support for representations of capabilities or the ability to meet tendering
  * requirements, which an economic operator must provide for acceptance into a tendering process.

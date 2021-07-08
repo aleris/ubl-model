@@ -4,7 +4,6 @@ import { NotificationRequirement } from './NotificationRequirement'
 import { PaymentTerms } from './PaymentTerms'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe terms applying to a transport execution plan.
  */

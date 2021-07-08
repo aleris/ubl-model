@@ -4,7 +4,6 @@ import { Indicator } from '../cbc/Indicator'
 import { Person } from './Person'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to define the terms for awarding a contract.
  */

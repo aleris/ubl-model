@@ -12,7 +12,6 @@ import { SupplierParty } from '../cac/SupplierParty'
 import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A report on the quantities of each item that are, or will be, in stock. This document is sent by a Buyer (for example
  * a retailer) to a Seller (for example a producer).

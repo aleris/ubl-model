@@ -1,17 +1,19 @@
 import React from 'react'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { BinaryObject } from '../../model/cbc/BinaryObject'
-import FieldDisplay from '../FieldDisplay'
+import { FieldConfig } from '../FieldConfig'
 
 type Props = {
-  label: string
-  value: BinaryObject | undefined
+  className: string
+  label?: string
+  binaryObject: BinaryObject | undefined
   meta: FieldMeta<any>
+  fieldConfig?: FieldConfig
 }
 
-export default function BinaryObjectDisplay({ label, value, meta }: Props) {
-  if (value === undefined) {
+export function BinaryObjectDisplay({ className, label, binaryObject, meta, fieldConfig }: Props) {
+  if (binaryObject === undefined) {
     return null
   }
-  return <div className="ubl-cbc ubl-BinaryObject">[binary]</div>
+  return <div className={className}>[binary]</div>
 }

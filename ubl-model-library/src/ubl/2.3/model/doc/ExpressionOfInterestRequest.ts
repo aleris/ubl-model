@@ -12,7 +12,6 @@ import { Signature } from '../cac/Signature'
 import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * An expression of interest to a tendering process. An Economic Operator can demonstrate interest in a tendering
  * process issuing an Expression Of Interest document to the contracting party. Upon reception, the Contracting Party

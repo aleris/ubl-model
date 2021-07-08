@@ -25,7 +25,6 @@ import { TaxTotal } from '../cac/TaxTotal'
 import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * An Invoice document created by the Customer (rather than the Supplier) in a Self Billing relationship.
  */

@@ -1,7 +1,6 @@
 import { Address } from './Address'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class for describing the terms of a trade agreement.
  */

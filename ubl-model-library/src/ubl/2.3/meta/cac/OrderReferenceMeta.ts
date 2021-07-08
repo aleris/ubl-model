@@ -1,4 +1,13 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from './DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum OrderReferenceField {
   UBLExtensions = 'UBLExtensions',
@@ -16,11 +25,11 @@ export enum OrderReferenceField {
 export const OrderReferenceFieldMetaUBLExtensions = new FieldMeta<OrderReferenceField>(
   OrderReferenceField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -29,10 +38,10 @@ export const OrderReferenceFieldMetaID = new FieldMeta<OrderReferenceField>(
   OrderReferenceField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this order reference, assigned by the buyer.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   'PO-001 3333-44-123'
 )
@@ -41,10 +50,10 @@ export const OrderReferenceFieldMetaSalesOrderID = new FieldMeta<OrderReferenceF
   OrderReferenceField.SalesOrderID,
   'SalesOrderID',
   'Sales Order Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this order reference, assigned by the seller.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -53,10 +62,10 @@ export const OrderReferenceFieldMetaCopyIndicator = new FieldMeta<OrderReference
   OrderReferenceField.CopyIndicator,
   'CopyIndicator',
   'Copy Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether the referenced Order is a copy (true) or the original (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -65,10 +74,10 @@ export const OrderReferenceFieldMetaUUID = new FieldMeta<OrderReferenceField>(
   OrderReferenceField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for this order reference.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -77,10 +86,10 @@ export const OrderReferenceFieldMetaIssueDate = new FieldMeta<OrderReferenceFiel
   OrderReferenceField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date on which the referenced Order was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -89,10 +98,10 @@ export const OrderReferenceFieldMetaIssueTime = new FieldMeta<OrderReferenceFiel
   OrderReferenceField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time at which the referenced Order was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -101,10 +110,10 @@ export const OrderReferenceFieldMetaCustomerReference = new FieldMeta<OrderRefer
   OrderReferenceField.CustomerReference,
   'CustomerReference',
   'Customer Reference',
-  'Text',
+  TextType.name,
   'Text used for tagging purchasing card transactions.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -113,10 +122,10 @@ export const OrderReferenceFieldMetaOrderTypeCode = new FieldMeta<OrderReference
   OrderReferenceField.OrderTypeCode,
   'OrderTypeCode',
   'Order Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of the referenced Order.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -125,10 +134,10 @@ export const OrderReferenceFieldMetaDocumentReference = new FieldMeta<OrderRefer
   OrderReferenceField.DocumentReference,
   'DocumentReference',
   'Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A document associated with this reference to an Order.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -158,3 +167,11 @@ export const OrderReferenceFieldMap = new Map([
   [OrderReferenceField.OrderTypeCode, OrderReferenceFieldMetaOrderTypeCode],
   [OrderReferenceField.DocumentReference, OrderReferenceFieldMetaDocumentReference]
 ])
+
+export const OrderReferenceType: Type<OrderReferenceField> = {
+  name: 'OrderReference',
+  label: 'Order Reference',
+  module: TypeModule.cac,
+  definition: 'A class to define a reference to an Order.',
+  fields: OrderReferenceFieldMap,
+}

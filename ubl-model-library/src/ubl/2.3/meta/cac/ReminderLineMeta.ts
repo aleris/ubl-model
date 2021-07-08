@@ -1,4 +1,15 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { BillingReferenceType } from './BillingReferenceMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { ExchangeRateType } from './ExchangeRateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { PeriodType } from './PeriodMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ReminderLineField {
   UBLExtensions = 'UBLExtensions',
@@ -21,11 +32,11 @@ export enum ReminderLineField {
 export const ReminderLineFieldMetaUBLExtensions = new FieldMeta<ReminderLineField>(
   ReminderLineField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -34,10 +45,10 @@ export const ReminderLineFieldMetaID = new FieldMeta<ReminderLineField>(
   ReminderLineField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this reminder line.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -46,10 +57,10 @@ export const ReminderLineFieldMetaNote = new FieldMeta<ReminderLineField>(
   ReminderLineField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -58,10 +69,10 @@ export const ReminderLineFieldMetaUUID = new FieldMeta<ReminderLineField>(
   ReminderLineField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for this reminder line.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -70,10 +81,10 @@ export const ReminderLineFieldMetaBalanceBroughtForwardIndicator = new FieldMeta
   ReminderLineField.BalanceBroughtForwardIndicator,
   'BalanceBroughtForwardIndicator',
   'Balance Brought Forward Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indication that this reminder line contains a balance brought forward (true) or does not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -82,10 +93,10 @@ export const ReminderLineFieldMetaDebitLineAmount = new FieldMeta<ReminderLineFi
   ReminderLineField.DebitLineAmount,
   'DebitLineAmount',
   'Debit Line Amount',
-  'Amount',
+  AmountType.name,
   'The amount debited on this reminder line.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -94,10 +105,10 @@ export const ReminderLineFieldMetaCreditLineAmount = new FieldMeta<ReminderLineF
   ReminderLineField.CreditLineAmount,
   'CreditLineAmount',
   'Credit Line Amount',
-  'Amount',
+  AmountType.name,
   'The amount credited on this reminder line.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -106,10 +117,10 @@ export const ReminderLineFieldMetaAccountingCostCode = new FieldMeta<ReminderLin
   ReminderLineField.AccountingCostCode,
   'AccountingCostCode',
   'Accounting Cost Code',
-  'Code',
+  CodeType.name,
   'The buyer\'s accounting cost centre for this reminder line, expressed as a code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -118,10 +129,10 @@ export const ReminderLineFieldMetaAccountingCost = new FieldMeta<ReminderLineFie
   ReminderLineField.AccountingCost,
   'AccountingCost',
   'Accounting Cost',
-  'Text',
+  TextType.name,
   'The buyer\'s accounting cost centre for this reminder line, expressed as text.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -130,10 +141,10 @@ export const ReminderLineFieldMetaPenaltySurchargePercent = new FieldMeta<Remind
   ReminderLineField.PenaltySurchargePercent,
   'PenaltySurchargePercent',
   'Penalty Surcharge Percent',
-  'Numeric',
+  NumericType.name,
   'The penalty for late payment, expressed as a percentage.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -142,10 +153,10 @@ export const ReminderLineFieldMetaAmount = new FieldMeta<ReminderLineField>(
   ReminderLineField.Amount,
   'Amount',
   'Amount',
-  'Amount',
+  AmountType.name,
   'The amount on this reminder line.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -154,10 +165,10 @@ export const ReminderLineFieldMetaPaymentPurposeCode = new FieldMeta<ReminderLin
   ReminderLineField.PaymentPurposeCode,
   'PaymentPurposeCode',
   'Payment Purpose Code',
-  'Code',
+  CodeType.name,
   'A code signifying the business purpose for this payment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -166,10 +177,10 @@ export const ReminderLineFieldMetaReminderPeriod = new FieldMeta<ReminderLineFie
   ReminderLineField.ReminderPeriod,
   'ReminderPeriod',
   'Reminder Period',
-  'Period',
+  PeriodType.name,
   'A period to which this reminder line applies.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -178,10 +189,10 @@ export const ReminderLineFieldMetaBillingReference = new FieldMeta<ReminderLineF
   ReminderLineField.BillingReference,
   'BillingReference',
   'Billing Reference',
-  'BillingReference',
+  BillingReferenceType.name,
   'A reference to a billing document associated with this reminder line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -190,10 +201,10 @@ export const ReminderLineFieldMetaExchangeRate = new FieldMeta<ReminderLineField
   ReminderLineField.ExchangeRate,
   'ExchangeRate',
   'Exchange Rate',
-  'ExchangeRate',
+  ExchangeRateType.name,
   'The rate of exchange between the currency of the Reminder and the currency of the document described in the BillingReference.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -233,3 +244,11 @@ export const ReminderLineFieldMap = new Map([
   [ReminderLineField.BillingReference, ReminderLineFieldMetaBillingReference],
   [ReminderLineField.ExchangeRate, ReminderLineFieldMetaExchangeRate]
 ])
+
+export const ReminderLineType: Type<ReminderLineField> = {
+  name: 'ReminderLine',
+  label: 'Reminder Line',
+  module: TypeModule.cac,
+  definition: 'A class to define a line in a Reminder document.',
+  fields: ReminderLineFieldMap,
+}

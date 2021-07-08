@@ -1,4 +1,8 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { PartyType } from './PartyMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum PropertyIdentificationField {
   UBLExtensions = 'UBLExtensions',
@@ -10,11 +14,11 @@ export enum PropertyIdentificationField {
 export const PropertyIdentificationFieldMetaUBLExtensions = new FieldMeta<PropertyIdentificationField>(
   PropertyIdentificationField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -23,10 +27,10 @@ export const PropertyIdentificationFieldMetaID = new FieldMeta<PropertyIdentific
   PropertyIdentificationField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An Identifier for the property.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -35,10 +39,10 @@ export const PropertyIdentificationFieldMetaIssuerScopeID = new FieldMeta<Proper
   PropertyIdentificationField.IssuerScopeID,
   'IssuerScopeID',
   'Issuer Scope Identifier',
-  'Identifier',
+  IdentifierType.name,
   'A scope within which the issuer has assigned this identifier.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -47,10 +51,10 @@ export const PropertyIdentificationFieldMetaIssuerParty = new FieldMeta<Property
   PropertyIdentificationField.IssuerParty,
   'IssuerParty',
   'Issuer Party',
-  'Party',
+  PartyType.name,
   'The party that issued this property identifier.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -68,3 +72,11 @@ export const PropertyIdentificationFieldMap = new Map([
   [PropertyIdentificationField.IssuerScopeID, PropertyIdentificationFieldMetaIssuerScopeID],
   [PropertyIdentificationField.IssuerParty, PropertyIdentificationFieldMetaIssuerParty]
 ])
+
+export const PropertyIdentificationType: Type<PropertyIdentificationField> = {
+  name: 'PropertyIdentification',
+  label: 'Property Identification',
+  module: TypeModule.cac,
+  definition: 'A class for assigning identifying information for a property',
+  fields: PropertyIdentificationFieldMap,
+}

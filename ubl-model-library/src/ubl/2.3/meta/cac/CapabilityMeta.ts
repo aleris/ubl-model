@@ -1,4 +1,13 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { EvidenceSuppliedType } from './EvidenceSuppliedMeta'
+import { PeriodType } from './PeriodMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
+import { WebSiteType } from './WebSiteMeta'
 
 export enum CapabilityField {
   UBLExtensions = 'UBLExtensions',
@@ -14,11 +23,11 @@ export enum CapabilityField {
 export const CapabilityFieldMetaUBLExtensions = new FieldMeta<CapabilityField>(
   CapabilityField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -27,10 +36,10 @@ export const CapabilityFieldMetaCapabilityTypeCode = new FieldMeta<CapabilityFie
   CapabilityField.CapabilityTypeCode,
   'CapabilityTypeCode',
   'Capability Type Code',
-  'Code',
+  CodeType.name,
   'This class can be used as Financial or Technical capabilities. For instance, "Turnover" or "Qualified Engineers" are two possible codes.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -39,10 +48,10 @@ export const CapabilityFieldMetaDescription = new FieldMeta<CapabilityField>(
   CapabilityField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing this capability.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -51,10 +60,10 @@ export const CapabilityFieldMetaValueAmount = new FieldMeta<CapabilityField>(
   CapabilityField.ValueAmount,
   'ValueAmount',
   'Value',
-  'Amount',
+  AmountType.name,
   'A monetary amount as a measure of this capability.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -63,10 +72,10 @@ export const CapabilityFieldMetaValueQuantity = new FieldMeta<CapabilityField>(
   CapabilityField.ValueQuantity,
   'ValueQuantity',
   'Value Quantity',
-  'Quantity',
+  QuantityType.name,
   'A quantity as a measure of this capability.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -75,10 +84,10 @@ export const CapabilityFieldMetaEvidenceSupplied = new FieldMeta<CapabilityField
   CapabilityField.EvidenceSupplied,
   'EvidenceSupplied',
   'Evidence Supplied',
-  'EvidenceSupplied',
+  EvidenceSuppliedType.name,
   'The evidence that supports the capability claim.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -87,10 +96,10 @@ export const CapabilityFieldMetaValidityPeriod = new FieldMeta<CapabilityField>(
   CapabilityField.ValidityPeriod,
   'ValidityPeriod',
   'Validity Period',
-  'Period',
+  PeriodType.name,
   'The period of time for which this capability is (or has been) valid.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -99,10 +108,10 @@ export const CapabilityFieldMetaWebSite = new FieldMeta<CapabilityField>(
   CapabilityField.WebSite,
   'WebSite',
   'Web Site',
-  'WebSite',
+  WebSiteType.name,
   'A web site where the capability is detailed.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -128,3 +137,11 @@ export const CapabilityFieldMap = new Map([
   [CapabilityField.ValidityPeriod, CapabilityFieldMetaValidityPeriod],
   [CapabilityField.WebSite, CapabilityFieldMetaWebSite]
 ])
+
+export const CapabilityType: Type<CapabilityField> = {
+  name: 'Capability',
+  label: 'Capability',
+  module: TypeModule.cac,
+  definition: 'A class to describe a specific capability of an organization.',
+  fields: CapabilityFieldMap,
+}

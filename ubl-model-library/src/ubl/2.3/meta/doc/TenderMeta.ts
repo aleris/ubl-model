@@ -1,4 +1,19 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { ContractingPartyType } from '../cac/ContractingPartyMeta'
+import { CustomerPartyType } from '../cac/CustomerPartyMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { PeriodType } from '../cac/PeriodMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { TenderedProjectType } from '../cac/TenderedProjectMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum TenderField {
   UBLExtensions = 'UBLExtensions',
@@ -30,11 +45,11 @@ export enum TenderField {
 export const TenderFieldMetaUBLExtensions = new FieldMeta<TenderField>(
   TenderField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -43,10 +58,10 @@ export const TenderFieldMetaUBLVersionID = new FieldMeta<TenderField>(
   TenderField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.0.5'
 )
@@ -55,10 +70,10 @@ export const TenderFieldMetaCustomizationID = new FieldMeta<TenderField>(
   TenderField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -67,10 +82,10 @@ export const TenderFieldMetaProfileID = new FieldMeta<TenderField>(
   TenderField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BasicProcurementProcess'
 )
@@ -79,10 +94,10 @@ export const TenderFieldMetaProfileExecutionID = new FieldMeta<TenderField>(
   TenderField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BPP-1001'
 )
@@ -91,10 +106,10 @@ export const TenderFieldMetaID = new FieldMeta<TenderField>(
   TenderField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -103,10 +118,10 @@ export const TenderFieldMetaCopyIndicator = new FieldMeta<TenderField>(
   TenderField.CopyIndicator,
   'CopyIndicator',
   'Copy Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this document is a copy (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -115,10 +130,10 @@ export const TenderFieldMetaUUID = new FieldMeta<TenderField>(
   TenderField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -127,10 +142,10 @@ export const TenderFieldMetaTenderTypeCode = new FieldMeta<TenderField>(
   TenderField.TenderTypeCode,
   'TenderTypeCode',
   'Tender Type Code',
-  'Code',
+  CodeType.name,
   'A code to specify the type of tender (economical or objective criteria versus technical or subjective criteria)',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -139,10 +154,10 @@ export const TenderFieldMetaContractFolderID = new FieldMeta<TenderField>(
   TenderField.ContractFolderID,
   'ContractFolderID',
   'Contract Folder Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier, assigned by the sender, for the process file (i.e., record) to which this document belongs.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -151,10 +166,10 @@ export const TenderFieldMetaIssueDate = new FieldMeta<TenderField>(
   TenderField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -163,10 +178,10 @@ export const TenderFieldMetaIssueTime = new FieldMeta<TenderField>(
   TenderField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -175,10 +190,10 @@ export const TenderFieldMetaContractName = new FieldMeta<TenderField>(
   TenderField.ContractName,
   'ContractName',
   'Contract Name',
-  'Text',
+  TextType.name,
   'Short title of a contract associated with this Tender.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -187,10 +202,10 @@ export const TenderFieldMetaNote = new FieldMeta<TenderField>(
   TenderField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -199,10 +214,10 @@ export const TenderFieldMetaValidityPeriod = new FieldMeta<TenderField>(
   TenderField.ValidityPeriod,
   'ValidityPeriod',
   'Validity Period',
-  'Period',
+  PeriodType.name,
   'The period for which the Tender is valid.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -211,10 +226,10 @@ export const TenderFieldMetaCallForTenderDocumentReference = new FieldMeta<Tende
   TenderField.CallForTenderDocumentReference,
   'CallForTenderDocumentReference',
   'Call For Tender Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to the call for tender document of which this tender result of.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -223,10 +238,10 @@ export const TenderFieldMetaDocumentReference = new FieldMeta<TenderField>(
   TenderField.DocumentReference,
   'DocumentReference',
   'Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to another document associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -235,10 +250,10 @@ export const TenderFieldMetaSignature = new FieldMeta<TenderField>(
   TenderField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -247,10 +262,10 @@ export const TenderFieldMetaTendererParty = new FieldMeta<TenderField>(
   TenderField.TendererParty,
   'TendererParty',
   'Tenderer Party',
-  'Party',
+  PartyType.name,
   'The primary tenderer.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -259,10 +274,10 @@ export const TenderFieldMetaTendererQualificationDocumentReference = new FieldMe
   TenderField.TendererQualificationDocumentReference,
   'TendererQualificationDocumentReference',
   'Tenderer Qualification Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to the tenderer qualification document that has been used to qualify the tenderer.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -271,10 +286,10 @@ export const TenderFieldMetaSubcontractorParty = new FieldMeta<TenderField>(
   TenderField.SubcontractorParty,
   'SubcontractorParty',
   'Subcontractor Party',
-  'Party',
+  PartyType.name,
   'A subcontractor or other tenderer participating in the same Tender.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -283,10 +298,10 @@ export const TenderFieldMetaContractingParty = new FieldMeta<TenderField>(
   TenderField.ContractingParty,
   'ContractingParty',
   'Contracting Party',
-  'ContractingParty',
+  ContractingPartyType.name,
   'The contracting party.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -295,10 +310,10 @@ export const TenderFieldMetaOriginatorCustomerParty = new FieldMeta<TenderField>
   TenderField.OriginatorCustomerParty,
   'OriginatorCustomerParty',
   'Originator Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The party originating the Tender.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -307,10 +322,10 @@ export const TenderFieldMetaTenderedProject = new FieldMeta<TenderField>(
   TenderField.TenderedProject,
   'TenderedProject',
   'Tendered Project',
-  'TenderedProject',
+  TenderedProjectType.name,
   'A project with which this Tender is associated. A single Tender can be used to bid for one project, multiple projects, or the global project.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -368,3 +383,11 @@ export const TenderFieldMap = new Map([
   [TenderField.OriginatorCustomerParty, TenderFieldMetaOriginatorCustomerParty],
   [TenderField.TenderedProject, TenderFieldMetaTenderedProject]
 ])
+
+export const TenderType: Type<TenderField> = {
+  name: 'Tender',
+  label: 'Tender',
+  module: TypeModule.doc,
+  definition: 'A document whereby an economic operator (the tenderer) makes a formal offer (the tender) to a contracting authority to execute an order for the supply or purchase of goods, or for the execution of work, according to the terms of a proposed contract.',
+  fields: TenderFieldMap,
+}

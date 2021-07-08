@@ -1,4 +1,10 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ConsumptionCorrectionField {
   UBLExtensions = 'UBLExtensions',
@@ -19,11 +25,11 @@ export enum ConsumptionCorrectionField {
 export const ConsumptionCorrectionFieldMetaUBLExtensions = new FieldMeta<ConsumptionCorrectionField>(
   ConsumptionCorrectionField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -32,10 +38,10 @@ export const ConsumptionCorrectionFieldMetaCorrectionType = new FieldMeta<Consum
   ConsumptionCorrectionField.CorrectionType,
   'CorrectionType',
   'Correction Type',
-  'Text',
+  TextType.name,
   'Statement for the correction type.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Heating Correction'
 )
@@ -44,10 +50,10 @@ export const ConsumptionCorrectionFieldMetaCorrectionTypeCode = new FieldMeta<Co
   ConsumptionCorrectionField.CorrectionTypeCode,
   'CorrectionTypeCode',
   'Correction Type Code',
-  'Code',
+  CodeType.name,
   'Statement at the code for the correction type.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'HeatingCorrection'
 )
@@ -56,10 +62,10 @@ export const ConsumptionCorrectionFieldMetaMeterNumber = new FieldMeta<Consumpti
   ConsumptionCorrectionField.MeterNumber,
   'MeterNumber',
   'Meter Number',
-  'Text',
+  TextType.name,
   'Statement for meter number.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '530071575'
 )
@@ -68,10 +74,10 @@ export const ConsumptionCorrectionFieldMetaGasPressureQuantity = new FieldMeta<C
   ConsumptionCorrectionField.GasPressureQuantity,
   'GasPressureQuantity',
   'Gas Pressure',
-  'Quantity',
+  QuantityType.name,
   'Correction of the gas pressure.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -80,10 +86,10 @@ export const ConsumptionCorrectionFieldMetaActualTemperatureReductionQuantity = 
   ConsumptionCorrectionField.ActualTemperatureReductionQuantity,
   'ActualTemperatureReductionQuantity',
   'Actual Temperature Reduction',
-  'Quantity',
+  QuantityType.name,
   'Statement for the actuel heating correction temperature.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '-36.69'
 )
@@ -92,10 +98,10 @@ export const ConsumptionCorrectionFieldMetaNormalTemperatureReductionQuantity = 
   ConsumptionCorrectionField.NormalTemperatureReductionQuantity,
   'NormalTemperatureReductionQuantity',
   'Normal Temperature Reduction',
-  'Quantity',
+  QuantityType.name,
   'Statement for the standard for heating correction temperature.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '-37.00'
 )
@@ -104,10 +110,10 @@ export const ConsumptionCorrectionFieldMetaDifferenceTemperatureReductionQuantit
   ConsumptionCorrectionField.DifferenceTemperatureReductionQuantity,
   'DifferenceTemperatureReductionQuantity',
   'Difference Temperature Reduction',
-  'Quantity',
+  QuantityType.name,
   'Deviation from standard heating correction.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '0.31'
 )
@@ -116,10 +122,10 @@ export const ConsumptionCorrectionFieldMetaDescription = new FieldMeta<Consumpti
   ConsumptionCorrectionField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Description related to the corrections.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -128,10 +134,10 @@ export const ConsumptionCorrectionFieldMetaCorrectionUnitAmount = new FieldMeta<
   ConsumptionCorrectionField.CorrectionUnitAmount,
   'CorrectionUnitAmount',
   'Correction Unit Amount',
-  'Amount',
+  AmountType.name,
   'Correction per MWH per degree C.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '0.0000'
 )
@@ -140,10 +146,10 @@ export const ConsumptionCorrectionFieldMetaConsumptionEnergyQuantity = new Field
   ConsumptionCorrectionField.ConsumptionEnergyQuantity,
   'ConsumptionEnergyQuantity',
   'Consumption Energy',
-  'Quantity',
+  QuantityType.name,
   'Your consumpt for district heating energy.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '563.6240'
 )
@@ -152,10 +158,10 @@ export const ConsumptionCorrectionFieldMetaConsumptionWaterQuantity = new FieldM
   ConsumptionCorrectionField.ConsumptionWaterQuantity,
   'ConsumptionWaterQuantity',
   'Consumption Water',
-  'Quantity',
+  QuantityType.name,
   'Your consumpt for district heating water.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '13212.14'
 )
@@ -164,10 +170,10 @@ export const ConsumptionCorrectionFieldMetaCorrectionAmount = new FieldMeta<Cons
   ConsumptionCorrectionField.CorrectionAmount,
   'CorrectionAmount',
   'Correction Amount',
-  'Amount',
+  AmountType.name,
   'Your correction for heating correction.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '0.00'
 )
@@ -203,3 +209,11 @@ export const ConsumptionCorrectionFieldMap = new Map([
   [ConsumptionCorrectionField.ConsumptionWaterQuantity, ConsumptionCorrectionFieldMetaConsumptionWaterQuantity],
   [ConsumptionCorrectionField.CorrectionAmount, ConsumptionCorrectionFieldMetaCorrectionAmount]
 ])
+
+export const ConsumptionCorrectionType: Type<ConsumptionCorrectionField> = {
+  name: 'ConsumptionCorrection',
+  label: 'Consumption Correction',
+  module: TypeModule.cac,
+  definition: 'The Statement of correction, for examples heating correction.',
+  fields: ConsumptionCorrectionFieldMap,
+}

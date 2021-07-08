@@ -1,4 +1,9 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { BudgetAccountType } from './BudgetAccountMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum BudgetAccountLineField {
   UBLExtensions = 'UBLExtensions',
@@ -10,11 +15,11 @@ export enum BudgetAccountLineField {
 export const BudgetAccountLineFieldMetaUBLExtensions = new FieldMeta<BudgetAccountLineField>(
   BudgetAccountLineField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -23,10 +28,10 @@ export const BudgetAccountLineFieldMetaID = new FieldMeta<BudgetAccountLineField
   BudgetAccountLineField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this budget account line.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -35,10 +40,10 @@ export const BudgetAccountLineFieldMetaTotalAmount = new FieldMeta<BudgetAccount
   BudgetAccountLineField.TotalAmount,
   'TotalAmount',
   'Total Amount',
-  'Amount',
+  AmountType.name,
   'The total monetary amount for this budget account line.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -47,10 +52,10 @@ export const BudgetAccountLineFieldMetaBudgetAccount = new FieldMeta<BudgetAccou
   BudgetAccountLineField.BudgetAccount,
   'BudgetAccount',
   'Budget Account',
-  'BudgetAccount',
+  BudgetAccountType.name,
   'An account covering this budget account line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -68,3 +73,11 @@ export const BudgetAccountLineFieldMap = new Map([
   [BudgetAccountLineField.TotalAmount, BudgetAccountLineFieldMetaTotalAmount],
   [BudgetAccountLineField.BudgetAccount, BudgetAccountLineFieldMetaBudgetAccount]
 ])
+
+export const BudgetAccountLineType: Type<BudgetAccountLineField> = {
+  name: 'BudgetAccountLine',
+  label: 'Budget Account Line',
+  module: TypeModule.cac,
+  definition: 'A class to define a budget account line.',
+  fields: BudgetAccountLineFieldMap,
+}

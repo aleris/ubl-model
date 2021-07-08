@@ -1,4 +1,12 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { DocumentReferenceType } from './DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { LanguageType } from './LanguageMeta'
+import { PartyType } from './PartyMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum EvidenceField {
   UBLExtensions = 'UBLExtensions',
@@ -16,11 +24,11 @@ export enum EvidenceField {
 export const EvidenceFieldMetaUBLExtensions = new FieldMeta<EvidenceField>(
   EvidenceField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -29,10 +37,10 @@ export const EvidenceFieldMetaID = new FieldMeta<EvidenceField>(
   EvidenceField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this item of evidentiary support.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -41,10 +49,10 @@ export const EvidenceFieldMetaEvidenceTypeCode = new FieldMeta<EvidenceField>(
   EvidenceField.EvidenceTypeCode,
   'EvidenceTypeCode',
   'Evidence Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of evidence.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -53,10 +61,10 @@ export const EvidenceFieldMetaName = new FieldMeta<EvidenceField>(
   EvidenceField.Name,
   'Name',
   'Name',
-  'Text',
+  TextType.name,
   'The name of the evidence.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -65,10 +73,10 @@ export const EvidenceFieldMetaDescription = new FieldMeta<EvidenceField>(
   EvidenceField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'The textual description for this Evidence.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -77,10 +85,10 @@ export const EvidenceFieldMetaCandidateStatement = new FieldMeta<EvidenceField>(
   EvidenceField.CandidateStatement,
   'CandidateStatement',
   'Candidate Statement',
-  'Text',
+  TextType.name,
   'Information about a candidate statement that the contracting authority accepts as a sufficient response.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -89,10 +97,10 @@ export const EvidenceFieldMetaConfidentialityLevelCode = new FieldMeta<EvidenceF
   EvidenceField.ConfidentialityLevelCode,
   'ConfidentialityLevelCode',
   'Confidentiality Level Code',
-  'Code',
+  CodeType.name,
   'A code specifying the confidentiality level of this evidence.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -101,10 +109,10 @@ export const EvidenceFieldMetaEvidenceIssuingParty = new FieldMeta<EvidenceField
   EvidenceField.EvidenceIssuingParty,
   'EvidenceIssuingParty',
   'Evidence Issuing Party',
-  'Party',
+  PartyType.name,
   'A class to describe a party issuing an evidentiary document.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -113,10 +121,10 @@ export const EvidenceFieldMetaDocumentReference = new FieldMeta<EvidenceField>(
   EvidenceField.DocumentReference,
   'DocumentReference',
   'Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to the evidentiary document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -125,10 +133,10 @@ export const EvidenceFieldMetaLanguage = new FieldMeta<EvidenceField>(
   EvidenceField.Language,
   'Language',
   'Language',
-  'Language',
+  LanguageType.name,
   'Information about a required translation to be part of the response, i.e. the language.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -158,3 +166,11 @@ export const EvidenceFieldMap = new Map([
   [EvidenceField.DocumentReference, EvidenceFieldMetaDocumentReference],
   [EvidenceField.Language, EvidenceFieldMetaLanguage]
 ])
+
+export const EvidenceType: Type<EvidenceField> = {
+  name: 'Evidence',
+  label: 'Evidence',
+  module: TypeModule.cac,
+  definition: 'A class to describe an item of evidentiary support for representations of capabilities or the ability to meet tendering requirements, which an economic operator must provide for acceptance into a tendering process.',
+  fields: EvidenceFieldMap,
+}

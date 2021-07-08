@@ -1,40 +1,53 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { AddressLine } from  '../../model/cac/AddressLine'
-import { AddressLineFieldMeta } from  '../../meta/cac/AddressLineMeta'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { AddressLineField, AddressLineFieldMeta, AddressLineTypeName } from  '../../meta/cac/AddressLineMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: AddressLine | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<AddressLine, void>
+  addressLine: AddressLine[] | undefined
+  renderContext: RenderContext
 }
 
-export default function AddressLineDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const AddressLineSubElementsMap: SubElementsTemplatesMap<AddressLineField, AddressLine, void> = new Map([
+    [
+      AddressLineField.UBLExtensions,
+      { meta: AddressLineFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={AddressLineField.UBLExtensions}
+          meta={AddressLineFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-AddressLine">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={AddressLineFieldMeta.UBLExtensions}
-          />
+    [
+      AddressLineField.Line,
+      { meta: AddressLineFieldMeta.Line,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={AddressLineField.Line}
+          meta={AddressLineFieldMeta.Line}
+          fieldConfig={fieldConfig}
+          text={value?.Line}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <TextDisplay
-            label="Line"
-            value={value.Line?.[0]}
-            meta={AddressLineFieldMeta.Line}
-          />
-        </div>
-    </div>
+export function AddressLineDisplay<TFieldMeta>({ meta, fieldConfig, addressLine, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    AddressLineTypeName,
+    meta,
+    fieldConfig,
+    addressLine,
+    renderContext,
+    AddressLineSubElementsMap,
   )
 }

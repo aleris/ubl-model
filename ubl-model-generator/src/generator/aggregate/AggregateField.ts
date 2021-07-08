@@ -1,5 +1,6 @@
 import { Documentation } from '../Documentation'
 import { PrefixedName } from '../PrefixedName'
+import { getPropertyName } from '../type-gen-utils'
 import { TypeResolver } from '../TypeResolver'
 import { AggregateType } from './AggregateType'
 
@@ -38,6 +39,14 @@ export class AggregateField {
     )
   }
 
+  get isMultiItem() {
+    return this.cardinalityWithFallbackToOccur.endsWith('..n')
+  }
+
+  get propertyName() {
+    return getPropertyName(this.resolvedType.name)
+  }
+
   private getCardinalityWithFallbackToOccur() {
     if (this.documentation.cardinality !== undefined) {
       return this.documentation.cardinality
@@ -53,6 +62,6 @@ export class AggregateField {
         ? `${this.documentation.propertyTermQualifier} ${this.documentation.propertyTerm}`
         : this.documentation.propertyTerm
     }
-    return this.documentation.propertyTermName
+    return this.documentation.propertyTermName ?? this.fieldName
   }
 }

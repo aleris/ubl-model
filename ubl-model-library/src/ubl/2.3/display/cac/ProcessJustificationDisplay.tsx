@@ -1,78 +1,90 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ProcessJustification } from  '../../model/cac/ProcessJustification'
-import { ProcessJustificationFieldMeta } from  '../../meta/cac/ProcessJustificationMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ProcessJustificationField, ProcessJustificationFieldMeta, ProcessJustificationTypeName } from  '../../meta/cac/ProcessJustificationMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ProcessJustification | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ProcessJustification, void>
+  processJustification: ProcessJustification[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ProcessJustificationDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ProcessJustificationSubElementsMap: SubElementsTemplatesMap<ProcessJustificationField, ProcessJustification, void> = new Map([
+    [
+      ProcessJustificationField.UBLExtensions,
+      { meta: ProcessJustificationFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ProcessJustificationField.UBLExtensions}
+          meta={ProcessJustificationFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ProcessJustification">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ProcessJustificationFieldMeta.UBLExtensions}
-          />
+    [
+      ProcessJustificationField.PreviousCancellationReasonCode,
+      { meta: ProcessJustificationFieldMeta.PreviousCancellationReasonCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ProcessJustificationField.PreviousCancellationReasonCode}
+          meta={ProcessJustificationFieldMeta.PreviousCancellationReasonCode}
+          fieldConfig={fieldConfig}
+          code={value?.PreviousCancellationReasonCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Previous Cancellation Reason Code"
-            value={value.PreviousCancellationReasonCode?.[0]}
-            meta={ProcessJustificationFieldMeta.PreviousCancellationReasonCode}
-          />
+    [
+      ProcessJustificationField.ProcessReasonCode,
+      { meta: ProcessJustificationFieldMeta.ProcessReasonCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ProcessJustificationField.ProcessReasonCode}
+          meta={ProcessJustificationFieldMeta.ProcessReasonCode}
+          fieldConfig={fieldConfig}
+          code={value?.ProcessReasonCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Process Reason Code"
-            value={value.ProcessReasonCode?.[0]}
-            meta={ProcessJustificationFieldMeta.ProcessReasonCode}
-          />
+    [
+      ProcessJustificationField.ProcessReason,
+      { meta: ProcessJustificationFieldMeta.ProcessReason,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ProcessJustificationField.ProcessReason}
+          meta={ProcessJustificationFieldMeta.ProcessReason}
+          fieldConfig={fieldConfig}
+          text={value?.ProcessReason}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-ProcessReason"
-            label="Process Reason"
-            items={value.ProcessReason}
-            meta={ProcessJustificationFieldMeta.ProcessReason} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Process Reason"
-                value={itemValue}
-                meta={ProcessJustificationFieldMeta.ProcessReason}
-              />
-            }
-          />
+    [
+      ProcessJustificationField.Description,
+      { meta: ProcessJustificationFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ProcessJustificationField.Description}
+          meta={ProcessJustificationFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={ProcessJustificationFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={ProcessJustificationFieldMeta.Description}
-              />
-            }
-          />
-        </div>
-    </div>
+export function ProcessJustificationDisplay<TFieldMeta>({ meta, fieldConfig, processJustification, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ProcessJustificationTypeName,
+    meta,
+    fieldConfig,
+    processJustification,
+    renderContext,
+    ProcessJustificationSubElementsMap,
   )
 }

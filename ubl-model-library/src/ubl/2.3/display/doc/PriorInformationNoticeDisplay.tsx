@@ -1,304 +1,392 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { PriorInformationNotice } from  '../../model/doc/PriorInformationNotice'
-import { PriorInformationNoticeFieldMeta } from  '../../meta/doc/PriorInformationNoticeMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import ContractingPartyDisplay from '../cac/ContractingPartyDisplay'
-import { ContractingParty } from '../../model/cac/ContractingParty'
-import CustomerPartyDisplay from '../cac/CustomerPartyDisplay'
-import { CustomerParty } from '../../model/cac/CustomerParty'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import LanguageDisplay from '../cac/LanguageDisplay'
-import { Language } from '../../model/cac/Language'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import ProcurementProjectDisplay from '../cac/ProcurementProjectDisplay'
-import { ProcurementProject } from '../../model/cac/ProcurementProject'
-import ProcurementProjectLotDisplay from '../cac/ProcurementProjectLotDisplay'
-import { ProcurementProjectLot } from '../../model/cac/ProcurementProjectLot'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import TenderingProcessDisplay from '../cac/TenderingProcessDisplay'
-import { TenderingProcess } from '../../model/cac/TenderingProcess'
-import TenderingTermsDisplay from '../cac/TenderingTermsDisplay'
-import { TenderingTerms } from '../../model/cac/TenderingTerms'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { PriorInformationNoticeField, PriorInformationNoticeFieldMeta, PriorInformationNoticeTypeName } from  '../../meta/doc/PriorInformationNoticeMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { ContractingPartyDisplay } from '../cac/ContractingPartyDisplay'
+import { CustomerPartyDisplay } from '../cac/CustomerPartyDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { LanguageDisplay } from '../cac/LanguageDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { ProcurementProjectDisplay } from '../cac/ProcurementProjectDisplay'
+import { ProcurementProjectLotDisplay } from '../cac/ProcurementProjectLotDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { TenderingProcessDisplay } from '../cac/TenderingProcessDisplay'
+import { TenderingTermsDisplay } from '../cac/TenderingTermsDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: PriorInformationNotice | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<PriorInformationNotice, void>
+  priorInformationNotice: PriorInformationNotice[] | undefined
+  renderContext: RenderContext
 }
 
-export default function PriorInformationNoticeDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const PriorInformationNoticeSubElementsMap: SubElementsTemplatesMap<PriorInformationNoticeField, PriorInformationNotice, void> = new Map([
+    [
+      PriorInformationNoticeField.UBLExtensions,
+      { meta: PriorInformationNoticeFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={PriorInformationNoticeField.UBLExtensions}
+          meta={PriorInformationNoticeFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-PriorInformationNotice">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={PriorInformationNoticeFieldMeta.UBLExtensions}
-          />
+    [
+      PriorInformationNoticeField.UBLVersionID,
+      { meta: PriorInformationNoticeFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PriorInformationNoticeField.UBLVersionID}
+          meta={PriorInformationNoticeFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={PriorInformationNoticeFieldMeta.UBLVersionID}
-          />
+    [
+      PriorInformationNoticeField.CustomizationID,
+      { meta: PriorInformationNoticeFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PriorInformationNoticeField.CustomizationID}
+          meta={PriorInformationNoticeFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={PriorInformationNoticeFieldMeta.CustomizationID}
-          />
+    [
+      PriorInformationNoticeField.ProfileID,
+      { meta: PriorInformationNoticeFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PriorInformationNoticeField.ProfileID}
+          meta={PriorInformationNoticeFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={PriorInformationNoticeFieldMeta.ProfileID}
-          />
+    [
+      PriorInformationNoticeField.ProfileExecutionID,
+      { meta: PriorInformationNoticeFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PriorInformationNoticeField.ProfileExecutionID}
+          meta={PriorInformationNoticeFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={PriorInformationNoticeFieldMeta.ProfileExecutionID}
-          />
+    [
+      PriorInformationNoticeField.ID,
+      { meta: PriorInformationNoticeFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PriorInformationNoticeField.ID}
+          meta={PriorInformationNoticeFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={PriorInformationNoticeFieldMeta.ID}
-          />
+    [
+      PriorInformationNoticeField.CopyIndicator,
+      { meta: PriorInformationNoticeFieldMeta.CopyIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={PriorInformationNoticeField.CopyIndicator}
+          meta={PriorInformationNoticeFieldMeta.CopyIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.CopyIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Copy Indicator"
-            value={value.CopyIndicator?.[0]}
-            meta={PriorInformationNoticeFieldMeta.CopyIndicator}
-          />
+    [
+      PriorInformationNoticeField.UUID,
+      { meta: PriorInformationNoticeFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PriorInformationNoticeField.UUID}
+          meta={PriorInformationNoticeFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={PriorInformationNoticeFieldMeta.UUID}
-          />
+    [
+      PriorInformationNoticeField.ContractFolderID,
+      { meta: PriorInformationNoticeFieldMeta.ContractFolderID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PriorInformationNoticeField.ContractFolderID}
+          meta={PriorInformationNoticeFieldMeta.ContractFolderID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ContractFolderID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Contract Folder Identifier"
-            value={value.ContractFolderID?.[0]}
-            meta={PriorInformationNoticeFieldMeta.ContractFolderID}
-          />
+    [
+      PriorInformationNoticeField.IssueDate,
+      { meta: PriorInformationNoticeFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={PriorInformationNoticeField.IssueDate}
+          meta={PriorInformationNoticeFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={PriorInformationNoticeFieldMeta.IssueDate}
-          />
+    [
+      PriorInformationNoticeField.IssueTime,
+      { meta: PriorInformationNoticeFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={PriorInformationNoticeField.IssueTime}
+          meta={PriorInformationNoticeFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={PriorInformationNoticeFieldMeta.IssueTime}
-          />
+    [
+      PriorInformationNoticeField.Note,
+      { meta: PriorInformationNoticeFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={PriorInformationNoticeField.Note}
+          meta={PriorInformationNoticeFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={PriorInformationNoticeFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={PriorInformationNoticeFieldMeta.Note}
-              />
-            }
-          />
+    [
+      PriorInformationNoticeField.VersionID,
+      { meta: PriorInformationNoticeFieldMeta.VersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PriorInformationNoticeField.VersionID}
+          meta={PriorInformationNoticeFieldMeta.VersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.VersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Version Identifier"
-            value={value.VersionID?.[0]}
-            meta={PriorInformationNoticeFieldMeta.VersionID}
-          />
+    [
+      PriorInformationNoticeField.PreviousVersionID,
+      { meta: PriorInformationNoticeFieldMeta.PreviousVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PriorInformationNoticeField.PreviousVersionID}
+          meta={PriorInformationNoticeFieldMeta.PreviousVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.PreviousVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Previous Version Identifier"
-            value={value.PreviousVersionID?.[0]}
-            meta={PriorInformationNoticeFieldMeta.PreviousVersionID}
-          />
+    [
+      PriorInformationNoticeField.RequestedPublicationDate,
+      { meta: PriorInformationNoticeFieldMeta.RequestedPublicationDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={PriorInformationNoticeField.RequestedPublicationDate}
+          meta={PriorInformationNoticeFieldMeta.RequestedPublicationDate}
+          fieldConfig={fieldConfig}
+          date={value?.RequestedPublicationDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Requested Publication Date"
-            value={value.RequestedPublicationDate?.[0]}
-            meta={PriorInformationNoticeFieldMeta.RequestedPublicationDate}
-          />
+    [
+      PriorInformationNoticeField.PlannedDate,
+      { meta: PriorInformationNoticeFieldMeta.PlannedDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={PriorInformationNoticeField.PlannedDate}
+          meta={PriorInformationNoticeFieldMeta.PlannedDate}
+          fieldConfig={fieldConfig}
+          date={value?.PlannedDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Planned Date"
-            value={value.PlannedDate?.[0]}
-            meta={PriorInformationNoticeFieldMeta.PlannedDate}
-          />
+    [
+      PriorInformationNoticeField.RegulatoryDomain,
+      { meta: PriorInformationNoticeFieldMeta.RegulatoryDomain,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={PriorInformationNoticeField.RegulatoryDomain}
+          meta={PriorInformationNoticeFieldMeta.RegulatoryDomain}
+          fieldConfig={fieldConfig}
+          text={value?.RegulatoryDomain}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-RegulatoryDomain"
-            label="Regulatory Domain"
-            items={value.RegulatoryDomain}
-            meta={PriorInformationNoticeFieldMeta.RegulatoryDomain} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Regulatory Domain"
-                value={itemValue}
-                meta={PriorInformationNoticeFieldMeta.RegulatoryDomain}
-              />
-            }
-          />
+    [
+      PriorInformationNoticeField.NoticeTypeCode,
+      { meta: PriorInformationNoticeFieldMeta.NoticeTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={PriorInformationNoticeField.NoticeTypeCode}
+          meta={PriorInformationNoticeFieldMeta.NoticeTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.NoticeTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Notice Type Code"
-            value={value.NoticeTypeCode?.[0]}
-            meta={PriorInformationNoticeFieldMeta.NoticeTypeCode}
-          />
+    [
+      PriorInformationNoticeField.NoticeLanguageCode,
+      { meta: PriorInformationNoticeFieldMeta.NoticeLanguageCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={PriorInformationNoticeField.NoticeLanguageCode}
+          meta={PriorInformationNoticeFieldMeta.NoticeLanguageCode}
+          fieldConfig={fieldConfig}
+          code={value?.NoticeLanguageCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Notice Language Code"
-            value={value.NoticeLanguageCode?.[0]}
-            meta={PriorInformationNoticeFieldMeta.NoticeLanguageCode}
-          />
+    [
+      PriorInformationNoticeField.AdditionalNoticeLanguage,
+      { meta: PriorInformationNoticeFieldMeta.AdditionalNoticeLanguage,
+        template: ({value, renderContext, fieldConfig}) => <LanguageDisplay
+          key={PriorInformationNoticeField.AdditionalNoticeLanguage}
+          meta={PriorInformationNoticeFieldMeta.AdditionalNoticeLanguage}
+          fieldConfig={fieldConfig}
+          language={value?.AdditionalNoticeLanguage}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Language ubl-AdditionalNoticeLanguage"
-            label="Additional Notice Language"
-            items={value.AdditionalNoticeLanguage}
-            meta={PriorInformationNoticeFieldMeta.AdditionalNoticeLanguage} 
-            itemDisplay={ (itemValue: Language, key: string | number) =>
-              <LanguageDisplay
-                key={key}
-                label="Additional Notice Language"
-                value={itemValue}
-                meta={PriorInformationNoticeFieldMeta.AdditionalNoticeLanguage}
-              />
-            }
-          />
+    [
+      PriorInformationNoticeField.DocumentReference,
+      { meta: PriorInformationNoticeFieldMeta.DocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={PriorInformationNoticeField.DocumentReference}
+          meta={PriorInformationNoticeFieldMeta.DocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.DocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference"
-            label="Document Reference"
-            items={value.DocumentReference}
-            meta={PriorInformationNoticeFieldMeta.DocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Document Reference"
-                value={itemValue}
-                meta={PriorInformationNoticeFieldMeta.DocumentReference}
-              />
-            }
-          />
+    [
+      PriorInformationNoticeField.Signature,
+      { meta: PriorInformationNoticeFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={PriorInformationNoticeField.Signature}
+          meta={PriorInformationNoticeFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={PriorInformationNoticeFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={PriorInformationNoticeFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      PriorInformationNoticeField.ContractingParty,
+      { meta: PriorInformationNoticeFieldMeta.ContractingParty,
+        template: ({value, renderContext, fieldConfig}) => <ContractingPartyDisplay
+          key={PriorInformationNoticeField.ContractingParty}
+          meta={PriorInformationNoticeFieldMeta.ContractingParty}
+          fieldConfig={fieldConfig}
+          contractingParty={value?.ContractingParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-ContractingParty"
-            label="Contracting Party"
-            items={value.ContractingParty}
-            meta={PriorInformationNoticeFieldMeta.ContractingParty} 
-            itemDisplay={ (itemValue: ContractingParty, key: string | number) =>
-              <ContractingPartyDisplay
-                key={key}
-                label="Contracting Party"
-                value={itemValue}
-                meta={PriorInformationNoticeFieldMeta.ContractingParty}
-              />
-            }
-          />
+    [
+      PriorInformationNoticeField.OriginatorCustomerParty,
+      { meta: PriorInformationNoticeFieldMeta.OriginatorCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={PriorInformationNoticeField.OriginatorCustomerParty}
+          meta={PriorInformationNoticeFieldMeta.OriginatorCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.OriginatorCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-CustomerParty ubl-OriginatorCustomerParty"
-            label="Originator Customer Party"
-            items={value.OriginatorCustomerParty}
-            meta={PriorInformationNoticeFieldMeta.OriginatorCustomerParty} 
-            itemDisplay={ (itemValue: CustomerParty, key: string | number) =>
-              <CustomerPartyDisplay
-                key={key}
-                label="Originator Customer Party"
-                value={itemValue}
-                meta={PriorInformationNoticeFieldMeta.OriginatorCustomerParty}
-              />
-            }
-          />
+    [
+      PriorInformationNoticeField.ReceiverParty,
+      { meta: PriorInformationNoticeFieldMeta.ReceiverParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={PriorInformationNoticeField.ReceiverParty}
+          meta={PriorInformationNoticeFieldMeta.ReceiverParty}
+          fieldConfig={fieldConfig}
+          party={value?.ReceiverParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Receiver Party"
-            value={value.ReceiverParty?.[0]}
-            meta={PriorInformationNoticeFieldMeta.ReceiverParty}
-          />
+    [
+      PriorInformationNoticeField.TenderingTerms,
+      { meta: PriorInformationNoticeFieldMeta.TenderingTerms,
+        template: ({value, renderContext, fieldConfig}) => <TenderingTermsDisplay
+          key={PriorInformationNoticeField.TenderingTerms}
+          meta={PriorInformationNoticeFieldMeta.TenderingTerms}
+          fieldConfig={fieldConfig}
+          tenderingTerms={value?.TenderingTerms}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TenderingTermsDisplay
-            label="Tendering Terms"
-            value={value.TenderingTerms?.[0]}
-            meta={PriorInformationNoticeFieldMeta.TenderingTerms}
-          />
+    [
+      PriorInformationNoticeField.TenderingProcess,
+      { meta: PriorInformationNoticeFieldMeta.TenderingProcess,
+        template: ({value, renderContext, fieldConfig}) => <TenderingProcessDisplay
+          key={PriorInformationNoticeField.TenderingProcess}
+          meta={PriorInformationNoticeFieldMeta.TenderingProcess}
+          fieldConfig={fieldConfig}
+          tenderingProcess={value?.TenderingProcess}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TenderingProcessDisplay
-            label="Tendering Process"
-            value={value.TenderingProcess?.[0]}
-            meta={PriorInformationNoticeFieldMeta.TenderingProcess}
-          />
+    [
+      PriorInformationNoticeField.ProcurementProject,
+      { meta: PriorInformationNoticeFieldMeta.ProcurementProject,
+        template: ({value, renderContext, fieldConfig}) => <ProcurementProjectDisplay
+          key={PriorInformationNoticeField.ProcurementProject}
+          meta={PriorInformationNoticeFieldMeta.ProcurementProject}
+          fieldConfig={fieldConfig}
+          procurementProject={value?.ProcurementProject}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ProcurementProjectDisplay
-            label="Procurement Project"
-            value={value.ProcurementProject?.[0]}
-            meta={PriorInformationNoticeFieldMeta.ProcurementProject}
-          />
+    [
+      PriorInformationNoticeField.ProcurementProjectLot,
+      { meta: PriorInformationNoticeFieldMeta.ProcurementProjectLot,
+        template: ({value, renderContext, fieldConfig}) => <ProcurementProjectLotDisplay
+          key={PriorInformationNoticeField.ProcurementProjectLot}
+          meta={PriorInformationNoticeFieldMeta.ProcurementProjectLot}
+          fieldConfig={fieldConfig}
+          procurementProjectLot={value?.ProcurementProjectLot}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-ProcurementProjectLot"
-            label="Procurement Project Lot"
-            items={value.ProcurementProjectLot}
-            meta={PriorInformationNoticeFieldMeta.ProcurementProjectLot} 
-            itemDisplay={ (itemValue: ProcurementProjectLot, key: string | number) =>
-              <ProcurementProjectLotDisplay
-                key={key}
-                label="Procurement Project Lot"
-                value={itemValue}
-                meta={PriorInformationNoticeFieldMeta.ProcurementProjectLot}
-              />
-            }
-          />
-        </div>
-    </div>
+export function PriorInformationNoticeDisplay<TFieldMeta>({ meta, fieldConfig, priorInformationNotice, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    PriorInformationNoticeTypeName,
+    meta,
+    fieldConfig,
+    priorInformationNotice,
+    renderContext,
+    PriorInformationNoticeSubElementsMap,
   )
 }

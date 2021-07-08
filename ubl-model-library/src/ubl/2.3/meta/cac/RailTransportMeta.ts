@@ -1,4 +1,7 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum RailTransportField {
   UBLExtensions = 'UBLExtensions',
@@ -9,11 +12,11 @@ export enum RailTransportField {
 export const RailTransportFieldMetaUBLExtensions = new FieldMeta<RailTransportField>(
   RailTransportField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -22,10 +25,10 @@ export const RailTransportFieldMetaTrainID = new FieldMeta<RailTransportField>(
   RailTransportField.TrainID,
   'TrainID',
   'Train Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the train used as the means of transport.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   'Train Number (WCO ID 167)',
   undefined
 )
@@ -34,10 +37,10 @@ export const RailTransportFieldMetaRailCarID = new FieldMeta<RailTransportField>
   RailTransportField.RailCarID,
   'RailCarID',
   'Rail Car Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the rail car on the train used as the means of transport.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -53,3 +56,11 @@ export const RailTransportFieldMap = new Map([
   [RailTransportField.TrainID, RailTransportFieldMetaTrainID],
   [RailTransportField.RailCarID, RailTransportFieldMetaRailCarID]
 ])
+
+export const RailTransportType: Type<RailTransportField> = {
+  name: 'RailTransport',
+  label: 'Rail Transport',
+  module: TypeModule.cac,
+  definition: 'A class defining details about a train wagon used as a means of transport.',
+  fields: RailTransportFieldMap,
+}

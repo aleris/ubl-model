@@ -1,573 +1,702 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { SelfBilledInvoice } from  '../../model/doc/SelfBilledInvoice'
-import { SelfBilledInvoiceFieldMeta } from  '../../meta/doc/SelfBilledInvoiceMeta'
-import AllowanceChargeDisplay from '../cac/AllowanceChargeDisplay'
-import { AllowanceCharge } from '../../model/cac/AllowanceCharge'
-import BillingReferenceDisplay from '../cac/BillingReferenceDisplay'
-import { BillingReference } from '../../model/cac/BillingReference'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import CustomerPartyDisplay from '../cac/CustomerPartyDisplay'
-import { CustomerParty } from '../../model/cac/CustomerParty'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DeliveryDisplay from '../cac/DeliveryDisplay'
-import { Delivery } from '../../model/cac/Delivery'
-import DeliveryTermsDisplay from '../cac/DeliveryTermsDisplay'
-import { DeliveryTerms } from '../../model/cac/DeliveryTerms'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import ExchangeRateDisplay from '../cac/ExchangeRateDisplay'
-import { ExchangeRate } from '../../model/cac/ExchangeRate'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import InvoiceLineDisplay from '../cac/InvoiceLineDisplay'
-import { InvoiceLine } from '../../model/cac/InvoiceLine'
-import MonetaryTotalDisplay from '../cac/MonetaryTotalDisplay'
-import { MonetaryTotal } from '../../model/cac/MonetaryTotal'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import OrderReferenceDisplay from '../cac/OrderReferenceDisplay'
-import { OrderReference } from '../../model/cac/OrderReference'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PaymentDisplay from '../cac/PaymentDisplay'
-import { Payment } from '../../model/cac/Payment'
-import PaymentMeansDisplay from '../cac/PaymentMeansDisplay'
-import { PaymentMeans } from '../../model/cac/PaymentMeans'
-import PaymentTermsDisplay from '../cac/PaymentTermsDisplay'
-import { PaymentTerms } from '../../model/cac/PaymentTerms'
-import PeriodDisplay from '../cac/PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import ProjectReferenceDisplay from '../cac/ProjectReferenceDisplay'
-import { ProjectReference } from '../../model/cac/ProjectReference'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import SupplierPartyDisplay from '../cac/SupplierPartyDisplay'
-import { SupplierParty } from '../../model/cac/SupplierParty'
-import TaxTotalDisplay from '../cac/TaxTotalDisplay'
-import { TaxTotal } from '../../model/cac/TaxTotal'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { SelfBilledInvoiceField, SelfBilledInvoiceFieldMeta, SelfBilledInvoiceTypeName } from  '../../meta/doc/SelfBilledInvoiceMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AllowanceChargeDisplay } from '../cac/AllowanceChargeDisplay'
+import { BillingReferenceDisplay } from '../cac/BillingReferenceDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { CustomerPartyDisplay } from '../cac/CustomerPartyDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DeliveryDisplay } from '../cac/DeliveryDisplay'
+import { DeliveryTermsDisplay } from '../cac/DeliveryTermsDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { ExchangeRateDisplay } from '../cac/ExchangeRateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { InvoiceLineDisplay } from '../cac/InvoiceLineDisplay'
+import { MonetaryTotalDisplay } from '../cac/MonetaryTotalDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { OrderReferenceDisplay } from '../cac/OrderReferenceDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { PaymentDisplay } from '../cac/PaymentDisplay'
+import { PaymentMeansDisplay } from '../cac/PaymentMeansDisplay'
+import { PaymentTermsDisplay } from '../cac/PaymentTermsDisplay'
+import { PeriodDisplay } from '../cac/PeriodDisplay'
+import { ProjectReferenceDisplay } from '../cac/ProjectReferenceDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { SupplierPartyDisplay } from '../cac/SupplierPartyDisplay'
+import { TaxTotalDisplay } from '../cac/TaxTotalDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: SelfBilledInvoice | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<SelfBilledInvoice, void>
+  selfBilledInvoice: SelfBilledInvoice[] | undefined
+  renderContext: RenderContext
 }
 
-export default function SelfBilledInvoiceDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const SelfBilledInvoiceSubElementsMap: SubElementsTemplatesMap<SelfBilledInvoiceField, SelfBilledInvoice, void> = new Map([
+    [
+      SelfBilledInvoiceField.UBLExtensions,
+      { meta: SelfBilledInvoiceFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={SelfBilledInvoiceField.UBLExtensions}
+          meta={SelfBilledInvoiceFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-SelfBilledInvoice">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={SelfBilledInvoiceFieldMeta.UBLExtensions}
-          />
+    [
+      SelfBilledInvoiceField.UBLVersionID,
+      { meta: SelfBilledInvoiceFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={SelfBilledInvoiceField.UBLVersionID}
+          meta={SelfBilledInvoiceFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={SelfBilledInvoiceFieldMeta.UBLVersionID}
-          />
+    [
+      SelfBilledInvoiceField.CustomizationID,
+      { meta: SelfBilledInvoiceFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={SelfBilledInvoiceField.CustomizationID}
+          meta={SelfBilledInvoiceFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={SelfBilledInvoiceFieldMeta.CustomizationID}
-          />
+    [
+      SelfBilledInvoiceField.ProfileID,
+      { meta: SelfBilledInvoiceFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={SelfBilledInvoiceField.ProfileID}
+          meta={SelfBilledInvoiceFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={SelfBilledInvoiceFieldMeta.ProfileID}
-          />
+    [
+      SelfBilledInvoiceField.ProfileExecutionID,
+      { meta: SelfBilledInvoiceFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={SelfBilledInvoiceField.ProfileExecutionID}
+          meta={SelfBilledInvoiceFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={SelfBilledInvoiceFieldMeta.ProfileExecutionID}
-          />
+    [
+      SelfBilledInvoiceField.ID,
+      { meta: SelfBilledInvoiceFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={SelfBilledInvoiceField.ID}
+          meta={SelfBilledInvoiceFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={SelfBilledInvoiceFieldMeta.ID}
-          />
+    [
+      SelfBilledInvoiceField.CopyIndicator,
+      { meta: SelfBilledInvoiceFieldMeta.CopyIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={SelfBilledInvoiceField.CopyIndicator}
+          meta={SelfBilledInvoiceFieldMeta.CopyIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.CopyIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Copy Indicator"
-            value={value.CopyIndicator?.[0]}
-            meta={SelfBilledInvoiceFieldMeta.CopyIndicator}
-          />
+    [
+      SelfBilledInvoiceField.UUID,
+      { meta: SelfBilledInvoiceFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={SelfBilledInvoiceField.UUID}
+          meta={SelfBilledInvoiceFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={SelfBilledInvoiceFieldMeta.UUID}
-          />
+    [
+      SelfBilledInvoiceField.IssueDate,
+      { meta: SelfBilledInvoiceFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={SelfBilledInvoiceField.IssueDate}
+          meta={SelfBilledInvoiceFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={SelfBilledInvoiceFieldMeta.IssueDate}
-          />
+    [
+      SelfBilledInvoiceField.IssueTime,
+      { meta: SelfBilledInvoiceFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={SelfBilledInvoiceField.IssueTime}
+          meta={SelfBilledInvoiceFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={SelfBilledInvoiceFieldMeta.IssueTime}
-          />
+    [
+      SelfBilledInvoiceField.DueDate,
+      { meta: SelfBilledInvoiceFieldMeta.DueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={SelfBilledInvoiceField.DueDate}
+          meta={SelfBilledInvoiceFieldMeta.DueDate}
+          fieldConfig={fieldConfig}
+          date={value?.DueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Due Date"
-            value={value.DueDate?.[0]}
-            meta={SelfBilledInvoiceFieldMeta.DueDate}
-          />
+    [
+      SelfBilledInvoiceField.TaxPointDate,
+      { meta: SelfBilledInvoiceFieldMeta.TaxPointDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={SelfBilledInvoiceField.TaxPointDate}
+          meta={SelfBilledInvoiceFieldMeta.TaxPointDate}
+          fieldConfig={fieldConfig}
+          date={value?.TaxPointDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Tax Point Date"
-            value={value.TaxPointDate?.[0]}
-            meta={SelfBilledInvoiceFieldMeta.TaxPointDate}
-          />
+    [
+      SelfBilledInvoiceField.InvoiceTypeCode,
+      { meta: SelfBilledInvoiceFieldMeta.InvoiceTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={SelfBilledInvoiceField.InvoiceTypeCode}
+          meta={SelfBilledInvoiceFieldMeta.InvoiceTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.InvoiceTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Invoice Type Code"
-            value={value.InvoiceTypeCode?.[0]}
-            meta={SelfBilledInvoiceFieldMeta.InvoiceTypeCode}
-          />
+    [
+      SelfBilledInvoiceField.Note,
+      { meta: SelfBilledInvoiceFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={SelfBilledInvoiceField.Note}
+          meta={SelfBilledInvoiceFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={SelfBilledInvoiceFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={SelfBilledInvoiceFieldMeta.Note}
-              />
-            }
-          />
+    [
+      SelfBilledInvoiceField.DocumentCurrencyCode,
+      { meta: SelfBilledInvoiceFieldMeta.DocumentCurrencyCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={SelfBilledInvoiceField.DocumentCurrencyCode}
+          meta={SelfBilledInvoiceFieldMeta.DocumentCurrencyCode}
+          fieldConfig={fieldConfig}
+          code={value?.DocumentCurrencyCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Document Currency Code"
-            value={value.DocumentCurrencyCode?.[0]}
-            meta={SelfBilledInvoiceFieldMeta.DocumentCurrencyCode}
-          />
+    [
+      SelfBilledInvoiceField.TaxCurrencyCode,
+      { meta: SelfBilledInvoiceFieldMeta.TaxCurrencyCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={SelfBilledInvoiceField.TaxCurrencyCode}
+          meta={SelfBilledInvoiceFieldMeta.TaxCurrencyCode}
+          fieldConfig={fieldConfig}
+          code={value?.TaxCurrencyCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Tax Currency Code"
-            value={value.TaxCurrencyCode?.[0]}
-            meta={SelfBilledInvoiceFieldMeta.TaxCurrencyCode}
-          />
+    [
+      SelfBilledInvoiceField.PricingCurrencyCode,
+      { meta: SelfBilledInvoiceFieldMeta.PricingCurrencyCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={SelfBilledInvoiceField.PricingCurrencyCode}
+          meta={SelfBilledInvoiceFieldMeta.PricingCurrencyCode}
+          fieldConfig={fieldConfig}
+          code={value?.PricingCurrencyCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Pricing Currency Code"
-            value={value.PricingCurrencyCode?.[0]}
-            meta={SelfBilledInvoiceFieldMeta.PricingCurrencyCode}
-          />
+    [
+      SelfBilledInvoiceField.PaymentCurrencyCode,
+      { meta: SelfBilledInvoiceFieldMeta.PaymentCurrencyCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={SelfBilledInvoiceField.PaymentCurrencyCode}
+          meta={SelfBilledInvoiceFieldMeta.PaymentCurrencyCode}
+          fieldConfig={fieldConfig}
+          code={value?.PaymentCurrencyCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Payment Currency Code"
-            value={value.PaymentCurrencyCode?.[0]}
-            meta={SelfBilledInvoiceFieldMeta.PaymentCurrencyCode}
-          />
+    [
+      SelfBilledInvoiceField.PaymentAlternativeCurrencyCode,
+      { meta: SelfBilledInvoiceFieldMeta.PaymentAlternativeCurrencyCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={SelfBilledInvoiceField.PaymentAlternativeCurrencyCode}
+          meta={SelfBilledInvoiceFieldMeta.PaymentAlternativeCurrencyCode}
+          fieldConfig={fieldConfig}
+          code={value?.PaymentAlternativeCurrencyCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Payment Alternative Currency Code"
-            value={value.PaymentAlternativeCurrencyCode?.[0]}
-            meta={SelfBilledInvoiceFieldMeta.PaymentAlternativeCurrencyCode}
-          />
+    [
+      SelfBilledInvoiceField.AccountingCostCode,
+      { meta: SelfBilledInvoiceFieldMeta.AccountingCostCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={SelfBilledInvoiceField.AccountingCostCode}
+          meta={SelfBilledInvoiceFieldMeta.AccountingCostCode}
+          fieldConfig={fieldConfig}
+          code={value?.AccountingCostCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Accounting Cost Code"
-            value={value.AccountingCostCode?.[0]}
-            meta={SelfBilledInvoiceFieldMeta.AccountingCostCode}
-          />
+    [
+      SelfBilledInvoiceField.AccountingCost,
+      { meta: SelfBilledInvoiceFieldMeta.AccountingCost,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={SelfBilledInvoiceField.AccountingCost}
+          meta={SelfBilledInvoiceFieldMeta.AccountingCost}
+          fieldConfig={fieldConfig}
+          text={value?.AccountingCost}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Accounting Cost"
-            value={value.AccountingCost?.[0]}
-            meta={SelfBilledInvoiceFieldMeta.AccountingCost}
-          />
+    [
+      SelfBilledInvoiceField.LineCountNumeric,
+      { meta: SelfBilledInvoiceFieldMeta.LineCountNumeric,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={SelfBilledInvoiceField.LineCountNumeric}
+          meta={SelfBilledInvoiceFieldMeta.LineCountNumeric}
+          fieldConfig={fieldConfig}
+          numeric={value?.LineCountNumeric}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Line Count"
-            value={value.LineCountNumeric?.[0]}
-            meta={SelfBilledInvoiceFieldMeta.LineCountNumeric}
-          />
+    [
+      SelfBilledInvoiceField.BuyerReference,
+      { meta: SelfBilledInvoiceFieldMeta.BuyerReference,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={SelfBilledInvoiceField.BuyerReference}
+          meta={SelfBilledInvoiceFieldMeta.BuyerReference}
+          fieldConfig={fieldConfig}
+          text={value?.BuyerReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Buyer Reference"
-            value={value.BuyerReference?.[0]}
-            meta={SelfBilledInvoiceFieldMeta.BuyerReference}
-          />
+    [
+      SelfBilledInvoiceField.InvoicePeriod,
+      { meta: SelfBilledInvoiceFieldMeta.InvoicePeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={SelfBilledInvoiceField.InvoicePeriod}
+          meta={SelfBilledInvoiceFieldMeta.InvoicePeriod}
+          fieldConfig={fieldConfig}
+          period={value?.InvoicePeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Period ubl-InvoicePeriod"
-            label="Invoice Period"
-            items={value.InvoicePeriod}
-            meta={SelfBilledInvoiceFieldMeta.InvoicePeriod} 
-            itemDisplay={ (itemValue: Period, key: string | number) =>
-              <PeriodDisplay
-                key={key}
-                label="Invoice Period"
-                value={itemValue}
-                meta={SelfBilledInvoiceFieldMeta.InvoicePeriod}
-              />
-            }
-          />
+    [
+      SelfBilledInvoiceField.OrderReference,
+      { meta: SelfBilledInvoiceFieldMeta.OrderReference,
+        template: ({value, renderContext, fieldConfig}) => <OrderReferenceDisplay
+          key={SelfBilledInvoiceField.OrderReference}
+          meta={SelfBilledInvoiceFieldMeta.OrderReference}
+          fieldConfig={fieldConfig}
+          orderReference={value?.OrderReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <OrderReferenceDisplay
-            label="Order Reference"
-            value={value.OrderReference?.[0]}
-            meta={SelfBilledInvoiceFieldMeta.OrderReference}
-          />
+    [
+      SelfBilledInvoiceField.BillingReference,
+      { meta: SelfBilledInvoiceFieldMeta.BillingReference,
+        template: ({value, renderContext, fieldConfig}) => <BillingReferenceDisplay
+          key={SelfBilledInvoiceField.BillingReference}
+          meta={SelfBilledInvoiceFieldMeta.BillingReference}
+          fieldConfig={fieldConfig}
+          billingReference={value?.BillingReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-BillingReference"
-            label="Billing Reference"
-            items={value.BillingReference}
-            meta={SelfBilledInvoiceFieldMeta.BillingReference} 
-            itemDisplay={ (itemValue: BillingReference, key: string | number) =>
-              <BillingReferenceDisplay
-                key={key}
-                label="Billing Reference"
-                value={itemValue}
-                meta={SelfBilledInvoiceFieldMeta.BillingReference}
-              />
-            }
-          />
+    [
+      SelfBilledInvoiceField.ContractDocumentReference,
+      { meta: SelfBilledInvoiceFieldMeta.ContractDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={SelfBilledInvoiceField.ContractDocumentReference}
+          meta={SelfBilledInvoiceFieldMeta.ContractDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.ContractDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-ContractDocumentReference"
-            label="Contract Document Reference"
-            items={value.ContractDocumentReference}
-            meta={SelfBilledInvoiceFieldMeta.ContractDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Contract Document Reference"
-                value={itemValue}
-                meta={SelfBilledInvoiceFieldMeta.ContractDocumentReference}
-              />
-            }
-          />
+    [
+      SelfBilledInvoiceField.DespatchDocumentReference,
+      { meta: SelfBilledInvoiceFieldMeta.DespatchDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={SelfBilledInvoiceField.DespatchDocumentReference}
+          meta={SelfBilledInvoiceFieldMeta.DespatchDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.DespatchDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-DespatchDocumentReference"
-            label="Despatch Document Reference"
-            items={value.DespatchDocumentReference}
-            meta={SelfBilledInvoiceFieldMeta.DespatchDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Despatch Document Reference"
-                value={itemValue}
-                meta={SelfBilledInvoiceFieldMeta.DespatchDocumentReference}
-              />
-            }
-          />
+    [
+      SelfBilledInvoiceField.ReceiptDocumentReference,
+      { meta: SelfBilledInvoiceFieldMeta.ReceiptDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={SelfBilledInvoiceField.ReceiptDocumentReference}
+          meta={SelfBilledInvoiceFieldMeta.ReceiptDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.ReceiptDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-ReceiptDocumentReference"
-            label="Receipt Document Reference"
-            items={value.ReceiptDocumentReference}
-            meta={SelfBilledInvoiceFieldMeta.ReceiptDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Receipt Document Reference"
-                value={itemValue}
-                meta={SelfBilledInvoiceFieldMeta.ReceiptDocumentReference}
-              />
-            }
-          />
+    [
+      SelfBilledInvoiceField.StatementDocumentReference,
+      { meta: SelfBilledInvoiceFieldMeta.StatementDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={SelfBilledInvoiceField.StatementDocumentReference}
+          meta={SelfBilledInvoiceFieldMeta.StatementDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.StatementDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-StatementDocumentReference"
-            label="Statement Document Reference"
-            items={value.StatementDocumentReference}
-            meta={SelfBilledInvoiceFieldMeta.StatementDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Statement Document Reference"
-                value={itemValue}
-                meta={SelfBilledInvoiceFieldMeta.StatementDocumentReference}
-              />
-            }
-          />
+    [
+      SelfBilledInvoiceField.OriginatorDocumentReference,
+      { meta: SelfBilledInvoiceFieldMeta.OriginatorDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={SelfBilledInvoiceField.OriginatorDocumentReference}
+          meta={SelfBilledInvoiceFieldMeta.OriginatorDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.OriginatorDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-OriginatorDocumentReference"
-            label="Originator Document Reference"
-            items={value.OriginatorDocumentReference}
-            meta={SelfBilledInvoiceFieldMeta.OriginatorDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Originator Document Reference"
-                value={itemValue}
-                meta={SelfBilledInvoiceFieldMeta.OriginatorDocumentReference}
-              />
-            }
-          />
+    [
+      SelfBilledInvoiceField.AdditionalDocumentReference,
+      { meta: SelfBilledInvoiceFieldMeta.AdditionalDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={SelfBilledInvoiceField.AdditionalDocumentReference}
+          meta={SelfBilledInvoiceFieldMeta.AdditionalDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.AdditionalDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-AdditionalDocumentReference"
-            label="Additional Document Reference"
-            items={value.AdditionalDocumentReference}
-            meta={SelfBilledInvoiceFieldMeta.AdditionalDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Additional Document Reference"
-                value={itemValue}
-                meta={SelfBilledInvoiceFieldMeta.AdditionalDocumentReference}
-              />
-            }
-          />
+    [
+      SelfBilledInvoiceField.ProjectReference,
+      { meta: SelfBilledInvoiceFieldMeta.ProjectReference,
+        template: ({value, renderContext, fieldConfig}) => <ProjectReferenceDisplay
+          key={SelfBilledInvoiceField.ProjectReference}
+          meta={SelfBilledInvoiceFieldMeta.ProjectReference}
+          fieldConfig={fieldConfig}
+          projectReference={value?.ProjectReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-ProjectReference"
-            label="Project Reference"
-            items={value.ProjectReference}
-            meta={SelfBilledInvoiceFieldMeta.ProjectReference} 
-            itemDisplay={ (itemValue: ProjectReference, key: string | number) =>
-              <ProjectReferenceDisplay
-                key={key}
-                label="Project Reference"
-                value={itemValue}
-                meta={SelfBilledInvoiceFieldMeta.ProjectReference}
-              />
-            }
-          />
+    [
+      SelfBilledInvoiceField.Signature,
+      { meta: SelfBilledInvoiceFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={SelfBilledInvoiceField.Signature}
+          meta={SelfBilledInvoiceFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={SelfBilledInvoiceFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={SelfBilledInvoiceFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      SelfBilledInvoiceField.AccountingCustomerParty,
+      { meta: SelfBilledInvoiceFieldMeta.AccountingCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={SelfBilledInvoiceField.AccountingCustomerParty}
+          meta={SelfBilledInvoiceFieldMeta.AccountingCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.AccountingCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomerPartyDisplay
-            label="Accounting Customer Party"
-            value={value.AccountingCustomerParty?.[0]}
-            meta={SelfBilledInvoiceFieldMeta.AccountingCustomerParty}
-          />
+    [
+      SelfBilledInvoiceField.AccountingSupplierParty,
+      { meta: SelfBilledInvoiceFieldMeta.AccountingSupplierParty,
+        template: ({value, renderContext, fieldConfig}) => <SupplierPartyDisplay
+          key={SelfBilledInvoiceField.AccountingSupplierParty}
+          meta={SelfBilledInvoiceFieldMeta.AccountingSupplierParty}
+          fieldConfig={fieldConfig}
+          supplierParty={value?.AccountingSupplierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <SupplierPartyDisplay
-            label="Accounting Supplier Party"
-            value={value.AccountingSupplierParty?.[0]}
-            meta={SelfBilledInvoiceFieldMeta.AccountingSupplierParty}
-          />
+    [
+      SelfBilledInvoiceField.BuyerCustomerParty,
+      { meta: SelfBilledInvoiceFieldMeta.BuyerCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={SelfBilledInvoiceField.BuyerCustomerParty}
+          meta={SelfBilledInvoiceFieldMeta.BuyerCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.BuyerCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomerPartyDisplay
-            label="Buyer Customer Party"
-            value={value.BuyerCustomerParty?.[0]}
-            meta={SelfBilledInvoiceFieldMeta.BuyerCustomerParty}
-          />
+    [
+      SelfBilledInvoiceField.SellerSupplierParty,
+      { meta: SelfBilledInvoiceFieldMeta.SellerSupplierParty,
+        template: ({value, renderContext, fieldConfig}) => <SupplierPartyDisplay
+          key={SelfBilledInvoiceField.SellerSupplierParty}
+          meta={SelfBilledInvoiceFieldMeta.SellerSupplierParty}
+          fieldConfig={fieldConfig}
+          supplierParty={value?.SellerSupplierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <SupplierPartyDisplay
-            label="Seller Supplier Party"
-            value={value.SellerSupplierParty?.[0]}
-            meta={SelfBilledInvoiceFieldMeta.SellerSupplierParty}
-          />
+    [
+      SelfBilledInvoiceField.PayeeParty,
+      { meta: SelfBilledInvoiceFieldMeta.PayeeParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={SelfBilledInvoiceField.PayeeParty}
+          meta={SelfBilledInvoiceFieldMeta.PayeeParty}
+          fieldConfig={fieldConfig}
+          party={value?.PayeeParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Payee Party"
-            value={value.PayeeParty?.[0]}
-            meta={SelfBilledInvoiceFieldMeta.PayeeParty}
-          />
+    [
+      SelfBilledInvoiceField.TaxRepresentativeParty,
+      { meta: SelfBilledInvoiceFieldMeta.TaxRepresentativeParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={SelfBilledInvoiceField.TaxRepresentativeParty}
+          meta={SelfBilledInvoiceFieldMeta.TaxRepresentativeParty}
+          fieldConfig={fieldConfig}
+          party={value?.TaxRepresentativeParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Tax Representative Party"
-            value={value.TaxRepresentativeParty?.[0]}
-            meta={SelfBilledInvoiceFieldMeta.TaxRepresentativeParty}
-          />
+    [
+      SelfBilledInvoiceField.Delivery,
+      { meta: SelfBilledInvoiceFieldMeta.Delivery,
+        template: ({value, renderContext, fieldConfig}) => <DeliveryDisplay
+          key={SelfBilledInvoiceField.Delivery}
+          meta={SelfBilledInvoiceFieldMeta.Delivery}
+          fieldConfig={fieldConfig}
+          delivery={value?.Delivery}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Delivery"
-            label="Delivery"
-            items={value.Delivery}
-            meta={SelfBilledInvoiceFieldMeta.Delivery} 
-            itemDisplay={ (itemValue: Delivery, key: string | number) =>
-              <DeliveryDisplay
-                key={key}
-                label="Delivery"
-                value={itemValue}
-                meta={SelfBilledInvoiceFieldMeta.Delivery}
-              />
-            }
-          />
+    [
+      SelfBilledInvoiceField.DeliveryTerms,
+      { meta: SelfBilledInvoiceFieldMeta.DeliveryTerms,
+        template: ({value, renderContext, fieldConfig}) => <DeliveryTermsDisplay
+          key={SelfBilledInvoiceField.DeliveryTerms}
+          meta={SelfBilledInvoiceFieldMeta.DeliveryTerms}
+          fieldConfig={fieldConfig}
+          deliveryTerms={value?.DeliveryTerms}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DeliveryTerms"
-            label="Delivery Terms"
-            items={value.DeliveryTerms}
-            meta={SelfBilledInvoiceFieldMeta.DeliveryTerms} 
-            itemDisplay={ (itemValue: DeliveryTerms, key: string | number) =>
-              <DeliveryTermsDisplay
-                key={key}
-                label="Delivery Terms"
-                value={itemValue}
-                meta={SelfBilledInvoiceFieldMeta.DeliveryTerms}
-              />
-            }
-          />
+    [
+      SelfBilledInvoiceField.PaymentMeans,
+      { meta: SelfBilledInvoiceFieldMeta.PaymentMeans,
+        template: ({value, renderContext, fieldConfig}) => <PaymentMeansDisplay
+          key={SelfBilledInvoiceField.PaymentMeans}
+          meta={SelfBilledInvoiceFieldMeta.PaymentMeans}
+          fieldConfig={fieldConfig}
+          paymentMeans={value?.PaymentMeans}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PaymentMeansDisplay
-            label="Payment Means"
-            value={value.PaymentMeans?.[0]}
-            meta={SelfBilledInvoiceFieldMeta.PaymentMeans}
-          />
+    [
+      SelfBilledInvoiceField.PaymentTerms,
+      { meta: SelfBilledInvoiceFieldMeta.PaymentTerms,
+        template: ({value, renderContext, fieldConfig}) => <PaymentTermsDisplay
+          key={SelfBilledInvoiceField.PaymentTerms}
+          meta={SelfBilledInvoiceFieldMeta.PaymentTerms}
+          fieldConfig={fieldConfig}
+          paymentTerms={value?.PaymentTerms}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-PaymentTerms"
-            label="Payment Terms"
-            items={value.PaymentTerms}
-            meta={SelfBilledInvoiceFieldMeta.PaymentTerms} 
-            itemDisplay={ (itemValue: PaymentTerms, key: string | number) =>
-              <PaymentTermsDisplay
-                key={key}
-                label="Payment Terms"
-                value={itemValue}
-                meta={SelfBilledInvoiceFieldMeta.PaymentTerms}
-              />
-            }
-          />
+    [
+      SelfBilledInvoiceField.PrepaidPayment,
+      { meta: SelfBilledInvoiceFieldMeta.PrepaidPayment,
+        template: ({value, renderContext, fieldConfig}) => <PaymentDisplay
+          key={SelfBilledInvoiceField.PrepaidPayment}
+          meta={SelfBilledInvoiceFieldMeta.PrepaidPayment}
+          fieldConfig={fieldConfig}
+          payment={value?.PrepaidPayment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Payment ubl-PrepaidPayment"
-            label="Prepaid Payment"
-            items={value.PrepaidPayment}
-            meta={SelfBilledInvoiceFieldMeta.PrepaidPayment} 
-            itemDisplay={ (itemValue: Payment, key: string | number) =>
-              <PaymentDisplay
-                key={key}
-                label="Prepaid Payment"
-                value={itemValue}
-                meta={SelfBilledInvoiceFieldMeta.PrepaidPayment}
-              />
-            }
-          />
+    [
+      SelfBilledInvoiceField.AllowanceCharge,
+      { meta: SelfBilledInvoiceFieldMeta.AllowanceCharge,
+        template: ({value, renderContext, fieldConfig}) => <AllowanceChargeDisplay
+          key={SelfBilledInvoiceField.AllowanceCharge}
+          meta={SelfBilledInvoiceFieldMeta.AllowanceCharge}
+          fieldConfig={fieldConfig}
+          allowanceCharge={value?.AllowanceCharge}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-AllowanceCharge"
-            label="Allowance Charge"
-            items={value.AllowanceCharge}
-            meta={SelfBilledInvoiceFieldMeta.AllowanceCharge} 
-            itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-              <AllowanceChargeDisplay
-                key={key}
-                label="Allowance Charge"
-                value={itemValue}
-                meta={SelfBilledInvoiceFieldMeta.AllowanceCharge}
-              />
-            }
-          />
+    [
+      SelfBilledInvoiceField.TaxExchangeRate,
+      { meta: SelfBilledInvoiceFieldMeta.TaxExchangeRate,
+        template: ({value, renderContext, fieldConfig}) => <ExchangeRateDisplay
+          key={SelfBilledInvoiceField.TaxExchangeRate}
+          meta={SelfBilledInvoiceFieldMeta.TaxExchangeRate}
+          fieldConfig={fieldConfig}
+          exchangeRate={value?.TaxExchangeRate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ExchangeRateDisplay
-            label="Tax Exchange Rate"
-            value={value.TaxExchangeRate?.[0]}
-            meta={SelfBilledInvoiceFieldMeta.TaxExchangeRate}
-          />
+    [
+      SelfBilledInvoiceField.PricingExchangeRate,
+      { meta: SelfBilledInvoiceFieldMeta.PricingExchangeRate,
+        template: ({value, renderContext, fieldConfig}) => <ExchangeRateDisplay
+          key={SelfBilledInvoiceField.PricingExchangeRate}
+          meta={SelfBilledInvoiceFieldMeta.PricingExchangeRate}
+          fieldConfig={fieldConfig}
+          exchangeRate={value?.PricingExchangeRate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ExchangeRateDisplay
-            label="Pricing Exchange Rate"
-            value={value.PricingExchangeRate?.[0]}
-            meta={SelfBilledInvoiceFieldMeta.PricingExchangeRate}
-          />
+    [
+      SelfBilledInvoiceField.PaymentExchangeRate,
+      { meta: SelfBilledInvoiceFieldMeta.PaymentExchangeRate,
+        template: ({value, renderContext, fieldConfig}) => <ExchangeRateDisplay
+          key={SelfBilledInvoiceField.PaymentExchangeRate}
+          meta={SelfBilledInvoiceFieldMeta.PaymentExchangeRate}
+          fieldConfig={fieldConfig}
+          exchangeRate={value?.PaymentExchangeRate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ExchangeRateDisplay
-            label="Payment Exchange Rate"
-            value={value.PaymentExchangeRate?.[0]}
-            meta={SelfBilledInvoiceFieldMeta.PaymentExchangeRate}
-          />
+    [
+      SelfBilledInvoiceField.PaymentAlternativeExchangeRate,
+      { meta: SelfBilledInvoiceFieldMeta.PaymentAlternativeExchangeRate,
+        template: ({value, renderContext, fieldConfig}) => <ExchangeRateDisplay
+          key={SelfBilledInvoiceField.PaymentAlternativeExchangeRate}
+          meta={SelfBilledInvoiceFieldMeta.PaymentAlternativeExchangeRate}
+          fieldConfig={fieldConfig}
+          exchangeRate={value?.PaymentAlternativeExchangeRate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ExchangeRateDisplay
-            label="Payment Alternative Exchange Rate"
-            value={value.PaymentAlternativeExchangeRate?.[0]}
-            meta={SelfBilledInvoiceFieldMeta.PaymentAlternativeExchangeRate}
-          />
+    [
+      SelfBilledInvoiceField.TaxTotal,
+      { meta: SelfBilledInvoiceFieldMeta.TaxTotal,
+        template: ({value, renderContext, fieldConfig}) => <TaxTotalDisplay
+          key={SelfBilledInvoiceField.TaxTotal}
+          meta={SelfBilledInvoiceFieldMeta.TaxTotal}
+          fieldConfig={fieldConfig}
+          taxTotal={value?.TaxTotal}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-TaxTotal"
-            label="Tax Total"
-            items={value.TaxTotal}
-            meta={SelfBilledInvoiceFieldMeta.TaxTotal} 
-            itemDisplay={ (itemValue: TaxTotal, key: string | number) =>
-              <TaxTotalDisplay
-                key={key}
-                label="Tax Total"
-                value={itemValue}
-                meta={SelfBilledInvoiceFieldMeta.TaxTotal}
-              />
-            }
-          />
+    [
+      SelfBilledInvoiceField.WithholdingTaxTotal,
+      { meta: SelfBilledInvoiceFieldMeta.WithholdingTaxTotal,
+        template: ({value, renderContext, fieldConfig}) => <TaxTotalDisplay
+          key={SelfBilledInvoiceField.WithholdingTaxTotal}
+          meta={SelfBilledInvoiceFieldMeta.WithholdingTaxTotal}
+          fieldConfig={fieldConfig}
+          taxTotal={value?.WithholdingTaxTotal}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-TaxTotal ubl-WithholdingTaxTotal"
-            label="Withholding Tax Total"
-            items={value.WithholdingTaxTotal}
-            meta={SelfBilledInvoiceFieldMeta.WithholdingTaxTotal} 
-            itemDisplay={ (itemValue: TaxTotal, key: string | number) =>
-              <TaxTotalDisplay
-                key={key}
-                label="Withholding Tax Total"
-                value={itemValue}
-                meta={SelfBilledInvoiceFieldMeta.WithholdingTaxTotal}
-              />
-            }
-          />
+    [
+      SelfBilledInvoiceField.LegalMonetaryTotal,
+      { meta: SelfBilledInvoiceFieldMeta.LegalMonetaryTotal,
+        template: ({value, renderContext, fieldConfig}) => <MonetaryTotalDisplay
+          key={SelfBilledInvoiceField.LegalMonetaryTotal}
+          meta={SelfBilledInvoiceFieldMeta.LegalMonetaryTotal}
+          fieldConfig={fieldConfig}
+          monetaryTotal={value?.LegalMonetaryTotal}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MonetaryTotalDisplay
-            label="Legal Monetary Total"
-            value={value.LegalMonetaryTotal?.[0]}
-            meta={SelfBilledInvoiceFieldMeta.LegalMonetaryTotal}
-          />
+    [
+      SelfBilledInvoiceField.InvoiceLine,
+      { meta: SelfBilledInvoiceFieldMeta.InvoiceLine,
+        template: ({value, renderContext, fieldConfig}) => <InvoiceLineDisplay
+          key={SelfBilledInvoiceField.InvoiceLine}
+          meta={SelfBilledInvoiceFieldMeta.InvoiceLine}
+          fieldConfig={fieldConfig}
+          invoiceLine={value?.InvoiceLine}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-InvoiceLine"
-            label="Invoice Line"
-            items={value.InvoiceLine}
-            meta={SelfBilledInvoiceFieldMeta.InvoiceLine} 
-            itemDisplay={ (itemValue: InvoiceLine, key: string | number) =>
-              <InvoiceLineDisplay
-                key={key}
-                label="Invoice Line"
-                value={itemValue}
-                meta={SelfBilledInvoiceFieldMeta.InvoiceLine}
-              />
-            }
-          />
-        </div>
-    </div>
+export function SelfBilledInvoiceDisplay<TFieldMeta>({ meta, fieldConfig, selfBilledInvoice, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    SelfBilledInvoiceTypeName,
+    meta,
+    fieldConfig,
+    selfBilledInvoice,
+    renderContext,
+    SelfBilledInvoiceSubElementsMap,
   )
 }

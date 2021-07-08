@@ -1,4 +1,16 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AllowanceChargeType } from './AllowanceChargeMeta'
+import { AmountType } from '../cbc/AmountMeta'
+import { DeliveryType } from './DeliveryMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { PeriodType } from './PeriodMeta'
+import { PriceType } from './PriceMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { TaxTotalType } from './TaxTotalMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
+import { UnstructuredPriceType } from './UnstructuredPriceMeta'
+import { UtilityItemType } from './UtilityItemMeta'
 
 export enum ConsumptionLineField {
   UBLExtensions = 'UBLExtensions',
@@ -19,11 +31,11 @@ export enum ConsumptionLineField {
 export const ConsumptionLineFieldMetaUBLExtensions = new FieldMeta<ConsumptionLineField>(
   ConsumptionLineField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -32,10 +44,10 @@ export const ConsumptionLineFieldMetaID = new FieldMeta<ConsumptionLineField>(
   ConsumptionLineField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this consumption line.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   '1'
 )
@@ -44,10 +56,10 @@ export const ConsumptionLineFieldMetaParentDocumentLineReferenceID = new FieldMe
   ConsumptionLineField.ParentDocumentLineReferenceID,
   'ParentDocumentLineReferenceID',
   'Parent Document Line Reference Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the transaction line on a related document (such as an invoice) that covers this consumption line.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Consumption'
 )
@@ -56,10 +68,10 @@ export const ConsumptionLineFieldMetaInvoicedQuantity = new FieldMeta<Consumptio
   ConsumptionLineField.InvoicedQuantity,
   'InvoicedQuantity',
   'Invoiced Quantity',
-  'Quantity',
+  QuantityType.name,
   'The quantity invoiced.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -68,10 +80,10 @@ export const ConsumptionLineFieldMetaLineExtensionAmount = new FieldMeta<Consump
   ConsumptionLineField.LineExtensionAmount,
   'LineExtensionAmount',
   'Line Extension Amount',
-  'Amount',
+  AmountType.name,
   'The monetary amount, including discount, to be charged for this consumption line.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -80,10 +92,10 @@ export const ConsumptionLineFieldMetaTaxInclusiveLineExtensionAmount = new Field
   ConsumptionLineField.TaxInclusiveLineExtensionAmount,
   'TaxInclusiveLineExtensionAmount',
   'Tax Inclusive Line Extension Amount',
-  'Amount',
+  AmountType.name,
   'The total amount for this consumption line, including all allowances, charges and taxes.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -92,10 +104,10 @@ export const ConsumptionLineFieldMetaPeriod = new FieldMeta<ConsumptionLineField
   ConsumptionLineField.Period,
   'Period',
   'Period',
-  'Period',
+  PeriodType.name,
   'The period of time covered by this consumption line.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -104,10 +116,10 @@ export const ConsumptionLineFieldMetaDelivery = new FieldMeta<ConsumptionLineFie
   ConsumptionLineField.Delivery,
   'Delivery',
   'Delivery',
-  'Delivery',
+  DeliveryType.name,
   'A delivery of the utility item on this consumption line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -116,10 +128,10 @@ export const ConsumptionLineFieldMetaAllowanceCharge = new FieldMeta<Consumption
   ConsumptionLineField.AllowanceCharge,
   'AllowanceCharge',
   'Allowance Charge',
-  'AllowanceCharge',
+  AllowanceChargeType.name,
   'An allowance or charge that applies to this consumption line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -128,10 +140,10 @@ export const ConsumptionLineFieldMetaTaxTotal = new FieldMeta<ConsumptionLineFie
   ConsumptionLineField.TaxTotal,
   'TaxTotal',
   'Tax Total',
-  'TaxTotal',
+  TaxTotalType.name,
   'A total amount of taxes of a particular kind applicable to this consumption line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -140,10 +152,10 @@ export const ConsumptionLineFieldMetaUtilityItem = new FieldMeta<ConsumptionLine
   ConsumptionLineField.UtilityItem,
   'UtilityItem',
   'Utility Item',
-  'UtilityItem',
+  UtilityItemType.name,
   'The utility item consumed.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -152,10 +164,10 @@ export const ConsumptionLineFieldMetaPrice = new FieldMeta<ConsumptionLineField>
   ConsumptionLineField.Price,
   'Price',
   'Price',
-  'Price',
+  PriceType.name,
   'The price associated with this consumption line, expressed in a data structure containing multiple properties.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -164,10 +176,10 @@ export const ConsumptionLineFieldMetaUnstructuredPrice = new FieldMeta<Consumpti
   ConsumptionLineField.UnstructuredPrice,
   'UnstructuredPrice',
   'Unstructured Price',
-  'UnstructuredPrice',
+  UnstructuredPriceType.name,
   'The price associated with this consumption line expressed in a less structured form that includes just the amount and the time of use.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -203,3 +215,11 @@ export const ConsumptionLineFieldMap = new Map([
   [ConsumptionLineField.Price, ConsumptionLineFieldMetaPrice],
   [ConsumptionLineField.UnstructuredPrice, ConsumptionLineFieldMetaUnstructuredPrice]
 ])
+
+export const ConsumptionLineType: Type<ConsumptionLineField> = {
+  name: 'ConsumptionLine',
+  label: 'Consumption Line',
+  module: TypeModule.cac,
+  definition: 'A class to describe a line item for utility consumption. To specify more than one utility item, use separate consumption lines.',
+  fields: ConsumptionLineFieldMap,
+}

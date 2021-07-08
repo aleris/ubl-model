@@ -1,231 +1,315 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { CatalogueDeletion } from  '../../model/doc/CatalogueDeletion'
-import { CatalogueDeletionFieldMeta } from  '../../meta/doc/CatalogueDeletionMeta'
-import CatalogueReferenceDisplay from '../cac/CatalogueReferenceDisplay'
-import { CatalogueReference } from '../../model/cac/CatalogueReference'
-import ContractDisplay from '../cac/ContractDisplay'
-import { Contract } from '../../model/cac/Contract'
-import CustomerPartyDisplay from '../cac/CustomerPartyDisplay'
-import { CustomerParty } from '../../model/cac/CustomerParty'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PeriodDisplay from '../cac/PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import SupplierPartyDisplay from '../cac/SupplierPartyDisplay'
-import { SupplierParty } from '../../model/cac/SupplierParty'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { CatalogueDeletionField, CatalogueDeletionFieldMeta, CatalogueDeletionTypeName } from  '../../meta/doc/CatalogueDeletionMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CatalogueReferenceDisplay } from '../cac/CatalogueReferenceDisplay'
+import { ContractDisplay } from '../cac/ContractDisplay'
+import { CustomerPartyDisplay } from '../cac/CustomerPartyDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { PeriodDisplay } from '../cac/PeriodDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { SupplierPartyDisplay } from '../cac/SupplierPartyDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: CatalogueDeletion | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<CatalogueDeletion, void>
+  catalogueDeletion: CatalogueDeletion[] | undefined
+  renderContext: RenderContext
 }
 
-export default function CatalogueDeletionDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const CatalogueDeletionSubElementsMap: SubElementsTemplatesMap<CatalogueDeletionField, CatalogueDeletion, void> = new Map([
+    [
+      CatalogueDeletionField.UBLExtensions,
+      { meta: CatalogueDeletionFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={CatalogueDeletionField.UBLExtensions}
+          meta={CatalogueDeletionFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-CatalogueDeletion">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={CatalogueDeletionFieldMeta.UBLExtensions}
-          />
+    [
+      CatalogueDeletionField.UBLVersionID,
+      { meta: CatalogueDeletionFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CatalogueDeletionField.UBLVersionID}
+          meta={CatalogueDeletionFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={CatalogueDeletionFieldMeta.UBLVersionID}
-          />
+    [
+      CatalogueDeletionField.CustomizationID,
+      { meta: CatalogueDeletionFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CatalogueDeletionField.CustomizationID}
+          meta={CatalogueDeletionFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={CatalogueDeletionFieldMeta.CustomizationID}
-          />
+    [
+      CatalogueDeletionField.ProfileID,
+      { meta: CatalogueDeletionFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CatalogueDeletionField.ProfileID}
+          meta={CatalogueDeletionFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={CatalogueDeletionFieldMeta.ProfileID}
-          />
+    [
+      CatalogueDeletionField.ProfileExecutionID,
+      { meta: CatalogueDeletionFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CatalogueDeletionField.ProfileExecutionID}
+          meta={CatalogueDeletionFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={CatalogueDeletionFieldMeta.ProfileExecutionID}
-          />
+    [
+      CatalogueDeletionField.ID,
+      { meta: CatalogueDeletionFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CatalogueDeletionField.ID}
+          meta={CatalogueDeletionFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={CatalogueDeletionFieldMeta.ID}
-          />
+    [
+      CatalogueDeletionField.UUID,
+      { meta: CatalogueDeletionFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CatalogueDeletionField.UUID}
+          meta={CatalogueDeletionFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={CatalogueDeletionFieldMeta.UUID}
-          />
+    [
+      CatalogueDeletionField.Name,
+      { meta: CatalogueDeletionFieldMeta.Name,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={CatalogueDeletionField.Name}
+          meta={CatalogueDeletionFieldMeta.Name}
+          fieldConfig={fieldConfig}
+          text={value?.Name}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Name"
-            value={value.Name?.[0]}
-            meta={CatalogueDeletionFieldMeta.Name}
-          />
+    [
+      CatalogueDeletionField.IssueDate,
+      { meta: CatalogueDeletionFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={CatalogueDeletionField.IssueDate}
+          meta={CatalogueDeletionFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={CatalogueDeletionFieldMeta.IssueDate}
-          />
+    [
+      CatalogueDeletionField.IssueTime,
+      { meta: CatalogueDeletionFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={CatalogueDeletionField.IssueTime}
+          meta={CatalogueDeletionFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={CatalogueDeletionFieldMeta.IssueTime}
-          />
+    [
+      CatalogueDeletionField.EffectiveDate,
+      { meta: CatalogueDeletionFieldMeta.EffectiveDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={CatalogueDeletionField.EffectiveDate}
+          meta={CatalogueDeletionFieldMeta.EffectiveDate}
+          fieldConfig={fieldConfig}
+          date={value?.EffectiveDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Effective Date"
-            value={value.EffectiveDate?.[0]}
-            meta={CatalogueDeletionFieldMeta.EffectiveDate}
-          />
+    [
+      CatalogueDeletionField.EffectiveTime,
+      { meta: CatalogueDeletionFieldMeta.EffectiveTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={CatalogueDeletionField.EffectiveTime}
+          meta={CatalogueDeletionFieldMeta.EffectiveTime}
+          fieldConfig={fieldConfig}
+          time={value?.EffectiveTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Effective Time"
-            value={value.EffectiveTime?.[0]}
-            meta={CatalogueDeletionFieldMeta.EffectiveTime}
-          />
+    [
+      CatalogueDeletionField.Note,
+      { meta: CatalogueDeletionFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={CatalogueDeletionField.Note}
+          meta={CatalogueDeletionFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={CatalogueDeletionFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={CatalogueDeletionFieldMeta.Note}
-              />
-            }
-          />
+    [
+      CatalogueDeletionField.VersionID,
+      { meta: CatalogueDeletionFieldMeta.VersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CatalogueDeletionField.VersionID}
+          meta={CatalogueDeletionFieldMeta.VersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.VersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Version"
-            value={value.VersionID?.[0]}
-            meta={CatalogueDeletionFieldMeta.VersionID}
-          />
+    [
+      CatalogueDeletionField.Description,
+      { meta: CatalogueDeletionFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={CatalogueDeletionField.Description}
+          meta={CatalogueDeletionFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={CatalogueDeletionFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={CatalogueDeletionFieldMeta.Description}
-              />
-            }
-          />
+    [
+      CatalogueDeletionField.ValidityPeriod,
+      { meta: CatalogueDeletionFieldMeta.ValidityPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={CatalogueDeletionField.ValidityPeriod}
+          meta={CatalogueDeletionFieldMeta.ValidityPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.ValidityPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Period ubl-ValidityPeriod"
-            label="Validity Period"
-            items={value.ValidityPeriod}
-            meta={CatalogueDeletionFieldMeta.ValidityPeriod} 
-            itemDisplay={ (itemValue: Period, key: string | number) =>
-              <PeriodDisplay
-                key={key}
-                label="Validity Period"
-                value={itemValue}
-                meta={CatalogueDeletionFieldMeta.ValidityPeriod}
-              />
-            }
-          />
+    [
+      CatalogueDeletionField.DeletedCatalogueReference,
+      { meta: CatalogueDeletionFieldMeta.DeletedCatalogueReference,
+        template: ({value, renderContext, fieldConfig}) => <CatalogueReferenceDisplay
+          key={CatalogueDeletionField.DeletedCatalogueReference}
+          meta={CatalogueDeletionFieldMeta.DeletedCatalogueReference}
+          fieldConfig={fieldConfig}
+          catalogueReference={value?.DeletedCatalogueReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CatalogueReferenceDisplay
-            label="Deleted Catalogue Reference"
-            value={value.DeletedCatalogueReference?.[0]}
-            meta={CatalogueDeletionFieldMeta.DeletedCatalogueReference}
-          />
+    [
+      CatalogueDeletionField.ReferencedContract,
+      { meta: CatalogueDeletionFieldMeta.ReferencedContract,
+        template: ({value, renderContext, fieldConfig}) => <ContractDisplay
+          key={CatalogueDeletionField.ReferencedContract}
+          meta={CatalogueDeletionFieldMeta.ReferencedContract}
+          fieldConfig={fieldConfig}
+          contract={value?.ReferencedContract}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Contract ubl-ReferencedContract"
-            label="Referenced Contract"
-            items={value.ReferencedContract}
-            meta={CatalogueDeletionFieldMeta.ReferencedContract} 
-            itemDisplay={ (itemValue: Contract, key: string | number) =>
-              <ContractDisplay
-                key={key}
-                label="Referenced Contract"
-                value={itemValue}
-                meta={CatalogueDeletionFieldMeta.ReferencedContract}
-              />
-            }
-          />
+    [
+      CatalogueDeletionField.Signature,
+      { meta: CatalogueDeletionFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={CatalogueDeletionField.Signature}
+          meta={CatalogueDeletionFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={CatalogueDeletionFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={CatalogueDeletionFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      CatalogueDeletionField.ReceiverParty,
+      { meta: CatalogueDeletionFieldMeta.ReceiverParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={CatalogueDeletionField.ReceiverParty}
+          meta={CatalogueDeletionFieldMeta.ReceiverParty}
+          fieldConfig={fieldConfig}
+          party={value?.ReceiverParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Receiver Party"
-            value={value.ReceiverParty?.[0]}
-            meta={CatalogueDeletionFieldMeta.ReceiverParty}
-          />
+    [
+      CatalogueDeletionField.ProviderParty,
+      { meta: CatalogueDeletionFieldMeta.ProviderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={CatalogueDeletionField.ProviderParty}
+          meta={CatalogueDeletionFieldMeta.ProviderParty}
+          fieldConfig={fieldConfig}
+          party={value?.ProviderParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Provider Party"
-            value={value.ProviderParty?.[0]}
-            meta={CatalogueDeletionFieldMeta.ProviderParty}
-          />
+    [
+      CatalogueDeletionField.SellerSupplierParty,
+      { meta: CatalogueDeletionFieldMeta.SellerSupplierParty,
+        template: ({value, renderContext, fieldConfig}) => <SupplierPartyDisplay
+          key={CatalogueDeletionField.SellerSupplierParty}
+          meta={CatalogueDeletionFieldMeta.SellerSupplierParty}
+          fieldConfig={fieldConfig}
+          supplierParty={value?.SellerSupplierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <SupplierPartyDisplay
-            label="Seller Supplier Party"
-            value={value.SellerSupplierParty?.[0]}
-            meta={CatalogueDeletionFieldMeta.SellerSupplierParty}
-          />
+    [
+      CatalogueDeletionField.ContractorCustomerParty,
+      { meta: CatalogueDeletionFieldMeta.ContractorCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={CatalogueDeletionField.ContractorCustomerParty}
+          meta={CatalogueDeletionFieldMeta.ContractorCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.ContractorCustomerParty}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <CustomerPartyDisplay
-            label="Contractor Customer Party"
-            value={value.ContractorCustomerParty?.[0]}
-            meta={CatalogueDeletionFieldMeta.ContractorCustomerParty}
-          />
-        </div>
-    </div>
+export function CatalogueDeletionDisplay<TFieldMeta>({ meta, fieldConfig, catalogueDeletion, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    CatalogueDeletionTypeName,
+    meta,
+    fieldConfig,
+    catalogueDeletion,
+    renderContext,
+    CatalogueDeletionSubElementsMap,
   )
 }

@@ -3,7 +3,6 @@ import { Code } from '../cbc/Code'
 import { TelecommunicationsSupplyLine } from './TelecommunicationsSupplyLine'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class describing the supply of a telecommunication service, e.g., providing telephone calls.
  */

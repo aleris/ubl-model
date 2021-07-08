@@ -1,4 +1,12 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from './DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { PartyType } from './PartyMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum PowerOfAttorneyField {
   UBLExtensions = 'UBLExtensions',
@@ -15,11 +23,11 @@ export enum PowerOfAttorneyField {
 export const PowerOfAttorneyFieldMetaUBLExtensions = new FieldMeta<PowerOfAttorneyField>(
   PowerOfAttorneyField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -28,10 +36,10 @@ export const PowerOfAttorneyFieldMetaID = new FieldMeta<PowerOfAttorneyField>(
   PowerOfAttorneyField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this power of attorney.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -40,10 +48,10 @@ export const PowerOfAttorneyFieldMetaIssueDate = new FieldMeta<PowerOfAttorneyFi
   PowerOfAttorneyField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date on which this power of attorney was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -52,10 +60,10 @@ export const PowerOfAttorneyFieldMetaIssueTime = new FieldMeta<PowerOfAttorneyFi
   PowerOfAttorneyField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time at which this power of attorney was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -64,10 +72,10 @@ export const PowerOfAttorneyFieldMetaDescription = new FieldMeta<PowerOfAttorney
   PowerOfAttorneyField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing this power of attorney.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -76,10 +84,10 @@ export const PowerOfAttorneyFieldMetaNotaryParty = new FieldMeta<PowerOfAttorney
   PowerOfAttorneyField.NotaryParty,
   'NotaryParty',
   'Notary Party',
-  'Party',
+  PartyType.name,
   'The party notarizing this power of attorney.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -88,10 +96,10 @@ export const PowerOfAttorneyFieldMetaAgentParty = new FieldMeta<PowerOfAttorneyF
   PowerOfAttorneyField.AgentParty,
   'AgentParty',
   'Agent Party',
-  'Party',
+  PartyType.name,
   'The party who acts as an agent or fiduciary for the principal and who holds this power of attorney on behalf of the principal.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -100,10 +108,10 @@ export const PowerOfAttorneyFieldMetaWitnessParty = new FieldMeta<PowerOfAttorne
   PowerOfAttorneyField.WitnessParty,
   'WitnessParty',
   'Witness Party',
-  'Party',
+  PartyType.name,
   'An association to a WitnessParty.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -112,10 +120,10 @@ export const PowerOfAttorneyFieldMetaMandateDocumentReference = new FieldMeta<Po
   PowerOfAttorneyField.MandateDocumentReference,
   'MandateDocumentReference',
   'Mandate Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a mandate associated with this power of attorney.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -143,3 +151,11 @@ export const PowerOfAttorneyFieldMap = new Map([
   [PowerOfAttorneyField.WitnessParty, PowerOfAttorneyFieldMetaWitnessParty],
   [PowerOfAttorneyField.MandateDocumentReference, PowerOfAttorneyFieldMetaMandateDocumentReference]
 ])
+
+export const PowerOfAttorneyType: Type<PowerOfAttorneyField> = {
+  name: 'PowerOfAttorney',
+  label: 'Power Of Attorney',
+  module: TypeModule.cac,
+  definition: 'A class to describe a power of attorney.',
+  fields: PowerOfAttorneyFieldMap,
+}

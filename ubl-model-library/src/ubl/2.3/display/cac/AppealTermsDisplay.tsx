@@ -1,77 +1,103 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { AppealTerms } from  '../../model/cac/AppealTerms'
-import { AppealTermsFieldMeta } from  '../../meta/cac/AppealTermsMeta'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { AppealTermsField, AppealTermsFieldMeta, AppealTermsTypeName } from  '../../meta/cac/AppealTermsMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { PartyDisplay } from './PartyDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: AppealTerms | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<AppealTerms, void>
+  appealTerms: AppealTerms[] | undefined
+  renderContext: RenderContext
 }
 
-export default function AppealTermsDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const AppealTermsSubElementsMap: SubElementsTemplatesMap<AppealTermsField, AppealTerms, void> = new Map([
+    [
+      AppealTermsField.UBLExtensions,
+      { meta: AppealTermsFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={AppealTermsField.UBLExtensions}
+          meta={AppealTermsFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-AppealTerms">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={AppealTermsFieldMeta.UBLExtensions}
-          />
+    [
+      AppealTermsField.Description,
+      { meta: AppealTermsFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={AppealTermsField.Description}
+          meta={AppealTermsFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={AppealTermsFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={AppealTermsFieldMeta.Description}
-              />
-            }
-          />
+    [
+      AppealTermsField.PresentationPeriod,
+      { meta: AppealTermsFieldMeta.PresentationPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={AppealTermsField.PresentationPeriod}
+          meta={AppealTermsFieldMeta.PresentationPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.PresentationPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Presentation Period"
-            value={value.PresentationPeriod?.[0]}
-            meta={AppealTermsFieldMeta.PresentationPeriod}
-          />
+    [
+      AppealTermsField.AppealInformationParty,
+      { meta: AppealTermsFieldMeta.AppealInformationParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={AppealTermsField.AppealInformationParty}
+          meta={AppealTermsFieldMeta.AppealInformationParty}
+          fieldConfig={fieldConfig}
+          party={value?.AppealInformationParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Appeal Information Party"
-            value={value.AppealInformationParty?.[0]}
-            meta={AppealTermsFieldMeta.AppealInformationParty}
-          />
+    [
+      AppealTermsField.AppealReceiverParty,
+      { meta: AppealTermsFieldMeta.AppealReceiverParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={AppealTermsField.AppealReceiverParty}
+          meta={AppealTermsFieldMeta.AppealReceiverParty}
+          fieldConfig={fieldConfig}
+          party={value?.AppealReceiverParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Appeal Receiver Party"
-            value={value.AppealReceiverParty?.[0]}
-            meta={AppealTermsFieldMeta.AppealReceiverParty}
-          />
+    [
+      AppealTermsField.MediationParty,
+      { meta: AppealTermsFieldMeta.MediationParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={AppealTermsField.MediationParty}
+          meta={AppealTermsFieldMeta.MediationParty}
+          fieldConfig={fieldConfig}
+          party={value?.MediationParty}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <PartyDisplay
-            label="Mediation Party"
-            value={value.MediationParty?.[0]}
-            meta={AppealTermsFieldMeta.MediationParty}
-          />
-        </div>
-    </div>
+export function AppealTermsDisplay<TFieldMeta>({ meta, fieldConfig, appealTerms, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    AppealTermsTypeName,
+    meta,
+    fieldConfig,
+    appealTerms,
+    renderContext,
+    AppealTermsSubElementsMap,
   )
 }

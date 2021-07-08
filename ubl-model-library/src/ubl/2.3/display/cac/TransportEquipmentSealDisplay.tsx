@@ -1,68 +1,103 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TransportEquipmentSeal } from  '../../model/cac/TransportEquipmentSeal'
-import { TransportEquipmentSealFieldMeta } from  '../../meta/cac/TransportEquipmentSealMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { TransportEquipmentSealField, TransportEquipmentSealFieldMeta, TransportEquipmentSealTypeName } from  '../../meta/cac/TransportEquipmentSealMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: TransportEquipmentSeal | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<TransportEquipmentSeal, void>
+  transportEquipmentSeal: TransportEquipmentSeal[] | undefined
+  renderContext: RenderContext
 }
 
-export default function TransportEquipmentSealDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const TransportEquipmentSealSubElementsMap: SubElementsTemplatesMap<TransportEquipmentSealField, TransportEquipmentSeal, void> = new Map([
+    [
+      TransportEquipmentSealField.UBLExtensions,
+      { meta: TransportEquipmentSealFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={TransportEquipmentSealField.UBLExtensions}
+          meta={TransportEquipmentSealFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-TransportEquipmentSeal">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={TransportEquipmentSealFieldMeta.UBLExtensions}
-          />
+    [
+      TransportEquipmentSealField.ID,
+      { meta: TransportEquipmentSealFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TransportEquipmentSealField.ID}
+          meta={TransportEquipmentSealFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={TransportEquipmentSealFieldMeta.ID}
-          />
+    [
+      TransportEquipmentSealField.SealIssuerTypeCode,
+      { meta: TransportEquipmentSealFieldMeta.SealIssuerTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TransportEquipmentSealField.SealIssuerTypeCode}
+          meta={TransportEquipmentSealFieldMeta.SealIssuerTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.SealIssuerTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Seal Issuer Type Code"
-            value={value.SealIssuerTypeCode?.[0]}
-            meta={TransportEquipmentSealFieldMeta.SealIssuerTypeCode}
-          />
+    [
+      TransportEquipmentSealField.Condition,
+      { meta: TransportEquipmentSealFieldMeta.Condition,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TransportEquipmentSealField.Condition}
+          meta={TransportEquipmentSealFieldMeta.Condition}
+          fieldConfig={fieldConfig}
+          text={value?.Condition}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Condition"
-            value={value.Condition?.[0]}
-            meta={TransportEquipmentSealFieldMeta.Condition}
-          />
+    [
+      TransportEquipmentSealField.SealStatusCode,
+      { meta: TransportEquipmentSealFieldMeta.SealStatusCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TransportEquipmentSealField.SealStatusCode}
+          meta={TransportEquipmentSealFieldMeta.SealStatusCode}
+          fieldConfig={fieldConfig}
+          code={value?.SealStatusCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Seal Status Code"
-            value={value.SealStatusCode?.[0]}
-            meta={TransportEquipmentSealFieldMeta.SealStatusCode}
-          />
+    [
+      TransportEquipmentSealField.SealingPartyType,
+      { meta: TransportEquipmentSealFieldMeta.SealingPartyType,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TransportEquipmentSealField.SealingPartyType}
+          meta={TransportEquipmentSealFieldMeta.SealingPartyType}
+          fieldConfig={fieldConfig}
+          text={value?.SealingPartyType}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <TextDisplay
-            label="Sealing Party Type"
-            value={value.SealingPartyType?.[0]}
-            meta={TransportEquipmentSealFieldMeta.SealingPartyType}
-          />
-        </div>
-    </div>
+export function TransportEquipmentSealDisplay<TFieldMeta>({ meta, fieldConfig, transportEquipmentSeal, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    TransportEquipmentSealTypeName,
+    meta,
+    fieldConfig,
+    transportEquipmentSeal,
+    renderContext,
+    TransportEquipmentSealSubElementsMap,
   )
 }

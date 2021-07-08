@@ -2,7 +2,6 @@ import { Date } from '../cbc/Date'
 import { Identifier } from '../cbc/Identifier'
 import { UBLExtensions } from '../ext/UBLExtensions'
 import { WorkPhaseReference } from './WorkPhaseReference'
-
 /**
  * A class to define a reference to a procurement project.
  */

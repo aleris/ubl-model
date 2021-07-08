@@ -7,7 +7,6 @@ import { Numeric } from '../cbc/Numeric'
 import { Party } from './Party'
 import { Period } from './Period'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a payment mandate.
  */

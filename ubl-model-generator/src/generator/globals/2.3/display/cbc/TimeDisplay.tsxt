@@ -1,18 +1,25 @@
 import React from 'react'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Time } from '../../model/cbc/Time'
-import FieldDisplay from '../FieldDisplay'
+import { FieldConfig } from '../FieldConfig'
+import { FieldDisplay } from '../FieldDisplay'
 
 type Props = {
-  label: string
-  value: Time | undefined
+  className: string
+  label?: string
+  time: Time | undefined
   meta: FieldMeta<any>
+  fieldConfig?: FieldConfig
 }
 
-export default function TimeDisplay({ label, value, meta }: Props) {
-  if (value === undefined) {
+export function TimeDisplay({ className, label, time, meta, fieldConfig }: Props) {
+  if (time === undefined) {
     return null
   }
-  const stringValue = value._
-  return <div className="ubl-cbc ubl-Time"><FieldDisplay label={label} value={stringValue} /></div>
+  const stringValue = time._
+  return (
+    <div className={className}>
+      <FieldDisplay label={label} value={stringValue} config={fieldConfig} />
+    </div>
+  )
 }

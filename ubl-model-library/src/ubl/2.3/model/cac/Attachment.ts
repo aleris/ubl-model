@@ -2,7 +2,6 @@ import { BinaryObject } from '../cbc/BinaryObject'
 import { ExternalReference } from './ExternalReference'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe an attached document. An attachment can refer to an external document or be included with the
  * document being exchanged.

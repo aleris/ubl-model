@@ -5,7 +5,6 @@ import { Party } from './Party'
 import { ShipmentStage } from './ShipmentStage'
 import { TransportationService } from './TransportationService'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe one segment or leg in a transportation service.
  */

@@ -1,113 +1,166 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ItemManagementProfile } from  '../../model/cac/ItemManagementProfile'
-import { ItemManagementProfileFieldMeta } from  '../../meta/cac/ItemManagementProfileMeta'
-import ItemDisplay from './ItemDisplay'
-import { Item } from '../../model/cac/Item'
-import ItemLocationQuantityDisplay from './ItemLocationQuantityDisplay'
-import { ItemLocationQuantity } from '../../model/cac/ItemLocationQuantity'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ItemManagementProfileField, ItemManagementProfileFieldMeta, ItemManagementProfileTypeName } from  '../../meta/cac/ItemManagementProfileMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { ItemDisplay } from './ItemDisplay'
+import { ItemLocationQuantityDisplay } from './ItemLocationQuantityDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ItemManagementProfile | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ItemManagementProfile, void>
+  itemManagementProfile: ItemManagementProfile[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ItemManagementProfileDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ItemManagementProfileSubElementsMap: SubElementsTemplatesMap<ItemManagementProfileField, ItemManagementProfile, void> = new Map([
+    [
+      ItemManagementProfileField.UBLExtensions,
+      { meta: ItemManagementProfileFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ItemManagementProfileField.UBLExtensions}
+          meta={ItemManagementProfileFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ItemManagementProfile">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ItemManagementProfileFieldMeta.UBLExtensions}
-          />
+    [
+      ItemManagementProfileField.FrozenPeriodDaysNumeric,
+      { meta: ItemManagementProfileFieldMeta.FrozenPeriodDaysNumeric,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={ItemManagementProfileField.FrozenPeriodDaysNumeric}
+          meta={ItemManagementProfileFieldMeta.FrozenPeriodDaysNumeric}
+          fieldConfig={fieldConfig}
+          numeric={value?.FrozenPeriodDaysNumeric}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Frozen Period Days"
-            value={value.FrozenPeriodDaysNumeric?.[0]}
-            meta={ItemManagementProfileFieldMeta.FrozenPeriodDaysNumeric}
-          />
+    [
+      ItemManagementProfileField.MinimumInventoryQuantity,
+      { meta: ItemManagementProfileFieldMeta.MinimumInventoryQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={ItemManagementProfileField.MinimumInventoryQuantity}
+          meta={ItemManagementProfileFieldMeta.MinimumInventoryQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.MinimumInventoryQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Minimum Inventory Quantity"
-            value={value.MinimumInventoryQuantity?.[0]}
-            meta={ItemManagementProfileFieldMeta.MinimumInventoryQuantity}
-          />
+    [
+      ItemManagementProfileField.MultipleOrderQuantity,
+      { meta: ItemManagementProfileFieldMeta.MultipleOrderQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={ItemManagementProfileField.MultipleOrderQuantity}
+          meta={ItemManagementProfileFieldMeta.MultipleOrderQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.MultipleOrderQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Multiple Order Quantity"
-            value={value.MultipleOrderQuantity?.[0]}
-            meta={ItemManagementProfileFieldMeta.MultipleOrderQuantity}
-          />
+    [
+      ItemManagementProfileField.OrderIntervalDaysNumeric,
+      { meta: ItemManagementProfileFieldMeta.OrderIntervalDaysNumeric,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={ItemManagementProfileField.OrderIntervalDaysNumeric}
+          meta={ItemManagementProfileFieldMeta.OrderIntervalDaysNumeric}
+          fieldConfig={fieldConfig}
+          numeric={value?.OrderIntervalDaysNumeric}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Order Interval Days"
-            value={value.OrderIntervalDaysNumeric?.[0]}
-            meta={ItemManagementProfileFieldMeta.OrderIntervalDaysNumeric}
-          />
+    [
+      ItemManagementProfileField.ReplenishmentOwnerDescription,
+      { meta: ItemManagementProfileFieldMeta.ReplenishmentOwnerDescription,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ItemManagementProfileField.ReplenishmentOwnerDescription}
+          meta={ItemManagementProfileFieldMeta.ReplenishmentOwnerDescription}
+          fieldConfig={fieldConfig}
+          text={value?.ReplenishmentOwnerDescription}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-ReplenishmentOwnerDescription"
-            label="Replenishment Owner Description"
-            items={value.ReplenishmentOwnerDescription}
-            meta={ItemManagementProfileFieldMeta.ReplenishmentOwnerDescription} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Replenishment Owner Description"
-                value={itemValue}
-                meta={ItemManagementProfileFieldMeta.ReplenishmentOwnerDescription}
-              />
-            }
-          />
+    [
+      ItemManagementProfileField.TargetServicePercent,
+      { meta: ItemManagementProfileFieldMeta.TargetServicePercent,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={ItemManagementProfileField.TargetServicePercent}
+          meta={ItemManagementProfileFieldMeta.TargetServicePercent}
+          fieldConfig={fieldConfig}
+          numeric={value?.TargetServicePercent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Target Service Percent"
-            value={value.TargetServicePercent?.[0]}
-            meta={ItemManagementProfileFieldMeta.TargetServicePercent}
-          />
+    [
+      ItemManagementProfileField.TargetInventoryQuantity,
+      { meta: ItemManagementProfileFieldMeta.TargetInventoryQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={ItemManagementProfileField.TargetInventoryQuantity}
+          meta={ItemManagementProfileFieldMeta.TargetInventoryQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.TargetInventoryQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Target Inventory Quantity"
-            value={value.TargetInventoryQuantity?.[0]}
-            meta={ItemManagementProfileFieldMeta.TargetInventoryQuantity}
-          />
+    [
+      ItemManagementProfileField.EffectivePeriod,
+      { meta: ItemManagementProfileFieldMeta.EffectivePeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={ItemManagementProfileField.EffectivePeriod}
+          meta={ItemManagementProfileFieldMeta.EffectivePeriod}
+          fieldConfig={fieldConfig}
+          period={value?.EffectivePeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Effective Period"
-            value={value.EffectivePeriod?.[0]}
-            meta={ItemManagementProfileFieldMeta.EffectivePeriod}
-          />
+    [
+      ItemManagementProfileField.Item,
+      { meta: ItemManagementProfileFieldMeta.Item,
+        template: ({value, renderContext, fieldConfig}) => <ItemDisplay
+          key={ItemManagementProfileField.Item}
+          meta={ItemManagementProfileFieldMeta.Item}
+          fieldConfig={fieldConfig}
+          item={value?.Item}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ItemDisplay
-            label="Item"
-            value={value.Item?.[0]}
-            meta={ItemManagementProfileFieldMeta.Item}
-          />
+    [
+      ItemManagementProfileField.ItemLocationQuantity,
+      { meta: ItemManagementProfileFieldMeta.ItemLocationQuantity,
+        template: ({value, renderContext, fieldConfig}) => <ItemLocationQuantityDisplay
+          key={ItemManagementProfileField.ItemLocationQuantity}
+          meta={ItemManagementProfileFieldMeta.ItemLocationQuantity}
+          fieldConfig={fieldConfig}
+          itemLocationQuantity={value?.ItemLocationQuantity}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ItemLocationQuantityDisplay
-            label="Item Location Quantity"
-            value={value.ItemLocationQuantity?.[0]}
-            meta={ItemManagementProfileFieldMeta.ItemLocationQuantity}
-          />
-        </div>
-    </div>
+export function ItemManagementProfileDisplay<TFieldMeta>({ meta, fieldConfig, itemManagementProfile, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ItemManagementProfileTypeName,
+    meta,
+    fieldConfig,
+    itemManagementProfile,
+    renderContext,
+    ItemManagementProfileSubElementsMap,
   )
 }

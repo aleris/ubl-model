@@ -6,7 +6,6 @@ import { Item } from './Item'
 import { Quantity } from '../cbc/Quantity'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to define a line in a Stock Availability Report describing the availability of an item of sale.
  */

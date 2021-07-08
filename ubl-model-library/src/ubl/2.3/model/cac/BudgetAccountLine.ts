@@ -2,7 +2,6 @@ import { Amount } from '../cbc/Amount'
 import { BudgetAccount } from './BudgetAccount'
 import { Identifier } from '../cbc/Identifier'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to define a budget account line.
  */

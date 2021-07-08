@@ -1,58 +1,89 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { EventTacticEnumeration } from  '../../model/cac/EventTacticEnumeration'
-import { EventTacticEnumerationFieldMeta } from  '../../meta/cac/EventTacticEnumerationMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { EventTacticEnumerationField, EventTacticEnumerationFieldMeta, EventTacticEnumerationTypeName } from  '../../meta/cac/EventTacticEnumerationMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: EventTacticEnumeration | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<EventTacticEnumeration, void>
+  eventTacticEnumeration: EventTacticEnumeration[] | undefined
+  renderContext: RenderContext
 }
 
-export default function EventTacticEnumerationDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const EventTacticEnumerationSubElementsMap: SubElementsTemplatesMap<EventTacticEnumerationField, EventTacticEnumeration, void> = new Map([
+    [
+      EventTacticEnumerationField.UBLExtensions,
+      { meta: EventTacticEnumerationFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={EventTacticEnumerationField.UBLExtensions}
+          meta={EventTacticEnumerationFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-EventTacticEnumeration">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={EventTacticEnumerationFieldMeta.UBLExtensions}
-          />
+    [
+      EventTacticEnumerationField.ConsumerIncentiveTacticTypeCode,
+      { meta: EventTacticEnumerationFieldMeta.ConsumerIncentiveTacticTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={EventTacticEnumerationField.ConsumerIncentiveTacticTypeCode}
+          meta={EventTacticEnumerationFieldMeta.ConsumerIncentiveTacticTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.ConsumerIncentiveTacticTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Consumer Incentive Tactic Type Code"
-            value={value.ConsumerIncentiveTacticTypeCode?.[0]}
-            meta={EventTacticEnumerationFieldMeta.ConsumerIncentiveTacticTypeCode}
-          />
+    [
+      EventTacticEnumerationField.DisplayTacticTypeCode,
+      { meta: EventTacticEnumerationFieldMeta.DisplayTacticTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={EventTacticEnumerationField.DisplayTacticTypeCode}
+          meta={EventTacticEnumerationFieldMeta.DisplayTacticTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.DisplayTacticTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Display Tactic Type Code"
-            value={value.DisplayTacticTypeCode?.[0]}
-            meta={EventTacticEnumerationFieldMeta.DisplayTacticTypeCode}
-          />
+    [
+      EventTacticEnumerationField.FeatureTacticTypeCode,
+      { meta: EventTacticEnumerationFieldMeta.FeatureTacticTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={EventTacticEnumerationField.FeatureTacticTypeCode}
+          meta={EventTacticEnumerationFieldMeta.FeatureTacticTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.FeatureTacticTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Feature Tactic Type Code"
-            value={value.FeatureTacticTypeCode?.[0]}
-            meta={EventTacticEnumerationFieldMeta.FeatureTacticTypeCode}
-          />
+    [
+      EventTacticEnumerationField.TradeItemPackingLabelingTypeCode,
+      { meta: EventTacticEnumerationFieldMeta.TradeItemPackingLabelingTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={EventTacticEnumerationField.TradeItemPackingLabelingTypeCode}
+          meta={EventTacticEnumerationFieldMeta.TradeItemPackingLabelingTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.TradeItemPackingLabelingTypeCode}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <CodeDisplay
-            label="Trade Item Packing Labeling Type Code"
-            value={value.TradeItemPackingLabelingTypeCode?.[0]}
-            meta={EventTacticEnumerationFieldMeta.TradeItemPackingLabelingTypeCode}
-          />
-        </div>
-    </div>
+export function EventTacticEnumerationDisplay<TFieldMeta>({ meta, fieldConfig, eventTacticEnumeration, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    EventTacticEnumerationTypeName,
+    meta,
+    fieldConfig,
+    eventTacticEnumeration,
+    renderContext,
+    EventTacticEnumerationSubElementsMap,
   )
 }

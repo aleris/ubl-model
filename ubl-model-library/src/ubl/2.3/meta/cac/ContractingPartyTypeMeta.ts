@@ -1,4 +1,8 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ContractingPartyTypeField {
   UBLExtensions = 'UBLExtensions',
@@ -9,11 +13,11 @@ export enum ContractingPartyTypeField {
 export const ContractingPartyTypeFieldMetaUBLExtensions = new FieldMeta<ContractingPartyTypeField>(
   ContractingPartyTypeField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -22,10 +26,10 @@ export const ContractingPartyTypeFieldMetaPartyTypeCode = new FieldMeta<Contract
   ContractingPartyTypeField.PartyTypeCode,
   'PartyTypeCode',
   'Party Type Code',
-  'Code',
+  CodeType.name,
   'A code specifying the type of party that is independent of its role.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -34,10 +38,10 @@ export const ContractingPartyTypeFieldMetaPartyType = new FieldMeta<ContractingP
   ContractingPartyTypeField.PartyType,
   'PartyType',
   'Party Type',
-  'Text',
+  TextType.name,
   'The type of party that is independent of its role, expressed as text.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -53,3 +57,11 @@ export const ContractingPartyTypeFieldMap = new Map([
   [ContractingPartyTypeField.PartyTypeCode, ContractingPartyTypeFieldMetaPartyTypeCode],
   [ContractingPartyTypeField.PartyType, ContractingPartyTypeFieldMetaPartyType]
 ])
+
+export const ContractingPartyTypeType: Type<ContractingPartyTypeField> = {
+  name: 'ContractingPartyType',
+  label: 'Contracting Party Type',
+  module: TypeModule.cac,
+  definition: 'The type of contracting party that is independent of its role.',
+  fields: ContractingPartyTypeFieldMap,
+}

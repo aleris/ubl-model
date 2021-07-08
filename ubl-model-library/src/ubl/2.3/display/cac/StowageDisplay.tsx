@@ -1,74 +1,79 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Stowage } from  '../../model/cac/Stowage'
-import { StowageFieldMeta } from  '../../meta/cac/StowageMeta'
-import DimensionDisplay from './DimensionDisplay'
-import { Dimension } from '../../model/cac/Dimension'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { StowageField, StowageFieldMeta, StowageTypeName } from  '../../meta/cac/StowageMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { DimensionDisplay } from './DimensionDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: Stowage | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<Stowage, void>
+  stowage: Stowage[] | undefined
+  renderContext: RenderContext
 }
 
-export default function StowageDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const StowageSubElementsMap: SubElementsTemplatesMap<StowageField, Stowage, void> = new Map([
+    [
+      StowageField.UBLExtensions,
+      { meta: StowageFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={StowageField.UBLExtensions}
+          meta={StowageFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-Stowage">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={StowageFieldMeta.UBLExtensions}
-          />
+    [
+      StowageField.LocationID,
+      { meta: StowageFieldMeta.LocationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={StowageField.LocationID}
+          meta={StowageFieldMeta.LocationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.LocationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Location Identifier"
-            value={value.LocationID?.[0]}
-            meta={StowageFieldMeta.LocationID}
-          />
+    [
+      StowageField.Location,
+      { meta: StowageFieldMeta.Location,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={StowageField.Location}
+          meta={StowageFieldMeta.Location}
+          fieldConfig={fieldConfig}
+          text={value?.Location}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Location"
-            label="Location"
-            items={value.Location}
-            meta={StowageFieldMeta.Location} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Location"
-                value={itemValue}
-                meta={StowageFieldMeta.Location}
-              />
-            }
-          />
+    [
+      StowageField.MeasurementDimension,
+      { meta: StowageFieldMeta.MeasurementDimension,
+        template: ({value, renderContext, fieldConfig}) => <DimensionDisplay
+          key={StowageField.MeasurementDimension}
+          meta={StowageFieldMeta.MeasurementDimension}
+          fieldConfig={fieldConfig}
+          dimension={value?.MeasurementDimension}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Dimension ubl-MeasurementDimension"
-            label="Measurement Dimension"
-            items={value.MeasurementDimension}
-            meta={StowageFieldMeta.MeasurementDimension} 
-            itemDisplay={ (itemValue: Dimension, key: string | number) =>
-              <DimensionDisplay
-                key={key}
-                label="Measurement Dimension"
-                value={itemValue}
-                meta={StowageFieldMeta.MeasurementDimension}
-              />
-            }
-          />
-        </div>
-    </div>
+export function StowageDisplay<TFieldMeta>({ meta, fieldConfig, stowage, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    StowageTypeName,
+    meta,
+    fieldConfig,
+    stowage,
+    renderContext,
+    StowageSubElementsMap,
   )
 }

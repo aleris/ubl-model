@@ -4,7 +4,6 @@ import { Identifier } from '../cbc/Identifier'
 import { Party } from './Party'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a party contracting to provide services, such as transportation, finance, etc.
  */

@@ -1,7 +1,6 @@
 import { Amount } from '../cbc/Amount'
 import { TaxTotal } from './TaxTotal'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a price extension, calculated by multiplying the price per unit by the quantity of items.
  */

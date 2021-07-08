@@ -25,7 +25,6 @@ import { TaxTotal } from '../cac/TaxTotal'
 import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A credit note created by the debtor in a self billing arrangement with a creditor; Self Billed Credit Note replaces
  * Debit Note in such arrangements.

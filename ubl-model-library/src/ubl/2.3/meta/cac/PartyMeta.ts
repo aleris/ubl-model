@@ -1,4 +1,24 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AddressType } from './AddressMeta'
+import { AuthorizationType } from './AuthorizationMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { ContactType } from './ContactMeta'
+import { FinancialAccountType } from './FinancialAccountMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { LanguageType } from './LanguageMeta'
+import { LocationType } from './LocationMeta'
+import { PartyIdentificationType } from './PartyIdentificationMeta'
+import { PartyLegalEntityType } from './PartyLegalEntityMeta'
+import { PartyNameType } from './PartyNameMeta'
+import { PartyTaxSchemeType } from './PartyTaxSchemeMeta'
+import { PersonType } from './PersonMeta'
+import { PowerOfAttorneyType } from './PowerOfAttorneyMeta'
+import { ServiceProviderPartyType } from './ServiceProviderPartyMeta'
+import { SocialMediaProfileType } from './SocialMediaProfileMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
+import { WebSiteType } from './WebSiteMeta'
 
 export enum PartyField {
   UBLExtensions = 'UBLExtensions',
@@ -29,11 +49,11 @@ export enum PartyField {
 export const PartyFieldMetaUBLExtensions = new FieldMeta<PartyField>(
   PartyField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -42,10 +62,10 @@ export const PartyFieldMetaMarkCareIndicator = new FieldMeta<PartyField>(
   PartyField.MarkCareIndicator,
   'MarkCareIndicator',
   'Mark Care Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indicator that this party is "care of" (c/o) (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -54,10 +74,10 @@ export const PartyFieldMetaMarkAttentionIndicator = new FieldMeta<PartyField>(
   PartyField.MarkAttentionIndicator,
   'MarkAttentionIndicator',
   'Mark Attention Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indicator that this party is "for the attention of" (FAO) (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -66,10 +86,10 @@ export const PartyFieldMetaWebsiteURI = new FieldMeta<PartyField>(
   PartyField.WebsiteURI,
   'WebsiteURI',
   'Website URI',
-  'Identifier',
+  IdentifierType.name,
   'The Uniform Resource Identifier (URI) that identifies this party\'s web site; i.e., the web site\'s Uniform Resource Locator (URL).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -78,10 +98,10 @@ export const PartyFieldMetaLogoReferenceID = new FieldMeta<PartyField>(
   PartyField.LogoReferenceID,
   'LogoReferenceID',
   'Logo Reference',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this party\'s logo.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'http://www2.coca-cola.com/images/logo.gif'
 )
@@ -90,10 +110,10 @@ export const PartyFieldMetaEndpointID = new FieldMeta<PartyField>(
   PartyField.EndpointID,
   'EndpointID',
   'Endpoint Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the end point of the routing service (e.g., EAN Location Number, GLN).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '5790002221134'
 )
@@ -102,10 +122,10 @@ export const PartyFieldMetaIndustryClassificationCode = new FieldMeta<PartyField
   PartyField.IndustryClassificationCode,
   'IndustryClassificationCode',
   'Industry Classification Code',
-  'Code',
+  CodeType.name,
   'This party\'s Industry Classification Code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Public authority , NAIC codes'
 )
@@ -114,10 +134,10 @@ export const PartyFieldMetaPartyIdentification = new FieldMeta<PartyField>(
   PartyField.PartyIdentification,
   'PartyIdentification',
   'Party Identification',
-  'PartyIdentification',
+  PartyIdentificationType.name,
   'An identifier for this party.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -126,10 +146,10 @@ export const PartyFieldMetaPartyName = new FieldMeta<PartyField>(
   PartyField.PartyName,
   'PartyName',
   'Party Name',
-  'PartyName',
+  PartyNameType.name,
   'A name for this party.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -138,10 +158,10 @@ export const PartyFieldMetaLanguage = new FieldMeta<PartyField>(
   PartyField.Language,
   'Language',
   'Language',
-  'Language',
+  LanguageType.name,
   'The language associated with this party.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -150,10 +170,10 @@ export const PartyFieldMetaPostalAddress = new FieldMeta<PartyField>(
   PartyField.PostalAddress,
   'PostalAddress',
   'Postal Address',
-  'Address',
+  AddressType.name,
   'The party\'s postal address.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -162,10 +182,10 @@ export const PartyFieldMetaPhysicalLocation = new FieldMeta<PartyField>(
   PartyField.PhysicalLocation,
   'PhysicalLocation',
   'Physical Location',
-  'Location',
+  LocationType.name,
   'The physical location of this party.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -174,10 +194,10 @@ export const PartyFieldMetaPartyTaxScheme = new FieldMeta<PartyField>(
   PartyField.PartyTaxScheme,
   'PartyTaxScheme',
   'Party Tax Scheme',
-  'PartyTaxScheme',
+  PartyTaxSchemeType.name,
   'A tax scheme applying to this party.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -186,10 +206,10 @@ export const PartyFieldMetaPartyLegalEntity = new FieldMeta<PartyField>(
   PartyField.PartyLegalEntity,
   'PartyLegalEntity',
   'Party Legal Entity',
-  'PartyLegalEntity',
+  PartyLegalEntityType.name,
   'A description of this party as a legal entity.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -198,10 +218,10 @@ export const PartyFieldMetaContact = new FieldMeta<PartyField>(
   PartyField.Contact,
   'Contact',
   'Contact',
-  'Contact',
+  ContactType.name,
   'The primary contact for this party.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -210,10 +230,10 @@ export const PartyFieldMetaPerson = new FieldMeta<PartyField>(
   PartyField.Person,
   'Person',
   'Person',
-  'Person',
+  PersonType.name,
   'A person associated with this party.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -222,10 +242,10 @@ export const PartyFieldMetaAgentParty = new FieldMeta<PartyField>(
   PartyField.AgentParty,
   'AgentParty',
   'Agent Party',
-  'Party',
+  PartyType.name,
   'A party who acts as an agent for this party.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   'Customs Broker'
 )
@@ -234,10 +254,10 @@ export const PartyFieldMetaServiceProviderParty = new FieldMeta<PartyField>(
   PartyField.ServiceProviderParty,
   'ServiceProviderParty',
   'Service Provider Party',
-  'ServiceProviderParty',
+  ServiceProviderPartyType.name,
   'A party providing a service to this party.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -246,10 +266,10 @@ export const PartyFieldMetaPowerOfAttorney = new FieldMeta<PartyField>(
   PartyField.PowerOfAttorney,
   'PowerOfAttorney',
   'Power Of Attorney',
-  'PowerOfAttorney',
+  PowerOfAttorneyType.name,
   'A power of attorney associated with this party.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -258,10 +278,10 @@ export const PartyFieldMetaPartyAuthorization = new FieldMeta<PartyField>(
   PartyField.PartyAuthorization,
   'PartyAuthorization',
   'Party Authorization',
-  'Authorization',
+  AuthorizationType.name,
   'An authorization issued to this party',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -270,10 +290,10 @@ export const PartyFieldMetaFinancialAccount = new FieldMeta<PartyField>(
   PartyField.FinancialAccount,
   'FinancialAccount',
   'Financial Account',
-  'FinancialAccount',
+  FinancialAccountType.name,
   'The financial account associated with this party.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -282,10 +302,10 @@ export const PartyFieldMetaAdditionalWebSite = new FieldMeta<PartyField>(
   PartyField.AdditionalWebSite,
   'AdditionalWebSite',
   'Additional Web Site',
-  'WebSite',
+  WebSiteType.name,
   'An additional web site associated with this party (e.g. a satellite web site).',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -294,10 +314,10 @@ export const PartyFieldMetaSocialMediaProfile = new FieldMeta<PartyField>(
   PartyField.SocialMediaProfile,
   'SocialMediaProfile',
   'Social Media Profile',
-  'SocialMediaProfile',
+  SocialMediaProfileType.name,
   'A social media profile associated with this party.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -353,3 +373,11 @@ export const PartyFieldMap = new Map([
   [PartyField.AdditionalWebSite, PartyFieldMetaAdditionalWebSite],
   [PartyField.SocialMediaProfile, PartyFieldMetaSocialMediaProfile]
 ])
+
+export const PartyType: Type<PartyField> = {
+  name: 'Party',
+  label: 'Party',
+  module: TypeModule.cac,
+  definition: 'A class to describe an organization, sub-organization, or individual fulfilling a role in a business process.',
+  fields: PartyFieldMap,
+}

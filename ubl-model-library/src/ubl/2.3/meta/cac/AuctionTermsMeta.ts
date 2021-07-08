@@ -1,4 +1,9 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum AuctionTermsField {
   UBLExtensions = 'UBLExtensions',
@@ -14,11 +19,11 @@ export enum AuctionTermsField {
 export const AuctionTermsFieldMetaUBLExtensions = new FieldMeta<AuctionTermsField>(
   AuctionTermsField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -27,10 +32,10 @@ export const AuctionTermsFieldMetaAuctionConstraintIndicator = new FieldMeta<Auc
   AuctionTermsField.AuctionConstraintIndicator,
   'AuctionConstraintIndicator',
   'Auction Constraint',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether an electronic auction will be used before the awarding of a contract (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -39,10 +44,10 @@ export const AuctionTermsFieldMetaJustificationDescription = new FieldMeta<Aucti
   AuctionTermsField.JustificationDescription,
   'JustificationDescription',
   'Justification Description',
-  'Text',
+  TextType.name,
   'Text describing a justification for the use of an auction in awarding the tender.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -51,10 +56,10 @@ export const AuctionTermsFieldMetaDescription = new FieldMeta<AuctionTermsField>
   AuctionTermsField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text for tenderers describing terms governing the auction.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -63,10 +68,10 @@ export const AuctionTermsFieldMetaProcessDescription = new FieldMeta<AuctionTerm
   AuctionTermsField.ProcessDescription,
   'ProcessDescription',
   'Process Description',
-  'Text',
+  TextType.name,
   'Text describing the auction process.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -75,10 +80,10 @@ export const AuctionTermsFieldMetaConditionsDescription = new FieldMeta<AuctionT
   AuctionTermsField.ConditionsDescription,
   'ConditionsDescription',
   'Conditions Description',
-  'Text',
+  TextType.name,
   'Text describing the conditions under which the tenderers will be able to bid as part of the auction.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -87,10 +92,10 @@ export const AuctionTermsFieldMetaElectronicDeviceDescription = new FieldMeta<Au
   AuctionTermsField.ElectronicDeviceDescription,
   'ElectronicDeviceDescription',
   'Electronic Device Description',
-  'Text',
+  TextType.name,
   'Text describing an electronic device used for the auction, including associated connectivity specifications.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -99,10 +104,10 @@ export const AuctionTermsFieldMetaAuctionURI = new FieldMeta<AuctionTermsField>(
   AuctionTermsField.AuctionURI,
   'AuctionURI',
   'Auction URI',
-  'Identifier',
+  IdentifierType.name,
   'The Uniform Resource Identifier (URI) of the electronic device used for the auction.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -128,3 +133,11 @@ export const AuctionTermsFieldMap = new Map([
   [AuctionTermsField.ElectronicDeviceDescription, AuctionTermsFieldMetaElectronicDeviceDescription],
   [AuctionTermsField.AuctionURI, AuctionTermsFieldMetaAuctionURI]
 ])
+
+export const AuctionTermsType: Type<AuctionTermsField> = {
+  name: 'AuctionTerms',
+  label: 'Auction Terms',
+  module: TypeModule.cac,
+  definition: 'A class to describe the terms to be fulfilled by tenderers if an auction is to be executed before the awarding of a tender.',
+  fields: AuctionTermsFieldMap,
+}

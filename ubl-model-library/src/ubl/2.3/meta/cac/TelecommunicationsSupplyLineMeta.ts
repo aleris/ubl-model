@@ -1,4 +1,13 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AllowanceChargeType } from './AllowanceChargeMeta'
+import { AmountType } from '../cbc/AmountMeta'
+import { ExchangeRateType } from './ExchangeRateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { TaxTotalType } from './TaxTotalMeta'
+import { TelecommunicationsServiceType } from './TelecommunicationsServiceMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum TelecommunicationsSupplyLineField {
   UBLExtensions = 'UBLExtensions',
@@ -16,11 +25,11 @@ export enum TelecommunicationsSupplyLineField {
 export const TelecommunicationsSupplyLineFieldMetaUBLExtensions = new FieldMeta<TelecommunicationsSupplyLineField>(
   TelecommunicationsSupplyLineField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -29,10 +38,10 @@ export const TelecommunicationsSupplyLineFieldMetaID = new FieldMeta<Telecommuni
   TelecommunicationsSupplyLineField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this telecommunications supply line.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   '1'
 )
@@ -41,10 +50,10 @@ export const TelecommunicationsSupplyLineFieldMetaPhoneNumber = new FieldMeta<Te
   TelecommunicationsSupplyLineField.PhoneNumber,
   'PhoneNumber',
   'Phone Number',
-  'Text',
+  TextType.name,
   'The phone number used for this telecommunication supply line',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   '12345678'
 )
@@ -53,10 +62,10 @@ export const TelecommunicationsSupplyLineFieldMetaDescription = new FieldMeta<Te
   TelecommunicationsSupplyLineField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'The description of the telecommunication supply line',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   'Additional informations'
 )
@@ -65,10 +74,10 @@ export const TelecommunicationsSupplyLineFieldMetaLineExtensionAmount = new Fiel
   TelecommunicationsSupplyLineField.LineExtensionAmount,
   'LineExtensionAmount',
   'Line Extension Amount',
-  'Amount',
+  AmountType.name,
   'An amount specifying the cost of this telecommunication line',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -77,10 +86,10 @@ export const TelecommunicationsSupplyLineFieldMetaTaxInclusiveLineExtensionAmoun
   TelecommunicationsSupplyLineField.TaxInclusiveLineExtensionAmount,
   'TaxInclusiveLineExtensionAmount',
   'Tax Inclusive Line Extension Amount',
-  'Amount',
+  AmountType.name,
   'The total amount for this telecommunications supply line, including all allowances, charges and taxes.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -89,10 +98,10 @@ export const TelecommunicationsSupplyLineFieldMetaExchangeRate = new FieldMeta<T
   TelecommunicationsSupplyLineField.ExchangeRate,
   'ExchangeRate',
   'Exchange Rate',
-  'ExchangeRate',
+  ExchangeRateType.name,
   'Exchanges rates used to calculate the amount for this line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -101,10 +110,10 @@ export const TelecommunicationsSupplyLineFieldMetaAllowanceCharge = new FieldMet
   TelecommunicationsSupplyLineField.AllowanceCharge,
   'AllowanceCharge',
   'Allowance Charge',
-  'AllowanceCharge',
+  AllowanceChargeType.name,
   'An allowance or charge that applies to this telecommunication supply line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -113,10 +122,10 @@ export const TelecommunicationsSupplyLineFieldMetaTaxTotal = new FieldMeta<Telec
   TelecommunicationsSupplyLineField.TaxTotal,
   'TaxTotal',
   'Tax Total',
-  'TaxTotal',
+  TaxTotalType.name,
   'A total amount of taxes of a particular kind applicable to this telecommunications supply line',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -125,10 +134,10 @@ export const TelecommunicationsSupplyLineFieldMetaTelecommunicationsService = ne
   TelecommunicationsSupplyLineField.TelecommunicationsService,
   'TelecommunicationsService',
   'Telecommunications Service',
-  'TelecommunicationsService',
+  TelecommunicationsServiceType.name,
   'A telecommunications service (e.g., a telephone call).',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -158,3 +167,11 @@ export const TelecommunicationsSupplyLineFieldMap = new Map([
   [TelecommunicationsSupplyLineField.TaxTotal, TelecommunicationsSupplyLineFieldMetaTaxTotal],
   [TelecommunicationsSupplyLineField.TelecommunicationsService, TelecommunicationsSupplyLineFieldMetaTelecommunicationsService]
 ])
+
+export const TelecommunicationsSupplyLineType: Type<TelecommunicationsSupplyLineField> = {
+  name: 'TelecommunicationsSupplyLine',
+  label: 'Telecommunications Supply Line',
+  module: TypeModule.cac,
+  definition: 'A class that outlines the telecommunication supply in details',
+  fields: TelecommunicationsSupplyLineFieldMap,
+}

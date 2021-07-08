@@ -9,7 +9,6 @@ import { TenderResult } from '../cac/TenderResult'
 import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A document communicating to a tenderer that the contract has been awarded to different tenderer.
  */

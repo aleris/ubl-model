@@ -1,39 +1,17 @@
 import { AggregateField } from './AggregateField'
 import { AggregateType } from './AggregateType'
-import { FieldCodeGenerator } from '../CodeGenerator'
+import { FieldGenerator } from './FieldGenerator'
 
-export class DisplayFieldGenerator implements FieldCodeGenerator<AggregateType, AggregateField> {
+export class DisplayFieldGenerator extends FieldGenerator {
   asCodeString(type: AggregateType, fieldType: AggregateField): string {
-    const className = Array.from(new Set([
-      fieldType.aggregateType.module,
-      fieldType.resolvedType.name,
-      fieldType.fieldName
-    ]).values())
-      .map(name => `ubl-${name}`)
-      .join(' ')
-
-    if (fieldType.cardinalityWithFallbackToOccur.endsWith('..n')) {
-      return `          <ElementListDisplay
-            className="${className}"
-            label="${fieldType.propertyTermWithFallbackToName}"
-            items={value.${fieldType.fieldName}}
-            meta={${type.typeName}FieldMeta.${fieldType.fieldName}} 
-            itemDisplay={ (itemValue: ${fieldType.resolvedType.name}, key: string | number) =>
-              <${fieldType.resolvedType.name}Display
-                key={key}
-                label="${fieldType.propertyTermWithFallbackToName}"
-                value={itemValue}
-                meta={${type.typeName}FieldMeta.${fieldType.fieldName}}
-              />
-            }
-          />`
-    } else {
-      return `          <${fieldType.resolvedType.name}Display
-            label="${fieldType.propertyTermWithFallbackToName}"
-            value={value.${fieldType.fieldName}?.[0]}
-            meta={${type.typeName}FieldMeta.${fieldType.fieldName}}
-          />`
-    }
+    return `{ meta: ${type.typeName}FieldMeta.${fieldType.fieldName},
+  template: ({value, renderContext, fieldConfig}) => <${fieldType.resolvedType.name}Display
+    key={${type.typeName}Field.${fieldType.fieldName}}
+    meta={${type.typeName}FieldMeta.${fieldType.fieldName}}
+    fieldConfig={fieldConfig}
+    ${fieldType.propertyName}={value?.${fieldType.fieldName}}
+    renderContext={renderContext}
+  />}`
   }
 
   asImportString(type: AggregateType, fieldType: AggregateField): string {
@@ -41,11 +19,9 @@ export class DisplayFieldGenerator implements FieldCodeGenerator<AggregateType, 
     const fieldTypeName = fieldType.resolvedType.name
 
     if (prefix === type.module) {
-      return `import ${fieldTypeName}Display from './${fieldTypeName}Display'
-import { ${fieldTypeName} } from '../../model/${prefix}/${fieldTypeName}'`
+      return `import { ${fieldTypeName}Display } from './${fieldTypeName}Display'`
     } else {
-      return `import ${fieldTypeName}Display from '../${prefix}/${fieldTypeName}Display'
-import { ${fieldTypeName} } from '../../model/${prefix}/${fieldTypeName}'`
+      return `import { ${fieldTypeName}Display } from '../${prefix}/${fieldTypeName}Display'`
     }
   }
 }

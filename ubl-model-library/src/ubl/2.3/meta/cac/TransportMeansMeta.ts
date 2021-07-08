@@ -1,4 +1,16 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AirTransportType } from './AirTransportMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { DimensionType } from './DimensionMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { MaritimeTransportType } from './MaritimeTransportMeta'
+import { PartyType } from './PartyMeta'
+import { RailTransportType } from './RailTransportMeta'
+import { RoadTransportType } from './RoadTransportMeta'
+import { StowageType } from './StowageMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum TransportMeansField {
   UBLExtensions = 'UBLExtensions',
@@ -20,11 +32,11 @@ export enum TransportMeansField {
 export const TransportMeansFieldMetaUBLExtensions = new FieldMeta<TransportMeansField>(
   TransportMeansField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -33,10 +45,10 @@ export const TransportMeansFieldMetaJourneyID = new FieldMeta<TransportMeansFiel
   TransportMeansField.JourneyID,
   'JourneyID',
   'Journey Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the regular service schedule of this means of transport.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Voyage Number, Scheduled Conveyance Identifier (WCO ID 205), Flight Number',
   undefined
 )
@@ -45,10 +57,10 @@ export const TransportMeansFieldMetaRegistrationNationalityID = new FieldMeta<Tr
   TransportMeansField.RegistrationNationalityID,
   'RegistrationNationalityID',
   'Registration Nationality Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the country in which this means of transport is registered.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Nationality of Means of Transport (WCO 175, 178 and 179)',
   'LIB'
 )
@@ -57,10 +69,10 @@ export const TransportMeansFieldMetaRegistrationNationality = new FieldMeta<Tran
   TransportMeansField.RegistrationNationality,
   'RegistrationNationality',
   'Registration Nationality',
-  'Text',
+  TextType.name,
   'Text describing the country in which this means of transport is registered.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   'Flag of Vessel, Nationality of Ship',
   'Liberia'
 )
@@ -69,10 +81,10 @@ export const TransportMeansFieldMetaDirectionCode = new FieldMeta<TransportMeans
   TransportMeansField.DirectionCode,
   'DirectionCode',
   'Direction Code',
-  'Code',
+  CodeType.name,
   'A code signifying the direction of this means of transport.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Transit Direction',
   'North , East'
 )
@@ -81,10 +93,10 @@ export const TransportMeansFieldMetaTransportMeansTypeCode = new FieldMeta<Trans
   TransportMeansField.TransportMeansTypeCode,
   'TransportMeansTypeCode',
   'Transport Means Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of this means of transport (truck, vessel, etc.).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -93,10 +105,10 @@ export const TransportMeansFieldMetaTradeServiceCode = new FieldMeta<TransportMe
   TransportMeansField.TradeServiceCode,
   'TradeServiceCode',
   'Trade Service Code',
-  'Code',
+  CodeType.name,
   'A code signifying the service regularly provided by the carrier operating this means of transport.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -105,10 +117,10 @@ export const TransportMeansFieldMetaStowage = new FieldMeta<TransportMeansField>
   TransportMeansField.Stowage,
   'Stowage',
   'Stowage',
-  'Stowage',
+  StowageType.name,
   'The location within the means of transport where goods are to be or have been stowed.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -117,10 +129,10 @@ export const TransportMeansFieldMetaAirTransport = new FieldMeta<TransportMeansF
   TransportMeansField.AirTransport,
   'AirTransport',
   'Air Transport',
-  'AirTransport',
+  AirTransportType.name,
   'An aircraft used for transport.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -129,10 +141,10 @@ export const TransportMeansFieldMetaRoadTransport = new FieldMeta<TransportMeans
   TransportMeansField.RoadTransport,
   'RoadTransport',
   'Road Transport',
-  'RoadTransport',
+  RoadTransportType.name,
   'A vehicle used for road transport.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -141,10 +153,10 @@ export const TransportMeansFieldMetaRailTransport = new FieldMeta<TransportMeans
   TransportMeansField.RailTransport,
   'RailTransport',
   'Rail Transport',
-  'RailTransport',
+  RailTransportType.name,
   'Equipment used for rail transport.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -153,10 +165,10 @@ export const TransportMeansFieldMetaMaritimeTransport = new FieldMeta<TransportM
   TransportMeansField.MaritimeTransport,
   'MaritimeTransport',
   'Maritime Transport',
-  'MaritimeTransport',
+  MaritimeTransportType.name,
   'A vessel used for transport by water (not only by sea).',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -165,10 +177,10 @@ export const TransportMeansFieldMetaOwnerParty = new FieldMeta<TransportMeansFie
   TransportMeansField.OwnerParty,
   'OwnerParty',
   'Owner Party',
-  'Party',
+  PartyType.name,
   'The party that owns this means of transport.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -177,10 +189,10 @@ export const TransportMeansFieldMetaMeasurementDimension = new FieldMeta<Transpo
   TransportMeansField.MeasurementDimension,
   'MeasurementDimension',
   'Measurement Dimension',
-  'Dimension',
+  DimensionType.name,
   'A measurable dimension (length, mass, weight, or volume) of this means of transport.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -218,3 +230,11 @@ export const TransportMeansFieldMap = new Map([
   [TransportMeansField.OwnerParty, TransportMeansFieldMetaOwnerParty],
   [TransportMeansField.MeasurementDimension, TransportMeansFieldMetaMeasurementDimension]
 ])
+
+export const TransportMeansType: Type<TransportMeansField> = {
+  name: 'TransportMeans',
+  label: 'Transport Means',
+  module: TypeModule.cac,
+  definition: 'A class to describe a particular vehicle or vessel used for the conveyance of goods or persons.',
+  fields: TransportMeansFieldMap,
+}

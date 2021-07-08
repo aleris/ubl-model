@@ -1,6 +1,5 @@
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a range of values for an item property.
  */

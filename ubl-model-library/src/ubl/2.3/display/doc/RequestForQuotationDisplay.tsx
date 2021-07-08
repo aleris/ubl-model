@@ -1,279 +1,357 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { RequestForQuotation } from  '../../model/doc/RequestForQuotation'
-import { RequestForQuotationFieldMeta } from  '../../meta/doc/RequestForQuotationMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import ContractDisplay from '../cac/ContractDisplay'
-import { Contract } from '../../model/cac/Contract'
-import CountryDisplay from '../cac/CountryDisplay'
-import { Country } from '../../model/cac/Country'
-import CustomerPartyDisplay from '../cac/CustomerPartyDisplay'
-import { CustomerParty } from '../../model/cac/CustomerParty'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DeliveryDisplay from '../cac/DeliveryDisplay'
-import { Delivery } from '../../model/cac/Delivery'
-import DeliveryTermsDisplay from '../cac/DeliveryTermsDisplay'
-import { DeliveryTerms } from '../../model/cac/DeliveryTerms'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import PeriodDisplay from '../cac/PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import RequestForQuotationLineDisplay from '../cac/RequestForQuotationLineDisplay'
-import { RequestForQuotationLine } from '../../model/cac/RequestForQuotationLine'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import SupplierPartyDisplay from '../cac/SupplierPartyDisplay'
-import { SupplierParty } from '../../model/cac/SupplierParty'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { RequestForQuotationField, RequestForQuotationFieldMeta, RequestForQuotationTypeName } from  '../../meta/doc/RequestForQuotationMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { ContractDisplay } from '../cac/ContractDisplay'
+import { CountryDisplay } from '../cac/CountryDisplay'
+import { CustomerPartyDisplay } from '../cac/CustomerPartyDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DeliveryDisplay } from '../cac/DeliveryDisplay'
+import { DeliveryTermsDisplay } from '../cac/DeliveryTermsDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { PeriodDisplay } from '../cac/PeriodDisplay'
+import { RequestForQuotationLineDisplay } from '../cac/RequestForQuotationLineDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { SupplierPartyDisplay } from '../cac/SupplierPartyDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: RequestForQuotation | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<RequestForQuotation, void>
+  requestForQuotation: RequestForQuotation[] | undefined
+  renderContext: RenderContext
 }
 
-export default function RequestForQuotationDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const RequestForQuotationSubElementsMap: SubElementsTemplatesMap<RequestForQuotationField, RequestForQuotation, void> = new Map([
+    [
+      RequestForQuotationField.UBLExtensions,
+      { meta: RequestForQuotationFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={RequestForQuotationField.UBLExtensions}
+          meta={RequestForQuotationFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-RequestForQuotation">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={RequestForQuotationFieldMeta.UBLExtensions}
-          />
+    [
+      RequestForQuotationField.UBLVersionID,
+      { meta: RequestForQuotationFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={RequestForQuotationField.UBLVersionID}
+          meta={RequestForQuotationFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={RequestForQuotationFieldMeta.UBLVersionID}
-          />
+    [
+      RequestForQuotationField.CustomizationID,
+      { meta: RequestForQuotationFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={RequestForQuotationField.CustomizationID}
+          meta={RequestForQuotationFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={RequestForQuotationFieldMeta.CustomizationID}
-          />
+    [
+      RequestForQuotationField.ProfileID,
+      { meta: RequestForQuotationFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={RequestForQuotationField.ProfileID}
+          meta={RequestForQuotationFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={RequestForQuotationFieldMeta.ProfileID}
-          />
+    [
+      RequestForQuotationField.ProfileExecutionID,
+      { meta: RequestForQuotationFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={RequestForQuotationField.ProfileExecutionID}
+          meta={RequestForQuotationFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={RequestForQuotationFieldMeta.ProfileExecutionID}
-          />
+    [
+      RequestForQuotationField.ID,
+      { meta: RequestForQuotationFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={RequestForQuotationField.ID}
+          meta={RequestForQuotationFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={RequestForQuotationFieldMeta.ID}
-          />
+    [
+      RequestForQuotationField.CopyIndicator,
+      { meta: RequestForQuotationFieldMeta.CopyIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={RequestForQuotationField.CopyIndicator}
+          meta={RequestForQuotationFieldMeta.CopyIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.CopyIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Copy Indicator"
-            value={value.CopyIndicator?.[0]}
-            meta={RequestForQuotationFieldMeta.CopyIndicator}
-          />
+    [
+      RequestForQuotationField.UUID,
+      { meta: RequestForQuotationFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={RequestForQuotationField.UUID}
+          meta={RequestForQuotationFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={RequestForQuotationFieldMeta.UUID}
-          />
+    [
+      RequestForQuotationField.IssueDate,
+      { meta: RequestForQuotationFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={RequestForQuotationField.IssueDate}
+          meta={RequestForQuotationFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={RequestForQuotationFieldMeta.IssueDate}
-          />
+    [
+      RequestForQuotationField.IssueTime,
+      { meta: RequestForQuotationFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={RequestForQuotationField.IssueTime}
+          meta={RequestForQuotationFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={RequestForQuotationFieldMeta.IssueTime}
-          />
+    [
+      RequestForQuotationField.SubmissionDueDate,
+      { meta: RequestForQuotationFieldMeta.SubmissionDueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={RequestForQuotationField.SubmissionDueDate}
+          meta={RequestForQuotationFieldMeta.SubmissionDueDate}
+          fieldConfig={fieldConfig}
+          date={value?.SubmissionDueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Submission Due Date"
-            value={value.SubmissionDueDate?.[0]}
-            meta={RequestForQuotationFieldMeta.SubmissionDueDate}
-          />
+    [
+      RequestForQuotationField.Note,
+      { meta: RequestForQuotationFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={RequestForQuotationField.Note}
+          meta={RequestForQuotationFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={RequestForQuotationFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={RequestForQuotationFieldMeta.Note}
-              />
-            }
-          />
+    [
+      RequestForQuotationField.PricingCurrencyCode,
+      { meta: RequestForQuotationFieldMeta.PricingCurrencyCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={RequestForQuotationField.PricingCurrencyCode}
+          meta={RequestForQuotationFieldMeta.PricingCurrencyCode}
+          fieldConfig={fieldConfig}
+          code={value?.PricingCurrencyCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Pricing Currency Code"
-            value={value.PricingCurrencyCode?.[0]}
-            meta={RequestForQuotationFieldMeta.PricingCurrencyCode}
-          />
+    [
+      RequestForQuotationField.LineCountNumeric,
+      { meta: RequestForQuotationFieldMeta.LineCountNumeric,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={RequestForQuotationField.LineCountNumeric}
+          meta={RequestForQuotationFieldMeta.LineCountNumeric}
+          fieldConfig={fieldConfig}
+          numeric={value?.LineCountNumeric}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Line Count"
-            value={value.LineCountNumeric?.[0]}
-            meta={RequestForQuotationFieldMeta.LineCountNumeric}
-          />
+    [
+      RequestForQuotationField.RequestedValidityPeriod,
+      { meta: RequestForQuotationFieldMeta.RequestedValidityPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={RequestForQuotationField.RequestedValidityPeriod}
+          meta={RequestForQuotationFieldMeta.RequestedValidityPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.RequestedValidityPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Requested Validity Period"
-            value={value.RequestedValidityPeriod?.[0]}
-            meta={RequestForQuotationFieldMeta.RequestedValidityPeriod}
-          />
+    [
+      RequestForQuotationField.CatalogueDocumentReference,
+      { meta: RequestForQuotationFieldMeta.CatalogueDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={RequestForQuotationField.CatalogueDocumentReference}
+          meta={RequestForQuotationFieldMeta.CatalogueDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.CatalogueDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DocumentReferenceDisplay
-            label="Catalogue Document Reference"
-            value={value.CatalogueDocumentReference?.[0]}
-            meta={RequestForQuotationFieldMeta.CatalogueDocumentReference}
-          />
+    [
+      RequestForQuotationField.AdditionalDocumentReference,
+      { meta: RequestForQuotationFieldMeta.AdditionalDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={RequestForQuotationField.AdditionalDocumentReference}
+          meta={RequestForQuotationFieldMeta.AdditionalDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.AdditionalDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-AdditionalDocumentReference"
-            label="Additional Document Reference"
-            items={value.AdditionalDocumentReference}
-            meta={RequestForQuotationFieldMeta.AdditionalDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Additional Document Reference"
-                value={itemValue}
-                meta={RequestForQuotationFieldMeta.AdditionalDocumentReference}
-              />
-            }
-          />
+    [
+      RequestForQuotationField.Signature,
+      { meta: RequestForQuotationFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={RequestForQuotationField.Signature}
+          meta={RequestForQuotationFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={RequestForQuotationFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={RequestForQuotationFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      RequestForQuotationField.OriginatorCustomerParty,
+      { meta: RequestForQuotationFieldMeta.OriginatorCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={RequestForQuotationField.OriginatorCustomerParty}
+          meta={RequestForQuotationFieldMeta.OriginatorCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.OriginatorCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomerPartyDisplay
-            label="Originator Customer Party"
-            value={value.OriginatorCustomerParty?.[0]}
-            meta={RequestForQuotationFieldMeta.OriginatorCustomerParty}
-          />
+    [
+      RequestForQuotationField.SellerSupplierParty,
+      { meta: RequestForQuotationFieldMeta.SellerSupplierParty,
+        template: ({value, renderContext, fieldConfig}) => <SupplierPartyDisplay
+          key={RequestForQuotationField.SellerSupplierParty}
+          meta={RequestForQuotationFieldMeta.SellerSupplierParty}
+          fieldConfig={fieldConfig}
+          supplierParty={value?.SellerSupplierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <SupplierPartyDisplay
-            label="Seller Supplier Party"
-            value={value.SellerSupplierParty?.[0]}
-            meta={RequestForQuotationFieldMeta.SellerSupplierParty}
-          />
+    [
+      RequestForQuotationField.BuyerCustomerParty,
+      { meta: RequestForQuotationFieldMeta.BuyerCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={RequestForQuotationField.BuyerCustomerParty}
+          meta={RequestForQuotationFieldMeta.BuyerCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.BuyerCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomerPartyDisplay
-            label="Buyer Customer Party"
-            value={value.BuyerCustomerParty?.[0]}
-            meta={RequestForQuotationFieldMeta.BuyerCustomerParty}
-          />
+    [
+      RequestForQuotationField.Delivery,
+      { meta: RequestForQuotationFieldMeta.Delivery,
+        template: ({value, renderContext, fieldConfig}) => <DeliveryDisplay
+          key={RequestForQuotationField.Delivery}
+          meta={RequestForQuotationFieldMeta.Delivery}
+          fieldConfig={fieldConfig}
+          delivery={value?.Delivery}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Delivery"
-            label="Delivery"
-            items={value.Delivery}
-            meta={RequestForQuotationFieldMeta.Delivery} 
-            itemDisplay={ (itemValue: Delivery, key: string | number) =>
-              <DeliveryDisplay
-                key={key}
-                label="Delivery"
-                value={itemValue}
-                meta={RequestForQuotationFieldMeta.Delivery}
-              />
-            }
-          />
+    [
+      RequestForQuotationField.DeliveryTerms,
+      { meta: RequestForQuotationFieldMeta.DeliveryTerms,
+        template: ({value, renderContext, fieldConfig}) => <DeliveryTermsDisplay
+          key={RequestForQuotationField.DeliveryTerms}
+          meta={RequestForQuotationFieldMeta.DeliveryTerms}
+          fieldConfig={fieldConfig}
+          deliveryTerms={value?.DeliveryTerms}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DeliveryTerms"
-            label="Delivery Terms"
-            items={value.DeliveryTerms}
-            meta={RequestForQuotationFieldMeta.DeliveryTerms} 
-            itemDisplay={ (itemValue: DeliveryTerms, key: string | number) =>
-              <DeliveryTermsDisplay
-                key={key}
-                label="Delivery Terms"
-                value={itemValue}
-                meta={RequestForQuotationFieldMeta.DeliveryTerms}
-              />
-            }
-          />
+    [
+      RequestForQuotationField.DestinationCountry,
+      { meta: RequestForQuotationFieldMeta.DestinationCountry,
+        template: ({value, renderContext, fieldConfig}) => <CountryDisplay
+          key={RequestForQuotationField.DestinationCountry}
+          meta={RequestForQuotationFieldMeta.DestinationCountry}
+          fieldConfig={fieldConfig}
+          country={value?.DestinationCountry}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CountryDisplay
-            label="Destination Country"
-            value={value.DestinationCountry?.[0]}
-            meta={RequestForQuotationFieldMeta.DestinationCountry}
-          />
+    [
+      RequestForQuotationField.Contract,
+      { meta: RequestForQuotationFieldMeta.Contract,
+        template: ({value, renderContext, fieldConfig}) => <ContractDisplay
+          key={RequestForQuotationField.Contract}
+          meta={RequestForQuotationFieldMeta.Contract}
+          fieldConfig={fieldConfig}
+          contract={value?.Contract}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Contract"
-            label="Contract"
-            items={value.Contract}
-            meta={RequestForQuotationFieldMeta.Contract} 
-            itemDisplay={ (itemValue: Contract, key: string | number) =>
-              <ContractDisplay
-                key={key}
-                label="Contract"
-                value={itemValue}
-                meta={RequestForQuotationFieldMeta.Contract}
-              />
-            }
-          />
+    [
+      RequestForQuotationField.RequestForQuotationLine,
+      { meta: RequestForQuotationFieldMeta.RequestForQuotationLine,
+        template: ({value, renderContext, fieldConfig}) => <RequestForQuotationLineDisplay
+          key={RequestForQuotationField.RequestForQuotationLine}
+          meta={RequestForQuotationFieldMeta.RequestForQuotationLine}
+          fieldConfig={fieldConfig}
+          requestForQuotationLine={value?.RequestForQuotationLine}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-RequestForQuotationLine"
-            label="Request For Quotation Line"
-            items={value.RequestForQuotationLine}
-            meta={RequestForQuotationFieldMeta.RequestForQuotationLine} 
-            itemDisplay={ (itemValue: RequestForQuotationLine, key: string | number) =>
-              <RequestForQuotationLineDisplay
-                key={key}
-                label="Request For Quotation Line"
-                value={itemValue}
-                meta={RequestForQuotationFieldMeta.RequestForQuotationLine}
-              />
-            }
-          />
-        </div>
-    </div>
+export function RequestForQuotationDisplay<TFieldMeta>({ meta, fieldConfig, requestForQuotation, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    RequestForQuotationTypeName,
+    meta,
+    fieldConfig,
+    requestForQuotation,
+    renderContext,
+    RequestForQuotationSubElementsMap,
   )
 }

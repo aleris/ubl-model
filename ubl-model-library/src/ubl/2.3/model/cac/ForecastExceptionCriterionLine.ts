@@ -1,7 +1,6 @@
 import { Code } from '../cbc/Code'
 import { Quantity } from '../cbc/Quantity'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * Establishes the criterion for one of the three types of exceptions. This class provides criteria for the kind of
  * forecast exception, the identification of the purpose of the forecast, the source of data and the time basis

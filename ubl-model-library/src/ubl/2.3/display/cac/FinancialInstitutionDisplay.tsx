@@ -1,56 +1,79 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { FinancialInstitution } from  '../../model/cac/FinancialInstitution'
-import { FinancialInstitutionFieldMeta } from  '../../meta/cac/FinancialInstitutionMeta'
-import AddressDisplay from './AddressDisplay'
-import { Address } from '../../model/cac/Address'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { FinancialInstitutionField, FinancialInstitutionFieldMeta, FinancialInstitutionTypeName } from  '../../meta/cac/FinancialInstitutionMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AddressDisplay } from './AddressDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: FinancialInstitution | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<FinancialInstitution, void>
+  financialInstitution: FinancialInstitution[] | undefined
+  renderContext: RenderContext
 }
 
-export default function FinancialInstitutionDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const FinancialInstitutionSubElementsMap: SubElementsTemplatesMap<FinancialInstitutionField, FinancialInstitution, void> = new Map([
+    [
+      FinancialInstitutionField.UBLExtensions,
+      { meta: FinancialInstitutionFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={FinancialInstitutionField.UBLExtensions}
+          meta={FinancialInstitutionFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-FinancialInstitution">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={FinancialInstitutionFieldMeta.UBLExtensions}
-          />
+    [
+      FinancialInstitutionField.ID,
+      { meta: FinancialInstitutionFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={FinancialInstitutionField.ID}
+          meta={FinancialInstitutionFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={FinancialInstitutionFieldMeta.ID}
-          />
+    [
+      FinancialInstitutionField.Name,
+      { meta: FinancialInstitutionFieldMeta.Name,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={FinancialInstitutionField.Name}
+          meta={FinancialInstitutionFieldMeta.Name}
+          fieldConfig={fieldConfig}
+          text={value?.Name}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Name"
-            value={value.Name?.[0]}
-            meta={FinancialInstitutionFieldMeta.Name}
-          />
+    [
+      FinancialInstitutionField.Address,
+      { meta: FinancialInstitutionFieldMeta.Address,
+        template: ({value, renderContext, fieldConfig}) => <AddressDisplay
+          key={FinancialInstitutionField.Address}
+          meta={FinancialInstitutionFieldMeta.Address}
+          fieldConfig={fieldConfig}
+          address={value?.Address}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <AddressDisplay
-            label="Address"
-            value={value.Address?.[0]}
-            meta={FinancialInstitutionFieldMeta.Address}
-          />
-        </div>
-    </div>
+export function FinancialInstitutionDisplay<TFieldMeta>({ meta, fieldConfig, financialInstitution, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    FinancialInstitutionTypeName,
+    meta,
+    fieldConfig,
+    financialInstitution,
+    renderContext,
+    FinancialInstitutionSubElementsMap,
   )
 }

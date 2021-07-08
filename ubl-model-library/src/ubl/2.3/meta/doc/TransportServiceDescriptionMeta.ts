@@ -1,4 +1,18 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { PaymentTermsType } from '../cac/PaymentTermsMeta'
+import { PeriodType } from '../cac/PeriodMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { TransportationServiceType } from '../cac/TransportationServiceMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum TransportServiceDescriptionField {
   UBLExtensions = 'UBLExtensions',
@@ -27,11 +41,11 @@ export enum TransportServiceDescriptionField {
 export const TransportServiceDescriptionFieldMetaUBLExtensions = new FieldMeta<TransportServiceDescriptionField>(
   TransportServiceDescriptionField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -40,10 +54,10 @@ export const TransportServiceDescriptionFieldMetaUBLVersionID = new FieldMeta<Tr
   TransportServiceDescriptionField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -52,10 +66,10 @@ export const TransportServiceDescriptionFieldMetaCustomizationID = new FieldMeta
   TransportServiceDescriptionField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -64,10 +78,10 @@ export const TransportServiceDescriptionFieldMetaProfileID = new FieldMeta<Trans
   TransportServiceDescriptionField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -76,10 +90,10 @@ export const TransportServiceDescriptionFieldMetaProfileExecutionID = new FieldM
   TransportServiceDescriptionField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -88,10 +102,10 @@ export const TransportServiceDescriptionFieldMetaID = new FieldMeta<TransportSer
   TransportServiceDescriptionField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -100,10 +114,10 @@ export const TransportServiceDescriptionFieldMetaCopyIndicator = new FieldMeta<T
   TransportServiceDescriptionField.CopyIndicator,
   'CopyIndicator',
   'Copy Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this document is a copy (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -112,10 +126,10 @@ export const TransportServiceDescriptionFieldMetaUUID = new FieldMeta<TransportS
   TransportServiceDescriptionField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -124,10 +138,10 @@ export const TransportServiceDescriptionFieldMetaIssueDate = new FieldMeta<Trans
   TransportServiceDescriptionField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -136,10 +150,10 @@ export const TransportServiceDescriptionFieldMetaIssueTime = new FieldMeta<Trans
   TransportServiceDescriptionField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -148,10 +162,10 @@ export const TransportServiceDescriptionFieldMetaNote = new FieldMeta<TransportS
   TransportServiceDescriptionField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -160,10 +174,10 @@ export const TransportServiceDescriptionFieldMetaServiceName = new FieldMeta<Tra
   TransportServiceDescriptionField.ServiceName,
   'ServiceName',
   'Service Name',
-  'Text',
+  TextType.name,
   'A name, assigned by the Transport Service Provider, for the service being announced.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -172,10 +186,10 @@ export const TransportServiceDescriptionFieldMetaResponseCode = new FieldMeta<Tr
   TransportServiceDescriptionField.ResponseCode,
   'ResponseCode',
   'Response Code',
-  'Code',
+  CodeType.name,
   'A code signifying a response related to the Transport Service Description.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -184,10 +198,10 @@ export const TransportServiceDescriptionFieldMetaSignature = new FieldMeta<Trans
   TransportServiceDescriptionField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -196,10 +210,10 @@ export const TransportServiceDescriptionFieldMetaSenderParty = new FieldMeta<Tra
   TransportServiceDescriptionField.SenderParty,
   'SenderParty',
   'Sender Party',
-  'Party',
+  PartyType.name,
   'The party sending the Transport Service Description.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -208,10 +222,10 @@ export const TransportServiceDescriptionFieldMetaReceiverParty = new FieldMeta<T
   TransportServiceDescriptionField.ReceiverParty,
   'ReceiverParty',
   'Receiver Party',
-  'Party',
+  PartyType.name,
   'The party receiving the Transport Service Description.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -220,10 +234,10 @@ export const TransportServiceDescriptionFieldMetaTransportServiceDescriptionRequ
   TransportServiceDescriptionField.TransportServiceDescriptionRequestDocumentReference,
   'TransportServiceDescriptionRequestDocumentReference',
   'Transport Service Description Request Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A Transport Service Description Request to which this Transport Service Description is a response.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -232,10 +246,10 @@ export const TransportServiceDescriptionFieldMetaTransportServiceProviderParty =
   TransportServiceDescriptionField.TransportServiceProviderParty,
   'TransportServiceProviderParty',
   'Transport Service Provider Party',
-  'Party',
+  PartyType.name,
   'The transport service provider.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -244,10 +258,10 @@ export const TransportServiceDescriptionFieldMetaServiceChargePaymentTerms = new
   TransportServiceDescriptionField.ServiceChargePaymentTerms,
   'ServiceChargePaymentTerms',
   'Service Charge Payment Terms',
-  'PaymentTerms',
+  PaymentTermsType.name,
   'The terms of payment under which the transport service would be provided.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -256,10 +270,10 @@ export const TransportServiceDescriptionFieldMetaValidityPeriod = new FieldMeta<
   TransportServiceDescriptionField.ValidityPeriod,
   'ValidityPeriod',
   'Validity Period',
-  'Period',
+  PeriodType.name,
   'A period during which this Transport Service Description is valid.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -268,10 +282,10 @@ export const TransportServiceDescriptionFieldMetaTransportationService = new Fie
   TransportServiceDescriptionField.TransportationService,
   'TransportationService',
   'Transportation Service',
-  'TransportationService',
+  TransportationServiceType.name,
   'A transportation service announced in this Transport Service Description.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -323,3 +337,11 @@ export const TransportServiceDescriptionFieldMap = new Map([
   [TransportServiceDescriptionField.ValidityPeriod, TransportServiceDescriptionFieldMetaValidityPeriod],
   [TransportServiceDescriptionField.TransportationService, TransportServiceDescriptionFieldMetaTransportationService]
 ])
+
+export const TransportServiceDescriptionType: Type<TransportServiceDescriptionField> = {
+  name: 'TransportServiceDescription',
+  label: 'Transport Service Description',
+  module: TypeModule.doc,
+  definition: 'A document sent by a transport service provider to announce the availability of a transport service.',
+  fields: TransportServiceDescriptionFieldMap,
+}

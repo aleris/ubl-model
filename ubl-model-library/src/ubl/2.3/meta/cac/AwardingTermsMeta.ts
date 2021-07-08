@@ -1,4 +1,11 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AwardingCriterionType } from './AwardingCriterionMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { PersonType } from './PersonMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum AwardingTermsField {
   UBLExtensions = 'UBLExtensions',
@@ -19,11 +26,11 @@ export enum AwardingTermsField {
 export const AwardingTermsFieldMetaUBLExtensions = new FieldMeta<AwardingTermsField>(
   AwardingTermsField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -32,10 +39,10 @@ export const AwardingTermsFieldMetaWeightingAlgorithmCode = new FieldMeta<Awardi
   AwardingTermsField.WeightingAlgorithmCode,
   'WeightingAlgorithmCode',
   'Weighting Algorithm Code',
-  'Code',
+  CodeType.name,
   'A code signifying the weighting algorithm for awarding criteria. When multiple awarding criteria is used, different weighting and choices management algorithms based upon scores and weights of all award criteria can be used. An algorithm for weighting criteria shall be reported in the call for tenders document. It is used to determine how to perform the final management of tenders based on the results in each of the established award criteria',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -44,10 +51,10 @@ export const AwardingTermsFieldMetaDescription = new FieldMeta<AwardingTermsFiel
   AwardingTermsField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing terms under which the contract is to be awarded.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -56,10 +63,10 @@ export const AwardingTermsFieldMetaTechnicalCommitteeDescription = new FieldMeta
   AwardingTermsField.TechnicalCommitteeDescription,
   'TechnicalCommitteeDescription',
   'Technical Committee Description',
-  'Text',
+  TextType.name,
   'Text describing the committee of experts evaluating the subjective criteria for awarding the contract.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -68,10 +75,10 @@ export const AwardingTermsFieldMetaLowTendersDescription = new FieldMeta<Awardin
   AwardingTermsField.LowTendersDescription,
   'LowTendersDescription',
   'Low Tenders Description',
-  'Text',
+  TextType.name,
   'Text describing the exclusion criterion for abnormally low tenders.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -80,10 +87,10 @@ export const AwardingTermsFieldMetaPrizeIndicator = new FieldMeta<AwardingTermsF
   AwardingTermsField.PrizeIndicator,
   'PrizeIndicator',
   'Prize Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether a prize will be awarded (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -92,10 +99,10 @@ export const AwardingTermsFieldMetaPrizeDescription = new FieldMeta<AwardingTerm
   AwardingTermsField.PrizeDescription,
   'PrizeDescription',
   'Prize Description',
-  'Text',
+  TextType.name,
   'Number and value of the prizes to be awarded.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -104,10 +111,10 @@ export const AwardingTermsFieldMetaPaymentDescription = new FieldMeta<AwardingTe
   AwardingTermsField.PaymentDescription,
   'PaymentDescription',
   'Payment Description',
-  'Text',
+  TextType.name,
   'Details of payments to all participants.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -116,10 +123,10 @@ export const AwardingTermsFieldMetaFollowupContractIndicator = new FieldMeta<Awa
   AwardingTermsField.FollowupContractIndicator,
   'FollowupContractIndicator',
   'Followup Contract Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates if any service contract following the contest will be awarded to the winner or one of the winners of the contest (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -128,10 +135,10 @@ export const AwardingTermsFieldMetaBindingOnBuyerIndicator = new FieldMeta<Award
   AwardingTermsField.BindingOnBuyerIndicator,
   'BindingOnBuyerIndicator',
   'Binding On Buyer Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates if the decision is binding on the buyer (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -140,10 +147,10 @@ export const AwardingTermsFieldMetaNoFurtherNegotiationIndicator = new FieldMeta
   AwardingTermsField.NoFurtherNegotiationIndicator,
   'NoFurtherNegotiationIndicator',
   'No Further Negotiation Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates if no further negotiation is allowed (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -152,10 +159,10 @@ export const AwardingTermsFieldMetaAwardingCriterion = new FieldMeta<AwardingTer
   AwardingTermsField.AwardingCriterion,
   'AwardingCriterion',
   'Awarding Criterion',
-  'AwardingCriterion',
+  AwardingCriterionType.name,
   'Defines a criterion for awarding this tender.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -164,10 +171,10 @@ export const AwardingTermsFieldMetaTechnicalCommitteePerson = new FieldMeta<Awar
   AwardingTermsField.TechnicalCommitteePerson,
   'TechnicalCommitteePerson',
   'Technical Committee Person',
-  'Person',
+  PersonType.name,
   'A member of a committee of experts evaluating the subjective criteria for awarding the contract.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -203,3 +210,11 @@ export const AwardingTermsFieldMap = new Map([
   [AwardingTermsField.AwardingCriterion, AwardingTermsFieldMetaAwardingCriterion],
   [AwardingTermsField.TechnicalCommitteePerson, AwardingTermsFieldMetaTechnicalCommitteePerson]
 ])
+
+export const AwardingTermsType: Type<AwardingTermsField> = {
+  name: 'AwardingTerms',
+  label: 'Awarding Terms',
+  module: TypeModule.cac,
+  definition: 'A class to define the terms for awarding a contract.',
+  fields: AwardingTermsFieldMap,
+}

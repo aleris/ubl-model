@@ -5,7 +5,6 @@ import { Identifier } from '../cbc/Identifier'
 import { Location } from './Location'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class describing a Goods Item Passport or ATA Carnet Counterfoil
  */

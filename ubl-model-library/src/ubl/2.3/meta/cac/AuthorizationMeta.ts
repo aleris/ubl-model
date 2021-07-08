@@ -1,4 +1,10 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CertificateType } from './CertificateMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { PeriodType } from './PeriodMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum AuthorizationField {
   UBLExtensions = 'UBLExtensions',
@@ -11,11 +17,11 @@ export enum AuthorizationField {
 export const AuthorizationFieldMetaUBLExtensions = new FieldMeta<AuthorizationField>(
   AuthorizationField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -24,10 +30,10 @@ export const AuthorizationFieldMetaPurposeCode = new FieldMeta<AuthorizationFiel
   AuthorizationField.PurposeCode,
   'PurposeCode',
   'Purpose Code',
-  'Code',
+  CodeType.name,
   'A code defining the business purpose or scope of this authorization',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -36,10 +42,10 @@ export const AuthorizationFieldMetaPurpose = new FieldMeta<AuthorizationField>(
   AuthorizationField.Purpose,
   'Purpose',
   'Purpose',
-  'Text',
+  TextType.name,
   'The purpose or scope of this authorization expressed as a text',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -48,10 +54,10 @@ export const AuthorizationFieldMetaValidityPeriod = new FieldMeta<AuthorizationF
   AuthorizationField.ValidityPeriod,
   'ValidityPeriod',
   'Validity Period',
-  'Period',
+  PeriodType.name,
   'The period during which this authorization is valid',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -60,10 +66,10 @@ export const AuthorizationFieldMetaCertificate = new FieldMeta<AuthorizationFiel
   AuthorizationField.Certificate,
   'Certificate',
   'Certificate',
-  'Certificate',
+  CertificateType.name,
   'One or more certificates related to this authorization',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -83,3 +89,11 @@ export const AuthorizationFieldMap = new Map([
   [AuthorizationField.ValidityPeriod, AuthorizationFieldMetaValidityPeriod],
   [AuthorizationField.Certificate, AuthorizationFieldMetaCertificate]
 ])
+
+export const AuthorizationType: Type<AuthorizationField> = {
+  name: 'Authorization',
+  label: 'Authorization',
+  module: TypeModule.cac,
+  definition: 'A class to define an authorization that as been issued',
+  fields: AuthorizationFieldMap,
+}

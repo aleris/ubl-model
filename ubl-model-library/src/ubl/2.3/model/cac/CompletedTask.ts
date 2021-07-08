@@ -4,7 +4,6 @@ import { EvidenceSupplied } from './EvidenceSupplied'
 import { Period } from './Period'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe the completion of a specific task in the tendering process.
  */

@@ -1,104 +1,130 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { DeliveryTerms } from  '../../model/cac/DeliveryTerms'
-import { DeliveryTermsFieldMeta } from  '../../meta/cac/DeliveryTermsMeta'
-import AllowanceChargeDisplay from './AllowanceChargeDisplay'
-import { AllowanceCharge } from '../../model/cac/AllowanceCharge'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import LocationDisplay from './LocationDisplay'
-import { Location } from '../../model/cac/Location'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { DeliveryTermsField, DeliveryTermsFieldMeta, DeliveryTermsTypeName } from  '../../meta/cac/DeliveryTermsMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AllowanceChargeDisplay } from './AllowanceChargeDisplay'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { LocationDisplay } from './LocationDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: DeliveryTerms | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<DeliveryTerms, void>
+  deliveryTerms: DeliveryTerms[] | undefined
+  renderContext: RenderContext
 }
 
-export default function DeliveryTermsDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const DeliveryTermsSubElementsMap: SubElementsTemplatesMap<DeliveryTermsField, DeliveryTerms, void> = new Map([
+    [
+      DeliveryTermsField.UBLExtensions,
+      { meta: DeliveryTermsFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={DeliveryTermsField.UBLExtensions}
+          meta={DeliveryTermsFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-DeliveryTerms">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={DeliveryTermsFieldMeta.UBLExtensions}
-          />
+    [
+      DeliveryTermsField.ID,
+      { meta: DeliveryTermsFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DeliveryTermsField.ID}
+          meta={DeliveryTermsFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={DeliveryTermsFieldMeta.ID}
-          />
+    [
+      DeliveryTermsField.SpecialTerms,
+      { meta: DeliveryTermsFieldMeta.SpecialTerms,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={DeliveryTermsField.SpecialTerms}
+          meta={DeliveryTermsFieldMeta.SpecialTerms}
+          fieldConfig={fieldConfig}
+          text={value?.SpecialTerms}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-SpecialTerms"
-            label="Special Terms"
-            items={value.SpecialTerms}
-            meta={DeliveryTermsFieldMeta.SpecialTerms} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Special Terms"
-                value={itemValue}
-                meta={DeliveryTermsFieldMeta.SpecialTerms}
-              />
-            }
-          />
+    [
+      DeliveryTermsField.LossRiskResponsibilityCode,
+      { meta: DeliveryTermsFieldMeta.LossRiskResponsibilityCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={DeliveryTermsField.LossRiskResponsibilityCode}
+          meta={DeliveryTermsFieldMeta.LossRiskResponsibilityCode}
+          fieldConfig={fieldConfig}
+          code={value?.LossRiskResponsibilityCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Loss Risk Responsibility Code"
-            value={value.LossRiskResponsibilityCode?.[0]}
-            meta={DeliveryTermsFieldMeta.LossRiskResponsibilityCode}
-          />
+    [
+      DeliveryTermsField.LossRisk,
+      { meta: DeliveryTermsFieldMeta.LossRisk,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={DeliveryTermsField.LossRisk}
+          meta={DeliveryTermsFieldMeta.LossRisk}
+          fieldConfig={fieldConfig}
+          text={value?.LossRisk}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-LossRisk"
-            label="Loss Risk"
-            items={value.LossRisk}
-            meta={DeliveryTermsFieldMeta.LossRisk} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Loss Risk"
-                value={itemValue}
-                meta={DeliveryTermsFieldMeta.LossRisk}
-              />
-            }
-          />
+    [
+      DeliveryTermsField.Amount,
+      { meta: DeliveryTermsFieldMeta.Amount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={DeliveryTermsField.Amount}
+          meta={DeliveryTermsFieldMeta.Amount}
+          fieldConfig={fieldConfig}
+          amount={value?.Amount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Amount"
-            value={value.Amount?.[0]}
-            meta={DeliveryTermsFieldMeta.Amount}
-          />
+    [
+      DeliveryTermsField.DeliveryLocation,
+      { meta: DeliveryTermsFieldMeta.DeliveryLocation,
+        template: ({value, renderContext, fieldConfig}) => <LocationDisplay
+          key={DeliveryTermsField.DeliveryLocation}
+          meta={DeliveryTermsFieldMeta.DeliveryLocation}
+          fieldConfig={fieldConfig}
+          location={value?.DeliveryLocation}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <LocationDisplay
-            label="Delivery Location"
-            value={value.DeliveryLocation?.[0]}
-            meta={DeliveryTermsFieldMeta.DeliveryLocation}
-          />
+    [
+      DeliveryTermsField.AllowanceCharge,
+      { meta: DeliveryTermsFieldMeta.AllowanceCharge,
+        template: ({value, renderContext, fieldConfig}) => <AllowanceChargeDisplay
+          key={DeliveryTermsField.AllowanceCharge}
+          meta={DeliveryTermsFieldMeta.AllowanceCharge}
+          fieldConfig={fieldConfig}
+          allowanceCharge={value?.AllowanceCharge}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <AllowanceChargeDisplay
-            label="Allowance Charge"
-            value={value.AllowanceCharge?.[0]}
-            meta={DeliveryTermsFieldMeta.AllowanceCharge}
-          />
-        </div>
-    </div>
+export function DeliveryTermsDisplay<TFieldMeta>({ meta, fieldConfig, deliveryTerms, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    DeliveryTermsTypeName,
+    meta,
+    fieldConfig,
+    deliveryTerms,
+    renderContext,
+    DeliveryTermsSubElementsMap,
   )
 }

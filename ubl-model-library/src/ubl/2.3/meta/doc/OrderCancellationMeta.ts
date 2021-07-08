@@ -1,4 +1,17 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { ContractType } from '../cac/ContractMeta'
+import { CustomerPartyType } from '../cac/CustomerPartyMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { OrderReferenceType } from '../cac/OrderReferenceMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { SupplierPartyType } from '../cac/SupplierPartyMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum OrderCancellationField {
   UBLExtensions = 'UBLExtensions',
@@ -26,11 +39,11 @@ export enum OrderCancellationField {
 export const OrderCancellationFieldMetaUBLExtensions = new FieldMeta<OrderCancellationField>(
   OrderCancellationField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -39,10 +52,10 @@ export const OrderCancellationFieldMetaUBLVersionID = new FieldMeta<OrderCancell
   OrderCancellationField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.0.5'
 )
@@ -51,10 +64,10 @@ export const OrderCancellationFieldMetaCustomizationID = new FieldMeta<OrderCanc
   OrderCancellationField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -63,10 +76,10 @@ export const OrderCancellationFieldMetaProfileID = new FieldMeta<OrderCancellati
   OrderCancellationField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BasicProcurementProcess'
 )
@@ -75,10 +88,10 @@ export const OrderCancellationFieldMetaProfileExecutionID = new FieldMeta<OrderC
   OrderCancellationField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -87,10 +100,10 @@ export const OrderCancellationFieldMetaID = new FieldMeta<OrderCancellationField
   OrderCancellationField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -99,10 +112,10 @@ export const OrderCancellationFieldMetaCopyIndicator = new FieldMeta<OrderCancel
   OrderCancellationField.CopyIndicator,
   'CopyIndicator',
   'Copy Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this document is a copy (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -111,10 +124,10 @@ export const OrderCancellationFieldMetaUUID = new FieldMeta<OrderCancellationFie
   OrderCancellationField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -123,10 +136,10 @@ export const OrderCancellationFieldMetaIssueDate = new FieldMeta<OrderCancellati
   OrderCancellationField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -135,10 +148,10 @@ export const OrderCancellationFieldMetaIssueTime = new FieldMeta<OrderCancellati
   OrderCancellationField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -147,10 +160,10 @@ export const OrderCancellationFieldMetaNote = new FieldMeta<OrderCancellationFie
   OrderCancellationField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -159,10 +172,10 @@ export const OrderCancellationFieldMetaCancellationNote = new FieldMeta<OrderCan
   OrderCancellationField.CancellationNote,
   'CancellationNote',
   'Cancellation Note',
-  'Text',
+  TextType.name,
   'The general reason for cancellation of the referenced order.',
-  '1..n',
-  'cbc',
+  FieldCardinality.Multi,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -171,10 +184,10 @@ export const OrderCancellationFieldMetaOrderReference = new FieldMeta<OrderCance
   OrderCancellationField.OrderReference,
   'OrderReference',
   'Order Reference',
-  'OrderReference',
+  OrderReferenceType.name,
   'A reference to the Order being cancelled. While multiple references are allowed, it is considered better practice to cancel only one Order in each Order Cancellation document.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -183,10 +196,10 @@ export const OrderCancellationFieldMetaOriginatorDocumentReference = new FieldMe
   OrderCancellationField.OriginatorDocumentReference,
   'OriginatorDocumentReference',
   'Originator Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to an originator document associated with this document.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -195,10 +208,10 @@ export const OrderCancellationFieldMetaAdditionalDocumentReference = new FieldMe
   OrderCancellationField.AdditionalDocumentReference,
   'AdditionalDocumentReference',
   'Additional Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to an additional document associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -207,10 +220,10 @@ export const OrderCancellationFieldMetaContract = new FieldMeta<OrderCancellatio
   OrderCancellationField.Contract,
   'Contract',
   'Contract',
-  'Contract',
+  ContractType.name,
   'A contract associated with the original Order(s).',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -219,10 +232,10 @@ export const OrderCancellationFieldMetaSignature = new FieldMeta<OrderCancellati
   OrderCancellationField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -231,10 +244,10 @@ export const OrderCancellationFieldMetaBuyerCustomerParty = new FieldMeta<OrderC
   OrderCancellationField.BuyerCustomerParty,
   'BuyerCustomerParty',
   'Buyer Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The buyer.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -243,10 +256,10 @@ export const OrderCancellationFieldMetaSellerSupplierParty = new FieldMeta<Order
   OrderCancellationField.SellerSupplierParty,
   'SellerSupplierParty',
   'Seller Supplier Party',
-  'SupplierParty',
+  SupplierPartyType.name,
   'The seller.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -255,10 +268,10 @@ export const OrderCancellationFieldMetaOriginatorCustomerParty = new FieldMeta<O
   OrderCancellationField.OriginatorCustomerParty,
   'OriginatorCustomerParty',
   'Originator Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The originator.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -308,3 +321,11 @@ export const OrderCancellationFieldMap = new Map([
   [OrderCancellationField.SellerSupplierParty, OrderCancellationFieldMetaSellerSupplierParty],
   [OrderCancellationField.OriginatorCustomerParty, OrderCancellationFieldMetaOriginatorCustomerParty]
 ])
+
+export const OrderCancellationType: Type<OrderCancellationField> = {
+  name: 'OrderCancellation',
+  label: 'Order Cancellation',
+  module: TypeModule.doc,
+  definition: 'A document used to cancel an entire Order.',
+  fields: OrderCancellationFieldMap,
+}

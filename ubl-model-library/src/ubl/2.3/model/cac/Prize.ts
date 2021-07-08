@@ -2,7 +2,6 @@ import { Amount } from '../cbc/Amount'
 import { Numeric } from '../cbc/Numeric'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe something valuable offered or striven for in competition.
  */

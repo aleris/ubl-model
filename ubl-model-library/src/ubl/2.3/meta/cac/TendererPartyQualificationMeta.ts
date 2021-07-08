@@ -1,4 +1,8 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { ProcurementProjectLotType } from './ProcurementProjectLotMeta'
+import { QualifyingPartyType } from './QualifyingPartyMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum TendererPartyQualificationField {
   UBLExtensions = 'UBLExtensions',
@@ -10,11 +14,11 @@ export enum TendererPartyQualificationField {
 export const TendererPartyQualificationFieldMetaUBLExtensions = new FieldMeta<TendererPartyQualificationField>(
   TendererPartyQualificationField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -23,10 +27,10 @@ export const TendererPartyQualificationFieldMetaInterestedProcurementProjectLot 
   TendererPartyQualificationField.InterestedProcurementProjectLot,
   'InterestedProcurementProjectLot',
   'Interested Procurement Project Lot',
-  'ProcurementProjectLot',
+  ProcurementProjectLotType.name,
   'The procurement project lot the party is interested in.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -35,10 +39,10 @@ export const TendererPartyQualificationFieldMetaMainQualifyingParty = new FieldM
   TendererPartyQualificationField.MainQualifyingParty,
   'MainQualifyingParty',
   'Main Qualifying Party',
-  'QualifyingParty',
+  QualifyingPartyType.name,
   'The qualifications of the main tenderer party.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -47,10 +51,10 @@ export const TendererPartyQualificationFieldMetaAdditionalQualifyingParty = new 
   TendererPartyQualificationField.AdditionalQualifyingParty,
   'AdditionalQualifyingParty',
   'Additional Qualifying Party',
-  'QualifyingParty',
+  QualifyingPartyType.name,
   'The qualifications of a tenderer party other than the main tenderer party when bidding as a consortium.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -68,3 +72,11 @@ export const TendererPartyQualificationFieldMap = new Map([
   [TendererPartyQualificationField.MainQualifyingParty, TendererPartyQualificationFieldMetaMainQualifyingParty],
   [TendererPartyQualificationField.AdditionalQualifyingParty, TendererPartyQualificationFieldMetaAdditionalQualifyingParty]
 ])
+
+export const TendererPartyQualificationType: Type<TendererPartyQualificationField> = {
+  name: 'TendererPartyQualification',
+  label: 'Tenderer Party Qualification',
+  module: TypeModule.cac,
+  definition: 'A class to describe the qualifications of a tenderer party.',
+  fields: TendererPartyQualificationFieldMap,
+}

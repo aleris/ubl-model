@@ -1,4 +1,7 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum MonetaryTotalField {
   UBLExtensions = 'UBLExtensions',
@@ -17,11 +20,11 @@ export enum MonetaryTotalField {
 export const MonetaryTotalFieldMetaUBLExtensions = new FieldMeta<MonetaryTotalField>(
   MonetaryTotalField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -30,10 +33,10 @@ export const MonetaryTotalFieldMetaLineExtensionAmount = new FieldMeta<MonetaryT
   MonetaryTotalField.LineExtensionAmount,
   'LineExtensionAmount',
   'Line Extension Amount',
-  'Amount',
+  AmountType.name,
   'The monetary amount of an extended transaction line, net of tax and settlement discounts, but inclusive of any applicable rounding amount.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -42,10 +45,10 @@ export const MonetaryTotalFieldMetaTaxExclusiveAmount = new FieldMeta<MonetaryTo
   MonetaryTotalField.TaxExclusiveAmount,
   'TaxExclusiveAmount',
   'Tax Exclusive Amount',
-  'Amount',
+  AmountType.name,
   'The monetary amount of an extended transaction line, exclusive of taxes.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -54,10 +57,10 @@ export const MonetaryTotalFieldMetaTaxInclusiveAmount = new FieldMeta<MonetaryTo
   MonetaryTotalField.TaxInclusiveAmount,
   'TaxInclusiveAmount',
   'Tax Inclusive Amount',
-  'Amount',
+  AmountType.name,
   'The monetary amount including taxes; the sum of payable amount and prepaid amount.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -66,10 +69,10 @@ export const MonetaryTotalFieldMetaAllowanceTotalAmount = new FieldMeta<Monetary
   MonetaryTotalField.AllowanceTotalAmount,
   'AllowanceTotalAmount',
   'Allowance Total Amount',
-  'Amount',
+  AmountType.name,
   'The total monetary amount of all allowances.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -78,10 +81,10 @@ export const MonetaryTotalFieldMetaChargeTotalAmount = new FieldMeta<MonetaryTot
   MonetaryTotalField.ChargeTotalAmount,
   'ChargeTotalAmount',
   'Charge Total Amount',
-  'Amount',
+  AmountType.name,
   'The total monetary amount of all charges.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -90,10 +93,10 @@ export const MonetaryTotalFieldMetaWithholdingTaxTotalAmount = new FieldMeta<Mon
   MonetaryTotalField.WithholdingTaxTotalAmount,
   'WithholdingTaxTotalAmount',
   'Withholding Tax Total Amount',
-  'Amount',
+  AmountType.name,
   'The total withholding tax amount.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -102,10 +105,10 @@ export const MonetaryTotalFieldMetaPrepaidAmount = new FieldMeta<MonetaryTotalFi
   MonetaryTotalField.PrepaidAmount,
   'PrepaidAmount',
   'Prepaid Amount',
-  'Amount',
+  AmountType.name,
   'The total prepaid monetary amount.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -114,10 +117,10 @@ export const MonetaryTotalFieldMetaPayableRoundingAmount = new FieldMeta<Monetar
   MonetaryTotalField.PayableRoundingAmount,
   'PayableRoundingAmount',
   'Payable Rounding Amount',
-  'Amount',
+  AmountType.name,
   'The rounding amount (positive or negative) added to produce the line extension amount.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -126,10 +129,10 @@ export const MonetaryTotalFieldMetaPayableAmount = new FieldMeta<MonetaryTotalFi
   MonetaryTotalField.PayableAmount,
   'PayableAmount',
   'Payable Amount',
-  'Amount',
+  AmountType.name,
   'The amount of the monetary total to be paid.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -138,10 +141,10 @@ export const MonetaryTotalFieldMetaPayableAlternativeAmount = new FieldMeta<Mone
   MonetaryTotalField.PayableAlternativeAmount,
   'PayableAlternativeAmount',
   'Payable Alternative Amount',
-  'Amount',
+  AmountType.name,
   'The amount of the monetary total to be paid, expressed in an alternative currency.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -173,3 +176,11 @@ export const MonetaryTotalFieldMap = new Map([
   [MonetaryTotalField.PayableAmount, MonetaryTotalFieldMetaPayableAmount],
   [MonetaryTotalField.PayableAlternativeAmount, MonetaryTotalFieldMetaPayableAlternativeAmount]
 ])
+
+export const MonetaryTotalType: Type<MonetaryTotalField> = {
+  name: 'MonetaryTotal',
+  label: 'Monetary Total',
+  module: TypeModule.cac,
+  definition: 'A class to define a monetary total.',
+  fields: MonetaryTotalFieldMap,
+}

@@ -7,7 +7,6 @@ import { Location } from './Location'
 import { Quantity } from '../cbc/Quantity'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to define a line in an Inventory Report.
  */

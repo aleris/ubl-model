@@ -1,4 +1,13 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { ForecastExceptionCriterionLineType } from './ForecastExceptionCriterionLineMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { ItemType } from './ItemMeta'
+import { PeriodType } from './PeriodMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ExceptionCriteriaLineField {
   UBLExtensions = 'UBLExtensions',
@@ -19,11 +28,11 @@ export enum ExceptionCriteriaLineField {
 export const ExceptionCriteriaLineFieldMetaUBLExtensions = new FieldMeta<ExceptionCriteriaLineField>(
   ExceptionCriteriaLineField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -32,10 +41,10 @@ export const ExceptionCriteriaLineFieldMetaID = new FieldMeta<ExceptionCriteriaL
   ExceptionCriteriaLineField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this exception criteria line.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -44,10 +53,10 @@ export const ExceptionCriteriaLineFieldMetaNote = new FieldMeta<ExceptionCriteri
   ExceptionCriteriaLineField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -56,10 +65,10 @@ export const ExceptionCriteriaLineFieldMetaThresholdValueComparisonCode = new Fi
   ExceptionCriteriaLineField.ThresholdValueComparisonCode,
   'ThresholdValueComparisonCode',
   'Threshold Value Comparison Code',
-  'Code',
+  CodeType.name,
   'Type of comparison to be carried out in reference to the set threshold." Allowed values are: EXCEEDS_EXCEPTION_VALUE FALLS_BELOW_EXCEPTION_VALUE',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -68,10 +77,10 @@ export const ExceptionCriteriaLineFieldMetaThresholdQuantity = new FieldMeta<Exc
   ExceptionCriteriaLineField.ThresholdQuantity,
   'ThresholdQuantity',
   'Threshold Quantity',
-  'Quantity',
+  QuantityType.name,
   'A quantity beyond which an exception will be triggered.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -80,10 +89,10 @@ export const ExceptionCriteriaLineFieldMetaExceptionStatusCode = new FieldMeta<E
   ExceptionCriteriaLineField.ExceptionStatusCode,
   'ExceptionStatusCode',
   'Exception Status Code',
-  'Code',
+  CodeType.name,
   'A code signifying status specific to a shipment exception.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -92,10 +101,10 @@ export const ExceptionCriteriaLineFieldMetaCollaborationPriorityCode = new Field
   ExceptionCriteriaLineField.CollaborationPriorityCode,
   'CollaborationPriorityCode',
   'Collaboration Priority Code',
-  'Code',
+  CodeType.name,
   'A collaboratively assigned code signifying priority of the Exception. Possible values are: HIGH, LOW, MEDIUM',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -104,10 +113,10 @@ export const ExceptionCriteriaLineFieldMetaExceptionResolutionCode = new FieldMe
   ExceptionCriteriaLineField.ExceptionResolutionCode,
   'ExceptionResolutionCode',
   'Exception Resolution Code',
-  'Code',
+  CodeType.name,
   'Coded representation of possible resolution methods". Possible values are: DEFAULT_TO_AVERAGE_OF_COMPARED_VALUES DEFAULT_TO_BUYERS_VALUE DEFAULT_TO_HIGH_VALUE DEFAULT_TO_LOW_VALUE DEFAULT_TO_SELLERS_VALUE MANUAL_RESOLUTION MUTUALLY_DEFINED',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -116,10 +125,10 @@ export const ExceptionCriteriaLineFieldMetaSupplyChainActivityTypeCode = new Fie
   ExceptionCriteriaLineField.SupplyChainActivityTypeCode,
   'SupplyChainActivityTypeCode',
   'Supply Chain Activity Type Code',
-  'Code',
+  CodeType.name,
   'Establishes the criterion for one of the three types of exceptions. There can be three types of exception criteria: Operational, Metric and Forecast Exceptions. This will be set if this Exception is about an Operational Exception. Description could be: A code used to identify an operational exception. Possible values are: CANCELED_ORDERS EMERGENCY_ORDERS ON_HAND ORDERS RECEIPTS SALES SHIPMENTS',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -128,10 +137,10 @@ export const ExceptionCriteriaLineFieldMetaPerformanceMetricTypeCode = new Field
   ExceptionCriteriaLineField.PerformanceMetricTypeCode,
   'PerformanceMetricTypeCode',
   'Performance Metric Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying a measure of performance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -140,10 +149,10 @@ export const ExceptionCriteriaLineFieldMetaEffectivePeriod = new FieldMeta<Excep
   ExceptionCriteriaLineField.EffectivePeriod,
   'EffectivePeriod',
   'Effective Period',
-  'Period',
+  PeriodType.name,
   'The period during which this exception criteria line is in effect.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -152,10 +161,10 @@ export const ExceptionCriteriaLineFieldMetaSupplyItem = new FieldMeta<ExceptionC
   ExceptionCriteriaLineField.SupplyItem,
   'SupplyItem',
   'Supply Item',
-  'Item',
+  ItemType.name,
   'The Trade Item that is the subject of the Exception Criterion.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -164,10 +173,10 @@ export const ExceptionCriteriaLineFieldMetaForecastExceptionCriterionLine = new 
   ExceptionCriteriaLineField.ForecastExceptionCriterionLine,
   'ForecastExceptionCriterionLine',
   'Forecast Exception Criterion Line',
-  'ForecastExceptionCriterionLine',
+  ForecastExceptionCriterionLineType.name,
   'Establishes the criterion for one of the three types of exceptions. This class provides the criterion for the kind of forecast exception, the identification of the purpose of the forecast, the source of data and the time basis criterion for the exception.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -203,3 +212,11 @@ export const ExceptionCriteriaLineFieldMap = new Map([
   [ExceptionCriteriaLineField.SupplyItem, ExceptionCriteriaLineFieldMetaSupplyItem],
   [ExceptionCriteriaLineField.ForecastExceptionCriterionLine, ExceptionCriteriaLineFieldMetaForecastExceptionCriterionLine]
 ])
+
+export const ExceptionCriteriaLineType: Type<ExceptionCriteriaLineField> = {
+  name: 'ExceptionCriteriaLine',
+  label: 'Exception Criteria Line',
+  module: TypeModule.cac,
+  definition: 'A class to define a line in an ExceptionCriteria document that specifies a threshold for forecast variance, product activity, or performance history, the exceeding of which should trigger an exception message.',
+  fields: ExceptionCriteriaLineFieldMap,
+}

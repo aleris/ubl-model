@@ -1,115 +1,167 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TaxCategory } from  '../../model/cac/TaxCategory'
-import { TaxCategoryFieldMeta } from  '../../meta/cac/TaxCategoryMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import MeasureDisplay from '../cbc/MeasureDisplay'
-import { Measure } from '../../model/cbc/Measure'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import TaxSchemeDisplay from './TaxSchemeDisplay'
-import { TaxScheme } from '../../model/cac/TaxScheme'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { TaxCategoryField, TaxCategoryFieldMeta, TaxCategoryTypeName } from  '../../meta/cac/TaxCategoryMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { MeasureDisplay } from '../cbc/MeasureDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { TaxSchemeDisplay } from './TaxSchemeDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: TaxCategory | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<TaxCategory, void>
+  taxCategory: TaxCategory[] | undefined
+  renderContext: RenderContext
 }
 
-export default function TaxCategoryDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const TaxCategorySubElementsMap: SubElementsTemplatesMap<TaxCategoryField, TaxCategory, void> = new Map([
+    [
+      TaxCategoryField.UBLExtensions,
+      { meta: TaxCategoryFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={TaxCategoryField.UBLExtensions}
+          meta={TaxCategoryFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-TaxCategory">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={TaxCategoryFieldMeta.UBLExtensions}
-          />
+    [
+      TaxCategoryField.ID,
+      { meta: TaxCategoryFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TaxCategoryField.ID}
+          meta={TaxCategoryFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={TaxCategoryFieldMeta.ID}
-          />
+    [
+      TaxCategoryField.Name,
+      { meta: TaxCategoryFieldMeta.Name,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TaxCategoryField.Name}
+          meta={TaxCategoryFieldMeta.Name}
+          fieldConfig={fieldConfig}
+          text={value?.Name}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Name"
-            value={value.Name?.[0]}
-            meta={TaxCategoryFieldMeta.Name}
-          />
+    [
+      TaxCategoryField.Percent,
+      { meta: TaxCategoryFieldMeta.Percent,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={TaxCategoryField.Percent}
+          meta={TaxCategoryFieldMeta.Percent}
+          fieldConfig={fieldConfig}
+          numeric={value?.Percent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Percent"
-            value={value.Percent?.[0]}
-            meta={TaxCategoryFieldMeta.Percent}
-          />
+    [
+      TaxCategoryField.BaseUnitMeasure,
+      { meta: TaxCategoryFieldMeta.BaseUnitMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={TaxCategoryField.BaseUnitMeasure}
+          meta={TaxCategoryFieldMeta.BaseUnitMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.BaseUnitMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Base Unit Measure"
-            value={value.BaseUnitMeasure?.[0]}
-            meta={TaxCategoryFieldMeta.BaseUnitMeasure}
-          />
+    [
+      TaxCategoryField.PerUnitAmount,
+      { meta: TaxCategoryFieldMeta.PerUnitAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={TaxCategoryField.PerUnitAmount}
+          meta={TaxCategoryFieldMeta.PerUnitAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.PerUnitAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Per Unit Amount"
-            value={value.PerUnitAmount?.[0]}
-            meta={TaxCategoryFieldMeta.PerUnitAmount}
-          />
+    [
+      TaxCategoryField.TaxExemptionReasonCode,
+      { meta: TaxCategoryFieldMeta.TaxExemptionReasonCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TaxCategoryField.TaxExemptionReasonCode}
+          meta={TaxCategoryFieldMeta.TaxExemptionReasonCode}
+          fieldConfig={fieldConfig}
+          code={value?.TaxExemptionReasonCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Tax Exemption Reason Code"
-            value={value.TaxExemptionReasonCode?.[0]}
-            meta={TaxCategoryFieldMeta.TaxExemptionReasonCode}
-          />
+    [
+      TaxCategoryField.TaxExemptionReason,
+      { meta: TaxCategoryFieldMeta.TaxExemptionReason,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TaxCategoryField.TaxExemptionReason}
+          meta={TaxCategoryFieldMeta.TaxExemptionReason}
+          fieldConfig={fieldConfig}
+          text={value?.TaxExemptionReason}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-TaxExemptionReason"
-            label="Tax Exemption Reason"
-            items={value.TaxExemptionReason}
-            meta={TaxCategoryFieldMeta.TaxExemptionReason} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Tax Exemption Reason"
-                value={itemValue}
-                meta={TaxCategoryFieldMeta.TaxExemptionReason}
-              />
-            }
-          />
+    [
+      TaxCategoryField.TierRange,
+      { meta: TaxCategoryFieldMeta.TierRange,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TaxCategoryField.TierRange}
+          meta={TaxCategoryFieldMeta.TierRange}
+          fieldConfig={fieldConfig}
+          text={value?.TierRange}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Tier Range"
-            value={value.TierRange?.[0]}
-            meta={TaxCategoryFieldMeta.TierRange}
-          />
+    [
+      TaxCategoryField.TierRatePercent,
+      { meta: TaxCategoryFieldMeta.TierRatePercent,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={TaxCategoryField.TierRatePercent}
+          meta={TaxCategoryFieldMeta.TierRatePercent}
+          fieldConfig={fieldConfig}
+          numeric={value?.TierRatePercent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Tier Rate"
-            value={value.TierRatePercent?.[0]}
-            meta={TaxCategoryFieldMeta.TierRatePercent}
-          />
+    [
+      TaxCategoryField.TaxScheme,
+      { meta: TaxCategoryFieldMeta.TaxScheme,
+        template: ({value, renderContext, fieldConfig}) => <TaxSchemeDisplay
+          key={TaxCategoryField.TaxScheme}
+          meta={TaxCategoryFieldMeta.TaxScheme}
+          fieldConfig={fieldConfig}
+          taxScheme={value?.TaxScheme}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <TaxSchemeDisplay
-            label="Tax Scheme"
-            value={value.TaxScheme?.[0]}
-            meta={TaxCategoryFieldMeta.TaxScheme}
-          />
-        </div>
-    </div>
+export function TaxCategoryDisplay<TFieldMeta>({ meta, fieldConfig, taxCategory, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    TaxCategoryTypeName,
+    meta,
+    fieldConfig,
+    taxCategory,
+    renderContext,
+    TaxCategorySubElementsMap,
   )
 }

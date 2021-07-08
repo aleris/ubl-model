@@ -6,7 +6,6 @@ import { Period } from './Period'
 import { SalesItem } from './SalesItem'
 import { SupplierParty } from './SupplierParty'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to associate a time period and locations (activity data) with an item for inventory planning purposes.
  */

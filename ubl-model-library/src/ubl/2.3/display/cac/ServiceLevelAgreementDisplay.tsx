@@ -1,181 +1,263 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ServiceLevelAgreement } from  '../../model/cac/ServiceLevelAgreement'
-import { ServiceLevelAgreementFieldMeta } from  '../../meta/cac/ServiceLevelAgreementMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import MeasureDisplay from '../cbc/MeasureDisplay'
-import { Measure } from '../../model/cbc/Measure'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ServiceLevelAgreementField, ServiceLevelAgreementFieldMeta, ServiceLevelAgreementTypeName } from  '../../meta/cac/ServiceLevelAgreementMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { MeasureDisplay } from '../cbc/MeasureDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ServiceLevelAgreement | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ServiceLevelAgreement, void>
+  serviceLevelAgreement: ServiceLevelAgreement[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ServiceLevelAgreementDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ServiceLevelAgreementSubElementsMap: SubElementsTemplatesMap<ServiceLevelAgreementField, ServiceLevelAgreement, void> = new Map([
+    [
+      ServiceLevelAgreementField.UBLExtensions,
+      { meta: ServiceLevelAgreementFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ServiceLevelAgreementField.UBLExtensions}
+          meta={ServiceLevelAgreementFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ServiceLevelAgreement">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ServiceLevelAgreementFieldMeta.UBLExtensions}
-          />
+    [
+      ServiceLevelAgreementField.ID,
+      { meta: ServiceLevelAgreementFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ServiceLevelAgreementField.ID}
+          meta={ServiceLevelAgreementFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={ServiceLevelAgreementFieldMeta.ID}
-          />
+    [
+      ServiceLevelAgreementField.ServiceTypeCode,
+      { meta: ServiceLevelAgreementFieldMeta.ServiceTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ServiceLevelAgreementField.ServiceTypeCode}
+          meta={ServiceLevelAgreementFieldMeta.ServiceTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.ServiceTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Service Type Code"
-            value={value.ServiceTypeCode?.[0]}
-            meta={ServiceLevelAgreementFieldMeta.ServiceTypeCode}
-          />
+    [
+      ServiceLevelAgreementField.ServiceType,
+      { meta: ServiceLevelAgreementFieldMeta.ServiceType,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ServiceLevelAgreementField.ServiceType}
+          meta={ServiceLevelAgreementFieldMeta.ServiceType}
+          fieldConfig={fieldConfig}
+          text={value?.ServiceType}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-ServiceType"
-            label="Service Type"
-            items={value.ServiceType}
-            meta={ServiceLevelAgreementFieldMeta.ServiceType} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Service Type"
-                value={itemValue}
-                meta={ServiceLevelAgreementFieldMeta.ServiceType}
-              />
-            }
-          />
+    [
+      ServiceLevelAgreementField.AvailabilityTimePercent,
+      { meta: ServiceLevelAgreementFieldMeta.AvailabilityTimePercent,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={ServiceLevelAgreementField.AvailabilityTimePercent}
+          meta={ServiceLevelAgreementFieldMeta.AvailabilityTimePercent}
+          fieldConfig={fieldConfig}
+          numeric={value?.AvailabilityTimePercent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Availability Time Percent"
-            value={value.AvailabilityTimePercent?.[0]}
-            meta={ServiceLevelAgreementFieldMeta.AvailabilityTimePercent}
-          />
+    [
+      ServiceLevelAgreementField.MondayAvailabilityIndicator,
+      { meta: ServiceLevelAgreementFieldMeta.MondayAvailabilityIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ServiceLevelAgreementField.MondayAvailabilityIndicator}
+          meta={ServiceLevelAgreementFieldMeta.MondayAvailabilityIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.MondayAvailabilityIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Monday Availability Indicator"
-            value={value.MondayAvailabilityIndicator?.[0]}
-            meta={ServiceLevelAgreementFieldMeta.MondayAvailabilityIndicator}
-          />
+    [
+      ServiceLevelAgreementField.TuesdayAvailabilityIndicator,
+      { meta: ServiceLevelAgreementFieldMeta.TuesdayAvailabilityIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ServiceLevelAgreementField.TuesdayAvailabilityIndicator}
+          meta={ServiceLevelAgreementFieldMeta.TuesdayAvailabilityIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.TuesdayAvailabilityIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Tuesday Availability Indicator"
-            value={value.TuesdayAvailabilityIndicator?.[0]}
-            meta={ServiceLevelAgreementFieldMeta.TuesdayAvailabilityIndicator}
-          />
+    [
+      ServiceLevelAgreementField.WednesdayAvailabilityIndicator,
+      { meta: ServiceLevelAgreementFieldMeta.WednesdayAvailabilityIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ServiceLevelAgreementField.WednesdayAvailabilityIndicator}
+          meta={ServiceLevelAgreementFieldMeta.WednesdayAvailabilityIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.WednesdayAvailabilityIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Wednesday Availability Indicator"
-            value={value.WednesdayAvailabilityIndicator?.[0]}
-            meta={ServiceLevelAgreementFieldMeta.WednesdayAvailabilityIndicator}
-          />
+    [
+      ServiceLevelAgreementField.ThursdayAvailabilityIndicator,
+      { meta: ServiceLevelAgreementFieldMeta.ThursdayAvailabilityIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ServiceLevelAgreementField.ThursdayAvailabilityIndicator}
+          meta={ServiceLevelAgreementFieldMeta.ThursdayAvailabilityIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.ThursdayAvailabilityIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Thursday Availability Indicator"
-            value={value.ThursdayAvailabilityIndicator?.[0]}
-            meta={ServiceLevelAgreementFieldMeta.ThursdayAvailabilityIndicator}
-          />
+    [
+      ServiceLevelAgreementField.FridayAvailabilityIndicator,
+      { meta: ServiceLevelAgreementFieldMeta.FridayAvailabilityIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ServiceLevelAgreementField.FridayAvailabilityIndicator}
+          meta={ServiceLevelAgreementFieldMeta.FridayAvailabilityIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.FridayAvailabilityIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Friday Availability Indicator"
-            value={value.FridayAvailabilityIndicator?.[0]}
-            meta={ServiceLevelAgreementFieldMeta.FridayAvailabilityIndicator}
-          />
+    [
+      ServiceLevelAgreementField.SaturdayAvailabilityIndicator,
+      { meta: ServiceLevelAgreementFieldMeta.SaturdayAvailabilityIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ServiceLevelAgreementField.SaturdayAvailabilityIndicator}
+          meta={ServiceLevelAgreementFieldMeta.SaturdayAvailabilityIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.SaturdayAvailabilityIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Saturday Availability Indicator"
-            value={value.SaturdayAvailabilityIndicator?.[0]}
-            meta={ServiceLevelAgreementFieldMeta.SaturdayAvailabilityIndicator}
-          />
+    [
+      ServiceLevelAgreementField.SundayAvailabilityIndicator,
+      { meta: ServiceLevelAgreementFieldMeta.SundayAvailabilityIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ServiceLevelAgreementField.SundayAvailabilityIndicator}
+          meta={ServiceLevelAgreementFieldMeta.SundayAvailabilityIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.SundayAvailabilityIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Sunday Availability Indicator"
-            value={value.SundayAvailabilityIndicator?.[0]}
-            meta={ServiceLevelAgreementFieldMeta.SundayAvailabilityIndicator}
-          />
+    [
+      ServiceLevelAgreementField.MinimumResponseTimeDurationMeasure,
+      { meta: ServiceLevelAgreementFieldMeta.MinimumResponseTimeDurationMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={ServiceLevelAgreementField.MinimumResponseTimeDurationMeasure}
+          meta={ServiceLevelAgreementFieldMeta.MinimumResponseTimeDurationMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.MinimumResponseTimeDurationMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Minimum Response Time Duration"
-            value={value.MinimumResponseTimeDurationMeasure?.[0]}
-            meta={ServiceLevelAgreementFieldMeta.MinimumResponseTimeDurationMeasure}
-          />
+    [
+      ServiceLevelAgreementField.MinimumDownTimeScheduleDurationMeasure,
+      { meta: ServiceLevelAgreementFieldMeta.MinimumDownTimeScheduleDurationMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={ServiceLevelAgreementField.MinimumDownTimeScheduleDurationMeasure}
+          meta={ServiceLevelAgreementFieldMeta.MinimumDownTimeScheduleDurationMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.MinimumDownTimeScheduleDurationMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Minimum Down Time Schedule Duration"
-            value={value.MinimumDownTimeScheduleDurationMeasure?.[0]}
-            meta={ServiceLevelAgreementFieldMeta.MinimumDownTimeScheduleDurationMeasure}
-          />
+    [
+      ServiceLevelAgreementField.MaximumIncidentNotificationDurationMeasure,
+      { meta: ServiceLevelAgreementFieldMeta.MaximumIncidentNotificationDurationMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={ServiceLevelAgreementField.MaximumIncidentNotificationDurationMeasure}
+          meta={ServiceLevelAgreementFieldMeta.MaximumIncidentNotificationDurationMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.MaximumIncidentNotificationDurationMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Maximum Incident Notification Duration"
-            value={value.MaximumIncidentNotificationDurationMeasure?.[0]}
-            meta={ServiceLevelAgreementFieldMeta.MaximumIncidentNotificationDurationMeasure}
-          />
+    [
+      ServiceLevelAgreementField.MaximumDataLossDurationMeasure,
+      { meta: ServiceLevelAgreementFieldMeta.MaximumDataLossDurationMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={ServiceLevelAgreementField.MaximumDataLossDurationMeasure}
+          meta={ServiceLevelAgreementFieldMeta.MaximumDataLossDurationMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.MaximumDataLossDurationMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Maximum Data Loss Duration"
-            value={value.MaximumDataLossDurationMeasure?.[0]}
-            meta={ServiceLevelAgreementFieldMeta.MaximumDataLossDurationMeasure}
-          />
+    [
+      ServiceLevelAgreementField.MeanTimeToRecoverDurationMeasure,
+      { meta: ServiceLevelAgreementFieldMeta.MeanTimeToRecoverDurationMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={ServiceLevelAgreementField.MeanTimeToRecoverDurationMeasure}
+          meta={ServiceLevelAgreementFieldMeta.MeanTimeToRecoverDurationMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.MeanTimeToRecoverDurationMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Mean Time To Recover Duration"
-            value={value.MeanTimeToRecoverDurationMeasure?.[0]}
-            meta={ServiceLevelAgreementFieldMeta.MeanTimeToRecoverDurationMeasure}
-          />
+    [
+      ServiceLevelAgreementField.ServiceAvailabilityPeriod,
+      { meta: ServiceLevelAgreementFieldMeta.ServiceAvailabilityPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={ServiceLevelAgreementField.ServiceAvailabilityPeriod}
+          meta={ServiceLevelAgreementFieldMeta.ServiceAvailabilityPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.ServiceAvailabilityPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Period ubl-ServiceAvailabilityPeriod"
-            label="Service Availability Period"
-            items={value.ServiceAvailabilityPeriod}
-            meta={ServiceLevelAgreementFieldMeta.ServiceAvailabilityPeriod} 
-            itemDisplay={ (itemValue: Period, key: string | number) =>
-              <PeriodDisplay
-                key={key}
-                label="Service Availability Period"
-                value={itemValue}
-                meta={ServiceLevelAgreementFieldMeta.ServiceAvailabilityPeriod}
-              />
-            }
-          />
+    [
+      ServiceLevelAgreementField.ServiceMaintenancePeriod,
+      { meta: ServiceLevelAgreementFieldMeta.ServiceMaintenancePeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={ServiceLevelAgreementField.ServiceMaintenancePeriod}
+          meta={ServiceLevelAgreementFieldMeta.ServiceMaintenancePeriod}
+          fieldConfig={fieldConfig}
+          period={value?.ServiceMaintenancePeriod}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Period ubl-ServiceMaintenancePeriod"
-            label="Service Maintenance Period"
-            items={value.ServiceMaintenancePeriod}
-            meta={ServiceLevelAgreementFieldMeta.ServiceMaintenancePeriod} 
-            itemDisplay={ (itemValue: Period, key: string | number) =>
-              <PeriodDisplay
-                key={key}
-                label="Service Maintenance Period"
-                value={itemValue}
-                meta={ServiceLevelAgreementFieldMeta.ServiceMaintenancePeriod}
-              />
-            }
-          />
-        </div>
-    </div>
+export function ServiceLevelAgreementDisplay<TFieldMeta>({ meta, fieldConfig, serviceLevelAgreement, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ServiceLevelAgreementTypeName,
+    meta,
+    fieldConfig,
+    serviceLevelAgreement,
+    renderContext,
+    ServiceLevelAgreementSubElementsMap,
   )
 }

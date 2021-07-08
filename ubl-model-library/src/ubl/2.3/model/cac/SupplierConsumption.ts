@@ -4,7 +4,6 @@ import { Contract } from './Contract'
 import { Party } from './Party'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * The consumption in case the consumption is for one and only one supplier.
  */

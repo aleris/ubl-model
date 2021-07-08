@@ -1,4 +1,11 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { ItemType } from './ItemMeta'
+import { PartyType } from './PartyMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum InstructionForReturnsLineField {
   UBLExtensions = 'UBLExtensions',
@@ -12,11 +19,11 @@ export enum InstructionForReturnsLineField {
 export const InstructionForReturnsLineFieldMetaUBLExtensions = new FieldMeta<InstructionForReturnsLineField>(
   InstructionForReturnsLineField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -25,10 +32,10 @@ export const InstructionForReturnsLineFieldMetaID = new FieldMeta<InstructionFor
   InstructionForReturnsLineField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this instruction for returns line.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -37,10 +44,10 @@ export const InstructionForReturnsLineFieldMetaNote = new FieldMeta<InstructionF
   InstructionForReturnsLineField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -49,10 +56,10 @@ export const InstructionForReturnsLineFieldMetaQuantity = new FieldMeta<Instruct
   InstructionForReturnsLineField.Quantity,
   'Quantity',
   'Quantity',
-  'Quantity',
+  QuantityType.name,
   'The quantity of goods being returned.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -61,10 +68,10 @@ export const InstructionForReturnsLineFieldMetaManufacturerParty = new FieldMeta
   InstructionForReturnsLineField.ManufacturerParty,
   'ManufacturerParty',
   'Manufacturer Party',
-  'Party',
+  PartyType.name,
   'The manufacturer of the goods being returned.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -73,10 +80,10 @@ export const InstructionForReturnsLineFieldMetaItem = new FieldMeta<InstructionF
   InstructionForReturnsLineField.Item,
   'Item',
   'Item',
-  'Item',
+  ItemType.name,
   'A description of the item being returned.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -98,3 +105,11 @@ export const InstructionForReturnsLineFieldMap = new Map([
   [InstructionForReturnsLineField.ManufacturerParty, InstructionForReturnsLineFieldMetaManufacturerParty],
   [InstructionForReturnsLineField.Item, InstructionForReturnsLineFieldMetaItem]
 ])
+
+export const InstructionForReturnsLineType: Type<InstructionForReturnsLineField> = {
+  name: 'InstructionForReturnsLine',
+  label: 'Instruction For Returns Line',
+  module: TypeModule.cac,
+  definition: 'A class to define a line in an Instruction for Returns.',
+  fields: InstructionForReturnsLineFieldMap,
+}

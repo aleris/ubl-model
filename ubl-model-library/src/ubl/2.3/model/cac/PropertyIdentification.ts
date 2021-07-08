@@ -1,7 +1,6 @@
 import { Identifier } from '../cbc/Identifier'
 import { Party } from './Party'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class for assigning identifying information for a property
  */

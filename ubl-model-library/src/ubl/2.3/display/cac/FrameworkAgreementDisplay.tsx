@@ -1,117 +1,141 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { FrameworkAgreement } from  '../../model/cac/FrameworkAgreement'
-import { FrameworkAgreementFieldMeta } from  '../../meta/cac/FrameworkAgreementMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import TenderRequirementDisplay from './TenderRequirementDisplay'
-import { TenderRequirement } from '../../model/cac/TenderRequirement'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { FrameworkAgreementField, FrameworkAgreementFieldMeta, FrameworkAgreementTypeName } from  '../../meta/cac/FrameworkAgreementMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { TenderRequirementDisplay } from './TenderRequirementDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: FrameworkAgreement | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<FrameworkAgreement, void>
+  frameworkAgreement: FrameworkAgreement[] | undefined
+  renderContext: RenderContext
 }
 
-export default function FrameworkAgreementDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const FrameworkAgreementSubElementsMap: SubElementsTemplatesMap<FrameworkAgreementField, FrameworkAgreement, void> = new Map([
+    [
+      FrameworkAgreementField.UBLExtensions,
+      { meta: FrameworkAgreementFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={FrameworkAgreementField.UBLExtensions}
+          meta={FrameworkAgreementFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-FrameworkAgreement">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={FrameworkAgreementFieldMeta.UBLExtensions}
-          />
+    [
+      FrameworkAgreementField.ExpectedOperatorQuantity,
+      { meta: FrameworkAgreementFieldMeta.ExpectedOperatorQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={FrameworkAgreementField.ExpectedOperatorQuantity}
+          meta={FrameworkAgreementFieldMeta.ExpectedOperatorQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.ExpectedOperatorQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Expected Operator"
-            value={value.ExpectedOperatorQuantity?.[0]}
-            meta={FrameworkAgreementFieldMeta.ExpectedOperatorQuantity}
-          />
+    [
+      FrameworkAgreementField.MaximumOperatorQuantity,
+      { meta: FrameworkAgreementFieldMeta.MaximumOperatorQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={FrameworkAgreementField.MaximumOperatorQuantity}
+          meta={FrameworkAgreementFieldMeta.MaximumOperatorQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.MaximumOperatorQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Maximum Operator"
-            value={value.MaximumOperatorQuantity?.[0]}
-            meta={FrameworkAgreementFieldMeta.MaximumOperatorQuantity}
-          />
+    [
+      FrameworkAgreementField.Justification,
+      { meta: FrameworkAgreementFieldMeta.Justification,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={FrameworkAgreementField.Justification}
+          meta={FrameworkAgreementFieldMeta.Justification}
+          fieldConfig={fieldConfig}
+          text={value?.Justification}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Justification"
-            label="Justification"
-            items={value.Justification}
-            meta={FrameworkAgreementFieldMeta.Justification} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Justification"
-                value={itemValue}
-                meta={FrameworkAgreementFieldMeta.Justification}
-              />
-            }
-          />
+    [
+      FrameworkAgreementField.Frequency,
+      { meta: FrameworkAgreementFieldMeta.Frequency,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={FrameworkAgreementField.Frequency}
+          meta={FrameworkAgreementFieldMeta.Frequency}
+          fieldConfig={fieldConfig}
+          text={value?.Frequency}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Frequency"
-            label="Frequency"
-            items={value.Frequency}
-            meta={FrameworkAgreementFieldMeta.Frequency} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Frequency"
-                value={itemValue}
-                meta={FrameworkAgreementFieldMeta.Frequency}
-              />
-            }
-          />
+    [
+      FrameworkAgreementField.EstimatedMaximumValueAmount,
+      { meta: FrameworkAgreementFieldMeta.EstimatedMaximumValueAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={FrameworkAgreementField.EstimatedMaximumValueAmount}
+          meta={FrameworkAgreementFieldMeta.EstimatedMaximumValueAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.EstimatedMaximumValueAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Estimated Maximum Value"
-            value={value.EstimatedMaximumValueAmount?.[0]}
-            meta={FrameworkAgreementFieldMeta.EstimatedMaximumValueAmount}
-          />
+    [
+      FrameworkAgreementField.MaximumValueAmount,
+      { meta: FrameworkAgreementFieldMeta.MaximumValueAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={FrameworkAgreementField.MaximumValueAmount}
+          meta={FrameworkAgreementFieldMeta.MaximumValueAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.MaximumValueAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Maximum Value"
-            value={value.MaximumValueAmount?.[0]}
-            meta={FrameworkAgreementFieldMeta.MaximumValueAmount}
-          />
+    [
+      FrameworkAgreementField.DurationPeriod,
+      { meta: FrameworkAgreementFieldMeta.DurationPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={FrameworkAgreementField.DurationPeriod}
+          meta={FrameworkAgreementFieldMeta.DurationPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.DurationPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Duration Period"
-            value={value.DurationPeriod?.[0]}
-            meta={FrameworkAgreementFieldMeta.DurationPeriod}
-          />
+    [
+      FrameworkAgreementField.SubsequentProcessTenderRequirement,
+      { meta: FrameworkAgreementFieldMeta.SubsequentProcessTenderRequirement,
+        template: ({value, renderContext, fieldConfig}) => <TenderRequirementDisplay
+          key={FrameworkAgreementField.SubsequentProcessTenderRequirement}
+          meta={FrameworkAgreementFieldMeta.SubsequentProcessTenderRequirement}
+          fieldConfig={fieldConfig}
+          tenderRequirement={value?.SubsequentProcessTenderRequirement}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TenderRequirement ubl-SubsequentProcessTenderRequirement"
-            label="Subsequent Process Tender Requirement"
-            items={value.SubsequentProcessTenderRequirement}
-            meta={FrameworkAgreementFieldMeta.SubsequentProcessTenderRequirement} 
-            itemDisplay={ (itemValue: TenderRequirement, key: string | number) =>
-              <TenderRequirementDisplay
-                key={key}
-                label="Subsequent Process Tender Requirement"
-                value={itemValue}
-                meta={FrameworkAgreementFieldMeta.SubsequentProcessTenderRequirement}
-              />
-            }
-          />
-        </div>
-    </div>
+export function FrameworkAgreementDisplay<TFieldMeta>({ meta, fieldConfig, frameworkAgreement, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    FrameworkAgreementTypeName,
+    meta,
+    fieldConfig,
+    frameworkAgreement,
+    renderContext,
+    FrameworkAgreementSubElementsMap,
   )
 }

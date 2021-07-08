@@ -1,92 +1,151 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ParticipantParty } from  '../../model/cac/ParticipantParty'
-import { ParticipantPartyFieldMeta } from  '../../meta/cac/ParticipantPartyMeta'
-import ContactDisplay from './ContactDisplay'
-import { Contact } from '../../model/cac/Contact'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ParticipantPartyField, ParticipantPartyFieldMeta, ParticipantPartyTypeName } from  '../../meta/cac/ParticipantPartyMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { ContactDisplay } from './ContactDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ParticipantParty | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ParticipantParty, void>
+  participantParty: ParticipantParty[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ParticipantPartyDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ParticipantPartySubElementsMap: SubElementsTemplatesMap<ParticipantPartyField, ParticipantParty, void> = new Map([
+    [
+      ParticipantPartyField.UBLExtensions,
+      { meta: ParticipantPartyFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ParticipantPartyField.UBLExtensions}
+          meta={ParticipantPartyFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ParticipantParty">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ParticipantPartyFieldMeta.UBLExtensions}
-          />
+    [
+      ParticipantPartyField.InitiatingPartyIndicator,
+      { meta: ParticipantPartyFieldMeta.InitiatingPartyIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ParticipantPartyField.InitiatingPartyIndicator}
+          meta={ParticipantPartyFieldMeta.InitiatingPartyIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.InitiatingPartyIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Initiating Party Indicator"
-            value={value.InitiatingPartyIndicator?.[0]}
-            meta={ParticipantPartyFieldMeta.InitiatingPartyIndicator}
-          />
+    [
+      ParticipantPartyField.PrivatePartyIndicator,
+      { meta: ParticipantPartyFieldMeta.PrivatePartyIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ParticipantPartyField.PrivatePartyIndicator}
+          meta={ParticipantPartyFieldMeta.PrivatePartyIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.PrivatePartyIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Private Party Indicator"
-            value={value.PrivatePartyIndicator?.[0]}
-            meta={ParticipantPartyFieldMeta.PrivatePartyIndicator}
-          />
+    [
+      ParticipantPartyField.PublicPartyIndicator,
+      { meta: ParticipantPartyFieldMeta.PublicPartyIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ParticipantPartyField.PublicPartyIndicator}
+          meta={ParticipantPartyFieldMeta.PublicPartyIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.PublicPartyIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Public Party Indicator"
-            value={value.PublicPartyIndicator?.[0]}
-            meta={ParticipantPartyFieldMeta.PublicPartyIndicator}
-          />
+    [
+      ParticipantPartyField.ServiceProviderPartyIndicator,
+      { meta: ParticipantPartyFieldMeta.ServiceProviderPartyIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ParticipantPartyField.ServiceProviderPartyIndicator}
+          meta={ParticipantPartyFieldMeta.ServiceProviderPartyIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.ServiceProviderPartyIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Service Provider Party Indicator"
-            value={value.ServiceProviderPartyIndicator?.[0]}
-            meta={ParticipantPartyFieldMeta.ServiceProviderPartyIndicator}
-          />
+    [
+      ParticipantPartyField.Party,
+      { meta: ParticipantPartyFieldMeta.Party,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ParticipantPartyField.Party}
+          meta={ParticipantPartyFieldMeta.Party}
+          fieldConfig={fieldConfig}
+          party={value?.Party}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Party"
-            value={value.Party?.[0]}
-            meta={ParticipantPartyFieldMeta.Party}
-          />
+    [
+      ParticipantPartyField.LegalContact,
+      { meta: ParticipantPartyFieldMeta.LegalContact,
+        template: ({value, renderContext, fieldConfig}) => <ContactDisplay
+          key={ParticipantPartyField.LegalContact}
+          meta={ParticipantPartyFieldMeta.LegalContact}
+          fieldConfig={fieldConfig}
+          contact={value?.LegalContact}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ContactDisplay
-            label="Legal Contact"
-            value={value.LegalContact?.[0]}
-            meta={ParticipantPartyFieldMeta.LegalContact}
-          />
+    [
+      ParticipantPartyField.TechnicalContact,
+      { meta: ParticipantPartyFieldMeta.TechnicalContact,
+        template: ({value, renderContext, fieldConfig}) => <ContactDisplay
+          key={ParticipantPartyField.TechnicalContact}
+          meta={ParticipantPartyFieldMeta.TechnicalContact}
+          fieldConfig={fieldConfig}
+          contact={value?.TechnicalContact}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ContactDisplay
-            label="Technical Contact"
-            value={value.TechnicalContact?.[0]}
-            meta={ParticipantPartyFieldMeta.TechnicalContact}
-          />
+    [
+      ParticipantPartyField.SupportContact,
+      { meta: ParticipantPartyFieldMeta.SupportContact,
+        template: ({value, renderContext, fieldConfig}) => <ContactDisplay
+          key={ParticipantPartyField.SupportContact}
+          meta={ParticipantPartyFieldMeta.SupportContact}
+          fieldConfig={fieldConfig}
+          contact={value?.SupportContact}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ContactDisplay
-            label="Support Contact"
-            value={value.SupportContact?.[0]}
-            meta={ParticipantPartyFieldMeta.SupportContact}
-          />
+    [
+      ParticipantPartyField.CommercialContact,
+      { meta: ParticipantPartyFieldMeta.CommercialContact,
+        template: ({value, renderContext, fieldConfig}) => <ContactDisplay
+          key={ParticipantPartyField.CommercialContact}
+          meta={ParticipantPartyFieldMeta.CommercialContact}
+          fieldConfig={fieldConfig}
+          contact={value?.CommercialContact}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ContactDisplay
-            label="Commercial Contact"
-            value={value.CommercialContact?.[0]}
-            meta={ParticipantPartyFieldMeta.CommercialContact}
-          />
-        </div>
-    </div>
+export function ParticipantPartyDisplay<TFieldMeta>({ meta, fieldConfig, participantParty, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ParticipantPartyTypeName,
+    meta,
+    fieldConfig,
+    participantParty,
+    renderContext,
+    ParticipantPartySubElementsMap,
   )
 }

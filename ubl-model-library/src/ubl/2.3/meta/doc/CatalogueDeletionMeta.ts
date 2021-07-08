@@ -1,4 +1,17 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CatalogueReferenceType } from '../cac/CatalogueReferenceMeta'
+import { ContractType } from '../cac/ContractMeta'
+import { CustomerPartyType } from '../cac/CustomerPartyMeta'
+import { DateType } from '../cbc/DateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { PeriodType } from '../cac/PeriodMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { SupplierPartyType } from '../cac/SupplierPartyMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum CatalogueDeletionField {
   UBLExtensions = 'UBLExtensions',
@@ -29,11 +42,11 @@ export enum CatalogueDeletionField {
 export const CatalogueDeletionFieldMetaUBLExtensions = new FieldMeta<CatalogueDeletionField>(
   CatalogueDeletionField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -42,10 +55,10 @@ export const CatalogueDeletionFieldMetaUBLVersionID = new FieldMeta<CatalogueDel
   CatalogueDeletionField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.0.5'
 )
@@ -54,10 +67,10 @@ export const CatalogueDeletionFieldMetaCustomizationID = new FieldMeta<Catalogue
   CatalogueDeletionField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -66,10 +79,10 @@ export const CatalogueDeletionFieldMetaProfileID = new FieldMeta<CatalogueDeleti
   CatalogueDeletionField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BasicProcurementProcess'
 )
@@ -78,10 +91,10 @@ export const CatalogueDeletionFieldMetaProfileExecutionID = new FieldMeta<Catalo
   CatalogueDeletionField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BPP-1001'
 )
@@ -90,10 +103,10 @@ export const CatalogueDeletionFieldMetaID = new FieldMeta<CatalogueDeletionField
   CatalogueDeletionField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -102,10 +115,10 @@ export const CatalogueDeletionFieldMetaUUID = new FieldMeta<CatalogueDeletionFie
   CatalogueDeletionField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -114,10 +127,10 @@ export const CatalogueDeletionFieldMetaName = new FieldMeta<CatalogueDeletionFie
   CatalogueDeletionField.Name,
   'Name',
   'Name',
-  'Text',
+  TextType.name,
   'Text, assigned by the sender, that identifies this document to business users.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -126,10 +139,10 @@ export const CatalogueDeletionFieldMetaIssueDate = new FieldMeta<CatalogueDeleti
   CatalogueDeletionField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -138,10 +151,10 @@ export const CatalogueDeletionFieldMetaIssueTime = new FieldMeta<CatalogueDeleti
   CatalogueDeletionField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -150,10 +163,10 @@ export const CatalogueDeletionFieldMetaEffectiveDate = new FieldMeta<CatalogueDe
   CatalogueDeletionField.EffectiveDate,
   'EffectiveDate',
   'Effective Date',
-  'Date',
+  DateType.name,
   'The effective date, assigned by the seller, on which the Catalogue expires.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -162,10 +175,10 @@ export const CatalogueDeletionFieldMetaEffectiveTime = new FieldMeta<CatalogueDe
   CatalogueDeletionField.EffectiveTime,
   'EffectiveTime',
   'Effective Time',
-  'Time',
+  TimeType.name,
   'The effective time, assigned by the seller, at which the Catalogue expires.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -174,10 +187,10 @@ export const CatalogueDeletionFieldMetaNote = new FieldMeta<CatalogueDeletionFie
   CatalogueDeletionField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -186,10 +199,10 @@ export const CatalogueDeletionFieldMetaVersionID = new FieldMeta<CatalogueDeleti
   CatalogueDeletionField.VersionID,
   'VersionID',
   'Version',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the current version of the Catalogue.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '1.1'
 )
@@ -198,10 +211,10 @@ export const CatalogueDeletionFieldMetaDescription = new FieldMeta<CatalogueDele
   CatalogueDeletionField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Textual description of the document instance.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   'stock no longer provided'
 )
@@ -210,10 +223,10 @@ export const CatalogueDeletionFieldMetaValidityPeriod = new FieldMeta<CatalogueD
   CatalogueDeletionField.ValidityPeriod,
   'ValidityPeriod',
   'Validity Period',
-  'Period',
+  PeriodType.name,
   'The period during which the Deletion of the catalogue becomes effective. This may be given as start (after date) and end dates (before date).',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -222,10 +235,10 @@ export const CatalogueDeletionFieldMetaDeletedCatalogueReference = new FieldMeta
   CatalogueDeletionField.DeletedCatalogueReference,
   'DeletedCatalogueReference',
   'Deleted Catalogue Reference',
-  'CatalogueReference',
+  CatalogueReferenceType.name,
   'A reference to the Catalogue being deleted.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -234,10 +247,10 @@ export const CatalogueDeletionFieldMetaReferencedContract = new FieldMeta<Catalo
   CatalogueDeletionField.ReferencedContract,
   'ReferencedContract',
   'Referenced Contract',
-  'Contract',
+  ContractType.name,
   'A contract or framework agreement with which the Catalogue was associated.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -246,10 +259,10 @@ export const CatalogueDeletionFieldMetaSignature = new FieldMeta<CatalogueDeleti
   CatalogueDeletionField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -258,10 +271,10 @@ export const CatalogueDeletionFieldMetaReceiverParty = new FieldMeta<CatalogueDe
   CatalogueDeletionField.ReceiverParty,
   'ReceiverParty',
   'Receiver Party',
-  'Party',
+  PartyType.name,
   'The party receiving the Catalogue Deletion.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -270,10 +283,10 @@ export const CatalogueDeletionFieldMetaProviderParty = new FieldMeta<CatalogueDe
   CatalogueDeletionField.ProviderParty,
   'ProviderParty',
   'Provider Party',
-  'Party',
+  PartyType.name,
   'The party sending the Catalogue Deletion.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -282,10 +295,10 @@ export const CatalogueDeletionFieldMetaSellerSupplierParty = new FieldMeta<Catal
   CatalogueDeletionField.SellerSupplierParty,
   'SellerSupplierParty',
   'Seller Supplier Party',
-  'SupplierParty',
+  SupplierPartyType.name,
   'The seller.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -294,10 +307,10 @@ export const CatalogueDeletionFieldMetaContractorCustomerParty = new FieldMeta<C
   CatalogueDeletionField.ContractorCustomerParty,
   'ContractorCustomerParty',
   'Contractor Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The customer party responsible for the contracts with which the Catalogue was associated.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -353,3 +366,11 @@ export const CatalogueDeletionFieldMap = new Map([
   [CatalogueDeletionField.SellerSupplierParty, CatalogueDeletionFieldMetaSellerSupplierParty],
   [CatalogueDeletionField.ContractorCustomerParty, CatalogueDeletionFieldMetaContractorCustomerParty]
 ])
+
+export const CatalogueDeletionType: Type<CatalogueDeletionField> = {
+  name: 'CatalogueDeletion',
+  label: 'Catalogue Deletion',
+  module: TypeModule.doc,
+  definition: 'A document used to cancel an entire Catalogue.',
+  fields: CatalogueDeletionFieldMap,
+}

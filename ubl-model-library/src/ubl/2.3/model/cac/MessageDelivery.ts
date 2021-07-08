@@ -1,7 +1,6 @@
 import { Code } from '../cbc/Code'
 import { Identifier } from '../cbc/Identifier'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe how a message is delivered (routed).
  */

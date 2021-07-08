@@ -1,141 +1,153 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ProcurementProjectLot } from  '../../model/cac/ProcurementProjectLot'
-import { ProcurementProjectLotFieldMeta } from  '../../meta/cac/ProcurementProjectLotMeta'
-import DocumentReferenceDisplay from './DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import ProcurementProjectDisplay from './ProcurementProjectDisplay'
-import { ProcurementProject } from '../../model/cac/ProcurementProject'
-import TenderingProcessDisplay from './TenderingProcessDisplay'
-import { TenderingProcess } from '../../model/cac/TenderingProcess'
-import TenderingTermsDisplay from './TenderingTermsDisplay'
-import { TenderingTerms } from '../../model/cac/TenderingTerms'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ProcurementProjectLotField, ProcurementProjectLotFieldMeta, ProcurementProjectLotTypeName } from  '../../meta/cac/ProcurementProjectLotMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { DocumentReferenceDisplay } from './DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { ProcurementProjectDisplay } from './ProcurementProjectDisplay'
+import { TenderingProcessDisplay } from './TenderingProcessDisplay'
+import { TenderingTermsDisplay } from './TenderingTermsDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ProcurementProjectLot | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ProcurementProjectLot, void>
+  procurementProjectLot: ProcurementProjectLot[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ProcurementProjectLotDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ProcurementProjectLotSubElementsMap: SubElementsTemplatesMap<ProcurementProjectLotField, ProcurementProjectLot, void> = new Map([
+    [
+      ProcurementProjectLotField.UBLExtensions,
+      { meta: ProcurementProjectLotFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ProcurementProjectLotField.UBLExtensions}
+          meta={ProcurementProjectLotFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ProcurementProjectLot">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ProcurementProjectLotFieldMeta.UBLExtensions}
-          />
+    [
+      ProcurementProjectLotField.ID,
+      { meta: ProcurementProjectLotFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ProcurementProjectLotField.ID}
+          meta={ProcurementProjectLotFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={ProcurementProjectLotFieldMeta.ID}
-          />
+    [
+      ProcurementProjectLotField.LegalDocumentReference,
+      { meta: ProcurementProjectLotFieldMeta.LegalDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={ProcurementProjectLotField.LegalDocumentReference}
+          meta={ProcurementProjectLotFieldMeta.LegalDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.LegalDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentReference ubl-LegalDocumentReference"
-            label="Legal Document Reference"
-            items={value.LegalDocumentReference}
-            meta={ProcurementProjectLotFieldMeta.LegalDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Legal Document Reference"
-                value={itemValue}
-                meta={ProcurementProjectLotFieldMeta.LegalDocumentReference}
-              />
-            }
-          />
+    [
+      ProcurementProjectLotField.TechnicalDocumentReference,
+      { meta: ProcurementProjectLotFieldMeta.TechnicalDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={ProcurementProjectLotField.TechnicalDocumentReference}
+          meta={ProcurementProjectLotFieldMeta.TechnicalDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.TechnicalDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentReference ubl-TechnicalDocumentReference"
-            label="Technical Document Reference"
-            items={value.TechnicalDocumentReference}
-            meta={ProcurementProjectLotFieldMeta.TechnicalDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Technical Document Reference"
-                value={itemValue}
-                meta={ProcurementProjectLotFieldMeta.TechnicalDocumentReference}
-              />
-            }
-          />
+    [
+      ProcurementProjectLotField.RequiredDocumentReference,
+      { meta: ProcurementProjectLotFieldMeta.RequiredDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={ProcurementProjectLotField.RequiredDocumentReference}
+          meta={ProcurementProjectLotFieldMeta.RequiredDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.RequiredDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentReference ubl-RequiredDocumentReference"
-            label="Required Document Reference"
-            items={value.RequiredDocumentReference}
-            meta={ProcurementProjectLotFieldMeta.RequiredDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Required Document Reference"
-                value={itemValue}
-                meta={ProcurementProjectLotFieldMeta.RequiredDocumentReference}
-              />
-            }
-          />
+    [
+      ProcurementProjectLotField.ProvidedDocumentReference,
+      { meta: ProcurementProjectLotFieldMeta.ProvidedDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={ProcurementProjectLotField.ProvidedDocumentReference}
+          meta={ProcurementProjectLotFieldMeta.ProvidedDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.ProvidedDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentReference ubl-ProvidedDocumentReference"
-            label="Provided Document Reference"
-            items={value.ProvidedDocumentReference}
-            meta={ProcurementProjectLotFieldMeta.ProvidedDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Provided Document Reference"
-                value={itemValue}
-                meta={ProcurementProjectLotFieldMeta.ProvidedDocumentReference}
-              />
-            }
-          />
+    [
+      ProcurementProjectLotField.AdditionalDocumentReference,
+      { meta: ProcurementProjectLotFieldMeta.AdditionalDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={ProcurementProjectLotField.AdditionalDocumentReference}
+          meta={ProcurementProjectLotFieldMeta.AdditionalDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.AdditionalDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentReference ubl-AdditionalDocumentReference"
-            label="Additional Document Reference"
-            items={value.AdditionalDocumentReference}
-            meta={ProcurementProjectLotFieldMeta.AdditionalDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Additional Document Reference"
-                value={itemValue}
-                meta={ProcurementProjectLotFieldMeta.AdditionalDocumentReference}
-              />
-            }
-          />
+    [
+      ProcurementProjectLotField.TenderingTerms,
+      { meta: ProcurementProjectLotFieldMeta.TenderingTerms,
+        template: ({value, renderContext, fieldConfig}) => <TenderingTermsDisplay
+          key={ProcurementProjectLotField.TenderingTerms}
+          meta={ProcurementProjectLotFieldMeta.TenderingTerms}
+          fieldConfig={fieldConfig}
+          tenderingTerms={value?.TenderingTerms}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TenderingTermsDisplay
-            label="Tendering Terms"
-            value={value.TenderingTerms?.[0]}
-            meta={ProcurementProjectLotFieldMeta.TenderingTerms}
-          />
+    [
+      ProcurementProjectLotField.TenderingProcess,
+      { meta: ProcurementProjectLotFieldMeta.TenderingProcess,
+        template: ({value, renderContext, fieldConfig}) => <TenderingProcessDisplay
+          key={ProcurementProjectLotField.TenderingProcess}
+          meta={ProcurementProjectLotFieldMeta.TenderingProcess}
+          fieldConfig={fieldConfig}
+          tenderingProcess={value?.TenderingProcess}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TenderingProcessDisplay
-            label="Tendering Process"
-            value={value.TenderingProcess?.[0]}
-            meta={ProcurementProjectLotFieldMeta.TenderingProcess}
-          />
+    [
+      ProcurementProjectLotField.ProcurementProject,
+      { meta: ProcurementProjectLotFieldMeta.ProcurementProject,
+        template: ({value, renderContext, fieldConfig}) => <ProcurementProjectDisplay
+          key={ProcurementProjectLotField.ProcurementProject}
+          meta={ProcurementProjectLotFieldMeta.ProcurementProject}
+          fieldConfig={fieldConfig}
+          procurementProject={value?.ProcurementProject}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ProcurementProjectDisplay
-            label="Procurement Project"
-            value={value.ProcurementProject?.[0]}
-            meta={ProcurementProjectLotFieldMeta.ProcurementProject}
-          />
-        </div>
-    </div>
+export function ProcurementProjectLotDisplay<TFieldMeta>({ meta, fieldConfig, procurementProjectLot, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ProcurementProjectLotTypeName,
+    meta,
+    fieldConfig,
+    procurementProjectLot,
+    renderContext,
+    ProcurementProjectLotSubElementsMap,
   )
 }

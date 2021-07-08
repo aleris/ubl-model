@@ -1,74 +1,79 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { OnAccountPayment } from  '../../model/cac/OnAccountPayment'
-import { OnAccountPaymentFieldMeta } from  '../../meta/cac/OnAccountPaymentMeta'
-import PaymentTermsDisplay from './PaymentTermsDisplay'
-import { PaymentTerms } from '../../model/cac/PaymentTerms'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { OnAccountPaymentField, OnAccountPaymentFieldMeta, OnAccountPaymentTypeName } from  '../../meta/cac/OnAccountPaymentMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { PaymentTermsDisplay } from './PaymentTermsDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: OnAccountPayment | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<OnAccountPayment, void>
+  onAccountPayment: OnAccountPayment[] | undefined
+  renderContext: RenderContext
 }
 
-export default function OnAccountPaymentDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const OnAccountPaymentSubElementsMap: SubElementsTemplatesMap<OnAccountPaymentField, OnAccountPayment, void> = new Map([
+    [
+      OnAccountPaymentField.UBLExtensions,
+      { meta: OnAccountPaymentFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={OnAccountPaymentField.UBLExtensions}
+          meta={OnAccountPaymentFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-OnAccountPayment">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={OnAccountPaymentFieldMeta.UBLExtensions}
-          />
+    [
+      OnAccountPaymentField.EstimatedConsumedQuantity,
+      { meta: OnAccountPaymentFieldMeta.EstimatedConsumedQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={OnAccountPaymentField.EstimatedConsumedQuantity}
+          meta={OnAccountPaymentFieldMeta.EstimatedConsumedQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.EstimatedConsumedQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Estimated Consumed Quantity"
-            value={value.EstimatedConsumedQuantity?.[0]}
-            meta={OnAccountPaymentFieldMeta.EstimatedConsumedQuantity}
-          />
+    [
+      OnAccountPaymentField.Note,
+      { meta: OnAccountPaymentFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={OnAccountPaymentField.Note}
+          meta={OnAccountPaymentFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={OnAccountPaymentFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={OnAccountPaymentFieldMeta.Note}
-              />
-            }
-          />
+    [
+      OnAccountPaymentField.PaymentTerms,
+      { meta: OnAccountPaymentFieldMeta.PaymentTerms,
+        template: ({value, renderContext, fieldConfig}) => <PaymentTermsDisplay
+          key={OnAccountPaymentField.PaymentTerms}
+          meta={OnAccountPaymentFieldMeta.PaymentTerms}
+          fieldConfig={fieldConfig}
+          paymentTerms={value?.PaymentTerms}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-PaymentTerms"
-            label="Payment Terms"
-            items={value.PaymentTerms}
-            meta={OnAccountPaymentFieldMeta.PaymentTerms} 
-            itemDisplay={ (itemValue: PaymentTerms, key: string | number) =>
-              <PaymentTermsDisplay
-                key={key}
-                label="Payment Terms"
-                value={itemValue}
-                meta={OnAccountPaymentFieldMeta.PaymentTerms}
-              />
-            }
-          />
-        </div>
-    </div>
+export function OnAccountPaymentDisplay<TFieldMeta>({ meta, fieldConfig, onAccountPayment, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    OnAccountPaymentTypeName,
+    meta,
+    fieldConfig,
+    onAccountPayment,
+    renderContext,
+    OnAccountPaymentSubElementsMap,
   )
 }

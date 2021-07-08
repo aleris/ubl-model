@@ -2,7 +2,6 @@ import { Date } from '../cbc/Date'
 import { Identifier } from '../cbc/Identifier'
 import { ItemProperty } from './ItemProperty'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class for defining a lot identifier (the identifier of a set of item instances that would be used in case of a
  * recall of that item).

@@ -1,337 +1,440 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Shipment } from  '../../model/cac/Shipment'
-import { ShipmentFieldMeta } from  '../../meta/cac/ShipmentMeta'
-import AddressDisplay from './AddressDisplay'
-import { Address } from '../../model/cac/Address'
-import AllowanceChargeDisplay from './AllowanceChargeDisplay'
-import { AllowanceCharge } from '../../model/cac/AllowanceCharge'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import ConsignmentDisplay from './ConsignmentDisplay'
-import { Consignment } from '../../model/cac/Consignment'
-import CountryDisplay from './CountryDisplay'
-import { Country } from '../../model/cac/Country'
-import DeliveryDisplay from './DeliveryDisplay'
-import { Delivery } from '../../model/cac/Delivery'
-import GoodsItemDisplay from './GoodsItemDisplay'
-import { GoodsItem } from '../../model/cac/GoodsItem'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import LocationDisplay from './LocationDisplay'
-import { Location } from '../../model/cac/Location'
-import MeasureDisplay from '../cbc/MeasureDisplay'
-import { Measure } from '../../model/cbc/Measure'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import ShipmentStageDisplay from './ShipmentStageDisplay'
-import { ShipmentStage } from '../../model/cac/ShipmentStage'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TransportHandlingUnitDisplay from './TransportHandlingUnitDisplay'
-import { TransportHandlingUnit } from '../../model/cac/TransportHandlingUnit'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ShipmentField, ShipmentFieldMeta, ShipmentTypeName } from  '../../meta/cac/ShipmentMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AddressDisplay } from './AddressDisplay'
+import { AllowanceChargeDisplay } from './AllowanceChargeDisplay'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { ConsignmentDisplay } from './ConsignmentDisplay'
+import { CountryDisplay } from './CountryDisplay'
+import { DeliveryDisplay } from './DeliveryDisplay'
+import { GoodsItemDisplay } from './GoodsItemDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { LocationDisplay } from './LocationDisplay'
+import { MeasureDisplay } from '../cbc/MeasureDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { ShipmentStageDisplay } from './ShipmentStageDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TransportHandlingUnitDisplay } from './TransportHandlingUnitDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: Shipment | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<Shipment, void>
+  shipment: Shipment[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ShipmentDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ShipmentSubElementsMap: SubElementsTemplatesMap<ShipmentField, Shipment, void> = new Map([
+    [
+      ShipmentField.UBLExtensions,
+      { meta: ShipmentFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ShipmentField.UBLExtensions}
+          meta={ShipmentFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-Shipment">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ShipmentFieldMeta.UBLExtensions}
-          />
+    [
+      ShipmentField.ID,
+      { meta: ShipmentFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ShipmentField.ID}
+          meta={ShipmentFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={ShipmentFieldMeta.ID}
-          />
+    [
+      ShipmentField.ShippingPriorityLevelCode,
+      { meta: ShipmentFieldMeta.ShippingPriorityLevelCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ShipmentField.ShippingPriorityLevelCode}
+          meta={ShipmentFieldMeta.ShippingPriorityLevelCode}
+          fieldConfig={fieldConfig}
+          code={value?.ShippingPriorityLevelCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Shipping Priority Level Code"
-            value={value.ShippingPriorityLevelCode?.[0]}
-            meta={ShipmentFieldMeta.ShippingPriorityLevelCode}
-          />
+    [
+      ShipmentField.HandlingCode,
+      { meta: ShipmentFieldMeta.HandlingCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ShipmentField.HandlingCode}
+          meta={ShipmentFieldMeta.HandlingCode}
+          fieldConfig={fieldConfig}
+          code={value?.HandlingCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Handling Code"
-            value={value.HandlingCode?.[0]}
-            meta={ShipmentFieldMeta.HandlingCode}
-          />
+    [
+      ShipmentField.HandlingInstructions,
+      { meta: ShipmentFieldMeta.HandlingInstructions,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ShipmentField.HandlingInstructions}
+          meta={ShipmentFieldMeta.HandlingInstructions}
+          fieldConfig={fieldConfig}
+          text={value?.HandlingInstructions}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-HandlingInstructions"
-            label="Handling Instructions"
-            items={value.HandlingInstructions}
-            meta={ShipmentFieldMeta.HandlingInstructions} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Handling Instructions"
-                value={itemValue}
-                meta={ShipmentFieldMeta.HandlingInstructions}
-              />
-            }
-          />
+    [
+      ShipmentField.Information,
+      { meta: ShipmentFieldMeta.Information,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ShipmentField.Information}
+          meta={ShipmentFieldMeta.Information}
+          fieldConfig={fieldConfig}
+          text={value?.Information}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Information"
-            label="Information"
-            items={value.Information}
-            meta={ShipmentFieldMeta.Information} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Information"
-                value={itemValue}
-                meta={ShipmentFieldMeta.Information}
-              />
-            }
-          />
+    [
+      ShipmentField.GrossWeightMeasure,
+      { meta: ShipmentFieldMeta.GrossWeightMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={ShipmentField.GrossWeightMeasure}
+          meta={ShipmentFieldMeta.GrossWeightMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.GrossWeightMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Gross Weight"
-            value={value.GrossWeightMeasure?.[0]}
-            meta={ShipmentFieldMeta.GrossWeightMeasure}
-          />
+    [
+      ShipmentField.NetWeightMeasure,
+      { meta: ShipmentFieldMeta.NetWeightMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={ShipmentField.NetWeightMeasure}
+          meta={ShipmentFieldMeta.NetWeightMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.NetWeightMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Net Weight"
-            value={value.NetWeightMeasure?.[0]}
-            meta={ShipmentFieldMeta.NetWeightMeasure}
-          />
+    [
+      ShipmentField.NetNetWeightMeasure,
+      { meta: ShipmentFieldMeta.NetNetWeightMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={ShipmentField.NetNetWeightMeasure}
+          meta={ShipmentFieldMeta.NetNetWeightMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.NetNetWeightMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Net Net Weight"
-            value={value.NetNetWeightMeasure?.[0]}
-            meta={ShipmentFieldMeta.NetNetWeightMeasure}
-          />
+    [
+      ShipmentField.GrossVolumeMeasure,
+      { meta: ShipmentFieldMeta.GrossVolumeMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={ShipmentField.GrossVolumeMeasure}
+          meta={ShipmentFieldMeta.GrossVolumeMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.GrossVolumeMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Gross Volume"
-            value={value.GrossVolumeMeasure?.[0]}
-            meta={ShipmentFieldMeta.GrossVolumeMeasure}
-          />
+    [
+      ShipmentField.NetVolumeMeasure,
+      { meta: ShipmentFieldMeta.NetVolumeMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={ShipmentField.NetVolumeMeasure}
+          meta={ShipmentFieldMeta.NetVolumeMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.NetVolumeMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Net Volume"
-            value={value.NetVolumeMeasure?.[0]}
-            meta={ShipmentFieldMeta.NetVolumeMeasure}
-          />
+    [
+      ShipmentField.TotalGoodsItemQuantity,
+      { meta: ShipmentFieldMeta.TotalGoodsItemQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={ShipmentField.TotalGoodsItemQuantity}
+          meta={ShipmentFieldMeta.TotalGoodsItemQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.TotalGoodsItemQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Total Goods Item Quantity"
-            value={value.TotalGoodsItemQuantity?.[0]}
-            meta={ShipmentFieldMeta.TotalGoodsItemQuantity}
-          />
+    [
+      ShipmentField.TotalTransportHandlingUnitQuantity,
+      { meta: ShipmentFieldMeta.TotalTransportHandlingUnitQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={ShipmentField.TotalTransportHandlingUnitQuantity}
+          meta={ShipmentFieldMeta.TotalTransportHandlingUnitQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.TotalTransportHandlingUnitQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Total Transport Handling Unit Quantity"
-            value={value.TotalTransportHandlingUnitQuantity?.[0]}
-            meta={ShipmentFieldMeta.TotalTransportHandlingUnitQuantity}
-          />
+    [
+      ShipmentField.InsuranceValueAmount,
+      { meta: ShipmentFieldMeta.InsuranceValueAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={ShipmentField.InsuranceValueAmount}
+          meta={ShipmentFieldMeta.InsuranceValueAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.InsuranceValueAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Insurance Value"
-            value={value.InsuranceValueAmount?.[0]}
-            meta={ShipmentFieldMeta.InsuranceValueAmount}
-          />
+    [
+      ShipmentField.DeclaredCustomsValueAmount,
+      { meta: ShipmentFieldMeta.DeclaredCustomsValueAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={ShipmentField.DeclaredCustomsValueAmount}
+          meta={ShipmentFieldMeta.DeclaredCustomsValueAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.DeclaredCustomsValueAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Declared Customs Value"
-            value={value.DeclaredCustomsValueAmount?.[0]}
-            meta={ShipmentFieldMeta.DeclaredCustomsValueAmount}
-          />
+    [
+      ShipmentField.DeclaredForCarriageValueAmount,
+      { meta: ShipmentFieldMeta.DeclaredForCarriageValueAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={ShipmentField.DeclaredForCarriageValueAmount}
+          meta={ShipmentFieldMeta.DeclaredForCarriageValueAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.DeclaredForCarriageValueAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Declared For Carriage Value"
-            value={value.DeclaredForCarriageValueAmount?.[0]}
-            meta={ShipmentFieldMeta.DeclaredForCarriageValueAmount}
-          />
+    [
+      ShipmentField.DeclaredStatisticsValueAmount,
+      { meta: ShipmentFieldMeta.DeclaredStatisticsValueAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={ShipmentField.DeclaredStatisticsValueAmount}
+          meta={ShipmentFieldMeta.DeclaredStatisticsValueAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.DeclaredStatisticsValueAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Declared Statistics Value"
-            value={value.DeclaredStatisticsValueAmount?.[0]}
-            meta={ShipmentFieldMeta.DeclaredStatisticsValueAmount}
-          />
+    [
+      ShipmentField.FreeOnBoardValueAmount,
+      { meta: ShipmentFieldMeta.FreeOnBoardValueAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={ShipmentField.FreeOnBoardValueAmount}
+          meta={ShipmentFieldMeta.FreeOnBoardValueAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.FreeOnBoardValueAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Free On Board Value"
-            value={value.FreeOnBoardValueAmount?.[0]}
-            meta={ShipmentFieldMeta.FreeOnBoardValueAmount}
-          />
+    [
+      ShipmentField.SpecialInstructions,
+      { meta: ShipmentFieldMeta.SpecialInstructions,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ShipmentField.SpecialInstructions}
+          meta={ShipmentFieldMeta.SpecialInstructions}
+          fieldConfig={fieldConfig}
+          text={value?.SpecialInstructions}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-SpecialInstructions"
-            label="Special Instructions"
-            items={value.SpecialInstructions}
-            meta={ShipmentFieldMeta.SpecialInstructions} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Special Instructions"
-                value={itemValue}
-                meta={ShipmentFieldMeta.SpecialInstructions}
-              />
-            }
-          />
+    [
+      ShipmentField.DeliveryInstructions,
+      { meta: ShipmentFieldMeta.DeliveryInstructions,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ShipmentField.DeliveryInstructions}
+          meta={ShipmentFieldMeta.DeliveryInstructions}
+          fieldConfig={fieldConfig}
+          text={value?.DeliveryInstructions}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-DeliveryInstructions"
-            label="Delivery Instructions"
-            items={value.DeliveryInstructions}
-            meta={ShipmentFieldMeta.DeliveryInstructions} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Delivery Instructions"
-                value={itemValue}
-                meta={ShipmentFieldMeta.DeliveryInstructions}
-              />
-            }
-          />
+    [
+      ShipmentField.SplitConsignmentIndicator,
+      { meta: ShipmentFieldMeta.SplitConsignmentIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ShipmentField.SplitConsignmentIndicator}
+          meta={ShipmentFieldMeta.SplitConsignmentIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.SplitConsignmentIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Split Consignment Indicator"
-            value={value.SplitConsignmentIndicator?.[0]}
-            meta={ShipmentFieldMeta.SplitConsignmentIndicator}
-          />
+    [
+      ShipmentField.ConsignmentQuantity,
+      { meta: ShipmentFieldMeta.ConsignmentQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={ShipmentField.ConsignmentQuantity}
+          meta={ShipmentFieldMeta.ConsignmentQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.ConsignmentQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Consignment Quantity"
-            value={value.ConsignmentQuantity?.[0]}
-            meta={ShipmentFieldMeta.ConsignmentQuantity}
-          />
+    [
+      ShipmentField.Consignment,
+      { meta: ShipmentFieldMeta.Consignment,
+        template: ({value, renderContext, fieldConfig}) => <ConsignmentDisplay
+          key={ShipmentField.Consignment}
+          meta={ShipmentFieldMeta.Consignment}
+          fieldConfig={fieldConfig}
+          consignment={value?.Consignment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Consignment"
-            label="Consignment"
-            items={value.Consignment}
-            meta={ShipmentFieldMeta.Consignment} 
-            itemDisplay={ (itemValue: Consignment, key: string | number) =>
-              <ConsignmentDisplay
-                key={key}
-                label="Consignment"
-                value={itemValue}
-                meta={ShipmentFieldMeta.Consignment}
-              />
-            }
-          />
+    [
+      ShipmentField.GoodsItem,
+      { meta: ShipmentFieldMeta.GoodsItem,
+        template: ({value, renderContext, fieldConfig}) => <GoodsItemDisplay
+          key={ShipmentField.GoodsItem}
+          meta={ShipmentFieldMeta.GoodsItem}
+          fieldConfig={fieldConfig}
+          goodsItem={value?.GoodsItem}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-GoodsItem"
-            label="Goods Item"
-            items={value.GoodsItem}
-            meta={ShipmentFieldMeta.GoodsItem} 
-            itemDisplay={ (itemValue: GoodsItem, key: string | number) =>
-              <GoodsItemDisplay
-                key={key}
-                label="Goods Item"
-                value={itemValue}
-                meta={ShipmentFieldMeta.GoodsItem}
-              />
-            }
-          />
+    [
+      ShipmentField.ShipmentStage,
+      { meta: ShipmentFieldMeta.ShipmentStage,
+        template: ({value, renderContext, fieldConfig}) => <ShipmentStageDisplay
+          key={ShipmentField.ShipmentStage}
+          meta={ShipmentFieldMeta.ShipmentStage}
+          fieldConfig={fieldConfig}
+          shipmentStage={value?.ShipmentStage}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-ShipmentStage"
-            label="Shipment Stage"
-            items={value.ShipmentStage}
-            meta={ShipmentFieldMeta.ShipmentStage} 
-            itemDisplay={ (itemValue: ShipmentStage, key: string | number) =>
-              <ShipmentStageDisplay
-                key={key}
-                label="Shipment Stage"
-                value={itemValue}
-                meta={ShipmentFieldMeta.ShipmentStage}
-              />
-            }
-          />
+    [
+      ShipmentField.Delivery,
+      { meta: ShipmentFieldMeta.Delivery,
+        template: ({value, renderContext, fieldConfig}) => <DeliveryDisplay
+          key={ShipmentField.Delivery}
+          meta={ShipmentFieldMeta.Delivery}
+          fieldConfig={fieldConfig}
+          delivery={value?.Delivery}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DeliveryDisplay
-            label="Delivery"
-            value={value.Delivery?.[0]}
-            meta={ShipmentFieldMeta.Delivery}
-          />
+    [
+      ShipmentField.TransportHandlingUnit,
+      { meta: ShipmentFieldMeta.TransportHandlingUnit,
+        template: ({value, renderContext, fieldConfig}) => <TransportHandlingUnitDisplay
+          key={ShipmentField.TransportHandlingUnit}
+          meta={ShipmentFieldMeta.TransportHandlingUnit}
+          fieldConfig={fieldConfig}
+          transportHandlingUnit={value?.TransportHandlingUnit}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TransportHandlingUnit"
-            label="Transport Handling Unit"
-            items={value.TransportHandlingUnit}
-            meta={ShipmentFieldMeta.TransportHandlingUnit} 
-            itemDisplay={ (itemValue: TransportHandlingUnit, key: string | number) =>
-              <TransportHandlingUnitDisplay
-                key={key}
-                label="Transport Handling Unit"
-                value={itemValue}
-                meta={ShipmentFieldMeta.TransportHandlingUnit}
-              />
-            }
-          />
+    [
+      ShipmentField.ReturnAddress,
+      { meta: ShipmentFieldMeta.ReturnAddress,
+        template: ({value, renderContext, fieldConfig}) => <AddressDisplay
+          key={ShipmentField.ReturnAddress}
+          meta={ShipmentFieldMeta.ReturnAddress}
+          fieldConfig={fieldConfig}
+          address={value?.ReturnAddress}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AddressDisplay
-            label="Return Address"
-            value={value.ReturnAddress?.[0]}
-            meta={ShipmentFieldMeta.ReturnAddress}
-          />
+    [
+      ShipmentField.OriginAddress,
+      { meta: ShipmentFieldMeta.OriginAddress,
+        template: ({value, renderContext, fieldConfig}) => <AddressDisplay
+          key={ShipmentField.OriginAddress}
+          meta={ShipmentFieldMeta.OriginAddress}
+          fieldConfig={fieldConfig}
+          address={value?.OriginAddress}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AddressDisplay
-            label="Origin Address"
-            value={value.OriginAddress?.[0]}
-            meta={ShipmentFieldMeta.OriginAddress}
-          />
+    [
+      ShipmentField.FirstArrivalPortLocation,
+      { meta: ShipmentFieldMeta.FirstArrivalPortLocation,
+        template: ({value, renderContext, fieldConfig}) => <LocationDisplay
+          key={ShipmentField.FirstArrivalPortLocation}
+          meta={ShipmentFieldMeta.FirstArrivalPortLocation}
+          fieldConfig={fieldConfig}
+          location={value?.FirstArrivalPortLocation}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <LocationDisplay
-            label="First Arrival Port Location"
-            value={value.FirstArrivalPortLocation?.[0]}
-            meta={ShipmentFieldMeta.FirstArrivalPortLocation}
-          />
+    [
+      ShipmentField.LastExitPortLocation,
+      { meta: ShipmentFieldMeta.LastExitPortLocation,
+        template: ({value, renderContext, fieldConfig}) => <LocationDisplay
+          key={ShipmentField.LastExitPortLocation}
+          meta={ShipmentFieldMeta.LastExitPortLocation}
+          fieldConfig={fieldConfig}
+          location={value?.LastExitPortLocation}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <LocationDisplay
-            label="Last Exit Port Location"
-            value={value.LastExitPortLocation?.[0]}
-            meta={ShipmentFieldMeta.LastExitPortLocation}
-          />
+    [
+      ShipmentField.ExportCountry,
+      { meta: ShipmentFieldMeta.ExportCountry,
+        template: ({value, renderContext, fieldConfig}) => <CountryDisplay
+          key={ShipmentField.ExportCountry}
+          meta={ShipmentFieldMeta.ExportCountry}
+          fieldConfig={fieldConfig}
+          country={value?.ExportCountry}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CountryDisplay
-            label="Export Country"
-            value={value.ExportCountry?.[0]}
-            meta={ShipmentFieldMeta.ExportCountry}
-          />
+    [
+      ShipmentField.FreightAllowanceCharge,
+      { meta: ShipmentFieldMeta.FreightAllowanceCharge,
+        template: ({value, renderContext, fieldConfig}) => <AllowanceChargeDisplay
+          key={ShipmentField.FreightAllowanceCharge}
+          meta={ShipmentFieldMeta.FreightAllowanceCharge}
+          fieldConfig={fieldConfig}
+          allowanceCharge={value?.FreightAllowanceCharge}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-AllowanceCharge ubl-FreightAllowanceCharge"
-            label="Freight Allowance Charge"
-            items={value.FreightAllowanceCharge}
-            meta={ShipmentFieldMeta.FreightAllowanceCharge} 
-            itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-              <AllowanceChargeDisplay
-                key={key}
-                label="Freight Allowance Charge"
-                value={itemValue}
-                meta={ShipmentFieldMeta.FreightAllowanceCharge}
-              />
-            }
-          />
-        </div>
-    </div>
+export function ShipmentDisplay<TFieldMeta>({ meta, fieldConfig, shipment, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ShipmentTypeName,
+    meta,
+    fieldConfig,
+    shipment,
+    renderContext,
+    ShipmentSubElementsMap,
   )
 }

@@ -1,4 +1,10 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { ContactType } from './ContactMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { PartyType } from './PartyMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum EndorserPartyField {
   UBLExtensions = 'UBLExtensions',
@@ -11,11 +17,11 @@ export enum EndorserPartyField {
 export const EndorserPartyFieldMetaUBLExtensions = new FieldMeta<EndorserPartyField>(
   EndorserPartyField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -24,10 +30,10 @@ export const EndorserPartyFieldMetaRoleCode = new FieldMeta<EndorserPartyField>(
   EndorserPartyField.RoleCode,
   'RoleCode',
   'Role Code',
-  'Code',
+  CodeType.name,
   'A code specifying the role of the party providing the endorsement (e.g., issuer, embassy, insurance, etc.).',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -36,10 +42,10 @@ export const EndorserPartyFieldMetaSequenceNumeric = new FieldMeta<EndorserParty
   EndorserPartyField.SequenceNumeric,
   'SequenceNumeric',
   'Sequence',
-  'Numeric',
+  NumericType.name,
   'A number indicating the order of the endorsement provided by this party in the sequence in which endorsements are to be applied.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -48,10 +54,10 @@ export const EndorserPartyFieldMetaParty = new FieldMeta<EndorserPartyField>(
   EndorserPartyField.Party,
   'Party',
   'Party',
-  'Party',
+  PartyType.name,
   'The party endorsing the application.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -60,10 +66,10 @@ export const EndorserPartyFieldMetaSignatoryContact = new FieldMeta<EndorserPart
   EndorserPartyField.SignatoryContact,
   'SignatoryContact',
   'Signatory Contact',
-  'Contact',
+  ContactType.name,
   'The individual representing the exporter who signs the Certificate of Origin application before submitting it to the issuer party.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -83,3 +89,11 @@ export const EndorserPartyFieldMap = new Map([
   [EndorserPartyField.Party, EndorserPartyFieldMetaParty],
   [EndorserPartyField.SignatoryContact, EndorserPartyFieldMetaSignatoryContact]
 ])
+
+export const EndorserPartyType: Type<EndorserPartyField> = {
+  name: 'EndorserParty',
+  label: 'Endorser Party',
+  module: TypeModule.cac,
+  definition: 'A class to describe the party endorsing a document.',
+  fields: EndorserPartyFieldMap,
+}

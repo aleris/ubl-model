@@ -11,7 +11,6 @@ import { Status } from './Status'
 import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a significant occurrence or happening related to the transportation of goods.
  */

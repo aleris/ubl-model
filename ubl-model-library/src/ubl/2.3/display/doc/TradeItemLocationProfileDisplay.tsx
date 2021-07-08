@@ -1,208 +1,281 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TradeItemLocationProfile } from  '../../model/doc/TradeItemLocationProfile'
-import { TradeItemLocationProfileFieldMeta } from  '../../meta/doc/TradeItemLocationProfileMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import CustomerPartyDisplay from '../cac/CustomerPartyDisplay'
-import { CustomerParty } from '../../model/cac/CustomerParty'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import ItemManagementProfileDisplay from '../cac/ItemManagementProfileDisplay'
-import { ItemManagementProfile } from '../../model/cac/ItemManagementProfile'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PeriodDisplay from '../cac/PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import SupplierPartyDisplay from '../cac/SupplierPartyDisplay'
-import { SupplierParty } from '../../model/cac/SupplierParty'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { TradeItemLocationProfileField, TradeItemLocationProfileFieldMeta, TradeItemLocationProfileTypeName } from  '../../meta/doc/TradeItemLocationProfileMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { CustomerPartyDisplay } from '../cac/CustomerPartyDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { ItemManagementProfileDisplay } from '../cac/ItemManagementProfileDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { PeriodDisplay } from '../cac/PeriodDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { SupplierPartyDisplay } from '../cac/SupplierPartyDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: TradeItemLocationProfile | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<TradeItemLocationProfile, void>
+  tradeItemLocationProfile: TradeItemLocationProfile[] | undefined
+  renderContext: RenderContext
 }
 
-export default function TradeItemLocationProfileDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const TradeItemLocationProfileSubElementsMap: SubElementsTemplatesMap<TradeItemLocationProfileField, TradeItemLocationProfile, void> = new Map([
+    [
+      TradeItemLocationProfileField.UBLExtensions,
+      { meta: TradeItemLocationProfileFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={TradeItemLocationProfileField.UBLExtensions}
+          meta={TradeItemLocationProfileFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-TradeItemLocationProfile">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={TradeItemLocationProfileFieldMeta.UBLExtensions}
-          />
+    [
+      TradeItemLocationProfileField.UBLVersionID,
+      { meta: TradeItemLocationProfileFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TradeItemLocationProfileField.UBLVersionID}
+          meta={TradeItemLocationProfileFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={TradeItemLocationProfileFieldMeta.UBLVersionID}
-          />
+    [
+      TradeItemLocationProfileField.CustomizationID,
+      { meta: TradeItemLocationProfileFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TradeItemLocationProfileField.CustomizationID}
+          meta={TradeItemLocationProfileFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={TradeItemLocationProfileFieldMeta.CustomizationID}
-          />
+    [
+      TradeItemLocationProfileField.ProfileID,
+      { meta: TradeItemLocationProfileFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TradeItemLocationProfileField.ProfileID}
+          meta={TradeItemLocationProfileFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={TradeItemLocationProfileFieldMeta.ProfileID}
-          />
+    [
+      TradeItemLocationProfileField.ProfileExecutionID,
+      { meta: TradeItemLocationProfileFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TradeItemLocationProfileField.ProfileExecutionID}
+          meta={TradeItemLocationProfileFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={TradeItemLocationProfileFieldMeta.ProfileExecutionID}
-          />
+    [
+      TradeItemLocationProfileField.ID,
+      { meta: TradeItemLocationProfileFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TradeItemLocationProfileField.ID}
+          meta={TradeItemLocationProfileFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={TradeItemLocationProfileFieldMeta.ID}
-          />
+    [
+      TradeItemLocationProfileField.CopyIndicator,
+      { meta: TradeItemLocationProfileFieldMeta.CopyIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={TradeItemLocationProfileField.CopyIndicator}
+          meta={TradeItemLocationProfileFieldMeta.CopyIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.CopyIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Copy Indicator"
-            value={value.CopyIndicator?.[0]}
-            meta={TradeItemLocationProfileFieldMeta.CopyIndicator}
-          />
+    [
+      TradeItemLocationProfileField.UUID,
+      { meta: TradeItemLocationProfileFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TradeItemLocationProfileField.UUID}
+          meta={TradeItemLocationProfileFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={TradeItemLocationProfileFieldMeta.UUID}
-          />
+    [
+      TradeItemLocationProfileField.IssueDate,
+      { meta: TradeItemLocationProfileFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={TradeItemLocationProfileField.IssueDate}
+          meta={TradeItemLocationProfileFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={TradeItemLocationProfileFieldMeta.IssueDate}
-          />
+    [
+      TradeItemLocationProfileField.IssueTime,
+      { meta: TradeItemLocationProfileFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={TradeItemLocationProfileField.IssueTime}
+          meta={TradeItemLocationProfileFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={TradeItemLocationProfileFieldMeta.IssueTime}
-          />
+    [
+      TradeItemLocationProfileField.Note,
+      { meta: TradeItemLocationProfileFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TradeItemLocationProfileField.Note}
+          meta={TradeItemLocationProfileFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={TradeItemLocationProfileFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={TradeItemLocationProfileFieldMeta.Note}
-              />
-            }
-          />
+    [
+      TradeItemLocationProfileField.ProfileStatusCode,
+      { meta: TradeItemLocationProfileFieldMeta.ProfileStatusCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TradeItemLocationProfileField.ProfileStatusCode}
+          meta={TradeItemLocationProfileFieldMeta.ProfileStatusCode}
+          fieldConfig={fieldConfig}
+          code={value?.ProfileStatusCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Profile Status Code"
-            value={value.ProfileStatusCode?.[0]}
-            meta={TradeItemLocationProfileFieldMeta.ProfileStatusCode}
-          />
+    [
+      TradeItemLocationProfileField.Period,
+      { meta: TradeItemLocationProfileFieldMeta.Period,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={TradeItemLocationProfileField.Period}
+          meta={TradeItemLocationProfileFieldMeta.Period}
+          fieldConfig={fieldConfig}
+          period={value?.Period}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Period"
-            value={value.Period?.[0]}
-            meta={TradeItemLocationProfileFieldMeta.Period}
-          />
+    [
+      TradeItemLocationProfileField.DocumentReference,
+      { meta: TradeItemLocationProfileFieldMeta.DocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={TradeItemLocationProfileField.DocumentReference}
+          meta={TradeItemLocationProfileFieldMeta.DocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.DocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference"
-            label="Document Reference"
-            items={value.DocumentReference}
-            meta={TradeItemLocationProfileFieldMeta.DocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Document Reference"
-                value={itemValue}
-                meta={TradeItemLocationProfileFieldMeta.DocumentReference}
-              />
-            }
-          />
+    [
+      TradeItemLocationProfileField.Signature,
+      { meta: TradeItemLocationProfileFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={TradeItemLocationProfileField.Signature}
+          meta={TradeItemLocationProfileFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={TradeItemLocationProfileFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={TradeItemLocationProfileFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      TradeItemLocationProfileField.SenderParty,
+      { meta: TradeItemLocationProfileFieldMeta.SenderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={TradeItemLocationProfileField.SenderParty}
+          meta={TradeItemLocationProfileFieldMeta.SenderParty}
+          fieldConfig={fieldConfig}
+          party={value?.SenderParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Sender Party"
-            value={value.SenderParty?.[0]}
-            meta={TradeItemLocationProfileFieldMeta.SenderParty}
-          />
+    [
+      TradeItemLocationProfileField.ReceiverParty,
+      { meta: TradeItemLocationProfileFieldMeta.ReceiverParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={TradeItemLocationProfileField.ReceiverParty}
+          meta={TradeItemLocationProfileFieldMeta.ReceiverParty}
+          fieldConfig={fieldConfig}
+          party={value?.ReceiverParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Receiver Party"
-            value={value.ReceiverParty?.[0]}
-            meta={TradeItemLocationProfileFieldMeta.ReceiverParty}
-          />
+    [
+      TradeItemLocationProfileField.BuyerCustomerParty,
+      { meta: TradeItemLocationProfileFieldMeta.BuyerCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={TradeItemLocationProfileField.BuyerCustomerParty}
+          meta={TradeItemLocationProfileFieldMeta.BuyerCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.BuyerCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomerPartyDisplay
-            label="Buyer Customer Party"
-            value={value.BuyerCustomerParty?.[0]}
-            meta={TradeItemLocationProfileFieldMeta.BuyerCustomerParty}
-          />
+    [
+      TradeItemLocationProfileField.SellerSupplierParty,
+      { meta: TradeItemLocationProfileFieldMeta.SellerSupplierParty,
+        template: ({value, renderContext, fieldConfig}) => <SupplierPartyDisplay
+          key={TradeItemLocationProfileField.SellerSupplierParty}
+          meta={TradeItemLocationProfileFieldMeta.SellerSupplierParty}
+          fieldConfig={fieldConfig}
+          supplierParty={value?.SellerSupplierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <SupplierPartyDisplay
-            label="Seller Supplier Party"
-            value={value.SellerSupplierParty?.[0]}
-            meta={TradeItemLocationProfileFieldMeta.SellerSupplierParty}
-          />
+    [
+      TradeItemLocationProfileField.ItemManagementProfile,
+      { meta: TradeItemLocationProfileFieldMeta.ItemManagementProfile,
+        template: ({value, renderContext, fieldConfig}) => <ItemManagementProfileDisplay
+          key={TradeItemLocationProfileField.ItemManagementProfile}
+          meta={TradeItemLocationProfileFieldMeta.ItemManagementProfile}
+          fieldConfig={fieldConfig}
+          itemManagementProfile={value?.ItemManagementProfile}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-ItemManagementProfile"
-            label="Item Management Profile"
-            items={value.ItemManagementProfile}
-            meta={TradeItemLocationProfileFieldMeta.ItemManagementProfile} 
-            itemDisplay={ (itemValue: ItemManagementProfile, key: string | number) =>
-              <ItemManagementProfileDisplay
-                key={key}
-                label="Item Management Profile"
-                value={itemValue}
-                meta={TradeItemLocationProfileFieldMeta.ItemManagementProfile}
-              />
-            }
-          />
-        </div>
-    </div>
+export function TradeItemLocationProfileDisplay<TFieldMeta>({ meta, fieldConfig, tradeItemLocationProfile, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    TradeItemLocationProfileTypeName,
+    meta,
+    fieldConfig,
+    tradeItemLocationProfile,
+    renderContext,
+    TradeItemLocationProfileSubElementsMap,
   )
 }

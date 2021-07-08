@@ -2,7 +2,6 @@ import { Amount } from '../cbc/Amount'
 import { Code } from '../cbc/Code'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a revenue.
  */

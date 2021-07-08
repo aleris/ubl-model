@@ -1,329 +1,391 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { QualificationApplicationResponse } from  '../../model/doc/QualificationApplicationResponse'
-import { QualificationApplicationResponseFieldMeta } from  '../../meta/doc/QualificationApplicationResponseMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import ContractingPartyDisplay from '../cac/ContractingPartyDisplay'
-import { ContractingParty } from '../../model/cac/ContractingParty'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import EconomicOperatorPartyDisplay from '../cac/EconomicOperatorPartyDisplay'
-import { EconomicOperatorParty } from '../../model/cac/EconomicOperatorParty'
-import EvidenceDisplay from '../cac/EvidenceDisplay'
-import { Evidence } from '../../model/cac/Evidence'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import ProcurementProjectDisplay from '../cac/ProcurementProjectDisplay'
-import { ProcurementProject } from '../../model/cac/ProcurementProject'
-import ProcurementProjectLotDisplay from '../cac/ProcurementProjectLotDisplay'
-import { ProcurementProjectLot } from '../../model/cac/ProcurementProjectLot'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import TenderingCriterionDisplay from '../cac/TenderingCriterionDisplay'
-import { TenderingCriterion } from '../../model/cac/TenderingCriterion'
-import TenderingCriterionResponseDisplay from '../cac/TenderingCriterionResponseDisplay'
-import { TenderingCriterionResponse } from '../../model/cac/TenderingCriterionResponse'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { QualificationApplicationResponseField, QualificationApplicationResponseFieldMeta, QualificationApplicationResponseTypeName } from  '../../meta/doc/QualificationApplicationResponseMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { ContractingPartyDisplay } from '../cac/ContractingPartyDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { EconomicOperatorPartyDisplay } from '../cac/EconomicOperatorPartyDisplay'
+import { EvidenceDisplay } from '../cac/EvidenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { ProcurementProjectDisplay } from '../cac/ProcurementProjectDisplay'
+import { ProcurementProjectLotDisplay } from '../cac/ProcurementProjectLotDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { TenderingCriterionDisplay } from '../cac/TenderingCriterionDisplay'
+import { TenderingCriterionResponseDisplay } from '../cac/TenderingCriterionResponseDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: QualificationApplicationResponse | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<QualificationApplicationResponse, void>
+  qualificationApplicationResponse: QualificationApplicationResponse[] | undefined
+  renderContext: RenderContext
 }
 
-export default function QualificationApplicationResponseDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const QualificationApplicationResponseSubElementsMap: SubElementsTemplatesMap<QualificationApplicationResponseField, QualificationApplicationResponse, void> = new Map([
+    [
+      QualificationApplicationResponseField.UBLExtensions,
+      { meta: QualificationApplicationResponseFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={QualificationApplicationResponseField.UBLExtensions}
+          meta={QualificationApplicationResponseFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-QualificationApplicationResponse">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={QualificationApplicationResponseFieldMeta.UBLExtensions}
-          />
+    [
+      QualificationApplicationResponseField.UBLVersionID,
+      { meta: QualificationApplicationResponseFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={QualificationApplicationResponseField.UBLVersionID}
+          meta={QualificationApplicationResponseFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={QualificationApplicationResponseFieldMeta.UBLVersionID}
-          />
+    [
+      QualificationApplicationResponseField.CustomizationID,
+      { meta: QualificationApplicationResponseFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={QualificationApplicationResponseField.CustomizationID}
+          meta={QualificationApplicationResponseFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={QualificationApplicationResponseFieldMeta.CustomizationID}
-          />
+    [
+      QualificationApplicationResponseField.ProfileID,
+      { meta: QualificationApplicationResponseFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={QualificationApplicationResponseField.ProfileID}
+          meta={QualificationApplicationResponseFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={QualificationApplicationResponseFieldMeta.ProfileID}
-          />
+    [
+      QualificationApplicationResponseField.ProfileExecutionID,
+      { meta: QualificationApplicationResponseFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={QualificationApplicationResponseField.ProfileExecutionID}
+          meta={QualificationApplicationResponseFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={QualificationApplicationResponseFieldMeta.ProfileExecutionID}
-          />
+    [
+      QualificationApplicationResponseField.ID,
+      { meta: QualificationApplicationResponseFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={QualificationApplicationResponseField.ID}
+          meta={QualificationApplicationResponseFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={QualificationApplicationResponseFieldMeta.ID}
-          />
+    [
+      QualificationApplicationResponseField.CopyIndicator,
+      { meta: QualificationApplicationResponseFieldMeta.CopyIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={QualificationApplicationResponseField.CopyIndicator}
+          meta={QualificationApplicationResponseFieldMeta.CopyIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.CopyIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Copy Indicator"
-            value={value.CopyIndicator?.[0]}
-            meta={QualificationApplicationResponseFieldMeta.CopyIndicator}
-          />
+    [
+      QualificationApplicationResponseField.UUID,
+      { meta: QualificationApplicationResponseFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={QualificationApplicationResponseField.UUID}
+          meta={QualificationApplicationResponseFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={QualificationApplicationResponseFieldMeta.UUID}
-          />
+    [
+      QualificationApplicationResponseField.ContractFolderID,
+      { meta: QualificationApplicationResponseFieldMeta.ContractFolderID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={QualificationApplicationResponseField.ContractFolderID}
+          meta={QualificationApplicationResponseFieldMeta.ContractFolderID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ContractFolderID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Contract Folder Identifier"
-            value={value.ContractFolderID?.[0]}
-            meta={QualificationApplicationResponseFieldMeta.ContractFolderID}
-          />
+    [
+      QualificationApplicationResponseField.ContractName,
+      { meta: QualificationApplicationResponseFieldMeta.ContractName,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={QualificationApplicationResponseField.ContractName}
+          meta={QualificationApplicationResponseFieldMeta.ContractName}
+          fieldConfig={fieldConfig}
+          text={value?.ContractName}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-ContractName"
-            label="Contract Name"
-            items={value.ContractName}
-            meta={QualificationApplicationResponseFieldMeta.ContractName} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Contract Name"
-                value={itemValue}
-                meta={QualificationApplicationResponseFieldMeta.ContractName}
-              />
-            }
-          />
+    [
+      QualificationApplicationResponseField.IssueDate,
+      { meta: QualificationApplicationResponseFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={QualificationApplicationResponseField.IssueDate}
+          meta={QualificationApplicationResponseFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={QualificationApplicationResponseFieldMeta.IssueDate}
-          />
+    [
+      QualificationApplicationResponseField.IssueTime,
+      { meta: QualificationApplicationResponseFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={QualificationApplicationResponseField.IssueTime}
+          meta={QualificationApplicationResponseFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={QualificationApplicationResponseFieldMeta.IssueTime}
-          />
+    [
+      QualificationApplicationResponseField.EconomicOperatorGroupName,
+      { meta: QualificationApplicationResponseFieldMeta.EconomicOperatorGroupName,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={QualificationApplicationResponseField.EconomicOperatorGroupName}
+          meta={QualificationApplicationResponseFieldMeta.EconomicOperatorGroupName}
+          fieldConfig={fieldConfig}
+          text={value?.EconomicOperatorGroupName}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Economic Operator Group Name"
-            value={value.EconomicOperatorGroupName?.[0]}
-            meta={QualificationApplicationResponseFieldMeta.EconomicOperatorGroupName}
-          />
+    [
+      QualificationApplicationResponseField.VersionID,
+      { meta: QualificationApplicationResponseFieldMeta.VersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={QualificationApplicationResponseField.VersionID}
+          meta={QualificationApplicationResponseFieldMeta.VersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.VersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Version"
-            value={value.VersionID?.[0]}
-            meta={QualificationApplicationResponseFieldMeta.VersionID}
-          />
+    [
+      QualificationApplicationResponseField.PreviousVersionID,
+      { meta: QualificationApplicationResponseFieldMeta.PreviousVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={QualificationApplicationResponseField.PreviousVersionID}
+          meta={QualificationApplicationResponseFieldMeta.PreviousVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.PreviousVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Previous Version"
-            value={value.PreviousVersionID?.[0]}
-            meta={QualificationApplicationResponseFieldMeta.PreviousVersionID}
-          />
+    [
+      QualificationApplicationResponseField.ProcedureCode,
+      { meta: QualificationApplicationResponseFieldMeta.ProcedureCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={QualificationApplicationResponseField.ProcedureCode}
+          meta={QualificationApplicationResponseFieldMeta.ProcedureCode}
+          fieldConfig={fieldConfig}
+          code={value?.ProcedureCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Procedure Code"
-            value={value.ProcedureCode?.[0]}
-            meta={QualificationApplicationResponseFieldMeta.ProcedureCode}
-          />
+    [
+      QualificationApplicationResponseField.QualificationApplicationTypeCode,
+      { meta: QualificationApplicationResponseFieldMeta.QualificationApplicationTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={QualificationApplicationResponseField.QualificationApplicationTypeCode}
+          meta={QualificationApplicationResponseFieldMeta.QualificationApplicationTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.QualificationApplicationTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Qualification Application Type Code"
-            value={value.QualificationApplicationTypeCode?.[0]}
-            meta={QualificationApplicationResponseFieldMeta.QualificationApplicationTypeCode}
-          />
+    [
+      QualificationApplicationResponseField.WeightScoringMethodologyNote,
+      { meta: QualificationApplicationResponseFieldMeta.WeightScoringMethodologyNote,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={QualificationApplicationResponseField.WeightScoringMethodologyNote}
+          meta={QualificationApplicationResponseFieldMeta.WeightScoringMethodologyNote}
+          fieldConfig={fieldConfig}
+          text={value?.WeightScoringMethodologyNote}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-WeightScoringMethodologyNote"
-            label="Weight Scoring Methodology Note"
-            items={value.WeightScoringMethodologyNote}
-            meta={QualificationApplicationResponseFieldMeta.WeightScoringMethodologyNote} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Weight Scoring Methodology Note"
-                value={itemValue}
-                meta={QualificationApplicationResponseFieldMeta.WeightScoringMethodologyNote}
-              />
-            }
-          />
+    [
+      QualificationApplicationResponseField.WeightingTypeCode,
+      { meta: QualificationApplicationResponseFieldMeta.WeightingTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={QualificationApplicationResponseField.WeightingTypeCode}
+          meta={QualificationApplicationResponseFieldMeta.WeightingTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.WeightingTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Weighting Type Code"
-            value={value.WeightingTypeCode?.[0]}
-            meta={QualificationApplicationResponseFieldMeta.WeightingTypeCode}
-          />
+    [
+      QualificationApplicationResponseField.Note,
+      { meta: QualificationApplicationResponseFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={QualificationApplicationResponseField.Note}
+          meta={QualificationApplicationResponseFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={QualificationApplicationResponseFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={QualificationApplicationResponseFieldMeta.Note}
-              />
-            }
-          />
+    [
+      QualificationApplicationResponseField.ContractingParty,
+      { meta: QualificationApplicationResponseFieldMeta.ContractingParty,
+        template: ({value, renderContext, fieldConfig}) => <ContractingPartyDisplay
+          key={QualificationApplicationResponseField.ContractingParty}
+          meta={QualificationApplicationResponseFieldMeta.ContractingParty}
+          fieldConfig={fieldConfig}
+          contractingParty={value?.ContractingParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-ContractingParty"
-            label="Contracting Party"
-            items={value.ContractingParty}
-            meta={QualificationApplicationResponseFieldMeta.ContractingParty} 
-            itemDisplay={ (itemValue: ContractingParty, key: string | number) =>
-              <ContractingPartyDisplay
-                key={key}
-                label="Contracting Party"
-                value={itemValue}
-                meta={QualificationApplicationResponseFieldMeta.ContractingParty}
-              />
-            }
-          />
+    [
+      QualificationApplicationResponseField.EconomicOperatorParty,
+      { meta: QualificationApplicationResponseFieldMeta.EconomicOperatorParty,
+        template: ({value, renderContext, fieldConfig}) => <EconomicOperatorPartyDisplay
+          key={QualificationApplicationResponseField.EconomicOperatorParty}
+          meta={QualificationApplicationResponseFieldMeta.EconomicOperatorParty}
+          fieldConfig={fieldConfig}
+          economicOperatorParty={value?.EconomicOperatorParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-EconomicOperatorParty"
-            label="Economic Operator Party"
-            items={value.EconomicOperatorParty}
-            meta={QualificationApplicationResponseFieldMeta.EconomicOperatorParty} 
-            itemDisplay={ (itemValue: EconomicOperatorParty, key: string | number) =>
-              <EconomicOperatorPartyDisplay
-                key={key}
-                label="Economic Operator Party"
-                value={itemValue}
-                meta={QualificationApplicationResponseFieldMeta.EconomicOperatorParty}
-              />
-            }
-          />
+    [
+      QualificationApplicationResponseField.ProcurementProject,
+      { meta: QualificationApplicationResponseFieldMeta.ProcurementProject,
+        template: ({value, renderContext, fieldConfig}) => <ProcurementProjectDisplay
+          key={QualificationApplicationResponseField.ProcurementProject}
+          meta={QualificationApplicationResponseFieldMeta.ProcurementProject}
+          fieldConfig={fieldConfig}
+          procurementProject={value?.ProcurementProject}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ProcurementProjectDisplay
-            label="Procurement Project"
-            value={value.ProcurementProject?.[0]}
-            meta={QualificationApplicationResponseFieldMeta.ProcurementProject}
-          />
+    [
+      QualificationApplicationResponseField.ProcurementProjectLot,
+      { meta: QualificationApplicationResponseFieldMeta.ProcurementProjectLot,
+        template: ({value, renderContext, fieldConfig}) => <ProcurementProjectLotDisplay
+          key={QualificationApplicationResponseField.ProcurementProjectLot}
+          meta={QualificationApplicationResponseFieldMeta.ProcurementProjectLot}
+          fieldConfig={fieldConfig}
+          procurementProjectLot={value?.ProcurementProjectLot}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-ProcurementProjectLot"
-            label="Procurement Project Lot"
-            items={value.ProcurementProjectLot}
-            meta={QualificationApplicationResponseFieldMeta.ProcurementProjectLot} 
-            itemDisplay={ (itemValue: ProcurementProjectLot, key: string | number) =>
-              <ProcurementProjectLotDisplay
-                key={key}
-                label="Procurement Project Lot"
-                value={itemValue}
-                meta={QualificationApplicationResponseFieldMeta.ProcurementProjectLot}
-              />
-            }
-          />
+    [
+      QualificationApplicationResponseField.TenderingCriterion,
+      { meta: QualificationApplicationResponseFieldMeta.TenderingCriterion,
+        template: ({value, renderContext, fieldConfig}) => <TenderingCriterionDisplay
+          key={QualificationApplicationResponseField.TenderingCriterion}
+          meta={QualificationApplicationResponseFieldMeta.TenderingCriterion}
+          fieldConfig={fieldConfig}
+          tenderingCriterion={value?.TenderingCriterion}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-TenderingCriterion"
-            label="Tendering Criterion"
-            items={value.TenderingCriterion}
-            meta={QualificationApplicationResponseFieldMeta.TenderingCriterion} 
-            itemDisplay={ (itemValue: TenderingCriterion, key: string | number) =>
-              <TenderingCriterionDisplay
-                key={key}
-                label="Tendering Criterion"
-                value={itemValue}
-                meta={QualificationApplicationResponseFieldMeta.TenderingCriterion}
-              />
-            }
-          />
+    [
+      QualificationApplicationResponseField.TenderingCriterionResponse,
+      { meta: QualificationApplicationResponseFieldMeta.TenderingCriterionResponse,
+        template: ({value, renderContext, fieldConfig}) => <TenderingCriterionResponseDisplay
+          key={QualificationApplicationResponseField.TenderingCriterionResponse}
+          meta={QualificationApplicationResponseFieldMeta.TenderingCriterionResponse}
+          fieldConfig={fieldConfig}
+          tenderingCriterionResponse={value?.TenderingCriterionResponse}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-TenderingCriterionResponse"
-            label="Tendering Criterion Response"
-            items={value.TenderingCriterionResponse}
-            meta={QualificationApplicationResponseFieldMeta.TenderingCriterionResponse} 
-            itemDisplay={ (itemValue: TenderingCriterionResponse, key: string | number) =>
-              <TenderingCriterionResponseDisplay
-                key={key}
-                label="Tendering Criterion Response"
-                value={itemValue}
-                meta={QualificationApplicationResponseFieldMeta.TenderingCriterionResponse}
-              />
-            }
-          />
+    [
+      QualificationApplicationResponseField.AdditionalDocumentReference,
+      { meta: QualificationApplicationResponseFieldMeta.AdditionalDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={QualificationApplicationResponseField.AdditionalDocumentReference}
+          meta={QualificationApplicationResponseFieldMeta.AdditionalDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.AdditionalDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-AdditionalDocumentReference"
-            label="Additional Document Reference"
-            items={value.AdditionalDocumentReference}
-            meta={QualificationApplicationResponseFieldMeta.AdditionalDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Additional Document Reference"
-                value={itemValue}
-                meta={QualificationApplicationResponseFieldMeta.AdditionalDocumentReference}
-              />
-            }
-          />
+    [
+      QualificationApplicationResponseField.Evidence,
+      { meta: QualificationApplicationResponseFieldMeta.Evidence,
+        template: ({value, renderContext, fieldConfig}) => <EvidenceDisplay
+          key={QualificationApplicationResponseField.Evidence}
+          meta={QualificationApplicationResponseFieldMeta.Evidence}
+          fieldConfig={fieldConfig}
+          evidence={value?.Evidence}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Evidence"
-            label="Evidence"
-            items={value.Evidence}
-            meta={QualificationApplicationResponseFieldMeta.Evidence} 
-            itemDisplay={ (itemValue: Evidence, key: string | number) =>
-              <EvidenceDisplay
-                key={key}
-                label="Evidence"
-                value={itemValue}
-                meta={QualificationApplicationResponseFieldMeta.Evidence}
-              />
-            }
-          />
+    [
+      QualificationApplicationResponseField.Signature,
+      { meta: QualificationApplicationResponseFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={QualificationApplicationResponseField.Signature}
+          meta={QualificationApplicationResponseFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={QualificationApplicationResponseFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={QualificationApplicationResponseFieldMeta.Signature}
-              />
-            }
-          />
-        </div>
-    </div>
+export function QualificationApplicationResponseDisplay<TFieldMeta>({ meta, fieldConfig, qualificationApplicationResponse, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    QualificationApplicationResponseTypeName,
+    meta,
+    fieldConfig,
+    qualificationApplicationResponse,
+    renderContext,
+    QualificationApplicationResponseSubElementsMap,
   )
 }

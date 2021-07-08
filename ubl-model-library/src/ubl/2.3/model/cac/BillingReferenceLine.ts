@@ -2,7 +2,6 @@ import { AllowanceCharge } from './AllowanceCharge'
 import { Amount } from '../cbc/Amount'
 import { Identifier } from '../cbc/Identifier'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to define a reference to a transaction line in a billing document.
  */

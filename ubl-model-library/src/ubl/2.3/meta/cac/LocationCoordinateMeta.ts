@@ -1,4 +1,8 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { MeasureType } from '../cbc/MeasureMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum LocationCoordinateField {
   UBLExtensions = 'UBLExtensions',
@@ -15,11 +19,11 @@ export enum LocationCoordinateField {
 export const LocationCoordinateFieldMetaUBLExtensions = new FieldMeta<LocationCoordinateField>(
   LocationCoordinateField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -28,10 +32,10 @@ export const LocationCoordinateFieldMetaCoordinateSystemCode = new FieldMeta<Loc
   LocationCoordinateField.CoordinateSystemCode,
   'CoordinateSystemCode',
   'Coordinate System Code',
-  'Code',
+  CodeType.name,
   'A code signifying the location system used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -40,10 +44,10 @@ export const LocationCoordinateFieldMetaLatitudeDegreesMeasure = new FieldMeta<L
   LocationCoordinateField.LatitudeDegreesMeasure,
   'LatitudeDegreesMeasure',
   'Latitude Degrees',
-  'Measure',
+  MeasureType.name,
   'The degree component of a latitude measured in degrees and minutes.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -52,10 +56,10 @@ export const LocationCoordinateFieldMetaLatitudeMinutesMeasure = new FieldMeta<L
   LocationCoordinateField.LatitudeMinutesMeasure,
   'LatitudeMinutesMeasure',
   'Latitude Minutes',
-  'Measure',
+  MeasureType.name,
   'The minutes component of a latitude measured in degrees and minutes (modulo 60).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -64,10 +68,10 @@ export const LocationCoordinateFieldMetaLatitudeDirectionCode = new FieldMeta<Lo
   LocationCoordinateField.LatitudeDirectionCode,
   'LatitudeDirectionCode',
   'Latitude Direction Code',
-  'Code',
+  CodeType.name,
   'A code signifying the direction of latitude measurement from the equator (north or south).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -76,10 +80,10 @@ export const LocationCoordinateFieldMetaLongitudeDegreesMeasure = new FieldMeta<
   LocationCoordinateField.LongitudeDegreesMeasure,
   'LongitudeDegreesMeasure',
   'Longitude Degrees',
-  'Measure',
+  MeasureType.name,
   'The degree component of a longitude measured in degrees and minutes.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -88,10 +92,10 @@ export const LocationCoordinateFieldMetaLongitudeMinutesMeasure = new FieldMeta<
   LocationCoordinateField.LongitudeMinutesMeasure,
   'LongitudeMinutesMeasure',
   'Longitude Minutes',
-  'Measure',
+  MeasureType.name,
   'The minutes component of a longitude measured in degrees and minutes (modulo 60).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -100,10 +104,10 @@ export const LocationCoordinateFieldMetaLongitudeDirectionCode = new FieldMeta<L
   LocationCoordinateField.LongitudeDirectionCode,
   'LongitudeDirectionCode',
   'Longitude Direction Code',
-  'Code',
+  CodeType.name,
   'A code signifying the direction of longitude measurement from the prime meridian (east or west).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -112,10 +116,10 @@ export const LocationCoordinateFieldMetaAltitudeMeasure = new FieldMeta<Location
   LocationCoordinateField.AltitudeMeasure,
   'AltitudeMeasure',
   'Altitude',
-  'Measure',
+  MeasureType.name,
   'The altitude of the location.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -143,3 +147,11 @@ export const LocationCoordinateFieldMap = new Map([
   [LocationCoordinateField.LongitudeDirectionCode, LocationCoordinateFieldMetaLongitudeDirectionCode],
   [LocationCoordinateField.AltitudeMeasure, LocationCoordinateFieldMetaAltitudeMeasure]
 ])
+
+export const LocationCoordinateType: Type<LocationCoordinateField> = {
+  name: 'LocationCoordinate',
+  label: 'Location Coordinate',
+  module: TypeModule.cac,
+  definition: 'A class for defining a set of geographical coordinates (apparently misnamed).',
+  fields: LocationCoordinateFieldMap,
+}

@@ -1,4 +1,34 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AllowanceChargeType } from '../cac/AllowanceChargeMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { ContractType } from '../cac/ContractMeta'
+import { CountryType } from '../cac/CountryMeta'
+import { CustomerPartyType } from '../cac/CustomerPartyMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DeliveryType } from '../cac/DeliveryMeta'
+import { DeliveryTermsType } from '../cac/DeliveryTermsMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { ExchangeRateType } from '../cac/ExchangeRateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { MeasureType } from '../cbc/MeasureMeta'
+import { MonetaryTotalType } from '../cac/MonetaryTotalMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { OrderLineType } from '../cac/OrderLineMeta'
+import { OrderReferenceType } from '../cac/OrderReferenceMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { PaymentMeansType } from '../cac/PaymentMeansMeta'
+import { PaymentTermsType } from '../cac/PaymentTermsMeta'
+import { PeriodType } from '../cac/PeriodMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { SupplierPartyType } from '../cac/SupplierPartyMeta'
+import { TaxTotalType } from '../cac/TaxTotalMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { TransactionConditionsType } from '../cac/TransactionConditionsMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum OrderResponseField {
   UBLExtensions = 'UBLExtensions',
@@ -59,11 +89,11 @@ export enum OrderResponseField {
 export const OrderResponseFieldMetaUBLExtensions = new FieldMeta<OrderResponseField>(
   OrderResponseField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -72,10 +102,10 @@ export const OrderResponseFieldMetaUBLVersionID = new FieldMeta<OrderResponseFie
   OrderResponseField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.0.5'
 )
@@ -84,10 +114,10 @@ export const OrderResponseFieldMetaCustomizationID = new FieldMeta<OrderResponse
   OrderResponseField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -96,10 +126,10 @@ export const OrderResponseFieldMetaProfileID = new FieldMeta<OrderResponseField>
   OrderResponseField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BasicProcurementProcess'
 )
@@ -108,10 +138,10 @@ export const OrderResponseFieldMetaProfileExecutionID = new FieldMeta<OrderRespo
   OrderResponseField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BPP-1001'
 )
@@ -120,10 +150,10 @@ export const OrderResponseFieldMetaID = new FieldMeta<OrderResponseField>(
   OrderResponseField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   'Purchase Order Response Number, Acknowledgement of Order Number',
   undefined
 )
@@ -132,10 +162,10 @@ export const OrderResponseFieldMetaSalesOrderID = new FieldMeta<OrderResponseFie
   OrderResponseField.SalesOrderID,
   'SalesOrderID',
   'Sales Order Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the Order, issued by the Seller.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -144,10 +174,10 @@ export const OrderResponseFieldMetaCopyIndicator = new FieldMeta<OrderResponseFi
   OrderResponseField.CopyIndicator,
   'CopyIndicator',
   'Copy Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this document is a copy (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -156,10 +186,10 @@ export const OrderResponseFieldMetaUUID = new FieldMeta<OrderResponseField>(
   OrderResponseField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -168,10 +198,10 @@ export const OrderResponseFieldMetaIssueDate = new FieldMeta<OrderResponseField>
   OrderResponseField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -180,10 +210,10 @@ export const OrderResponseFieldMetaIssueTime = new FieldMeta<OrderResponseField>
   OrderResponseField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -192,10 +222,10 @@ export const OrderResponseFieldMetaOrderResponseCode = new FieldMeta<OrderRespon
   OrderResponseField.OrderResponseCode,
   'OrderResponseCode',
   'Order Response Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of response for this Order.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -204,10 +234,10 @@ export const OrderResponseFieldMetaNote = new FieldMeta<OrderResponseField>(
   OrderResponseField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -216,10 +246,10 @@ export const OrderResponseFieldMetaDocumentCurrencyCode = new FieldMeta<OrderRes
   OrderResponseField.DocumentCurrencyCode,
   'DocumentCurrencyCode',
   'Document Currency Code',
-  'Code',
+  CodeType.name,
   'A code signifying the default currency for this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -228,10 +258,10 @@ export const OrderResponseFieldMetaPricingCurrencyCode = new FieldMeta<OrderResp
   OrderResponseField.PricingCurrencyCode,
   'PricingCurrencyCode',
   'Pricing Currency Code',
-  'Code',
+  CodeType.name,
   'A code signifying the currency that is used for all prices in the Order Response.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -240,10 +270,10 @@ export const OrderResponseFieldMetaTaxCurrencyCode = new FieldMeta<OrderResponse
   OrderResponseField.TaxCurrencyCode,
   'TaxCurrencyCode',
   'Tax Currency Code',
-  'Code',
+  CodeType.name,
   'A code signifying the currency that is used for all tax amounts in the Order Response.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -252,10 +282,10 @@ export const OrderResponseFieldMetaTotalPackagesQuantity = new FieldMeta<OrderRe
   OrderResponseField.TotalPackagesQuantity,
   'TotalPackagesQuantity',
   'Total Packages Quantity',
-  'Quantity',
+  QuantityType.name,
   'The total number of packages contained in the Order Response.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -264,10 +294,10 @@ export const OrderResponseFieldMetaGrossWeightMeasure = new FieldMeta<OrderRespo
   OrderResponseField.GrossWeightMeasure,
   'GrossWeightMeasure',
   'Gross Weight',
-  'Measure',
+  MeasureType.name,
   'The total gross weight for the Order Response (goods + packaging + transport equipment).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -276,10 +306,10 @@ export const OrderResponseFieldMetaNetWeightMeasure = new FieldMeta<OrderRespons
   OrderResponseField.NetWeightMeasure,
   'NetWeightMeasure',
   'Net Weight',
-  'Measure',
+  MeasureType.name,
   'The total net weight for the Order Response (goods + packaging).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -288,10 +318,10 @@ export const OrderResponseFieldMetaNetNetWeightMeasure = new FieldMeta<OrderResp
   OrderResponseField.NetNetWeightMeasure,
   'NetNetWeightMeasure',
   'Net Net Weight',
-  'Measure',
+  MeasureType.name,
   'The total net weight of the goods in the Order Response excluding packaging.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -300,10 +330,10 @@ export const OrderResponseFieldMetaGrossVolumeMeasure = new FieldMeta<OrderRespo
   OrderResponseField.GrossVolumeMeasure,
   'GrossVolumeMeasure',
   'Gross Volume',
-  'Measure',
+  MeasureType.name,
   'The total volume of the goods in the Order Response including packaging.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -312,10 +342,10 @@ export const OrderResponseFieldMetaNetVolumeMeasure = new FieldMeta<OrderRespons
   OrderResponseField.NetVolumeMeasure,
   'NetVolumeMeasure',
   'Net Volume',
-  'Measure',
+  MeasureType.name,
   'The total volume of the goods in the Order Response excluding packaging.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -324,10 +354,10 @@ export const OrderResponseFieldMetaCustomerReference = new FieldMeta<OrderRespon
   OrderResponseField.CustomerReference,
   'CustomerReference',
   'Customer Reference',
-  'Text',
+  TextType.name,
   'A supplementary reference assigned by the buyer, e.g., the CRI in a purchasing card transaction.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -336,10 +366,10 @@ export const OrderResponseFieldMetaAccountingCostCode = new FieldMeta<OrderRespo
   OrderResponseField.AccountingCostCode,
   'AccountingCostCode',
   'Accounting Cost Code',
-  'Code',
+  CodeType.name,
   'An accounting cost code applied to the order as a whole.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -348,10 +378,10 @@ export const OrderResponseFieldMetaAccountingCost = new FieldMeta<OrderResponseF
   OrderResponseField.AccountingCost,
   'AccountingCost',
   'Accounting Cost',
-  'Text',
+  TextType.name,
   'An accounting cost code applied to the order as a whole, expressed as text.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -360,10 +390,10 @@ export const OrderResponseFieldMetaLineCountNumeric = new FieldMeta<OrderRespons
   OrderResponseField.LineCountNumeric,
   'LineCountNumeric',
   'Line Count',
-  'Numeric',
+  NumericType.name,
   'The number of Order Lines in this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -372,10 +402,10 @@ export const OrderResponseFieldMetaValidityPeriod = new FieldMeta<OrderResponseF
   OrderResponseField.ValidityPeriod,
   'ValidityPeriod',
   'Validity Period',
-  'Period',
+  PeriodType.name,
   'The period for which the Order Response is valid.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -384,10 +414,10 @@ export const OrderResponseFieldMetaOrderReference = new FieldMeta<OrderResponseF
   OrderResponseField.OrderReference,
   'OrderReference',
   'Order Reference',
-  'OrderReference',
+  OrderReferenceType.name,
   'A reference to the Order being responded to.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -396,10 +426,10 @@ export const OrderResponseFieldMetaOrderDocumentReference = new FieldMeta<OrderR
   OrderResponseField.OrderDocumentReference,
   'OrderDocumentReference',
   'Order Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to an Order other than the one being responded to.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -408,10 +438,10 @@ export const OrderResponseFieldMetaOrderChangeDocumentReference = new FieldMeta<
   OrderResponseField.OrderChangeDocumentReference,
   'OrderChangeDocumentReference',
   'Order Change Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to an Order Change being responded to.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -420,10 +450,10 @@ export const OrderResponseFieldMetaOriginatorDocumentReference = new FieldMeta<O
   OrderResponseField.OriginatorDocumentReference,
   'OriginatorDocumentReference',
   'Originator Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to an originator document associated with this document.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -432,10 +462,10 @@ export const OrderResponseFieldMetaAdditionalDocumentReference = new FieldMeta<O
   OrderResponseField.AdditionalDocumentReference,
   'AdditionalDocumentReference',
   'Additional Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to an additional document associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -444,10 +474,10 @@ export const OrderResponseFieldMetaContract = new FieldMeta<OrderResponseField>(
   OrderResponseField.Contract,
   'Contract',
   'Contract',
-  'Contract',
+  ContractType.name,
   'A contract associated with the Order being responded to.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -456,10 +486,10 @@ export const OrderResponseFieldMetaSignature = new FieldMeta<OrderResponseField>
   OrderResponseField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -468,10 +498,10 @@ export const OrderResponseFieldMetaSellerSupplierParty = new FieldMeta<OrderResp
   OrderResponseField.SellerSupplierParty,
   'SellerSupplierParty',
   'Seller Supplier Party',
-  'SupplierParty',
+  SupplierPartyType.name,
   'The seller.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -480,10 +510,10 @@ export const OrderResponseFieldMetaBuyerCustomerParty = new FieldMeta<OrderRespo
   OrderResponseField.BuyerCustomerParty,
   'BuyerCustomerParty',
   'Buyer Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The buyer.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -492,10 +522,10 @@ export const OrderResponseFieldMetaOriginatorCustomerParty = new FieldMeta<Order
   OrderResponseField.OriginatorCustomerParty,
   'OriginatorCustomerParty',
   'Originator Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The originator.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -504,10 +534,10 @@ export const OrderResponseFieldMetaFreightForwarderParty = new FieldMeta<OrderRe
   OrderResponseField.FreightForwarderParty,
   'FreightForwarderParty',
   'Freight Forwarder Party',
-  'Party',
+  PartyType.name,
   'A freight forwarder or carrier.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -516,10 +546,10 @@ export const OrderResponseFieldMetaAccountingSupplierParty = new FieldMeta<Order
   OrderResponseField.AccountingSupplierParty,
   'AccountingSupplierParty',
   'Accounting Supplier Party',
-  'SupplierParty',
+  SupplierPartyType.name,
   'The accounting supplier party.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -528,10 +558,10 @@ export const OrderResponseFieldMetaAccountingCustomerParty = new FieldMeta<Order
   OrderResponseField.AccountingCustomerParty,
   'AccountingCustomerParty',
   'Accounting Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The accounting customer party.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -540,10 +570,10 @@ export const OrderResponseFieldMetaDelivery = new FieldMeta<OrderResponseField>(
   OrderResponseField.Delivery,
   'Delivery',
   'Delivery',
-  'Delivery',
+  DeliveryType.name,
   'A delivery associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -552,10 +582,10 @@ export const OrderResponseFieldMetaDeliveryTerms = new FieldMeta<OrderResponseFi
   OrderResponseField.DeliveryTerms,
   'DeliveryTerms',
   'Delivery Terms',
-  'DeliveryTerms',
+  DeliveryTermsType.name,
   'A set of delivery terms associated with this document.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -564,10 +594,10 @@ export const OrderResponseFieldMetaPaymentMeans = new FieldMeta<OrderResponseFie
   OrderResponseField.PaymentMeans,
   'PaymentMeans',
   'Payment Means',
-  'PaymentMeans',
+  PaymentMeansType.name,
   'Expected means of payment.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -576,10 +606,10 @@ export const OrderResponseFieldMetaPaymentTerms = new FieldMeta<OrderResponseFie
   OrderResponseField.PaymentTerms,
   'PaymentTerms',
   'Payment Terms',
-  'PaymentTerms',
+  PaymentTermsType.name,
   'A set of payment terms associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -588,10 +618,10 @@ export const OrderResponseFieldMetaAllowanceCharge = new FieldMeta<OrderResponse
   OrderResponseField.AllowanceCharge,
   'AllowanceCharge',
   'Allowance Charge',
-  'AllowanceCharge',
+  AllowanceChargeType.name,
   'A discount or charge that applies to a price component.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -600,10 +630,10 @@ export const OrderResponseFieldMetaTransactionConditions = new FieldMeta<OrderRe
   OrderResponseField.TransactionConditions,
   'TransactionConditions',
   'Transaction Conditions',
-  'TransactionConditions',
+  TransactionConditionsType.name,
   'A specification of purchasing or sales conditions applying to the whole Order.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -612,10 +642,10 @@ export const OrderResponseFieldMetaTaxExchangeRate = new FieldMeta<OrderResponse
   OrderResponseField.TaxExchangeRate,
   'TaxExchangeRate',
   'Tax Exchange Rate',
-  'ExchangeRate',
+  ExchangeRateType.name,
   'The exchange rate between the document currency and the tax currency.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -624,10 +654,10 @@ export const OrderResponseFieldMetaPricingExchangeRate = new FieldMeta<OrderResp
   OrderResponseField.PricingExchangeRate,
   'PricingExchangeRate',
   'Pricing Exchange Rate',
-  'ExchangeRate',
+  ExchangeRateType.name,
   'The exchange rate between the document currency and the pricing currency.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -636,10 +666,10 @@ export const OrderResponseFieldMetaPaymentExchangeRate = new FieldMeta<OrderResp
   OrderResponseField.PaymentExchangeRate,
   'PaymentExchangeRate',
   'Payment Exchange Rate',
-  'ExchangeRate',
+  ExchangeRateType.name,
   'The exchange rate between the document currency and the payment currency.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -648,10 +678,10 @@ export const OrderResponseFieldMetaDestinationCountry = new FieldMeta<OrderRespo
   OrderResponseField.DestinationCountry,
   'DestinationCountry',
   'Destination Country',
-  'Country',
+  CountryType.name,
   'The country of destination (for customs purposes).',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -660,10 +690,10 @@ export const OrderResponseFieldMetaTaxTotal = new FieldMeta<OrderResponseField>(
   OrderResponseField.TaxTotal,
   'TaxTotal',
   'Tax Total',
-  'TaxTotal',
+  TaxTotalType.name,
   'The total amount of a specific type of tax, as calculated by the seller.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -672,10 +702,10 @@ export const OrderResponseFieldMetaLegalMonetaryTotal = new FieldMeta<OrderRespo
   OrderResponseField.LegalMonetaryTotal,
   'LegalMonetaryTotal',
   'Legal Monetary Total',
-  'MonetaryTotal',
+  MonetaryTotalType.name,
   'The total amount of the Order (or counter-offer).',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -684,10 +714,10 @@ export const OrderResponseFieldMetaOrderLine = new FieldMeta<OrderResponseField>
   OrderResponseField.OrderLine,
   'OrderLine',
   'Order Line',
-  'OrderLine',
+  OrderLineType.name,
   'A line associated with a line in the Catalogue and specifying a kind of item being ordered.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -803,3 +833,11 @@ export const OrderResponseFieldMap = new Map([
   [OrderResponseField.LegalMonetaryTotal, OrderResponseFieldMetaLegalMonetaryTotal],
   [OrderResponseField.OrderLine, OrderResponseFieldMetaOrderLine]
 ])
+
+export const OrderResponseType: Type<OrderResponseField> = {
+  name: 'OrderResponse',
+  label: 'Order Response',
+  module: TypeModule.doc,
+  definition: 'A document used to indicate detailed acceptance or rejection of an Order or to make a counter-offer.',
+  fields: OrderResponseFieldMap,
+}

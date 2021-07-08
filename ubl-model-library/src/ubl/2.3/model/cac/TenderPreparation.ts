@@ -5,7 +5,6 @@ import { ProcurementProjectLot } from './ProcurementProjectLot'
 import { TenderRequirement } from './TenderRequirement'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe directions for preparing a tender.
  */

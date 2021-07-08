@@ -4,7 +4,6 @@ import { Location } from './Location'
 import { Measure } from '../cbc/Measure'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a vessel used for transport by water (including sea, river, and canal).
  */

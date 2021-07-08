@@ -1,4 +1,8 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum MessageDeliveryField {
   UBLExtensions = 'UBLExtensions',
@@ -10,11 +14,11 @@ export enum MessageDeliveryField {
 export const MessageDeliveryFieldMetaUBLExtensions = new FieldMeta<MessageDeliveryField>(
   MessageDeliveryField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -23,10 +27,10 @@ export const MessageDeliveryFieldMetaProtocolID = new FieldMeta<MessageDeliveryF
   MessageDeliveryField.ProtocolID,
   'ProtocolID',
   'Protocol Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the protocol to be used within this message delivery.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'AS2, ebMS2, AS4, WS-RM'
 )
@@ -35,10 +39,10 @@ export const MessageDeliveryFieldMetaEnvelopeTypeCode = new FieldMeta<MessageDel
   MessageDeliveryField.EnvelopeTypeCode,
   'EnvelopeTypeCode',
   'Envelope Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of envelope to be used within this message delivery (e.g. OASIS BDX Business Document Envelope).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BDE'
 )
@@ -47,10 +51,10 @@ export const MessageDeliveryFieldMetaEndpointURI = new FieldMeta<MessageDelivery
   MessageDeliveryField.EndpointURI,
   'EndpointURI',
   'Endpoint URI',
-  'Identifier',
+  IdentifierType.name,
   'The Uniform Resource Identifier (URI) of the access point (e.g. an HTTP URL including the port).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'https://services.enterprise.com/participant-id/rx'
 )
@@ -68,3 +72,11 @@ export const MessageDeliveryFieldMap = new Map([
   [MessageDeliveryField.EnvelopeTypeCode, MessageDeliveryFieldMetaEnvelopeTypeCode],
   [MessageDeliveryField.EndpointURI, MessageDeliveryFieldMetaEndpointURI]
 ])
+
+export const MessageDeliveryType: Type<MessageDeliveryField> = {
+  name: 'MessageDelivery',
+  label: 'Message Delivery',
+  module: TypeModule.cac,
+  definition: 'A class to describe how a message is delivered (routed).',
+  fields: MessageDeliveryFieldMap,
+}

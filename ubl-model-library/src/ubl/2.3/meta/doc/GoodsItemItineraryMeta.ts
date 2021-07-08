@@ -1,4 +1,18 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { ConsignmentType } from '../cac/ConsignmentMeta'
+import { DateType } from '../cbc/DateMeta'
+import { GoodsItemType } from '../cac/GoodsItemMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { PackageType } from '../cac/PackageMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { TransportationSegmentType } from '../cac/TransportationSegmentMeta'
+import { TransportEquipmentType } from '../cac/TransportEquipmentMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum GoodsItemItineraryField {
   UBLExtensions = 'UBLExtensions',
@@ -27,11 +41,11 @@ export enum GoodsItemItineraryField {
 export const GoodsItemItineraryFieldMetaUBLExtensions = new FieldMeta<GoodsItemItineraryField>(
   GoodsItemItineraryField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -40,10 +54,10 @@ export const GoodsItemItineraryFieldMetaUBLVersionID = new FieldMeta<GoodsItemIt
   GoodsItemItineraryField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -52,10 +66,10 @@ export const GoodsItemItineraryFieldMetaCustomizationID = new FieldMeta<GoodsIte
   GoodsItemItineraryField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -64,10 +78,10 @@ export const GoodsItemItineraryFieldMetaProfileID = new FieldMeta<GoodsItemItine
   GoodsItemItineraryField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -76,10 +90,10 @@ export const GoodsItemItineraryFieldMetaProfileExecutionID = new FieldMeta<Goods
   GoodsItemItineraryField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -88,10 +102,10 @@ export const GoodsItemItineraryFieldMetaID = new FieldMeta<GoodsItemItineraryFie
   GoodsItemItineraryField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -100,10 +114,10 @@ export const GoodsItemItineraryFieldMetaCopyIndicator = new FieldMeta<GoodsItemI
   GoodsItemItineraryField.CopyIndicator,
   'CopyIndicator',
   'Copy Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this document is a copy (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -112,10 +126,10 @@ export const GoodsItemItineraryFieldMetaUUID = new FieldMeta<GoodsItemItineraryF
   GoodsItemItineraryField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -124,10 +138,10 @@ export const GoodsItemItineraryFieldMetaIssueDate = new FieldMeta<GoodsItemItine
   GoodsItemItineraryField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -136,10 +150,10 @@ export const GoodsItemItineraryFieldMetaIssueTime = new FieldMeta<GoodsItemItine
   GoodsItemItineraryField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -148,10 +162,10 @@ export const GoodsItemItineraryFieldMetaNote = new FieldMeta<GoodsItemItineraryF
   GoodsItemItineraryField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -160,10 +174,10 @@ export const GoodsItemItineraryFieldMetaVersionID = new FieldMeta<GoodsItemItine
   GoodsItemItineraryField.VersionID,
   'VersionID',
   'Version',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a version of a Goods Item Itinerary in order to distinguish updates.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -172,10 +186,10 @@ export const GoodsItemItineraryFieldMetaTransportExecutionPlanReferenceID = new 
   GoodsItemItineraryField.TransportExecutionPlanReferenceID,
   'TransportExecutionPlanReferenceID',
   'Transport Execution Plan Reference',
-  'Identifier',
+  IdentifierType.name,
   'The Transport Execution Plan associated with this Goods Item Itinerary.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -184,10 +198,10 @@ export const GoodsItemItineraryFieldMetaSignature = new FieldMeta<GoodsItemItine
   GoodsItemItineraryField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -196,10 +210,10 @@ export const GoodsItemItineraryFieldMetaSenderParty = new FieldMeta<GoodsItemIti
   GoodsItemItineraryField.SenderParty,
   'SenderParty',
   'Sender Party',
-  'Party',
+  PartyType.name,
   'The sender of this Goods Item Itinerary.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -208,10 +222,10 @@ export const GoodsItemItineraryFieldMetaReceiverParty = new FieldMeta<GoodsItemI
   GoodsItemItineraryField.ReceiverParty,
   'ReceiverParty',
   'Receiver Party',
-  'Party',
+  PartyType.name,
   'The receiver of this Goods Item Itinerary.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -220,10 +234,10 @@ export const GoodsItemItineraryFieldMetaReferencedConsignment = new FieldMeta<Go
   GoodsItemItineraryField.ReferencedConsignment,
   'ReferencedConsignment',
   'Referenced Consignment',
-  'Consignment',
+  ConsignmentType.name,
   'A consignment being transported in the transport service associated with this Goods Item Itinerary.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -232,10 +246,10 @@ export const GoodsItemItineraryFieldMetaReferencedTransportEquipment = new Field
   GoodsItemItineraryField.ReferencedTransportEquipment,
   'ReferencedTransportEquipment',
   'Referenced Transport Equipment',
-  'TransportEquipment',
+  TransportEquipmentType.name,
   'Transport equipment being transported in the transport service associated with this Goods Item Itinerary.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -244,10 +258,10 @@ export const GoodsItemItineraryFieldMetaReferencedPackage = new FieldMeta<GoodsI
   GoodsItemItineraryField.ReferencedPackage,
   'ReferencedPackage',
   'Referenced Package',
-  'Package',
+  PackageType.name,
   'A package being transported in the transport service associated with this Goods Item Itinerary.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -256,10 +270,10 @@ export const GoodsItemItineraryFieldMetaReferencedGoodsItem = new FieldMeta<Good
   GoodsItemItineraryField.ReferencedGoodsItem,
   'ReferencedGoodsItem',
   'Referenced Goods Item',
-  'GoodsItem',
+  GoodsItemType.name,
   'An item of goods being transported in the transport service associated with this Goods Item Itinerary.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -268,10 +282,10 @@ export const GoodsItemItineraryFieldMetaTransportationSegment = new FieldMeta<Go
   GoodsItemItineraryField.TransportationSegment,
   'TransportationSegment',
   'Transportation Segment',
-  'TransportationSegment',
+  TransportationSegmentType.name,
   'A part of a transport service that has its own Transport Execution Plan. A Transportation Segment may cover services other than transport, such as terminal handling, document management, customs procedures, etc.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -323,3 +337,11 @@ export const GoodsItemItineraryFieldMap = new Map([
   [GoodsItemItineraryField.ReferencedGoodsItem, GoodsItemItineraryFieldMetaReferencedGoodsItem],
   [GoodsItemItineraryField.TransportationSegment, GoodsItemItineraryFieldMetaTransportationSegment]
 ])
+
+export const GoodsItemItineraryType: Type<GoodsItemItineraryField> = {
+  name: 'GoodsItemItinerary',
+  label: 'Goods Item Itinerary',
+  module: TypeModule.doc,
+  definition: 'A document providing details relating to a transport service, such as transport movement, identification of equipment and goods, subcontracted service providers, etc.',
+  fields: GoodsItemItineraryFieldMap,
+}

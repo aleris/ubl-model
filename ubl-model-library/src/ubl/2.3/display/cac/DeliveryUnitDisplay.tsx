@@ -1,54 +1,78 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { DeliveryUnit } from  '../../model/cac/DeliveryUnit'
-import { DeliveryUnitFieldMeta } from  '../../meta/cac/DeliveryUnitMeta'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { DeliveryUnitField, DeliveryUnitFieldMeta, DeliveryUnitTypeName } from  '../../meta/cac/DeliveryUnitMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: DeliveryUnit | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<DeliveryUnit, void>
+  deliveryUnit: DeliveryUnit[] | undefined
+  renderContext: RenderContext
 }
 
-export default function DeliveryUnitDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const DeliveryUnitSubElementsMap: SubElementsTemplatesMap<DeliveryUnitField, DeliveryUnit, void> = new Map([
+    [
+      DeliveryUnitField.UBLExtensions,
+      { meta: DeliveryUnitFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={DeliveryUnitField.UBLExtensions}
+          meta={DeliveryUnitFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-DeliveryUnit">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={DeliveryUnitFieldMeta.UBLExtensions}
-          />
+    [
+      DeliveryUnitField.BatchQuantity,
+      { meta: DeliveryUnitFieldMeta.BatchQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={DeliveryUnitField.BatchQuantity}
+          meta={DeliveryUnitFieldMeta.BatchQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.BatchQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Batch Quantity"
-            value={value.BatchQuantity?.[0]}
-            meta={DeliveryUnitFieldMeta.BatchQuantity}
-          />
+    [
+      DeliveryUnitField.ConsumerUnitQuantity,
+      { meta: DeliveryUnitFieldMeta.ConsumerUnitQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={DeliveryUnitField.ConsumerUnitQuantity}
+          meta={DeliveryUnitFieldMeta.ConsumerUnitQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.ConsumerUnitQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Consumer Unit"
-            value={value.ConsumerUnitQuantity?.[0]}
-            meta={DeliveryUnitFieldMeta.ConsumerUnitQuantity}
-          />
+    [
+      DeliveryUnitField.HazardousRiskIndicator,
+      { meta: DeliveryUnitFieldMeta.HazardousRiskIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={DeliveryUnitField.HazardousRiskIndicator}
+          meta={DeliveryUnitFieldMeta.HazardousRiskIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.HazardousRiskIndicator}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <IndicatorDisplay
-            label="Hazardous Risk Indicator"
-            value={value.HazardousRiskIndicator?.[0]}
-            meta={DeliveryUnitFieldMeta.HazardousRiskIndicator}
-          />
-        </div>
-    </div>
+export function DeliveryUnitDisplay<TFieldMeta>({ meta, fieldConfig, deliveryUnit, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    DeliveryUnitTypeName,
+    meta,
+    fieldConfig,
+    deliveryUnit,
+    renderContext,
+    DeliveryUnitSubElementsMap,
   )
 }

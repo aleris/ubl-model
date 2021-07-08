@@ -1,71 +1,91 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { PhysicalAttribute } from  '../../model/cac/PhysicalAttribute'
-import { PhysicalAttributeFieldMeta } from  '../../meta/cac/PhysicalAttributeMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { PhysicalAttributeField, PhysicalAttributeFieldMeta, PhysicalAttributeTypeName } from  '../../meta/cac/PhysicalAttributeMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: PhysicalAttribute | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<PhysicalAttribute, void>
+  physicalAttribute: PhysicalAttribute[] | undefined
+  renderContext: RenderContext
 }
 
-export default function PhysicalAttributeDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const PhysicalAttributeSubElementsMap: SubElementsTemplatesMap<PhysicalAttributeField, PhysicalAttribute, void> = new Map([
+    [
+      PhysicalAttributeField.UBLExtensions,
+      { meta: PhysicalAttributeFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={PhysicalAttributeField.UBLExtensions}
+          meta={PhysicalAttributeFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-PhysicalAttribute">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={PhysicalAttributeFieldMeta.UBLExtensions}
-          />
+    [
+      PhysicalAttributeField.AttributeID,
+      { meta: PhysicalAttributeFieldMeta.AttributeID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PhysicalAttributeField.AttributeID}
+          meta={PhysicalAttributeFieldMeta.AttributeID}
+          fieldConfig={fieldConfig}
+          identifier={value?.AttributeID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Attribute Identifier"
-            value={value.AttributeID?.[0]}
-            meta={PhysicalAttributeFieldMeta.AttributeID}
-          />
+    [
+      PhysicalAttributeField.PositionCode,
+      { meta: PhysicalAttributeFieldMeta.PositionCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={PhysicalAttributeField.PositionCode}
+          meta={PhysicalAttributeFieldMeta.PositionCode}
+          fieldConfig={fieldConfig}
+          code={value?.PositionCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Position Code"
-            value={value.PositionCode?.[0]}
-            meta={PhysicalAttributeFieldMeta.PositionCode}
-          />
+    [
+      PhysicalAttributeField.DescriptionCode,
+      { meta: PhysicalAttributeFieldMeta.DescriptionCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={PhysicalAttributeField.DescriptionCode}
+          meta={PhysicalAttributeFieldMeta.DescriptionCode}
+          fieldConfig={fieldConfig}
+          code={value?.DescriptionCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Description Code"
-            value={value.DescriptionCode?.[0]}
-            meta={PhysicalAttributeFieldMeta.DescriptionCode}
-          />
+    [
+      PhysicalAttributeField.Description,
+      { meta: PhysicalAttributeFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={PhysicalAttributeField.Description}
+          meta={PhysicalAttributeFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={PhysicalAttributeFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={PhysicalAttributeFieldMeta.Description}
-              />
-            }
-          />
-        </div>
-    </div>
+export function PhysicalAttributeDisplay<TFieldMeta>({ meta, fieldConfig, physicalAttribute, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    PhysicalAttributeTypeName,
+    meta,
+    fieldConfig,
+    physicalAttribute,
+    renderContext,
+    PhysicalAttributeSubElementsMap,
   )
 }

@@ -10,7 +10,6 @@ import { TaxTotal } from './TaxTotal'
 import { TenderLine } from './TenderLine'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a tendered project or project lot.
  */

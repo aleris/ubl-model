@@ -1,65 +1,79 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Prize } from  '../../model/cac/Prize'
-import { PrizeFieldMeta } from  '../../meta/cac/PrizeMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { PrizeField, PrizeFieldMeta, PrizeTypeName } from  '../../meta/cac/PrizeMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: Prize | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<Prize, void>
+  prize: Prize[] | undefined
+  renderContext: RenderContext
 }
 
-export default function PrizeDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const PrizeSubElementsMap: SubElementsTemplatesMap<PrizeField, Prize, void> = new Map([
+    [
+      PrizeField.UBLExtensions,
+      { meta: PrizeFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={PrizeField.UBLExtensions}
+          meta={PrizeFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-Prize">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={PrizeFieldMeta.UBLExtensions}
-          />
+    [
+      PrizeField.PreviousRankNumberNumeric,
+      { meta: PrizeFieldMeta.PreviousRankNumberNumeric,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={PrizeField.PreviousRankNumberNumeric}
+          meta={PrizeFieldMeta.PreviousRankNumberNumeric}
+          fieldConfig={fieldConfig}
+          numeric={value?.PreviousRankNumberNumeric}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Previous Rank Number"
-            value={value.PreviousRankNumberNumeric?.[0]}
-            meta={PrizeFieldMeta.PreviousRankNumberNumeric}
-          />
+    [
+      PrizeField.PreviousCancellationReasonValueAmount,
+      { meta: PrizeFieldMeta.PreviousCancellationReasonValueAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={PrizeField.PreviousCancellationReasonValueAmount}
+          meta={PrizeFieldMeta.PreviousCancellationReasonValueAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.PreviousCancellationReasonValueAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Previous Cancellation Reason Value"
-            value={value.PreviousCancellationReasonValueAmount?.[0]}
-            meta={PrizeFieldMeta.PreviousCancellationReasonValueAmount}
-          />
+    [
+      PrizeField.PreviousCancellationReasonDescription,
+      { meta: PrizeFieldMeta.PreviousCancellationReasonDescription,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={PrizeField.PreviousCancellationReasonDescription}
+          meta={PrizeFieldMeta.PreviousCancellationReasonDescription}
+          fieldConfig={fieldConfig}
+          text={value?.PreviousCancellationReasonDescription}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-PreviousCancellationReasonDescription"
-            label="Previous Cancellation Reason Description"
-            items={value.PreviousCancellationReasonDescription}
-            meta={PrizeFieldMeta.PreviousCancellationReasonDescription} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Previous Cancellation Reason Description"
-                value={itemValue}
-                meta={PrizeFieldMeta.PreviousCancellationReasonDescription}
-              />
-            }
-          />
-        </div>
-    </div>
+export function PrizeDisplay<TFieldMeta>({ meta, fieldConfig, prize, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    PrizeTypeName,
+    meta,
+    fieldConfig,
+    prize,
+    renderContext,
+    PrizeSubElementsMap,
   )
 }

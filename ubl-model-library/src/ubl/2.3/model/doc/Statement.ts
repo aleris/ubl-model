@@ -18,7 +18,6 @@ import { TaxTotal } from '../cac/TaxTotal'
 import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A document used to report the status of orders, billing, and payment. This document is a statement of account, not a
  * summary invoice.

@@ -1,4 +1,9 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum PhysicalAttributeField {
   UBLExtensions = 'UBLExtensions',
@@ -11,11 +16,11 @@ export enum PhysicalAttributeField {
 export const PhysicalAttributeFieldMetaUBLExtensions = new FieldMeta<PhysicalAttributeField>(
   PhysicalAttributeField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -24,10 +29,10 @@ export const PhysicalAttributeFieldMetaAttributeID = new FieldMeta<PhysicalAttri
   PhysicalAttributeField.AttributeID,
   'AttributeID',
   'Attribute Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this physical attribute.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   'colour style'
 )
@@ -36,10 +41,10 @@ export const PhysicalAttributeFieldMetaPositionCode = new FieldMeta<PhysicalAttr
   PhysicalAttributeField.PositionCode,
   'PositionCode',
   'Position Code',
-  'Code',
+  CodeType.name,
   'A code signifying the position of this physical attribute.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -48,10 +53,10 @@ export const PhysicalAttributeFieldMetaDescriptionCode = new FieldMeta<PhysicalA
   PhysicalAttributeField.DescriptionCode,
   'DescriptionCode',
   'Description Code',
-  'Code',
+  CodeType.name,
   'A description of the physical attribute, expressed as a code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'XXL , Small'
 )
@@ -60,10 +65,10 @@ export const PhysicalAttributeFieldMetaDescription = new FieldMeta<PhysicalAttri
   PhysicalAttributeField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'A description of the physical attribute, expressed as text.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -83,3 +88,11 @@ export const PhysicalAttributeFieldMap = new Map([
   [PhysicalAttributeField.DescriptionCode, PhysicalAttributeFieldMetaDescriptionCode],
   [PhysicalAttributeField.Description, PhysicalAttributeFieldMetaDescription]
 ])
+
+export const PhysicalAttributeType: Type<PhysicalAttributeField> = {
+  name: 'PhysicalAttribute',
+  label: 'Physical Attribute',
+  module: TypeModule.cac,
+  definition: 'A class to describe a physical attribute.',
+  fields: PhysicalAttributeFieldMap,
+}

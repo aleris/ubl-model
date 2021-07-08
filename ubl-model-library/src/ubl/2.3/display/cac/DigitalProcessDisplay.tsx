@@ -1,97 +1,104 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { DigitalProcess } from  '../../model/cac/DigitalProcess'
-import { DigitalProcessFieldMeta } from  '../../meta/cac/DigitalProcessMeta'
-import DigitalCollaborationDisplay from './DigitalCollaborationDisplay'
-import { DigitalCollaboration } from '../../model/cac/DigitalCollaboration'
-import DocumentReferenceDisplay from './DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { DigitalProcessField, DigitalProcessFieldMeta, DigitalProcessTypeName } from  '../../meta/cac/DigitalProcessMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { DigitalCollaborationDisplay } from './DigitalCollaborationDisplay'
+import { DocumentReferenceDisplay } from './DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: DigitalProcess | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<DigitalProcess, void>
+  digitalProcess: DigitalProcess[] | undefined
+  renderContext: RenderContext
 }
 
-export default function DigitalProcessDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const DigitalProcessSubElementsMap: SubElementsTemplatesMap<DigitalProcessField, DigitalProcess, void> = new Map([
+    [
+      DigitalProcessField.UBLExtensions,
+      { meta: DigitalProcessFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={DigitalProcessField.UBLExtensions}
+          meta={DigitalProcessFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-DigitalProcess">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={DigitalProcessFieldMeta.UBLExtensions}
-          />
+    [
+      DigitalProcessField.ID,
+      { meta: DigitalProcessFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DigitalProcessField.ID}
+          meta={DigitalProcessFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={DigitalProcessFieldMeta.ID}
-          />
+    [
+      DigitalProcessField.Description,
+      { meta: DigitalProcessFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={DigitalProcessField.Description}
+          meta={DigitalProcessFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={DigitalProcessFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={DigitalProcessFieldMeta.Description}
-              />
-            }
-          />
+    [
+      DigitalProcessField.ProfileID,
+      { meta: DigitalProcessFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DigitalProcessField.ProfileID}
+          meta={DigitalProcessFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={DigitalProcessFieldMeta.ProfileID}
-          />
+    [
+      DigitalProcessField.DigitalCollaboration,
+      { meta: DigitalProcessFieldMeta.DigitalCollaboration,
+        template: ({value, renderContext, fieldConfig}) => <DigitalCollaborationDisplay
+          key={DigitalProcessField.DigitalCollaboration}
+          meta={DigitalProcessFieldMeta.DigitalCollaboration}
+          fieldConfig={fieldConfig}
+          digitalCollaboration={value?.DigitalCollaboration}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DigitalCollaboration"
-            label="Digital Collaboration"
-            items={value.DigitalCollaboration}
-            meta={DigitalProcessFieldMeta.DigitalCollaboration} 
-            itemDisplay={ (itemValue: DigitalCollaboration, key: string | number) =>
-              <DigitalCollaborationDisplay
-                key={key}
-                label="Digital Collaboration"
-                value={itemValue}
-                meta={DigitalProcessFieldMeta.DigitalCollaboration}
-              />
-            }
-          />
+    [
+      DigitalProcessField.CertificationDocumentReference,
+      { meta: DigitalProcessFieldMeta.CertificationDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={DigitalProcessField.CertificationDocumentReference}
+          meta={DigitalProcessFieldMeta.CertificationDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.CertificationDocumentReference}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentReference ubl-CertificationDocumentReference"
-            label="Certification Document Reference"
-            items={value.CertificationDocumentReference}
-            meta={DigitalProcessFieldMeta.CertificationDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Certification Document Reference"
-                value={itemValue}
-                meta={DigitalProcessFieldMeta.CertificationDocumentReference}
-              />
-            }
-          />
-        </div>
-    </div>
+export function DigitalProcessDisplay<TFieldMeta>({ meta, fieldConfig, digitalProcess, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    DigitalProcessTypeName,
+    meta,
+    fieldConfig,
+    digitalProcess,
+    renderContext,
+    DigitalProcessSubElementsMap,
   )
 }

@@ -1,4 +1,12 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { EvidenceType } from './EvidenceMeta'
+import { PeriodType } from './PeriodMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum EvaluationCriterionField {
   UBLExtensions = 'UBLExtensions',
@@ -15,11 +23,11 @@ export enum EvaluationCriterionField {
 export const EvaluationCriterionFieldMetaUBLExtensions = new FieldMeta<EvaluationCriterionField>(
   EvaluationCriterionField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -28,10 +36,10 @@ export const EvaluationCriterionFieldMetaEvaluationCriterionTypeCode = new Field
   EvaluationCriterionField.EvaluationCriterionTypeCode,
   'EvaluationCriterionTypeCode',
   'Evaluation Criterion Type Code',
-  'Code',
+  CodeType.name,
   'A code that specifies the criterion; it may be financial, technical or organizational.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -40,10 +48,10 @@ export const EvaluationCriterionFieldMetaDescription = new FieldMeta<EvaluationC
   EvaluationCriterionField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'A description of the criterion.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -52,10 +60,10 @@ export const EvaluationCriterionFieldMetaThresholdAmount = new FieldMeta<Evaluat
   EvaluationCriterionField.ThresholdAmount,
   'ThresholdAmount',
   'Threshold Amount',
-  'Amount',
+  AmountType.name,
   'Estimated monetary amount of the threshold for the criterion.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -64,10 +72,10 @@ export const EvaluationCriterionFieldMetaThresholdQuantity = new FieldMeta<Evalu
   EvaluationCriterionField.ThresholdQuantity,
   'ThresholdQuantity',
   'Threshold Quantity',
-  'Quantity',
+  QuantityType.name,
   'Estimated quantity of the threshold for the criterion.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -76,10 +84,10 @@ export const EvaluationCriterionFieldMetaExpressionCode = new FieldMeta<Evaluati
   EvaluationCriterionField.ExpressionCode,
   'ExpressionCode',
   'Expression Code',
-  'Code',
+  CodeType.name,
   'A code identifying the expression that will be used to evaluate the criterion.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -88,10 +96,10 @@ export const EvaluationCriterionFieldMetaExpression = new FieldMeta<EvaluationCr
   EvaluationCriterionField.Expression,
   'Expression',
   'Expression',
-  'Text',
+  TextType.name,
   'The expression that will be used to evaluate the criterion.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -100,10 +108,10 @@ export const EvaluationCriterionFieldMetaDurationPeriod = new FieldMeta<Evaluati
   EvaluationCriterionField.DurationPeriod,
   'DurationPeriod',
   'Duration Period',
-  'Period',
+  PeriodType.name,
   'Describes the period for which the evaluation criterion is valid.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -112,10 +120,10 @@ export const EvaluationCriterionFieldMetaSuggestedEvidence = new FieldMeta<Evalu
   EvaluationCriterionField.SuggestedEvidence,
   'SuggestedEvidence',
   'Suggested Evidence',
-  'Evidence',
+  EvidenceType.name,
   'Describes any evidences that should be used to satisfy the criterion.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -143,3 +151,11 @@ export const EvaluationCriterionFieldMap = new Map([
   [EvaluationCriterionField.DurationPeriod, EvaluationCriterionFieldMetaDurationPeriod],
   [EvaluationCriterionField.SuggestedEvidence, EvaluationCriterionFieldMetaSuggestedEvidence]
 ])
+
+export const EvaluationCriterionType: Type<EvaluationCriterionField> = {
+  name: 'EvaluationCriterion',
+  label: 'Evaluation Criterion',
+  module: TypeModule.cac,
+  definition: 'A class defining the required criterion for a tenderer to be elligible in a tendering process.',
+  fields: EvaluationCriterionFieldMap,
+}

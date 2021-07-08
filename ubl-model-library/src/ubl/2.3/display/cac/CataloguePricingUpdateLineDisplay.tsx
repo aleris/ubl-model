@@ -1,73 +1,92 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { CataloguePricingUpdateLine } from  '../../model/cac/CataloguePricingUpdateLine'
-import { CataloguePricingUpdateLineFieldMeta } from  '../../meta/cac/CataloguePricingUpdateLineMeta'
-import CustomerPartyDisplay from './CustomerPartyDisplay'
-import { CustomerParty } from '../../model/cac/CustomerParty'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import ItemLocationQuantityDisplay from './ItemLocationQuantityDisplay'
-import { ItemLocationQuantity } from '../../model/cac/ItemLocationQuantity'
-import SupplierPartyDisplay from './SupplierPartyDisplay'
-import { SupplierParty } from '../../model/cac/SupplierParty'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { CataloguePricingUpdateLineField, CataloguePricingUpdateLineFieldMeta, CataloguePricingUpdateLineTypeName } from  '../../meta/cac/CataloguePricingUpdateLineMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CustomerPartyDisplay } from './CustomerPartyDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { ItemLocationQuantityDisplay } from './ItemLocationQuantityDisplay'
+import { SupplierPartyDisplay } from './SupplierPartyDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: CataloguePricingUpdateLine | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<CataloguePricingUpdateLine, void>
+  cataloguePricingUpdateLine: CataloguePricingUpdateLine[] | undefined
+  renderContext: RenderContext
 }
 
-export default function CataloguePricingUpdateLineDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const CataloguePricingUpdateLineSubElementsMap: SubElementsTemplatesMap<CataloguePricingUpdateLineField, CataloguePricingUpdateLine, void> = new Map([
+    [
+      CataloguePricingUpdateLineField.UBLExtensions,
+      { meta: CataloguePricingUpdateLineFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={CataloguePricingUpdateLineField.UBLExtensions}
+          meta={CataloguePricingUpdateLineFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-CataloguePricingUpdateLine">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={CataloguePricingUpdateLineFieldMeta.UBLExtensions}
-          />
+    [
+      CataloguePricingUpdateLineField.ID,
+      { meta: CataloguePricingUpdateLineFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CataloguePricingUpdateLineField.ID}
+          meta={CataloguePricingUpdateLineFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={CataloguePricingUpdateLineFieldMeta.ID}
-          />
+    [
+      CataloguePricingUpdateLineField.ContractorCustomerParty,
+      { meta: CataloguePricingUpdateLineFieldMeta.ContractorCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={CataloguePricingUpdateLineField.ContractorCustomerParty}
+          meta={CataloguePricingUpdateLineFieldMeta.ContractorCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.ContractorCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomerPartyDisplay
-            label="Contractor Customer Party"
-            value={value.ContractorCustomerParty?.[0]}
-            meta={CataloguePricingUpdateLineFieldMeta.ContractorCustomerParty}
-          />
+    [
+      CataloguePricingUpdateLineField.SellerSupplierParty,
+      { meta: CataloguePricingUpdateLineFieldMeta.SellerSupplierParty,
+        template: ({value, renderContext, fieldConfig}) => <SupplierPartyDisplay
+          key={CataloguePricingUpdateLineField.SellerSupplierParty}
+          meta={CataloguePricingUpdateLineFieldMeta.SellerSupplierParty}
+          fieldConfig={fieldConfig}
+          supplierParty={value?.SellerSupplierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <SupplierPartyDisplay
-            label="Seller Supplier Party"
-            value={value.SellerSupplierParty?.[0]}
-            meta={CataloguePricingUpdateLineFieldMeta.SellerSupplierParty}
-          />
+    [
+      CataloguePricingUpdateLineField.RequiredItemLocationQuantity,
+      { meta: CataloguePricingUpdateLineFieldMeta.RequiredItemLocationQuantity,
+        template: ({value, renderContext, fieldConfig}) => <ItemLocationQuantityDisplay
+          key={CataloguePricingUpdateLineField.RequiredItemLocationQuantity}
+          meta={CataloguePricingUpdateLineFieldMeta.RequiredItemLocationQuantity}
+          fieldConfig={fieldConfig}
+          itemLocationQuantity={value?.RequiredItemLocationQuantity}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-ItemLocationQuantity ubl-RequiredItemLocationQuantity"
-            label="Required Item Location Quantity"
-            items={value.RequiredItemLocationQuantity}
-            meta={CataloguePricingUpdateLineFieldMeta.RequiredItemLocationQuantity} 
-            itemDisplay={ (itemValue: ItemLocationQuantity, key: string | number) =>
-              <ItemLocationQuantityDisplay
-                key={key}
-                label="Required Item Location Quantity"
-                value={itemValue}
-                meta={CataloguePricingUpdateLineFieldMeta.RequiredItemLocationQuantity}
-              />
-            }
-          />
-        </div>
-    </div>
+export function CataloguePricingUpdateLineDisplay<TFieldMeta>({ meta, fieldConfig, cataloguePricingUpdateLine, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    CataloguePricingUpdateLineTypeName,
+    meta,
+    fieldConfig,
+    cataloguePricingUpdateLine,
+    renderContext,
+    CataloguePricingUpdateLineSubElementsMap,
   )
 }

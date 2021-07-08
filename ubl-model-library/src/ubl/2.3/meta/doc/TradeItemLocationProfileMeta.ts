@@ -1,4 +1,19 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { CustomerPartyType } from '../cac/CustomerPartyMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { ItemManagementProfileType } from '../cac/ItemManagementProfileMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { PeriodType } from '../cac/PeriodMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { SupplierPartyType } from '../cac/SupplierPartyMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum TradeItemLocationProfileField {
   UBLExtensions = 'UBLExtensions',
@@ -26,11 +41,11 @@ export enum TradeItemLocationProfileField {
 export const TradeItemLocationProfileFieldMetaUBLExtensions = new FieldMeta<TradeItemLocationProfileField>(
   TradeItemLocationProfileField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -39,10 +54,10 @@ export const TradeItemLocationProfileFieldMetaUBLVersionID = new FieldMeta<Trade
   TradeItemLocationProfileField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.0.5'
 )
@@ -51,10 +66,10 @@ export const TradeItemLocationProfileFieldMetaCustomizationID = new FieldMeta<Tr
   TradeItemLocationProfileField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -63,10 +78,10 @@ export const TradeItemLocationProfileFieldMetaProfileID = new FieldMeta<TradeIte
   TradeItemLocationProfileField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BasicProcurementProcess'
 )
@@ -75,10 +90,10 @@ export const TradeItemLocationProfileFieldMetaProfileExecutionID = new FieldMeta
   TradeItemLocationProfileField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BPP-1001'
 )
@@ -87,10 +102,10 @@ export const TradeItemLocationProfileFieldMetaID = new FieldMeta<TradeItemLocati
   TradeItemLocationProfileField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -99,10 +114,10 @@ export const TradeItemLocationProfileFieldMetaCopyIndicator = new FieldMeta<Trad
   TradeItemLocationProfileField.CopyIndicator,
   'CopyIndicator',
   'Copy Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this document is a copy (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -111,10 +126,10 @@ export const TradeItemLocationProfileFieldMetaUUID = new FieldMeta<TradeItemLoca
   TradeItemLocationProfileField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -123,10 +138,10 @@ export const TradeItemLocationProfileFieldMetaIssueDate = new FieldMeta<TradeIte
   TradeItemLocationProfileField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -135,10 +150,10 @@ export const TradeItemLocationProfileFieldMetaIssueTime = new FieldMeta<TradeIte
   TradeItemLocationProfileField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -147,10 +162,10 @@ export const TradeItemLocationProfileFieldMetaNote = new FieldMeta<TradeItemLoca
   TradeItemLocationProfileField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -159,10 +174,10 @@ export const TradeItemLocationProfileFieldMetaProfileStatusCode = new FieldMeta<
   TradeItemLocationProfileField.ProfileStatusCode,
   'ProfileStatusCode',
   'Profile Status Code',
-  'Code',
+  CodeType.name,
   'A code signifying the status of this Trade Item Location Profile.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -171,10 +186,10 @@ export const TradeItemLocationProfileFieldMetaPeriod = new FieldMeta<TradeItemLo
   TradeItemLocationProfileField.Period,
   'Period',
   'Period',
-  'Period',
+  PeriodType.name,
   'An association to Period.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -183,10 +198,10 @@ export const TradeItemLocationProfileFieldMetaDocumentReference = new FieldMeta<
   TradeItemLocationProfileField.DocumentReference,
   'DocumentReference',
   'Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to another document associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -195,10 +210,10 @@ export const TradeItemLocationProfileFieldMetaSignature = new FieldMeta<TradeIte
   TradeItemLocationProfileField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -207,10 +222,10 @@ export const TradeItemLocationProfileFieldMetaSenderParty = new FieldMeta<TradeI
   TradeItemLocationProfileField.SenderParty,
   'SenderParty',
   'Sender Party',
-  'Party',
+  PartyType.name,
   'The sender.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -219,10 +234,10 @@ export const TradeItemLocationProfileFieldMetaReceiverParty = new FieldMeta<Trad
   TradeItemLocationProfileField.ReceiverParty,
   'ReceiverParty',
   'Receiver Party',
-  'Party',
+  PartyType.name,
   'The receiver.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -231,10 +246,10 @@ export const TradeItemLocationProfileFieldMetaBuyerCustomerParty = new FieldMeta
   TradeItemLocationProfileField.BuyerCustomerParty,
   'BuyerCustomerParty',
   'Buyer Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The buyer.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -243,10 +258,10 @@ export const TradeItemLocationProfileFieldMetaSellerSupplierParty = new FieldMet
   TradeItemLocationProfileField.SellerSupplierParty,
   'SellerSupplierParty',
   'Seller Supplier Party',
-  'SupplierParty',
+  SupplierPartyType.name,
   'The seller.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -255,10 +270,10 @@ export const TradeItemLocationProfileFieldMetaItemManagementProfile = new FieldM
   TradeItemLocationProfileField.ItemManagementProfile,
   'ItemManagementProfile',
   'Item Management Profile',
-  'ItemManagementProfile',
+  ItemManagementProfileType.name,
   'A profile specifying replenishment policies for a particular trade item.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -308,3 +323,11 @@ export const TradeItemLocationProfileFieldMap = new Map([
   [TradeItemLocationProfileField.SellerSupplierParty, TradeItemLocationProfileFieldMetaSellerSupplierParty],
   [TradeItemLocationProfileField.ItemManagementProfile, TradeItemLocationProfileFieldMetaItemManagementProfile]
 ])
+
+export const TradeItemLocationProfileType: Type<TradeItemLocationProfileField> = {
+  name: 'TradeItemLocationProfile',
+  label: 'Trade Item Location Profile',
+  module: TypeModule.doc,
+  definition: 'A document specifying trade item attributes relating to replenishment policies.',
+  fields: TradeItemLocationProfileFieldMap,
+}

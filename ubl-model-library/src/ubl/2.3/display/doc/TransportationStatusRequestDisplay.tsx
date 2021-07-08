@@ -1,255 +1,327 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TransportationStatusRequest } from  '../../model/doc/TransportationStatusRequest'
-import { TransportationStatusRequestFieldMeta } from  '../../meta/doc/TransportationStatusRequestMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import ConsignmentDisplay from '../cac/ConsignmentDisplay'
-import { Consignment } from '../../model/cac/Consignment'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import LocationDisplay from '../cac/LocationDisplay'
-import { Location } from '../../model/cac/Location'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PeriodDisplay from '../cac/PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { TransportationStatusRequestField, TransportationStatusRequestFieldMeta, TransportationStatusRequestTypeName } from  '../../meta/doc/TransportationStatusRequestMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { ConsignmentDisplay } from '../cac/ConsignmentDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { LocationDisplay } from '../cac/LocationDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { PeriodDisplay } from '../cac/PeriodDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: TransportationStatusRequest | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<TransportationStatusRequest, void>
+  transportationStatusRequest: TransportationStatusRequest[] | undefined
+  renderContext: RenderContext
 }
 
-export default function TransportationStatusRequestDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const TransportationStatusRequestSubElementsMap: SubElementsTemplatesMap<TransportationStatusRequestField, TransportationStatusRequest, void> = new Map([
+    [
+      TransportationStatusRequestField.UBLExtensions,
+      { meta: TransportationStatusRequestFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={TransportationStatusRequestField.UBLExtensions}
+          meta={TransportationStatusRequestFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-TransportationStatusRequest">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={TransportationStatusRequestFieldMeta.UBLExtensions}
-          />
+    [
+      TransportationStatusRequestField.UBLVersionID,
+      { meta: TransportationStatusRequestFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TransportationStatusRequestField.UBLVersionID}
+          meta={TransportationStatusRequestFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={TransportationStatusRequestFieldMeta.UBLVersionID}
-          />
+    [
+      TransportationStatusRequestField.CustomizationID,
+      { meta: TransportationStatusRequestFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TransportationStatusRequestField.CustomizationID}
+          meta={TransportationStatusRequestFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={TransportationStatusRequestFieldMeta.CustomizationID}
-          />
+    [
+      TransportationStatusRequestField.ProfileID,
+      { meta: TransportationStatusRequestFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TransportationStatusRequestField.ProfileID}
+          meta={TransportationStatusRequestFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={TransportationStatusRequestFieldMeta.ProfileID}
-          />
+    [
+      TransportationStatusRequestField.ProfileExecutionID,
+      { meta: TransportationStatusRequestFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TransportationStatusRequestField.ProfileExecutionID}
+          meta={TransportationStatusRequestFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={TransportationStatusRequestFieldMeta.ProfileExecutionID}
-          />
+    [
+      TransportationStatusRequestField.ID,
+      { meta: TransportationStatusRequestFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TransportationStatusRequestField.ID}
+          meta={TransportationStatusRequestFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={TransportationStatusRequestFieldMeta.ID}
-          />
+    [
+      TransportationStatusRequestField.CarrierAssignedID,
+      { meta: TransportationStatusRequestFieldMeta.CarrierAssignedID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TransportationStatusRequestField.CarrierAssignedID}
+          meta={TransportationStatusRequestFieldMeta.CarrierAssignedID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CarrierAssignedID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Carrier Assigned Identifier"
-            value={value.CarrierAssignedID?.[0]}
-            meta={TransportationStatusRequestFieldMeta.CarrierAssignedID}
-          />
+    [
+      TransportationStatusRequestField.UUID,
+      { meta: TransportationStatusRequestFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TransportationStatusRequestField.UUID}
+          meta={TransportationStatusRequestFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={TransportationStatusRequestFieldMeta.UUID}
-          />
+    [
+      TransportationStatusRequestField.IssueDate,
+      { meta: TransportationStatusRequestFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={TransportationStatusRequestField.IssueDate}
+          meta={TransportationStatusRequestFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={TransportationStatusRequestFieldMeta.IssueDate}
-          />
+    [
+      TransportationStatusRequestField.IssueTime,
+      { meta: TransportationStatusRequestFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={TransportationStatusRequestField.IssueTime}
+          meta={TransportationStatusRequestFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={TransportationStatusRequestFieldMeta.IssueTime}
-          />
+    [
+      TransportationStatusRequestField.Name,
+      { meta: TransportationStatusRequestFieldMeta.Name,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TransportationStatusRequestField.Name}
+          meta={TransportationStatusRequestFieldMeta.Name}
+          fieldConfig={fieldConfig}
+          text={value?.Name}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Name"
-            value={value.Name?.[0]}
-            meta={TransportationStatusRequestFieldMeta.Name}
-          />
+    [
+      TransportationStatusRequestField.Description,
+      { meta: TransportationStatusRequestFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TransportationStatusRequestField.Description}
+          meta={TransportationStatusRequestFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={TransportationStatusRequestFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={TransportationStatusRequestFieldMeta.Description}
-              />
-            }
-          />
+    [
+      TransportationStatusRequestField.Note,
+      { meta: TransportationStatusRequestFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TransportationStatusRequestField.Note}
+          meta={TransportationStatusRequestFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={TransportationStatusRequestFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={TransportationStatusRequestFieldMeta.Note}
-              />
-            }
-          />
+    [
+      TransportationStatusRequestField.ShippingOrderID,
+      { meta: TransportationStatusRequestFieldMeta.ShippingOrderID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TransportationStatusRequestField.ShippingOrderID}
+          meta={TransportationStatusRequestFieldMeta.ShippingOrderID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ShippingOrderID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Shipping Order Identifier"
-            value={value.ShippingOrderID?.[0]}
-            meta={TransportationStatusRequestFieldMeta.ShippingOrderID}
-          />
+    [
+      TransportationStatusRequestField.OtherInstruction,
+      { meta: TransportationStatusRequestFieldMeta.OtherInstruction,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TransportationStatusRequestField.OtherInstruction}
+          meta={TransportationStatusRequestFieldMeta.OtherInstruction}
+          fieldConfig={fieldConfig}
+          text={value?.OtherInstruction}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Other Instruction"
-            value={value.OtherInstruction?.[0]}
-            meta={TransportationStatusRequestFieldMeta.OtherInstruction}
-          />
+    [
+      TransportationStatusRequestField.TransportationStatusTypeCode,
+      { meta: TransportationStatusRequestFieldMeta.TransportationStatusTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TransportationStatusRequestField.TransportationStatusTypeCode}
+          meta={TransportationStatusRequestFieldMeta.TransportationStatusTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.TransportationStatusTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Transportation Status Type Code"
-            value={value.TransportationStatusTypeCode?.[0]}
-            meta={TransportationStatusRequestFieldMeta.TransportationStatusTypeCode}
-          />
+    [
+      TransportationStatusRequestField.SenderParty,
+      { meta: TransportationStatusRequestFieldMeta.SenderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={TransportationStatusRequestField.SenderParty}
+          meta={TransportationStatusRequestFieldMeta.SenderParty}
+          fieldConfig={fieldConfig}
+          party={value?.SenderParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Sender Party"
-            value={value.SenderParty?.[0]}
-            meta={TransportationStatusRequestFieldMeta.SenderParty}
-          />
+    [
+      TransportationStatusRequestField.ReceiverParty,
+      { meta: TransportationStatusRequestFieldMeta.ReceiverParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={TransportationStatusRequestField.ReceiverParty}
+          meta={TransportationStatusRequestFieldMeta.ReceiverParty}
+          fieldConfig={fieldConfig}
+          party={value?.ReceiverParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Receiver Party"
-            value={value.ReceiverParty?.[0]}
-            meta={TransportationStatusRequestFieldMeta.ReceiverParty}
-          />
+    [
+      TransportationStatusRequestField.TransportExecutionPlanDocumentReference,
+      { meta: TransportationStatusRequestFieldMeta.TransportExecutionPlanDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={TransportationStatusRequestField.TransportExecutionPlanDocumentReference}
+          meta={TransportationStatusRequestFieldMeta.TransportExecutionPlanDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.TransportExecutionPlanDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DocumentReferenceDisplay
-            label="Transport Execution Plan Document Reference"
-            value={value.TransportExecutionPlanDocumentReference?.[0]}
-            meta={TransportationStatusRequestFieldMeta.TransportExecutionPlanDocumentReference}
-          />
+    [
+      TransportationStatusRequestField.Consignment,
+      { meta: TransportationStatusRequestFieldMeta.Consignment,
+        template: ({value, renderContext, fieldConfig}) => <ConsignmentDisplay
+          key={TransportationStatusRequestField.Consignment}
+          meta={TransportationStatusRequestFieldMeta.Consignment}
+          fieldConfig={fieldConfig}
+          consignment={value?.Consignment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Consignment"
-            label="Consignment"
-            items={value.Consignment}
-            meta={TransportationStatusRequestFieldMeta.Consignment} 
-            itemDisplay={ (itemValue: Consignment, key: string | number) =>
-              <ConsignmentDisplay
-                key={key}
-                label="Consignment"
-                value={itemValue}
-                meta={TransportationStatusRequestFieldMeta.Consignment}
-              />
-            }
-          />
+    [
+      TransportationStatusRequestField.DocumentReference,
+      { meta: TransportationStatusRequestFieldMeta.DocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={TransportationStatusRequestField.DocumentReference}
+          meta={TransportationStatusRequestFieldMeta.DocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.DocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference"
-            label="Document Reference"
-            items={value.DocumentReference}
-            meta={TransportationStatusRequestFieldMeta.DocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Document Reference"
-                value={itemValue}
-                meta={TransportationStatusRequestFieldMeta.DocumentReference}
-              />
-            }
-          />
+    [
+      TransportationStatusRequestField.Signature,
+      { meta: TransportationStatusRequestFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={TransportationStatusRequestField.Signature}
+          meta={TransportationStatusRequestFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={TransportationStatusRequestFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={TransportationStatusRequestFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      TransportationStatusRequestField.RequestedStatusLocation,
+      { meta: TransportationStatusRequestFieldMeta.RequestedStatusLocation,
+        template: ({value, renderContext, fieldConfig}) => <LocationDisplay
+          key={TransportationStatusRequestField.RequestedStatusLocation}
+          meta={TransportationStatusRequestFieldMeta.RequestedStatusLocation}
+          fieldConfig={fieldConfig}
+          location={value?.RequestedStatusLocation}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Location ubl-RequestedStatusLocation"
-            label="Requested Status Location"
-            items={value.RequestedStatusLocation}
-            meta={TransportationStatusRequestFieldMeta.RequestedStatusLocation} 
-            itemDisplay={ (itemValue: Location, key: string | number) =>
-              <LocationDisplay
-                key={key}
-                label="Requested Status Location"
-                value={itemValue}
-                meta={TransportationStatusRequestFieldMeta.RequestedStatusLocation}
-              />
-            }
-          />
+    [
+      TransportationStatusRequestField.RequestedStatusPeriod,
+      { meta: TransportationStatusRequestFieldMeta.RequestedStatusPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={TransportationStatusRequestField.RequestedStatusPeriod}
+          meta={TransportationStatusRequestFieldMeta.RequestedStatusPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.RequestedStatusPeriod}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Period ubl-RequestedStatusPeriod"
-            label="Requested Status Period"
-            items={value.RequestedStatusPeriod}
-            meta={TransportationStatusRequestFieldMeta.RequestedStatusPeriod} 
-            itemDisplay={ (itemValue: Period, key: string | number) =>
-              <PeriodDisplay
-                key={key}
-                label="Requested Status Period"
-                value={itemValue}
-                meta={TransportationStatusRequestFieldMeta.RequestedStatusPeriod}
-              />
-            }
-          />
-        </div>
-    </div>
+export function TransportationStatusRequestDisplay<TFieldMeta>({ meta, fieldConfig, transportationStatusRequest, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    TransportationStatusRequestTypeName,
+    meta,
+    fieldConfig,
+    transportationStatusRequest,
+    renderContext,
+    TransportationStatusRequestSubElementsMap,
   )
 }

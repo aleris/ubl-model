@@ -1,104 +1,130 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { WorkPhaseReference } from  '../../model/cac/WorkPhaseReference'
-import { WorkPhaseReferenceFieldMeta } from  '../../meta/cac/WorkPhaseReferenceMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentReferenceDisplay from './DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { WorkPhaseReferenceField, WorkPhaseReferenceFieldMeta, WorkPhaseReferenceTypeName } from  '../../meta/cac/WorkPhaseReferenceMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentReferenceDisplay } from './DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: WorkPhaseReference | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<WorkPhaseReference, void>
+  workPhaseReference: WorkPhaseReference[] | undefined
+  renderContext: RenderContext
 }
 
-export default function WorkPhaseReferenceDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const WorkPhaseReferenceSubElementsMap: SubElementsTemplatesMap<WorkPhaseReferenceField, WorkPhaseReference, void> = new Map([
+    [
+      WorkPhaseReferenceField.UBLExtensions,
+      { meta: WorkPhaseReferenceFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={WorkPhaseReferenceField.UBLExtensions}
+          meta={WorkPhaseReferenceFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-WorkPhaseReference">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={WorkPhaseReferenceFieldMeta.UBLExtensions}
-          />
+    [
+      WorkPhaseReferenceField.ID,
+      { meta: WorkPhaseReferenceFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={WorkPhaseReferenceField.ID}
+          meta={WorkPhaseReferenceFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={WorkPhaseReferenceFieldMeta.ID}
-          />
+    [
+      WorkPhaseReferenceField.WorkPhaseCode,
+      { meta: WorkPhaseReferenceFieldMeta.WorkPhaseCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={WorkPhaseReferenceField.WorkPhaseCode}
+          meta={WorkPhaseReferenceFieldMeta.WorkPhaseCode}
+          fieldConfig={fieldConfig}
+          code={value?.WorkPhaseCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Work Phase Code"
-            value={value.WorkPhaseCode?.[0]}
-            meta={WorkPhaseReferenceFieldMeta.WorkPhaseCode}
-          />
+    [
+      WorkPhaseReferenceField.WorkPhase,
+      { meta: WorkPhaseReferenceFieldMeta.WorkPhase,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={WorkPhaseReferenceField.WorkPhase}
+          meta={WorkPhaseReferenceFieldMeta.WorkPhase}
+          fieldConfig={fieldConfig}
+          text={value?.WorkPhase}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-WorkPhase"
-            label="Work Phase"
-            items={value.WorkPhase}
-            meta={WorkPhaseReferenceFieldMeta.WorkPhase} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Work Phase"
-                value={itemValue}
-                meta={WorkPhaseReferenceFieldMeta.WorkPhase}
-              />
-            }
-          />
+    [
+      WorkPhaseReferenceField.ProgressPercent,
+      { meta: WorkPhaseReferenceFieldMeta.ProgressPercent,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={WorkPhaseReferenceField.ProgressPercent}
+          meta={WorkPhaseReferenceFieldMeta.ProgressPercent}
+          fieldConfig={fieldConfig}
+          numeric={value?.ProgressPercent}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Progress Percent"
-            value={value.ProgressPercent?.[0]}
-            meta={WorkPhaseReferenceFieldMeta.ProgressPercent}
-          />
+    [
+      WorkPhaseReferenceField.StartDate,
+      { meta: WorkPhaseReferenceFieldMeta.StartDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={WorkPhaseReferenceField.StartDate}
+          meta={WorkPhaseReferenceFieldMeta.StartDate}
+          fieldConfig={fieldConfig}
+          date={value?.StartDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Start Date"
-            value={value.StartDate?.[0]}
-            meta={WorkPhaseReferenceFieldMeta.StartDate}
-          />
+    [
+      WorkPhaseReferenceField.EndDate,
+      { meta: WorkPhaseReferenceFieldMeta.EndDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={WorkPhaseReferenceField.EndDate}
+          meta={WorkPhaseReferenceFieldMeta.EndDate}
+          fieldConfig={fieldConfig}
+          date={value?.EndDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="End Date"
-            value={value.EndDate?.[0]}
-            meta={WorkPhaseReferenceFieldMeta.EndDate}
-          />
+    [
+      WorkPhaseReferenceField.WorkOrderDocumentReference,
+      { meta: WorkPhaseReferenceFieldMeta.WorkOrderDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={WorkPhaseReferenceField.WorkOrderDocumentReference}
+          meta={WorkPhaseReferenceFieldMeta.WorkOrderDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.WorkOrderDocumentReference}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentReference ubl-WorkOrderDocumentReference"
-            label="Work Order Document Reference"
-            items={value.WorkOrderDocumentReference}
-            meta={WorkPhaseReferenceFieldMeta.WorkOrderDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Work Order Document Reference"
-                value={itemValue}
-                meta={WorkPhaseReferenceFieldMeta.WorkOrderDocumentReference}
-              />
-            }
-          />
-        </div>
-    </div>
+export function WorkPhaseReferenceDisplay<TFieldMeta>({ meta, fieldConfig, workPhaseReference, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    WorkPhaseReferenceTypeName,
+    meta,
+    fieldConfig,
+    workPhaseReference,
+    renderContext,
+    WorkPhaseReferenceSubElementsMap,
   )
 }

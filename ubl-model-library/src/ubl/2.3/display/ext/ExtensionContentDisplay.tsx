@@ -1,27 +1,29 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ExtensionContent } from  '../../model/ext/ExtensionContent'
-import { ExtensionContentFieldMeta } from  '../../meta/ext/ExtensionContentMeta'
+import { ExtensionContentField, ExtensionContentFieldMeta, ExtensionContentTypeName } from  '../../meta/ext/ExtensionContentMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
 
-
-type Props<T> = {
-  label: string
-  value: ExtensionContent | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ExtensionContent, void>
+  extensionContent: ExtensionContent[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ExtensionContentDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ExtensionContentSubElementsMap: SubElementsTemplatesMap<ExtensionContentField, ExtensionContent, void> = new Map([
 
-  return (
-    <div className="ubl-ext ubl-ExtensionContent">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
+]) 
 
-        </div>
-    </div>
+export function ExtensionContentDisplay<TFieldMeta>({ meta, fieldConfig, extensionContent, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ExtensionContentTypeName,
+    meta,
+    fieldConfig,
+    extensionContent,
+    renderContext,
+    ExtensionContentSubElementsMap,
   )
 }

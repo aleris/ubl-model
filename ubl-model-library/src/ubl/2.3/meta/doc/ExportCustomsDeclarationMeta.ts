@@ -1,4 +1,14 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { CustomsDeclarationType } from '../cac/CustomsDeclarationMeta'
+import { DateType } from '../cbc/DateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ExportCustomsDeclarationField {
   UBLExtensions = 'UBLExtensions',
@@ -22,11 +32,11 @@ export enum ExportCustomsDeclarationField {
 export const ExportCustomsDeclarationFieldMetaUBLExtensions = new FieldMeta<ExportCustomsDeclarationField>(
   ExportCustomsDeclarationField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -35,10 +45,10 @@ export const ExportCustomsDeclarationFieldMetaUBLVersionID = new FieldMeta<Expor
   ExportCustomsDeclarationField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.3'
 )
@@ -47,10 +57,10 @@ export const ExportCustomsDeclarationFieldMetaCustomizationID = new FieldMeta<Ex
   ExportCustomsDeclarationField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -59,10 +69,10 @@ export const ExportCustomsDeclarationFieldMetaProfileID = new FieldMeta<ExportCu
   ExportCustomsDeclarationField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -71,10 +81,10 @@ export const ExportCustomsDeclarationFieldMetaProfileExecutionID = new FieldMeta
   ExportCustomsDeclarationField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BPP-1001'
 )
@@ -83,10 +93,10 @@ export const ExportCustomsDeclarationFieldMetaID = new FieldMeta<ExportCustomsDe
   ExportCustomsDeclarationField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -95,10 +105,10 @@ export const ExportCustomsDeclarationFieldMetaUUID = new FieldMeta<ExportCustoms
   ExportCustomsDeclarationField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -107,10 +117,10 @@ export const ExportCustomsDeclarationFieldMetaIssueDate = new FieldMeta<ExportCu
   ExportCustomsDeclarationField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -119,10 +129,10 @@ export const ExportCustomsDeclarationFieldMetaIssueTime = new FieldMeta<ExportCu
   ExportCustomsDeclarationField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -131,10 +141,10 @@ export const ExportCustomsDeclarationFieldMetaExportTypeCode = new FieldMeta<Exp
   ExportCustomsDeclarationField.ExportTypeCode,
   'ExportTypeCode',
   'Export Type Code',
-  'Code',
+  CodeType.name,
   'A code specifying the type of export',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -143,10 +153,10 @@ export const ExportCustomsDeclarationFieldMetaExportReasonCode = new FieldMeta<E
   ExportCustomsDeclarationField.ExportReasonCode,
   'ExportReasonCode',
   'Export Reason Code',
-  'Code',
+  CodeType.name,
   'A code specifying the reason for the goods being exported',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -155,10 +165,10 @@ export const ExportCustomsDeclarationFieldMetaNote = new FieldMeta<ExportCustoms
   ExportCustomsDeclarationField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -167,10 +177,10 @@ export const ExportCustomsDeclarationFieldMetaVersionID = new FieldMeta<ExportCu
   ExportCustomsDeclarationField.VersionID,
   'VersionID',
   'Version',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the current version of this export customs declaration',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -179,10 +189,10 @@ export const ExportCustomsDeclarationFieldMetaExporterParty = new FieldMeta<Expo
   ExportCustomsDeclarationField.ExporterParty,
   'ExporterParty',
   'Exporter Party',
-  'Party',
+  PartyType.name,
   'The party who exports the goods or has similar right of disposal over them at the time of export',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   'Exporter (WCO ID 41 and 42)',
   undefined
 )
@@ -191,10 +201,10 @@ export const ExportCustomsDeclarationFieldMetaCustomsDeclaration = new FieldMeta
   ExportCustomsDeclarationField.CustomsDeclaration,
   'CustomsDeclaration',
   'Customs Declaration',
-  'CustomsDeclaration',
+  CustomsDeclarationType.name,
   'The reference to the customs declaration of the goods being exported',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -203,10 +213,10 @@ export const ExportCustomsDeclarationFieldMetaSignature = new FieldMeta<ExportCu
   ExportCustomsDeclarationField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -248,3 +258,11 @@ export const ExportCustomsDeclarationFieldMap = new Map([
   [ExportCustomsDeclarationField.CustomsDeclaration, ExportCustomsDeclarationFieldMetaCustomsDeclaration],
   [ExportCustomsDeclarationField.Signature, ExportCustomsDeclarationFieldMetaSignature]
 ])
+
+export const ExportCustomsDeclarationType: Type<ExportCustomsDeclarationField> = {
+  name: 'ExportCustomsDeclaration',
+  label: 'Export Customs Declaration',
+  module: TypeModule.doc,
+  definition: 'A customs declaration document for exporting goods',
+  fields: ExportCustomsDeclarationFieldMap,
+}

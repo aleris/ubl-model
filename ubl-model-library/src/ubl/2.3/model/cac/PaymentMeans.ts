@@ -8,7 +8,6 @@ import { PaymentMandate } from './PaymentMandate'
 import { Text } from '../cbc/Text'
 import { TradeFinancing } from './TradeFinancing'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a means of payment.
  */

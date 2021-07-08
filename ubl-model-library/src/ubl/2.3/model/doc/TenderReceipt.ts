@@ -7,7 +7,6 @@ import { Signature } from '../cac/Signature'
 import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A document sent by a contracting party to an economic operator acknowledging receipt of a Tender.
  */

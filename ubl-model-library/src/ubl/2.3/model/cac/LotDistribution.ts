@@ -2,7 +2,6 @@ import { LotsGroup } from './LotsGroup'
 import { Numeric } from '../cbc/Numeric'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class defining how to treat different lots in a single procurement.
  */

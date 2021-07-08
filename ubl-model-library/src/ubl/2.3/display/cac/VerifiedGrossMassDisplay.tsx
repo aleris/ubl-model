@@ -1,123 +1,180 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { VerifiedGrossMass } from  '../../model/cac/VerifiedGrossMass'
-import { VerifiedGrossMassFieldMeta } from  '../../meta/cac/VerifiedGrossMassMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentReferenceDisplay from './DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import MeasureDisplay from '../cbc/MeasureDisplay'
-import { Measure } from '../../model/cbc/Measure'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { VerifiedGrossMassField, VerifiedGrossMassFieldMeta, VerifiedGrossMassTypeName } from  '../../meta/cac/VerifiedGrossMassMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentReferenceDisplay } from './DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { MeasureDisplay } from '../cbc/MeasureDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: VerifiedGrossMass | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<VerifiedGrossMass, void>
+  verifiedGrossMass: VerifiedGrossMass[] | undefined
+  renderContext: RenderContext
 }
 
-export default function VerifiedGrossMassDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const VerifiedGrossMassSubElementsMap: SubElementsTemplatesMap<VerifiedGrossMassField, VerifiedGrossMass, void> = new Map([
+    [
+      VerifiedGrossMassField.UBLExtensions,
+      { meta: VerifiedGrossMassFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={VerifiedGrossMassField.UBLExtensions}
+          meta={VerifiedGrossMassFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-VerifiedGrossMass">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={VerifiedGrossMassFieldMeta.UBLExtensions}
-          />
+    [
+      VerifiedGrossMassField.ID,
+      { meta: VerifiedGrossMassFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={VerifiedGrossMassField.ID}
+          meta={VerifiedGrossMassFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={VerifiedGrossMassFieldMeta.ID}
-          />
+    [
+      VerifiedGrossMassField.WeighingDate,
+      { meta: VerifiedGrossMassFieldMeta.WeighingDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={VerifiedGrossMassField.WeighingDate}
+          meta={VerifiedGrossMassFieldMeta.WeighingDate}
+          fieldConfig={fieldConfig}
+          date={value?.WeighingDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Weighing Date"
-            value={value.WeighingDate?.[0]}
-            meta={VerifiedGrossMassFieldMeta.WeighingDate}
-          />
+    [
+      VerifiedGrossMassField.WeighingTime,
+      { meta: VerifiedGrossMassFieldMeta.WeighingTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={VerifiedGrossMassField.WeighingTime}
+          meta={VerifiedGrossMassFieldMeta.WeighingTime}
+          fieldConfig={fieldConfig}
+          time={value?.WeighingTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Weighing Time"
-            value={value.WeighingTime?.[0]}
-            meta={VerifiedGrossMassFieldMeta.WeighingTime}
-          />
+    [
+      VerifiedGrossMassField.WeighingMethodCode,
+      { meta: VerifiedGrossMassFieldMeta.WeighingMethodCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={VerifiedGrossMassField.WeighingMethodCode}
+          meta={VerifiedGrossMassFieldMeta.WeighingMethodCode}
+          fieldConfig={fieldConfig}
+          code={value?.WeighingMethodCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Weighing Method Code"
-            value={value.WeighingMethodCode?.[0]}
-            meta={VerifiedGrossMassFieldMeta.WeighingMethodCode}
-          />
+    [
+      VerifiedGrossMassField.WeighingDeviceID,
+      { meta: VerifiedGrossMassFieldMeta.WeighingDeviceID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={VerifiedGrossMassField.WeighingDeviceID}
+          meta={VerifiedGrossMassFieldMeta.WeighingDeviceID}
+          fieldConfig={fieldConfig}
+          identifier={value?.WeighingDeviceID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Weighing Device Identifier"
-            value={value.WeighingDeviceID?.[0]}
-            meta={VerifiedGrossMassFieldMeta.WeighingDeviceID}
-          />
+    [
+      VerifiedGrossMassField.WeighingDeviceType,
+      { meta: VerifiedGrossMassFieldMeta.WeighingDeviceType,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={VerifiedGrossMassField.WeighingDeviceType}
+          meta={VerifiedGrossMassFieldMeta.WeighingDeviceType}
+          fieldConfig={fieldConfig}
+          text={value?.WeighingDeviceType}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Weighing Device Type"
-            value={value.WeighingDeviceType?.[0]}
-            meta={VerifiedGrossMassFieldMeta.WeighingDeviceType}
-          />
+    [
+      VerifiedGrossMassField.GrossMassMeasure,
+      { meta: VerifiedGrossMassFieldMeta.GrossMassMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={VerifiedGrossMassField.GrossMassMeasure}
+          meta={VerifiedGrossMassFieldMeta.GrossMassMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.GrossMassMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Gross Mass"
-            value={value.GrossMassMeasure?.[0]}
-            meta={VerifiedGrossMassFieldMeta.GrossMassMeasure}
-          />
+    [
+      VerifiedGrossMassField.WeighingParty,
+      { meta: VerifiedGrossMassFieldMeta.WeighingParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={VerifiedGrossMassField.WeighingParty}
+          meta={VerifiedGrossMassFieldMeta.WeighingParty}
+          fieldConfig={fieldConfig}
+          party={value?.WeighingParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Weighing Party"
-            value={value.WeighingParty?.[0]}
-            meta={VerifiedGrossMassFieldMeta.WeighingParty}
-          />
+    [
+      VerifiedGrossMassField.ShipperParty,
+      { meta: VerifiedGrossMassFieldMeta.ShipperParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={VerifiedGrossMassField.ShipperParty}
+          meta={VerifiedGrossMassFieldMeta.ShipperParty}
+          fieldConfig={fieldConfig}
+          party={value?.ShipperParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Shipper Party"
-            value={value.ShipperParty?.[0]}
-            meta={VerifiedGrossMassFieldMeta.ShipperParty}
-          />
+    [
+      VerifiedGrossMassField.ResponsibleParty,
+      { meta: VerifiedGrossMassFieldMeta.ResponsibleParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={VerifiedGrossMassField.ResponsibleParty}
+          meta={VerifiedGrossMassFieldMeta.ResponsibleParty}
+          fieldConfig={fieldConfig}
+          party={value?.ResponsibleParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Responsible Party"
-            value={value.ResponsibleParty?.[0]}
-            meta={VerifiedGrossMassFieldMeta.ResponsibleParty}
-          />
+    [
+      VerifiedGrossMassField.DocumentReference,
+      { meta: VerifiedGrossMassFieldMeta.DocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={VerifiedGrossMassField.DocumentReference}
+          meta={VerifiedGrossMassFieldMeta.DocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.DocumentReference}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentReference"
-            label="Document Reference"
-            items={value.DocumentReference}
-            meta={VerifiedGrossMassFieldMeta.DocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Document Reference"
-                value={itemValue}
-                meta={VerifiedGrossMassFieldMeta.DocumentReference}
-              />
-            }
-          />
-        </div>
-    </div>
+export function VerifiedGrossMassDisplay<TFieldMeta>({ meta, fieldConfig, verifiedGrossMass, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    VerifiedGrossMassTypeName,
+    meta,
+    fieldConfig,
+    verifiedGrossMass,
+    renderContext,
+    VerifiedGrossMassSubElementsMap,
   )
 }

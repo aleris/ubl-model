@@ -1,72 +1,78 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TendererPartyQualification } from  '../../model/cac/TendererPartyQualification'
-import { TendererPartyQualificationFieldMeta } from  '../../meta/cac/TendererPartyQualificationMeta'
-import ProcurementProjectLotDisplay from './ProcurementProjectLotDisplay'
-import { ProcurementProjectLot } from '../../model/cac/ProcurementProjectLot'
-import QualifyingPartyDisplay from './QualifyingPartyDisplay'
-import { QualifyingParty } from '../../model/cac/QualifyingParty'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { TendererPartyQualificationField, TendererPartyQualificationFieldMeta, TendererPartyQualificationTypeName } from  '../../meta/cac/TendererPartyQualificationMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { ProcurementProjectLotDisplay } from './ProcurementProjectLotDisplay'
+import { QualifyingPartyDisplay } from './QualifyingPartyDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: TendererPartyQualification | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<TendererPartyQualification, void>
+  tendererPartyQualification: TendererPartyQualification[] | undefined
+  renderContext: RenderContext
 }
 
-export default function TendererPartyQualificationDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const TendererPartyQualificationSubElementsMap: SubElementsTemplatesMap<TendererPartyQualificationField, TendererPartyQualification, void> = new Map([
+    [
+      TendererPartyQualificationField.UBLExtensions,
+      { meta: TendererPartyQualificationFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={TendererPartyQualificationField.UBLExtensions}
+          meta={TendererPartyQualificationFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-TendererPartyQualification">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={TendererPartyQualificationFieldMeta.UBLExtensions}
-          />
+    [
+      TendererPartyQualificationField.InterestedProcurementProjectLot,
+      { meta: TendererPartyQualificationFieldMeta.InterestedProcurementProjectLot,
+        template: ({value, renderContext, fieldConfig}) => <ProcurementProjectLotDisplay
+          key={TendererPartyQualificationField.InterestedProcurementProjectLot}
+          meta={TendererPartyQualificationFieldMeta.InterestedProcurementProjectLot}
+          fieldConfig={fieldConfig}
+          procurementProjectLot={value?.InterestedProcurementProjectLot}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-ProcurementProjectLot ubl-InterestedProcurementProjectLot"
-            label="Interested Procurement Project Lot"
-            items={value.InterestedProcurementProjectLot}
-            meta={TendererPartyQualificationFieldMeta.InterestedProcurementProjectLot} 
-            itemDisplay={ (itemValue: ProcurementProjectLot, key: string | number) =>
-              <ProcurementProjectLotDisplay
-                key={key}
-                label="Interested Procurement Project Lot"
-                value={itemValue}
-                meta={TendererPartyQualificationFieldMeta.InterestedProcurementProjectLot}
-              />
-            }
-          />
+    [
+      TendererPartyQualificationField.MainQualifyingParty,
+      { meta: TendererPartyQualificationFieldMeta.MainQualifyingParty,
+        template: ({value, renderContext, fieldConfig}) => <QualifyingPartyDisplay
+          key={TendererPartyQualificationField.MainQualifyingParty}
+          meta={TendererPartyQualificationFieldMeta.MainQualifyingParty}
+          fieldConfig={fieldConfig}
+          qualifyingParty={value?.MainQualifyingParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QualifyingPartyDisplay
-            label="Main Qualifying Party"
-            value={value.MainQualifyingParty?.[0]}
-            meta={TendererPartyQualificationFieldMeta.MainQualifyingParty}
-          />
+    [
+      TendererPartyQualificationField.AdditionalQualifyingParty,
+      { meta: TendererPartyQualificationFieldMeta.AdditionalQualifyingParty,
+        template: ({value, renderContext, fieldConfig}) => <QualifyingPartyDisplay
+          key={TendererPartyQualificationField.AdditionalQualifyingParty}
+          meta={TendererPartyQualificationFieldMeta.AdditionalQualifyingParty}
+          fieldConfig={fieldConfig}
+          qualifyingParty={value?.AdditionalQualifyingParty}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-QualifyingParty ubl-AdditionalQualifyingParty"
-            label="Additional Qualifying Party"
-            items={value.AdditionalQualifyingParty}
-            meta={TendererPartyQualificationFieldMeta.AdditionalQualifyingParty} 
-            itemDisplay={ (itemValue: QualifyingParty, key: string | number) =>
-              <QualifyingPartyDisplay
-                key={key}
-                label="Additional Qualifying Party"
-                value={itemValue}
-                meta={TendererPartyQualificationFieldMeta.AdditionalQualifyingParty}
-              />
-            }
-          />
-        </div>
-    </div>
+export function TendererPartyQualificationDisplay<TFieldMeta>({ meta, fieldConfig, tendererPartyQualification, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    TendererPartyQualificationTypeName,
+    meta,
+    fieldConfig,
+    tendererPartyQualification,
+    renderContext,
+    TendererPartyQualificationSubElementsMap,
   )
 }

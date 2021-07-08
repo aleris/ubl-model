@@ -1,7 +1,6 @@
 import { DocumentReference } from './DocumentReference'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A template for a required document in a tendering process.
  */

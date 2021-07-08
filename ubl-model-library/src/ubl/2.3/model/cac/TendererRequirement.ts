@@ -2,7 +2,6 @@ import { Code } from '../cbc/Code'
 import { Evidence } from './Evidence'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe an action or statement required of an economic operator participating in a tendering process.
  */

@@ -1,4 +1,9 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { DocumentReferenceType } from './DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum LineReferenceField {
   UBLExtensions = 'UBLExtensions',
@@ -11,11 +16,11 @@ export enum LineReferenceField {
 export const LineReferenceFieldMetaUBLExtensions = new FieldMeta<LineReferenceField>(
   LineReferenceField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -24,10 +29,10 @@ export const LineReferenceFieldMetaLineID = new FieldMeta<LineReferenceField>(
   LineReferenceField.LineID,
   'LineID',
   'Line Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the referenced line in the document.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -36,10 +41,10 @@ export const LineReferenceFieldMetaUUID = new FieldMeta<LineReferenceField>(
   LineReferenceField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for this line reference.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -48,10 +53,10 @@ export const LineReferenceFieldMetaLineStatusCode = new FieldMeta<LineReferenceF
   LineReferenceField.LineStatusCode,
   'LineStatusCode',
   'Line Status Code',
-  'Code',
+  CodeType.name,
   'A code signifying the status of the referenced line with respect to its original state.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -60,10 +65,10 @@ export const LineReferenceFieldMetaDocumentReference = new FieldMeta<LineReferen
   LineReferenceField.DocumentReference,
   'DocumentReference',
   'Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to the document containing the referenced line.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -83,3 +88,11 @@ export const LineReferenceFieldMap = new Map([
   [LineReferenceField.LineStatusCode, LineReferenceFieldMetaLineStatusCode],
   [LineReferenceField.DocumentReference, LineReferenceFieldMetaDocumentReference]
 ])
+
+export const LineReferenceType: Type<LineReferenceField> = {
+  name: 'LineReference',
+  label: 'Line Reference',
+  module: TypeModule.cac,
+  definition: 'A class to define a reference to a line in a document.',
+  fields: LineReferenceFieldMap,
+}

@@ -1,60 +1,90 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { EnergyTaxReport } from  '../../model/cac/EnergyTaxReport'
-import { EnergyTaxReportFieldMeta } from  '../../meta/cac/EnergyTaxReportMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import TaxSchemeDisplay from './TaxSchemeDisplay'
-import { TaxScheme } from '../../model/cac/TaxScheme'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { EnergyTaxReportField, EnergyTaxReportFieldMeta, EnergyTaxReportTypeName } from  '../../meta/cac/EnergyTaxReportMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { TaxSchemeDisplay } from './TaxSchemeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: EnergyTaxReport | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<EnergyTaxReport, void>
+  energyTaxReport: EnergyTaxReport[] | undefined
+  renderContext: RenderContext
 }
 
-export default function EnergyTaxReportDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const EnergyTaxReportSubElementsMap: SubElementsTemplatesMap<EnergyTaxReportField, EnergyTaxReport, void> = new Map([
+    [
+      EnergyTaxReportField.UBLExtensions,
+      { meta: EnergyTaxReportFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={EnergyTaxReportField.UBLExtensions}
+          meta={EnergyTaxReportFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-EnergyTaxReport">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={EnergyTaxReportFieldMeta.UBLExtensions}
-          />
+    [
+      EnergyTaxReportField.TaxEnergyAmount,
+      { meta: EnergyTaxReportFieldMeta.TaxEnergyAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={EnergyTaxReportField.TaxEnergyAmount}
+          meta={EnergyTaxReportFieldMeta.TaxEnergyAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.TaxEnergyAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Tax Energy Amount"
-            value={value.TaxEnergyAmount?.[0]}
-            meta={EnergyTaxReportFieldMeta.TaxEnergyAmount}
-          />
+    [
+      EnergyTaxReportField.TaxEnergyOnAccountAmount,
+      { meta: EnergyTaxReportFieldMeta.TaxEnergyOnAccountAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={EnergyTaxReportField.TaxEnergyOnAccountAmount}
+          meta={EnergyTaxReportFieldMeta.TaxEnergyOnAccountAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.TaxEnergyOnAccountAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Tax Energy On Account Amount"
-            value={value.TaxEnergyOnAccountAmount?.[0]}
-            meta={EnergyTaxReportFieldMeta.TaxEnergyOnAccountAmount}
-          />
+    [
+      EnergyTaxReportField.TaxEnergyBalanceAmount,
+      { meta: EnergyTaxReportFieldMeta.TaxEnergyBalanceAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={EnergyTaxReportField.TaxEnergyBalanceAmount}
+          meta={EnergyTaxReportFieldMeta.TaxEnergyBalanceAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.TaxEnergyBalanceAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Tax Energy Balance"
-            value={value.TaxEnergyBalanceAmount?.[0]}
-            meta={EnergyTaxReportFieldMeta.TaxEnergyBalanceAmount}
-          />
+    [
+      EnergyTaxReportField.TaxScheme,
+      { meta: EnergyTaxReportFieldMeta.TaxScheme,
+        template: ({value, renderContext, fieldConfig}) => <TaxSchemeDisplay
+          key={EnergyTaxReportField.TaxScheme}
+          meta={EnergyTaxReportFieldMeta.TaxScheme}
+          fieldConfig={fieldConfig}
+          taxScheme={value?.TaxScheme}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <TaxSchemeDisplay
-            label="Tax Scheme"
-            value={value.TaxScheme?.[0]}
-            meta={EnergyTaxReportFieldMeta.TaxScheme}
-          />
-        </div>
-    </div>
+export function EnergyTaxReportDisplay<TFieldMeta>({ meta, fieldConfig, energyTaxReport, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    EnergyTaxReportTypeName,
+    meta,
+    fieldConfig,
+    energyTaxReport,
+    renderContext,
+    EnergyTaxReportSubElementsMap,
   )
 }

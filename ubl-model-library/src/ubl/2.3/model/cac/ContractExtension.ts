@@ -4,7 +4,6 @@ import { Period } from './Period'
 import { Renewal } from './Renewal'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe possible extensions to a contract.
  */

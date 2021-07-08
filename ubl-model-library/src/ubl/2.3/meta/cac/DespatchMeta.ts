@@ -1,4 +1,15 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AddressType } from './AddressMeta'
+import { ContactType } from './ContactMeta'
+import { DateType } from '../cbc/DateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { LocationType } from './LocationMeta'
+import { PartyType } from './PartyMeta'
+import { PeriodType } from './PeriodMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum DespatchField {
   UBLExtensions = 'UBLExtensions',
@@ -26,11 +37,11 @@ export enum DespatchField {
 export const DespatchFieldMetaUBLExtensions = new FieldMeta<DespatchField>(
   DespatchField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -39,10 +50,10 @@ export const DespatchFieldMetaID = new FieldMeta<DespatchField>(
   DespatchField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this despatch event.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -51,10 +62,10 @@ export const DespatchFieldMetaRequestedDespatchDate = new FieldMeta<DespatchFiel
   DespatchField.RequestedDespatchDate,
   'RequestedDespatchDate',
   'Requested Despatch Date',
-  'Date',
+  DateType.name,
   'The despatch (pickup) date requested, normally by the buyer.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -63,10 +74,10 @@ export const DespatchFieldMetaRequestedDespatchTime = new FieldMeta<DespatchFiel
   DespatchField.RequestedDespatchTime,
   'RequestedDespatchTime',
   'Requested Despatch Time',
-  'Time',
+  TimeType.name,
   'The despatch (pickup) time requested, normally by the buyer.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -75,10 +86,10 @@ export const DespatchFieldMetaEstimatedDespatchDate = new FieldMeta<DespatchFiel
   DespatchField.EstimatedDespatchDate,
   'EstimatedDespatchDate',
   'Estimated Despatch Date',
-  'Date',
+  DateType.name,
   'The estimated despatch (pickup) date.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -87,10 +98,10 @@ export const DespatchFieldMetaEstimatedDespatchTime = new FieldMeta<DespatchFiel
   DespatchField.EstimatedDespatchTime,
   'EstimatedDespatchTime',
   'Estimated Despatch Time',
-  'Time',
+  TimeType.name,
   'The estimated despatch (pickup) time.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -99,10 +110,10 @@ export const DespatchFieldMetaActualDespatchDate = new FieldMeta<DespatchField>(
   DespatchField.ActualDespatchDate,
   'ActualDespatchDate',
   'Actual Despatch Date',
-  'Date',
+  DateType.name,
   'The actual despatch (pickup) date.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -111,10 +122,10 @@ export const DespatchFieldMetaActualDespatchTime = new FieldMeta<DespatchField>(
   DespatchField.ActualDespatchTime,
   'ActualDespatchTime',
   'Actual Despatch Time',
-  'Time',
+  TimeType.name,
   'The actual despatch (pickup) time.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -123,10 +134,10 @@ export const DespatchFieldMetaGuaranteedDespatchDate = new FieldMeta<DespatchFie
   DespatchField.GuaranteedDespatchDate,
   'GuaranteedDespatchDate',
   'Guaranteed Despatch Date',
-  'Date',
+  DateType.name,
   'The date guaranteed for the despatch (pickup).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -135,10 +146,10 @@ export const DespatchFieldMetaGuaranteedDespatchTime = new FieldMeta<DespatchFie
   DespatchField.GuaranteedDespatchTime,
   'GuaranteedDespatchTime',
   'Guaranteed Despatch Time',
-  'Time',
+  TimeType.name,
   'The time guaranteed for the despatch (pickup).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -147,10 +158,10 @@ export const DespatchFieldMetaReleaseID = new FieldMeta<DespatchField>(
   DespatchField.ReleaseID,
   'ReleaseID',
   'Release',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the release of the despatch used as security control or cargo control (pick-up).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -159,10 +170,10 @@ export const DespatchFieldMetaInstructions = new FieldMeta<DespatchField>(
   DespatchField.Instructions,
   'Instructions',
   'Instructions',
-  'Text',
+  TextType.name,
   'Text describing any special instructions applying to the despatch (pickup).',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -171,10 +182,10 @@ export const DespatchFieldMetaDespatchAddress = new FieldMeta<DespatchField>(
   DespatchField.DespatchAddress,
   'DespatchAddress',
   'Despatch Address',
-  'Address',
+  AddressType.name,
   'The address of the despatch (pickup).',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -183,10 +194,10 @@ export const DespatchFieldMetaDespatchLocation = new FieldMeta<DespatchField>(
   DespatchField.DespatchLocation,
   'DespatchLocation',
   'Despatch Location',
-  'Location',
+  LocationType.name,
   'The location of the despatch (pickup).',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -195,10 +206,10 @@ export const DespatchFieldMetaDespatchParty = new FieldMeta<DespatchField>(
   DespatchField.DespatchParty,
   'DespatchParty',
   'Despatch Party',
-  'Party',
+  PartyType.name,
   'The party despatching the goods.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -207,10 +218,10 @@ export const DespatchFieldMetaCarrierParty = new FieldMeta<DespatchField>(
   DespatchField.CarrierParty,
   'CarrierParty',
   'Carrier Party',
-  'Party',
+  PartyType.name,
   'The party carrying the goods.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -219,10 +230,10 @@ export const DespatchFieldMetaNotifyParty = new FieldMeta<DespatchField>(
   DespatchField.NotifyParty,
   'NotifyParty',
   'Notify Party',
-  'Party',
+  PartyType.name,
   'A party to be notified of this despatch (pickup).',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -231,10 +242,10 @@ export const DespatchFieldMetaContact = new FieldMeta<DespatchField>(
   DespatchField.Contact,
   'Contact',
   'Contact',
-  'Contact',
+  ContactType.name,
   'The primary contact for this despatch (pickup).',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -243,10 +254,10 @@ export const DespatchFieldMetaEstimatedDespatchPeriod = new FieldMeta<DespatchFi
   DespatchField.EstimatedDespatchPeriod,
   'EstimatedDespatchPeriod',
   'Estimated Despatch Period',
-  'Period',
+  PeriodType.name,
   'The period estimated for the despatch (pickup) of goods.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -255,10 +266,10 @@ export const DespatchFieldMetaRequestedDespatchPeriod = new FieldMeta<DespatchFi
   DespatchField.RequestedDespatchPeriod,
   'RequestedDespatchPeriod',
   'Requested Despatch Period',
-  'Period',
+  PeriodType.name,
   'The period requested for the despatch (pickup) of goods.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -308,3 +319,11 @@ export const DespatchFieldMap = new Map([
   [DespatchField.EstimatedDespatchPeriod, DespatchFieldMetaEstimatedDespatchPeriod],
   [DespatchField.RequestedDespatchPeriod, DespatchFieldMetaRequestedDespatchPeriod]
 ])
+
+export const DespatchType: Type<DespatchField> = {
+  name: 'Despatch',
+  label: 'Despatch',
+  module: TypeModule.cac,
+  definition: 'A class to describe the despatching of goods (their pickup for delivery).',
+  fields: DespatchFieldMap,
+}

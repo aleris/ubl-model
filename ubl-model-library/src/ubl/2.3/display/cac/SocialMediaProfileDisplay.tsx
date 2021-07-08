@@ -1,62 +1,91 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { SocialMediaProfile } from  '../../model/cac/SocialMediaProfile'
-import { SocialMediaProfileFieldMeta } from  '../../meta/cac/SocialMediaProfileMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { SocialMediaProfileField, SocialMediaProfileFieldMeta, SocialMediaProfileTypeName } from  '../../meta/cac/SocialMediaProfileMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: SocialMediaProfile | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<SocialMediaProfile, void>
+  socialMediaProfile: SocialMediaProfile[] | undefined
+  renderContext: RenderContext
 }
 
-export default function SocialMediaProfileDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const SocialMediaProfileSubElementsMap: SubElementsTemplatesMap<SocialMediaProfileField, SocialMediaProfile, void> = new Map([
+    [
+      SocialMediaProfileField.UBLExtensions,
+      { meta: SocialMediaProfileFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={SocialMediaProfileField.UBLExtensions}
+          meta={SocialMediaProfileFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-SocialMediaProfile">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={SocialMediaProfileFieldMeta.UBLExtensions}
-          />
+    [
+      SocialMediaProfileField.ID,
+      { meta: SocialMediaProfileFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={SocialMediaProfileField.ID}
+          meta={SocialMediaProfileFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={SocialMediaProfileFieldMeta.ID}
-          />
+    [
+      SocialMediaProfileField.Name,
+      { meta: SocialMediaProfileFieldMeta.Name,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={SocialMediaProfileField.Name}
+          meta={SocialMediaProfileFieldMeta.Name}
+          fieldConfig={fieldConfig}
+          text={value?.Name}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Name"
-            value={value.Name?.[0]}
-            meta={SocialMediaProfileFieldMeta.Name}
-          />
+    [
+      SocialMediaProfileField.SocialMediaTypeCode,
+      { meta: SocialMediaProfileFieldMeta.SocialMediaTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={SocialMediaProfileField.SocialMediaTypeCode}
+          meta={SocialMediaProfileFieldMeta.SocialMediaTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.SocialMediaTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Social Media Type Code"
-            value={value.SocialMediaTypeCode?.[0]}
-            meta={SocialMediaProfileFieldMeta.SocialMediaTypeCode}
-          />
+    [
+      SocialMediaProfileField.URI,
+      { meta: SocialMediaProfileFieldMeta.URI,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={SocialMediaProfileField.URI}
+          meta={SocialMediaProfileFieldMeta.URI}
+          fieldConfig={fieldConfig}
+          identifier={value?.URI}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <IdentifierDisplay
-            label="URI"
-            value={value.URI?.[0]}
-            meta={SocialMediaProfileFieldMeta.URI}
-          />
-        </div>
-    </div>
+export function SocialMediaProfileDisplay<TFieldMeta>({ meta, fieldConfig, socialMediaProfile, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    SocialMediaProfileTypeName,
+    meta,
+    fieldConfig,
+    socialMediaProfile,
+    renderContext,
+    SocialMediaProfileSubElementsMap,
   )
 }

@@ -7,7 +7,6 @@ import { ProcurementProjectLotReference } from './ProcurementProjectLotReference
 import { ResponseValue } from './ResponseValue'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a response to a criterion property.
  */

@@ -1,4 +1,16 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AddressType } from './AddressMeta'
+import { AmountType } from '../cbc/AmountMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { CorporateRegistrationSchemeType } from './CorporateRegistrationSchemeMeta'
+import { DateType } from '../cbc/DateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { PartyType } from './PartyMeta'
+import { ShareholderPartyType } from './ShareholderPartyMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum PartyLegalEntityField {
   UBLExtensions = 'UBLExtensions',
@@ -21,11 +33,11 @@ export enum PartyLegalEntityField {
 export const PartyLegalEntityFieldMetaUBLExtensions = new FieldMeta<PartyLegalEntityField>(
   PartyLegalEntityField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -34,10 +46,10 @@ export const PartyLegalEntityFieldMetaRegistrationName = new FieldMeta<PartyLega
   PartyLegalEntityField.RegistrationName,
   'RegistrationName',
   'Registration Name',
-  'Text',
+  TextType.name,
   'The name of the party as registered with the relevant legal authority.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Microsoft Corporation'
 )
@@ -46,10 +58,10 @@ export const PartyLegalEntityFieldMetaCompanyID = new FieldMeta<PartyLegalEntity
   PartyLegalEntityField.CompanyID,
   'CompanyID',
   'Company Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the party as registered within a company registration scheme.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Business Registration Number, Company Number',
   '3556625'
 )
@@ -58,10 +70,10 @@ export const PartyLegalEntityFieldMetaRegistrationDate = new FieldMeta<PartyLega
   PartyLegalEntityField.RegistrationDate,
   'RegistrationDate',
   'Registration Date',
-  'Date',
+  DateType.name,
   'The registration date of the CompanyID.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -70,10 +82,10 @@ export const PartyLegalEntityFieldMetaRegistrationExpirationDate = new FieldMeta
   PartyLegalEntityField.RegistrationExpirationDate,
   'RegistrationExpirationDate',
   'Registration Expiration Date',
-  'Date',
+  DateType.name,
   'The date upon which a registration expires (e.g., registration for an import/export license).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -82,10 +94,10 @@ export const PartyLegalEntityFieldMetaCompanyLegalFormCode = new FieldMeta<Party
   PartyLegalEntityField.CompanyLegalFormCode,
   'CompanyLegalFormCode',
   'Company Legal Form Code',
-  'Code',
+  CodeType.name,
   'A code signifying the party\'s legal status.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Legal Status',
   undefined
 )
@@ -94,10 +106,10 @@ export const PartyLegalEntityFieldMetaCompanyLegalForm = new FieldMeta<PartyLega
   PartyLegalEntityField.CompanyLegalForm,
   'CompanyLegalForm',
   'Company Legal Form',
-  'Text',
+  TextType.name,
   'The company legal status, expressed as a text.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -106,10 +118,10 @@ export const PartyLegalEntityFieldMetaSoleProprietorshipIndicator = new FieldMet
   PartyLegalEntityField.SoleProprietorshipIndicator,
   'SoleProprietorshipIndicator',
   'Sole Proprietorship Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indicator that the company is owned and controlled by one person (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -118,10 +130,10 @@ export const PartyLegalEntityFieldMetaCompanyLiquidationStatusCode = new FieldMe
   PartyLegalEntityField.CompanyLiquidationStatusCode,
   'CompanyLiquidationStatusCode',
   'Company Liquidation Status Code',
-  'Code',
+  CodeType.name,
   'A code signifying the party\'s liquidation status.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -130,10 +142,10 @@ export const PartyLegalEntityFieldMetaCorporateStockAmount = new FieldMeta<Party
   PartyLegalEntityField.CorporateStockAmount,
   'CorporateStockAmount',
   'Corporate Stock Amount',
-  'Amount',
+  AmountType.name,
   'The number of shares in the capital stock of a corporation.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -142,10 +154,10 @@ export const PartyLegalEntityFieldMetaFullyPaidSharesIndicator = new FieldMeta<P
   PartyLegalEntityField.FullyPaidSharesIndicator,
   'FullyPaidSharesIndicator',
   'Fully Paid Shares Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indicator that all shares of corporate stock have been paid by shareholders (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -154,10 +166,10 @@ export const PartyLegalEntityFieldMetaRegistrationAddress = new FieldMeta<PartyL
   PartyLegalEntityField.RegistrationAddress,
   'RegistrationAddress',
   'Registration Address',
-  'Address',
+  AddressType.name,
   'The registered address of the party within a corporate registration scheme.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -166,10 +178,10 @@ export const PartyLegalEntityFieldMetaCorporateRegistrationScheme = new FieldMet
   PartyLegalEntityField.CorporateRegistrationScheme,
   'CorporateRegistrationScheme',
   'Corporate Registration Scheme',
-  'CorporateRegistrationScheme',
+  CorporateRegistrationSchemeType.name,
   'The corporate registration scheme used to register the party.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -178,10 +190,10 @@ export const PartyLegalEntityFieldMetaHeadOfficeParty = new FieldMeta<PartyLegal
   PartyLegalEntityField.HeadOfficeParty,
   'HeadOfficeParty',
   'Head Office Party',
-  'Party',
+  PartyType.name,
   'The head office of the legal entity',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -190,10 +202,10 @@ export const PartyLegalEntityFieldMetaShareholderParty = new FieldMeta<PartyLega
   PartyLegalEntityField.ShareholderParty,
   'ShareholderParty',
   'Shareholder Party',
-  'ShareholderParty',
+  ShareholderPartyType.name,
   'A party owning shares in this legal entity.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -233,3 +245,11 @@ export const PartyLegalEntityFieldMap = new Map([
   [PartyLegalEntityField.HeadOfficeParty, PartyLegalEntityFieldMetaHeadOfficeParty],
   [PartyLegalEntityField.ShareholderParty, PartyLegalEntityFieldMetaShareholderParty]
 ])
+
+export const PartyLegalEntityType: Type<PartyLegalEntityField> = {
+  name: 'PartyLegalEntity',
+  label: 'Party Legal Entity',
+  module: TypeModule.cac,
+  definition: 'A class to describe a party as a legal entity.',
+  fields: PartyLegalEntityFieldMap,
+}

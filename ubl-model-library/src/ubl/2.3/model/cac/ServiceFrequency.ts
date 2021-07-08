@@ -1,6 +1,5 @@
 import { Code } from '../cbc/Code'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to specify which day of the week a transport service is operational.
  */

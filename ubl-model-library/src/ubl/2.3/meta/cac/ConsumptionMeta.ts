@@ -1,4 +1,13 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AllowanceChargeType } from './AllowanceChargeMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { EnergyWaterSupplyType } from './EnergyWaterSupplyMeta'
+import { MonetaryTotalType } from './MonetaryTotalMeta'
+import { PeriodType } from './PeriodMeta'
+import { TaxTotalType } from './TaxTotalMeta'
+import { TelecommunicationsSupplyType } from './TelecommunicationsSupplyMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ConsumptionField {
   UBLExtensions = 'UBLExtensions',
@@ -14,11 +23,11 @@ export enum ConsumptionField {
 export const ConsumptionFieldMetaUBLExtensions = new FieldMeta<ConsumptionField>(
   ConsumptionField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -27,10 +36,10 @@ export const ConsumptionFieldMetaUtilityStatementTypeCode = new FieldMeta<Consum
   ConsumptionField.UtilityStatementTypeCode,
   'UtilityStatementTypeCode',
   'Utility Statement Type Code',
-  'Code',
+  CodeType.name,
   'A code identifying the type of the Utility Statement required for this consumption. Explains the kind of utility the statement is about, e.g.. "gas", "electricity", "telephone"',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Electricity'
 )
@@ -39,10 +48,10 @@ export const ConsumptionFieldMetaMainPeriod = new FieldMeta<ConsumptionField>(
   ConsumptionField.MainPeriod,
   'MainPeriod',
   'Main Period',
-  'Period',
+  PeriodType.name,
   'The period of consumption.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -51,10 +60,10 @@ export const ConsumptionFieldMetaAllowanceCharge = new FieldMeta<ConsumptionFiel
   ConsumptionField.AllowanceCharge,
   'AllowanceCharge',
   'Allowance Charge',
-  'AllowanceCharge',
+  AllowanceChargeType.name,
   'An allowance or charges that may apply with this consumption.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -63,10 +72,10 @@ export const ConsumptionFieldMetaTaxTotal = new FieldMeta<ConsumptionField>(
   ConsumptionField.TaxTotal,
   'TaxTotal',
   'Tax Total',
-  'TaxTotal',
+  TaxTotalType.name,
   'The total of taxes for each tax type covering the consumption.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -75,10 +84,10 @@ export const ConsumptionFieldMetaEnergyWaterSupply = new FieldMeta<ConsumptionFi
   ConsumptionField.EnergyWaterSupply,
   'EnergyWaterSupply',
   'Energy Water Supply',
-  'EnergyWaterSupply',
+  EnergyWaterSupplyType.name,
   'The details of any energy or water consumption.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -87,10 +96,10 @@ export const ConsumptionFieldMetaTelecommunicationsSupply = new FieldMeta<Consum
   ConsumptionField.TelecommunicationsSupply,
   'TelecommunicationsSupply',
   'Telecommunications Supply',
-  'TelecommunicationsSupply',
+  TelecommunicationsSupplyType.name,
   'The details of any telecommunications consumption.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -99,10 +108,10 @@ export const ConsumptionFieldMetaLegalMonetaryTotal = new FieldMeta<ConsumptionF
   ConsumptionField.LegalMonetaryTotal,
   'LegalMonetaryTotal',
   'Legal Monetary Total',
-  'MonetaryTotal',
+  MonetaryTotalType.name,
   'The total amount payable on this consumption, including any allowances, charges, or taxes.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -128,3 +137,11 @@ export const ConsumptionFieldMap = new Map([
   [ConsumptionField.TelecommunicationsSupply, ConsumptionFieldMetaTelecommunicationsSupply],
   [ConsumptionField.LegalMonetaryTotal, ConsumptionFieldMetaLegalMonetaryTotal]
 ])
+
+export const ConsumptionType: Type<ConsumptionField> = {
+  name: 'Consumption',
+  label: 'Consumption',
+  module: TypeModule.cac,
+  definition: 'A class to describe the consumption of a utility.',
+  fields: ConsumptionFieldMap,
+}

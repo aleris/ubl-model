@@ -1,191 +1,277 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { AttachedDocument } from  '../../model/doc/AttachedDocument'
-import { AttachedDocumentFieldMeta } from  '../../meta/doc/AttachedDocumentMeta'
-import AttachmentDisplay from '../cac/AttachmentDisplay'
-import { Attachment } from '../../model/cac/Attachment'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import LineReferenceDisplay from '../cac/LineReferenceDisplay'
-import { LineReference } from '../../model/cac/LineReference'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { AttachedDocumentField, AttachedDocumentFieldMeta, AttachedDocumentTypeName } from  '../../meta/doc/AttachedDocumentMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AttachmentDisplay } from '../cac/AttachmentDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { LineReferenceDisplay } from '../cac/LineReferenceDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: AttachedDocument | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<AttachedDocument, void>
+  attachedDocument: AttachedDocument[] | undefined
+  renderContext: RenderContext
 }
 
-export default function AttachedDocumentDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const AttachedDocumentSubElementsMap: SubElementsTemplatesMap<AttachedDocumentField, AttachedDocument, void> = new Map([
+    [
+      AttachedDocumentField.UBLExtensions,
+      { meta: AttachedDocumentFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={AttachedDocumentField.UBLExtensions}
+          meta={AttachedDocumentFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-AttachedDocument">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={AttachedDocumentFieldMeta.UBLExtensions}
-          />
+    [
+      AttachedDocumentField.UBLVersionID,
+      { meta: AttachedDocumentFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={AttachedDocumentField.UBLVersionID}
+          meta={AttachedDocumentFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={AttachedDocumentFieldMeta.UBLVersionID}
-          />
+    [
+      AttachedDocumentField.CustomizationID,
+      { meta: AttachedDocumentFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={AttachedDocumentField.CustomizationID}
+          meta={AttachedDocumentFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={AttachedDocumentFieldMeta.CustomizationID}
-          />
+    [
+      AttachedDocumentField.ProfileID,
+      { meta: AttachedDocumentFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={AttachedDocumentField.ProfileID}
+          meta={AttachedDocumentFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={AttachedDocumentFieldMeta.ProfileID}
-          />
+    [
+      AttachedDocumentField.ProfileExecutionID,
+      { meta: AttachedDocumentFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={AttachedDocumentField.ProfileExecutionID}
+          meta={AttachedDocumentFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={AttachedDocumentFieldMeta.ProfileExecutionID}
-          />
+    [
+      AttachedDocumentField.ID,
+      { meta: AttachedDocumentFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={AttachedDocumentField.ID}
+          meta={AttachedDocumentFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={AttachedDocumentFieldMeta.ID}
-          />
+    [
+      AttachedDocumentField.UUID,
+      { meta: AttachedDocumentFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={AttachedDocumentField.UUID}
+          meta={AttachedDocumentFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={AttachedDocumentFieldMeta.UUID}
-          />
+    [
+      AttachedDocumentField.IssueDate,
+      { meta: AttachedDocumentFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={AttachedDocumentField.IssueDate}
+          meta={AttachedDocumentFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={AttachedDocumentFieldMeta.IssueDate}
-          />
+    [
+      AttachedDocumentField.IssueTime,
+      { meta: AttachedDocumentFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={AttachedDocumentField.IssueTime}
+          meta={AttachedDocumentFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={AttachedDocumentFieldMeta.IssueTime}
-          />
+    [
+      AttachedDocumentField.Note,
+      { meta: AttachedDocumentFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={AttachedDocumentField.Note}
+          meta={AttachedDocumentFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={AttachedDocumentFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={AttachedDocumentFieldMeta.Note}
-              />
-            }
-          />
+    [
+      AttachedDocumentField.DocumentTypeCode,
+      { meta: AttachedDocumentFieldMeta.DocumentTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={AttachedDocumentField.DocumentTypeCode}
+          meta={AttachedDocumentFieldMeta.DocumentTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.DocumentTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Document Type Code"
-            value={value.DocumentTypeCode?.[0]}
-            meta={AttachedDocumentFieldMeta.DocumentTypeCode}
-          />
+    [
+      AttachedDocumentField.DocumentType,
+      { meta: AttachedDocumentFieldMeta.DocumentType,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={AttachedDocumentField.DocumentType}
+          meta={AttachedDocumentFieldMeta.DocumentType}
+          fieldConfig={fieldConfig}
+          text={value?.DocumentType}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Document Type"
-            value={value.DocumentType?.[0]}
-            meta={AttachedDocumentFieldMeta.DocumentType}
-          />
+    [
+      AttachedDocumentField.ParentDocumentID,
+      { meta: AttachedDocumentFieldMeta.ParentDocumentID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={AttachedDocumentField.ParentDocumentID}
+          meta={AttachedDocumentFieldMeta.ParentDocumentID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ParentDocumentID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Parent Document Identifier"
-            value={value.ParentDocumentID?.[0]}
-            meta={AttachedDocumentFieldMeta.ParentDocumentID}
-          />
+    [
+      AttachedDocumentField.ParentDocumentTypeCode,
+      { meta: AttachedDocumentFieldMeta.ParentDocumentTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={AttachedDocumentField.ParentDocumentTypeCode}
+          meta={AttachedDocumentFieldMeta.ParentDocumentTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.ParentDocumentTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Parent Document Type Code"
-            value={value.ParentDocumentTypeCode?.[0]}
-            meta={AttachedDocumentFieldMeta.ParentDocumentTypeCode}
-          />
+    [
+      AttachedDocumentField.ParentDocumentVersionID,
+      { meta: AttachedDocumentFieldMeta.ParentDocumentVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={AttachedDocumentField.ParentDocumentVersionID}
+          meta={AttachedDocumentFieldMeta.ParentDocumentVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ParentDocumentVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Parent Document Version"
-            value={value.ParentDocumentVersionID?.[0]}
-            meta={AttachedDocumentFieldMeta.ParentDocumentVersionID}
-          />
+    [
+      AttachedDocumentField.Signature,
+      { meta: AttachedDocumentFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={AttachedDocumentField.Signature}
+          meta={AttachedDocumentFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={AttachedDocumentFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={AttachedDocumentFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      AttachedDocumentField.SenderParty,
+      { meta: AttachedDocumentFieldMeta.SenderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={AttachedDocumentField.SenderParty}
+          meta={AttachedDocumentFieldMeta.SenderParty}
+          fieldConfig={fieldConfig}
+          party={value?.SenderParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Sender Party"
-            value={value.SenderParty?.[0]}
-            meta={AttachedDocumentFieldMeta.SenderParty}
-          />
+    [
+      AttachedDocumentField.ReceiverParty,
+      { meta: AttachedDocumentFieldMeta.ReceiverParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={AttachedDocumentField.ReceiverParty}
+          meta={AttachedDocumentFieldMeta.ReceiverParty}
+          fieldConfig={fieldConfig}
+          party={value?.ReceiverParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Receiver Party"
-            value={value.ReceiverParty?.[0]}
-            meta={AttachedDocumentFieldMeta.ReceiverParty}
-          />
+    [
+      AttachedDocumentField.Attachment,
+      { meta: AttachedDocumentFieldMeta.Attachment,
+        template: ({value, renderContext, fieldConfig}) => <AttachmentDisplay
+          key={AttachedDocumentField.Attachment}
+          meta={AttachedDocumentFieldMeta.Attachment}
+          fieldConfig={fieldConfig}
+          attachment={value?.Attachment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AttachmentDisplay
-            label="Attachment"
-            value={value.Attachment?.[0]}
-            meta={AttachedDocumentFieldMeta.Attachment}
-          />
+    [
+      AttachedDocumentField.ParentDocumentLineReference,
+      { meta: AttachedDocumentFieldMeta.ParentDocumentLineReference,
+        template: ({value, renderContext, fieldConfig}) => <LineReferenceDisplay
+          key={AttachedDocumentField.ParentDocumentLineReference}
+          meta={AttachedDocumentFieldMeta.ParentDocumentLineReference}
+          fieldConfig={fieldConfig}
+          lineReference={value?.ParentDocumentLineReference}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-LineReference ubl-ParentDocumentLineReference"
-            label="Parent Document Line Reference"
-            items={value.ParentDocumentLineReference}
-            meta={AttachedDocumentFieldMeta.ParentDocumentLineReference} 
-            itemDisplay={ (itemValue: LineReference, key: string | number) =>
-              <LineReferenceDisplay
-                key={key}
-                label="Parent Document Line Reference"
-                value={itemValue}
-                meta={AttachedDocumentFieldMeta.ParentDocumentLineReference}
-              />
-            }
-          />
-        </div>
-    </div>
+export function AttachedDocumentDisplay<TFieldMeta>({ meta, fieldConfig, attachedDocument, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    AttachedDocumentTypeName,
+    meta,
+    fieldConfig,
+    attachedDocument,
+    renderContext,
+    AttachedDocumentSubElementsMap,
   )
 }

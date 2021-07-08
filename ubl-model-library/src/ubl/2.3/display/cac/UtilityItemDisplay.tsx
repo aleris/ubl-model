@@ -1,145 +1,227 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { UtilityItem } from  '../../model/cac/UtilityItem'
-import { UtilityItemFieldMeta } from  '../../meta/cac/UtilityItemMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import ContractDisplay from './ContractDisplay'
-import { Contract } from '../../model/cac/Contract'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import TaxCategoryDisplay from './TaxCategoryDisplay'
-import { TaxCategory } from '../../model/cac/TaxCategory'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { UtilityItemField, UtilityItemFieldMeta, UtilityItemTypeName } from  '../../meta/cac/UtilityItemMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { ContractDisplay } from './ContractDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { TaxCategoryDisplay } from './TaxCategoryDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: UtilityItem | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<UtilityItem, void>
+  utilityItem: UtilityItem[] | undefined
+  renderContext: RenderContext
 }
 
-export default function UtilityItemDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const UtilityItemSubElementsMap: SubElementsTemplatesMap<UtilityItemField, UtilityItem, void> = new Map([
+    [
+      UtilityItemField.UBLExtensions,
+      { meta: UtilityItemFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={UtilityItemField.UBLExtensions}
+          meta={UtilityItemFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-UtilityItem">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={UtilityItemFieldMeta.UBLExtensions}
-          />
+    [
+      UtilityItemField.ID,
+      { meta: UtilityItemFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={UtilityItemField.ID}
+          meta={UtilityItemFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={UtilityItemFieldMeta.ID}
-          />
+    [
+      UtilityItemField.SubscriberID,
+      { meta: UtilityItemFieldMeta.SubscriberID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={UtilityItemField.SubscriberID}
+          meta={UtilityItemFieldMeta.SubscriberID}
+          fieldConfig={fieldConfig}
+          identifier={value?.SubscriberID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Subscriber Identifier"
-            value={value.SubscriberID?.[0]}
-            meta={UtilityItemFieldMeta.SubscriberID}
-          />
+    [
+      UtilityItemField.SubscriberType,
+      { meta: UtilityItemFieldMeta.SubscriberType,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={UtilityItemField.SubscriberType}
+          meta={UtilityItemFieldMeta.SubscriberType}
+          fieldConfig={fieldConfig}
+          text={value?.SubscriberType}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Subscriber Type"
-            value={value.SubscriberType?.[0]}
-            meta={UtilityItemFieldMeta.SubscriberType}
-          />
+    [
+      UtilityItemField.SubscriberTypeCode,
+      { meta: UtilityItemFieldMeta.SubscriberTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={UtilityItemField.SubscriberTypeCode}
+          meta={UtilityItemFieldMeta.SubscriberTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.SubscriberTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Subscriber Type Code"
-            value={value.SubscriberTypeCode?.[0]}
-            meta={UtilityItemFieldMeta.SubscriberTypeCode}
-          />
+    [
+      UtilityItemField.Description,
+      { meta: UtilityItemFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={UtilityItemField.Description}
+          meta={UtilityItemFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={UtilityItemFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={UtilityItemFieldMeta.Description}
-              />
-            }
-          />
+    [
+      UtilityItemField.PackQuantity,
+      { meta: UtilityItemFieldMeta.PackQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={UtilityItemField.PackQuantity}
+          meta={UtilityItemFieldMeta.PackQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.PackQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Pack Quantity"
-            value={value.PackQuantity?.[0]}
-            meta={UtilityItemFieldMeta.PackQuantity}
-          />
+    [
+      UtilityItemField.PackSizeNumeric,
+      { meta: UtilityItemFieldMeta.PackSizeNumeric,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={UtilityItemField.PackSizeNumeric}
+          meta={UtilityItemFieldMeta.PackSizeNumeric}
+          fieldConfig={fieldConfig}
+          numeric={value?.PackSizeNumeric}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Pack Size"
-            value={value.PackSizeNumeric?.[0]}
-            meta={UtilityItemFieldMeta.PackSizeNumeric}
-          />
+    [
+      UtilityItemField.ConsumptionType,
+      { meta: UtilityItemFieldMeta.ConsumptionType,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={UtilityItemField.ConsumptionType}
+          meta={UtilityItemFieldMeta.ConsumptionType}
+          fieldConfig={fieldConfig}
+          text={value?.ConsumptionType}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Consumption Type"
-            value={value.ConsumptionType?.[0]}
-            meta={UtilityItemFieldMeta.ConsumptionType}
-          />
+    [
+      UtilityItemField.ConsumptionTypeCode,
+      { meta: UtilityItemFieldMeta.ConsumptionTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={UtilityItemField.ConsumptionTypeCode}
+          meta={UtilityItemFieldMeta.ConsumptionTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.ConsumptionTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Consumption Type Code"
-            value={value.ConsumptionTypeCode?.[0]}
-            meta={UtilityItemFieldMeta.ConsumptionTypeCode}
-          />
+    [
+      UtilityItemField.CurrentChargeType,
+      { meta: UtilityItemFieldMeta.CurrentChargeType,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={UtilityItemField.CurrentChargeType}
+          meta={UtilityItemFieldMeta.CurrentChargeType}
+          fieldConfig={fieldConfig}
+          text={value?.CurrentChargeType}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Current Charge Type"
-            value={value.CurrentChargeType?.[0]}
-            meta={UtilityItemFieldMeta.CurrentChargeType}
-          />
+    [
+      UtilityItemField.CurrentChargeTypeCode,
+      { meta: UtilityItemFieldMeta.CurrentChargeTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={UtilityItemField.CurrentChargeTypeCode}
+          meta={UtilityItemFieldMeta.CurrentChargeTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.CurrentChargeTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Current Charge Type Code"
-            value={value.CurrentChargeTypeCode?.[0]}
-            meta={UtilityItemFieldMeta.CurrentChargeTypeCode}
-          />
+    [
+      UtilityItemField.OneTimeChargeType,
+      { meta: UtilityItemFieldMeta.OneTimeChargeType,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={UtilityItemField.OneTimeChargeType}
+          meta={UtilityItemFieldMeta.OneTimeChargeType}
+          fieldConfig={fieldConfig}
+          text={value?.OneTimeChargeType}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="One Time Charge Type"
-            value={value.OneTimeChargeType?.[0]}
-            meta={UtilityItemFieldMeta.OneTimeChargeType}
-          />
+    [
+      UtilityItemField.OneTimeChargeTypeCode,
+      { meta: UtilityItemFieldMeta.OneTimeChargeTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={UtilityItemField.OneTimeChargeTypeCode}
+          meta={UtilityItemFieldMeta.OneTimeChargeTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.OneTimeChargeTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="One Time Charge Type Code"
-            value={value.OneTimeChargeTypeCode?.[0]}
-            meta={UtilityItemFieldMeta.OneTimeChargeTypeCode}
-          />
+    [
+      UtilityItemField.TaxCategory,
+      { meta: UtilityItemFieldMeta.TaxCategory,
+        template: ({value, renderContext, fieldConfig}) => <TaxCategoryDisplay
+          key={UtilityItemField.TaxCategory}
+          meta={UtilityItemFieldMeta.TaxCategory}
+          fieldConfig={fieldConfig}
+          taxCategory={value?.TaxCategory}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TaxCategoryDisplay
-            label="Tax Category"
-            value={value.TaxCategory?.[0]}
-            meta={UtilityItemFieldMeta.TaxCategory}
-          />
+    [
+      UtilityItemField.Contract,
+      { meta: UtilityItemFieldMeta.Contract,
+        template: ({value, renderContext, fieldConfig}) => <ContractDisplay
+          key={UtilityItemField.Contract}
+          meta={UtilityItemFieldMeta.Contract}
+          fieldConfig={fieldConfig}
+          contract={value?.Contract}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ContractDisplay
-            label="Contract"
-            value={value.Contract?.[0]}
-            meta={UtilityItemFieldMeta.Contract}
-          />
-        </div>
-    </div>
+export function UtilityItemDisplay<TFieldMeta>({ meta, fieldConfig, utilityItem, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    UtilityItemTypeName,
+    meta,
+    fieldConfig,
+    utilityItem,
+    renderContext,
+    UtilityItemSubElementsMap,
   )
 }

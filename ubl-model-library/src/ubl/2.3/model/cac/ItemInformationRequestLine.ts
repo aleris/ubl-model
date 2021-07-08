@@ -2,7 +2,6 @@ import { Code } from '../cbc/Code'
 import { Period } from './Period'
 import { SalesItem } from './SalesItem'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to define a line in an Item Information Request asking a trading partner for item information.
  */

@@ -1,118 +1,155 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ConsumptionPoint } from  '../../model/cac/ConsumptionPoint'
-import { ConsumptionPointFieldMeta } from  '../../meta/cac/ConsumptionPointMeta'
-import AddressDisplay from './AddressDisplay'
-import { Address } from '../../model/cac/Address'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import MeterDisplay from './MeterDisplay'
-import { Meter } from '../../model/cac/Meter'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
-import WebSiteAccessDisplay from './WebSiteAccessDisplay'
-import { WebSiteAccess } from '../../model/cac/WebSiteAccess'
+import { ConsumptionPointField, ConsumptionPointFieldMeta, ConsumptionPointTypeName } from  '../../meta/cac/ConsumptionPointMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AddressDisplay } from './AddressDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { MeterDisplay } from './MeterDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
+import { WebSiteAccessDisplay } from './WebSiteAccessDisplay'
 
-type Props<T> = {
-  label: string
-  value: ConsumptionPoint | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ConsumptionPoint, void>
+  consumptionPoint: ConsumptionPoint[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ConsumptionPointDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ConsumptionPointSubElementsMap: SubElementsTemplatesMap<ConsumptionPointField, ConsumptionPoint, void> = new Map([
+    [
+      ConsumptionPointField.UBLExtensions,
+      { meta: ConsumptionPointFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ConsumptionPointField.UBLExtensions}
+          meta={ConsumptionPointFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ConsumptionPoint">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ConsumptionPointFieldMeta.UBLExtensions}
-          />
+    [
+      ConsumptionPointField.ID,
+      { meta: ConsumptionPointFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ConsumptionPointField.ID}
+          meta={ConsumptionPointFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={ConsumptionPointFieldMeta.ID}
-          />
+    [
+      ConsumptionPointField.Description,
+      { meta: ConsumptionPointFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ConsumptionPointField.Description}
+          meta={ConsumptionPointFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={ConsumptionPointFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={ConsumptionPointFieldMeta.Description}
-              />
-            }
-          />
+    [
+      ConsumptionPointField.SubscriberID,
+      { meta: ConsumptionPointFieldMeta.SubscriberID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ConsumptionPointField.SubscriberID}
+          meta={ConsumptionPointFieldMeta.SubscriberID}
+          fieldConfig={fieldConfig}
+          identifier={value?.SubscriberID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Subscriber Identifier"
-            value={value.SubscriberID?.[0]}
-            meta={ConsumptionPointFieldMeta.SubscriberID}
-          />
+    [
+      ConsumptionPointField.SubscriberType,
+      { meta: ConsumptionPointFieldMeta.SubscriberType,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ConsumptionPointField.SubscriberType}
+          meta={ConsumptionPointFieldMeta.SubscriberType}
+          fieldConfig={fieldConfig}
+          text={value?.SubscriberType}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Subscriber Type"
-            value={value.SubscriberType?.[0]}
-            meta={ConsumptionPointFieldMeta.SubscriberType}
-          />
+    [
+      ConsumptionPointField.SubscriberTypeCode,
+      { meta: ConsumptionPointFieldMeta.SubscriberTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ConsumptionPointField.SubscriberTypeCode}
+          meta={ConsumptionPointFieldMeta.SubscriberTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.SubscriberTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Subscriber Type Code"
-            value={value.SubscriberTypeCode?.[0]}
-            meta={ConsumptionPointFieldMeta.SubscriberTypeCode}
-          />
+    [
+      ConsumptionPointField.TotalDeliveredQuantity,
+      { meta: ConsumptionPointFieldMeta.TotalDeliveredQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={ConsumptionPointField.TotalDeliveredQuantity}
+          meta={ConsumptionPointFieldMeta.TotalDeliveredQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.TotalDeliveredQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Total Delivered Quantity"
-            value={value.TotalDeliveredQuantity?.[0]}
-            meta={ConsumptionPointFieldMeta.TotalDeliveredQuantity}
-          />
+    [
+      ConsumptionPointField.Address,
+      { meta: ConsumptionPointFieldMeta.Address,
+        template: ({value, renderContext, fieldConfig}) => <AddressDisplay
+          key={ConsumptionPointField.Address}
+          meta={ConsumptionPointFieldMeta.Address}
+          fieldConfig={fieldConfig}
+          address={value?.Address}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AddressDisplay
-            label="Address"
-            value={value.Address?.[0]}
-            meta={ConsumptionPointFieldMeta.Address}
-          />
+    [
+      ConsumptionPointField.WebSiteAccess,
+      { meta: ConsumptionPointFieldMeta.WebSiteAccess,
+        template: ({value, renderContext, fieldConfig}) => <WebSiteAccessDisplay
+          key={ConsumptionPointField.WebSiteAccess}
+          meta={ConsumptionPointFieldMeta.WebSiteAccess}
+          fieldConfig={fieldConfig}
+          webSiteAccess={value?.WebSiteAccess}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <WebSiteAccessDisplay
-            label="Web Site Access"
-            value={value.WebSiteAccess?.[0]}
-            meta={ConsumptionPointFieldMeta.WebSiteAccess}
-          />
+    [
+      ConsumptionPointField.UtilityMeter,
+      { meta: ConsumptionPointFieldMeta.UtilityMeter,
+        template: ({value, renderContext, fieldConfig}) => <MeterDisplay
+          key={ConsumptionPointField.UtilityMeter}
+          meta={ConsumptionPointFieldMeta.UtilityMeter}
+          fieldConfig={fieldConfig}
+          meter={value?.UtilityMeter}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Meter ubl-UtilityMeter"
-            label="Utility Meter"
-            items={value.UtilityMeter}
-            meta={ConsumptionPointFieldMeta.UtilityMeter} 
-            itemDisplay={ (itemValue: Meter, key: string | number) =>
-              <MeterDisplay
-                key={key}
-                label="Utility Meter"
-                value={itemValue}
-                meta={ConsumptionPointFieldMeta.UtilityMeter}
-              />
-            }
-          />
-        </div>
-    </div>
+export function ConsumptionPointDisplay<TFieldMeta>({ meta, fieldConfig, consumptionPoint, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ConsumptionPointTypeName,
+    meta,
+    fieldConfig,
+    consumptionPoint,
+    renderContext,
+    ConsumptionPointSubElementsMap,
   )
 }

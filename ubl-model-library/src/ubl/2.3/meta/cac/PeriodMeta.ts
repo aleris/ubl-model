@@ -1,4 +1,11 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { DateType } from '../cbc/DateMeta'
+import { MeasureType } from '../cbc/MeasureMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum PeriodField {
   UBLExtensions = 'UBLExtensions',
@@ -14,11 +21,11 @@ export enum PeriodField {
 export const PeriodFieldMetaUBLExtensions = new FieldMeta<PeriodField>(
   PeriodField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -27,10 +34,10 @@ export const PeriodFieldMetaStartDate = new FieldMeta<PeriodField>(
   PeriodField.StartDate,
   'StartDate',
   'Start Date',
-  'Date',
+  DateType.name,
   'The date on which this period begins.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -39,10 +46,10 @@ export const PeriodFieldMetaStartTime = new FieldMeta<PeriodField>(
   PeriodField.StartTime,
   'StartTime',
   'Start Time',
-  'Time',
+  TimeType.name,
   'The time at which this period begins.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -51,10 +58,10 @@ export const PeriodFieldMetaEndDate = new FieldMeta<PeriodField>(
   PeriodField.EndDate,
   'EndDate',
   'End Date',
-  'Date',
+  DateType.name,
   'The date on which this period ends.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -63,10 +70,10 @@ export const PeriodFieldMetaEndTime = new FieldMeta<PeriodField>(
   PeriodField.EndTime,
   'EndTime',
   'End Time',
-  'Time',
+  TimeType.name,
   'The time at which this period ends.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -75,10 +82,10 @@ export const PeriodFieldMetaDurationMeasure = new FieldMeta<PeriodField>(
   PeriodField.DurationMeasure,
   'DurationMeasure',
   'Duration',
-  'Measure',
+  MeasureType.name,
   'The duration of this period, expressed as an ISO 8601 code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -87,10 +94,10 @@ export const PeriodFieldMetaDescriptionCode = new FieldMeta<PeriodField>(
   PeriodField.DescriptionCode,
   'DescriptionCode',
   'Description Code',
-  'Code',
+  CodeType.name,
   'A description of this period, expressed as a code.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -99,10 +106,10 @@ export const PeriodFieldMetaDescription = new FieldMeta<PeriodField>(
   PeriodField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'A description of this period, expressed as text.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -128,3 +135,11 @@ export const PeriodFieldMap = new Map([
   [PeriodField.DescriptionCode, PeriodFieldMetaDescriptionCode],
   [PeriodField.Description, PeriodFieldMetaDescription]
 ])
+
+export const PeriodType: Type<PeriodField> = {
+  name: 'Period',
+  label: 'Period',
+  module: TypeModule.cac,
+  definition: 'A class to describe a period of time.',
+  fields: PeriodFieldMap,
+}

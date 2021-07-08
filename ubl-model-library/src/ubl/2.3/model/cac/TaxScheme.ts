@@ -3,7 +3,6 @@ import { Code } from '../cbc/Code'
 import { Identifier } from '../cbc/Identifier'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a taxation scheme (e.g., VAT, State tax, County tax).
  */

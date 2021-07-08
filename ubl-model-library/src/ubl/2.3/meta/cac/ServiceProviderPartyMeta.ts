@@ -1,4 +1,11 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { ContactType } from './ContactMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { PartyType } from './PartyMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ServiceProviderPartyField {
   UBLExtensions = 'UBLExtensions',
@@ -12,11 +19,11 @@ export enum ServiceProviderPartyField {
 export const ServiceProviderPartyFieldMetaUBLExtensions = new FieldMeta<ServiceProviderPartyField>(
   ServiceProviderPartyField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -25,10 +32,10 @@ export const ServiceProviderPartyFieldMetaID = new FieldMeta<ServiceProviderPart
   ServiceProviderPartyField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this service provider.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -37,10 +44,10 @@ export const ServiceProviderPartyFieldMetaServiceTypeCode = new FieldMeta<Servic
   ServiceProviderPartyField.ServiceTypeCode,
   'ServiceTypeCode',
   'Service Type Code',
-  'Code',
+  CodeType.name,
   'The type of service provided, expressed as a code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -49,10 +56,10 @@ export const ServiceProviderPartyFieldMetaServiceType = new FieldMeta<ServicePro
   ServiceProviderPartyField.ServiceType,
   'ServiceType',
   'Service Type',
-  'Text',
+  TextType.name,
   'The type of service provided, expressed as text.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -61,10 +68,10 @@ export const ServiceProviderPartyFieldMetaParty = new FieldMeta<ServiceProviderP
   ServiceProviderPartyField.Party,
   'Party',
   'Party',
-  'Party',
+  PartyType.name,
   'The party providing the service.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -73,10 +80,10 @@ export const ServiceProviderPartyFieldMetaSellerContact = new FieldMeta<ServiceP
   ServiceProviderPartyField.SellerContact,
   'SellerContact',
   'Seller Contact',
-  'Contact',
+  ContactType.name,
   'The contact for the service provider.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -98,3 +105,11 @@ export const ServiceProviderPartyFieldMap = new Map([
   [ServiceProviderPartyField.Party, ServiceProviderPartyFieldMetaParty],
   [ServiceProviderPartyField.SellerContact, ServiceProviderPartyFieldMetaSellerContact]
 ])
+
+export const ServiceProviderPartyType: Type<ServiceProviderPartyField> = {
+  name: 'ServiceProviderParty',
+  label: 'Service Provider Party',
+  module: TypeModule.cac,
+  definition: 'A class to describe a party contracting to provide services, such as transportation, finance, etc.',
+  fields: ServiceProviderPartyFieldMap,
+}

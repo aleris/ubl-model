@@ -1,136 +1,191 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ExceptionCriteriaLine } from  '../../model/cac/ExceptionCriteriaLine'
-import { ExceptionCriteriaLineFieldMeta } from  '../../meta/cac/ExceptionCriteriaLineMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import ForecastExceptionCriterionLineDisplay from './ForecastExceptionCriterionLineDisplay'
-import { ForecastExceptionCriterionLine } from '../../model/cac/ForecastExceptionCriterionLine'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import ItemDisplay from './ItemDisplay'
-import { Item } from '../../model/cac/Item'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ExceptionCriteriaLineField, ExceptionCriteriaLineFieldMeta, ExceptionCriteriaLineTypeName } from  '../../meta/cac/ExceptionCriteriaLineMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { ForecastExceptionCriterionLineDisplay } from './ForecastExceptionCriterionLineDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { ItemDisplay } from './ItemDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ExceptionCriteriaLine | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ExceptionCriteriaLine, void>
+  exceptionCriteriaLine: ExceptionCriteriaLine[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ExceptionCriteriaLineDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ExceptionCriteriaLineSubElementsMap: SubElementsTemplatesMap<ExceptionCriteriaLineField, ExceptionCriteriaLine, void> = new Map([
+    [
+      ExceptionCriteriaLineField.UBLExtensions,
+      { meta: ExceptionCriteriaLineFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ExceptionCriteriaLineField.UBLExtensions}
+          meta={ExceptionCriteriaLineFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ExceptionCriteriaLine">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ExceptionCriteriaLineFieldMeta.UBLExtensions}
-          />
+    [
+      ExceptionCriteriaLineField.ID,
+      { meta: ExceptionCriteriaLineFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ExceptionCriteriaLineField.ID}
+          meta={ExceptionCriteriaLineFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={ExceptionCriteriaLineFieldMeta.ID}
-          />
+    [
+      ExceptionCriteriaLineField.Note,
+      { meta: ExceptionCriteriaLineFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ExceptionCriteriaLineField.Note}
+          meta={ExceptionCriteriaLineFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={ExceptionCriteriaLineFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={ExceptionCriteriaLineFieldMeta.Note}
-              />
-            }
-          />
+    [
+      ExceptionCriteriaLineField.ThresholdValueComparisonCode,
+      { meta: ExceptionCriteriaLineFieldMeta.ThresholdValueComparisonCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ExceptionCriteriaLineField.ThresholdValueComparisonCode}
+          meta={ExceptionCriteriaLineFieldMeta.ThresholdValueComparisonCode}
+          fieldConfig={fieldConfig}
+          code={value?.ThresholdValueComparisonCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Threshold Value Comparison Code"
-            value={value.ThresholdValueComparisonCode?.[0]}
-            meta={ExceptionCriteriaLineFieldMeta.ThresholdValueComparisonCode}
-          />
+    [
+      ExceptionCriteriaLineField.ThresholdQuantity,
+      { meta: ExceptionCriteriaLineFieldMeta.ThresholdQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={ExceptionCriteriaLineField.ThresholdQuantity}
+          meta={ExceptionCriteriaLineFieldMeta.ThresholdQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.ThresholdQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Threshold Quantity"
-            value={value.ThresholdQuantity?.[0]}
-            meta={ExceptionCriteriaLineFieldMeta.ThresholdQuantity}
-          />
+    [
+      ExceptionCriteriaLineField.ExceptionStatusCode,
+      { meta: ExceptionCriteriaLineFieldMeta.ExceptionStatusCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ExceptionCriteriaLineField.ExceptionStatusCode}
+          meta={ExceptionCriteriaLineFieldMeta.ExceptionStatusCode}
+          fieldConfig={fieldConfig}
+          code={value?.ExceptionStatusCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Exception Status Code"
-            value={value.ExceptionStatusCode?.[0]}
-            meta={ExceptionCriteriaLineFieldMeta.ExceptionStatusCode}
-          />
+    [
+      ExceptionCriteriaLineField.CollaborationPriorityCode,
+      { meta: ExceptionCriteriaLineFieldMeta.CollaborationPriorityCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ExceptionCriteriaLineField.CollaborationPriorityCode}
+          meta={ExceptionCriteriaLineFieldMeta.CollaborationPriorityCode}
+          fieldConfig={fieldConfig}
+          code={value?.CollaborationPriorityCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Collaboration Priority Code"
-            value={value.CollaborationPriorityCode?.[0]}
-            meta={ExceptionCriteriaLineFieldMeta.CollaborationPriorityCode}
-          />
+    [
+      ExceptionCriteriaLineField.ExceptionResolutionCode,
+      { meta: ExceptionCriteriaLineFieldMeta.ExceptionResolutionCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ExceptionCriteriaLineField.ExceptionResolutionCode}
+          meta={ExceptionCriteriaLineFieldMeta.ExceptionResolutionCode}
+          fieldConfig={fieldConfig}
+          code={value?.ExceptionResolutionCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Exception Resolution Code"
-            value={value.ExceptionResolutionCode?.[0]}
-            meta={ExceptionCriteriaLineFieldMeta.ExceptionResolutionCode}
-          />
+    [
+      ExceptionCriteriaLineField.SupplyChainActivityTypeCode,
+      { meta: ExceptionCriteriaLineFieldMeta.SupplyChainActivityTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ExceptionCriteriaLineField.SupplyChainActivityTypeCode}
+          meta={ExceptionCriteriaLineFieldMeta.SupplyChainActivityTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.SupplyChainActivityTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Supply Chain Activity Type Code"
-            value={value.SupplyChainActivityTypeCode?.[0]}
-            meta={ExceptionCriteriaLineFieldMeta.SupplyChainActivityTypeCode}
-          />
+    [
+      ExceptionCriteriaLineField.PerformanceMetricTypeCode,
+      { meta: ExceptionCriteriaLineFieldMeta.PerformanceMetricTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ExceptionCriteriaLineField.PerformanceMetricTypeCode}
+          meta={ExceptionCriteriaLineFieldMeta.PerformanceMetricTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.PerformanceMetricTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Performance Metric Type Code"
-            value={value.PerformanceMetricTypeCode?.[0]}
-            meta={ExceptionCriteriaLineFieldMeta.PerformanceMetricTypeCode}
-          />
+    [
+      ExceptionCriteriaLineField.EffectivePeriod,
+      { meta: ExceptionCriteriaLineFieldMeta.EffectivePeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={ExceptionCriteriaLineField.EffectivePeriod}
+          meta={ExceptionCriteriaLineFieldMeta.EffectivePeriod}
+          fieldConfig={fieldConfig}
+          period={value?.EffectivePeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Effective Period"
-            value={value.EffectivePeriod?.[0]}
-            meta={ExceptionCriteriaLineFieldMeta.EffectivePeriod}
-          />
+    [
+      ExceptionCriteriaLineField.SupplyItem,
+      { meta: ExceptionCriteriaLineFieldMeta.SupplyItem,
+        template: ({value, renderContext, fieldConfig}) => <ItemDisplay
+          key={ExceptionCriteriaLineField.SupplyItem}
+          meta={ExceptionCriteriaLineFieldMeta.SupplyItem}
+          fieldConfig={fieldConfig}
+          item={value?.SupplyItem}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Item ubl-SupplyItem"
-            label="Supply Item"
-            items={value.SupplyItem}
-            meta={ExceptionCriteriaLineFieldMeta.SupplyItem} 
-            itemDisplay={ (itemValue: Item, key: string | number) =>
-              <ItemDisplay
-                key={key}
-                label="Supply Item"
-                value={itemValue}
-                meta={ExceptionCriteriaLineFieldMeta.SupplyItem}
-              />
-            }
-          />
+    [
+      ExceptionCriteriaLineField.ForecastExceptionCriterionLine,
+      { meta: ExceptionCriteriaLineFieldMeta.ForecastExceptionCriterionLine,
+        template: ({value, renderContext, fieldConfig}) => <ForecastExceptionCriterionLineDisplay
+          key={ExceptionCriteriaLineField.ForecastExceptionCriterionLine}
+          meta={ExceptionCriteriaLineFieldMeta.ForecastExceptionCriterionLine}
+          fieldConfig={fieldConfig}
+          forecastExceptionCriterionLine={value?.ForecastExceptionCriterionLine}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ForecastExceptionCriterionLineDisplay
-            label="Forecast Exception Criterion Line"
-            value={value.ForecastExceptionCriterionLine?.[0]}
-            meta={ExceptionCriteriaLineFieldMeta.ForecastExceptionCriterionLine}
-          />
-        </div>
-    </div>
+export function ExceptionCriteriaLineDisplay<TFieldMeta>({ meta, fieldConfig, exceptionCriteriaLine, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ExceptionCriteriaLineTypeName,
+    meta,
+    fieldConfig,
+    exceptionCriteriaLine,
+    renderContext,
+    ExceptionCriteriaLineSubElementsMap,
   )
 }

@@ -14,7 +14,6 @@ import { Time } from '../cbc/Time'
 import { TransportationService } from '../cac/TransportationService'
 import { TransportExecutionTerms } from '../cac/TransportExecutionTerms'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A document used in the negotiation of a transport service between a transport user and a transport service provider.
  */

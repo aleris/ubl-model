@@ -1,106 +1,131 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Consumption } from  '../../model/cac/Consumption'
-import { ConsumptionFieldMeta } from  '../../meta/cac/ConsumptionMeta'
-import AllowanceChargeDisplay from './AllowanceChargeDisplay'
-import { AllowanceCharge } from '../../model/cac/AllowanceCharge'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import EnergyWaterSupplyDisplay from './EnergyWaterSupplyDisplay'
-import { EnergyWaterSupply } from '../../model/cac/EnergyWaterSupply'
-import MonetaryTotalDisplay from './MonetaryTotalDisplay'
-import { MonetaryTotal } from '../../model/cac/MonetaryTotal'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import TaxTotalDisplay from './TaxTotalDisplay'
-import { TaxTotal } from '../../model/cac/TaxTotal'
-import TelecommunicationsSupplyDisplay from './TelecommunicationsSupplyDisplay'
-import { TelecommunicationsSupply } from '../../model/cac/TelecommunicationsSupply'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ConsumptionField, ConsumptionFieldMeta, ConsumptionTypeName } from  '../../meta/cac/ConsumptionMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AllowanceChargeDisplay } from './AllowanceChargeDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { EnergyWaterSupplyDisplay } from './EnergyWaterSupplyDisplay'
+import { MonetaryTotalDisplay } from './MonetaryTotalDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { TaxTotalDisplay } from './TaxTotalDisplay'
+import { TelecommunicationsSupplyDisplay } from './TelecommunicationsSupplyDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: Consumption | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<Consumption, void>
+  consumption: Consumption[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ConsumptionDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ConsumptionSubElementsMap: SubElementsTemplatesMap<ConsumptionField, Consumption, void> = new Map([
+    [
+      ConsumptionField.UBLExtensions,
+      { meta: ConsumptionFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ConsumptionField.UBLExtensions}
+          meta={ConsumptionFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-Consumption">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ConsumptionFieldMeta.UBLExtensions}
-          />
+    [
+      ConsumptionField.UtilityStatementTypeCode,
+      { meta: ConsumptionFieldMeta.UtilityStatementTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ConsumptionField.UtilityStatementTypeCode}
+          meta={ConsumptionFieldMeta.UtilityStatementTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.UtilityStatementTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Utility Statement Type Code"
-            value={value.UtilityStatementTypeCode?.[0]}
-            meta={ConsumptionFieldMeta.UtilityStatementTypeCode}
-          />
+    [
+      ConsumptionField.MainPeriod,
+      { meta: ConsumptionFieldMeta.MainPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={ConsumptionField.MainPeriod}
+          meta={ConsumptionFieldMeta.MainPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.MainPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Main Period"
-            value={value.MainPeriod?.[0]}
-            meta={ConsumptionFieldMeta.MainPeriod}
-          />
+    [
+      ConsumptionField.AllowanceCharge,
+      { meta: ConsumptionFieldMeta.AllowanceCharge,
+        template: ({value, renderContext, fieldConfig}) => <AllowanceChargeDisplay
+          key={ConsumptionField.AllowanceCharge}
+          meta={ConsumptionFieldMeta.AllowanceCharge}
+          fieldConfig={fieldConfig}
+          allowanceCharge={value?.AllowanceCharge}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-AllowanceCharge"
-            label="Allowance Charge"
-            items={value.AllowanceCharge}
-            meta={ConsumptionFieldMeta.AllowanceCharge} 
-            itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-              <AllowanceChargeDisplay
-                key={key}
-                label="Allowance Charge"
-                value={itemValue}
-                meta={ConsumptionFieldMeta.AllowanceCharge}
-              />
-            }
-          />
+    [
+      ConsumptionField.TaxTotal,
+      { meta: ConsumptionFieldMeta.TaxTotal,
+        template: ({value, renderContext, fieldConfig}) => <TaxTotalDisplay
+          key={ConsumptionField.TaxTotal}
+          meta={ConsumptionFieldMeta.TaxTotal}
+          fieldConfig={fieldConfig}
+          taxTotal={value?.TaxTotal}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TaxTotal"
-            label="Tax Total"
-            items={value.TaxTotal}
-            meta={ConsumptionFieldMeta.TaxTotal} 
-            itemDisplay={ (itemValue: TaxTotal, key: string | number) =>
-              <TaxTotalDisplay
-                key={key}
-                label="Tax Total"
-                value={itemValue}
-                meta={ConsumptionFieldMeta.TaxTotal}
-              />
-            }
-          />
+    [
+      ConsumptionField.EnergyWaterSupply,
+      { meta: ConsumptionFieldMeta.EnergyWaterSupply,
+        template: ({value, renderContext, fieldConfig}) => <EnergyWaterSupplyDisplay
+          key={ConsumptionField.EnergyWaterSupply}
+          meta={ConsumptionFieldMeta.EnergyWaterSupply}
+          fieldConfig={fieldConfig}
+          energyWaterSupply={value?.EnergyWaterSupply}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <EnergyWaterSupplyDisplay
-            label="Energy Water Supply"
-            value={value.EnergyWaterSupply?.[0]}
-            meta={ConsumptionFieldMeta.EnergyWaterSupply}
-          />
+    [
+      ConsumptionField.TelecommunicationsSupply,
+      { meta: ConsumptionFieldMeta.TelecommunicationsSupply,
+        template: ({value, renderContext, fieldConfig}) => <TelecommunicationsSupplyDisplay
+          key={ConsumptionField.TelecommunicationsSupply}
+          meta={ConsumptionFieldMeta.TelecommunicationsSupply}
+          fieldConfig={fieldConfig}
+          telecommunicationsSupply={value?.TelecommunicationsSupply}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TelecommunicationsSupplyDisplay
-            label="Telecommunications Supply"
-            value={value.TelecommunicationsSupply?.[0]}
-            meta={ConsumptionFieldMeta.TelecommunicationsSupply}
-          />
+    [
+      ConsumptionField.LegalMonetaryTotal,
+      { meta: ConsumptionFieldMeta.LegalMonetaryTotal,
+        template: ({value, renderContext, fieldConfig}) => <MonetaryTotalDisplay
+          key={ConsumptionField.LegalMonetaryTotal}
+          meta={ConsumptionFieldMeta.LegalMonetaryTotal}
+          fieldConfig={fieldConfig}
+          monetaryTotal={value?.LegalMonetaryTotal}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <MonetaryTotalDisplay
-            label="Legal Monetary Total"
-            value={value.LegalMonetaryTotal?.[0]}
-            meta={ConsumptionFieldMeta.LegalMonetaryTotal}
-          />
-        </div>
-    </div>
+export function ConsumptionDisplay<TFieldMeta>({ meta, fieldConfig, consumption, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ConsumptionTypeName,
+    meta,
+    fieldConfig,
+    consumption,
+    renderContext,
+    ConsumptionSubElementsMap,
   )
 }

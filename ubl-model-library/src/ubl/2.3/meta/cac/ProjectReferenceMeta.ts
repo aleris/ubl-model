@@ -1,4 +1,9 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { DateType } from '../cbc/DateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
+import { WorkPhaseReferenceType } from './WorkPhaseReferenceMeta'
 
 export enum ProjectReferenceField {
   UBLExtensions = 'UBLExtensions',
@@ -11,11 +16,11 @@ export enum ProjectReferenceField {
 export const ProjectReferenceFieldMetaUBLExtensions = new FieldMeta<ProjectReferenceField>(
   ProjectReferenceField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -24,10 +29,10 @@ export const ProjectReferenceFieldMetaID = new FieldMeta<ProjectReferenceField>(
   ProjectReferenceField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the referenced project.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -36,10 +41,10 @@ export const ProjectReferenceFieldMetaUUID = new FieldMeta<ProjectReferenceField
   ProjectReferenceField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for the referenced project.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -48,10 +53,10 @@ export const ProjectReferenceFieldMetaIssueDate = new FieldMeta<ProjectReference
   ProjectReferenceField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date on which the referenced project was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -60,10 +65,10 @@ export const ProjectReferenceFieldMetaWorkPhaseReference = new FieldMeta<Project
   ProjectReferenceField.WorkPhaseReference,
   'WorkPhaseReference',
   'Work Phase Reference',
-  'WorkPhaseReference',
+  WorkPhaseReferenceType.name,
   'A specific phase of work in the referenced project.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -83,3 +88,11 @@ export const ProjectReferenceFieldMap = new Map([
   [ProjectReferenceField.IssueDate, ProjectReferenceFieldMetaIssueDate],
   [ProjectReferenceField.WorkPhaseReference, ProjectReferenceFieldMetaWorkPhaseReference]
 ])
+
+export const ProjectReferenceType: Type<ProjectReferenceField> = {
+  name: 'ProjectReference',
+  label: 'Project Reference',
+  module: TypeModule.cac,
+  definition: 'A class to define a reference to a procurement project.',
+  fields: ProjectReferenceFieldMap,
+}

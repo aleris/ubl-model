@@ -1,4 +1,32 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AllowanceChargeType } from '../cac/AllowanceChargeMeta'
+import { BillingReferenceType } from '../cac/BillingReferenceMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { CustomerPartyType } from '../cac/CustomerPartyMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DeliveryType } from '../cac/DeliveryMeta'
+import { DeliveryTermsType } from '../cac/DeliveryTermsMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { ExchangeRateType } from '../cac/ExchangeRateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { InvoiceLineType } from '../cac/InvoiceLineMeta'
+import { MonetaryTotalType } from '../cac/MonetaryTotalMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { OrderReferenceType } from '../cac/OrderReferenceMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { PaymentType } from '../cac/PaymentMeta'
+import { PaymentMeansType } from '../cac/PaymentMeansMeta'
+import { PaymentTermsType } from '../cac/PaymentTermsMeta'
+import { PeriodType } from '../cac/PeriodMeta'
+import { ProjectReferenceType } from '../cac/ProjectReferenceMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { SupplierPartyType } from '../cac/SupplierPartyMeta'
+import { TaxTotalType } from '../cac/TaxTotalMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum InvoiceField {
   UBLExtensions = 'UBLExtensions',
@@ -60,11 +88,11 @@ export enum InvoiceField {
 export const InvoiceFieldMetaUBLExtensions = new FieldMeta<InvoiceField>(
   InvoiceField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -73,10 +101,10 @@ export const InvoiceFieldMetaUBLVersionID = new FieldMeta<InvoiceField>(
   InvoiceField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.0.5'
 )
@@ -85,10 +113,10 @@ export const InvoiceFieldMetaCustomizationID = new FieldMeta<InvoiceField>(
   InvoiceField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -97,10 +125,10 @@ export const InvoiceFieldMetaProfileID = new FieldMeta<InvoiceField>(
   InvoiceField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BasicProcurementProcess'
 )
@@ -109,10 +137,10 @@ export const InvoiceFieldMetaProfileExecutionID = new FieldMeta<InvoiceField>(
   InvoiceField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BPP-1001'
 )
@@ -121,10 +149,10 @@ export const InvoiceFieldMetaID = new FieldMeta<InvoiceField>(
   InvoiceField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   'Invoice Number',
   undefined
 )
@@ -133,10 +161,10 @@ export const InvoiceFieldMetaCopyIndicator = new FieldMeta<InvoiceField>(
   InvoiceField.CopyIndicator,
   'CopyIndicator',
   'Copy Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this document is a copy (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -145,10 +173,10 @@ export const InvoiceFieldMetaUUID = new FieldMeta<InvoiceField>(
   InvoiceField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -157,10 +185,10 @@ export const InvoiceFieldMetaIssueDate = new FieldMeta<InvoiceField>(
   InvoiceField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   'Invoice Date',
   undefined
 )
@@ -169,10 +197,10 @@ export const InvoiceFieldMetaIssueTime = new FieldMeta<InvoiceField>(
   InvoiceField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -181,10 +209,10 @@ export const InvoiceFieldMetaDueDate = new FieldMeta<InvoiceField>(
   InvoiceField.DueDate,
   'DueDate',
   'Due Date',
-  'Date',
+  DateType.name,
   'The date on which Invoice is due.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -193,10 +221,10 @@ export const InvoiceFieldMetaInvoiceTypeCode = new FieldMeta<InvoiceField>(
   InvoiceField.InvoiceTypeCode,
   'InvoiceTypeCode',
   'Invoice Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of the Invoice.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -205,10 +233,10 @@ export const InvoiceFieldMetaNote = new FieldMeta<InvoiceField>(
   InvoiceField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -217,10 +245,10 @@ export const InvoiceFieldMetaTaxPointDate = new FieldMeta<InvoiceField>(
   InvoiceField.TaxPointDate,
   'TaxPointDate',
   'Tax Point Date',
-  'Date',
+  DateType.name,
   'The date of the Invoice, used to indicate the point at which tax becomes applicable.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -229,10 +257,10 @@ export const InvoiceFieldMetaDocumentCurrencyCode = new FieldMeta<InvoiceField>(
   InvoiceField.DocumentCurrencyCode,
   'DocumentCurrencyCode',
   'Document Currency Code',
-  'Code',
+  CodeType.name,
   'A code signifying the default currency for this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -241,10 +269,10 @@ export const InvoiceFieldMetaTaxCurrencyCode = new FieldMeta<InvoiceField>(
   InvoiceField.TaxCurrencyCode,
   'TaxCurrencyCode',
   'Tax Currency Code',
-  'Code',
+  CodeType.name,
   'A code signifying the currency used for tax amounts in the Invoice.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -253,10 +281,10 @@ export const InvoiceFieldMetaPricingCurrencyCode = new FieldMeta<InvoiceField>(
   InvoiceField.PricingCurrencyCode,
   'PricingCurrencyCode',
   'Pricing Currency Code',
-  'Code',
+  CodeType.name,
   'A code signifying the currency used for prices in the Invoice.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -265,10 +293,10 @@ export const InvoiceFieldMetaPaymentCurrencyCode = new FieldMeta<InvoiceField>(
   InvoiceField.PaymentCurrencyCode,
   'PaymentCurrencyCode',
   'Payment Currency Code',
-  'Code',
+  CodeType.name,
   'A code signifying the currency used for payment in the Invoice.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -277,10 +305,10 @@ export const InvoiceFieldMetaPaymentAlternativeCurrencyCode = new FieldMeta<Invo
   InvoiceField.PaymentAlternativeCurrencyCode,
   'PaymentAlternativeCurrencyCode',
   'Payment Alternative Currency Code',
-  'Code',
+  CodeType.name,
   'A code signifying the alternative currency used for payment in the Invoice.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -289,10 +317,10 @@ export const InvoiceFieldMetaAccountingCostCode = new FieldMeta<InvoiceField>(
   InvoiceField.AccountingCostCode,
   'AccountingCostCode',
   'Accounting Cost Code',
-  'Code',
+  CodeType.name,
   'The buyer\'s accounting code, applied to the Invoice as a whole.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -301,10 +329,10 @@ export const InvoiceFieldMetaAccountingCost = new FieldMeta<InvoiceField>(
   InvoiceField.AccountingCost,
   'AccountingCost',
   'Accounting Cost',
-  'Text',
+  TextType.name,
   'The buyer\'s accounting code, applied to the Invoice as a whole, expressed as text.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -313,10 +341,10 @@ export const InvoiceFieldMetaLineCountNumeric = new FieldMeta<InvoiceField>(
   InvoiceField.LineCountNumeric,
   'LineCountNumeric',
   'Line Count',
-  'Numeric',
+  NumericType.name,
   'The number of lines in the document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -325,10 +353,10 @@ export const InvoiceFieldMetaBuyerReference = new FieldMeta<InvoiceField>(
   InvoiceField.BuyerReference,
   'BuyerReference',
   'Buyer Reference',
-  'Text',
+  TextType.name,
   'A reference provided by the buyer used for internal routing of the document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -337,10 +365,10 @@ export const InvoiceFieldMetaInvoicePeriod = new FieldMeta<InvoiceField>(
   InvoiceField.InvoicePeriod,
   'InvoicePeriod',
   'Invoice Period',
-  'Period',
+  PeriodType.name,
   'A period to which the Invoice applies.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -349,10 +377,10 @@ export const InvoiceFieldMetaOrderReference = new FieldMeta<InvoiceField>(
   InvoiceField.OrderReference,
   'OrderReference',
   'Order Reference',
-  'OrderReference',
+  OrderReferenceType.name,
   'A reference to the Order with which this Invoice is associated.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -361,10 +389,10 @@ export const InvoiceFieldMetaBillingReference = new FieldMeta<InvoiceField>(
   InvoiceField.BillingReference,
   'BillingReference',
   'Billing Reference',
-  'BillingReference',
+  BillingReferenceType.name,
   'A reference to a billing document associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -373,10 +401,10 @@ export const InvoiceFieldMetaDespatchDocumentReference = new FieldMeta<InvoiceFi
   InvoiceField.DespatchDocumentReference,
   'DespatchDocumentReference',
   'Despatch Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a Despatch Advice associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -385,10 +413,10 @@ export const InvoiceFieldMetaReceiptDocumentReference = new FieldMeta<InvoiceFie
   InvoiceField.ReceiptDocumentReference,
   'ReceiptDocumentReference',
   'Receipt Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a Receipt Advice associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -397,10 +425,10 @@ export const InvoiceFieldMetaStatementDocumentReference = new FieldMeta<InvoiceF
   InvoiceField.StatementDocumentReference,
   'StatementDocumentReference',
   'Statement Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a Statement associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -409,10 +437,10 @@ export const InvoiceFieldMetaOriginatorDocumentReference = new FieldMeta<Invoice
   InvoiceField.OriginatorDocumentReference,
   'OriginatorDocumentReference',
   'Originator Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to an originator document associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -421,10 +449,10 @@ export const InvoiceFieldMetaContractDocumentReference = new FieldMeta<InvoiceFi
   InvoiceField.ContractDocumentReference,
   'ContractDocumentReference',
   'Contract Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a contract associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -433,10 +461,10 @@ export const InvoiceFieldMetaAdditionalDocumentReference = new FieldMeta<Invoice
   InvoiceField.AdditionalDocumentReference,
   'AdditionalDocumentReference',
   'Additional Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to an additional document associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -445,10 +473,10 @@ export const InvoiceFieldMetaProjectReference = new FieldMeta<InvoiceField>(
   InvoiceField.ProjectReference,
   'ProjectReference',
   'Project Reference',
-  'ProjectReference',
+  ProjectReferenceType.name,
   'Information about a project.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -457,10 +485,10 @@ export const InvoiceFieldMetaSignature = new FieldMeta<InvoiceField>(
   InvoiceField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -469,10 +497,10 @@ export const InvoiceFieldMetaAccountingSupplierParty = new FieldMeta<InvoiceFiel
   InvoiceField.AccountingSupplierParty,
   'AccountingSupplierParty',
   'Accounting Supplier Party',
-  'SupplierParty',
+  SupplierPartyType.name,
   'The accounting supplier party.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -481,10 +509,10 @@ export const InvoiceFieldMetaAccountingCustomerParty = new FieldMeta<InvoiceFiel
   InvoiceField.AccountingCustomerParty,
   'AccountingCustomerParty',
   'Accounting Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The accounting customer party.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -493,10 +521,10 @@ export const InvoiceFieldMetaPayeeParty = new FieldMeta<InvoiceField>(
   InvoiceField.PayeeParty,
   'PayeeParty',
   'Payee Party',
-  'Party',
+  PartyType.name,
   'The payee.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -505,10 +533,10 @@ export const InvoiceFieldMetaBuyerCustomerParty = new FieldMeta<InvoiceField>(
   InvoiceField.BuyerCustomerParty,
   'BuyerCustomerParty',
   'Buyer Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The buyer.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -517,10 +545,10 @@ export const InvoiceFieldMetaSellerSupplierParty = new FieldMeta<InvoiceField>(
   InvoiceField.SellerSupplierParty,
   'SellerSupplierParty',
   'Seller Supplier Party',
-  'SupplierParty',
+  SupplierPartyType.name,
   'The seller.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -529,10 +557,10 @@ export const InvoiceFieldMetaTaxRepresentativeParty = new FieldMeta<InvoiceField
   InvoiceField.TaxRepresentativeParty,
   'TaxRepresentativeParty',
   'Tax Representative Party',
-  'Party',
+  PartyType.name,
   'The tax representative.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -541,10 +569,10 @@ export const InvoiceFieldMetaDelivery = new FieldMeta<InvoiceField>(
   InvoiceField.Delivery,
   'Delivery',
   'Delivery',
-  'Delivery',
+  DeliveryType.name,
   'A delivery associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -553,10 +581,10 @@ export const InvoiceFieldMetaDeliveryTerms = new FieldMeta<InvoiceField>(
   InvoiceField.DeliveryTerms,
   'DeliveryTerms',
   'Delivery Terms',
-  'DeliveryTerms',
+  DeliveryTermsType.name,
   'A set of delivery terms associated with this document.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -565,10 +593,10 @@ export const InvoiceFieldMetaPaymentMeans = new FieldMeta<InvoiceField>(
   InvoiceField.PaymentMeans,
   'PaymentMeans',
   'Payment Means',
-  'PaymentMeans',
+  PaymentMeansType.name,
   'Expected means of payment.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -577,10 +605,10 @@ export const InvoiceFieldMetaPaymentTerms = new FieldMeta<InvoiceField>(
   InvoiceField.PaymentTerms,
   'PaymentTerms',
   'Payment Terms',
-  'PaymentTerms',
+  PaymentTermsType.name,
   'A set of payment terms associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -589,10 +617,10 @@ export const InvoiceFieldMetaPrepaidPayment = new FieldMeta<InvoiceField>(
   InvoiceField.PrepaidPayment,
   'PrepaidPayment',
   'Prepaid Payment',
-  'Payment',
+  PaymentType.name,
   'A prepaid payment.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -601,10 +629,10 @@ export const InvoiceFieldMetaAllowanceCharge = new FieldMeta<InvoiceField>(
   InvoiceField.AllowanceCharge,
   'AllowanceCharge',
   'Allowance Charge',
-  'AllowanceCharge',
+  AllowanceChargeType.name,
   'A discount or charge that applies to a price component.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -613,10 +641,10 @@ export const InvoiceFieldMetaTaxExchangeRate = new FieldMeta<InvoiceField>(
   InvoiceField.TaxExchangeRate,
   'TaxExchangeRate',
   'Tax Exchange Rate',
-  'ExchangeRate',
+  ExchangeRateType.name,
   'The exchange rate between the document currency and the tax currency.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -625,10 +653,10 @@ export const InvoiceFieldMetaPricingExchangeRate = new FieldMeta<InvoiceField>(
   InvoiceField.PricingExchangeRate,
   'PricingExchangeRate',
   'Pricing Exchange Rate',
-  'ExchangeRate',
+  ExchangeRateType.name,
   'The exchange rate between the document currency and the pricing currency.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -637,10 +665,10 @@ export const InvoiceFieldMetaPaymentExchangeRate = new FieldMeta<InvoiceField>(
   InvoiceField.PaymentExchangeRate,
   'PaymentExchangeRate',
   'Payment Exchange Rate',
-  'ExchangeRate',
+  ExchangeRateType.name,
   'The exchange rate between the document currency and the payment currency.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -649,10 +677,10 @@ export const InvoiceFieldMetaPaymentAlternativeExchangeRate = new FieldMeta<Invo
   InvoiceField.PaymentAlternativeExchangeRate,
   'PaymentAlternativeExchangeRate',
   'Payment Alternative Exchange Rate',
-  'ExchangeRate',
+  ExchangeRateType.name,
   'The exchange rate between the document currency and the payment alternative currency.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -661,10 +689,10 @@ export const InvoiceFieldMetaTaxTotal = new FieldMeta<InvoiceField>(
   InvoiceField.TaxTotal,
   'TaxTotal',
   'Tax Total',
-  'TaxTotal',
+  TaxTotalType.name,
   'The total amount of a specific type of tax.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -673,10 +701,10 @@ export const InvoiceFieldMetaWithholdingTaxTotal = new FieldMeta<InvoiceField>(
   InvoiceField.WithholdingTaxTotal,
   'WithholdingTaxTotal',
   'Withholding Tax Total',
-  'TaxTotal',
+  TaxTotalType.name,
   'The total withholding tax.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -685,10 +713,10 @@ export const InvoiceFieldMetaLegalMonetaryTotal = new FieldMeta<InvoiceField>(
   InvoiceField.LegalMonetaryTotal,
   'LegalMonetaryTotal',
   'Legal Monetary Total',
-  'MonetaryTotal',
+  MonetaryTotalType.name,
   'The total amount payable on the Invoice, including Allowances, Charges, and Taxes.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -697,10 +725,10 @@ export const InvoiceFieldMetaInvoiceLine = new FieldMeta<InvoiceField>(
   InvoiceField.InvoiceLine,
   'InvoiceLine',
   'Invoice Line',
-  'InvoiceLine',
+  InvoiceLineType.name,
   'A line describing an invoice item.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -818,3 +846,11 @@ export const InvoiceFieldMap = new Map([
   [InvoiceField.LegalMonetaryTotal, InvoiceFieldMetaLegalMonetaryTotal],
   [InvoiceField.InvoiceLine, InvoiceFieldMetaInvoiceLine]
 ])
+
+export const InvoiceType: Type<InvoiceField> = {
+  name: 'Invoice',
+  label: 'Invoice',
+  module: TypeModule.doc,
+  definition: 'A document used to request payment.',
+  fields: InvoiceFieldMap,
+}

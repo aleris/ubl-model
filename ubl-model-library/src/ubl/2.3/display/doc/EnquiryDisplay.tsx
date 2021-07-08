@@ -1,188 +1,253 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Enquiry } from  '../../model/doc/Enquiry'
-import { EnquiryFieldMeta } from  '../../meta/doc/EnquiryMeta'
-import AttachmentDisplay from '../cac/AttachmentDisplay'
-import { Attachment } from '../../model/cac/Attachment'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { EnquiryField, EnquiryFieldMeta, EnquiryTypeName } from  '../../meta/doc/EnquiryMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AttachmentDisplay } from '../cac/AttachmentDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: Enquiry | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<Enquiry, void>
+  enquiry: Enquiry[] | undefined
+  renderContext: RenderContext
 }
 
-export default function EnquiryDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const EnquirySubElementsMap: SubElementsTemplatesMap<EnquiryField, Enquiry, void> = new Map([
+    [
+      EnquiryField.UBLExtensions,
+      { meta: EnquiryFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={EnquiryField.UBLExtensions}
+          meta={EnquiryFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-Enquiry">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={EnquiryFieldMeta.UBLExtensions}
-          />
+    [
+      EnquiryField.UBLVersionID,
+      { meta: EnquiryFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={EnquiryField.UBLVersionID}
+          meta={EnquiryFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={EnquiryFieldMeta.UBLVersionID}
-          />
+    [
+      EnquiryField.CustomizationID,
+      { meta: EnquiryFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={EnquiryField.CustomizationID}
+          meta={EnquiryFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={EnquiryFieldMeta.CustomizationID}
-          />
+    [
+      EnquiryField.ProfileID,
+      { meta: EnquiryFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={EnquiryField.ProfileID}
+          meta={EnquiryFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={EnquiryFieldMeta.ProfileID}
-          />
+    [
+      EnquiryField.ProfileExecutionID,
+      { meta: EnquiryFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={EnquiryField.ProfileExecutionID}
+          meta={EnquiryFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={EnquiryFieldMeta.ProfileExecutionID}
-          />
+    [
+      EnquiryField.ID,
+      { meta: EnquiryFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={EnquiryField.ID}
+          meta={EnquiryFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={EnquiryFieldMeta.ID}
-          />
+    [
+      EnquiryField.CopyIndicator,
+      { meta: EnquiryFieldMeta.CopyIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={EnquiryField.CopyIndicator}
+          meta={EnquiryFieldMeta.CopyIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.CopyIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Copy Indicator"
-            value={value.CopyIndicator?.[0]}
-            meta={EnquiryFieldMeta.CopyIndicator}
-          />
+    [
+      EnquiryField.UUID,
+      { meta: EnquiryFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={EnquiryField.UUID}
+          meta={EnquiryFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={EnquiryFieldMeta.UUID}
-          />
+    [
+      EnquiryField.IssueDate,
+      { meta: EnquiryFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={EnquiryField.IssueDate}
+          meta={EnquiryFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={EnquiryFieldMeta.IssueDate}
-          />
+    [
+      EnquiryField.IssueTime,
+      { meta: EnquiryFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={EnquiryField.IssueTime}
+          meta={EnquiryFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={EnquiryFieldMeta.IssueTime}
-          />
+    [
+      EnquiryField.LatestReplyDate,
+      { meta: EnquiryFieldMeta.LatestReplyDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={EnquiryField.LatestReplyDate}
+          meta={EnquiryFieldMeta.LatestReplyDate}
+          fieldConfig={fieldConfig}
+          date={value?.LatestReplyDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Latest Reply Date"
-            value={value.LatestReplyDate?.[0]}
-            meta={EnquiryFieldMeta.LatestReplyDate}
-          />
+    [
+      EnquiryField.LatestReplyTime,
+      { meta: EnquiryFieldMeta.LatestReplyTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={EnquiryField.LatestReplyTime}
+          meta={EnquiryFieldMeta.LatestReplyTime}
+          fieldConfig={fieldConfig}
+          time={value?.LatestReplyTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Latest Reply Time"
-            value={value.LatestReplyTime?.[0]}
-            meta={EnquiryFieldMeta.LatestReplyTime}
-          />
+    [
+      EnquiryField.Description,
+      { meta: EnquiryFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={EnquiryField.Description}
+          meta={EnquiryFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={EnquiryFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={EnquiryFieldMeta.Description}
-              />
-            }
-          />
+    [
+      EnquiryField.Signature,
+      { meta: EnquiryFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={EnquiryField.Signature}
+          meta={EnquiryFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={EnquiryFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={EnquiryFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      EnquiryField.RequestorParty,
+      { meta: EnquiryFieldMeta.RequestorParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={EnquiryField.RequestorParty}
+          meta={EnquiryFieldMeta.RequestorParty}
+          fieldConfig={fieldConfig}
+          party={value?.RequestorParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Requestor Party"
-            value={value.RequestorParty?.[0]}
-            meta={EnquiryFieldMeta.RequestorParty}
-          />
+    [
+      EnquiryField.ResponderParty,
+      { meta: EnquiryFieldMeta.ResponderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={EnquiryField.ResponderParty}
+          meta={EnquiryFieldMeta.ResponderParty}
+          fieldConfig={fieldConfig}
+          party={value?.ResponderParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Responder Party"
-            value={value.ResponderParty?.[0]}
-            meta={EnquiryFieldMeta.ResponderParty}
-          />
+    [
+      EnquiryField.AdditionalDocumentReference,
+      { meta: EnquiryFieldMeta.AdditionalDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={EnquiryField.AdditionalDocumentReference}
+          meta={EnquiryFieldMeta.AdditionalDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.AdditionalDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-AdditionalDocumentReference"
-            label="Additional Document Reference"
-            items={value.AdditionalDocumentReference}
-            meta={EnquiryFieldMeta.AdditionalDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Additional Document Reference"
-                value={itemValue}
-                meta={EnquiryFieldMeta.AdditionalDocumentReference}
-              />
-            }
-          />
+    [
+      EnquiryField.Attachment,
+      { meta: EnquiryFieldMeta.Attachment,
+        template: ({value, renderContext, fieldConfig}) => <AttachmentDisplay
+          key={EnquiryField.Attachment}
+          meta={EnquiryFieldMeta.Attachment}
+          fieldConfig={fieldConfig}
+          attachment={value?.Attachment}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Attachment"
-            label="Attachment"
-            items={value.Attachment}
-            meta={EnquiryFieldMeta.Attachment} 
-            itemDisplay={ (itemValue: Attachment, key: string | number) =>
-              <AttachmentDisplay
-                key={key}
-                label="Attachment"
-                value={itemValue}
-                meta={EnquiryFieldMeta.Attachment}
-              />
-            }
-          />
-        </div>
-    </div>
+export function EnquiryDisplay<TFieldMeta>({ meta, fieldConfig, enquiry, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    EnquiryTypeName,
+    meta,
+    fieldConfig,
+    enquiry,
+    renderContext,
+    EnquirySubElementsMap,
   )
 }

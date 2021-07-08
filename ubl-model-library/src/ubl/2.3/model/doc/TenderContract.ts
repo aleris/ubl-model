@@ -14,7 +14,6 @@ import { TenderResult } from '../cac/TenderResult'
 import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A document published by a Contracting Party to announce the awarding of a procurement project.
  */

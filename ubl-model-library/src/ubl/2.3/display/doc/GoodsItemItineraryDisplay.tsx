@@ -1,239 +1,292 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { GoodsItemItinerary } from  '../../model/doc/GoodsItemItinerary'
-import { GoodsItemItineraryFieldMeta } from  '../../meta/doc/GoodsItemItineraryMeta'
-import ConsignmentDisplay from '../cac/ConsignmentDisplay'
-import { Consignment } from '../../model/cac/Consignment'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import GoodsItemDisplay from '../cac/GoodsItemDisplay'
-import { GoodsItem } from '../../model/cac/GoodsItem'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import PackageDisplay from '../cac/PackageDisplay'
-import { Package } from '../../model/cac/Package'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import TransportationSegmentDisplay from '../cac/TransportationSegmentDisplay'
-import { TransportationSegment } from '../../model/cac/TransportationSegment'
-import TransportEquipmentDisplay from '../cac/TransportEquipmentDisplay'
-import { TransportEquipment } from '../../model/cac/TransportEquipment'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { GoodsItemItineraryField, GoodsItemItineraryFieldMeta, GoodsItemItineraryTypeName } from  '../../meta/doc/GoodsItemItineraryMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { ConsignmentDisplay } from '../cac/ConsignmentDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { GoodsItemDisplay } from '../cac/GoodsItemDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { PackageDisplay } from '../cac/PackageDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { TransportationSegmentDisplay } from '../cac/TransportationSegmentDisplay'
+import { TransportEquipmentDisplay } from '../cac/TransportEquipmentDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: GoodsItemItinerary | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<GoodsItemItinerary, void>
+  goodsItemItinerary: GoodsItemItinerary[] | undefined
+  renderContext: RenderContext
 }
 
-export default function GoodsItemItineraryDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const GoodsItemItinerarySubElementsMap: SubElementsTemplatesMap<GoodsItemItineraryField, GoodsItemItinerary, void> = new Map([
+    [
+      GoodsItemItineraryField.UBLExtensions,
+      { meta: GoodsItemItineraryFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={GoodsItemItineraryField.UBLExtensions}
+          meta={GoodsItemItineraryFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-GoodsItemItinerary">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={GoodsItemItineraryFieldMeta.UBLExtensions}
-          />
+    [
+      GoodsItemItineraryField.UBLVersionID,
+      { meta: GoodsItemItineraryFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={GoodsItemItineraryField.UBLVersionID}
+          meta={GoodsItemItineraryFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={GoodsItemItineraryFieldMeta.UBLVersionID}
-          />
+    [
+      GoodsItemItineraryField.CustomizationID,
+      { meta: GoodsItemItineraryFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={GoodsItemItineraryField.CustomizationID}
+          meta={GoodsItemItineraryFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={GoodsItemItineraryFieldMeta.CustomizationID}
-          />
+    [
+      GoodsItemItineraryField.ProfileID,
+      { meta: GoodsItemItineraryFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={GoodsItemItineraryField.ProfileID}
+          meta={GoodsItemItineraryFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={GoodsItemItineraryFieldMeta.ProfileID}
-          />
+    [
+      GoodsItemItineraryField.ProfileExecutionID,
+      { meta: GoodsItemItineraryFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={GoodsItemItineraryField.ProfileExecutionID}
+          meta={GoodsItemItineraryFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={GoodsItemItineraryFieldMeta.ProfileExecutionID}
-          />
+    [
+      GoodsItemItineraryField.ID,
+      { meta: GoodsItemItineraryFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={GoodsItemItineraryField.ID}
+          meta={GoodsItemItineraryFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={GoodsItemItineraryFieldMeta.ID}
-          />
+    [
+      GoodsItemItineraryField.CopyIndicator,
+      { meta: GoodsItemItineraryFieldMeta.CopyIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={GoodsItemItineraryField.CopyIndicator}
+          meta={GoodsItemItineraryFieldMeta.CopyIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.CopyIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Copy Indicator"
-            value={value.CopyIndicator?.[0]}
-            meta={GoodsItemItineraryFieldMeta.CopyIndicator}
-          />
+    [
+      GoodsItemItineraryField.UUID,
+      { meta: GoodsItemItineraryFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={GoodsItemItineraryField.UUID}
+          meta={GoodsItemItineraryFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={GoodsItemItineraryFieldMeta.UUID}
-          />
+    [
+      GoodsItemItineraryField.IssueDate,
+      { meta: GoodsItemItineraryFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={GoodsItemItineraryField.IssueDate}
+          meta={GoodsItemItineraryFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={GoodsItemItineraryFieldMeta.IssueDate}
-          />
+    [
+      GoodsItemItineraryField.IssueTime,
+      { meta: GoodsItemItineraryFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={GoodsItemItineraryField.IssueTime}
+          meta={GoodsItemItineraryFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={GoodsItemItineraryFieldMeta.IssueTime}
-          />
+    [
+      GoodsItemItineraryField.Note,
+      { meta: GoodsItemItineraryFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={GoodsItemItineraryField.Note}
+          meta={GoodsItemItineraryFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={GoodsItemItineraryFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={GoodsItemItineraryFieldMeta.Note}
-              />
-            }
-          />
+    [
+      GoodsItemItineraryField.VersionID,
+      { meta: GoodsItemItineraryFieldMeta.VersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={GoodsItemItineraryField.VersionID}
+          meta={GoodsItemItineraryFieldMeta.VersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.VersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Version"
-            value={value.VersionID?.[0]}
-            meta={GoodsItemItineraryFieldMeta.VersionID}
-          />
+    [
+      GoodsItemItineraryField.TransportExecutionPlanReferenceID,
+      { meta: GoodsItemItineraryFieldMeta.TransportExecutionPlanReferenceID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={GoodsItemItineraryField.TransportExecutionPlanReferenceID}
+          meta={GoodsItemItineraryFieldMeta.TransportExecutionPlanReferenceID}
+          fieldConfig={fieldConfig}
+          identifier={value?.TransportExecutionPlanReferenceID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Transport Execution Plan Reference"
-            value={value.TransportExecutionPlanReferenceID?.[0]}
-            meta={GoodsItemItineraryFieldMeta.TransportExecutionPlanReferenceID}
-          />
+    [
+      GoodsItemItineraryField.Signature,
+      { meta: GoodsItemItineraryFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={GoodsItemItineraryField.Signature}
+          meta={GoodsItemItineraryFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={GoodsItemItineraryFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={GoodsItemItineraryFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      GoodsItemItineraryField.SenderParty,
+      { meta: GoodsItemItineraryFieldMeta.SenderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={GoodsItemItineraryField.SenderParty}
+          meta={GoodsItemItineraryFieldMeta.SenderParty}
+          fieldConfig={fieldConfig}
+          party={value?.SenderParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Sender Party"
-            value={value.SenderParty?.[0]}
-            meta={GoodsItemItineraryFieldMeta.SenderParty}
-          />
+    [
+      GoodsItemItineraryField.ReceiverParty,
+      { meta: GoodsItemItineraryFieldMeta.ReceiverParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={GoodsItemItineraryField.ReceiverParty}
+          meta={GoodsItemItineraryFieldMeta.ReceiverParty}
+          fieldConfig={fieldConfig}
+          party={value?.ReceiverParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Receiver Party"
-            value={value.ReceiverParty?.[0]}
-            meta={GoodsItemItineraryFieldMeta.ReceiverParty}
-          />
+    [
+      GoodsItemItineraryField.ReferencedConsignment,
+      { meta: GoodsItemItineraryFieldMeta.ReferencedConsignment,
+        template: ({value, renderContext, fieldConfig}) => <ConsignmentDisplay
+          key={GoodsItemItineraryField.ReferencedConsignment}
+          meta={GoodsItemItineraryFieldMeta.ReferencedConsignment}
+          fieldConfig={fieldConfig}
+          consignment={value?.ReferencedConsignment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Consignment ubl-ReferencedConsignment"
-            label="Referenced Consignment"
-            items={value.ReferencedConsignment}
-            meta={GoodsItemItineraryFieldMeta.ReferencedConsignment} 
-            itemDisplay={ (itemValue: Consignment, key: string | number) =>
-              <ConsignmentDisplay
-                key={key}
-                label="Referenced Consignment"
-                value={itemValue}
-                meta={GoodsItemItineraryFieldMeta.ReferencedConsignment}
-              />
-            }
-          />
+    [
+      GoodsItemItineraryField.ReferencedTransportEquipment,
+      { meta: GoodsItemItineraryFieldMeta.ReferencedTransportEquipment,
+        template: ({value, renderContext, fieldConfig}) => <TransportEquipmentDisplay
+          key={GoodsItemItineraryField.ReferencedTransportEquipment}
+          meta={GoodsItemItineraryFieldMeta.ReferencedTransportEquipment}
+          fieldConfig={fieldConfig}
+          transportEquipment={value?.ReferencedTransportEquipment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-TransportEquipment ubl-ReferencedTransportEquipment"
-            label="Referenced Transport Equipment"
-            items={value.ReferencedTransportEquipment}
-            meta={GoodsItemItineraryFieldMeta.ReferencedTransportEquipment} 
-            itemDisplay={ (itemValue: TransportEquipment, key: string | number) =>
-              <TransportEquipmentDisplay
-                key={key}
-                label="Referenced Transport Equipment"
-                value={itemValue}
-                meta={GoodsItemItineraryFieldMeta.ReferencedTransportEquipment}
-              />
-            }
-          />
+    [
+      GoodsItemItineraryField.ReferencedPackage,
+      { meta: GoodsItemItineraryFieldMeta.ReferencedPackage,
+        template: ({value, renderContext, fieldConfig}) => <PackageDisplay
+          key={GoodsItemItineraryField.ReferencedPackage}
+          meta={GoodsItemItineraryFieldMeta.ReferencedPackage}
+          fieldConfig={fieldConfig}
+          packageValue={value?.ReferencedPackage}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Package ubl-ReferencedPackage"
-            label="Referenced Package"
-            items={value.ReferencedPackage}
-            meta={GoodsItemItineraryFieldMeta.ReferencedPackage} 
-            itemDisplay={ (itemValue: Package, key: string | number) =>
-              <PackageDisplay
-                key={key}
-                label="Referenced Package"
-                value={itemValue}
-                meta={GoodsItemItineraryFieldMeta.ReferencedPackage}
-              />
-            }
-          />
+    [
+      GoodsItemItineraryField.ReferencedGoodsItem,
+      { meta: GoodsItemItineraryFieldMeta.ReferencedGoodsItem,
+        template: ({value, renderContext, fieldConfig}) => <GoodsItemDisplay
+          key={GoodsItemItineraryField.ReferencedGoodsItem}
+          meta={GoodsItemItineraryFieldMeta.ReferencedGoodsItem}
+          fieldConfig={fieldConfig}
+          goodsItem={value?.ReferencedGoodsItem}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-GoodsItem ubl-ReferencedGoodsItem"
-            label="Referenced Goods Item"
-            items={value.ReferencedGoodsItem}
-            meta={GoodsItemItineraryFieldMeta.ReferencedGoodsItem} 
-            itemDisplay={ (itemValue: GoodsItem, key: string | number) =>
-              <GoodsItemDisplay
-                key={key}
-                label="Referenced Goods Item"
-                value={itemValue}
-                meta={GoodsItemItineraryFieldMeta.ReferencedGoodsItem}
-              />
-            }
-          />
+    [
+      GoodsItemItineraryField.TransportationSegment,
+      { meta: GoodsItemItineraryFieldMeta.TransportationSegment,
+        template: ({value, renderContext, fieldConfig}) => <TransportationSegmentDisplay
+          key={GoodsItemItineraryField.TransportationSegment}
+          meta={GoodsItemItineraryFieldMeta.TransportationSegment}
+          fieldConfig={fieldConfig}
+          transportationSegment={value?.TransportationSegment}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-TransportationSegment"
-            label="Transportation Segment"
-            items={value.TransportationSegment}
-            meta={GoodsItemItineraryFieldMeta.TransportationSegment} 
-            itemDisplay={ (itemValue: TransportationSegment, key: string | number) =>
-              <TransportationSegmentDisplay
-                key={key}
-                label="Transportation Segment"
-                value={itemValue}
-                meta={GoodsItemItineraryFieldMeta.TransportationSegment}
-              />
-            }
-          />
-        </div>
-    </div>
+export function GoodsItemItineraryDisplay<TFieldMeta>({ meta, fieldConfig, goodsItemItinerary, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    GoodsItemItineraryTypeName,
+    meta,
+    fieldConfig,
+    goodsItemItinerary,
+    renderContext,
+    GoodsItemItinerarySubElementsMap,
   )
 }

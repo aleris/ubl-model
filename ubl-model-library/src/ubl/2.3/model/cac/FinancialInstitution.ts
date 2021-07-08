@@ -2,7 +2,6 @@ import { Address } from './Address'
 import { Identifier } from '../cbc/Identifier'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a financial institution.
  */

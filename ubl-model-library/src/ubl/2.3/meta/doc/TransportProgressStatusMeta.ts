@@ -1,4 +1,16 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { TransportMeansType } from '../cac/TransportMeansMeta'
+import { TransportScheduleType } from '../cac/TransportScheduleMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum TransportProgressStatusField {
   UBLExtensions = 'UBLExtensions',
@@ -25,11 +37,11 @@ export enum TransportProgressStatusField {
 export const TransportProgressStatusFieldMetaUBLExtensions = new FieldMeta<TransportProgressStatusField>(
   TransportProgressStatusField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -38,10 +50,10 @@ export const TransportProgressStatusFieldMetaUBLVersionID = new FieldMeta<Transp
   TransportProgressStatusField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -50,10 +62,10 @@ export const TransportProgressStatusFieldMetaCustomizationID = new FieldMeta<Tra
   TransportProgressStatusField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -62,10 +74,10 @@ export const TransportProgressStatusFieldMetaProfileID = new FieldMeta<Transport
   TransportProgressStatusField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -74,10 +86,10 @@ export const TransportProgressStatusFieldMetaProfileExecutionID = new FieldMeta<
   TransportProgressStatusField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -86,10 +98,10 @@ export const TransportProgressStatusFieldMetaID = new FieldMeta<TransportProgres
   TransportProgressStatusField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -98,10 +110,10 @@ export const TransportProgressStatusFieldMetaCopyIndicator = new FieldMeta<Trans
   TransportProgressStatusField.CopyIndicator,
   'CopyIndicator',
   'Copy Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this document is a copy (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -110,10 +122,10 @@ export const TransportProgressStatusFieldMetaUUID = new FieldMeta<TransportProgr
   TransportProgressStatusField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -122,10 +134,10 @@ export const TransportProgressStatusFieldMetaIssueDate = new FieldMeta<Transport
   TransportProgressStatusField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -134,10 +146,10 @@ export const TransportProgressStatusFieldMetaIssueTime = new FieldMeta<Transport
   TransportProgressStatusField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -146,10 +158,10 @@ export const TransportProgressStatusFieldMetaNote = new FieldMeta<TransportProgr
   TransportProgressStatusField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -158,10 +170,10 @@ export const TransportProgressStatusFieldMetaStatusAvailableIndicator = new Fiel
   TransportProgressStatusField.StatusAvailableIndicator,
   'StatusAvailableIndicator',
   'Status Available Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether transport progress information is available.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -170,10 +182,10 @@ export const TransportProgressStatusFieldMetaSignature = new FieldMeta<Transport
   TransportProgressStatusField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -182,10 +194,10 @@ export const TransportProgressStatusFieldMetaSenderParty = new FieldMeta<Transpo
   TransportProgressStatusField.SenderParty,
   'SenderParty',
   'Sender Party',
-  'Party',
+  PartyType.name,
   'The party sending the Transport Progress Status.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -194,10 +206,10 @@ export const TransportProgressStatusFieldMetaReceiverParty = new FieldMeta<Trans
   TransportProgressStatusField.ReceiverParty,
   'ReceiverParty',
   'Receiver Party',
-  'Party',
+  PartyType.name,
   'The party receiving the Transport Progress Status.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -206,10 +218,10 @@ export const TransportProgressStatusFieldMetaSourceIssuerParty = new FieldMeta<T
   TransportProgressStatusField.SourceIssuerParty,
   'SourceIssuerParty',
   'Source Issuer Party',
-  'Party',
+  PartyType.name,
   'The party that is the source of the Transport Progress Status.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -218,10 +230,10 @@ export const TransportProgressStatusFieldMetaTransportProgressStatusRequestDocum
   TransportProgressStatusField.TransportProgressStatusRequestDocumentReference,
   'TransportProgressStatusRequestDocumentReference',
   'Transport Progress Status Request Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to the Transport Progress Status Request document to which this status report is a response.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -230,10 +242,10 @@ export const TransportProgressStatusFieldMetaTransportMeans = new FieldMeta<Tran
   TransportProgressStatusField.TransportMeans,
   'TransportMeans',
   'Transport Means',
-  'TransportMeans',
+  TransportMeansType.name,
   'The transport means by which the current transport service is effectuated.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -242,10 +254,10 @@ export const TransportProgressStatusFieldMetaTransportSchedule = new FieldMeta<T
   TransportProgressStatusField.TransportSchedule,
   'TransportSchedule',
   'Transport Schedule',
-  'TransportSchedule',
+  TransportScheduleType.name,
   'Describes the status and schedule of the transport means operating the transport service as well as the current location of the transport means.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -293,3 +305,11 @@ export const TransportProgressStatusFieldMap = new Map([
   [TransportProgressStatusField.TransportMeans, TransportProgressStatusFieldMetaTransportMeans],
   [TransportProgressStatusField.TransportSchedule, TransportProgressStatusFieldMetaTransportSchedule]
 ])
+
+export const TransportProgressStatusType: Type<TransportProgressStatusField> = {
+  name: 'TransportProgressStatus',
+  label: 'Transport Progress Status',
+  module: TypeModule.doc,
+  definition: 'A document sent from a Transportation Network Manager to a Transport Service Provider giving the status of the whereabouts and schedule of the transport means involved in a transport service.',
+  fields: TransportProgressStatusFieldMap,
+}

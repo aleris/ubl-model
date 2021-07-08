@@ -1,4 +1,11 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { BranchType } from './BranchMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { CountryType } from './CountryMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum FinancialAccountField {
   UBLExtensions = 'UBLExtensions',
@@ -16,11 +23,11 @@ export enum FinancialAccountField {
 export const FinancialAccountFieldMetaUBLExtensions = new FieldMeta<FinancialAccountField>(
   FinancialAccountField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -29,10 +36,10 @@ export const FinancialAccountFieldMetaID = new FieldMeta<FinancialAccountField>(
   FinancialAccountField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'The identifier for this financial account; the bank account number.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'SWIFT(BIC) and IBAN are defined in ISO 9362 and ISO 13616.'
 )
@@ -41,10 +48,10 @@ export const FinancialAccountFieldMetaName = new FieldMeta<FinancialAccountField
   FinancialAccountField.Name,
   'Name',
   'Name',
-  'Text',
+  TextType.name,
   'The name of this financial account.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -53,10 +60,10 @@ export const FinancialAccountFieldMetaAliasName = new FieldMeta<FinancialAccount
   FinancialAccountField.AliasName,
   'AliasName',
   'Alias Name',
-  'Text',
+  TextType.name,
   'An alias for the name of this financial account, to be used in place of the actual account name for security reasons.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -65,10 +72,10 @@ export const FinancialAccountFieldMetaAccountTypeCode = new FieldMeta<FinancialA
   FinancialAccountField.AccountTypeCode,
   'AccountTypeCode',
   'Account Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of this financial account.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -77,10 +84,10 @@ export const FinancialAccountFieldMetaAccountFormatCode = new FieldMeta<Financia
   FinancialAccountField.AccountFormatCode,
   'AccountFormatCode',
   'Account Format Code',
-  'Code',
+  CodeType.name,
   'A code signifying the format of this financial account.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'ISO20022 Clearing System Identification Code'
 )
@@ -89,10 +96,10 @@ export const FinancialAccountFieldMetaCurrencyCode = new FieldMeta<FinancialAcco
   FinancialAccountField.CurrencyCode,
   'CurrencyCode',
   'Currency Code',
-  'Code',
+  CodeType.name,
   'A code signifying the currency in which this financial account is held.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -101,10 +108,10 @@ export const FinancialAccountFieldMetaPaymentNote = new FieldMeta<FinancialAccou
   FinancialAccountField.PaymentNote,
   'PaymentNote',
   'Payment Note',
-  'Text',
+  TextType.name,
   'Free-form text applying to the Payment for the owner of this account.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -113,10 +120,10 @@ export const FinancialAccountFieldMetaFinancialInstitutionBranch = new FieldMeta
   FinancialAccountField.FinancialInstitutionBranch,
   'FinancialInstitutionBranch',
   'Financial Institution Branch',
-  'Branch',
+  BranchType.name,
   'The branch of the financial institution associated with this financial account.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -125,10 +132,10 @@ export const FinancialAccountFieldMetaCountry = new FieldMeta<FinancialAccountFi
   FinancialAccountField.Country,
   'Country',
   'Country',
-  'Country',
+  CountryType.name,
   'The country in which the holder of the financial account is domiciled.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -158,3 +165,11 @@ export const FinancialAccountFieldMap = new Map([
   [FinancialAccountField.FinancialInstitutionBranch, FinancialAccountFieldMetaFinancialInstitutionBranch],
   [FinancialAccountField.Country, FinancialAccountFieldMetaCountry]
 ])
+
+export const FinancialAccountType: Type<FinancialAccountField> = {
+  name: 'FinancialAccount',
+  label: 'Financial Account',
+  module: TypeModule.cac,
+  definition: 'A class to describe a financial account.',
+  fields: FinancialAccountFieldMap,
+}

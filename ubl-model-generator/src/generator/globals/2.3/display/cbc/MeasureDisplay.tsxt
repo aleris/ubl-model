@@ -1,18 +1,25 @@
 import React from 'react'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Measure } from '../../model/cbc/Measure'
-import FieldDisplay from '../FieldDisplay'
+import { FieldConfig } from '../FieldConfig'
+import { FieldDisplay } from '../FieldDisplay'
 
 type Props = {
-  label: string
-  value: Measure | undefined
+  className: string
+  label?: string
+  measure: Measure | undefined
   meta: FieldMeta<any>
+  fieldConfig?: FieldConfig
 }
 
-export default function MeasureDisplay({ label, value, meta }: Props) {
-  if (value === undefined) {
+export function MeasureDisplay({ className, label, measure, meta, fieldConfig }: Props) {
+  if (measure === undefined) {
     return null
   }
-  const stringValue = `${value._}`
-  return <div className="ubl-cbc ubl-Measure"><FieldDisplay label={label} value={stringValue} /></div>
+  const stringValue = `${measure._}`
+  return (
+    <div className={className}>
+      <FieldDisplay label={label} value={stringValue} config={fieldConfig} />
+    </div>
+  )
 }

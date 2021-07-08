@@ -1,4 +1,11 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AddressType } from './AddressMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { TaxSchemeType } from './TaxSchemeMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum PartyTaxSchemeField {
   UBLExtensions = 'UBLExtensions',
@@ -14,11 +21,11 @@ export enum PartyTaxSchemeField {
 export const PartyTaxSchemeFieldMetaUBLExtensions = new FieldMeta<PartyTaxSchemeField>(
   PartyTaxSchemeField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -27,10 +34,10 @@ export const PartyTaxSchemeFieldMetaRegistrationName = new FieldMeta<PartyTaxSch
   PartyTaxSchemeField.RegistrationName,
   'RegistrationName',
   'Registration Name',
-  'Text',
+  TextType.name,
   'The name of the party as registered with the relevant fiscal authority.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Microsoft Corporation'
 )
@@ -39,10 +46,10 @@ export const PartyTaxSchemeFieldMetaCompanyID = new FieldMeta<PartyTaxSchemeFiel
   PartyTaxSchemeField.CompanyID,
   'CompanyID',
   'Company Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the party assigned for tax purposes by the taxation authority.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'VAT Number',
   '3556625'
 )
@@ -51,10 +58,10 @@ export const PartyTaxSchemeFieldMetaTaxLevelCode = new FieldMeta<PartyTaxSchemeF
   PartyTaxSchemeField.TaxLevelCode,
   'TaxLevelCode',
   'Tax Level Code',
-  'Code',
+  CodeType.name,
   'A code signifying the tax level applicable to the party within this taxation scheme.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -63,10 +70,10 @@ export const PartyTaxSchemeFieldMetaExemptionReasonCode = new FieldMeta<PartyTax
   PartyTaxSchemeField.ExemptionReasonCode,
   'ExemptionReasonCode',
   'Exemption Reason Code',
-  'Code',
+  CodeType.name,
   'A reason for the party\'s exemption from tax, expressed as a code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -75,10 +82,10 @@ export const PartyTaxSchemeFieldMetaExemptionReason = new FieldMeta<PartyTaxSche
   PartyTaxSchemeField.ExemptionReason,
   'ExemptionReason',
   'Exemption Reason',
-  'Text',
+  TextType.name,
   'A reason for the party\'s exemption from tax, expressed as text.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -87,10 +94,10 @@ export const PartyTaxSchemeFieldMetaRegistrationAddress = new FieldMeta<PartyTax
   PartyTaxSchemeField.RegistrationAddress,
   'RegistrationAddress',
   'Registration Address',
-  'Address',
+  AddressType.name,
   'The address of the party as registered for tax purposes.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -99,10 +106,10 @@ export const PartyTaxSchemeFieldMetaTaxScheme = new FieldMeta<PartyTaxSchemeFiel
   PartyTaxSchemeField.TaxScheme,
   'TaxScheme',
   'Tax Scheme',
-  'TaxScheme',
+  TaxSchemeType.name,
   'The taxation scheme applicable to the party.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -128,3 +135,11 @@ export const PartyTaxSchemeFieldMap = new Map([
   [PartyTaxSchemeField.RegistrationAddress, PartyTaxSchemeFieldMetaRegistrationAddress],
   [PartyTaxSchemeField.TaxScheme, PartyTaxSchemeFieldMetaTaxScheme]
 ])
+
+export const PartyTaxSchemeType: Type<PartyTaxSchemeField> = {
+  name: 'PartyTaxScheme',
+  label: 'Party Tax Scheme',
+  module: TypeModule.cac,
+  definition: 'A class to describe a taxation scheme applying to a party.',
+  fields: PartyTaxSchemeFieldMap,
+}

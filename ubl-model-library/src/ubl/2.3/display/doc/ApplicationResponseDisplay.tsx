@@ -1,169 +1,239 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ApplicationResponse } from  '../../model/doc/ApplicationResponse'
-import { ApplicationResponseFieldMeta } from  '../../meta/doc/ApplicationResponseMeta'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentResponseDisplay from '../cac/DocumentResponseDisplay'
-import { DocumentResponse } from '../../model/cac/DocumentResponse'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ApplicationResponseField, ApplicationResponseFieldMeta, ApplicationResponseTypeName } from  '../../meta/doc/ApplicationResponseMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentResponseDisplay } from '../cac/DocumentResponseDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ApplicationResponse | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ApplicationResponse, void>
+  applicationResponse: ApplicationResponse[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ApplicationResponseDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ApplicationResponseSubElementsMap: SubElementsTemplatesMap<ApplicationResponseField, ApplicationResponse, void> = new Map([
+    [
+      ApplicationResponseField.UBLExtensions,
+      { meta: ApplicationResponseFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ApplicationResponseField.UBLExtensions}
+          meta={ApplicationResponseFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-ApplicationResponse">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ApplicationResponseFieldMeta.UBLExtensions}
-          />
+    [
+      ApplicationResponseField.UBLVersionID,
+      { meta: ApplicationResponseFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ApplicationResponseField.UBLVersionID}
+          meta={ApplicationResponseFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={ApplicationResponseFieldMeta.UBLVersionID}
-          />
+    [
+      ApplicationResponseField.CustomizationID,
+      { meta: ApplicationResponseFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ApplicationResponseField.CustomizationID}
+          meta={ApplicationResponseFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={ApplicationResponseFieldMeta.CustomizationID}
-          />
+    [
+      ApplicationResponseField.ProfileID,
+      { meta: ApplicationResponseFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ApplicationResponseField.ProfileID}
+          meta={ApplicationResponseFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={ApplicationResponseFieldMeta.ProfileID}
-          />
+    [
+      ApplicationResponseField.ProfileExecutionID,
+      { meta: ApplicationResponseFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ApplicationResponseField.ProfileExecutionID}
+          meta={ApplicationResponseFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={ApplicationResponseFieldMeta.ProfileExecutionID}
-          />
+    [
+      ApplicationResponseField.ID,
+      { meta: ApplicationResponseFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ApplicationResponseField.ID}
+          meta={ApplicationResponseFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={ApplicationResponseFieldMeta.ID}
-          />
+    [
+      ApplicationResponseField.UUID,
+      { meta: ApplicationResponseFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ApplicationResponseField.UUID}
+          meta={ApplicationResponseFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={ApplicationResponseFieldMeta.UUID}
-          />
+    [
+      ApplicationResponseField.IssueDate,
+      { meta: ApplicationResponseFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={ApplicationResponseField.IssueDate}
+          meta={ApplicationResponseFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={ApplicationResponseFieldMeta.IssueDate}
-          />
+    [
+      ApplicationResponseField.IssueTime,
+      { meta: ApplicationResponseFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={ApplicationResponseField.IssueTime}
+          meta={ApplicationResponseFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={ApplicationResponseFieldMeta.IssueTime}
-          />
+    [
+      ApplicationResponseField.ResponseDate,
+      { meta: ApplicationResponseFieldMeta.ResponseDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={ApplicationResponseField.ResponseDate}
+          meta={ApplicationResponseFieldMeta.ResponseDate}
+          fieldConfig={fieldConfig}
+          date={value?.ResponseDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Response Date"
-            value={value.ResponseDate?.[0]}
-            meta={ApplicationResponseFieldMeta.ResponseDate}
-          />
+    [
+      ApplicationResponseField.ResponseTime,
+      { meta: ApplicationResponseFieldMeta.ResponseTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={ApplicationResponseField.ResponseTime}
+          meta={ApplicationResponseFieldMeta.ResponseTime}
+          fieldConfig={fieldConfig}
+          time={value?.ResponseTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Response Time"
-            value={value.ResponseTime?.[0]}
-            meta={ApplicationResponseFieldMeta.ResponseTime}
-          />
+    [
+      ApplicationResponseField.Note,
+      { meta: ApplicationResponseFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ApplicationResponseField.Note}
+          meta={ApplicationResponseFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={ApplicationResponseFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={ApplicationResponseFieldMeta.Note}
-              />
-            }
-          />
+    [
+      ApplicationResponseField.VersionID,
+      { meta: ApplicationResponseFieldMeta.VersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ApplicationResponseField.VersionID}
+          meta={ApplicationResponseFieldMeta.VersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.VersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Version"
-            value={value.VersionID?.[0]}
-            meta={ApplicationResponseFieldMeta.VersionID}
-          />
+    [
+      ApplicationResponseField.Signature,
+      { meta: ApplicationResponseFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={ApplicationResponseField.Signature}
+          meta={ApplicationResponseFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={ApplicationResponseFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={ApplicationResponseFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      ApplicationResponseField.SenderParty,
+      { meta: ApplicationResponseFieldMeta.SenderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ApplicationResponseField.SenderParty}
+          meta={ApplicationResponseFieldMeta.SenderParty}
+          fieldConfig={fieldConfig}
+          party={value?.SenderParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Sender Party"
-            value={value.SenderParty?.[0]}
-            meta={ApplicationResponseFieldMeta.SenderParty}
-          />
+    [
+      ApplicationResponseField.ReceiverParty,
+      { meta: ApplicationResponseFieldMeta.ReceiverParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ApplicationResponseField.ReceiverParty}
+          meta={ApplicationResponseFieldMeta.ReceiverParty}
+          fieldConfig={fieldConfig}
+          party={value?.ReceiverParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Receiver Party"
-            value={value.ReceiverParty?.[0]}
-            meta={ApplicationResponseFieldMeta.ReceiverParty}
-          />
+    [
+      ApplicationResponseField.DocumentResponse,
+      { meta: ApplicationResponseFieldMeta.DocumentResponse,
+        template: ({value, renderContext, fieldConfig}) => <DocumentResponseDisplay
+          key={ApplicationResponseField.DocumentResponse}
+          meta={ApplicationResponseFieldMeta.DocumentResponse}
+          fieldConfig={fieldConfig}
+          documentResponse={value?.DocumentResponse}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentResponse"
-            label="Document Response"
-            items={value.DocumentResponse}
-            meta={ApplicationResponseFieldMeta.DocumentResponse} 
-            itemDisplay={ (itemValue: DocumentResponse, key: string | number) =>
-              <DocumentResponseDisplay
-                key={key}
-                label="Document Response"
-                value={itemValue}
-                meta={ApplicationResponseFieldMeta.DocumentResponse}
-              />
-            }
-          />
-        </div>
-    </div>
+export function ApplicationResponseDisplay<TFieldMeta>({ meta, fieldConfig, applicationResponse, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ApplicationResponseTypeName,
+    meta,
+    fieldConfig,
+    applicationResponse,
+    renderContext,
+    ApplicationResponseSubElementsMap,
   )
 }

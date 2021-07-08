@@ -1,4 +1,7 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum EncryptionSymmetricAlgorithmField {
   UBLExtensions = 'UBLExtensions',
@@ -9,11 +12,11 @@ export enum EncryptionSymmetricAlgorithmField {
 export const EncryptionSymmetricAlgorithmFieldMetaUBLExtensions = new FieldMeta<EncryptionSymmetricAlgorithmField>(
   EncryptionSymmetricAlgorithmField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -22,10 +25,10 @@ export const EncryptionSymmetricAlgorithmFieldMetaID = new FieldMeta<EncryptionS
   EncryptionSymmetricAlgorithmField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'A human-readable identifier the algorithm.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'AES-256 Rijndael CBC'
 )
@@ -34,10 +37,10 @@ export const EncryptionSymmetricAlgorithmFieldMetaOID = new FieldMeta<Encryption
   EncryptionSymmetricAlgorithmField.OID,
   'OID',
   'OID',
-  'Identifier',
+  IdentifierType.name,
   'The object identifier for the algorithm.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.16.840.1.101.3.4.1.42'
 )
@@ -53,3 +56,11 @@ export const EncryptionSymmetricAlgorithmFieldMap = new Map([
   [EncryptionSymmetricAlgorithmField.ID, EncryptionSymmetricAlgorithmFieldMetaID],
   [EncryptionSymmetricAlgorithmField.OID, EncryptionSymmetricAlgorithmFieldMetaOID]
 ])
+
+export const EncryptionSymmetricAlgorithmType: Type<EncryptionSymmetricAlgorithmField> = {
+  name: 'EncryptionSymmetricAlgorithm',
+  label: 'Encryption Symmetric Algorithm',
+  module: TypeModule.cac,
+  definition: 'Details of a symmetric algorithm used in encryption.',
+  fields: EncryptionSymmetricAlgorithmFieldMap,
+}

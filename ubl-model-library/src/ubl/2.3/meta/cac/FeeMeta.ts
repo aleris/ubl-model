@@ -1,4 +1,9 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum FeeField {
   UBLExtensions = 'UBLExtensions',
@@ -10,11 +15,11 @@ export enum FeeField {
 export const FeeFieldMetaUBLExtensions = new FieldMeta<FeeField>(
   FeeField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -23,10 +28,10 @@ export const FeeFieldMetaFeeTypeCode = new FieldMeta<FeeField>(
   FeeField.FeeTypeCode,
   'FeeTypeCode',
   'Fee Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of this fee.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -35,10 +40,10 @@ export const FeeFieldMetaFeeAmount = new FieldMeta<FeeField>(
   FeeField.FeeAmount,
   'FeeAmount',
   'Fee Amount',
-  'Amount',
+  AmountType.name,
   'The amount of a fee.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -47,10 +52,10 @@ export const FeeFieldMetaFeeDescription = new FieldMeta<FeeField>(
   FeeField.FeeDescription,
   'FeeDescription',
   'Fee Description',
-  'Text',
+  TextType.name,
   'Text describing this fee.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -68,3 +73,11 @@ export const FeeFieldMap = new Map([
   [FeeField.FeeAmount, FeeFieldMetaFeeAmount],
   [FeeField.FeeDescription, FeeFieldMetaFeeDescription]
 ])
+
+export const FeeType: Type<FeeField> = {
+  name: 'Fee',
+  label: 'Fee',
+  module: TypeModule.cac,
+  definition: 'A class to describe a revenue.',
+  fields: FeeFieldMap,
+}

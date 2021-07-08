@@ -1,4 +1,32 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AllowanceChargeType } from '../cac/AllowanceChargeMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { ContractType } from '../cac/ContractMeta'
+import { CountryType } from '../cac/CountryMeta'
+import { CustomerPartyType } from '../cac/CustomerPartyMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DeliveryType } from '../cac/DeliveryMeta'
+import { DeliveryTermsType } from '../cac/DeliveryTermsMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { ExchangeRateType } from '../cac/ExchangeRateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { MonetaryTotalType } from '../cac/MonetaryTotalMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { OrderLineType } from '../cac/OrderLineMeta'
+import { OrderReferenceType } from '../cac/OrderReferenceMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { PaymentMeansType } from '../cac/PaymentMeansMeta'
+import { PaymentTermsType } from '../cac/PaymentTermsMeta'
+import { PeriodType } from '../cac/PeriodMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { SupplierPartyType } from '../cac/SupplierPartyMeta'
+import { TaxTotalType } from '../cac/TaxTotalMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { TransactionConditionsType } from '../cac/TransactionConditionsMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum OrderChangeField {
   UBLExtensions = 'UBLExtensions',
@@ -53,11 +81,11 @@ export enum OrderChangeField {
 export const OrderChangeFieldMetaUBLExtensions = new FieldMeta<OrderChangeField>(
   OrderChangeField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -66,10 +94,10 @@ export const OrderChangeFieldMetaUBLVersionID = new FieldMeta<OrderChangeField>(
   OrderChangeField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.0.5'
 )
@@ -78,10 +106,10 @@ export const OrderChangeFieldMetaCustomizationID = new FieldMeta<OrderChangeFiel
   OrderChangeField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -90,10 +118,10 @@ export const OrderChangeFieldMetaProfileID = new FieldMeta<OrderChangeField>(
   OrderChangeField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BasicProcurementProcess'
 )
@@ -102,10 +130,10 @@ export const OrderChangeFieldMetaProfileExecutionID = new FieldMeta<OrderChangeF
   OrderChangeField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BPP-1001'
 )
@@ -114,10 +142,10 @@ export const OrderChangeFieldMetaID = new FieldMeta<OrderChangeField>(
   OrderChangeField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -126,10 +154,10 @@ export const OrderChangeFieldMetaSalesOrderID = new FieldMeta<OrderChangeField>(
   OrderChangeField.SalesOrderID,
   'SalesOrderID',
   'Sales Order Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the Order Change, assigned by the seller.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -138,10 +166,10 @@ export const OrderChangeFieldMetaCopyIndicator = new FieldMeta<OrderChangeField>
   OrderChangeField.CopyIndicator,
   'CopyIndicator',
   'Copy Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this document is a copy (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -150,10 +178,10 @@ export const OrderChangeFieldMetaUUID = new FieldMeta<OrderChangeField>(
   OrderChangeField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -162,10 +190,10 @@ export const OrderChangeFieldMetaIssueDate = new FieldMeta<OrderChangeField>(
   OrderChangeField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -174,10 +202,10 @@ export const OrderChangeFieldMetaIssueTime = new FieldMeta<OrderChangeField>(
   OrderChangeField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -186,10 +214,10 @@ export const OrderChangeFieldMetaSequenceNumberID = new FieldMeta<OrderChangeFie
   OrderChangeField.SequenceNumberID,
   'SequenceNumberID',
   'Sequence Number',
-  'Identifier',
+  IdentifierType.name,
   'The Order Change Sequence Number assigned by the Buyer to ensure the proper sequencing of changes.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -198,10 +226,10 @@ export const OrderChangeFieldMetaNote = new FieldMeta<OrderChangeField>(
   OrderChangeField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -210,10 +238,10 @@ export const OrderChangeFieldMetaRequestedInvoiceCurrencyCode = new FieldMeta<Or
   OrderChangeField.RequestedInvoiceCurrencyCode,
   'RequestedInvoiceCurrencyCode',
   'Requested Invoice Currency Code',
-  'Code',
+  CodeType.name,
   'A code signifying he currency requested for amount totals in Invoices related to this Order Change.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -222,10 +250,10 @@ export const OrderChangeFieldMetaDocumentCurrencyCode = new FieldMeta<OrderChang
   OrderChangeField.DocumentCurrencyCode,
   'DocumentCurrencyCode',
   'Document Currency Code',
-  'Code',
+  CodeType.name,
   'A code signifying the default currency for this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -234,10 +262,10 @@ export const OrderChangeFieldMetaPricingCurrencyCode = new FieldMeta<OrderChange
   OrderChangeField.PricingCurrencyCode,
   'PricingCurrencyCode',
   'Pricing Currency Code',
-  'Code',
+  CodeType.name,
   'A code signifying the currency that is used for all prices in the Order Change.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -246,10 +274,10 @@ export const OrderChangeFieldMetaTaxCurrencyCode = new FieldMeta<OrderChangeFiel
   OrderChangeField.TaxCurrencyCode,
   'TaxCurrencyCode',
   'Tax Currency Code',
-  'Code',
+  CodeType.name,
   'A code signifying the currency requested for tax amounts in Invoices related to this Order Change.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -258,10 +286,10 @@ export const OrderChangeFieldMetaCustomerReference = new FieldMeta<OrderChangeFi
   OrderChangeField.CustomerReference,
   'CustomerReference',
   'Customer Reference',
-  'Text',
+  TextType.name,
   'A supplementary reference for the transaction (e.g., CRI when using purchasing card).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -270,10 +298,10 @@ export const OrderChangeFieldMetaAccountingCostCode = new FieldMeta<OrderChangeF
   OrderChangeField.AccountingCostCode,
   'AccountingCostCode',
   'Accounting Cost Code',
-  'Code',
+  CodeType.name,
   'The buyer\'s accounting code, applied to the Order Change as a whole.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -282,10 +310,10 @@ export const OrderChangeFieldMetaAccountingCost = new FieldMeta<OrderChangeField
   OrderChangeField.AccountingCost,
   'AccountingCost',
   'Accounting Cost',
-  'Text',
+  TextType.name,
   'The buyer\'s accounting code, applied to the Order Change as a whole, expressed as text.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -294,10 +322,10 @@ export const OrderChangeFieldMetaLineCountNumeric = new FieldMeta<OrderChangeFie
   OrderChangeField.LineCountNumeric,
   'LineCountNumeric',
   'Line Count',
-  'Numeric',
+  NumericType.name,
   'The number of Order Change lines in the document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -306,10 +334,10 @@ export const OrderChangeFieldMetaValidityPeriod = new FieldMeta<OrderChangeField
   OrderChangeField.ValidityPeriod,
   'ValidityPeriod',
   'Validity Period',
-  'Period',
+  PeriodType.name,
   'A period during which the Order Change is valid.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -318,10 +346,10 @@ export const OrderChangeFieldMetaOrderReference = new FieldMeta<OrderChangeField
   OrderChangeField.OrderReference,
   'OrderReference',
   'Order Reference',
-  'OrderReference',
+  OrderReferenceType.name,
   'A reference to the Order being changed.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -330,10 +358,10 @@ export const OrderChangeFieldMetaQuotationDocumentReference = new FieldMeta<Orde
   OrderChangeField.QuotationDocumentReference,
   'QuotationDocumentReference',
   'Quotation Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a Quotation.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -342,10 +370,10 @@ export const OrderChangeFieldMetaOriginatorDocumentReference = new FieldMeta<Ord
   OrderChangeField.OriginatorDocumentReference,
   'OriginatorDocumentReference',
   'Originator Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to an originator document associated with this document.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -354,10 +382,10 @@ export const OrderChangeFieldMetaAdditionalDocumentReference = new FieldMeta<Ord
   OrderChangeField.AdditionalDocumentReference,
   'AdditionalDocumentReference',
   'Additional Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to an additional document associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -366,10 +394,10 @@ export const OrderChangeFieldMetaContract = new FieldMeta<OrderChangeField>(
   OrderChangeField.Contract,
   'Contract',
   'Contract',
-  'Contract',
+  ContractType.name,
   'A contract associated with the Order being changed.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -378,10 +406,10 @@ export const OrderChangeFieldMetaSignature = new FieldMeta<OrderChangeField>(
   OrderChangeField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -390,10 +418,10 @@ export const OrderChangeFieldMetaBuyerCustomerParty = new FieldMeta<OrderChangeF
   OrderChangeField.BuyerCustomerParty,
   'BuyerCustomerParty',
   'Buyer Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The buyer.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -402,10 +430,10 @@ export const OrderChangeFieldMetaSellerSupplierParty = new FieldMeta<OrderChange
   OrderChangeField.SellerSupplierParty,
   'SellerSupplierParty',
   'Seller Supplier Party',
-  'SupplierParty',
+  SupplierPartyType.name,
   'The seller.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -414,10 +442,10 @@ export const OrderChangeFieldMetaOriginatorCustomerParty = new FieldMeta<OrderCh
   OrderChangeField.OriginatorCustomerParty,
   'OriginatorCustomerParty',
   'Originator Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The originator.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -426,10 +454,10 @@ export const OrderChangeFieldMetaFreightForwarderParty = new FieldMeta<OrderChan
   OrderChangeField.FreightForwarderParty,
   'FreightForwarderParty',
   'Freight Forwarder Party',
-  'Party',
+  PartyType.name,
   'A freight forwarder or carrier.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -438,10 +466,10 @@ export const OrderChangeFieldMetaAccountingCustomerParty = new FieldMeta<OrderCh
   OrderChangeField.AccountingCustomerParty,
   'AccountingCustomerParty',
   'Accounting Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The accounting customer party.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -450,10 +478,10 @@ export const OrderChangeFieldMetaAccountingSupplierParty = new FieldMeta<OrderCh
   OrderChangeField.AccountingSupplierParty,
   'AccountingSupplierParty',
   'Accounting Supplier Party',
-  'SupplierParty',
+  SupplierPartyType.name,
   'The accounting supplier party.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -462,10 +490,10 @@ export const OrderChangeFieldMetaDelivery = new FieldMeta<OrderChangeField>(
   OrderChangeField.Delivery,
   'Delivery',
   'Delivery',
-  'Delivery',
+  DeliveryType.name,
   'A delivery associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -474,10 +502,10 @@ export const OrderChangeFieldMetaDeliveryTerms = new FieldMeta<OrderChangeField>
   OrderChangeField.DeliveryTerms,
   'DeliveryTerms',
   'Delivery Terms',
-  'DeliveryTerms',
+  DeliveryTermsType.name,
   'A set of delivery terms associated with this document.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -486,10 +514,10 @@ export const OrderChangeFieldMetaPaymentMeans = new FieldMeta<OrderChangeField>(
   OrderChangeField.PaymentMeans,
   'PaymentMeans',
   'Payment Means',
-  'PaymentMeans',
+  PaymentMeansType.name,
   'Expected means of payment.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -498,10 +526,10 @@ export const OrderChangeFieldMetaPaymentTerms = new FieldMeta<OrderChangeField>(
   OrderChangeField.PaymentTerms,
   'PaymentTerms',
   'Payment Terms',
-  'PaymentTerms',
+  PaymentTermsType.name,
   'A set of payment terms associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -510,10 +538,10 @@ export const OrderChangeFieldMetaTransactionConditions = new FieldMeta<OrderChan
   OrderChangeField.TransactionConditions,
   'TransactionConditions',
   'Transaction Conditions',
-  'TransactionConditions',
+  TransactionConditionsType.name,
   'Purchasing, sales, or payment conditions applying to the whole Order being changed.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -522,10 +550,10 @@ export const OrderChangeFieldMetaAllowanceCharge = new FieldMeta<OrderChangeFiel
   OrderChangeField.AllowanceCharge,
   'AllowanceCharge',
   'Allowance Charge',
-  'AllowanceCharge',
+  AllowanceChargeType.name,
   'A discount or charge that applies to a price component.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -534,10 +562,10 @@ export const OrderChangeFieldMetaTaxExchangeRate = new FieldMeta<OrderChangeFiel
   OrderChangeField.TaxExchangeRate,
   'TaxExchangeRate',
   'Tax Exchange Rate',
-  'ExchangeRate',
+  ExchangeRateType.name,
   'The exchange rate between the document currency and the tax currency.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -546,10 +574,10 @@ export const OrderChangeFieldMetaPricingExchangeRate = new FieldMeta<OrderChange
   OrderChangeField.PricingExchangeRate,
   'PricingExchangeRate',
   'Pricing Exchange Rate',
-  'ExchangeRate',
+  ExchangeRateType.name,
   'The exchange rate between the document currency and the pricing currency.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -558,10 +586,10 @@ export const OrderChangeFieldMetaPaymentExchangeRate = new FieldMeta<OrderChange
   OrderChangeField.PaymentExchangeRate,
   'PaymentExchangeRate',
   'Payment Exchange Rate',
-  'ExchangeRate',
+  ExchangeRateType.name,
   'The exchange rate between the document currency and the payment currency.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -570,10 +598,10 @@ export const OrderChangeFieldMetaDestinationCountry = new FieldMeta<OrderChangeF
   OrderChangeField.DestinationCountry,
   'DestinationCountry',
   'Destination Country',
-  'Country',
+  CountryType.name,
   'The country of destination (for customs purposes).',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -582,10 +610,10 @@ export const OrderChangeFieldMetaTaxTotal = new FieldMeta<OrderChangeField>(
   OrderChangeField.TaxTotal,
   'TaxTotal',
   'Tax Total',
-  'TaxTotal',
+  TaxTotalType.name,
   'The total amount of a specific type of tax.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -594,10 +622,10 @@ export const OrderChangeFieldMetaAnticipatedMonetaryTotal = new FieldMeta<OrderC
   OrderChangeField.AnticipatedMonetaryTotal,
   'AnticipatedMonetaryTotal',
   'Anticipated Monetary Total',
-  'MonetaryTotal',
+  MonetaryTotalType.name,
   'The amount of change to the total cost of the order anticipated by the buyer.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -606,10 +634,10 @@ export const OrderChangeFieldMetaOrderLine = new FieldMeta<OrderChangeField>(
   OrderChangeField.OrderLine,
   'OrderLine',
   'Order Line',
-  'OrderLine',
+  OrderLineType.name,
   'An association to one or more (changed) Order Lines.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -713,3 +741,11 @@ export const OrderChangeFieldMap = new Map([
   [OrderChangeField.AnticipatedMonetaryTotal, OrderChangeFieldMetaAnticipatedMonetaryTotal],
   [OrderChangeField.OrderLine, OrderChangeFieldMetaOrderLine]
 ])
+
+export const OrderChangeType: Type<OrderChangeField> = {
+  name: 'OrderChange',
+  label: 'Order Change',
+  module: TypeModule.doc,
+  definition: 'A document used to specify changes to an existing Order.',
+  fields: OrderChangeFieldMap,
+}

@@ -1,4 +1,15 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AttachmentType } from '../cac/AttachmentMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum EnquiryResponseField {
   UBLExtensions = 'UBLExtensions',
@@ -23,11 +34,11 @@ export enum EnquiryResponseField {
 export const EnquiryResponseFieldMetaUBLExtensions = new FieldMeta<EnquiryResponseField>(
   EnquiryResponseField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -36,10 +47,10 @@ export const EnquiryResponseFieldMetaUBLVersionID = new FieldMeta<EnquiryRespons
   EnquiryResponseField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.0.5'
 )
@@ -48,10 +59,10 @@ export const EnquiryResponseFieldMetaCustomizationID = new FieldMeta<EnquiryResp
   EnquiryResponseField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -60,10 +71,10 @@ export const EnquiryResponseFieldMetaProfileID = new FieldMeta<EnquiryResponseFi
   EnquiryResponseField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BasicProcurementProcess'
 )
@@ -72,10 +83,10 @@ export const EnquiryResponseFieldMetaProfileExecutionID = new FieldMeta<EnquiryR
   EnquiryResponseField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BPP-1001'
 )
@@ -84,10 +95,10 @@ export const EnquiryResponseFieldMetaID = new FieldMeta<EnquiryResponseField>(
   EnquiryResponseField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the responder.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -96,10 +107,10 @@ export const EnquiryResponseFieldMetaCopyIndicator = new FieldMeta<EnquiryRespon
   EnquiryResponseField.CopyIndicator,
   'CopyIndicator',
   'Copy Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this document is a copy (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -108,10 +119,10 @@ export const EnquiryResponseFieldMetaUUID = new FieldMeta<EnquiryResponseField>(
   EnquiryResponseField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -120,10 +131,10 @@ export const EnquiryResponseFieldMetaIssueDate = new FieldMeta<EnquiryResponseFi
   EnquiryResponseField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the responder, at which this enquiry response was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -132,10 +143,10 @@ export const EnquiryResponseFieldMetaIssueTime = new FieldMeta<EnquiryResponseFi
   EnquiryResponseField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the responder, at which this enquiry response was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -144,10 +155,10 @@ export const EnquiryResponseFieldMetaDescription = new FieldMeta<EnquiryResponse
   EnquiryResponseField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Free-form text-only enquiry response description pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -156,10 +167,10 @@ export const EnquiryResponseFieldMetaSignature = new FieldMeta<EnquiryResponseFi
   EnquiryResponseField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -168,10 +179,10 @@ export const EnquiryResponseFieldMetaRequestorParty = new FieldMeta<EnquiryRespo
   EnquiryResponseField.RequestorParty,
   'RequestorParty',
   'Requestor Party',
-  'Party',
+  PartyType.name,
   'The party issuing the enquiry.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -180,10 +191,10 @@ export const EnquiryResponseFieldMetaResponderParty = new FieldMeta<EnquiryRespo
   EnquiryResponseField.ResponderParty,
   'ResponderParty',
   'Responder Party',
-  'Party',
+  PartyType.name,
   'The party that has to respond to the enquiry.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -192,10 +203,10 @@ export const EnquiryResponseFieldMetaParentDocumentReference = new FieldMeta<Enq
   EnquiryResponseField.ParentDocumentReference,
   'ParentDocumentReference',
   'Parent Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'Reference to the enquiry that this response refers to.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -204,10 +215,10 @@ export const EnquiryResponseFieldMetaAdditionalDocumentReference = new FieldMeta
   EnquiryResponseField.AdditionalDocumentReference,
   'AdditionalDocumentReference',
   'Additional Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'References to relevant documents for the response such as the Contract folder or the lot in the eTendering.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -216,10 +227,10 @@ export const EnquiryResponseFieldMetaAttachment = new FieldMeta<EnquiryResponseF
   EnquiryResponseField.Attachment,
   'Attachment',
   'Attachment',
-  'Attachment',
+  AttachmentType.name,
   'Attachment that includes file-based response.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -263,3 +274,11 @@ export const EnquiryResponseFieldMap = new Map([
   [EnquiryResponseField.AdditionalDocumentReference, EnquiryResponseFieldMetaAdditionalDocumentReference],
   [EnquiryResponseField.Attachment, EnquiryResponseFieldMetaAttachment]
 ])
+
+export const EnquiryResponseType: Type<EnquiryResponseField> = {
+  name: 'EnquiryResponse',
+  label: 'Enquiry Response',
+  module: TypeModule.doc,
+  definition: 'A document sent by a responder to a requester answering a particular enqury.',
+  fields: EnquiryResponseFieldMap,
+}

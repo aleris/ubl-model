@@ -1,4 +1,11 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { DateType } from '../cbc/DateMeta'
+import { ProcurementProjectLotType } from './ProcurementProjectLotMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum QualificationResolutionField {
   UBLExtensions = 'UBLExtensions',
@@ -13,11 +20,11 @@ export enum QualificationResolutionField {
 export const QualificationResolutionFieldMetaUBLExtensions = new FieldMeta<QualificationResolutionField>(
   QualificationResolutionField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -26,10 +33,10 @@ export const QualificationResolutionFieldMetaAdmissionCode = new FieldMeta<Quali
   QualificationResolutionField.AdmissionCode,
   'AdmissionCode',
   'Admission Code',
-  'Code',
+  CodeType.name,
   'An indicator that the economic operator has been accepted into the tendering process (true) or rejected from the tendering process (false).',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -38,10 +45,10 @@ export const QualificationResolutionFieldMetaExclusionReason = new FieldMeta<Qua
   QualificationResolutionField.ExclusionReason,
   'ExclusionReason',
   'Exclusion Reason',
-  'Text',
+  TextType.name,
   'Text describing a reason for an exclusion from the tendering process.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -50,10 +57,10 @@ export const QualificationResolutionFieldMetaResolution = new FieldMeta<Qualific
   QualificationResolutionField.Resolution,
   'Resolution',
   'Resolution',
-  'Text',
+  TextType.name,
   'Text describing this qualification resolution.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -62,10 +69,10 @@ export const QualificationResolutionFieldMetaResolutionDate = new FieldMeta<Qual
   QualificationResolutionField.ResolutionDate,
   'ResolutionDate',
   'Resolution Date',
-  'Date',
+  DateType.name,
   'The date on which this qualification resolution was formalized.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -74,10 +81,10 @@ export const QualificationResolutionFieldMetaResolutionTime = new FieldMeta<Qual
   QualificationResolutionField.ResolutionTime,
   'ResolutionTime',
   'Resolution Time',
-  'Time',
+  TimeType.name,
   'The time at which this qualification resolution was formalized.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -86,10 +93,10 @@ export const QualificationResolutionFieldMetaProcurementProjectLot = new FieldMe
   QualificationResolutionField.ProcurementProjectLot,
   'ProcurementProjectLot',
   'Procurement Project Lot',
-  'ProcurementProjectLot',
+  ProcurementProjectLotType.name,
   'The Procurement project lot to which this tenderer is accepted or rejected.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -113,3 +120,11 @@ export const QualificationResolutionFieldMap = new Map([
   [QualificationResolutionField.ResolutionTime, QualificationResolutionFieldMetaResolutionTime],
   [QualificationResolutionField.ProcurementProjectLot, QualificationResolutionFieldMetaProcurementProjectLot]
 ])
+
+export const QualificationResolutionType: Type<QualificationResolutionField> = {
+  name: 'QualificationResolution',
+  label: 'Qualification Resolution',
+  module: TypeModule.cac,
+  definition: 'A class to describe the acceptance or rejection of an economic operator in a tendering process.',
+  fields: QualificationResolutionFieldMap,
+}

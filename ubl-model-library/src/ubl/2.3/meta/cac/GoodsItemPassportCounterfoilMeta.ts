@@ -1,4 +1,12 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from './DocumentReferenceMeta'
+import { GoodsItemType } from './GoodsItemMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { LocationType } from './LocationMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum GoodsItemPassportCounterfoilField {
   UBLExtensions = 'UBLExtensions',
@@ -18,11 +26,11 @@ export enum GoodsItemPassportCounterfoilField {
 export const GoodsItemPassportCounterfoilFieldMetaUBLExtensions = new FieldMeta<GoodsItemPassportCounterfoilField>(
   GoodsItemPassportCounterfoilField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -31,10 +39,10 @@ export const GoodsItemPassportCounterfoilFieldMetaID = new FieldMeta<GoodsItemPa
   GoodsItemPassportCounterfoilField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'This identifier for this Goods Item Passport Counterfoil',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -43,10 +51,10 @@ export const GoodsItemPassportCounterfoilFieldMetaGoodsItemPassportID = new Fiel
   GoodsItemPassportCounterfoilField.GoodsItemPassportID,
   'GoodsItemPassportID',
   'Goods Item Passport Identifier',
-  'Identifier',
+  IdentifierType.name,
   'The identifier of the Goods Item Passport or ATA Carnet of this counterfoil, usually the number on the upper part of the orange hazard placard required on the means of transport',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   'ATA Carnet number',
   undefined
 )
@@ -55,10 +63,10 @@ export const GoodsItemPassportCounterfoilFieldMetaFinalReexportationDate = new F
   GoodsItemPassportCounterfoilField.FinalReexportationDate,
   'FinalReexportationDate',
   'Final Reexportation Date',
-  'Date',
+  DateType.name,
   'Final date of re-exportation, if less than the overall validity period of te Goods Item Passport or ATA Carnet',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -67,10 +75,10 @@ export const GoodsItemPassportCounterfoilFieldMetaNote = new FieldMeta<GoodsItem
   GoodsItemPassportCounterfoilField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -79,10 +87,10 @@ export const GoodsItemPassportCounterfoilFieldMetaCustomsOfficeLocation = new Fi
   GoodsItemPassportCounterfoilField.CustomsOfficeLocation,
   'CustomsOfficeLocation',
   'Customs Office Location',
-  'Location',
+  LocationType.name,
   'The location of the customs office to where the counterfoil has been presented',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -91,10 +99,10 @@ export const GoodsItemPassportCounterfoilFieldMetaGoodsItem = new FieldMeta<Good
   GoodsItemPassportCounterfoilField.GoodsItem,
   'GoodsItem',
   'Goods Item',
-  'GoodsItem',
+  GoodsItemType.name,
   'A goods item associated with this counterfoil',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -103,10 +111,10 @@ export const GoodsItemPassportCounterfoilFieldMetaExportationDocumentReference =
   GoodsItemPassportCounterfoilField.ExportationDocumentReference,
   'ExportationDocumentReference',
   'Exportation Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a document used for the export of the goods related to this counterfoil',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -115,10 +123,10 @@ export const GoodsItemPassportCounterfoilFieldMetaImportationDocumentReference =
   GoodsItemPassportCounterfoilField.ImportationDocumentReference,
   'ImportationDocumentReference',
   'Importation Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a document used for the import of the goods related to this counterfoil',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -127,10 +135,10 @@ export const GoodsItemPassportCounterfoilFieldMetaReexportationDocumentReference
   GoodsItemPassportCounterfoilField.ReexportationDocumentReference,
   'ReexportationDocumentReference',
   'Reexportation Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a document used for the re-exportation of the goods related to this counterfoil',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -139,10 +147,10 @@ export const GoodsItemPassportCounterfoilFieldMetaReimportationDocumentReference
   GoodsItemPassportCounterfoilField.ReimportationDocumentReference,
   'ReimportationDocumentReference',
   'Reimportation Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a document used for re-importation of the goods related to this counterfoil',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -151,10 +159,10 @@ export const GoodsItemPassportCounterfoilFieldMetaVoucherDocumentReference = new
   GoodsItemPassportCounterfoilField.VoucherDocumentReference,
   'VoucherDocumentReference',
   'Voucher Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a voucher related to this counterfoil',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -188,3 +196,11 @@ export const GoodsItemPassportCounterfoilFieldMap = new Map([
   [GoodsItemPassportCounterfoilField.ReimportationDocumentReference, GoodsItemPassportCounterfoilFieldMetaReimportationDocumentReference],
   [GoodsItemPassportCounterfoilField.VoucherDocumentReference, GoodsItemPassportCounterfoilFieldMetaVoucherDocumentReference]
 ])
+
+export const GoodsItemPassportCounterfoilType: Type<GoodsItemPassportCounterfoilField> = {
+  name: 'GoodsItemPassportCounterfoil',
+  label: 'Goods Item Passport Counterfoil',
+  module: TypeModule.cac,
+  definition: 'A class describing a Goods Item Passport or ATA Carnet Counterfoil',
+  fields: GoodsItemPassportCounterfoilFieldMap,
+}

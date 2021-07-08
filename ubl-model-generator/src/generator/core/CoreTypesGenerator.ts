@@ -17,7 +17,10 @@ export class CoreTypesGenerator {
     console.log("Generating Core Components...")
     const types = await this.coreTypesReader.readTypes()
     for (const codeGenerator of this.codeGenerators) {
-      const codeFiles = [...codeGenerator.globals(), ...types.map(type => codeGenerator.asCodeString(type))]
+      const codeFiles = [
+        ...codeGenerator.globals(),
+        ...types.map(type => codeGenerator.asCodeFiles(type)).reduce((acc, val) => acc.concat(val), [])
+      ]
       for (const codeFile of codeFiles) {
         this.codeFileWriter.write(codeFile)
       }

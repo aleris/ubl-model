@@ -1,84 +1,138 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { LocationCoordinate } from  '../../model/cac/LocationCoordinate'
-import { LocationCoordinateFieldMeta } from  '../../meta/cac/LocationCoordinateMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import MeasureDisplay from '../cbc/MeasureDisplay'
-import { Measure } from '../../model/cbc/Measure'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { LocationCoordinateField, LocationCoordinateFieldMeta, LocationCoordinateTypeName } from  '../../meta/cac/LocationCoordinateMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { MeasureDisplay } from '../cbc/MeasureDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: LocationCoordinate | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<LocationCoordinate, void>
+  locationCoordinate: LocationCoordinate[] | undefined
+  renderContext: RenderContext
 }
 
-export default function LocationCoordinateDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const LocationCoordinateSubElementsMap: SubElementsTemplatesMap<LocationCoordinateField, LocationCoordinate, void> = new Map([
+    [
+      LocationCoordinateField.UBLExtensions,
+      { meta: LocationCoordinateFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={LocationCoordinateField.UBLExtensions}
+          meta={LocationCoordinateFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-LocationCoordinate">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={LocationCoordinateFieldMeta.UBLExtensions}
-          />
+    [
+      LocationCoordinateField.CoordinateSystemCode,
+      { meta: LocationCoordinateFieldMeta.CoordinateSystemCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={LocationCoordinateField.CoordinateSystemCode}
+          meta={LocationCoordinateFieldMeta.CoordinateSystemCode}
+          fieldConfig={fieldConfig}
+          code={value?.CoordinateSystemCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Coordinate System Code"
-            value={value.CoordinateSystemCode?.[0]}
-            meta={LocationCoordinateFieldMeta.CoordinateSystemCode}
-          />
+    [
+      LocationCoordinateField.LatitudeDegreesMeasure,
+      { meta: LocationCoordinateFieldMeta.LatitudeDegreesMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={LocationCoordinateField.LatitudeDegreesMeasure}
+          meta={LocationCoordinateFieldMeta.LatitudeDegreesMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.LatitudeDegreesMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Latitude Degrees"
-            value={value.LatitudeDegreesMeasure?.[0]}
-            meta={LocationCoordinateFieldMeta.LatitudeDegreesMeasure}
-          />
+    [
+      LocationCoordinateField.LatitudeMinutesMeasure,
+      { meta: LocationCoordinateFieldMeta.LatitudeMinutesMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={LocationCoordinateField.LatitudeMinutesMeasure}
+          meta={LocationCoordinateFieldMeta.LatitudeMinutesMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.LatitudeMinutesMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Latitude Minutes"
-            value={value.LatitudeMinutesMeasure?.[0]}
-            meta={LocationCoordinateFieldMeta.LatitudeMinutesMeasure}
-          />
+    [
+      LocationCoordinateField.LatitudeDirectionCode,
+      { meta: LocationCoordinateFieldMeta.LatitudeDirectionCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={LocationCoordinateField.LatitudeDirectionCode}
+          meta={LocationCoordinateFieldMeta.LatitudeDirectionCode}
+          fieldConfig={fieldConfig}
+          code={value?.LatitudeDirectionCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Latitude Direction Code"
-            value={value.LatitudeDirectionCode?.[0]}
-            meta={LocationCoordinateFieldMeta.LatitudeDirectionCode}
-          />
+    [
+      LocationCoordinateField.LongitudeDegreesMeasure,
+      { meta: LocationCoordinateFieldMeta.LongitudeDegreesMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={LocationCoordinateField.LongitudeDegreesMeasure}
+          meta={LocationCoordinateFieldMeta.LongitudeDegreesMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.LongitudeDegreesMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Longitude Degrees"
-            value={value.LongitudeDegreesMeasure?.[0]}
-            meta={LocationCoordinateFieldMeta.LongitudeDegreesMeasure}
-          />
+    [
+      LocationCoordinateField.LongitudeMinutesMeasure,
+      { meta: LocationCoordinateFieldMeta.LongitudeMinutesMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={LocationCoordinateField.LongitudeMinutesMeasure}
+          meta={LocationCoordinateFieldMeta.LongitudeMinutesMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.LongitudeMinutesMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Longitude Minutes"
-            value={value.LongitudeMinutesMeasure?.[0]}
-            meta={LocationCoordinateFieldMeta.LongitudeMinutesMeasure}
-          />
+    [
+      LocationCoordinateField.LongitudeDirectionCode,
+      { meta: LocationCoordinateFieldMeta.LongitudeDirectionCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={LocationCoordinateField.LongitudeDirectionCode}
+          meta={LocationCoordinateFieldMeta.LongitudeDirectionCode}
+          fieldConfig={fieldConfig}
+          code={value?.LongitudeDirectionCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Longitude Direction Code"
-            value={value.LongitudeDirectionCode?.[0]}
-            meta={LocationCoordinateFieldMeta.LongitudeDirectionCode}
-          />
+    [
+      LocationCoordinateField.AltitudeMeasure,
+      { meta: LocationCoordinateFieldMeta.AltitudeMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={LocationCoordinateField.AltitudeMeasure}
+          meta={LocationCoordinateFieldMeta.AltitudeMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.AltitudeMeasure}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <MeasureDisplay
-            label="Altitude"
-            value={value.AltitudeMeasure?.[0]}
-            meta={LocationCoordinateFieldMeta.AltitudeMeasure}
-          />
-        </div>
-    </div>
+export function LocationCoordinateDisplay<TFieldMeta>({ meta, fieldConfig, locationCoordinate, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    LocationCoordinateTypeName,
+    meta,
+    fieldConfig,
+    locationCoordinate,
+    renderContext,
+    LocationCoordinateSubElementsMap,
   )
 }

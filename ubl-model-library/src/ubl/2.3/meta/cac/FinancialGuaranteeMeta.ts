@@ -1,4 +1,11 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { PeriodType } from './PeriodMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum FinancialGuaranteeField {
   UBLExtensions = 'UBLExtensions',
@@ -12,11 +19,11 @@ export enum FinancialGuaranteeField {
 export const FinancialGuaranteeFieldMetaUBLExtensions = new FieldMeta<FinancialGuaranteeField>(
   FinancialGuaranteeField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -25,10 +32,10 @@ export const FinancialGuaranteeFieldMetaGuaranteeTypeCode = new FieldMeta<Financ
   FinancialGuaranteeField.GuaranteeTypeCode,
   'GuaranteeTypeCode',
   'Guarantee Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of financial guarantee. For instance "Provisional Guarantee" or "Final Guarantee"',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -37,10 +44,10 @@ export const FinancialGuaranteeFieldMetaDescription = new FieldMeta<FinancialGua
   FinancialGuaranteeField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing this financial guarantee.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -49,10 +56,10 @@ export const FinancialGuaranteeFieldMetaLiabilityAmount = new FieldMeta<Financia
   FinancialGuaranteeField.LiabilityAmount,
   'LiabilityAmount',
   'Liability',
-  'Amount',
+  AmountType.name,
   'The amount of liability in this financial guarantee.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -61,10 +68,10 @@ export const FinancialGuaranteeFieldMetaAmountRate = new FieldMeta<FinancialGuar
   FinancialGuaranteeField.AmountRate,
   'AmountRate',
   'Amount',
-  'Numeric',
+  NumericType.name,
   'The rate used to calculate the amount of liability in this financial guarantee.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -73,10 +80,10 @@ export const FinancialGuaranteeFieldMetaConstitutionPeriod = new FieldMeta<Finan
   FinancialGuaranteeField.ConstitutionPeriod,
   'ConstitutionPeriod',
   'Constitution Period',
-  'Period',
+  PeriodType.name,
   'The period during the tendering process to which this financial guarantee has to be settled.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -98,3 +105,11 @@ export const FinancialGuaranteeFieldMap = new Map([
   [FinancialGuaranteeField.AmountRate, FinancialGuaranteeFieldMetaAmountRate],
   [FinancialGuaranteeField.ConstitutionPeriod, FinancialGuaranteeFieldMetaConstitutionPeriod]
 ])
+
+export const FinancialGuaranteeType: Type<FinancialGuaranteeField> = {
+  name: 'FinancialGuarantee',
+  label: 'Financial Guarantee',
+  module: TypeModule.cac,
+  definition: 'A class to describe the bond guarantee of a tenderer or bid submitter\'s actual entry into a contract in the event that it is the successful bidder.',
+  fields: FinancialGuaranteeFieldMap,
+}

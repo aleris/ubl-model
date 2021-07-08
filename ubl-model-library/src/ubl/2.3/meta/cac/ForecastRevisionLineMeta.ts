@@ -1,4 +1,13 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { DateType } from '../cbc/DateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { PeriodType } from './PeriodMeta'
+import { SalesItemType } from './SalesItemMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ForecastRevisionLineField {
   UBLExtensions = 'UBLExtensions',
@@ -16,11 +25,11 @@ export enum ForecastRevisionLineField {
 export const ForecastRevisionLineFieldMetaUBLExtensions = new FieldMeta<ForecastRevisionLineField>(
   ForecastRevisionLineField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -29,10 +38,10 @@ export const ForecastRevisionLineFieldMetaID = new FieldMeta<ForecastRevisionLin
   ForecastRevisionLineField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this forecast revision line.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -41,10 +50,10 @@ export const ForecastRevisionLineFieldMetaNote = new FieldMeta<ForecastRevisionL
   ForecastRevisionLineField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -53,10 +62,10 @@ export const ForecastRevisionLineFieldMetaDescription = new FieldMeta<ForecastRe
   ForecastRevisionLineField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing the revision to this line.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -65,10 +74,10 @@ export const ForecastRevisionLineFieldMetaRevisedForecastLineID = new FieldMeta<
   ForecastRevisionLineField.RevisedForecastLineID,
   'RevisedForecastLineID',
   'Revised Forecast Line Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the revised forecast line.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -77,10 +86,10 @@ export const ForecastRevisionLineFieldMetaSourceForecastIssueDate = new FieldMet
   ForecastRevisionLineField.SourceForecastIssueDate,
   'SourceForecastIssueDate',
   'Source Forecast Issue Date',
-  'Date',
+  DateType.name,
   'The date on which the forecast modified by this revision was generated or created.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -89,10 +98,10 @@ export const ForecastRevisionLineFieldMetaSourceForecastIssueTime = new FieldMet
   ForecastRevisionLineField.SourceForecastIssueTime,
   'SourceForecastIssueTime',
   'Source Forecast Issue Time',
-  'Time',
+  TimeType.name,
   'The time at which the forecast modified by this revision was generated or created.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -101,10 +110,10 @@ export const ForecastRevisionLineFieldMetaAdjustmentReasonCode = new FieldMeta<F
   ForecastRevisionLineField.AdjustmentReasonCode,
   'AdjustmentReasonCode',
   'Adjustment Reason Code',
-  'Code',
+  CodeType.name,
   'A code signifying the reason for the adjustment specified in this forecast revision line.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -113,10 +122,10 @@ export const ForecastRevisionLineFieldMetaForecastPeriod = new FieldMeta<Forecas
   ForecastRevisionLineField.ForecastPeriod,
   'ForecastPeriod',
   'Forecast Period',
-  'Period',
+  PeriodType.name,
   'The period to which this forecast revision line applies.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -125,10 +134,10 @@ export const ForecastRevisionLineFieldMetaSalesItem = new FieldMeta<ForecastRevi
   ForecastRevisionLineField.SalesItem,
   'SalesItem',
   'Sales Item',
-  'SalesItem',
+  SalesItemType.name,
   'Sales information for the item to which this line applies.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -158,3 +167,11 @@ export const ForecastRevisionLineFieldMap = new Map([
   [ForecastRevisionLineField.ForecastPeriod, ForecastRevisionLineFieldMetaForecastPeriod],
   [ForecastRevisionLineField.SalesItem, ForecastRevisionLineFieldMetaSalesItem]
 ])
+
+export const ForecastRevisionLineType: Type<ForecastRevisionLineField> = {
+  name: 'ForecastRevisionLine',
+  label: 'Forecast Revision Line',
+  module: TypeModule.cac,
+  definition: 'A class to define a line in a Forecast Revision describing a revision to a line in a Forecast.',
+  fields: ForecastRevisionLineFieldMap,
+}

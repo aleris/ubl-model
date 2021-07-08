@@ -1,4 +1,13 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AddressType } from './AddressMeta'
+import { DocumentReferenceType } from './DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { LocationType } from './LocationMeta'
+import { PartyType } from './PartyMeta'
+import { PeriodType } from './PeriodMeta'
+import { ShipmentType } from './ShipmentMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum CustomsDeclarationField {
   UBLExtensions = 'UBLExtensions',
@@ -19,11 +28,11 @@ export enum CustomsDeclarationField {
 export const CustomsDeclarationFieldMetaUBLExtensions = new FieldMeta<CustomsDeclarationField>(
   CustomsDeclarationField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -32,10 +41,10 @@ export const CustomsDeclarationFieldMetaID = new FieldMeta<CustomsDeclarationFie
   CustomsDeclarationField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier associated with customs related procedures.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   'CUST001 3333-44-123'
 )
@@ -44,10 +53,10 @@ export const CustomsDeclarationFieldMetaValidityPeriod = new FieldMeta<CustomsDe
   CustomsDeclarationField.ValidityPeriod,
   'ValidityPeriod',
   'Validity Period',
-  'Period',
+  PeriodType.name,
   'The period during which this customs declaration is valid',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -56,10 +65,10 @@ export const CustomsDeclarationFieldMetaApplicableTerritoryAddress = new FieldMe
   CustomsDeclarationField.ApplicableTerritoryAddress,
   'ApplicableTerritoryAddress',
   'Applicable Territory Address',
-  'Address',
+  AddressType.name,
   'The area or region where this customs declaration applies',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -68,10 +77,10 @@ export const CustomsDeclarationFieldMetaShipment = new FieldMeta<CustomsDeclarat
   CustomsDeclarationField.Shipment,
   'Shipment',
   'Shipment',
-  'Shipment',
+  ShipmentType.name,
   'A reference to the shipment of goods being declared',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -80,10 +89,10 @@ export const CustomsDeclarationFieldMetaCustomsExitOfficeLocation = new FieldMet
   CustomsDeclarationField.CustomsExitOfficeLocation,
   'CustomsExitOfficeLocation',
   'Customs Exit Office Location',
-  'Location',
+  LocationType.name,
   'The location of the exit office from where the goods will leave or have left the customs territory',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   'Customs office of exit',
   undefined
 )
@@ -92,10 +101,10 @@ export const CustomsDeclarationFieldMetaIssuerParty = new FieldMeta<CustomsDecla
   CustomsDeclarationField.IssuerParty,
   'IssuerParty',
   'Issuer Party',
-  'Party',
+  PartyType.name,
   'Describes the party issuing the customs declaration.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -104,10 +113,10 @@ export const CustomsDeclarationFieldMetaConsignorParty = new FieldMeta<CustomsDe
   CustomsDeclarationField.ConsignorParty,
   'ConsignorParty',
   'Consignor Party',
-  'Party',
+  PartyType.name,
   'The party, usually the seller, who is responsible for the consignment',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -116,10 +125,10 @@ export const CustomsDeclarationFieldMetaConsigneeParty = new FieldMeta<CustomsDe
   CustomsDeclarationField.ConsigneeParty,
   'ConsigneeParty',
   'Consignee Party',
-  'Party',
+  PartyType.name,
   'The party, usually the buyer, who will receive the goods',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -128,10 +137,10 @@ export const CustomsDeclarationFieldMetaFreightForwarderParty = new FieldMeta<Cu
   CustomsDeclarationField.FreightForwarderParty,
   'FreightForwarderParty',
   'Freight Forwarder Party',
-  'Party',
+  PartyType.name,
   'The freight forwarder or the forwarding agent responsible for the transportation of the goods',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -140,10 +149,10 @@ export const CustomsDeclarationFieldMetaCustomsParty = new FieldMeta<CustomsDecl
   CustomsDeclarationField.CustomsParty,
   'CustomsParty',
   'Customs Party',
-  'Party',
+  PartyType.name,
   'The authority responsible for processing this customs declaration',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -152,10 +161,10 @@ export const CustomsDeclarationFieldMetaPreviousCustomsDeclaration = new FieldMe
   CustomsDeclarationField.PreviousCustomsDeclaration,
   'PreviousCustomsDeclaration',
   'Previous Customs Declaration',
-  'CustomsDeclaration',
+  CustomsDeclarationType.name,
   'A reference to a previous version of this customs declaration',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -164,10 +173,10 @@ export const CustomsDeclarationFieldMetaAdditionalDocumentReference = new FieldM
   CustomsDeclarationField.AdditionalDocumentReference,
   'AdditionalDocumentReference',
   'Additional Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to additional documents relevant or related to this customs declaration',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -203,3 +212,11 @@ export const CustomsDeclarationFieldMap = new Map([
   [CustomsDeclarationField.PreviousCustomsDeclaration, CustomsDeclarationFieldMetaPreviousCustomsDeclaration],
   [CustomsDeclarationField.AdditionalDocumentReference, CustomsDeclarationFieldMetaAdditionalDocumentReference]
 ])
+
+export const CustomsDeclarationType: Type<CustomsDeclarationField> = {
+  name: 'CustomsDeclaration',
+  label: 'Customs Declaration',
+  module: TypeModule.cac,
+  definition: 'A class describing identifiers or references relating to customs procedures.',
+  fields: CustomsDeclarationFieldMap,
+}

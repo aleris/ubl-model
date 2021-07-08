@@ -1,4 +1,13 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { ContractType } from './ContractMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { TaxCategoryType } from './TaxCategoryMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum UtilityItemField {
   UBLExtensions = 'UBLExtensions',
@@ -22,11 +31,11 @@ export enum UtilityItemField {
 export const UtilityItemFieldMetaUBLExtensions = new FieldMeta<UtilityItemField>(
   UtilityItemField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -35,10 +44,10 @@ export const UtilityItemFieldMetaID = new FieldMeta<UtilityItemField>(
   UtilityItemField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this utility item.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   '1'
 )
@@ -47,10 +56,10 @@ export const UtilityItemFieldMetaSubscriberID = new FieldMeta<UtilityItemField>(
   UtilityItemField.SubscriberID,
   'SubscriberID',
   'Subscriber Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the subscriber to the utility.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '98143211'
 )
@@ -59,10 +68,10 @@ export const UtilityItemFieldMetaSubscriberType = new FieldMeta<UtilityItemField
   UtilityItemField.SubscriberType,
   'SubscriberType',
   'Subscriber Type',
-  'Text',
+  TextType.name,
   'Identification of the subscriber type, expressed as text..',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -71,10 +80,10 @@ export const UtilityItemFieldMetaSubscriberTypeCode = new FieldMeta<UtilityItemF
   UtilityItemField.SubscriberTypeCode,
   'SubscriberTypeCode',
   'Subscriber Type Code',
-  'Code',
+  CodeType.name,
   'The code identifying for the service type.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -83,10 +92,10 @@ export const UtilityItemFieldMetaDescription = new FieldMeta<UtilityItemField>(
   UtilityItemField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing the consumption product.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   'Basis price quarter (5.761 kWh per 35,58 cents), Transport of electricity, etc.'
 )
@@ -95,10 +104,10 @@ export const UtilityItemFieldMetaPackQuantity = new FieldMeta<UtilityItemField>(
   UtilityItemField.PackQuantity,
   'PackQuantity',
   'Pack Quantity',
-  'Quantity',
+  QuantityType.name,
   'The unit packaging quantity.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '1'
 )
@@ -107,10 +116,10 @@ export const UtilityItemFieldMetaPackSizeNumeric = new FieldMeta<UtilityItemFiel
   UtilityItemField.PackSizeNumeric,
   'PackSizeNumeric',
   'Pack Size',
-  'Numeric',
+  NumericType.name,
   'The number of items in a pack.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -119,10 +128,10 @@ export const UtilityItemFieldMetaConsumptionType = new FieldMeta<UtilityItemFiel
   UtilityItemField.ConsumptionType,
   'ConsumptionType',
   'Consumption Type',
-  'Text',
+  TextType.name,
   'The type of product consumed, expressed as text.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Consumption'
 )
@@ -131,10 +140,10 @@ export const UtilityItemFieldMetaConsumptionTypeCode = new FieldMeta<UtilityItem
   UtilityItemField.ConsumptionTypeCode,
   'ConsumptionTypeCode',
   'Consumption Type Code',
-  'Code',
+  CodeType.name,
   'The type of product consumed, expressed as a code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Consumption'
 )
@@ -143,10 +152,10 @@ export const UtilityItemFieldMetaCurrentChargeType = new FieldMeta<UtilityItemFi
   UtilityItemField.CurrentChargeType,
   'CurrentChargeType',
   'Current Charge Type',
-  'Text',
+  TextType.name,
   'Information of the actual payments type for the utility Item',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -155,10 +164,10 @@ export const UtilityItemFieldMetaCurrentChargeTypeCode = new FieldMeta<UtilityIt
   UtilityItemField.CurrentChargeTypeCode,
   'CurrentChargeTypeCode',
   'Current Charge Type Code',
-  'Code',
+  CodeType.name,
   'Information of the actual payments type code expressed as a code',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -167,10 +176,10 @@ export const UtilityItemFieldMetaOneTimeChargeType = new FieldMeta<UtilityItemFi
   UtilityItemField.OneTimeChargeType,
   'OneTimeChargeType',
   'One Time Charge Type',
-  'Text',
+  TextType.name,
   'Information about the one-time payment type in case everything is paid One time',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -179,10 +188,10 @@ export const UtilityItemFieldMetaOneTimeChargeTypeCode = new FieldMeta<UtilityIt
   UtilityItemField.OneTimeChargeTypeCode,
   'OneTimeChargeTypeCode',
   'One Time Charge Type Code',
-  'Code',
+  CodeType.name,
   'Information about the one-time payment type code',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -191,10 +200,10 @@ export const UtilityItemFieldMetaTaxCategory = new FieldMeta<UtilityItemField>(
   UtilityItemField.TaxCategory,
   'TaxCategory',
   'Tax Category',
-  'TaxCategory',
+  TaxCategoryType.name,
   'The tax category applicable to this utility item.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -203,10 +212,10 @@ export const UtilityItemFieldMetaContract = new FieldMeta<UtilityItemField>(
   UtilityItemField.Contract,
   'Contract',
   'Contract',
-  'Contract',
+  ContractType.name,
   'A contract setting forth conditions applicable to this utility item.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -248,3 +257,11 @@ export const UtilityItemFieldMap = new Map([
   [UtilityItemField.TaxCategory, UtilityItemFieldMetaTaxCategory],
   [UtilityItemField.Contract, UtilityItemFieldMetaContract]
 ])
+
+export const UtilityItemType: Type<UtilityItemField> = {
+  name: 'UtilityItem',
+  label: 'Utility Item',
+  module: TypeModule.cac,
+  definition: 'A class to describe the consumption of a utility product.',
+  fields: UtilityItemFieldMap,
+}

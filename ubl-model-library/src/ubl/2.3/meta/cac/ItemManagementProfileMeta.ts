@@ -1,4 +1,12 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { ItemType } from './ItemMeta'
+import { ItemLocationQuantityType } from './ItemLocationQuantityMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { PeriodType } from './PeriodMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ItemManagementProfileField {
   UBLExtensions = 'UBLExtensions',
@@ -17,11 +25,11 @@ export enum ItemManagementProfileField {
 export const ItemManagementProfileFieldMetaUBLExtensions = new FieldMeta<ItemManagementProfileField>(
   ItemManagementProfileField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -30,10 +38,10 @@ export const ItemManagementProfileFieldMetaFrozenPeriodDaysNumeric = new FieldMe
   ItemManagementProfileField.FrozenPeriodDaysNumeric,
   'FrozenPeriodDaysNumeric',
   'Frozen Period Days',
-  'Numeric',
+  NumericType.name,
   'The number of days in the future that an order forecast quantity automatically becomes a confirmed order for a product.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -42,10 +50,10 @@ export const ItemManagementProfileFieldMetaMinimumInventoryQuantity = new FieldM
   ItemManagementProfileField.MinimumInventoryQuantity,
   'MinimumInventoryQuantity',
   'Minimum Inventory Quantity',
-  'Quantity',
+  QuantityType.name,
   'The quantity of the item that should trigger a replenishment order to avoid depleting the safety stock.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -54,10 +62,10 @@ export const ItemManagementProfileFieldMetaMultipleOrderQuantity = new FieldMeta
   ItemManagementProfileField.MultipleOrderQuantity,
   'MultipleOrderQuantity',
   'Multiple Order Quantity',
-  'Quantity',
+  QuantityType.name,
   'The order quantity multiples in which the product may be ordered.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -66,10 +74,10 @@ export const ItemManagementProfileFieldMetaOrderIntervalDaysNumeric = new FieldM
   ItemManagementProfileField.OrderIntervalDaysNumeric,
   'OrderIntervalDaysNumeric',
   'Order Interval Days',
-  'Numeric',
+  NumericType.name,
   'The number of days between regular replenishment orders for the product.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -78,10 +86,10 @@ export const ItemManagementProfileFieldMetaReplenishmentOwnerDescription = new F
   ItemManagementProfileField.ReplenishmentOwnerDescription,
   'ReplenishmentOwnerDescription',
   'Replenishment Owner Description',
-  'Text',
+  TextType.name,
   'The trading partner maintaining this item management profile.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -90,10 +98,10 @@ export const ItemManagementProfileFieldMetaTargetServicePercent = new FieldMeta<
   ItemManagementProfileField.TargetServicePercent,
   'TargetServicePercent',
   'Target Service Percent',
-  'Numeric',
+  NumericType.name,
   'The Unit Service Level the trading partners expect to be maintained, expressed as a percentage. Unite Service Level (USL) is a term used in Inventory Management, which is sometimes known as "fill rate", counts the average number of units short expressed as the percentage of the order quantity.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -102,10 +110,10 @@ export const ItemManagementProfileFieldMetaTargetInventoryQuantity = new FieldMe
   ItemManagementProfileField.TargetInventoryQuantity,
   'TargetInventoryQuantity',
   'Target Inventory Quantity',
-  'Quantity',
+  QuantityType.name,
   'The target inventory quantity.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -114,10 +122,10 @@ export const ItemManagementProfileFieldMetaEffectivePeriod = new FieldMeta<ItemM
   ItemManagementProfileField.EffectivePeriod,
   'EffectivePeriod',
   'Effective Period',
-  'Period',
+  PeriodType.name,
   'The period during which this profile is effective.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -126,10 +134,10 @@ export const ItemManagementProfileFieldMetaItem = new FieldMeta<ItemManagementPr
   ItemManagementProfileField.Item,
   'Item',
   'Item',
-  'Item',
+  ItemType.name,
   'The item associated with this item management profile.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -138,10 +146,10 @@ export const ItemManagementProfileFieldMetaItemLocationQuantity = new FieldMeta<
   ItemManagementProfileField.ItemLocationQuantity,
   'ItemLocationQuantity',
   'Item Location Quantity',
-  'ItemLocationQuantity',
+  ItemLocationQuantityType.name,
   'A set of location-specific properties (e.g., price and quantity) associated with the item.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -173,3 +181,11 @@ export const ItemManagementProfileFieldMap = new Map([
   [ItemManagementProfileField.Item, ItemManagementProfileFieldMetaItem],
   [ItemManagementProfileField.ItemLocationQuantity, ItemManagementProfileFieldMetaItemLocationQuantity]
 ])
+
+export const ItemManagementProfileType: Type<ItemManagementProfileField> = {
+  name: 'ItemManagementProfile',
+  label: 'Item Management Profile',
+  module: TypeModule.cac,
+  definition: 'A class to define a management profile for an item.',
+  fields: ItemManagementProfileFieldMap,
+}

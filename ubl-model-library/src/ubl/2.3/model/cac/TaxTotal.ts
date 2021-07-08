@@ -3,7 +3,6 @@ import { Indicator } from '../cbc/Indicator'
 import { Numeric } from '../cbc/Numeric'
 import { TaxSubtotal } from './TaxSubtotal'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe the total tax for a particular taxation scheme.
  */

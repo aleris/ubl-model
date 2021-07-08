@@ -1,71 +1,91 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ProjectReference } from  '../../model/cac/ProjectReference'
-import { ProjectReferenceFieldMeta } from  '../../meta/cac/ProjectReferenceMeta'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
-import WorkPhaseReferenceDisplay from './WorkPhaseReferenceDisplay'
-import { WorkPhaseReference } from '../../model/cac/WorkPhaseReference'
+import { ProjectReferenceField, ProjectReferenceFieldMeta, ProjectReferenceTypeName } from  '../../meta/cac/ProjectReferenceMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
+import { WorkPhaseReferenceDisplay } from './WorkPhaseReferenceDisplay'
 
-type Props<T> = {
-  label: string
-  value: ProjectReference | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ProjectReference, void>
+  projectReference: ProjectReference[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ProjectReferenceDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ProjectReferenceSubElementsMap: SubElementsTemplatesMap<ProjectReferenceField, ProjectReference, void> = new Map([
+    [
+      ProjectReferenceField.UBLExtensions,
+      { meta: ProjectReferenceFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ProjectReferenceField.UBLExtensions}
+          meta={ProjectReferenceFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ProjectReference">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ProjectReferenceFieldMeta.UBLExtensions}
-          />
+    [
+      ProjectReferenceField.ID,
+      { meta: ProjectReferenceFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ProjectReferenceField.ID}
+          meta={ProjectReferenceFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={ProjectReferenceFieldMeta.ID}
-          />
+    [
+      ProjectReferenceField.UUID,
+      { meta: ProjectReferenceFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ProjectReferenceField.UUID}
+          meta={ProjectReferenceFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={ProjectReferenceFieldMeta.UUID}
-          />
+    [
+      ProjectReferenceField.IssueDate,
+      { meta: ProjectReferenceFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={ProjectReferenceField.IssueDate}
+          meta={ProjectReferenceFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={ProjectReferenceFieldMeta.IssueDate}
-          />
+    [
+      ProjectReferenceField.WorkPhaseReference,
+      { meta: ProjectReferenceFieldMeta.WorkPhaseReference,
+        template: ({value, renderContext, fieldConfig}) => <WorkPhaseReferenceDisplay
+          key={ProjectReferenceField.WorkPhaseReference}
+          meta={ProjectReferenceFieldMeta.WorkPhaseReference}
+          fieldConfig={fieldConfig}
+          workPhaseReference={value?.WorkPhaseReference}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-WorkPhaseReference"
-            label="Work Phase Reference"
-            items={value.WorkPhaseReference}
-            meta={ProjectReferenceFieldMeta.WorkPhaseReference} 
-            itemDisplay={ (itemValue: WorkPhaseReference, key: string | number) =>
-              <WorkPhaseReferenceDisplay
-                key={key}
-                label="Work Phase Reference"
-                value={itemValue}
-                meta={ProjectReferenceFieldMeta.WorkPhaseReference}
-              />
-            }
-          />
-        </div>
-    </div>
+export function ProjectReferenceDisplay<TFieldMeta>({ meta, fieldConfig, projectReference, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ProjectReferenceTypeName,
+    meta,
+    fieldConfig,
+    projectReference,
+    renderContext,
+    ProjectReferenceSubElementsMap,
   )
 }

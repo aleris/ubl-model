@@ -1,74 +1,79 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { PromotionalSpecification } from  '../../model/cac/PromotionalSpecification'
-import { PromotionalSpecificationFieldMeta } from  '../../meta/cac/PromotionalSpecificationMeta'
-import EventTacticDisplay from './EventTacticDisplay'
-import { EventTactic } from '../../model/cac/EventTactic'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import PromotionalEventLineItemDisplay from './PromotionalEventLineItemDisplay'
-import { PromotionalEventLineItem } from '../../model/cac/PromotionalEventLineItem'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { PromotionalSpecificationField, PromotionalSpecificationFieldMeta, PromotionalSpecificationTypeName } from  '../../meta/cac/PromotionalSpecificationMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { EventTacticDisplay } from './EventTacticDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { PromotionalEventLineItemDisplay } from './PromotionalEventLineItemDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: PromotionalSpecification | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<PromotionalSpecification, void>
+  promotionalSpecification: PromotionalSpecification[] | undefined
+  renderContext: RenderContext
 }
 
-export default function PromotionalSpecificationDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const PromotionalSpecificationSubElementsMap: SubElementsTemplatesMap<PromotionalSpecificationField, PromotionalSpecification, void> = new Map([
+    [
+      PromotionalSpecificationField.UBLExtensions,
+      { meta: PromotionalSpecificationFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={PromotionalSpecificationField.UBLExtensions}
+          meta={PromotionalSpecificationFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-PromotionalSpecification">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={PromotionalSpecificationFieldMeta.UBLExtensions}
-          />
+    [
+      PromotionalSpecificationField.SpecificationID,
+      { meta: PromotionalSpecificationFieldMeta.SpecificationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={PromotionalSpecificationField.SpecificationID}
+          meta={PromotionalSpecificationFieldMeta.SpecificationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.SpecificationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Specification Identifier"
-            value={value.SpecificationID?.[0]}
-            meta={PromotionalSpecificationFieldMeta.SpecificationID}
-          />
+    [
+      PromotionalSpecificationField.PromotionalEventLineItem,
+      { meta: PromotionalSpecificationFieldMeta.PromotionalEventLineItem,
+        template: ({value, renderContext, fieldConfig}) => <PromotionalEventLineItemDisplay
+          key={PromotionalSpecificationField.PromotionalEventLineItem}
+          meta={PromotionalSpecificationFieldMeta.PromotionalEventLineItem}
+          fieldConfig={fieldConfig}
+          promotionalEventLineItem={value?.PromotionalEventLineItem}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-PromotionalEventLineItem"
-            label="Promotional Event Line Item"
-            items={value.PromotionalEventLineItem}
-            meta={PromotionalSpecificationFieldMeta.PromotionalEventLineItem} 
-            itemDisplay={ (itemValue: PromotionalEventLineItem, key: string | number) =>
-              <PromotionalEventLineItemDisplay
-                key={key}
-                label="Promotional Event Line Item"
-                value={itemValue}
-                meta={PromotionalSpecificationFieldMeta.PromotionalEventLineItem}
-              />
-            }
-          />
+    [
+      PromotionalSpecificationField.EventTactic,
+      { meta: PromotionalSpecificationFieldMeta.EventTactic,
+        template: ({value, renderContext, fieldConfig}) => <EventTacticDisplay
+          key={PromotionalSpecificationField.EventTactic}
+          meta={PromotionalSpecificationFieldMeta.EventTactic}
+          fieldConfig={fieldConfig}
+          eventTactic={value?.EventTactic}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-EventTactic"
-            label="Event Tactic"
-            items={value.EventTactic}
-            meta={PromotionalSpecificationFieldMeta.EventTactic} 
-            itemDisplay={ (itemValue: EventTactic, key: string | number) =>
-              <EventTacticDisplay
-                key={key}
-                label="Event Tactic"
-                value={itemValue}
-                meta={PromotionalSpecificationFieldMeta.EventTactic}
-              />
-            }
-          />
-        </div>
-    </div>
+export function PromotionalSpecificationDisplay<TFieldMeta>({ meta, fieldConfig, promotionalSpecification, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    PromotionalSpecificationTypeName,
+    meta,
+    fieldConfig,
+    promotionalSpecification,
+    renderContext,
+    PromotionalSpecificationSubElementsMap,
   )
 }

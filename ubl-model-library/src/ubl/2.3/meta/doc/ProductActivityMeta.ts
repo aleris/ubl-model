@@ -1,4 +1,17 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { ActivityDataLineType } from '../cac/ActivityDataLineMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { PeriodType } from '../cac/PeriodMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ProductActivityField {
   UBLExtensions = 'UBLExtensions',
@@ -24,11 +37,11 @@ export enum ProductActivityField {
 export const ProductActivityFieldMetaUBLExtensions = new FieldMeta<ProductActivityField>(
   ProductActivityField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -37,10 +50,10 @@ export const ProductActivityFieldMetaUBLVersionID = new FieldMeta<ProductActivit
   ProductActivityField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.0.5'
 )
@@ -49,10 +62,10 @@ export const ProductActivityFieldMetaCustomizationID = new FieldMeta<ProductActi
   ProductActivityField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -61,10 +74,10 @@ export const ProductActivityFieldMetaProfileID = new FieldMeta<ProductActivityFi
   ProductActivityField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BasicProcurementProcess'
 )
@@ -73,10 +86,10 @@ export const ProductActivityFieldMetaProfileExecutionID = new FieldMeta<ProductA
   ProductActivityField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BPP-1001'
 )
@@ -85,10 +98,10 @@ export const ProductActivityFieldMetaID = new FieldMeta<ProductActivityField>(
   ProductActivityField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   'Product Acvtivity Number',
   undefined
 )
@@ -97,10 +110,10 @@ export const ProductActivityFieldMetaCopyIndicator = new FieldMeta<ProductActivi
   ProductActivityField.CopyIndicator,
   'CopyIndicator',
   'Copy Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this document is a copy (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -109,10 +122,10 @@ export const ProductActivityFieldMetaUUID = new FieldMeta<ProductActivityField>(
   ProductActivityField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -121,10 +134,10 @@ export const ProductActivityFieldMetaIssueDate = new FieldMeta<ProductActivityFi
   ProductActivityField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   'Activity Date',
   undefined
 )
@@ -133,10 +146,10 @@ export const ProductActivityFieldMetaIssueTime = new FieldMeta<ProductActivityFi
   ProductActivityField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -145,10 +158,10 @@ export const ProductActivityFieldMetaNote = new FieldMeta<ProductActivityField>(
   ProductActivityField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -157,10 +170,10 @@ export const ProductActivityFieldMetaDocumentCurrencyCode = new FieldMeta<Produc
   ProductActivityField.DocumentCurrencyCode,
   'DocumentCurrencyCode',
   'Document Currency Code',
-  'Code',
+  CodeType.name,
   'A code signifying the default currency for this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -169,10 +182,10 @@ export const ProductActivityFieldMetaActivityPeriod = new FieldMeta<ProductActiv
   ProductActivityField.ActivityPeriod,
   'ActivityPeriod',
   'Activity Period',
-  'Period',
+  PeriodType.name,
   'The period covered by this Product Activity report.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -181,10 +194,10 @@ export const ProductActivityFieldMetaDocumentReference = new FieldMeta<ProductAc
   ProductActivityField.DocumentReference,
   'DocumentReference',
   'Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to another document associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -193,10 +206,10 @@ export const ProductActivityFieldMetaSignature = new FieldMeta<ProductActivityFi
   ProductActivityField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -205,10 +218,10 @@ export const ProductActivityFieldMetaSenderParty = new FieldMeta<ProductActivity
   ProductActivityField.SenderParty,
   'SenderParty',
   'Sender Party',
-  'Party',
+  PartyType.name,
   'The sender of the Product Activity.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -217,10 +230,10 @@ export const ProductActivityFieldMetaReceiverParty = new FieldMeta<ProductActivi
   ProductActivityField.ReceiverParty,
   'ReceiverParty',
   'Receiver Party',
-  'Party',
+  PartyType.name,
   'The receiver of the Product Activity.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -229,10 +242,10 @@ export const ProductActivityFieldMetaSupplyChainActivityDataLine = new FieldMeta
   ProductActivityField.SupplyChainActivityDataLine,
   'SupplyChainActivityDataLine',
   'Supply Chain Activity Data Line',
-  'ActivityDataLine',
+  ActivityDataLineType.name,
   'A line describing the movement of goods to a specific location.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -278,3 +291,11 @@ export const ProductActivityFieldMap = new Map([
   [ProductActivityField.ReceiverParty, ProductActivityFieldMetaReceiverParty],
   [ProductActivityField.SupplyChainActivityDataLine, ProductActivityFieldMetaSupplyChainActivityDataLine]
 ])
+
+export const ProductActivityType: Type<ProductActivityField> = {
+  name: 'ProductActivity',
+  label: 'Product Activity',
+  module: TypeModule.doc,
+  definition: 'A document reporting the movement of goods at specified retail locations for inventory tracking purposes.',
+  fields: ProductActivityFieldMap,
+}

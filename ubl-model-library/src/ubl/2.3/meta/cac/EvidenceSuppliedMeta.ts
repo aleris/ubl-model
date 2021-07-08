@@ -1,4 +1,7 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum EvidenceSuppliedField {
   UBLExtensions = 'UBLExtensions',
@@ -8,11 +11,11 @@ export enum EvidenceSuppliedField {
 export const EvidenceSuppliedFieldMetaUBLExtensions = new FieldMeta<EvidenceSuppliedField>(
   EvidenceSuppliedField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -21,10 +24,10 @@ export const EvidenceSuppliedFieldMetaID = new FieldMeta<EvidenceSuppliedField>(
   EvidenceSuppliedField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'The identifier of the referenced evidence.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -38,3 +41,11 @@ export const EvidenceSuppliedFieldMap = new Map([
   [EvidenceSuppliedField.UBLExtensions, EvidenceSuppliedFieldMetaUBLExtensions],
   [EvidenceSuppliedField.ID, EvidenceSuppliedFieldMetaID]
 ])
+
+export const EvidenceSuppliedType: Type<EvidenceSuppliedField> = {
+  name: 'EvidenceSupplied',
+  label: 'Evidence Supplied',
+  module: TypeModule.cac,
+  definition: 'A reference to evidence.',
+  fields: EvidenceSuppliedFieldMap,
+}

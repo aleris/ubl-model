@@ -1,82 +1,92 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { EnvironmentalEmission } from  '../../model/cac/EnvironmentalEmission'
-import { EnvironmentalEmissionFieldMeta } from  '../../meta/cac/EnvironmentalEmissionMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import EmissionCalculationMethodDisplay from './EmissionCalculationMethodDisplay'
-import { EmissionCalculationMethod } from '../../model/cac/EmissionCalculationMethod'
-import MeasureDisplay from '../cbc/MeasureDisplay'
-import { Measure } from '../../model/cbc/Measure'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { EnvironmentalEmissionField, EnvironmentalEmissionFieldMeta, EnvironmentalEmissionTypeName } from  '../../meta/cac/EnvironmentalEmissionMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { EmissionCalculationMethodDisplay } from './EmissionCalculationMethodDisplay'
+import { MeasureDisplay } from '../cbc/MeasureDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: EnvironmentalEmission | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<EnvironmentalEmission, void>
+  environmentalEmission: EnvironmentalEmission[] | undefined
+  renderContext: RenderContext
 }
 
-export default function EnvironmentalEmissionDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const EnvironmentalEmissionSubElementsMap: SubElementsTemplatesMap<EnvironmentalEmissionField, EnvironmentalEmission, void> = new Map([
+    [
+      EnvironmentalEmissionField.UBLExtensions,
+      { meta: EnvironmentalEmissionFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={EnvironmentalEmissionField.UBLExtensions}
+          meta={EnvironmentalEmissionFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-EnvironmentalEmission">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={EnvironmentalEmissionFieldMeta.UBLExtensions}
-          />
+    [
+      EnvironmentalEmissionField.EnvironmentalEmissionTypeCode,
+      { meta: EnvironmentalEmissionFieldMeta.EnvironmentalEmissionTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={EnvironmentalEmissionField.EnvironmentalEmissionTypeCode}
+          meta={EnvironmentalEmissionFieldMeta.EnvironmentalEmissionTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.EnvironmentalEmissionTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Environmental Emission Type Code"
-            value={value.EnvironmentalEmissionTypeCode?.[0]}
-            meta={EnvironmentalEmissionFieldMeta.EnvironmentalEmissionTypeCode}
-          />
+    [
+      EnvironmentalEmissionField.ValueMeasure,
+      { meta: EnvironmentalEmissionFieldMeta.ValueMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={EnvironmentalEmissionField.ValueMeasure}
+          meta={EnvironmentalEmissionFieldMeta.ValueMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.ValueMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Value"
-            value={value.ValueMeasure?.[0]}
-            meta={EnvironmentalEmissionFieldMeta.ValueMeasure}
-          />
+    [
+      EnvironmentalEmissionField.Description,
+      { meta: EnvironmentalEmissionFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={EnvironmentalEmissionField.Description}
+          meta={EnvironmentalEmissionFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={EnvironmentalEmissionFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={EnvironmentalEmissionFieldMeta.Description}
-              />
-            }
-          />
+    [
+      EnvironmentalEmissionField.EmissionCalculationMethod,
+      { meta: EnvironmentalEmissionFieldMeta.EmissionCalculationMethod,
+        template: ({value, renderContext, fieldConfig}) => <EmissionCalculationMethodDisplay
+          key={EnvironmentalEmissionField.EmissionCalculationMethod}
+          meta={EnvironmentalEmissionFieldMeta.EmissionCalculationMethod}
+          fieldConfig={fieldConfig}
+          emissionCalculationMethod={value?.EmissionCalculationMethod}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-EmissionCalculationMethod"
-            label="Emission Calculation Method"
-            items={value.EmissionCalculationMethod}
-            meta={EnvironmentalEmissionFieldMeta.EmissionCalculationMethod} 
-            itemDisplay={ (itemValue: EmissionCalculationMethod, key: string | number) =>
-              <EmissionCalculationMethodDisplay
-                key={key}
-                label="Emission Calculation Method"
-                value={itemValue}
-                meta={EnvironmentalEmissionFieldMeta.EmissionCalculationMethod}
-              />
-            }
-          />
-        </div>
-    </div>
+export function EnvironmentalEmissionDisplay<TFieldMeta>({ meta, fieldConfig, environmentalEmission, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    EnvironmentalEmissionTypeName,
+    meta,
+    fieldConfig,
+    environmentalEmission,
+    renderContext,
+    EnvironmentalEmissionSubElementsMap,
   )
 }

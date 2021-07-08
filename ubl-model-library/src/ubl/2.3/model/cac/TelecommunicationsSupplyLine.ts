@@ -6,7 +6,6 @@ import { TaxTotal } from './TaxTotal'
 import { TelecommunicationsService } from './TelecommunicationsService'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class that outlines the telecommunication supply in details
  */

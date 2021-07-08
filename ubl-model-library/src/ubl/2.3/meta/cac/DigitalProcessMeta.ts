@@ -1,4 +1,10 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { DigitalCollaborationType } from './DigitalCollaborationMeta'
+import { DocumentReferenceType } from './DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum DigitalProcessField {
   UBLExtensions = 'UBLExtensions',
@@ -12,11 +18,11 @@ export enum DigitalProcessField {
 export const DigitalProcessFieldMetaUBLExtensions = new FieldMeta<DigitalProcessField>(
   DigitalProcessField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -25,10 +31,10 @@ export const DigitalProcessFieldMetaID = new FieldMeta<DigitalProcessField>(
   DigitalProcessField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the digital collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -37,10 +43,10 @@ export const DigitalProcessFieldMetaDescription = new FieldMeta<DigitalProcessFi
   DigitalProcessField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing the digital process.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -49,10 +55,10 @@ export const DigitalProcessFieldMetaProfileID = new FieldMeta<DigitalProcessFiel
   DigitalProcessField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of this digital process (e.g. an UBL profile).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'urn:www.cenbii.eu:profile:bii05:ver2.0'
 )
@@ -61,10 +67,10 @@ export const DigitalProcessFieldMetaDigitalCollaboration = new FieldMeta<Digital
   DigitalProcessField.DigitalCollaboration,
   'DigitalCollaboration',
   'Digital Collaboration',
-  'DigitalCollaboration',
+  DigitalCollaborationType.name,
   'The digital collaboration associated with this digital process.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -73,10 +79,10 @@ export const DigitalProcessFieldMetaCertificationDocumentReference = new FieldMe
   DigitalProcessField.CertificationDocumentReference,
   'CertificationDocumentReference',
   'Certification Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a certification document associated with this digital process.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -98,3 +104,11 @@ export const DigitalProcessFieldMap = new Map([
   [DigitalProcessField.DigitalCollaboration, DigitalProcessFieldMetaDigitalCollaboration],
   [DigitalProcessField.CertificationDocumentReference, DigitalProcessFieldMetaCertificationDocumentReference]
 ])
+
+export const DigitalProcessType: Type<DigitalProcessField> = {
+  name: 'DigitalProcess',
+  label: 'Digital Process',
+  module: TypeModule.cac,
+  definition: 'A class to describe a digital trade process.',
+  fields: DigitalProcessFieldMap,
+}

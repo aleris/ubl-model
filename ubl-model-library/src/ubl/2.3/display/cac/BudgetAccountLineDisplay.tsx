@@ -1,65 +1,79 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { BudgetAccountLine } from  '../../model/cac/BudgetAccountLine'
-import { BudgetAccountLineFieldMeta } from  '../../meta/cac/BudgetAccountLineMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import BudgetAccountDisplay from './BudgetAccountDisplay'
-import { BudgetAccount } from '../../model/cac/BudgetAccount'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { BudgetAccountLineField, BudgetAccountLineFieldMeta, BudgetAccountLineTypeName } from  '../../meta/cac/BudgetAccountLineMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { BudgetAccountDisplay } from './BudgetAccountDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: BudgetAccountLine | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<BudgetAccountLine, void>
+  budgetAccountLine: BudgetAccountLine[] | undefined
+  renderContext: RenderContext
 }
 
-export default function BudgetAccountLineDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const BudgetAccountLineSubElementsMap: SubElementsTemplatesMap<BudgetAccountLineField, BudgetAccountLine, void> = new Map([
+    [
+      BudgetAccountLineField.UBLExtensions,
+      { meta: BudgetAccountLineFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={BudgetAccountLineField.UBLExtensions}
+          meta={BudgetAccountLineFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-BudgetAccountLine">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={BudgetAccountLineFieldMeta.UBLExtensions}
-          />
+    [
+      BudgetAccountLineField.ID,
+      { meta: BudgetAccountLineFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={BudgetAccountLineField.ID}
+          meta={BudgetAccountLineFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={BudgetAccountLineFieldMeta.ID}
-          />
+    [
+      BudgetAccountLineField.TotalAmount,
+      { meta: BudgetAccountLineFieldMeta.TotalAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={BudgetAccountLineField.TotalAmount}
+          meta={BudgetAccountLineFieldMeta.TotalAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.TotalAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Total Amount"
-            value={value.TotalAmount?.[0]}
-            meta={BudgetAccountLineFieldMeta.TotalAmount}
-          />
+    [
+      BudgetAccountLineField.BudgetAccount,
+      { meta: BudgetAccountLineFieldMeta.BudgetAccount,
+        template: ({value, renderContext, fieldConfig}) => <BudgetAccountDisplay
+          key={BudgetAccountLineField.BudgetAccount}
+          meta={BudgetAccountLineFieldMeta.BudgetAccount}
+          fieldConfig={fieldConfig}
+          budgetAccount={value?.BudgetAccount}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-BudgetAccount"
-            label="Budget Account"
-            items={value.BudgetAccount}
-            meta={BudgetAccountLineFieldMeta.BudgetAccount} 
-            itemDisplay={ (itemValue: BudgetAccount, key: string | number) =>
-              <BudgetAccountDisplay
-                key={key}
-                label="Budget Account"
-                value={itemValue}
-                meta={BudgetAccountLineFieldMeta.BudgetAccount}
-              />
-            }
-          />
-        </div>
-    </div>
+export function BudgetAccountLineDisplay<TFieldMeta>({ meta, fieldConfig, budgetAccountLine, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    BudgetAccountLineTypeName,
+    meta,
+    fieldConfig,
+    budgetAccountLine,
+    renderContext,
+    BudgetAccountLineSubElementsMap,
   )
 }

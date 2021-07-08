@@ -4,7 +4,6 @@ import { Measure } from '../cbc/Measure'
 import { Party } from './Party'
 import { Period } from './Period'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a notification requirement.
  */

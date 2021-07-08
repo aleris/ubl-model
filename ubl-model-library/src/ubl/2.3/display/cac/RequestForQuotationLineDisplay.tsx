@@ -1,110 +1,142 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { RequestForQuotationLine } from  '../../model/cac/RequestForQuotationLine'
-import { RequestForQuotationLineFieldMeta } from  '../../meta/cac/RequestForQuotationLineMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DocumentReferenceDisplay from './DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import LineItemDisplay from './LineItemDisplay'
-import { LineItem } from '../../model/cac/LineItem'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { RequestForQuotationLineField, RequestForQuotationLineFieldMeta, RequestForQuotationLineTypeName } from  '../../meta/cac/RequestForQuotationLineMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DocumentReferenceDisplay } from './DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { LineItemDisplay } from './LineItemDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: RequestForQuotationLine | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<RequestForQuotationLine, void>
+  requestForQuotationLine: RequestForQuotationLine[] | undefined
+  renderContext: RenderContext
 }
 
-export default function RequestForQuotationLineDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const RequestForQuotationLineSubElementsMap: SubElementsTemplatesMap<RequestForQuotationLineField, RequestForQuotationLine, void> = new Map([
+    [
+      RequestForQuotationLineField.UBLExtensions,
+      { meta: RequestForQuotationLineFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={RequestForQuotationLineField.UBLExtensions}
+          meta={RequestForQuotationLineFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-RequestForQuotationLine">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={RequestForQuotationLineFieldMeta.UBLExtensions}
-          />
+    [
+      RequestForQuotationLineField.ID,
+      { meta: RequestForQuotationLineFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={RequestForQuotationLineField.ID}
+          meta={RequestForQuotationLineFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={RequestForQuotationLineFieldMeta.ID}
-          />
+    [
+      RequestForQuotationLineField.UUID,
+      { meta: RequestForQuotationLineFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={RequestForQuotationLineField.UUID}
+          meta={RequestForQuotationLineFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={RequestForQuotationLineFieldMeta.UUID}
-          />
+    [
+      RequestForQuotationLineField.Note,
+      { meta: RequestForQuotationLineFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={RequestForQuotationLineField.Note}
+          meta={RequestForQuotationLineFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={RequestForQuotationLineFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={RequestForQuotationLineFieldMeta.Note}
-              />
-            }
-          />
+    [
+      RequestForQuotationLineField.OptionalLineItemIndicator,
+      { meta: RequestForQuotationLineFieldMeta.OptionalLineItemIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={RequestForQuotationLineField.OptionalLineItemIndicator}
+          meta={RequestForQuotationLineFieldMeta.OptionalLineItemIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.OptionalLineItemIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Optional Line Item Indicator"
-            value={value.OptionalLineItemIndicator?.[0]}
-            meta={RequestForQuotationLineFieldMeta.OptionalLineItemIndicator}
-          />
+    [
+      RequestForQuotationLineField.PrivacyCode,
+      { meta: RequestForQuotationLineFieldMeta.PrivacyCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={RequestForQuotationLineField.PrivacyCode}
+          meta={RequestForQuotationLineFieldMeta.PrivacyCode}
+          fieldConfig={fieldConfig}
+          code={value?.PrivacyCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Privacy Code"
-            value={value.PrivacyCode?.[0]}
-            meta={RequestForQuotationLineFieldMeta.PrivacyCode}
-          />
+    [
+      RequestForQuotationLineField.SecurityClassificationCode,
+      { meta: RequestForQuotationLineFieldMeta.SecurityClassificationCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={RequestForQuotationLineField.SecurityClassificationCode}
+          meta={RequestForQuotationLineFieldMeta.SecurityClassificationCode}
+          fieldConfig={fieldConfig}
+          code={value?.SecurityClassificationCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Security Classification Code"
-            value={value.SecurityClassificationCode?.[0]}
-            meta={RequestForQuotationLineFieldMeta.SecurityClassificationCode}
-          />
+    [
+      RequestForQuotationLineField.DocumentReference,
+      { meta: RequestForQuotationLineFieldMeta.DocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={RequestForQuotationLineField.DocumentReference}
+          meta={RequestForQuotationLineFieldMeta.DocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.DocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentReference"
-            label="Document Reference"
-            items={value.DocumentReference}
-            meta={RequestForQuotationLineFieldMeta.DocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Document Reference"
-                value={itemValue}
-                meta={RequestForQuotationLineFieldMeta.DocumentReference}
-              />
-            }
-          />
+    [
+      RequestForQuotationLineField.LineItem,
+      { meta: RequestForQuotationLineFieldMeta.LineItem,
+        template: ({value, renderContext, fieldConfig}) => <LineItemDisplay
+          key={RequestForQuotationLineField.LineItem}
+          meta={RequestForQuotationLineFieldMeta.LineItem}
+          fieldConfig={fieldConfig}
+          lineItem={value?.LineItem}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <LineItemDisplay
-            label="Line Item"
-            value={value.LineItem?.[0]}
-            meta={RequestForQuotationLineFieldMeta.LineItem}
-          />
-        </div>
-    </div>
+export function RequestForQuotationLineDisplay<TFieldMeta>({ meta, fieldConfig, requestForQuotationLine, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    RequestForQuotationLineTypeName,
+    meta,
+    fieldConfig,
+    requestForQuotationLine,
+    renderContext,
+    RequestForQuotationLineSubElementsMap,
   )
 }

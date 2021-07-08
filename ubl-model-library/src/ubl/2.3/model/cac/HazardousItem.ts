@@ -8,7 +8,6 @@ import { SecondaryHazard } from './SecondaryHazard'
 import { Temperature } from './Temperature'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a hazardous item.
  */

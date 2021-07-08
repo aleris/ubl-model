@@ -1,4 +1,21 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { ConsignmentType } from '../cac/ConsignmentMeta'
+import { ContractType } from '../cac/ContractMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { LocationType } from '../cac/LocationMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { PeriodType } from '../cac/PeriodMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { TransportationServiceType } from '../cac/TransportationServiceMeta'
+import { TransportExecutionTermsType } from '../cac/TransportExecutionTermsMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum TransportExecutionPlanRequestField {
   UBLExtensions = 'UBLExtensions',
@@ -42,11 +59,11 @@ export enum TransportExecutionPlanRequestField {
 export const TransportExecutionPlanRequestFieldMetaUBLExtensions = new FieldMeta<TransportExecutionPlanRequestField>(
   TransportExecutionPlanRequestField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -55,10 +72,10 @@ export const TransportExecutionPlanRequestFieldMetaUBLVersionID = new FieldMeta<
   TransportExecutionPlanRequestField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -67,10 +84,10 @@ export const TransportExecutionPlanRequestFieldMetaCustomizationID = new FieldMe
   TransportExecutionPlanRequestField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -79,10 +96,10 @@ export const TransportExecutionPlanRequestFieldMetaProfileID = new FieldMeta<Tra
   TransportExecutionPlanRequestField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -91,10 +108,10 @@ export const TransportExecutionPlanRequestFieldMetaProfileExecutionID = new Fiel
   TransportExecutionPlanRequestField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -103,10 +120,10 @@ export const TransportExecutionPlanRequestFieldMetaID = new FieldMeta<TransportE
   TransportExecutionPlanRequestField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -115,10 +132,10 @@ export const TransportExecutionPlanRequestFieldMetaVersionID = new FieldMeta<Tra
   TransportExecutionPlanRequestField.VersionID,
   'VersionID',
   'Version',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the current version of the Transport Execution Plan Request.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '1.1'
 )
@@ -127,10 +144,10 @@ export const TransportExecutionPlanRequestFieldMetaCopyIndicator = new FieldMeta
   TransportExecutionPlanRequestField.CopyIndicator,
   'CopyIndicator',
   'Copy Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this document is a copy (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -139,10 +156,10 @@ export const TransportExecutionPlanRequestFieldMetaUUID = new FieldMeta<Transpor
   TransportExecutionPlanRequestField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -151,10 +168,10 @@ export const TransportExecutionPlanRequestFieldMetaIssueDate = new FieldMeta<Tra
   TransportExecutionPlanRequestField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Transport Document Date',
   undefined
 )
@@ -163,10 +180,10 @@ export const TransportExecutionPlanRequestFieldMetaIssueTime = new FieldMeta<Tra
   TransportExecutionPlanRequestField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -175,10 +192,10 @@ export const TransportExecutionPlanRequestFieldMetaDocumentStatusCode = new Fiel
   TransportExecutionPlanRequestField.DocumentStatusCode,
   'DocumentStatusCode',
   'Document Status Code',
-  'Code',
+  CodeType.name,
   'A code signifying the status of the Transport Execution Plan Request.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -187,10 +204,10 @@ export const TransportExecutionPlanRequestFieldMetaDocumentStatusReasonCode = ne
   TransportExecutionPlanRequestField.DocumentStatusReasonCode,
   'DocumentStatusReasonCode',
   'Document Status Reason Code',
-  'Code',
+  CodeType.name,
   'A code signifying a reason associated with the status of the Transport Execution Plan Request.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -199,10 +216,10 @@ export const TransportExecutionPlanRequestFieldMetaDocumentStatusReasonDescripti
   TransportExecutionPlanRequestField.DocumentStatusReasonDescription,
   'DocumentStatusReasonDescription',
   'Document Status Reason Description',
-  'Text',
+  TextType.name,
   'A reason associated with the status of the Transport Execution Plan Request.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   '123 Standard Chartered Tower'
 )
@@ -211,10 +228,10 @@ export const TransportExecutionPlanRequestFieldMetaNote = new FieldMeta<Transpor
   TransportExecutionPlanRequestField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -223,10 +240,10 @@ export const TransportExecutionPlanRequestFieldMetaTransportUserRemarks = new Fi
   TransportExecutionPlanRequestField.TransportUserRemarks,
   'TransportUserRemarks',
   'Transport User Remarks',
-  'Text',
+  TextType.name,
   'Remarks from the transport user regarding the transport operations referenced in the Transport Execution Plan Request.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -235,10 +252,10 @@ export const TransportExecutionPlanRequestFieldMetaSenderParty = new FieldMeta<T
   TransportExecutionPlanRequestField.SenderParty,
   'SenderParty',
   'Sender Party',
-  'Party',
+  PartyType.name,
   'The party sending the Transport Execution Plan Request.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -247,10 +264,10 @@ export const TransportExecutionPlanRequestFieldMetaReceiverParty = new FieldMeta
   TransportExecutionPlanRequestField.ReceiverParty,
   'ReceiverParty',
   'Receiver Party',
-  'Party',
+  PartyType.name,
   'The party receiving the Transport Execution Plan Request.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -259,10 +276,10 @@ export const TransportExecutionPlanRequestFieldMetaTransportUserParty = new Fiel
   TransportExecutionPlanRequestField.TransportUserParty,
   'TransportUserParty',
   'Transport User Party',
-  'Party',
+  PartyType.name,
   'The party requesting the transport services referenced in the Transport Execution Plan Request.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -271,10 +288,10 @@ export const TransportExecutionPlanRequestFieldMetaTransportServiceProviderParty
   TransportExecutionPlanRequestField.TransportServiceProviderParty,
   'TransportServiceProviderParty',
   'Transport Service Provider Party',
-  'Party',
+  PartyType.name,
   'The party providing the transport services referenced in the Transport Execution Plan Request.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -283,10 +300,10 @@ export const TransportExecutionPlanRequestFieldMetaPayeeParty = new FieldMeta<Tr
   TransportExecutionPlanRequestField.PayeeParty,
   'PayeeParty',
   'Payee Party',
-  'Party',
+  PartyType.name,
   'The party that will pay for the transport service(s) referred to in a Transport Execution Plan.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -295,10 +312,10 @@ export const TransportExecutionPlanRequestFieldMetaSignature = new FieldMeta<Tra
   TransportExecutionPlanRequestField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -307,10 +324,10 @@ export const TransportExecutionPlanRequestFieldMetaTransportExecutionPlanDocumen
   TransportExecutionPlanRequestField.TransportExecutionPlanDocumentReference,
   'TransportExecutionPlanDocumentReference',
   'Transport Execution Plan Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to an original Transport Execution Plan Document.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -319,10 +336,10 @@ export const TransportExecutionPlanRequestFieldMetaTransportServiceDescriptionDo
   TransportExecutionPlanRequestField.TransportServiceDescriptionDocumentReference,
   'TransportServiceDescriptionDocumentReference',
   'Transport Service Description Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to the Transport Service Description, which is used by a transport service provider to announce transport services to transport users (buyers).',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -331,10 +348,10 @@ export const TransportExecutionPlanRequestFieldMetaAdditionalDocumentReference =
   TransportExecutionPlanRequestField.AdditionalDocumentReference,
   'AdditionalDocumentReference',
   'Additional Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to an additional document associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -343,10 +360,10 @@ export const TransportExecutionPlanRequestFieldMetaTransportContract = new Field
   TransportExecutionPlanRequestField.TransportContract,
   'TransportContract',
   'Transport Contract',
-  'Contract',
+  ContractType.name,
   'A potential contract related to the Transport Execution Plan Request.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -355,10 +372,10 @@ export const TransportExecutionPlanRequestFieldMetaTransportServiceProviderRespo
   TransportExecutionPlanRequestField.TransportServiceProviderResponseDeadlinePeriod,
   'TransportServiceProviderResponseDeadlinePeriod',
   'Transport Service Provider Response Deadline Period',
-  'Period',
+  PeriodType.name,
   'A deadline for a response from the Transport Service Provider to this Transport Execution Plan Request.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -367,10 +384,10 @@ export const TransportExecutionPlanRequestFieldMetaMainTransportationService = n
   TransportExecutionPlanRequestField.MainTransportationService,
   'MainTransportationService',
   'Main Transportation Service',
-  'TransportationService',
+  TransportationServiceType.name,
   'A description of the main transportation service referenced in the Transport Execution Plan Request.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -379,10 +396,10 @@ export const TransportExecutionPlanRequestFieldMetaAdditionalTransportationServi
   TransportExecutionPlanRequestField.AdditionalTransportationService,
   'AdditionalTransportationService',
   'Additional Transportation Service',
-  'TransportationService',
+  TransportationServiceType.name,
   'A description of an additional transportation service referenced in the Transport Execution Plan Request.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -391,10 +408,10 @@ export const TransportExecutionPlanRequestFieldMetaServiceStartTimePeriod = new 
   TransportExecutionPlanRequestField.ServiceStartTimePeriod,
   'ServiceStartTimePeriod',
   'Service Start Time Period',
-  'Period',
+  PeriodType.name,
   'The period within which the services referred to in the Transport Execution Plan Request must begin.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -403,10 +420,10 @@ export const TransportExecutionPlanRequestFieldMetaServiceEndTimePeriod = new Fi
   TransportExecutionPlanRequestField.ServiceEndTimePeriod,
   'ServiceEndTimePeriod',
   'Service End Time Period',
-  'Period',
+  PeriodType.name,
   'The period during which the services referred to in the Transport Execution Plan Request must be completed.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -415,10 +432,10 @@ export const TransportExecutionPlanRequestFieldMetaFromLocation = new FieldMeta<
   TransportExecutionPlanRequestField.FromLocation,
   'FromLocation',
   'From Location',
-  'Location',
+  LocationType.name,
   'The location of origin of the transport service referenced in the Transport Execution Plan Request.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -427,10 +444,10 @@ export const TransportExecutionPlanRequestFieldMetaToLocation = new FieldMeta<Tr
   TransportExecutionPlanRequestField.ToLocation,
   'ToLocation',
   'To Location',
-  'Location',
+  LocationType.name,
   'The destination location for the transport service referenced in the Transport Execution Plan Request.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -439,10 +456,10 @@ export const TransportExecutionPlanRequestFieldMetaAtLocation = new FieldMeta<Tr
   TransportExecutionPlanRequestField.AtLocation,
   'AtLocation',
   'At Location',
-  'Location',
+  LocationType.name,
   'The location of a transport service (e.g., terminal handling service) that does not require transport movement.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -451,10 +468,10 @@ export const TransportExecutionPlanRequestFieldMetaTransportExecutionTerms = new
   TransportExecutionPlanRequestField.TransportExecutionTerms,
   'TransportExecutionTerms',
   'Transport Execution Terms',
-  'TransportExecutionTerms',
+  TransportExecutionTermsType.name,
   'A description of terms and conditions related to the Transport Execution Plan Request.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -463,10 +480,10 @@ export const TransportExecutionPlanRequestFieldMetaConsignment = new FieldMeta<T
   TransportExecutionPlanRequestField.Consignment,
   'Consignment',
   'Consignment',
-  'Consignment',
+  ConsignmentType.name,
   'A description of an identifiable collection of goods items to be transported between the consignor and the consignee. This information may be defined within a transport contract. A consignment may comprise more than one shipment (e.g., when consolidated by a freight forwarder).',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -548,3 +565,11 @@ export const TransportExecutionPlanRequestFieldMap = new Map([
   [TransportExecutionPlanRequestField.TransportExecutionTerms, TransportExecutionPlanRequestFieldMetaTransportExecutionTerms],
   [TransportExecutionPlanRequestField.Consignment, TransportExecutionPlanRequestFieldMetaConsignment]
 ])
+
+export const TransportExecutionPlanRequestType: Type<TransportExecutionPlanRequestField> = {
+  name: 'TransportExecutionPlanRequest',
+  label: 'Transport Execution Plan Request',
+  module: TypeModule.doc,
+  definition: 'A document sent by a transport user to request a transport service from a transport service provider.',
+  fields: TransportExecutionPlanRequestFieldMap,
+}

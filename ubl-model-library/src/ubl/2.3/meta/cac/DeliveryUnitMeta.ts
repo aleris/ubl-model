@@ -1,4 +1,8 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum DeliveryUnitField {
   UBLExtensions = 'UBLExtensions',
@@ -10,11 +14,11 @@ export enum DeliveryUnitField {
 export const DeliveryUnitFieldMetaUBLExtensions = new FieldMeta<DeliveryUnitField>(
   DeliveryUnitField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -23,10 +27,10 @@ export const DeliveryUnitFieldMetaBatchQuantity = new FieldMeta<DeliveryUnitFiel
   DeliveryUnitField.BatchQuantity,
   'BatchQuantity',
   'Batch Quantity',
-  'Quantity',
+  QuantityType.name,
   'The quantity of ordered Items that constitutes a batch for delivery purposes.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   '100 units , by the dozen'
 )
@@ -35,10 +39,10 @@ export const DeliveryUnitFieldMetaConsumerUnitQuantity = new FieldMeta<DeliveryU
   DeliveryUnitField.ConsumerUnitQuantity,
   'ConsumerUnitQuantity',
   'Consumer Unit',
-  'Quantity',
+  QuantityType.name,
   'The quantity of units in the Delivery Unit expressed in the units used by the consumer.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'packs of 10'
 )
@@ -47,10 +51,10 @@ export const DeliveryUnitFieldMetaHazardousRiskIndicator = new FieldMeta<Deliver
   DeliveryUnitField.HazardousRiskIndicator,
   'HazardousRiskIndicator',
   'Hazardous Risk Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indication that the transported goods are subject to an international regulation concerning the carriage of dangerous goods (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Default is negative'
 )
@@ -68,3 +72,11 @@ export const DeliveryUnitFieldMap = new Map([
   [DeliveryUnitField.ConsumerUnitQuantity, DeliveryUnitFieldMetaConsumerUnitQuantity],
   [DeliveryUnitField.HazardousRiskIndicator, DeliveryUnitFieldMetaHazardousRiskIndicator]
 ])
+
+export const DeliveryUnitType: Type<DeliveryUnitField> = {
+  name: 'DeliveryUnit',
+  label: 'Delivery Unit',
+  module: TypeModule.cac,
+  definition: 'A class to describe a delivery unit.',
+  fields: DeliveryUnitFieldMap,
+}

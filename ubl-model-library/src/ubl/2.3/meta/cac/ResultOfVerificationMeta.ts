@@ -1,4 +1,12 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { DateType } from '../cbc/DateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { PartyType } from './PartyMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ResultOfVerificationField {
   UBLExtensions = 'UBLExtensions',
@@ -15,11 +23,11 @@ export enum ResultOfVerificationField {
 export const ResultOfVerificationFieldMetaUBLExtensions = new FieldMeta<ResultOfVerificationField>(
   ResultOfVerificationField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -28,10 +36,10 @@ export const ResultOfVerificationFieldMetaValidatorID = new FieldMeta<ResultOfVe
   ResultOfVerificationField.ValidatorID,
   'ValidatorID',
   'Validator',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the organization, person, service, or server that verified the signature.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -40,10 +48,10 @@ export const ResultOfVerificationFieldMetaValidationResultCode = new FieldMeta<R
   ResultOfVerificationField.ValidationResultCode,
   'ValidationResultCode',
   'Validation Result Code',
-  'Code',
+  CodeType.name,
   'A code signifying the result of the verification.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -52,10 +60,10 @@ export const ResultOfVerificationFieldMetaValidationDate = new FieldMeta<ResultO
   ResultOfVerificationField.ValidationDate,
   'ValidationDate',
   'Validation Date',
-  'Date',
+  DateType.name,
   'The date upon which verification took place.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -64,10 +72,10 @@ export const ResultOfVerificationFieldMetaValidationTime = new FieldMeta<ResultO
   ResultOfVerificationField.ValidationTime,
   'ValidationTime',
   'Validation Time',
-  'Time',
+  TimeType.name,
   'The time at which verification took place.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -76,10 +84,10 @@ export const ResultOfVerificationFieldMetaValidateProcess = new FieldMeta<Result
   ResultOfVerificationField.ValidateProcess,
   'ValidateProcess',
   'Validate Process',
-  'Text',
+  TextType.name,
   'The verification process.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -88,10 +96,10 @@ export const ResultOfVerificationFieldMetaValidateTool = new FieldMeta<ResultOfV
   ResultOfVerificationField.ValidateTool,
   'ValidateTool',
   'Validate Tool',
-  'Text',
+  TextType.name,
   'The tool used to verify the signature.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -100,10 +108,10 @@ export const ResultOfVerificationFieldMetaValidateToolVersion = new FieldMeta<Re
   ResultOfVerificationField.ValidateToolVersion,
   'ValidateToolVersion',
   'Validate Tool Version',
-  'Text',
+  TextType.name,
   'The version of the tool used to verify the signature.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -112,10 +120,10 @@ export const ResultOfVerificationFieldMetaSignatoryParty = new FieldMeta<ResultO
   ResultOfVerificationField.SignatoryParty,
   'SignatoryParty',
   'Signatory Party',
-  'Party',
+  PartyType.name,
   'The signing party.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -143,3 +151,11 @@ export const ResultOfVerificationFieldMap = new Map([
   [ResultOfVerificationField.ValidateToolVersion, ResultOfVerificationFieldMetaValidateToolVersion],
   [ResultOfVerificationField.SignatoryParty, ResultOfVerificationFieldMetaSignatoryParty]
 ])
+
+export const ResultOfVerificationType: Type<ResultOfVerificationField> = {
+  name: 'ResultOfVerification',
+  label: 'Result Of Verification',
+  module: TypeModule.cac,
+  definition: 'A class to describe the result of an attempt to verify a signature.',
+  fields: ResultOfVerificationFieldMap,
+}

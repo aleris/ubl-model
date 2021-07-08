@@ -1,77 +1,103 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { MeterProperty } from  '../../model/cac/MeterProperty'
-import { MeterPropertyFieldMeta } from  '../../meta/cac/MeterPropertyMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { MeterPropertyField, MeterPropertyFieldMeta, MeterPropertyTypeName } from  '../../meta/cac/MeterPropertyMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: MeterProperty | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<MeterProperty, void>
+  meterProperty: MeterProperty[] | undefined
+  renderContext: RenderContext
 }
 
-export default function MeterPropertyDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const MeterPropertySubElementsMap: SubElementsTemplatesMap<MeterPropertyField, MeterProperty, void> = new Map([
+    [
+      MeterPropertyField.UBLExtensions,
+      { meta: MeterPropertyFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={MeterPropertyField.UBLExtensions}
+          meta={MeterPropertyFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-MeterProperty">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={MeterPropertyFieldMeta.UBLExtensions}
-          />
+    [
+      MeterPropertyField.Name,
+      { meta: MeterPropertyFieldMeta.Name,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={MeterPropertyField.Name}
+          meta={MeterPropertyFieldMeta.Name}
+          fieldConfig={fieldConfig}
+          text={value?.Name}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Name"
-            value={value.Name?.[0]}
-            meta={MeterPropertyFieldMeta.Name}
-          />
+    [
+      MeterPropertyField.NameCode,
+      { meta: MeterPropertyFieldMeta.NameCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={MeterPropertyField.NameCode}
+          meta={MeterPropertyFieldMeta.NameCode}
+          fieldConfig={fieldConfig}
+          code={value?.NameCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Name Code"
-            value={value.NameCode?.[0]}
-            meta={MeterPropertyFieldMeta.NameCode}
-          />
+    [
+      MeterPropertyField.Value,
+      { meta: MeterPropertyFieldMeta.Value,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={MeterPropertyField.Value}
+          meta={MeterPropertyFieldMeta.Value}
+          fieldConfig={fieldConfig}
+          text={value?.Value}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Value"
-            value={value.Value?.[0]}
-            meta={MeterPropertyFieldMeta.Value}
-          />
+    [
+      MeterPropertyField.ValueQuantity,
+      { meta: MeterPropertyFieldMeta.ValueQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={MeterPropertyField.ValueQuantity}
+          meta={MeterPropertyFieldMeta.ValueQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.ValueQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Value Quantity"
-            value={value.ValueQuantity?.[0]}
-            meta={MeterPropertyFieldMeta.ValueQuantity}
-          />
+    [
+      MeterPropertyField.ValueQualifier,
+      { meta: MeterPropertyFieldMeta.ValueQualifier,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={MeterPropertyField.ValueQualifier}
+          meta={MeterPropertyFieldMeta.ValueQualifier}
+          fieldConfig={fieldConfig}
+          text={value?.ValueQualifier}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-ValueQualifier"
-            label="Value Qualifier"
-            items={value.ValueQualifier}
-            meta={MeterPropertyFieldMeta.ValueQualifier} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Value Qualifier"
-                value={itemValue}
-                meta={MeterPropertyFieldMeta.ValueQualifier}
-              />
-            }
-          />
-        </div>
-    </div>
+export function MeterPropertyDisplay<TFieldMeta>({ meta, fieldConfig, meterProperty, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    MeterPropertyTypeName,
+    meta,
+    fieldConfig,
+    meterProperty,
+    renderContext,
+    MeterPropertySubElementsMap,
   )
 }

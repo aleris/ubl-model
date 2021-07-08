@@ -1,4 +1,15 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { PaymentMeansType } from './PaymentMeansMeta'
+import { TaxCategoryType } from './TaxCategoryMeta'
+import { TaxTotalType } from './TaxTotalMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum AllowanceChargeField {
   UBLExtensions = 'UBLExtensions',
@@ -22,11 +33,11 @@ export enum AllowanceChargeField {
 export const AllowanceChargeFieldMetaUBLExtensions = new FieldMeta<AllowanceChargeField>(
   AllowanceChargeField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -35,10 +46,10 @@ export const AllowanceChargeFieldMetaID = new FieldMeta<AllowanceChargeField>(
   AllowanceChargeField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this allowance or charge.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -47,10 +58,10 @@ export const AllowanceChargeFieldMetaChargeIndicator = new FieldMeta<AllowanceCh
   AllowanceChargeField.ChargeIndicator,
   'ChargeIndicator',
   'Charge Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indicator that this AllowanceCharge describes a charge (true) or a discount (false).',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -59,10 +70,10 @@ export const AllowanceChargeFieldMetaAllowanceChargeReasonCode = new FieldMeta<A
   AllowanceChargeField.AllowanceChargeReasonCode,
   'AllowanceChargeReasonCode',
   'Allowance Charge Reason Code',
-  'Code',
+  CodeType.name,
   'A mutually agreed code signifying the reason for this allowance or charge.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -71,10 +82,10 @@ export const AllowanceChargeFieldMetaAllowanceChargeReason = new FieldMeta<Allow
   AllowanceChargeField.AllowanceChargeReason,
   'AllowanceChargeReason',
   'Allowance Charge Reason',
-  'Text',
+  TextType.name,
   'The reason for this allowance or charge.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -83,10 +94,10 @@ export const AllowanceChargeFieldMetaMultiplierFactorNumeric = new FieldMeta<All
   AllowanceChargeField.MultiplierFactorNumeric,
   'MultiplierFactorNumeric',
   'Multiplier Factor',
-  'Numeric',
+  NumericType.name,
   'A number by which the base amount is multiplied to calculate the actual amount of this allowance or charge.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '0.20'
 )
@@ -95,10 +106,10 @@ export const AllowanceChargeFieldMetaPrepaidIndicator = new FieldMeta<AllowanceC
   AllowanceChargeField.PrepaidIndicator,
   'PrepaidIndicator',
   'Prepaid Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indicator that this allowance or charge is prepaid (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -107,10 +118,10 @@ export const AllowanceChargeFieldMetaSequenceNumeric = new FieldMeta<AllowanceCh
   AllowanceChargeField.SequenceNumeric,
   'SequenceNumeric',
   'Sequence',
-  'Numeric',
+  NumericType.name,
   'A number indicating the order of this allowance or charge in the sequence of calculations applied when there are multiple allowances or charges.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '1, 2, 3, 4, etc.'
 )
@@ -119,10 +130,10 @@ export const AllowanceChargeFieldMetaAmount = new FieldMeta<AllowanceChargeField
   AllowanceChargeField.Amount,
   'Amount',
   'Amount',
-  'Amount',
+  AmountType.name,
   'The monetary amount of this allowance or charge to be applied.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   '35,23'
 )
@@ -131,10 +142,10 @@ export const AllowanceChargeFieldMetaBaseAmount = new FieldMeta<AllowanceChargeF
   AllowanceChargeField.BaseAmount,
   'BaseAmount',
   'Base Amount',
-  'Amount',
+  AmountType.name,
   'The monetary amount to which the multiplier factor is applied in calculating the amount of this allowance or charge.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -143,10 +154,10 @@ export const AllowanceChargeFieldMetaAccountingCostCode = new FieldMeta<Allowanc
   AllowanceChargeField.AccountingCostCode,
   'AccountingCostCode',
   'Accounting Cost Code',
-  'Code',
+  CodeType.name,
   'The accounting cost centre used by the buyer to account for this allowance or charge, expressed as a code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -155,10 +166,10 @@ export const AllowanceChargeFieldMetaAccountingCost = new FieldMeta<AllowanceCha
   AllowanceChargeField.AccountingCost,
   'AccountingCost',
   'Accounting Cost',
-  'Text',
+  TextType.name,
   'The accounting cost centre used by the buyer to account for this allowance or charge, expressed as text.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -167,10 +178,10 @@ export const AllowanceChargeFieldMetaPerUnitAmount = new FieldMeta<AllowanceChar
   AllowanceChargeField.PerUnitAmount,
   'PerUnitAmount',
   'Per Unit Amount',
-  'Amount',
+  AmountType.name,
   'The allowance or charge per item; the total allowance or charge is calculated by multiplying the per unit amount by the quantity of items, either at the level of the individual transaction line or for the total number of items in the document, depending on the context in which it appears.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -179,10 +190,10 @@ export const AllowanceChargeFieldMetaTaxCategory = new FieldMeta<AllowanceCharge
   AllowanceChargeField.TaxCategory,
   'TaxCategory',
   'Tax Category',
-  'TaxCategory',
+  TaxCategoryType.name,
   'A tax category applicable to this allowance or charge.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -191,10 +202,10 @@ export const AllowanceChargeFieldMetaTaxTotal = new FieldMeta<AllowanceChargeFie
   AllowanceChargeField.TaxTotal,
   'TaxTotal',
   'Tax Total',
-  'TaxTotal',
+  TaxTotalType.name,
   'The total of all the taxes applicable to this allowance or charge.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -203,10 +214,10 @@ export const AllowanceChargeFieldMetaPaymentMeans = new FieldMeta<AllowanceCharg
   AllowanceChargeField.PaymentMeans,
   'PaymentMeans',
   'Payment Means',
-  'PaymentMeans',
+  PaymentMeansType.name,
   'A means of payment for this allowance or charge.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -248,3 +259,11 @@ export const AllowanceChargeFieldMap = new Map([
   [AllowanceChargeField.TaxTotal, AllowanceChargeFieldMetaTaxTotal],
   [AllowanceChargeField.PaymentMeans, AllowanceChargeFieldMetaPaymentMeans]
 ])
+
+export const AllowanceChargeType: Type<AllowanceChargeField> = {
+  name: 'AllowanceCharge',
+  label: 'Allowance Charge',
+  module: TypeModule.cac,
+  definition: 'A class to describe information about a charge or discount as applied to a price component.',
+  fields: AllowanceChargeFieldMap,
+}

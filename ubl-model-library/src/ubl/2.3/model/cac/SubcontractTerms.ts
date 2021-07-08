@@ -4,7 +4,6 @@ import { Indicator } from '../cbc/Indicator'
 import { Numeric } from '../cbc/Numeric'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe subcontract terms for a tendering process.
  */

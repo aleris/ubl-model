@@ -3,7 +3,6 @@ import { Code } from '../cbc/Code'
 import { Period } from './Period'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to define an authorization that as been issued
  */

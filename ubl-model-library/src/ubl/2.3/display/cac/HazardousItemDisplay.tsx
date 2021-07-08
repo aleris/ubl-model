@@ -1,224 +1,325 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { HazardousItem } from  '../../model/cac/HazardousItem'
-import { HazardousItemFieldMeta } from  '../../meta/cac/HazardousItemMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import HazardousGoodsTransitDisplay from './HazardousGoodsTransitDisplay'
-import { HazardousGoodsTransit } from '../../model/cac/HazardousGoodsTransit'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import MeasureDisplay from '../cbc/MeasureDisplay'
-import { Measure } from '../../model/cbc/Measure'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import SecondaryHazardDisplay from './SecondaryHazardDisplay'
-import { SecondaryHazard } from '../../model/cac/SecondaryHazard'
-import TemperatureDisplay from './TemperatureDisplay'
-import { Temperature } from '../../model/cac/Temperature'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { HazardousItemField, HazardousItemFieldMeta, HazardousItemTypeName } from  '../../meta/cac/HazardousItemMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { HazardousGoodsTransitDisplay } from './HazardousGoodsTransitDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { MeasureDisplay } from '../cbc/MeasureDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { SecondaryHazardDisplay } from './SecondaryHazardDisplay'
+import { TemperatureDisplay } from './TemperatureDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: HazardousItem | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<HazardousItem, void>
+  hazardousItem: HazardousItem[] | undefined
+  renderContext: RenderContext
 }
 
-export default function HazardousItemDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const HazardousItemSubElementsMap: SubElementsTemplatesMap<HazardousItemField, HazardousItem, void> = new Map([
+    [
+      HazardousItemField.UBLExtensions,
+      { meta: HazardousItemFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={HazardousItemField.UBLExtensions}
+          meta={HazardousItemFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-HazardousItem">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={HazardousItemFieldMeta.UBLExtensions}
-          />
+    [
+      HazardousItemField.ID,
+      { meta: HazardousItemFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={HazardousItemField.ID}
+          meta={HazardousItemFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={HazardousItemFieldMeta.ID}
-          />
+    [
+      HazardousItemField.PlacardNotation,
+      { meta: HazardousItemFieldMeta.PlacardNotation,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={HazardousItemField.PlacardNotation}
+          meta={HazardousItemFieldMeta.PlacardNotation}
+          fieldConfig={fieldConfig}
+          text={value?.PlacardNotation}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Placard Notation"
-            value={value.PlacardNotation?.[0]}
-            meta={HazardousItemFieldMeta.PlacardNotation}
-          />
+    [
+      HazardousItemField.PlacardEndorsement,
+      { meta: HazardousItemFieldMeta.PlacardEndorsement,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={HazardousItemField.PlacardEndorsement}
+          meta={HazardousItemFieldMeta.PlacardEndorsement}
+          fieldConfig={fieldConfig}
+          text={value?.PlacardEndorsement}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Placard Endorsement"
-            value={value.PlacardEndorsement?.[0]}
-            meta={HazardousItemFieldMeta.PlacardEndorsement}
-          />
+    [
+      HazardousItemField.AdditionalInformation,
+      { meta: HazardousItemFieldMeta.AdditionalInformation,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={HazardousItemField.AdditionalInformation}
+          meta={HazardousItemFieldMeta.AdditionalInformation}
+          fieldConfig={fieldConfig}
+          text={value?.AdditionalInformation}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-AdditionalInformation"
-            label="Additional Information"
-            items={value.AdditionalInformation}
-            meta={HazardousItemFieldMeta.AdditionalInformation} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Additional Information"
-                value={itemValue}
-                meta={HazardousItemFieldMeta.AdditionalInformation}
-              />
-            }
-          />
+    [
+      HazardousItemField.UNDGCode,
+      { meta: HazardousItemFieldMeta.UNDGCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={HazardousItemField.UNDGCode}
+          meta={HazardousItemFieldMeta.UNDGCode}
+          fieldConfig={fieldConfig}
+          code={value?.UNDGCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="UNDG Code"
-            value={value.UNDGCode?.[0]}
-            meta={HazardousItemFieldMeta.UNDGCode}
-          />
+    [
+      HazardousItemField.EmergencyProceduresCode,
+      { meta: HazardousItemFieldMeta.EmergencyProceduresCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={HazardousItemField.EmergencyProceduresCode}
+          meta={HazardousItemFieldMeta.EmergencyProceduresCode}
+          fieldConfig={fieldConfig}
+          code={value?.EmergencyProceduresCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Emergency Procedures Code"
-            value={value.EmergencyProceduresCode?.[0]}
-            meta={HazardousItemFieldMeta.EmergencyProceduresCode}
-          />
+    [
+      HazardousItemField.MedicalFirstAidGuideCode,
+      { meta: HazardousItemFieldMeta.MedicalFirstAidGuideCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={HazardousItemField.MedicalFirstAidGuideCode}
+          meta={HazardousItemFieldMeta.MedicalFirstAidGuideCode}
+          fieldConfig={fieldConfig}
+          code={value?.MedicalFirstAidGuideCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Medical First Aid Guide Code"
-            value={value.MedicalFirstAidGuideCode?.[0]}
-            meta={HazardousItemFieldMeta.MedicalFirstAidGuideCode}
-          />
+    [
+      HazardousItemField.TechnicalName,
+      { meta: HazardousItemFieldMeta.TechnicalName,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={HazardousItemField.TechnicalName}
+          meta={HazardousItemFieldMeta.TechnicalName}
+          fieldConfig={fieldConfig}
+          text={value?.TechnicalName}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Technical Name"
-            value={value.TechnicalName?.[0]}
-            meta={HazardousItemFieldMeta.TechnicalName}
-          />
+    [
+      HazardousItemField.CategoryName,
+      { meta: HazardousItemFieldMeta.CategoryName,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={HazardousItemField.CategoryName}
+          meta={HazardousItemFieldMeta.CategoryName}
+          fieldConfig={fieldConfig}
+          text={value?.CategoryName}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Category"
-            value={value.CategoryName?.[0]}
-            meta={HazardousItemFieldMeta.CategoryName}
-          />
+    [
+      HazardousItemField.HazardousCategoryCode,
+      { meta: HazardousItemFieldMeta.HazardousCategoryCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={HazardousItemField.HazardousCategoryCode}
+          meta={HazardousItemFieldMeta.HazardousCategoryCode}
+          fieldConfig={fieldConfig}
+          code={value?.HazardousCategoryCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Hazardous Category Code"
-            value={value.HazardousCategoryCode?.[0]}
-            meta={HazardousItemFieldMeta.HazardousCategoryCode}
-          />
+    [
+      HazardousItemField.UpperOrangeHazardPlacardID,
+      { meta: HazardousItemFieldMeta.UpperOrangeHazardPlacardID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={HazardousItemField.UpperOrangeHazardPlacardID}
+          meta={HazardousItemFieldMeta.UpperOrangeHazardPlacardID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UpperOrangeHazardPlacardID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Upper Orange Hazard Placard Identifier"
-            value={value.UpperOrangeHazardPlacardID?.[0]}
-            meta={HazardousItemFieldMeta.UpperOrangeHazardPlacardID}
-          />
+    [
+      HazardousItemField.LowerOrangeHazardPlacardID,
+      { meta: HazardousItemFieldMeta.LowerOrangeHazardPlacardID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={HazardousItemField.LowerOrangeHazardPlacardID}
+          meta={HazardousItemFieldMeta.LowerOrangeHazardPlacardID}
+          fieldConfig={fieldConfig}
+          identifier={value?.LowerOrangeHazardPlacardID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Lower Orange Hazard Placard Identifier"
-            value={value.LowerOrangeHazardPlacardID?.[0]}
-            meta={HazardousItemFieldMeta.LowerOrangeHazardPlacardID}
-          />
+    [
+      HazardousItemField.MarkingID,
+      { meta: HazardousItemFieldMeta.MarkingID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={HazardousItemField.MarkingID}
+          meta={HazardousItemFieldMeta.MarkingID}
+          fieldConfig={fieldConfig}
+          identifier={value?.MarkingID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Marking Identifier"
-            value={value.MarkingID?.[0]}
-            meta={HazardousItemFieldMeta.MarkingID}
-          />
+    [
+      HazardousItemField.HazardClassID,
+      { meta: HazardousItemFieldMeta.HazardClassID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={HazardousItemField.HazardClassID}
+          meta={HazardousItemFieldMeta.HazardClassID}
+          fieldConfig={fieldConfig}
+          identifier={value?.HazardClassID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Hazard Class Identifier"
-            value={value.HazardClassID?.[0]}
-            meta={HazardousItemFieldMeta.HazardClassID}
-          />
+    [
+      HazardousItemField.NetWeightMeasure,
+      { meta: HazardousItemFieldMeta.NetWeightMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={HazardousItemField.NetWeightMeasure}
+          meta={HazardousItemFieldMeta.NetWeightMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.NetWeightMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Net Weight"
-            value={value.NetWeightMeasure?.[0]}
-            meta={HazardousItemFieldMeta.NetWeightMeasure}
-          />
+    [
+      HazardousItemField.NetVolumeMeasure,
+      { meta: HazardousItemFieldMeta.NetVolumeMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={HazardousItemField.NetVolumeMeasure}
+          meta={HazardousItemFieldMeta.NetVolumeMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.NetVolumeMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Net Volume"
-            value={value.NetVolumeMeasure?.[0]}
-            meta={HazardousItemFieldMeta.NetVolumeMeasure}
-          />
+    [
+      HazardousItemField.Quantity,
+      { meta: HazardousItemFieldMeta.Quantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={HazardousItemField.Quantity}
+          meta={HazardousItemFieldMeta.Quantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.Quantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Quantity"
-            value={value.Quantity?.[0]}
-            meta={HazardousItemFieldMeta.Quantity}
-          />
+    [
+      HazardousItemField.ContactParty,
+      { meta: HazardousItemFieldMeta.ContactParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={HazardousItemField.ContactParty}
+          meta={HazardousItemFieldMeta.ContactParty}
+          fieldConfig={fieldConfig}
+          party={value?.ContactParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Contact Party"
-            value={value.ContactParty?.[0]}
-            meta={HazardousItemFieldMeta.ContactParty}
-          />
+    [
+      HazardousItemField.SecondaryHazard,
+      { meta: HazardousItemFieldMeta.SecondaryHazard,
+        template: ({value, renderContext, fieldConfig}) => <SecondaryHazardDisplay
+          key={HazardousItemField.SecondaryHazard}
+          meta={HazardousItemFieldMeta.SecondaryHazard}
+          fieldConfig={fieldConfig}
+          secondaryHazard={value?.SecondaryHazard}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-SecondaryHazard"
-            label="Secondary Hazard"
-            items={value.SecondaryHazard}
-            meta={HazardousItemFieldMeta.SecondaryHazard} 
-            itemDisplay={ (itemValue: SecondaryHazard, key: string | number) =>
-              <SecondaryHazardDisplay
-                key={key}
-                label="Secondary Hazard"
-                value={itemValue}
-                meta={HazardousItemFieldMeta.SecondaryHazard}
-              />
-            }
-          />
+    [
+      HazardousItemField.HazardousGoodsTransit,
+      { meta: HazardousItemFieldMeta.HazardousGoodsTransit,
+        template: ({value, renderContext, fieldConfig}) => <HazardousGoodsTransitDisplay
+          key={HazardousItemField.HazardousGoodsTransit}
+          meta={HazardousItemFieldMeta.HazardousGoodsTransit}
+          fieldConfig={fieldConfig}
+          hazardousGoodsTransit={value?.HazardousGoodsTransit}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-HazardousGoodsTransit"
-            label="Hazardous Goods Transit"
-            items={value.HazardousGoodsTransit}
-            meta={HazardousItemFieldMeta.HazardousGoodsTransit} 
-            itemDisplay={ (itemValue: HazardousGoodsTransit, key: string | number) =>
-              <HazardousGoodsTransitDisplay
-                key={key}
-                label="Hazardous Goods Transit"
-                value={itemValue}
-                meta={HazardousItemFieldMeta.HazardousGoodsTransit}
-              />
-            }
-          />
+    [
+      HazardousItemField.EmergencyTemperature,
+      { meta: HazardousItemFieldMeta.EmergencyTemperature,
+        template: ({value, renderContext, fieldConfig}) => <TemperatureDisplay
+          key={HazardousItemField.EmergencyTemperature}
+          meta={HazardousItemFieldMeta.EmergencyTemperature}
+          fieldConfig={fieldConfig}
+          temperature={value?.EmergencyTemperature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TemperatureDisplay
-            label="Emergency Temperature"
-            value={value.EmergencyTemperature?.[0]}
-            meta={HazardousItemFieldMeta.EmergencyTemperature}
-          />
+    [
+      HazardousItemField.FlashpointTemperature,
+      { meta: HazardousItemFieldMeta.FlashpointTemperature,
+        template: ({value, renderContext, fieldConfig}) => <TemperatureDisplay
+          key={HazardousItemField.FlashpointTemperature}
+          meta={HazardousItemFieldMeta.FlashpointTemperature}
+          fieldConfig={fieldConfig}
+          temperature={value?.FlashpointTemperature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TemperatureDisplay
-            label="Flashpoint Temperature"
-            value={value.FlashpointTemperature?.[0]}
-            meta={HazardousItemFieldMeta.FlashpointTemperature}
-          />
+    [
+      HazardousItemField.AdditionalTemperature,
+      { meta: HazardousItemFieldMeta.AdditionalTemperature,
+        template: ({value, renderContext, fieldConfig}) => <TemperatureDisplay
+          key={HazardousItemField.AdditionalTemperature}
+          meta={HazardousItemFieldMeta.AdditionalTemperature}
+          fieldConfig={fieldConfig}
+          temperature={value?.AdditionalTemperature}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Temperature ubl-AdditionalTemperature"
-            label="Additional Temperature"
-            items={value.AdditionalTemperature}
-            meta={HazardousItemFieldMeta.AdditionalTemperature} 
-            itemDisplay={ (itemValue: Temperature, key: string | number) =>
-              <TemperatureDisplay
-                key={key}
-                label="Additional Temperature"
-                value={itemValue}
-                meta={HazardousItemFieldMeta.AdditionalTemperature}
-              />
-            }
-          />
-        </div>
-    </div>
+export function HazardousItemDisplay<TFieldMeta>({ meta, fieldConfig, hazardousItem, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    HazardousItemTypeName,
+    meta,
+    fieldConfig,
+    hazardousItem,
+    renderContext,
+    HazardousItemSubElementsMap,
   )
 }

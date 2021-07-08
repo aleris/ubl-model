@@ -1,4 +1,11 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { ContractType } from './ContractMeta'
+import { DateType } from '../cbc/DateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ExchangeRateField {
   UBLExtensions = 'UBLExtensions',
@@ -16,11 +23,11 @@ export enum ExchangeRateField {
 export const ExchangeRateFieldMetaUBLExtensions = new FieldMeta<ExchangeRateField>(
   ExchangeRateField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -29,10 +36,10 @@ export const ExchangeRateFieldMetaSourceCurrencyCode = new FieldMeta<ExchangeRat
   ExchangeRateField.SourceCurrencyCode,
   'SourceCurrencyCode',
   'Source Currency Code',
-  'Code',
+  CodeType.name,
   'The reference currency for this exchange rate; the currency from which the exchange is being made.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -41,10 +48,10 @@ export const ExchangeRateFieldMetaSourceCurrencyBaseRate = new FieldMeta<Exchang
   ExchangeRateField.SourceCurrencyBaseRate,
   'SourceCurrencyBaseRate',
   'Source Currency Base Rate',
-  'Numeric',
+  NumericType.name,
   'In the case of a source currency with denominations of small value, the unit base.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -53,10 +60,10 @@ export const ExchangeRateFieldMetaTargetCurrencyCode = new FieldMeta<ExchangeRat
   ExchangeRateField.TargetCurrencyCode,
   'TargetCurrencyCode',
   'Target Currency Code',
-  'Code',
+  CodeType.name,
   'The target currency for this exchange rate; the currency to which the exchange is being made.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -65,10 +72,10 @@ export const ExchangeRateFieldMetaTargetCurrencyBaseRate = new FieldMeta<Exchang
   ExchangeRateField.TargetCurrencyBaseRate,
   'TargetCurrencyBaseRate',
   'Target Currency Base Rate',
-  'Numeric',
+  NumericType.name,
   'In the case of a target currency with denominations of small value, the unit base.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -77,10 +84,10 @@ export const ExchangeRateFieldMetaExchangeMarketID = new FieldMeta<ExchangeRateF
   ExchangeRateField.ExchangeMarketID,
   'ExchangeMarketID',
   'Exchange Market Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the currency exchange market used as the source of this exchange rate.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -89,10 +96,10 @@ export const ExchangeRateFieldMetaCalculationRate = new FieldMeta<ExchangeRateFi
   ExchangeRateField.CalculationRate,
   'CalculationRate',
   'Calculation Rate',
-  'Numeric',
+  NumericType.name,
   'The factor applied to the source currency to calculate the target currency.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -101,10 +108,10 @@ export const ExchangeRateFieldMetaMathematicOperatorCode = new FieldMeta<Exchang
   ExchangeRateField.MathematicOperatorCode,
   'MathematicOperatorCode',
   'Mathematic Operator Code',
-  'Code',
+  CodeType.name,
   'A code signifying whether the calculation rate is a multiplier or a divisor.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -113,10 +120,10 @@ export const ExchangeRateFieldMetaDate = new FieldMeta<ExchangeRateField>(
   ExchangeRateField.Date,
   'Date',
   'Date',
-  'Date',
+  DateType.name,
   'The date on which the exchange rate was established.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -125,10 +132,10 @@ export const ExchangeRateFieldMetaForeignExchangeContract = new FieldMeta<Exchan
   ExchangeRateField.ForeignExchangeContract,
   'ForeignExchangeContract',
   'Foreign Exchange Contract',
-  'Contract',
+  ContractType.name,
   'A contract for foreign exchange.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -158,3 +165,11 @@ export const ExchangeRateFieldMap = new Map([
   [ExchangeRateField.Date, ExchangeRateFieldMetaDate],
   [ExchangeRateField.ForeignExchangeContract, ExchangeRateFieldMetaForeignExchangeContract]
 ])
+
+export const ExchangeRateType: Type<ExchangeRateField> = {
+  name: 'ExchangeRate',
+  label: 'Exchange Rate',
+  module: TypeModule.cac,
+  definition: 'A class to define an exchange rate.',
+  fields: ExchangeRateFieldMap,
+}

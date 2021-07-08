@@ -1,97 +1,104 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { DigitalService } from  '../../model/cac/DigitalService'
-import { DigitalServiceFieldMeta } from  '../../meta/cac/DigitalServiceMeta'
-import DeliveryChannelDisplay from './DeliveryChannelDisplay'
-import { DeliveryChannel } from '../../model/cac/DeliveryChannel'
-import DocumentMetadataDisplay from './DocumentMetadataDisplay'
-import { DocumentMetadata } from '../../model/cac/DocumentMetadata'
-import DocumentReferenceDisplay from './DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { DigitalServiceField, DigitalServiceFieldMeta, DigitalServiceTypeName } from  '../../meta/cac/DigitalServiceMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { DeliveryChannelDisplay } from './DeliveryChannelDisplay'
+import { DocumentMetadataDisplay } from './DocumentMetadataDisplay'
+import { DocumentReferenceDisplay } from './DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: DigitalService | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<DigitalService, void>
+  digitalService: DigitalService[] | undefined
+  renderContext: RenderContext
 }
 
-export default function DigitalServiceDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const DigitalServiceSubElementsMap: SubElementsTemplatesMap<DigitalServiceField, DigitalService, void> = new Map([
+    [
+      DigitalServiceField.UBLExtensions,
+      { meta: DigitalServiceFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={DigitalServiceField.UBLExtensions}
+          meta={DigitalServiceFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-DigitalService">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={DigitalServiceFieldMeta.UBLExtensions}
-          />
+    [
+      DigitalServiceField.ID,
+      { meta: DigitalServiceFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DigitalServiceField.ID}
+          meta={DigitalServiceFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={DigitalServiceFieldMeta.ID}
-          />
+    [
+      DigitalServiceField.CustomizationID,
+      { meta: DigitalServiceFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={DigitalServiceField.CustomizationID}
+          meta={DigitalServiceFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={DigitalServiceFieldMeta.CustomizationID}
-          />
+    [
+      DigitalServiceField.DigitalDocumentMetadata,
+      { meta: DigitalServiceFieldMeta.DigitalDocumentMetadata,
+        template: ({value, renderContext, fieldConfig}) => <DocumentMetadataDisplay
+          key={DigitalServiceField.DigitalDocumentMetadata}
+          meta={DigitalServiceFieldMeta.DigitalDocumentMetadata}
+          fieldConfig={fieldConfig}
+          documentMetadata={value?.DigitalDocumentMetadata}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentMetadata ubl-DigitalDocumentMetadata"
-            label="Digital Document Metadata"
-            items={value.DigitalDocumentMetadata}
-            meta={DigitalServiceFieldMeta.DigitalDocumentMetadata} 
-            itemDisplay={ (itemValue: DocumentMetadata, key: string | number) =>
-              <DocumentMetadataDisplay
-                key={key}
-                label="Digital Document Metadata"
-                value={itemValue}
-                meta={DigitalServiceFieldMeta.DigitalDocumentMetadata}
-              />
-            }
-          />
+    [
+      DigitalServiceField.DigitalDeliveryChannel,
+      { meta: DigitalServiceFieldMeta.DigitalDeliveryChannel,
+        template: ({value, renderContext, fieldConfig}) => <DeliveryChannelDisplay
+          key={DigitalServiceField.DigitalDeliveryChannel}
+          meta={DigitalServiceFieldMeta.DigitalDeliveryChannel}
+          fieldConfig={fieldConfig}
+          deliveryChannel={value?.DigitalDeliveryChannel}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DeliveryChannel ubl-DigitalDeliveryChannel"
-            label="Digital Delivery Channel"
-            items={value.DigitalDeliveryChannel}
-            meta={DigitalServiceFieldMeta.DigitalDeliveryChannel} 
-            itemDisplay={ (itemValue: DeliveryChannel, key: string | number) =>
-              <DeliveryChannelDisplay
-                key={key}
-                label="Digital Delivery Channel"
-                value={itemValue}
-                meta={DigitalServiceFieldMeta.DigitalDeliveryChannel}
-              />
-            }
-          />
+    [
+      DigitalServiceField.CertificationDocumentReference,
+      { meta: DigitalServiceFieldMeta.CertificationDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={DigitalServiceField.CertificationDocumentReference}
+          meta={DigitalServiceFieldMeta.CertificationDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.CertificationDocumentReference}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentReference ubl-CertificationDocumentReference"
-            label="Certification Document Reference"
-            items={value.CertificationDocumentReference}
-            meta={DigitalServiceFieldMeta.CertificationDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Certification Document Reference"
-                value={itemValue}
-                meta={DigitalServiceFieldMeta.CertificationDocumentReference}
-              />
-            }
-          />
-        </div>
-    </div>
+export function DigitalServiceDisplay<TFieldMeta>({ meta, fieldConfig, digitalService, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    DigitalServiceTypeName,
+    meta,
+    fieldConfig,
+    digitalService,
+    renderContext,
+    DigitalServiceSubElementsMap,
   )
 }

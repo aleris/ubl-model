@@ -1,4 +1,11 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { MeasureType } from '../cbc/MeasureMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { TaxCategoryType } from './TaxCategoryMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum TaxSubtotalField {
   UBLExtensions = 'UBLExtensions',
@@ -17,11 +24,11 @@ export enum TaxSubtotalField {
 export const TaxSubtotalFieldMetaUBLExtensions = new FieldMeta<TaxSubtotalField>(
   TaxSubtotalField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -30,10 +37,10 @@ export const TaxSubtotalFieldMetaTaxableAmount = new FieldMeta<TaxSubtotalField>
   TaxSubtotalField.TaxableAmount,
   'TaxableAmount',
   'Taxable Amount',
-  'Amount',
+  AmountType.name,
   'The net amount to which the tax percent (rate) is applied to calculate the tax amount.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -42,10 +49,10 @@ export const TaxSubtotalFieldMetaTaxAmount = new FieldMeta<TaxSubtotalField>(
   TaxSubtotalField.TaxAmount,
   'TaxAmount',
   'Tax Amount',
-  'Amount',
+  AmountType.name,
   'The amount of this tax subtotal.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -54,10 +61,10 @@ export const TaxSubtotalFieldMetaCalculationSequenceNumeric = new FieldMeta<TaxS
   TaxSubtotalField.CalculationSequenceNumeric,
   'CalculationSequenceNumeric',
   'Calculation Sequence',
-  'Numeric',
+  NumericType.name,
   'The number of this tax subtotal in the sequence of subtotals corresponding to the order in which multiple taxes are applied. If all taxes are applied to the same taxable amount (i.e., their order of application is inconsequential), then CalculationSequenceNumeric is 1 for all tax subtotals applied to a given amount.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -66,10 +73,10 @@ export const TaxSubtotalFieldMetaTransactionCurrencyTaxAmount = new FieldMeta<Ta
   TaxSubtotalField.TransactionCurrencyTaxAmount,
   'TransactionCurrencyTaxAmount',
   'Transaction Currency Tax Amount',
-  'Amount',
+  AmountType.name,
   'The amount of this tax subtotal, expressed in the currency used for invoicing.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -78,10 +85,10 @@ export const TaxSubtotalFieldMetaPercent = new FieldMeta<TaxSubtotalField>(
   TaxSubtotalField.Percent,
   'Percent',
   'Percent',
-  'Numeric',
+  NumericType.name,
   'The tax rate of the tax category applied to this tax subtotal, expressed as a percentage.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -90,10 +97,10 @@ export const TaxSubtotalFieldMetaBaseUnitMeasure = new FieldMeta<TaxSubtotalFiel
   TaxSubtotalField.BaseUnitMeasure,
   'BaseUnitMeasure',
   'Base Unit Measure',
-  'Measure',
+  MeasureType.name,
   'The unit of measure on which the tax calculation is based',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -102,10 +109,10 @@ export const TaxSubtotalFieldMetaPerUnitAmount = new FieldMeta<TaxSubtotalField>
   TaxSubtotalField.PerUnitAmount,
   'PerUnitAmount',
   'Per Unit Amount',
-  'Amount',
+  AmountType.name,
   'Where a tax is applied at a certain rate per unit, the rate per unit applied.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -114,10 +121,10 @@ export const TaxSubtotalFieldMetaTierRange = new FieldMeta<TaxSubtotalField>(
   TaxSubtotalField.TierRange,
   'TierRange',
   'Tier Range',
-  'Text',
+  TextType.name,
   'Where a tax is tiered, the range of taxable amounts that determines the rate of tax applicable to this tax subtotal.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -126,10 +133,10 @@ export const TaxSubtotalFieldMetaTierRatePercent = new FieldMeta<TaxSubtotalFiel
   TaxSubtotalField.TierRatePercent,
   'TierRatePercent',
   'Tier Rate',
-  'Numeric',
+  NumericType.name,
   'Where a tax is tiered, the tax rate that applies within a specified range of taxable amounts for this tax subtotal.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -138,10 +145,10 @@ export const TaxSubtotalFieldMetaTaxCategory = new FieldMeta<TaxSubtotalField>(
   TaxSubtotalField.TaxCategory,
   'TaxCategory',
   'Tax Category',
-  'TaxCategory',
+  TaxCategoryType.name,
   'The tax category applicable to this subtotal.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -173,3 +180,11 @@ export const TaxSubtotalFieldMap = new Map([
   [TaxSubtotalField.TierRatePercent, TaxSubtotalFieldMetaTierRatePercent],
   [TaxSubtotalField.TaxCategory, TaxSubtotalFieldMetaTaxCategory]
 ])
+
+export const TaxSubtotalType: Type<TaxSubtotalField> = {
+  name: 'TaxSubtotal',
+  label: 'Tax Subtotal',
+  module: TypeModule.cac,
+  definition: 'A class to define the subtotal for a particular tax category within a particular taxation scheme, such as standard rate within VAT.',
+  fields: TaxSubtotalFieldMap,
+}

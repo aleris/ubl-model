@@ -1,226 +1,290 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ReceiptLine } from  '../../model/cac/ReceiptLine'
-import { ReceiptLineFieldMeta } from  '../../meta/cac/ReceiptLineMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentReferenceDisplay from './DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import ItemDisplay from './ItemDisplay'
-import { Item } from '../../model/cac/Item'
-import LineReferenceDisplay from './LineReferenceDisplay'
-import { LineReference } from '../../model/cac/LineReference'
-import OrderLineReferenceDisplay from './OrderLineReferenceDisplay'
-import { OrderLineReference } from '../../model/cac/OrderLineReference'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import ShipmentDisplay from './ShipmentDisplay'
-import { Shipment } from '../../model/cac/Shipment'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ReceiptLineField, ReceiptLineFieldMeta, ReceiptLineTypeName } from  '../../meta/cac/ReceiptLineMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentReferenceDisplay } from './DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { ItemDisplay } from './ItemDisplay'
+import { LineReferenceDisplay } from './LineReferenceDisplay'
+import { OrderLineReferenceDisplay } from './OrderLineReferenceDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { ShipmentDisplay } from './ShipmentDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ReceiptLine | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ReceiptLine, void>
+  receiptLine: ReceiptLine[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ReceiptLineDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ReceiptLineSubElementsMap: SubElementsTemplatesMap<ReceiptLineField, ReceiptLine, void> = new Map([
+    [
+      ReceiptLineField.UBLExtensions,
+      { meta: ReceiptLineFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ReceiptLineField.UBLExtensions}
+          meta={ReceiptLineFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ReceiptLine">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ReceiptLineFieldMeta.UBLExtensions}
-          />
+    [
+      ReceiptLineField.ID,
+      { meta: ReceiptLineFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ReceiptLineField.ID}
+          meta={ReceiptLineFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={ReceiptLineFieldMeta.ID}
-          />
+    [
+      ReceiptLineField.UUID,
+      { meta: ReceiptLineFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ReceiptLineField.UUID}
+          meta={ReceiptLineFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={ReceiptLineFieldMeta.UUID}
-          />
+    [
+      ReceiptLineField.Note,
+      { meta: ReceiptLineFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ReceiptLineField.Note}
+          meta={ReceiptLineFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={ReceiptLineFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={ReceiptLineFieldMeta.Note}
-              />
-            }
-          />
+    [
+      ReceiptLineField.ReceivedQuantity,
+      { meta: ReceiptLineFieldMeta.ReceivedQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={ReceiptLineField.ReceivedQuantity}
+          meta={ReceiptLineFieldMeta.ReceivedQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.ReceivedQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Received Quantity"
-            value={value.ReceivedQuantity?.[0]}
-            meta={ReceiptLineFieldMeta.ReceivedQuantity}
-          />
+    [
+      ReceiptLineField.ShortQuantity,
+      { meta: ReceiptLineFieldMeta.ShortQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={ReceiptLineField.ShortQuantity}
+          meta={ReceiptLineFieldMeta.ShortQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.ShortQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Short Quantity"
-            value={value.ShortQuantity?.[0]}
-            meta={ReceiptLineFieldMeta.ShortQuantity}
-          />
+    [
+      ReceiptLineField.ShortageActionCode,
+      { meta: ReceiptLineFieldMeta.ShortageActionCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ReceiptLineField.ShortageActionCode}
+          meta={ReceiptLineFieldMeta.ShortageActionCode}
+          fieldConfig={fieldConfig}
+          code={value?.ShortageActionCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Shortage Action Code"
-            value={value.ShortageActionCode?.[0]}
-            meta={ReceiptLineFieldMeta.ShortageActionCode}
-          />
+    [
+      ReceiptLineField.RejectedQuantity,
+      { meta: ReceiptLineFieldMeta.RejectedQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={ReceiptLineField.RejectedQuantity}
+          meta={ReceiptLineFieldMeta.RejectedQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.RejectedQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Rejected Quantity"
-            value={value.RejectedQuantity?.[0]}
-            meta={ReceiptLineFieldMeta.RejectedQuantity}
-          />
+    [
+      ReceiptLineField.RejectReasonCode,
+      { meta: ReceiptLineFieldMeta.RejectReasonCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ReceiptLineField.RejectReasonCode}
+          meta={ReceiptLineFieldMeta.RejectReasonCode}
+          fieldConfig={fieldConfig}
+          code={value?.RejectReasonCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Reject Reason Code"
-            value={value.RejectReasonCode?.[0]}
-            meta={ReceiptLineFieldMeta.RejectReasonCode}
-          />
+    [
+      ReceiptLineField.RejectReason,
+      { meta: ReceiptLineFieldMeta.RejectReason,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ReceiptLineField.RejectReason}
+          meta={ReceiptLineFieldMeta.RejectReason}
+          fieldConfig={fieldConfig}
+          text={value?.RejectReason}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-RejectReason"
-            label="Reject Reason"
-            items={value.RejectReason}
-            meta={ReceiptLineFieldMeta.RejectReason} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Reject Reason"
-                value={itemValue}
-                meta={ReceiptLineFieldMeta.RejectReason}
-              />
-            }
-          />
+    [
+      ReceiptLineField.RejectActionCode,
+      { meta: ReceiptLineFieldMeta.RejectActionCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ReceiptLineField.RejectActionCode}
+          meta={ReceiptLineFieldMeta.RejectActionCode}
+          fieldConfig={fieldConfig}
+          code={value?.RejectActionCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Reject Action Code"
-            value={value.RejectActionCode?.[0]}
-            meta={ReceiptLineFieldMeta.RejectActionCode}
-          />
+    [
+      ReceiptLineField.QuantityDiscrepancyCode,
+      { meta: ReceiptLineFieldMeta.QuantityDiscrepancyCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ReceiptLineField.QuantityDiscrepancyCode}
+          meta={ReceiptLineFieldMeta.QuantityDiscrepancyCode}
+          fieldConfig={fieldConfig}
+          code={value?.QuantityDiscrepancyCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Quantity Discrepancy Code"
-            value={value.QuantityDiscrepancyCode?.[0]}
-            meta={ReceiptLineFieldMeta.QuantityDiscrepancyCode}
-          />
+    [
+      ReceiptLineField.OversupplyQuantity,
+      { meta: ReceiptLineFieldMeta.OversupplyQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={ReceiptLineField.OversupplyQuantity}
+          meta={ReceiptLineFieldMeta.OversupplyQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.OversupplyQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Oversupply Quantity"
-            value={value.OversupplyQuantity?.[0]}
-            meta={ReceiptLineFieldMeta.OversupplyQuantity}
-          />
+    [
+      ReceiptLineField.ReceivedDate,
+      { meta: ReceiptLineFieldMeta.ReceivedDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={ReceiptLineField.ReceivedDate}
+          meta={ReceiptLineFieldMeta.ReceivedDate}
+          fieldConfig={fieldConfig}
+          date={value?.ReceivedDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Received Date"
-            value={value.ReceivedDate?.[0]}
-            meta={ReceiptLineFieldMeta.ReceivedDate}
-          />
+    [
+      ReceiptLineField.TimingComplaintCode,
+      { meta: ReceiptLineFieldMeta.TimingComplaintCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ReceiptLineField.TimingComplaintCode}
+          meta={ReceiptLineFieldMeta.TimingComplaintCode}
+          fieldConfig={fieldConfig}
+          code={value?.TimingComplaintCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Timing Complaint Code"
-            value={value.TimingComplaintCode?.[0]}
-            meta={ReceiptLineFieldMeta.TimingComplaintCode}
-          />
+    [
+      ReceiptLineField.TimingComplaint,
+      { meta: ReceiptLineFieldMeta.TimingComplaint,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ReceiptLineField.TimingComplaint}
+          meta={ReceiptLineFieldMeta.TimingComplaint}
+          fieldConfig={fieldConfig}
+          text={value?.TimingComplaint}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Timing Complaint"
-            value={value.TimingComplaint?.[0]}
-            meta={ReceiptLineFieldMeta.TimingComplaint}
-          />
+    [
+      ReceiptLineField.OrderLineReference,
+      { meta: ReceiptLineFieldMeta.OrderLineReference,
+        template: ({value, renderContext, fieldConfig}) => <OrderLineReferenceDisplay
+          key={ReceiptLineField.OrderLineReference}
+          meta={ReceiptLineFieldMeta.OrderLineReference}
+          fieldConfig={fieldConfig}
+          orderLineReference={value?.OrderLineReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <OrderLineReferenceDisplay
-            label="Order Line Reference"
-            value={value.OrderLineReference?.[0]}
-            meta={ReceiptLineFieldMeta.OrderLineReference}
-          />
+    [
+      ReceiptLineField.DespatchLineReference,
+      { meta: ReceiptLineFieldMeta.DespatchLineReference,
+        template: ({value, renderContext, fieldConfig}) => <LineReferenceDisplay
+          key={ReceiptLineField.DespatchLineReference}
+          meta={ReceiptLineFieldMeta.DespatchLineReference}
+          fieldConfig={fieldConfig}
+          lineReference={value?.DespatchLineReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-LineReference ubl-DespatchLineReference"
-            label="Despatch Line Reference"
-            items={value.DespatchLineReference}
-            meta={ReceiptLineFieldMeta.DespatchLineReference} 
-            itemDisplay={ (itemValue: LineReference, key: string | number) =>
-              <LineReferenceDisplay
-                key={key}
-                label="Despatch Line Reference"
-                value={itemValue}
-                meta={ReceiptLineFieldMeta.DespatchLineReference}
-              />
-            }
-          />
+    [
+      ReceiptLineField.DocumentReference,
+      { meta: ReceiptLineFieldMeta.DocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={ReceiptLineField.DocumentReference}
+          meta={ReceiptLineFieldMeta.DocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.DocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentReference"
-            label="Document Reference"
-            items={value.DocumentReference}
-            meta={ReceiptLineFieldMeta.DocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Document Reference"
-                value={itemValue}
-                meta={ReceiptLineFieldMeta.DocumentReference}
-              />
-            }
-          />
+    [
+      ReceiptLineField.Item,
+      { meta: ReceiptLineFieldMeta.Item,
+        template: ({value, renderContext, fieldConfig}) => <ItemDisplay
+          key={ReceiptLineField.Item}
+          meta={ReceiptLineFieldMeta.Item}
+          fieldConfig={fieldConfig}
+          item={value?.Item}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Item"
-            label="Item"
-            items={value.Item}
-            meta={ReceiptLineFieldMeta.Item} 
-            itemDisplay={ (itemValue: Item, key: string | number) =>
-              <ItemDisplay
-                key={key}
-                label="Item"
-                value={itemValue}
-                meta={ReceiptLineFieldMeta.Item}
-              />
-            }
-          />
+    [
+      ReceiptLineField.Shipment,
+      { meta: ReceiptLineFieldMeta.Shipment,
+        template: ({value, renderContext, fieldConfig}) => <ShipmentDisplay
+          key={ReceiptLineField.Shipment}
+          meta={ReceiptLineFieldMeta.Shipment}
+          fieldConfig={fieldConfig}
+          shipment={value?.Shipment}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Shipment"
-            label="Shipment"
-            items={value.Shipment}
-            meta={ReceiptLineFieldMeta.Shipment} 
-            itemDisplay={ (itemValue: Shipment, key: string | number) =>
-              <ShipmentDisplay
-                key={key}
-                label="Shipment"
-                value={itemValue}
-                meta={ReceiptLineFieldMeta.Shipment}
-              />
-            }
-          />
-        </div>
-    </div>
+export function ReceiptLineDisplay<TFieldMeta>({ meta, fieldConfig, receiptLine, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ReceiptLineTypeName,
+    meta,
+    fieldConfig,
+    receiptLine,
+    renderContext,
+    ReceiptLineSubElementsMap,
   )
 }

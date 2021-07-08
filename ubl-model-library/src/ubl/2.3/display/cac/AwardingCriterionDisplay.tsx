@@ -1,182 +1,214 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { AwardingCriterion } from  '../../model/cac/AwardingCriterion'
-import { AwardingCriterionFieldMeta } from  '../../meta/cac/AwardingCriterionMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { AwardingCriterionField, AwardingCriterionFieldMeta, AwardingCriterionTypeName } from  '../../meta/cac/AwardingCriterionMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: AwardingCriterion | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<AwardingCriterion, void>
+  awardingCriterion: AwardingCriterion[] | undefined
+  renderContext: RenderContext
 }
 
-export default function AwardingCriterionDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const AwardingCriterionSubElementsMap: SubElementsTemplatesMap<AwardingCriterionField, AwardingCriterion, void> = new Map([
+    [
+      AwardingCriterionField.UBLExtensions,
+      { meta: AwardingCriterionFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={AwardingCriterionField.UBLExtensions}
+          meta={AwardingCriterionFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-AwardingCriterion">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={AwardingCriterionFieldMeta.UBLExtensions}
-          />
+    [
+      AwardingCriterionField.ID,
+      { meta: AwardingCriterionFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={AwardingCriterionField.ID}
+          meta={AwardingCriterionFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={AwardingCriterionFieldMeta.ID}
-          />
+    [
+      AwardingCriterionField.AwardingCriterionTypeCode,
+      { meta: AwardingCriterionFieldMeta.AwardingCriterionTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={AwardingCriterionField.AwardingCriterionTypeCode}
+          meta={AwardingCriterionFieldMeta.AwardingCriterionTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.AwardingCriterionTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Awarding Criterion Type Code"
-            value={value.AwardingCriterionTypeCode?.[0]}
-            meta={AwardingCriterionFieldMeta.AwardingCriterionTypeCode}
-          />
+    [
+      AwardingCriterionField.Name,
+      { meta: AwardingCriterionFieldMeta.Name,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={AwardingCriterionField.Name}
+          meta={AwardingCriterionFieldMeta.Name}
+          fieldConfig={fieldConfig}
+          text={value?.Name}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Name"
-            label="Name"
-            items={value.Name}
-            meta={AwardingCriterionFieldMeta.Name} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Name"
-                value={itemValue}
-                meta={AwardingCriterionFieldMeta.Name}
-              />
-            }
-          />
+    [
+      AwardingCriterionField.Description,
+      { meta: AwardingCriterionFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={AwardingCriterionField.Description}
+          meta={AwardingCriterionFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={AwardingCriterionFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={AwardingCriterionFieldMeta.Description}
-              />
-            }
-          />
+    [
+      AwardingCriterionField.WeightNumeric,
+      { meta: AwardingCriterionFieldMeta.WeightNumeric,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={AwardingCriterionField.WeightNumeric}
+          meta={AwardingCriterionFieldMeta.WeightNumeric}
+          fieldConfig={fieldConfig}
+          numeric={value?.WeightNumeric}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Weight Numeric"
-            value={value.WeightNumeric?.[0]}
-            meta={AwardingCriterionFieldMeta.WeightNumeric}
-          />
+    [
+      AwardingCriterionField.Weight,
+      { meta: AwardingCriterionFieldMeta.Weight,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={AwardingCriterionField.Weight}
+          meta={AwardingCriterionFieldMeta.Weight}
+          fieldConfig={fieldConfig}
+          text={value?.Weight}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Weight"
-            label="Weight"
-            items={value.Weight}
-            meta={AwardingCriterionFieldMeta.Weight} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Weight"
-                value={itemValue}
-                meta={AwardingCriterionFieldMeta.Weight}
-              />
-            }
-          />
+    [
+      AwardingCriterionField.CalculationExpression,
+      { meta: AwardingCriterionFieldMeta.CalculationExpression,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={AwardingCriterionField.CalculationExpression}
+          meta={AwardingCriterionFieldMeta.CalculationExpression}
+          fieldConfig={fieldConfig}
+          text={value?.CalculationExpression}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-CalculationExpression"
-            label="Calculation Expression"
-            items={value.CalculationExpression}
-            meta={AwardingCriterionFieldMeta.CalculationExpression} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Calculation Expression"
-                value={itemValue}
-                meta={AwardingCriterionFieldMeta.CalculationExpression}
-              />
-            }
-          />
+    [
+      AwardingCriterionField.CalculationExpressionCode,
+      { meta: AwardingCriterionFieldMeta.CalculationExpressionCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={AwardingCriterionField.CalculationExpressionCode}
+          meta={AwardingCriterionFieldMeta.CalculationExpressionCode}
+          fieldConfig={fieldConfig}
+          code={value?.CalculationExpressionCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Calculation Expression Code"
-            value={value.CalculationExpressionCode?.[0]}
-            meta={AwardingCriterionFieldMeta.CalculationExpressionCode}
-          />
+    [
+      AwardingCriterionField.MinimumQuantity,
+      { meta: AwardingCriterionFieldMeta.MinimumQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={AwardingCriterionField.MinimumQuantity}
+          meta={AwardingCriterionFieldMeta.MinimumQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.MinimumQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Minimum Quantity"
-            value={value.MinimumQuantity?.[0]}
-            meta={AwardingCriterionFieldMeta.MinimumQuantity}
-          />
+    [
+      AwardingCriterionField.MaximumQuantity,
+      { meta: AwardingCriterionFieldMeta.MaximumQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={AwardingCriterionField.MaximumQuantity}
+          meta={AwardingCriterionFieldMeta.MaximumQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.MaximumQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Maximum Quantity"
-            value={value.MaximumQuantity?.[0]}
-            meta={AwardingCriterionFieldMeta.MaximumQuantity}
-          />
+    [
+      AwardingCriterionField.MinimumAmount,
+      { meta: AwardingCriterionFieldMeta.MinimumAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={AwardingCriterionField.MinimumAmount}
+          meta={AwardingCriterionFieldMeta.MinimumAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.MinimumAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Minimum Amount"
-            value={value.MinimumAmount?.[0]}
-            meta={AwardingCriterionFieldMeta.MinimumAmount}
-          />
+    [
+      AwardingCriterionField.MaximumAmount,
+      { meta: AwardingCriterionFieldMeta.MaximumAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={AwardingCriterionField.MaximumAmount}
+          meta={AwardingCriterionFieldMeta.MaximumAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.MaximumAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Maximum Amount"
-            value={value.MaximumAmount?.[0]}
-            meta={AwardingCriterionFieldMeta.MaximumAmount}
-          />
+    [
+      AwardingCriterionField.MinimumImprovementBid,
+      { meta: AwardingCriterionFieldMeta.MinimumImprovementBid,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={AwardingCriterionField.MinimumImprovementBid}
+          meta={AwardingCriterionFieldMeta.MinimumImprovementBid}
+          fieldConfig={fieldConfig}
+          text={value?.MinimumImprovementBid}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-MinimumImprovementBid"
-            label="Minimum Improvement Bid"
-            items={value.MinimumImprovementBid}
-            meta={AwardingCriterionFieldMeta.MinimumImprovementBid} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Minimum Improvement Bid"
-                value={itemValue}
-                meta={AwardingCriterionFieldMeta.MinimumImprovementBid}
-              />
-            }
-          />
+    [
+      AwardingCriterionField.SubordinateAwardingCriterion,
+      { meta: AwardingCriterionFieldMeta.SubordinateAwardingCriterion,
+        template: ({value, renderContext, fieldConfig}) => <AwardingCriterionDisplay
+          key={AwardingCriterionField.SubordinateAwardingCriterion}
+          meta={AwardingCriterionFieldMeta.SubordinateAwardingCriterion}
+          fieldConfig={fieldConfig}
+          awardingCriterion={value?.SubordinateAwardingCriterion}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-AwardingCriterion ubl-SubordinateAwardingCriterion"
-            label="Subordinate Awarding Criterion"
-            items={value.SubordinateAwardingCriterion}
-            meta={AwardingCriterionFieldMeta.SubordinateAwardingCriterion} 
-            itemDisplay={ (itemValue: AwardingCriterion, key: string | number) =>
-              <AwardingCriterionDisplay
-                key={key}
-                label="Subordinate Awarding Criterion"
-                value={itemValue}
-                meta={AwardingCriterionFieldMeta.SubordinateAwardingCriterion}
-              />
-            }
-          />
-        </div>
-    </div>
+export function AwardingCriterionDisplay<TFieldMeta>({ meta, fieldConfig, awardingCriterion, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    AwardingCriterionTypeName,
+    meta,
+    fieldConfig,
+    awardingCriterion,
+    renderContext,
+    AwardingCriterionSubElementsMap,
   )
 }

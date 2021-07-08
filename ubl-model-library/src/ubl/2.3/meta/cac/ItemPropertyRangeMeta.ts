@@ -1,4 +1,7 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ItemPropertyRangeField {
   UBLExtensions = 'UBLExtensions',
@@ -9,11 +12,11 @@ export enum ItemPropertyRangeField {
 export const ItemPropertyRangeFieldMetaUBLExtensions = new FieldMeta<ItemPropertyRangeField>(
   ItemPropertyRangeField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -22,10 +25,10 @@ export const ItemPropertyRangeFieldMetaMinimumValue = new FieldMeta<ItemProperty
   ItemPropertyRangeField.MinimumValue,
   'MinimumValue',
   'Minimum Value',
-  'Text',
+  TextType.name,
   'The minimum value in this range of values.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -34,10 +37,10 @@ export const ItemPropertyRangeFieldMetaMaximumValue = new FieldMeta<ItemProperty
   ItemPropertyRangeField.MaximumValue,
   'MaximumValue',
   'Maximum Value',
-  'Text',
+  TextType.name,
   'The maximum value in this range of values.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -53,3 +56,11 @@ export const ItemPropertyRangeFieldMap = new Map([
   [ItemPropertyRangeField.MinimumValue, ItemPropertyRangeFieldMetaMinimumValue],
   [ItemPropertyRangeField.MaximumValue, ItemPropertyRangeFieldMetaMaximumValue]
 ])
+
+export const ItemPropertyRangeType: Type<ItemPropertyRangeField> = {
+  name: 'ItemPropertyRange',
+  label: 'Item Property Range',
+  module: TypeModule.cac,
+  definition: 'A class to describe a range of values for an item property.',
+  fields: ItemPropertyRangeFieldMap,
+}

@@ -4,7 +4,6 @@ import { Identifier } from '../cbc/Identifier'
 import { TaxScheme } from './TaxScheme'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a taxation scheme applying to a party.
  */

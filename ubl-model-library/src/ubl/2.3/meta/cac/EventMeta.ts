@@ -1,4 +1,15 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { ContactType } from './ContactMeta'
+import { DateType } from '../cbc/DateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { LocationType } from './LocationMeta'
+import { StatusType } from './StatusMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum EventField {
   UBLExtensions = 'UBLExtensions',
@@ -16,11 +27,11 @@ export enum EventField {
 export const EventFieldMetaUBLExtensions = new FieldMeta<EventField>(
   EventField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -29,10 +40,10 @@ export const EventFieldMetaIdentificationID = new FieldMeta<EventField>(
   EventField.IdentificationID,
   'IdentificationID',
   'Identification',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this event within an agreed event identification scheme.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -41,10 +52,10 @@ export const EventFieldMetaOccurrenceDate = new FieldMeta<EventField>(
   EventField.OccurrenceDate,
   'OccurrenceDate',
   'Occurrence Date',
-  'Date',
+  DateType.name,
   'The date of this event.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -53,10 +64,10 @@ export const EventFieldMetaOccurrenceTime = new FieldMeta<EventField>(
   EventField.OccurrenceTime,
   'OccurrenceTime',
   'Occurrence Time',
-  'Time',
+  TimeType.name,
   'The time of this event.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -65,10 +76,10 @@ export const EventFieldMetaTypeCode = new FieldMeta<EventField>(
   EventField.TypeCode,
   'TypeCode',
   'Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of this event.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -77,10 +88,10 @@ export const EventFieldMetaDescription = new FieldMeta<EventField>(
   EventField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing this event.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -89,10 +100,10 @@ export const EventFieldMetaCompletionIndicator = new FieldMeta<EventField>(
   EventField.CompletionIndicator,
   'CompletionIndicator',
   'Completion Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indicator that this event has been completed (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -101,10 +112,10 @@ export const EventFieldMetaCurrentStatus = new FieldMeta<EventField>(
   EventField.CurrentStatus,
   'CurrentStatus',
   'Current Status',
-  'Status',
+  StatusType.name,
   'The current status of this event.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -113,10 +124,10 @@ export const EventFieldMetaContact = new FieldMeta<EventField>(
   EventField.Contact,
   'Contact',
   'Contact',
-  'Contact',
+  ContactType.name,
   'Contacts associated with this event.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -125,10 +136,10 @@ export const EventFieldMetaOccurenceLocation = new FieldMeta<EventField>(
   EventField.OccurenceLocation,
   'OccurenceLocation',
   'Occurence Location',
-  'Location',
+  LocationType.name,
   'The location of this event.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -158,3 +169,11 @@ export const EventFieldMap = new Map([
   [EventField.Contact, EventFieldMetaContact],
   [EventField.OccurenceLocation, EventFieldMetaOccurenceLocation]
 ])
+
+export const EventType: Type<EventField> = {
+  name: 'Event',
+  label: 'Event',
+  module: TypeModule.cac,
+  definition: 'A class to describe a significant occurrence relating to an object, process, or person.',
+  fields: EventFieldMap,
+}

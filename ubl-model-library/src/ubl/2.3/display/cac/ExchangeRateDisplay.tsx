@@ -1,96 +1,153 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ExchangeRate } from  '../../model/cac/ExchangeRate'
-import { ExchangeRateFieldMeta } from  '../../meta/cac/ExchangeRateMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import ContractDisplay from './ContractDisplay'
-import { Contract } from '../../model/cac/Contract'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ExchangeRateField, ExchangeRateFieldMeta, ExchangeRateTypeName } from  '../../meta/cac/ExchangeRateMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { ContractDisplay } from './ContractDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ExchangeRate | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ExchangeRate, void>
+  exchangeRate: ExchangeRate[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ExchangeRateDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ExchangeRateSubElementsMap: SubElementsTemplatesMap<ExchangeRateField, ExchangeRate, void> = new Map([
+    [
+      ExchangeRateField.UBLExtensions,
+      { meta: ExchangeRateFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ExchangeRateField.UBLExtensions}
+          meta={ExchangeRateFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ExchangeRate">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ExchangeRateFieldMeta.UBLExtensions}
-          />
+    [
+      ExchangeRateField.SourceCurrencyCode,
+      { meta: ExchangeRateFieldMeta.SourceCurrencyCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ExchangeRateField.SourceCurrencyCode}
+          meta={ExchangeRateFieldMeta.SourceCurrencyCode}
+          fieldConfig={fieldConfig}
+          code={value?.SourceCurrencyCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Source Currency Code"
-            value={value.SourceCurrencyCode?.[0]}
-            meta={ExchangeRateFieldMeta.SourceCurrencyCode}
-          />
+    [
+      ExchangeRateField.SourceCurrencyBaseRate,
+      { meta: ExchangeRateFieldMeta.SourceCurrencyBaseRate,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={ExchangeRateField.SourceCurrencyBaseRate}
+          meta={ExchangeRateFieldMeta.SourceCurrencyBaseRate}
+          fieldConfig={fieldConfig}
+          numeric={value?.SourceCurrencyBaseRate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Source Currency Base Rate"
-            value={value.SourceCurrencyBaseRate?.[0]}
-            meta={ExchangeRateFieldMeta.SourceCurrencyBaseRate}
-          />
+    [
+      ExchangeRateField.TargetCurrencyCode,
+      { meta: ExchangeRateFieldMeta.TargetCurrencyCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ExchangeRateField.TargetCurrencyCode}
+          meta={ExchangeRateFieldMeta.TargetCurrencyCode}
+          fieldConfig={fieldConfig}
+          code={value?.TargetCurrencyCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Target Currency Code"
-            value={value.TargetCurrencyCode?.[0]}
-            meta={ExchangeRateFieldMeta.TargetCurrencyCode}
-          />
+    [
+      ExchangeRateField.TargetCurrencyBaseRate,
+      { meta: ExchangeRateFieldMeta.TargetCurrencyBaseRate,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={ExchangeRateField.TargetCurrencyBaseRate}
+          meta={ExchangeRateFieldMeta.TargetCurrencyBaseRate}
+          fieldConfig={fieldConfig}
+          numeric={value?.TargetCurrencyBaseRate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Target Currency Base Rate"
-            value={value.TargetCurrencyBaseRate?.[0]}
-            meta={ExchangeRateFieldMeta.TargetCurrencyBaseRate}
-          />
+    [
+      ExchangeRateField.ExchangeMarketID,
+      { meta: ExchangeRateFieldMeta.ExchangeMarketID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ExchangeRateField.ExchangeMarketID}
+          meta={ExchangeRateFieldMeta.ExchangeMarketID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ExchangeMarketID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Exchange Market Identifier"
-            value={value.ExchangeMarketID?.[0]}
-            meta={ExchangeRateFieldMeta.ExchangeMarketID}
-          />
+    [
+      ExchangeRateField.CalculationRate,
+      { meta: ExchangeRateFieldMeta.CalculationRate,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={ExchangeRateField.CalculationRate}
+          meta={ExchangeRateFieldMeta.CalculationRate}
+          fieldConfig={fieldConfig}
+          numeric={value?.CalculationRate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Calculation Rate"
-            value={value.CalculationRate?.[0]}
-            meta={ExchangeRateFieldMeta.CalculationRate}
-          />
+    [
+      ExchangeRateField.MathematicOperatorCode,
+      { meta: ExchangeRateFieldMeta.MathematicOperatorCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ExchangeRateField.MathematicOperatorCode}
+          meta={ExchangeRateFieldMeta.MathematicOperatorCode}
+          fieldConfig={fieldConfig}
+          code={value?.MathematicOperatorCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Mathematic Operator Code"
-            value={value.MathematicOperatorCode?.[0]}
-            meta={ExchangeRateFieldMeta.MathematicOperatorCode}
-          />
+    [
+      ExchangeRateField.Date,
+      { meta: ExchangeRateFieldMeta.Date,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={ExchangeRateField.Date}
+          meta={ExchangeRateFieldMeta.Date}
+          fieldConfig={fieldConfig}
+          date={value?.Date}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Date"
-            value={value.Date?.[0]}
-            meta={ExchangeRateFieldMeta.Date}
-          />
+    [
+      ExchangeRateField.ForeignExchangeContract,
+      { meta: ExchangeRateFieldMeta.ForeignExchangeContract,
+        template: ({value, renderContext, fieldConfig}) => <ContractDisplay
+          key={ExchangeRateField.ForeignExchangeContract}
+          meta={ExchangeRateFieldMeta.ForeignExchangeContract}
+          fieldConfig={fieldConfig}
+          contract={value?.ForeignExchangeContract}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ContractDisplay
-            label="Foreign Exchange Contract"
-            value={value.ForeignExchangeContract?.[0]}
-            meta={ExchangeRateFieldMeta.ForeignExchangeContract}
-          />
-        </div>
-    </div>
+export function ExchangeRateDisplay<TFieldMeta>({ meta, fieldConfig, exchangeRate, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ExchangeRateTypeName,
+    meta,
+    fieldConfig,
+    exchangeRate,
+    renderContext,
+    ExchangeRateSubElementsMap,
   )
 }

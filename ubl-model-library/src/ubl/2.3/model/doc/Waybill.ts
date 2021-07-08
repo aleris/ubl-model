@@ -11,7 +11,6 @@ import { Signature } from '../cac/Signature'
 import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A transport document describing a shipment It is issued by the party who undertakes to provide transportation
  * services, or undertakes to arrange for their provision, to the party who gives instructions for the transportation

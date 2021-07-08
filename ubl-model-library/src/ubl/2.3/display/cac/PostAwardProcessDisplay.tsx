@@ -1,67 +1,89 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { PostAwardProcess } from  '../../model/cac/PostAwardProcess'
-import { PostAwardProcessFieldMeta } from  '../../meta/cac/PostAwardProcessMeta'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { PostAwardProcessField, PostAwardProcessFieldMeta, PostAwardProcessTypeName } from  '../../meta/cac/PostAwardProcessMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: PostAwardProcess | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<PostAwardProcess, void>
+  postAwardProcess: PostAwardProcess[] | undefined
+  renderContext: RenderContext
 }
 
-export default function PostAwardProcessDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const PostAwardProcessSubElementsMap: SubElementsTemplatesMap<PostAwardProcessField, PostAwardProcess, void> = new Map([
+    [
+      PostAwardProcessField.UBLExtensions,
+      { meta: PostAwardProcessFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={PostAwardProcessField.UBLExtensions}
+          meta={PostAwardProcessFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-PostAwardProcess">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={PostAwardProcessFieldMeta.UBLExtensions}
-          />
+    [
+      PostAwardProcessField.ElectronicCatalogueUsageIndicator,
+      { meta: PostAwardProcessFieldMeta.ElectronicCatalogueUsageIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={PostAwardProcessField.ElectronicCatalogueUsageIndicator}
+          meta={PostAwardProcessFieldMeta.ElectronicCatalogueUsageIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.ElectronicCatalogueUsageIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Electronic Catalogue Usage"
-            value={value.ElectronicCatalogueUsageIndicator?.[0]}
-            meta={PostAwardProcessFieldMeta.ElectronicCatalogueUsageIndicator}
-          />
+    [
+      PostAwardProcessField.ElectronicInvoiceAcceptedIndicator,
+      { meta: PostAwardProcessFieldMeta.ElectronicInvoiceAcceptedIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={PostAwardProcessField.ElectronicInvoiceAcceptedIndicator}
+          meta={PostAwardProcessFieldMeta.ElectronicInvoiceAcceptedIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.ElectronicInvoiceAcceptedIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Electronic Invoice Accepted"
-            value={value.ElectronicInvoiceAcceptedIndicator?.[0]}
-            meta={PostAwardProcessFieldMeta.ElectronicInvoiceAcceptedIndicator}
-          />
+    [
+      PostAwardProcessField.ElectronicOrderUsageIndicator,
+      { meta: PostAwardProcessFieldMeta.ElectronicOrderUsageIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={PostAwardProcessField.ElectronicOrderUsageIndicator}
+          meta={PostAwardProcessFieldMeta.ElectronicOrderUsageIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.ElectronicOrderUsageIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Electronic Order Usage"
-            value={value.ElectronicOrderUsageIndicator?.[0]}
-            meta={PostAwardProcessFieldMeta.ElectronicOrderUsageIndicator}
-          />
+    [
+      PostAwardProcessField.ElectronicPaymentUsageIndicator,
+      { meta: PostAwardProcessFieldMeta.ElectronicPaymentUsageIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={PostAwardProcessField.ElectronicPaymentUsageIndicator}
+          meta={PostAwardProcessFieldMeta.ElectronicPaymentUsageIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.ElectronicPaymentUsageIndicator}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Indicator ubl-ElectronicPaymentUsageIndicator"
-            label="Electronic Payment Usage"
-            items={value.ElectronicPaymentUsageIndicator}
-            meta={PostAwardProcessFieldMeta.ElectronicPaymentUsageIndicator} 
-            itemDisplay={ (itemValue: Indicator, key: string | number) =>
-              <IndicatorDisplay
-                key={key}
-                label="Electronic Payment Usage"
-                value={itemValue}
-                meta={PostAwardProcessFieldMeta.ElectronicPaymentUsageIndicator}
-              />
-            }
-          />
-        </div>
-    </div>
+export function PostAwardProcessDisplay<TFieldMeta>({ meta, fieldConfig, postAwardProcess, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    PostAwardProcessTypeName,
+    meta,
+    fieldConfig,
+    postAwardProcess,
+    renderContext,
+    PostAwardProcessSubElementsMap,
   )
 }

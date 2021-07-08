@@ -1,902 +1,1285 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Consignment } from  '../../model/cac/Consignment'
-import { ConsignmentFieldMeta } from  '../../meta/cac/ConsignmentMeta'
-import AllowanceChargeDisplay from './AllowanceChargeDisplay'
-import { AllowanceCharge } from '../../model/cac/AllowanceCharge'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import ContractDisplay from './ContractDisplay'
-import { Contract } from '../../model/cac/Contract'
-import CountryDisplay from './CountryDisplay'
-import { Country } from '../../model/cac/Country'
-import CustomsDeclarationDisplay from './CustomsDeclarationDisplay'
-import { CustomsDeclaration } from '../../model/cac/CustomsDeclaration'
-import DeliveryTermsDisplay from './DeliveryTermsDisplay'
-import { DeliveryTerms } from '../../model/cac/DeliveryTerms'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import LocationDisplay from './LocationDisplay'
-import { Location } from '../../model/cac/Location'
-import MeasureDisplay from '../cbc/MeasureDisplay'
-import { Measure } from '../../model/cbc/Measure'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PaymentTermsDisplay from './PaymentTermsDisplay'
-import { PaymentTerms } from '../../model/cac/PaymentTerms'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import ShipmentDisplay from './ShipmentDisplay'
-import { Shipment } from '../../model/cac/Shipment'
-import ShipmentStageDisplay from './ShipmentStageDisplay'
-import { ShipmentStage } from '../../model/cac/ShipmentStage'
-import StatusDisplay from './StatusDisplay'
-import { Status } from '../../model/cac/Status'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TransportationServiceDisplay from './TransportationServiceDisplay'
-import { TransportationService } from '../../model/cac/TransportationService'
-import TransportEventDisplay from './TransportEventDisplay'
-import { TransportEvent } from '../../model/cac/TransportEvent'
-import TransportHandlingUnitDisplay from './TransportHandlingUnitDisplay'
-import { TransportHandlingUnit } from '../../model/cac/TransportHandlingUnit'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ConsignmentField, ConsignmentFieldMeta, ConsignmentTypeName } from  '../../meta/cac/ConsignmentMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AllowanceChargeDisplay } from './AllowanceChargeDisplay'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { ContractDisplay } from './ContractDisplay'
+import { CountryDisplay } from './CountryDisplay'
+import { CustomsDeclarationDisplay } from './CustomsDeclarationDisplay'
+import { DeliveryTermsDisplay } from './DeliveryTermsDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { LocationDisplay } from './LocationDisplay'
+import { MeasureDisplay } from '../cbc/MeasureDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { PaymentTermsDisplay } from './PaymentTermsDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { ShipmentDisplay } from './ShipmentDisplay'
+import { ShipmentStageDisplay } from './ShipmentStageDisplay'
+import { StatusDisplay } from './StatusDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TransportationServiceDisplay } from './TransportationServiceDisplay'
+import { TransportEventDisplay } from './TransportEventDisplay'
+import { TransportHandlingUnitDisplay } from './TransportHandlingUnitDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: Consignment | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<Consignment, void>
+  consignment: Consignment[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ConsignmentDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
-
-  return (
-    <div className="ubl-cac ubl-Consignment">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ConsignmentFieldMeta.UBLExtensions}
-          />
-
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={ConsignmentFieldMeta.ID}
-          />
-
-          <IdentifierDisplay
-            label="Carrier Assigned Identifier"
-            value={value.CarrierAssignedID?.[0]}
-            meta={ConsignmentFieldMeta.CarrierAssignedID}
-          />
-
-          <IdentifierDisplay
-            label="Consignee Assigned Identifier"
-            value={value.ConsigneeAssignedID?.[0]}
-            meta={ConsignmentFieldMeta.ConsigneeAssignedID}
-          />
-
-          <IdentifierDisplay
-            label="Consignor Assigned Identifier"
-            value={value.ConsignorAssignedID?.[0]}
-            meta={ConsignmentFieldMeta.ConsignorAssignedID}
-          />
-
-          <IdentifierDisplay
-            label="Freight Forwarder Assigned Identifier"
-            value={value.FreightForwarderAssignedID?.[0]}
-            meta={ConsignmentFieldMeta.FreightForwarderAssignedID}
-          />
-
-          <IdentifierDisplay
-            label="Broker Assigned Identifier"
-            value={value.BrokerAssignedID?.[0]}
-            meta={ConsignmentFieldMeta.BrokerAssignedID}
-          />
-
-          <IdentifierDisplay
-            label="Contracted Carrier Assigned Identifier"
-            value={value.ContractedCarrierAssignedID?.[0]}
-            meta={ConsignmentFieldMeta.ContractedCarrierAssignedID}
-          />
-
-          <IdentifierDisplay
-            label="Performing Carrier Assigned Identifier"
-            value={value.PerformingCarrierAssignedID?.[0]}
-            meta={ConsignmentFieldMeta.PerformingCarrierAssignedID}
-          />
-
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-SummaryDescription"
-            label="Summary Description"
-            items={value.SummaryDescription}
-            meta={ConsignmentFieldMeta.SummaryDescription} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Summary Description"
-                value={itemValue}
-                meta={ConsignmentFieldMeta.SummaryDescription}
-              />
-            }
-          />
-
-          <AmountDisplay
-            label="Total Invoice Amount"
-            value={value.TotalInvoiceAmount?.[0]}
-            meta={ConsignmentFieldMeta.TotalInvoiceAmount}
-          />
-
-          <AmountDisplay
-            label="Declared Customs Value"
-            value={value.DeclaredCustomsValueAmount?.[0]}
-            meta={ConsignmentFieldMeta.DeclaredCustomsValueAmount}
-          />
-
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-TariffDescription"
-            label="Tariff Description"
-            items={value.TariffDescription}
-            meta={ConsignmentFieldMeta.TariffDescription} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Tariff Description"
-                value={itemValue}
-                meta={ConsignmentFieldMeta.TariffDescription}
-              />
-            }
-          />
-
-          <CodeDisplay
-            label="Tariff Code"
-            value={value.TariffCode?.[0]}
-            meta={ConsignmentFieldMeta.TariffCode}
-          />
-
-          <AmountDisplay
-            label="Insurance Premium Amount"
-            value={value.InsurancePremiumAmount?.[0]}
-            meta={ConsignmentFieldMeta.InsurancePremiumAmount}
-          />
-
-          <MeasureDisplay
-            label="Gross Weight"
-            value={value.GrossWeightMeasure?.[0]}
-            meta={ConsignmentFieldMeta.GrossWeightMeasure}
-          />
-
-          <MeasureDisplay
-            label="Net Weight"
-            value={value.NetWeightMeasure?.[0]}
-            meta={ConsignmentFieldMeta.NetWeightMeasure}
-          />
-
-          <MeasureDisplay
-            label="Net Net Weight"
-            value={value.NetNetWeightMeasure?.[0]}
-            meta={ConsignmentFieldMeta.NetNetWeightMeasure}
-          />
-
-          <MeasureDisplay
-            label="Chargeable Weight"
-            value={value.ChargeableWeightMeasure?.[0]}
-            meta={ConsignmentFieldMeta.ChargeableWeightMeasure}
-          />
-
-          <MeasureDisplay
-            label="Gross Volume"
-            value={value.GrossVolumeMeasure?.[0]}
-            meta={ConsignmentFieldMeta.GrossVolumeMeasure}
-          />
-
-          <MeasureDisplay
-            label="Net Volume"
-            value={value.NetVolumeMeasure?.[0]}
-            meta={ConsignmentFieldMeta.NetVolumeMeasure}
-          />
-
-          <MeasureDisplay
-            label="Loading Length"
-            value={value.LoadingLengthMeasure?.[0]}
-            meta={ConsignmentFieldMeta.LoadingLengthMeasure}
-          />
-
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Remarks"
-            label="Remarks"
-            items={value.Remarks}
-            meta={ConsignmentFieldMeta.Remarks} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Remarks"
-                value={itemValue}
-                meta={ConsignmentFieldMeta.Remarks}
-              />
-            }
-          />
-
-          <IndicatorDisplay
-            label="Hazardous Risk Indicator"
-            value={value.HazardousRiskIndicator?.[0]}
-            meta={ConsignmentFieldMeta.HazardousRiskIndicator}
-          />
-
-          <IndicatorDisplay
-            label="Animal Food Indicator"
-            value={value.AnimalFoodIndicator?.[0]}
-            meta={ConsignmentFieldMeta.AnimalFoodIndicator}
-          />
-
-          <IndicatorDisplay
-            label="Human Food Indicator"
-            value={value.HumanFoodIndicator?.[0]}
-            meta={ConsignmentFieldMeta.HumanFoodIndicator}
-          />
-
-          <IndicatorDisplay
-            label="Livestock Indicator"
-            value={value.LivestockIndicator?.[0]}
-            meta={ConsignmentFieldMeta.LivestockIndicator}
-          />
-
-          <IndicatorDisplay
-            label="Bulk Cargo Indicator"
-            value={value.BulkCargoIndicator?.[0]}
-            meta={ConsignmentFieldMeta.BulkCargoIndicator}
-          />
-
-          <IndicatorDisplay
-            label="Containerized Indicator"
-            value={value.ContainerizedIndicator?.[0]}
-            meta={ConsignmentFieldMeta.ContainerizedIndicator}
-          />
-
-          <IndicatorDisplay
-            label="General Cargo Indicator"
-            value={value.GeneralCargoIndicator?.[0]}
-            meta={ConsignmentFieldMeta.GeneralCargoIndicator}
-          />
-
-          <IndicatorDisplay
-            label="Special Security Indicator"
-            value={value.SpecialSecurityIndicator?.[0]}
-            meta={ConsignmentFieldMeta.SpecialSecurityIndicator}
-          />
-
-          <IndicatorDisplay
-            label="Third Party Payer Indicator"
-            value={value.ThirdPartyPayerIndicator?.[0]}
-            meta={ConsignmentFieldMeta.ThirdPartyPayerIndicator}
-          />
-
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-CarrierServiceInstructions"
-            label="Carrier Service Instructions"
-            items={value.CarrierServiceInstructions}
-            meta={ConsignmentFieldMeta.CarrierServiceInstructions} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Carrier Service Instructions"
-                value={itemValue}
-                meta={ConsignmentFieldMeta.CarrierServiceInstructions}
-              />
-            }
-          />
-
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-CustomsClearanceServiceInstructions"
-            label="Customs Clearance Service Instructions"
-            items={value.CustomsClearanceServiceInstructions}
-            meta={ConsignmentFieldMeta.CustomsClearanceServiceInstructions} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Customs Clearance Service Instructions"
-                value={itemValue}
-                meta={ConsignmentFieldMeta.CustomsClearanceServiceInstructions}
-              />
-            }
-          />
-
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-ForwarderServiceInstructions"
-            label="Forwarder Service Instructions"
-            items={value.ForwarderServiceInstructions}
-            meta={ConsignmentFieldMeta.ForwarderServiceInstructions} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Forwarder Service Instructions"
-                value={itemValue}
-                meta={ConsignmentFieldMeta.ForwarderServiceInstructions}
-              />
-            }
-          />
-
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-SpecialServiceInstructions"
-            label="Special Service Instructions"
-            items={value.SpecialServiceInstructions}
-            meta={ConsignmentFieldMeta.SpecialServiceInstructions} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Special Service Instructions"
-                value={itemValue}
-                meta={ConsignmentFieldMeta.SpecialServiceInstructions}
-              />
-            }
-          />
-
-          <IdentifierDisplay
-            label="Sequence Identifier"
-            value={value.SequenceID?.[0]}
-            meta={ConsignmentFieldMeta.SequenceID}
-          />
-
-          <CodeDisplay
-            label="Shipping Priority Level Code"
-            value={value.ShippingPriorityLevelCode?.[0]}
-            meta={ConsignmentFieldMeta.ShippingPriorityLevelCode}
-          />
-
-          <CodeDisplay
-            label="Handling Code"
-            value={value.HandlingCode?.[0]}
-            meta={ConsignmentFieldMeta.HandlingCode}
-          />
-
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-HandlingInstructions"
-            label="Handling Instructions"
-            items={value.HandlingInstructions}
-            meta={ConsignmentFieldMeta.HandlingInstructions} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Handling Instructions"
-                value={itemValue}
-                meta={ConsignmentFieldMeta.HandlingInstructions}
-              />
-            }
-          />
-
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Information"
-            label="Information"
-            items={value.Information}
-            meta={ConsignmentFieldMeta.Information} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Information"
-                value={itemValue}
-                meta={ConsignmentFieldMeta.Information}
-              />
-            }
-          />
-
-          <QuantityDisplay
-            label="Total Goods Item Quantity"
-            value={value.TotalGoodsItemQuantity?.[0]}
-            meta={ConsignmentFieldMeta.TotalGoodsItemQuantity}
-          />
-
-          <QuantityDisplay
-            label="Total Transport Handling Unit Quantity"
-            value={value.TotalTransportHandlingUnitQuantity?.[0]}
-            meta={ConsignmentFieldMeta.TotalTransportHandlingUnitQuantity}
-          />
-
-          <AmountDisplay
-            label="Insurance Value"
-            value={value.InsuranceValueAmount?.[0]}
-            meta={ConsignmentFieldMeta.InsuranceValueAmount}
-          />
-
-          <AmountDisplay
-            label="Declared For Carriage Value"
-            value={value.DeclaredForCarriageValueAmount?.[0]}
-            meta={ConsignmentFieldMeta.DeclaredForCarriageValueAmount}
-          />
-
-          <AmountDisplay
-            label="Declared Statistics Value"
-            value={value.DeclaredStatisticsValueAmount?.[0]}
-            meta={ConsignmentFieldMeta.DeclaredStatisticsValueAmount}
-          />
-
-          <AmountDisplay
-            label="Free On Board Value"
-            value={value.FreeOnBoardValueAmount?.[0]}
-            meta={ConsignmentFieldMeta.FreeOnBoardValueAmount}
-          />
-
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-SpecialInstructions"
-            label="Special Instructions"
-            items={value.SpecialInstructions}
-            meta={ConsignmentFieldMeta.SpecialInstructions} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Special Instructions"
-                value={itemValue}
-                meta={ConsignmentFieldMeta.SpecialInstructions}
-              />
-            }
-          />
-
-          <IndicatorDisplay
-            label="Split Consignment Indicator"
-            value={value.SplitConsignmentIndicator?.[0]}
-            meta={ConsignmentFieldMeta.SplitConsignmentIndicator}
-          />
-
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-DeliveryInstructions"
-            label="Delivery Instructions"
-            items={value.DeliveryInstructions}
-            meta={ConsignmentFieldMeta.DeliveryInstructions} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Delivery Instructions"
-                value={itemValue}
-                meta={ConsignmentFieldMeta.DeliveryInstructions}
-              />
-            }
-          />
-
-          <QuantityDisplay
-            label="Consignment Quantity"
-            value={value.ConsignmentQuantity?.[0]}
-            meta={ConsignmentFieldMeta.ConsignmentQuantity}
-          />
-
-          <IndicatorDisplay
-            label="Consolidatable Indicator"
-            value={value.ConsolidatableIndicator?.[0]}
-            meta={ConsignmentFieldMeta.ConsolidatableIndicator}
-          />
-
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-HaulageInstructions"
-            label="Haulage Instructions"
-            items={value.HaulageInstructions}
-            meta={ConsignmentFieldMeta.HaulageInstructions} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Haulage Instructions"
-                value={itemValue}
-                meta={ConsignmentFieldMeta.HaulageInstructions}
-              />
-            }
-          />
-
-          <IdentifierDisplay
-            label="Loading Sequence Identifier"
-            value={value.LoadingSequenceID?.[0]}
-            meta={ConsignmentFieldMeta.LoadingSequenceID}
-          />
-
-          <QuantityDisplay
-            label="Child Consignment Quantity"
-            value={value.ChildConsignmentQuantity?.[0]}
-            meta={ConsignmentFieldMeta.ChildConsignmentQuantity}
-          />
-
-          <QuantityDisplay
-            label="Total Packages Quantity"
-            value={value.TotalPackagesQuantity?.[0]}
-            meta={ConsignmentFieldMeta.TotalPackagesQuantity}
-          />
-
-          <ElementListDisplay
-            className="ubl-cac ubl-Shipment ubl-ConsolidatedShipment"
-            label="Consolidated Shipment"
-            items={value.ConsolidatedShipment}
-            meta={ConsignmentFieldMeta.ConsolidatedShipment} 
-            itemDisplay={ (itemValue: Shipment, key: string | number) =>
-              <ShipmentDisplay
-                key={key}
-                label="Consolidated Shipment"
-                value={itemValue}
-                meta={ConsignmentFieldMeta.ConsolidatedShipment}
-              />
-            }
-          />
-
-          <ElementListDisplay
-            className="ubl-cac ubl-CustomsDeclaration"
-            label="Customs Declaration"
-            items={value.CustomsDeclaration}
-            meta={ConsignmentFieldMeta.CustomsDeclaration} 
-            itemDisplay={ (itemValue: CustomsDeclaration, key: string | number) =>
-              <CustomsDeclarationDisplay
-                key={key}
-                label="Customs Declaration"
-                value={itemValue}
-                meta={ConsignmentFieldMeta.CustomsDeclaration}
-              />
-            }
-          />
-
-          <TransportEventDisplay
-            label="Requested Pickup Transport Event"
-            value={value.RequestedPickupTransportEvent?.[0]}
-            meta={ConsignmentFieldMeta.RequestedPickupTransportEvent}
-          />
-
-          <TransportEventDisplay
-            label="Requested Delivery Transport Event"
-            value={value.RequestedDeliveryTransportEvent?.[0]}
-            meta={ConsignmentFieldMeta.RequestedDeliveryTransportEvent}
-          />
-
-          <TransportEventDisplay
-            label="Planned Pickup Transport Event"
-            value={value.PlannedPickupTransportEvent?.[0]}
-            meta={ConsignmentFieldMeta.PlannedPickupTransportEvent}
-          />
-
-          <TransportEventDisplay
-            label="Planned Delivery Transport Event"
-            value={value.PlannedDeliveryTransportEvent?.[0]}
-            meta={ConsignmentFieldMeta.PlannedDeliveryTransportEvent}
-          />
-
-          <TransportEventDisplay
-            label="Actual Pickup Transport Event"
-            value={value.ActualPickupTransportEvent?.[0]}
-            meta={ConsignmentFieldMeta.ActualPickupTransportEvent}
-          />
-
-          <TransportEventDisplay
-            label="Actual Delivery Transport Event"
-            value={value.ActualDeliveryTransportEvent?.[0]}
-            meta={ConsignmentFieldMeta.ActualDeliveryTransportEvent}
-          />
-
-          <ElementListDisplay
-            className="ubl-cac ubl-Status"
-            label="Status"
-            items={value.Status}
-            meta={ConsignmentFieldMeta.Status} 
-            itemDisplay={ (itemValue: Status, key: string | number) =>
-              <StatusDisplay
-                key={key}
-                label="Status"
-                value={itemValue}
-                meta={ConsignmentFieldMeta.Status}
-              />
-            }
-          />
-
-          <ElementListDisplay
-            className="ubl-cac ubl-Consignment ubl-ChildConsignment"
-            label="Child Consignment"
-            items={value.ChildConsignment}
-            meta={ConsignmentFieldMeta.ChildConsignment} 
-            itemDisplay={ (itemValue: Consignment, key: string | number) =>
-              <ConsignmentDisplay
-                key={key}
-                label="Child Consignment"
-                value={itemValue}
-                meta={ConsignmentFieldMeta.ChildConsignment}
-              />
-            }
-          />
-
-          <PartyDisplay
-            label="Consignee Party"
-            value={value.ConsigneeParty?.[0]}
-            meta={ConsignmentFieldMeta.ConsigneeParty}
-          />
-
-          <PartyDisplay
-            label="Exporter Party"
-            value={value.ExporterParty?.[0]}
-            meta={ConsignmentFieldMeta.ExporterParty}
-          />
-
-          <PartyDisplay
-            label="Consignor Party"
-            value={value.ConsignorParty?.[0]}
-            meta={ConsignmentFieldMeta.ConsignorParty}
-          />
-
-          <PartyDisplay
-            label="Importer Party"
-            value={value.ImporterParty?.[0]}
-            meta={ConsignmentFieldMeta.ImporterParty}
-          />
-
-          <PartyDisplay
-            label="Carrier Party"
-            value={value.CarrierParty?.[0]}
-            meta={ConsignmentFieldMeta.CarrierParty}
-          />
-
-          <PartyDisplay
-            label="Freight Forwarder Party"
-            value={value.FreightForwarderParty?.[0]}
-            meta={ConsignmentFieldMeta.FreightForwarderParty}
-          />
-
-          <PartyDisplay
-            label="Notify Party"
-            value={value.NotifyParty?.[0]}
-            meta={ConsignmentFieldMeta.NotifyParty}
-          />
-
-          <PartyDisplay
-            label="Original Despatch Party"
-            value={value.OriginalDespatchParty?.[0]}
-            meta={ConsignmentFieldMeta.OriginalDespatchParty}
-          />
-
-          <PartyDisplay
-            label="Final Delivery Party"
-            value={value.FinalDeliveryParty?.[0]}
-            meta={ConsignmentFieldMeta.FinalDeliveryParty}
-          />
-
-          <PartyDisplay
-            label="Performing Carrier Party"
-            value={value.PerformingCarrierParty?.[0]}
-            meta={ConsignmentFieldMeta.PerformingCarrierParty}
-          />
-
-          <PartyDisplay
-            label="Substitute Carrier Party"
-            value={value.SubstituteCarrierParty?.[0]}
-            meta={ConsignmentFieldMeta.SubstituteCarrierParty}
-          />
-
-          <PartyDisplay
-            label="Logistics Operator Party"
-            value={value.LogisticsOperatorParty?.[0]}
-            meta={ConsignmentFieldMeta.LogisticsOperatorParty}
-          />
-
-          <PartyDisplay
-            label="Transport Advisor Party"
-            value={value.TransportAdvisorParty?.[0]}
-            meta={ConsignmentFieldMeta.TransportAdvisorParty}
-          />
-
-          <PartyDisplay
-            label="Hazardous Item Notification Party"
-            value={value.HazardousItemNotificationParty?.[0]}
-            meta={ConsignmentFieldMeta.HazardousItemNotificationParty}
-          />
-
-          <PartyDisplay
-            label="Insurance Party"
-            value={value.InsuranceParty?.[0]}
-            meta={ConsignmentFieldMeta.InsuranceParty}
-          />
-
-          <PartyDisplay
-            label="Mortgage Holder Party"
-            value={value.MortgageHolderParty?.[0]}
-            meta={ConsignmentFieldMeta.MortgageHolderParty}
-          />
-
-          <PartyDisplay
-            label="Bill Of Lading Holder Party"
-            value={value.BillOfLadingHolderParty?.[0]}
-            meta={ConsignmentFieldMeta.BillOfLadingHolderParty}
-          />
-
-          <CountryDisplay
-            label="Original Departure Country"
-            value={value.OriginalDepartureCountry?.[0]}
-            meta={ConsignmentFieldMeta.OriginalDepartureCountry}
-          />
-
-          <CountryDisplay
-            label="Final Destination Country"
-            value={value.FinalDestinationCountry?.[0]}
-            meta={ConsignmentFieldMeta.FinalDestinationCountry}
-          />
-
-          <ElementListDisplay
-            className="ubl-cac ubl-Country ubl-TransitCountry"
-            label="Transit Country"
-            items={value.TransitCountry}
-            meta={ConsignmentFieldMeta.TransitCountry} 
-            itemDisplay={ (itemValue: Country, key: string | number) =>
-              <CountryDisplay
-                key={key}
-                label="Transit Country"
-                value={itemValue}
-                meta={ConsignmentFieldMeta.TransitCountry}
-              />
-            }
-          />
-
-          <ContractDisplay
-            label="Transport Contract"
-            value={value.TransportContract?.[0]}
-            meta={ConsignmentFieldMeta.TransportContract}
-          />
-
-          <ElementListDisplay
-            className="ubl-cac ubl-TransportEvent"
-            label="Transport Event"
-            items={value.TransportEvent}
-            meta={ConsignmentFieldMeta.TransportEvent} 
-            itemDisplay={ (itemValue: TransportEvent, key: string | number) =>
-              <TransportEventDisplay
-                key={key}
-                label="Transport Event"
-                value={itemValue}
-                meta={ConsignmentFieldMeta.TransportEvent}
-              />
-            }
-          />
-
-          <TransportationServiceDisplay
-            label="Original Despatch Transportation Service"
-            value={value.OriginalDespatchTransportationService?.[0]}
-            meta={ConsignmentFieldMeta.OriginalDespatchTransportationService}
-          />
-
-          <TransportationServiceDisplay
-            label="Final Delivery Transportation Service"
-            value={value.FinalDeliveryTransportationService?.[0]}
-            meta={ConsignmentFieldMeta.FinalDeliveryTransportationService}
-          />
-
-          <DeliveryTermsDisplay
-            label="Delivery Terms"
-            value={value.DeliveryTerms?.[0]}
-            meta={ConsignmentFieldMeta.DeliveryTerms}
-          />
-
-          <PaymentTermsDisplay
-            label="Payment Terms"
-            value={value.PaymentTerms?.[0]}
-            meta={ConsignmentFieldMeta.PaymentTerms}
-          />
-
-          <PaymentTermsDisplay
-            label="Collect Payment Terms"
-            value={value.CollectPaymentTerms?.[0]}
-            meta={ConsignmentFieldMeta.CollectPaymentTerms}
-          />
-
-          <PaymentTermsDisplay
-            label="Disbursement Payment Terms"
-            value={value.DisbursementPaymentTerms?.[0]}
-            meta={ConsignmentFieldMeta.DisbursementPaymentTerms}
-          />
-
-          <PaymentTermsDisplay
-            label="Prepaid Payment Terms"
-            value={value.PrepaidPaymentTerms?.[0]}
-            meta={ConsignmentFieldMeta.PrepaidPaymentTerms}
-          />
-
-          <ElementListDisplay
-            className="ubl-cac ubl-AllowanceCharge ubl-FreightAllowanceCharge"
-            label="Freight Allowance Charge"
-            items={value.FreightAllowanceCharge}
-            meta={ConsignmentFieldMeta.FreightAllowanceCharge} 
-            itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-              <AllowanceChargeDisplay
-                key={key}
-                label="Freight Allowance Charge"
-                value={itemValue}
-                meta={ConsignmentFieldMeta.FreightAllowanceCharge}
-              />
-            }
-          />
-
-          <ElementListDisplay
-            className="ubl-cac ubl-AllowanceCharge ubl-ExtraAllowanceCharge"
-            label="Extra Allowance Charge"
-            items={value.ExtraAllowanceCharge}
-            meta={ConsignmentFieldMeta.ExtraAllowanceCharge} 
-            itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-              <AllowanceChargeDisplay
-                key={key}
-                label="Extra Allowance Charge"
-                value={itemValue}
-                meta={ConsignmentFieldMeta.ExtraAllowanceCharge}
-              />
-            }
-          />
-
-          <ElementListDisplay
-            className="ubl-cac ubl-ShipmentStage ubl-MainCarriageShipmentStage"
-            label="Main Carriage Shipment Stage"
-            items={value.MainCarriageShipmentStage}
-            meta={ConsignmentFieldMeta.MainCarriageShipmentStage} 
-            itemDisplay={ (itemValue: ShipmentStage, key: string | number) =>
-              <ShipmentStageDisplay
-                key={key}
-                label="Main Carriage Shipment Stage"
-                value={itemValue}
-                meta={ConsignmentFieldMeta.MainCarriageShipmentStage}
-              />
-            }
-          />
-
-          <ElementListDisplay
-            className="ubl-cac ubl-ShipmentStage ubl-PreCarriageShipmentStage"
-            label="Pre Carriage Shipment Stage"
-            items={value.PreCarriageShipmentStage}
-            meta={ConsignmentFieldMeta.PreCarriageShipmentStage} 
-            itemDisplay={ (itemValue: ShipmentStage, key: string | number) =>
-              <ShipmentStageDisplay
-                key={key}
-                label="Pre Carriage Shipment Stage"
-                value={itemValue}
-                meta={ConsignmentFieldMeta.PreCarriageShipmentStage}
-              />
-            }
-          />
-
-          <ElementListDisplay
-            className="ubl-cac ubl-ShipmentStage ubl-OnCarriageShipmentStage"
-            label="On Carriage Shipment Stage"
-            items={value.OnCarriageShipmentStage}
-            meta={ConsignmentFieldMeta.OnCarriageShipmentStage} 
-            itemDisplay={ (itemValue: ShipmentStage, key: string | number) =>
-              <ShipmentStageDisplay
-                key={key}
-                label="On Carriage Shipment Stage"
-                value={itemValue}
-                meta={ConsignmentFieldMeta.OnCarriageShipmentStage}
-              />
-            }
-          />
-
-          <ElementListDisplay
-            className="ubl-cac ubl-TransportHandlingUnit"
-            label="Transport Handling Unit"
-            items={value.TransportHandlingUnit}
-            meta={ConsignmentFieldMeta.TransportHandlingUnit} 
-            itemDisplay={ (itemValue: TransportHandlingUnit, key: string | number) =>
-              <TransportHandlingUnitDisplay
-                key={key}
-                label="Transport Handling Unit"
-                value={itemValue}
-                meta={ConsignmentFieldMeta.TransportHandlingUnit}
-              />
-            }
-          />
-
-          <LocationDisplay
-            label="First Arrival Port Location"
-            value={value.FirstArrivalPortLocation?.[0]}
-            meta={ConsignmentFieldMeta.FirstArrivalPortLocation}
-          />
-
-          <LocationDisplay
-            label="Last Exit Port Location"
-            value={value.LastExitPortLocation?.[0]}
-            meta={ConsignmentFieldMeta.LastExitPortLocation}
-          />
-        </div>
-    </div>
+export const ConsignmentSubElementsMap: SubElementsTemplatesMap<ConsignmentField, Consignment, void> = new Map([
+    [
+      ConsignmentField.UBLExtensions,
+      { meta: ConsignmentFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ConsignmentField.UBLExtensions}
+          meta={ConsignmentFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.ID,
+      { meta: ConsignmentFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ConsignmentField.ID}
+          meta={ConsignmentFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.CarrierAssignedID,
+      { meta: ConsignmentFieldMeta.CarrierAssignedID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ConsignmentField.CarrierAssignedID}
+          meta={ConsignmentFieldMeta.CarrierAssignedID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CarrierAssignedID}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.ConsigneeAssignedID,
+      { meta: ConsignmentFieldMeta.ConsigneeAssignedID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ConsignmentField.ConsigneeAssignedID}
+          meta={ConsignmentFieldMeta.ConsigneeAssignedID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ConsigneeAssignedID}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.ConsignorAssignedID,
+      { meta: ConsignmentFieldMeta.ConsignorAssignedID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ConsignmentField.ConsignorAssignedID}
+          meta={ConsignmentFieldMeta.ConsignorAssignedID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ConsignorAssignedID}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.FreightForwarderAssignedID,
+      { meta: ConsignmentFieldMeta.FreightForwarderAssignedID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ConsignmentField.FreightForwarderAssignedID}
+          meta={ConsignmentFieldMeta.FreightForwarderAssignedID}
+          fieldConfig={fieldConfig}
+          identifier={value?.FreightForwarderAssignedID}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.BrokerAssignedID,
+      { meta: ConsignmentFieldMeta.BrokerAssignedID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ConsignmentField.BrokerAssignedID}
+          meta={ConsignmentFieldMeta.BrokerAssignedID}
+          fieldConfig={fieldConfig}
+          identifier={value?.BrokerAssignedID}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.ContractedCarrierAssignedID,
+      { meta: ConsignmentFieldMeta.ContractedCarrierAssignedID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ConsignmentField.ContractedCarrierAssignedID}
+          meta={ConsignmentFieldMeta.ContractedCarrierAssignedID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ContractedCarrierAssignedID}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.PerformingCarrierAssignedID,
+      { meta: ConsignmentFieldMeta.PerformingCarrierAssignedID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ConsignmentField.PerformingCarrierAssignedID}
+          meta={ConsignmentFieldMeta.PerformingCarrierAssignedID}
+          fieldConfig={fieldConfig}
+          identifier={value?.PerformingCarrierAssignedID}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.SummaryDescription,
+      { meta: ConsignmentFieldMeta.SummaryDescription,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ConsignmentField.SummaryDescription}
+          meta={ConsignmentFieldMeta.SummaryDescription}
+          fieldConfig={fieldConfig}
+          text={value?.SummaryDescription}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.TotalInvoiceAmount,
+      { meta: ConsignmentFieldMeta.TotalInvoiceAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={ConsignmentField.TotalInvoiceAmount}
+          meta={ConsignmentFieldMeta.TotalInvoiceAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.TotalInvoiceAmount}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.DeclaredCustomsValueAmount,
+      { meta: ConsignmentFieldMeta.DeclaredCustomsValueAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={ConsignmentField.DeclaredCustomsValueAmount}
+          meta={ConsignmentFieldMeta.DeclaredCustomsValueAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.DeclaredCustomsValueAmount}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.TariffDescription,
+      { meta: ConsignmentFieldMeta.TariffDescription,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ConsignmentField.TariffDescription}
+          meta={ConsignmentFieldMeta.TariffDescription}
+          fieldConfig={fieldConfig}
+          text={value?.TariffDescription}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.TariffCode,
+      { meta: ConsignmentFieldMeta.TariffCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ConsignmentField.TariffCode}
+          meta={ConsignmentFieldMeta.TariffCode}
+          fieldConfig={fieldConfig}
+          code={value?.TariffCode}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.InsurancePremiumAmount,
+      { meta: ConsignmentFieldMeta.InsurancePremiumAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={ConsignmentField.InsurancePremiumAmount}
+          meta={ConsignmentFieldMeta.InsurancePremiumAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.InsurancePremiumAmount}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.GrossWeightMeasure,
+      { meta: ConsignmentFieldMeta.GrossWeightMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={ConsignmentField.GrossWeightMeasure}
+          meta={ConsignmentFieldMeta.GrossWeightMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.GrossWeightMeasure}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.NetWeightMeasure,
+      { meta: ConsignmentFieldMeta.NetWeightMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={ConsignmentField.NetWeightMeasure}
+          meta={ConsignmentFieldMeta.NetWeightMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.NetWeightMeasure}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.NetNetWeightMeasure,
+      { meta: ConsignmentFieldMeta.NetNetWeightMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={ConsignmentField.NetNetWeightMeasure}
+          meta={ConsignmentFieldMeta.NetNetWeightMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.NetNetWeightMeasure}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.ChargeableWeightMeasure,
+      { meta: ConsignmentFieldMeta.ChargeableWeightMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={ConsignmentField.ChargeableWeightMeasure}
+          meta={ConsignmentFieldMeta.ChargeableWeightMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.ChargeableWeightMeasure}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.GrossVolumeMeasure,
+      { meta: ConsignmentFieldMeta.GrossVolumeMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={ConsignmentField.GrossVolumeMeasure}
+          meta={ConsignmentFieldMeta.GrossVolumeMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.GrossVolumeMeasure}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.NetVolumeMeasure,
+      { meta: ConsignmentFieldMeta.NetVolumeMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={ConsignmentField.NetVolumeMeasure}
+          meta={ConsignmentFieldMeta.NetVolumeMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.NetVolumeMeasure}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.LoadingLengthMeasure,
+      { meta: ConsignmentFieldMeta.LoadingLengthMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={ConsignmentField.LoadingLengthMeasure}
+          meta={ConsignmentFieldMeta.LoadingLengthMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.LoadingLengthMeasure}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.Remarks,
+      { meta: ConsignmentFieldMeta.Remarks,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ConsignmentField.Remarks}
+          meta={ConsignmentFieldMeta.Remarks}
+          fieldConfig={fieldConfig}
+          text={value?.Remarks}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.HazardousRiskIndicator,
+      { meta: ConsignmentFieldMeta.HazardousRiskIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ConsignmentField.HazardousRiskIndicator}
+          meta={ConsignmentFieldMeta.HazardousRiskIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.HazardousRiskIndicator}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.AnimalFoodIndicator,
+      { meta: ConsignmentFieldMeta.AnimalFoodIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ConsignmentField.AnimalFoodIndicator}
+          meta={ConsignmentFieldMeta.AnimalFoodIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.AnimalFoodIndicator}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.HumanFoodIndicator,
+      { meta: ConsignmentFieldMeta.HumanFoodIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ConsignmentField.HumanFoodIndicator}
+          meta={ConsignmentFieldMeta.HumanFoodIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.HumanFoodIndicator}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.LivestockIndicator,
+      { meta: ConsignmentFieldMeta.LivestockIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ConsignmentField.LivestockIndicator}
+          meta={ConsignmentFieldMeta.LivestockIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.LivestockIndicator}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.BulkCargoIndicator,
+      { meta: ConsignmentFieldMeta.BulkCargoIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ConsignmentField.BulkCargoIndicator}
+          meta={ConsignmentFieldMeta.BulkCargoIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.BulkCargoIndicator}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.ContainerizedIndicator,
+      { meta: ConsignmentFieldMeta.ContainerizedIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ConsignmentField.ContainerizedIndicator}
+          meta={ConsignmentFieldMeta.ContainerizedIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.ContainerizedIndicator}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.GeneralCargoIndicator,
+      { meta: ConsignmentFieldMeta.GeneralCargoIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ConsignmentField.GeneralCargoIndicator}
+          meta={ConsignmentFieldMeta.GeneralCargoIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.GeneralCargoIndicator}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.SpecialSecurityIndicator,
+      { meta: ConsignmentFieldMeta.SpecialSecurityIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ConsignmentField.SpecialSecurityIndicator}
+          meta={ConsignmentFieldMeta.SpecialSecurityIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.SpecialSecurityIndicator}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.ThirdPartyPayerIndicator,
+      { meta: ConsignmentFieldMeta.ThirdPartyPayerIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ConsignmentField.ThirdPartyPayerIndicator}
+          meta={ConsignmentFieldMeta.ThirdPartyPayerIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.ThirdPartyPayerIndicator}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.CarrierServiceInstructions,
+      { meta: ConsignmentFieldMeta.CarrierServiceInstructions,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ConsignmentField.CarrierServiceInstructions}
+          meta={ConsignmentFieldMeta.CarrierServiceInstructions}
+          fieldConfig={fieldConfig}
+          text={value?.CarrierServiceInstructions}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.CustomsClearanceServiceInstructions,
+      { meta: ConsignmentFieldMeta.CustomsClearanceServiceInstructions,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ConsignmentField.CustomsClearanceServiceInstructions}
+          meta={ConsignmentFieldMeta.CustomsClearanceServiceInstructions}
+          fieldConfig={fieldConfig}
+          text={value?.CustomsClearanceServiceInstructions}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.ForwarderServiceInstructions,
+      { meta: ConsignmentFieldMeta.ForwarderServiceInstructions,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ConsignmentField.ForwarderServiceInstructions}
+          meta={ConsignmentFieldMeta.ForwarderServiceInstructions}
+          fieldConfig={fieldConfig}
+          text={value?.ForwarderServiceInstructions}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.SpecialServiceInstructions,
+      { meta: ConsignmentFieldMeta.SpecialServiceInstructions,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ConsignmentField.SpecialServiceInstructions}
+          meta={ConsignmentFieldMeta.SpecialServiceInstructions}
+          fieldConfig={fieldConfig}
+          text={value?.SpecialServiceInstructions}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.SequenceID,
+      { meta: ConsignmentFieldMeta.SequenceID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ConsignmentField.SequenceID}
+          meta={ConsignmentFieldMeta.SequenceID}
+          fieldConfig={fieldConfig}
+          identifier={value?.SequenceID}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.ShippingPriorityLevelCode,
+      { meta: ConsignmentFieldMeta.ShippingPriorityLevelCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ConsignmentField.ShippingPriorityLevelCode}
+          meta={ConsignmentFieldMeta.ShippingPriorityLevelCode}
+          fieldConfig={fieldConfig}
+          code={value?.ShippingPriorityLevelCode}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.HandlingCode,
+      { meta: ConsignmentFieldMeta.HandlingCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ConsignmentField.HandlingCode}
+          meta={ConsignmentFieldMeta.HandlingCode}
+          fieldConfig={fieldConfig}
+          code={value?.HandlingCode}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.HandlingInstructions,
+      { meta: ConsignmentFieldMeta.HandlingInstructions,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ConsignmentField.HandlingInstructions}
+          meta={ConsignmentFieldMeta.HandlingInstructions}
+          fieldConfig={fieldConfig}
+          text={value?.HandlingInstructions}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.Information,
+      { meta: ConsignmentFieldMeta.Information,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ConsignmentField.Information}
+          meta={ConsignmentFieldMeta.Information}
+          fieldConfig={fieldConfig}
+          text={value?.Information}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.TotalGoodsItemQuantity,
+      { meta: ConsignmentFieldMeta.TotalGoodsItemQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={ConsignmentField.TotalGoodsItemQuantity}
+          meta={ConsignmentFieldMeta.TotalGoodsItemQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.TotalGoodsItemQuantity}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.TotalTransportHandlingUnitQuantity,
+      { meta: ConsignmentFieldMeta.TotalTransportHandlingUnitQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={ConsignmentField.TotalTransportHandlingUnitQuantity}
+          meta={ConsignmentFieldMeta.TotalTransportHandlingUnitQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.TotalTransportHandlingUnitQuantity}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.InsuranceValueAmount,
+      { meta: ConsignmentFieldMeta.InsuranceValueAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={ConsignmentField.InsuranceValueAmount}
+          meta={ConsignmentFieldMeta.InsuranceValueAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.InsuranceValueAmount}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.DeclaredForCarriageValueAmount,
+      { meta: ConsignmentFieldMeta.DeclaredForCarriageValueAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={ConsignmentField.DeclaredForCarriageValueAmount}
+          meta={ConsignmentFieldMeta.DeclaredForCarriageValueAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.DeclaredForCarriageValueAmount}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.DeclaredStatisticsValueAmount,
+      { meta: ConsignmentFieldMeta.DeclaredStatisticsValueAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={ConsignmentField.DeclaredStatisticsValueAmount}
+          meta={ConsignmentFieldMeta.DeclaredStatisticsValueAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.DeclaredStatisticsValueAmount}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.FreeOnBoardValueAmount,
+      { meta: ConsignmentFieldMeta.FreeOnBoardValueAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={ConsignmentField.FreeOnBoardValueAmount}
+          meta={ConsignmentFieldMeta.FreeOnBoardValueAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.FreeOnBoardValueAmount}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.SpecialInstructions,
+      { meta: ConsignmentFieldMeta.SpecialInstructions,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ConsignmentField.SpecialInstructions}
+          meta={ConsignmentFieldMeta.SpecialInstructions}
+          fieldConfig={fieldConfig}
+          text={value?.SpecialInstructions}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.SplitConsignmentIndicator,
+      { meta: ConsignmentFieldMeta.SplitConsignmentIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ConsignmentField.SplitConsignmentIndicator}
+          meta={ConsignmentFieldMeta.SplitConsignmentIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.SplitConsignmentIndicator}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.DeliveryInstructions,
+      { meta: ConsignmentFieldMeta.DeliveryInstructions,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ConsignmentField.DeliveryInstructions}
+          meta={ConsignmentFieldMeta.DeliveryInstructions}
+          fieldConfig={fieldConfig}
+          text={value?.DeliveryInstructions}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.ConsignmentQuantity,
+      { meta: ConsignmentFieldMeta.ConsignmentQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={ConsignmentField.ConsignmentQuantity}
+          meta={ConsignmentFieldMeta.ConsignmentQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.ConsignmentQuantity}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.ConsolidatableIndicator,
+      { meta: ConsignmentFieldMeta.ConsolidatableIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ConsignmentField.ConsolidatableIndicator}
+          meta={ConsignmentFieldMeta.ConsolidatableIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.ConsolidatableIndicator}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.HaulageInstructions,
+      { meta: ConsignmentFieldMeta.HaulageInstructions,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ConsignmentField.HaulageInstructions}
+          meta={ConsignmentFieldMeta.HaulageInstructions}
+          fieldConfig={fieldConfig}
+          text={value?.HaulageInstructions}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.LoadingSequenceID,
+      { meta: ConsignmentFieldMeta.LoadingSequenceID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ConsignmentField.LoadingSequenceID}
+          meta={ConsignmentFieldMeta.LoadingSequenceID}
+          fieldConfig={fieldConfig}
+          identifier={value?.LoadingSequenceID}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.ChildConsignmentQuantity,
+      { meta: ConsignmentFieldMeta.ChildConsignmentQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={ConsignmentField.ChildConsignmentQuantity}
+          meta={ConsignmentFieldMeta.ChildConsignmentQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.ChildConsignmentQuantity}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.TotalPackagesQuantity,
+      { meta: ConsignmentFieldMeta.TotalPackagesQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={ConsignmentField.TotalPackagesQuantity}
+          meta={ConsignmentFieldMeta.TotalPackagesQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.TotalPackagesQuantity}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.ConsolidatedShipment,
+      { meta: ConsignmentFieldMeta.ConsolidatedShipment,
+        template: ({value, renderContext, fieldConfig}) => <ShipmentDisplay
+          key={ConsignmentField.ConsolidatedShipment}
+          meta={ConsignmentFieldMeta.ConsolidatedShipment}
+          fieldConfig={fieldConfig}
+          shipment={value?.ConsolidatedShipment}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.CustomsDeclaration,
+      { meta: ConsignmentFieldMeta.CustomsDeclaration,
+        template: ({value, renderContext, fieldConfig}) => <CustomsDeclarationDisplay
+          key={ConsignmentField.CustomsDeclaration}
+          meta={ConsignmentFieldMeta.CustomsDeclaration}
+          fieldConfig={fieldConfig}
+          customsDeclaration={value?.CustomsDeclaration}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.RequestedPickupTransportEvent,
+      { meta: ConsignmentFieldMeta.RequestedPickupTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={ConsignmentField.RequestedPickupTransportEvent}
+          meta={ConsignmentFieldMeta.RequestedPickupTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.RequestedPickupTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.RequestedDeliveryTransportEvent,
+      { meta: ConsignmentFieldMeta.RequestedDeliveryTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={ConsignmentField.RequestedDeliveryTransportEvent}
+          meta={ConsignmentFieldMeta.RequestedDeliveryTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.RequestedDeliveryTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.PlannedPickupTransportEvent,
+      { meta: ConsignmentFieldMeta.PlannedPickupTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={ConsignmentField.PlannedPickupTransportEvent}
+          meta={ConsignmentFieldMeta.PlannedPickupTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.PlannedPickupTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.PlannedDeliveryTransportEvent,
+      { meta: ConsignmentFieldMeta.PlannedDeliveryTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={ConsignmentField.PlannedDeliveryTransportEvent}
+          meta={ConsignmentFieldMeta.PlannedDeliveryTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.PlannedDeliveryTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.ActualPickupTransportEvent,
+      { meta: ConsignmentFieldMeta.ActualPickupTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={ConsignmentField.ActualPickupTransportEvent}
+          meta={ConsignmentFieldMeta.ActualPickupTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.ActualPickupTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.ActualDeliveryTransportEvent,
+      { meta: ConsignmentFieldMeta.ActualDeliveryTransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={ConsignmentField.ActualDeliveryTransportEvent}
+          meta={ConsignmentFieldMeta.ActualDeliveryTransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.ActualDeliveryTransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.Status,
+      { meta: ConsignmentFieldMeta.Status,
+        template: ({value, renderContext, fieldConfig}) => <StatusDisplay
+          key={ConsignmentField.Status}
+          meta={ConsignmentFieldMeta.Status}
+          fieldConfig={fieldConfig}
+          status={value?.Status}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.ChildConsignment,
+      { meta: ConsignmentFieldMeta.ChildConsignment,
+        template: ({value, renderContext, fieldConfig}) => <ConsignmentDisplay
+          key={ConsignmentField.ChildConsignment}
+          meta={ConsignmentFieldMeta.ChildConsignment}
+          fieldConfig={fieldConfig}
+          consignment={value?.ChildConsignment}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.ConsigneeParty,
+      { meta: ConsignmentFieldMeta.ConsigneeParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ConsignmentField.ConsigneeParty}
+          meta={ConsignmentFieldMeta.ConsigneeParty}
+          fieldConfig={fieldConfig}
+          party={value?.ConsigneeParty}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.ExporterParty,
+      { meta: ConsignmentFieldMeta.ExporterParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ConsignmentField.ExporterParty}
+          meta={ConsignmentFieldMeta.ExporterParty}
+          fieldConfig={fieldConfig}
+          party={value?.ExporterParty}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.ConsignorParty,
+      { meta: ConsignmentFieldMeta.ConsignorParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ConsignmentField.ConsignorParty}
+          meta={ConsignmentFieldMeta.ConsignorParty}
+          fieldConfig={fieldConfig}
+          party={value?.ConsignorParty}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.ImporterParty,
+      { meta: ConsignmentFieldMeta.ImporterParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ConsignmentField.ImporterParty}
+          meta={ConsignmentFieldMeta.ImporterParty}
+          fieldConfig={fieldConfig}
+          party={value?.ImporterParty}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.CarrierParty,
+      { meta: ConsignmentFieldMeta.CarrierParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ConsignmentField.CarrierParty}
+          meta={ConsignmentFieldMeta.CarrierParty}
+          fieldConfig={fieldConfig}
+          party={value?.CarrierParty}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.FreightForwarderParty,
+      { meta: ConsignmentFieldMeta.FreightForwarderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ConsignmentField.FreightForwarderParty}
+          meta={ConsignmentFieldMeta.FreightForwarderParty}
+          fieldConfig={fieldConfig}
+          party={value?.FreightForwarderParty}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.NotifyParty,
+      { meta: ConsignmentFieldMeta.NotifyParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ConsignmentField.NotifyParty}
+          meta={ConsignmentFieldMeta.NotifyParty}
+          fieldConfig={fieldConfig}
+          party={value?.NotifyParty}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.OriginalDespatchParty,
+      { meta: ConsignmentFieldMeta.OriginalDespatchParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ConsignmentField.OriginalDespatchParty}
+          meta={ConsignmentFieldMeta.OriginalDespatchParty}
+          fieldConfig={fieldConfig}
+          party={value?.OriginalDespatchParty}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.FinalDeliveryParty,
+      { meta: ConsignmentFieldMeta.FinalDeliveryParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ConsignmentField.FinalDeliveryParty}
+          meta={ConsignmentFieldMeta.FinalDeliveryParty}
+          fieldConfig={fieldConfig}
+          party={value?.FinalDeliveryParty}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.PerformingCarrierParty,
+      { meta: ConsignmentFieldMeta.PerformingCarrierParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ConsignmentField.PerformingCarrierParty}
+          meta={ConsignmentFieldMeta.PerformingCarrierParty}
+          fieldConfig={fieldConfig}
+          party={value?.PerformingCarrierParty}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.SubstituteCarrierParty,
+      { meta: ConsignmentFieldMeta.SubstituteCarrierParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ConsignmentField.SubstituteCarrierParty}
+          meta={ConsignmentFieldMeta.SubstituteCarrierParty}
+          fieldConfig={fieldConfig}
+          party={value?.SubstituteCarrierParty}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.LogisticsOperatorParty,
+      { meta: ConsignmentFieldMeta.LogisticsOperatorParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ConsignmentField.LogisticsOperatorParty}
+          meta={ConsignmentFieldMeta.LogisticsOperatorParty}
+          fieldConfig={fieldConfig}
+          party={value?.LogisticsOperatorParty}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.TransportAdvisorParty,
+      { meta: ConsignmentFieldMeta.TransportAdvisorParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ConsignmentField.TransportAdvisorParty}
+          meta={ConsignmentFieldMeta.TransportAdvisorParty}
+          fieldConfig={fieldConfig}
+          party={value?.TransportAdvisorParty}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.HazardousItemNotificationParty,
+      { meta: ConsignmentFieldMeta.HazardousItemNotificationParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ConsignmentField.HazardousItemNotificationParty}
+          meta={ConsignmentFieldMeta.HazardousItemNotificationParty}
+          fieldConfig={fieldConfig}
+          party={value?.HazardousItemNotificationParty}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.InsuranceParty,
+      { meta: ConsignmentFieldMeta.InsuranceParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ConsignmentField.InsuranceParty}
+          meta={ConsignmentFieldMeta.InsuranceParty}
+          fieldConfig={fieldConfig}
+          party={value?.InsuranceParty}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.MortgageHolderParty,
+      { meta: ConsignmentFieldMeta.MortgageHolderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ConsignmentField.MortgageHolderParty}
+          meta={ConsignmentFieldMeta.MortgageHolderParty}
+          fieldConfig={fieldConfig}
+          party={value?.MortgageHolderParty}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.BillOfLadingHolderParty,
+      { meta: ConsignmentFieldMeta.BillOfLadingHolderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ConsignmentField.BillOfLadingHolderParty}
+          meta={ConsignmentFieldMeta.BillOfLadingHolderParty}
+          fieldConfig={fieldConfig}
+          party={value?.BillOfLadingHolderParty}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.OriginalDepartureCountry,
+      { meta: ConsignmentFieldMeta.OriginalDepartureCountry,
+        template: ({value, renderContext, fieldConfig}) => <CountryDisplay
+          key={ConsignmentField.OriginalDepartureCountry}
+          meta={ConsignmentFieldMeta.OriginalDepartureCountry}
+          fieldConfig={fieldConfig}
+          country={value?.OriginalDepartureCountry}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.FinalDestinationCountry,
+      { meta: ConsignmentFieldMeta.FinalDestinationCountry,
+        template: ({value, renderContext, fieldConfig}) => <CountryDisplay
+          key={ConsignmentField.FinalDestinationCountry}
+          meta={ConsignmentFieldMeta.FinalDestinationCountry}
+          fieldConfig={fieldConfig}
+          country={value?.FinalDestinationCountry}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.TransitCountry,
+      { meta: ConsignmentFieldMeta.TransitCountry,
+        template: ({value, renderContext, fieldConfig}) => <CountryDisplay
+          key={ConsignmentField.TransitCountry}
+          meta={ConsignmentFieldMeta.TransitCountry}
+          fieldConfig={fieldConfig}
+          country={value?.TransitCountry}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.TransportContract,
+      { meta: ConsignmentFieldMeta.TransportContract,
+        template: ({value, renderContext, fieldConfig}) => <ContractDisplay
+          key={ConsignmentField.TransportContract}
+          meta={ConsignmentFieldMeta.TransportContract}
+          fieldConfig={fieldConfig}
+          contract={value?.TransportContract}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.TransportEvent,
+      { meta: ConsignmentFieldMeta.TransportEvent,
+        template: ({value, renderContext, fieldConfig}) => <TransportEventDisplay
+          key={ConsignmentField.TransportEvent}
+          meta={ConsignmentFieldMeta.TransportEvent}
+          fieldConfig={fieldConfig}
+          transportEvent={value?.TransportEvent}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.OriginalDespatchTransportationService,
+      { meta: ConsignmentFieldMeta.OriginalDespatchTransportationService,
+        template: ({value, renderContext, fieldConfig}) => <TransportationServiceDisplay
+          key={ConsignmentField.OriginalDespatchTransportationService}
+          meta={ConsignmentFieldMeta.OriginalDespatchTransportationService}
+          fieldConfig={fieldConfig}
+          transportationService={value?.OriginalDespatchTransportationService}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.FinalDeliveryTransportationService,
+      { meta: ConsignmentFieldMeta.FinalDeliveryTransportationService,
+        template: ({value, renderContext, fieldConfig}) => <TransportationServiceDisplay
+          key={ConsignmentField.FinalDeliveryTransportationService}
+          meta={ConsignmentFieldMeta.FinalDeliveryTransportationService}
+          fieldConfig={fieldConfig}
+          transportationService={value?.FinalDeliveryTransportationService}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.DeliveryTerms,
+      { meta: ConsignmentFieldMeta.DeliveryTerms,
+        template: ({value, renderContext, fieldConfig}) => <DeliveryTermsDisplay
+          key={ConsignmentField.DeliveryTerms}
+          meta={ConsignmentFieldMeta.DeliveryTerms}
+          fieldConfig={fieldConfig}
+          deliveryTerms={value?.DeliveryTerms}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.PaymentTerms,
+      { meta: ConsignmentFieldMeta.PaymentTerms,
+        template: ({value, renderContext, fieldConfig}) => <PaymentTermsDisplay
+          key={ConsignmentField.PaymentTerms}
+          meta={ConsignmentFieldMeta.PaymentTerms}
+          fieldConfig={fieldConfig}
+          paymentTerms={value?.PaymentTerms}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.CollectPaymentTerms,
+      { meta: ConsignmentFieldMeta.CollectPaymentTerms,
+        template: ({value, renderContext, fieldConfig}) => <PaymentTermsDisplay
+          key={ConsignmentField.CollectPaymentTerms}
+          meta={ConsignmentFieldMeta.CollectPaymentTerms}
+          fieldConfig={fieldConfig}
+          paymentTerms={value?.CollectPaymentTerms}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.DisbursementPaymentTerms,
+      { meta: ConsignmentFieldMeta.DisbursementPaymentTerms,
+        template: ({value, renderContext, fieldConfig}) => <PaymentTermsDisplay
+          key={ConsignmentField.DisbursementPaymentTerms}
+          meta={ConsignmentFieldMeta.DisbursementPaymentTerms}
+          fieldConfig={fieldConfig}
+          paymentTerms={value?.DisbursementPaymentTerms}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.PrepaidPaymentTerms,
+      { meta: ConsignmentFieldMeta.PrepaidPaymentTerms,
+        template: ({value, renderContext, fieldConfig}) => <PaymentTermsDisplay
+          key={ConsignmentField.PrepaidPaymentTerms}
+          meta={ConsignmentFieldMeta.PrepaidPaymentTerms}
+          fieldConfig={fieldConfig}
+          paymentTerms={value?.PrepaidPaymentTerms}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.FreightAllowanceCharge,
+      { meta: ConsignmentFieldMeta.FreightAllowanceCharge,
+        template: ({value, renderContext, fieldConfig}) => <AllowanceChargeDisplay
+          key={ConsignmentField.FreightAllowanceCharge}
+          meta={ConsignmentFieldMeta.FreightAllowanceCharge}
+          fieldConfig={fieldConfig}
+          allowanceCharge={value?.FreightAllowanceCharge}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.ExtraAllowanceCharge,
+      { meta: ConsignmentFieldMeta.ExtraAllowanceCharge,
+        template: ({value, renderContext, fieldConfig}) => <AllowanceChargeDisplay
+          key={ConsignmentField.ExtraAllowanceCharge}
+          meta={ConsignmentFieldMeta.ExtraAllowanceCharge}
+          fieldConfig={fieldConfig}
+          allowanceCharge={value?.ExtraAllowanceCharge}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.MainCarriageShipmentStage,
+      { meta: ConsignmentFieldMeta.MainCarriageShipmentStage,
+        template: ({value, renderContext, fieldConfig}) => <ShipmentStageDisplay
+          key={ConsignmentField.MainCarriageShipmentStage}
+          meta={ConsignmentFieldMeta.MainCarriageShipmentStage}
+          fieldConfig={fieldConfig}
+          shipmentStage={value?.MainCarriageShipmentStage}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.PreCarriageShipmentStage,
+      { meta: ConsignmentFieldMeta.PreCarriageShipmentStage,
+        template: ({value, renderContext, fieldConfig}) => <ShipmentStageDisplay
+          key={ConsignmentField.PreCarriageShipmentStage}
+          meta={ConsignmentFieldMeta.PreCarriageShipmentStage}
+          fieldConfig={fieldConfig}
+          shipmentStage={value?.PreCarriageShipmentStage}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.OnCarriageShipmentStage,
+      { meta: ConsignmentFieldMeta.OnCarriageShipmentStage,
+        template: ({value, renderContext, fieldConfig}) => <ShipmentStageDisplay
+          key={ConsignmentField.OnCarriageShipmentStage}
+          meta={ConsignmentFieldMeta.OnCarriageShipmentStage}
+          fieldConfig={fieldConfig}
+          shipmentStage={value?.OnCarriageShipmentStage}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.TransportHandlingUnit,
+      { meta: ConsignmentFieldMeta.TransportHandlingUnit,
+        template: ({value, renderContext, fieldConfig}) => <TransportHandlingUnitDisplay
+          key={ConsignmentField.TransportHandlingUnit}
+          meta={ConsignmentFieldMeta.TransportHandlingUnit}
+          fieldConfig={fieldConfig}
+          transportHandlingUnit={value?.TransportHandlingUnit}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.FirstArrivalPortLocation,
+      { meta: ConsignmentFieldMeta.FirstArrivalPortLocation,
+        template: ({value, renderContext, fieldConfig}) => <LocationDisplay
+          key={ConsignmentField.FirstArrivalPortLocation}
+          meta={ConsignmentFieldMeta.FirstArrivalPortLocation}
+          fieldConfig={fieldConfig}
+          location={value?.FirstArrivalPortLocation}
+          renderContext={renderContext}
+        />}
+    ],
+
+    [
+      ConsignmentField.LastExitPortLocation,
+      { meta: ConsignmentFieldMeta.LastExitPortLocation,
+        template: ({value, renderContext, fieldConfig}) => <LocationDisplay
+          key={ConsignmentField.LastExitPortLocation}
+          meta={ConsignmentFieldMeta.LastExitPortLocation}
+          fieldConfig={fieldConfig}
+          location={value?.LastExitPortLocation}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
+
+export function ConsignmentDisplay<TFieldMeta>({ meta, fieldConfig, consignment, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ConsignmentTypeName,
+    meta,
+    fieldConfig,
+    consignment,
+    renderContext,
+    ConsignmentSubElementsMap,
   )
 }

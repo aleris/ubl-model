@@ -1,4 +1,32 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AllowanceChargeType } from '../cac/AllowanceChargeMeta'
+import { BillingReferenceType } from '../cac/BillingReferenceMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { CreditNoteLineType } from '../cac/CreditNoteLineMeta'
+import { CustomerPartyType } from '../cac/CustomerPartyMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DeliveryType } from '../cac/DeliveryMeta'
+import { DeliveryTermsType } from '../cac/DeliveryTermsMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { ExchangeRateType } from '../cac/ExchangeRateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { MonetaryTotalType } from '../cac/MonetaryTotalMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { OrderReferenceType } from '../cac/OrderReferenceMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { PaymentMeansType } from '../cac/PaymentMeansMeta'
+import { PaymentTermsType } from '../cac/PaymentTermsMeta'
+import { PeriodType } from '../cac/PeriodMeta'
+import { ProjectReferenceType } from '../cac/ProjectReferenceMeta'
+import { ResponseType } from '../cac/ResponseMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { SupplierPartyType } from '../cac/SupplierPartyMeta'
+import { TaxTotalType } from '../cac/TaxTotalMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum CreditNoteField {
   UBLExtensions = 'UBLExtensions',
@@ -60,11 +88,11 @@ export enum CreditNoteField {
 export const CreditNoteFieldMetaUBLExtensions = new FieldMeta<CreditNoteField>(
   CreditNoteField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -73,10 +101,10 @@ export const CreditNoteFieldMetaUBLVersionID = new FieldMeta<CreditNoteField>(
   CreditNoteField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.0.5'
 )
@@ -85,10 +113,10 @@ export const CreditNoteFieldMetaCustomizationID = new FieldMeta<CreditNoteField>
   CreditNoteField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -97,10 +125,10 @@ export const CreditNoteFieldMetaProfileID = new FieldMeta<CreditNoteField>(
   CreditNoteField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BasicProcurementProcess'
 )
@@ -109,10 +137,10 @@ export const CreditNoteFieldMetaProfileExecutionID = new FieldMeta<CreditNoteFie
   CreditNoteField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BPP-1001'
 )
@@ -121,10 +149,10 @@ export const CreditNoteFieldMetaID = new FieldMeta<CreditNoteField>(
   CreditNoteField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -133,10 +161,10 @@ export const CreditNoteFieldMetaCopyIndicator = new FieldMeta<CreditNoteField>(
   CreditNoteField.CopyIndicator,
   'CopyIndicator',
   'Copy Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this document is a copy (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -145,10 +173,10 @@ export const CreditNoteFieldMetaUUID = new FieldMeta<CreditNoteField>(
   CreditNoteField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -157,10 +185,10 @@ export const CreditNoteFieldMetaIssueDate = new FieldMeta<CreditNoteField>(
   CreditNoteField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -169,10 +197,10 @@ export const CreditNoteFieldMetaIssueTime = new FieldMeta<CreditNoteField>(
   CreditNoteField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -181,10 +209,10 @@ export const CreditNoteFieldMetaDueDate = new FieldMeta<CreditNoteField>(
   CreditNoteField.DueDate,
   'DueDate',
   'Due Date',
-  'Date',
+  DateType.name,
   'The date on which this Credit Note is due.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -193,10 +221,10 @@ export const CreditNoteFieldMetaTaxPointDate = new FieldMeta<CreditNoteField>(
   CreditNoteField.TaxPointDate,
   'TaxPointDate',
   'Tax Point Date',
-  'Date',
+  DateType.name,
   'The date of the Credit Note, used to indicate the point at which tax becomes applicable.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -205,10 +233,10 @@ export const CreditNoteFieldMetaCreditNoteTypeCode = new FieldMeta<CreditNoteFie
   CreditNoteField.CreditNoteTypeCode,
   'CreditNoteTypeCode',
   'Credit Note Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of the Credit Note.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -217,10 +245,10 @@ export const CreditNoteFieldMetaNote = new FieldMeta<CreditNoteField>(
   CreditNoteField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -229,10 +257,10 @@ export const CreditNoteFieldMetaDocumentCurrencyCode = new FieldMeta<CreditNoteF
   CreditNoteField.DocumentCurrencyCode,
   'DocumentCurrencyCode',
   'Document Currency Code',
-  'Code',
+  CodeType.name,
   'A code signifying the default currency for this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -241,10 +269,10 @@ export const CreditNoteFieldMetaTaxCurrencyCode = new FieldMeta<CreditNoteField>
   CreditNoteField.TaxCurrencyCode,
   'TaxCurrencyCode',
   'Tax Currency Code',
-  'Code',
+  CodeType.name,
   'A code signifying the currency used for tax amounts in the Credit Note.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -253,10 +281,10 @@ export const CreditNoteFieldMetaPricingCurrencyCode = new FieldMeta<CreditNoteFi
   CreditNoteField.PricingCurrencyCode,
   'PricingCurrencyCode',
   'Pricing Currency Code',
-  'Code',
+  CodeType.name,
   'A code signifying the currency used for prices in the Credit Note.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -265,10 +293,10 @@ export const CreditNoteFieldMetaPaymentCurrencyCode = new FieldMeta<CreditNoteFi
   CreditNoteField.PaymentCurrencyCode,
   'PaymentCurrencyCode',
   'Payment Currency Code',
-  'Code',
+  CodeType.name,
   'A code signifying the currency used for payment in the Credit Note.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -277,10 +305,10 @@ export const CreditNoteFieldMetaPaymentAlternativeCurrencyCode = new FieldMeta<C
   CreditNoteField.PaymentAlternativeCurrencyCode,
   'PaymentAlternativeCurrencyCode',
   'Payment Alternative Currency Code',
-  'Code',
+  CodeType.name,
   'A code signifying the alternative currency used for payment in the Credit Note.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -289,10 +317,10 @@ export const CreditNoteFieldMetaAccountingCostCode = new FieldMeta<CreditNoteFie
   CreditNoteField.AccountingCostCode,
   'AccountingCostCode',
   'Accounting Cost Code',
-  'Code',
+  CodeType.name,
   'The buyer\'s accounting code, applied to the Credit Note as a whole.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -301,10 +329,10 @@ export const CreditNoteFieldMetaAccountingCost = new FieldMeta<CreditNoteField>(
   CreditNoteField.AccountingCost,
   'AccountingCost',
   'Accounting Cost',
-  'Text',
+  TextType.name,
   'The buyer\'s accounting code, applied to the Credit Note as a whole, expressed as text.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -313,10 +341,10 @@ export const CreditNoteFieldMetaLineCountNumeric = new FieldMeta<CreditNoteField
   CreditNoteField.LineCountNumeric,
   'LineCountNumeric',
   'Line Count',
-  'Numeric',
+  NumericType.name,
   'The number of Credit Note Lines in the document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -325,10 +353,10 @@ export const CreditNoteFieldMetaBuyerReference = new FieldMeta<CreditNoteField>(
   CreditNoteField.BuyerReference,
   'BuyerReference',
   'Buyer Reference',
-  'Text',
+  TextType.name,
   'A reference provided by the buyer used for internal routing of the document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -337,10 +365,10 @@ export const CreditNoteFieldMetaInvoicePeriod = new FieldMeta<CreditNoteField>(
   CreditNoteField.InvoicePeriod,
   'InvoicePeriod',
   'Invoice Period',
-  'Period',
+  PeriodType.name,
   'Associates the Credit Note with Invoicing Periods rather than with a specific Invoice.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -349,10 +377,10 @@ export const CreditNoteFieldMetaDiscrepancyResponse = new FieldMeta<CreditNoteFi
   CreditNoteField.DiscrepancyResponse,
   'DiscrepancyResponse',
   'Discrepancy Response',
-  'Response',
+  ResponseType.name,
   'A reason for the Credit Note as a whole.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -361,10 +389,10 @@ export const CreditNoteFieldMetaOrderReference = new FieldMeta<CreditNoteField>(
   CreditNoteField.OrderReference,
   'OrderReference',
   'Order Reference',
-  'OrderReference',
+  OrderReferenceType.name,
   'The Order associated with this Credit Note.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -373,10 +401,10 @@ export const CreditNoteFieldMetaBillingReference = new FieldMeta<CreditNoteField
   CreditNoteField.BillingReference,
   'BillingReference',
   'Billing Reference',
-  'BillingReference',
+  BillingReferenceType.name,
   'A reference to a billing document associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -385,10 +413,10 @@ export const CreditNoteFieldMetaDespatchDocumentReference = new FieldMeta<Credit
   CreditNoteField.DespatchDocumentReference,
   'DespatchDocumentReference',
   'Despatch Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a Despatch Advice associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -397,10 +425,10 @@ export const CreditNoteFieldMetaReceiptDocumentReference = new FieldMeta<CreditN
   CreditNoteField.ReceiptDocumentReference,
   'ReceiptDocumentReference',
   'Receipt Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a Receipt Advice associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -409,10 +437,10 @@ export const CreditNoteFieldMetaContractDocumentReference = new FieldMeta<Credit
   CreditNoteField.ContractDocumentReference,
   'ContractDocumentReference',
   'Contract Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a contract associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -421,10 +449,10 @@ export const CreditNoteFieldMetaAdditionalDocumentReference = new FieldMeta<Cred
   CreditNoteField.AdditionalDocumentReference,
   'AdditionalDocumentReference',
   'Additional Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to an additional document associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -433,10 +461,10 @@ export const CreditNoteFieldMetaStatementDocumentReference = new FieldMeta<Credi
   CreditNoteField.StatementDocumentReference,
   'StatementDocumentReference',
   'Statement Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a Statement associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -445,10 +473,10 @@ export const CreditNoteFieldMetaOriginatorDocumentReference = new FieldMeta<Cred
   CreditNoteField.OriginatorDocumentReference,
   'OriginatorDocumentReference',
   'Originator Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to an originator document associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -457,10 +485,10 @@ export const CreditNoteFieldMetaProjectReference = new FieldMeta<CreditNoteField
   CreditNoteField.ProjectReference,
   'ProjectReference',
   'Project Reference',
-  'ProjectReference',
+  ProjectReferenceType.name,
   'A reference to a project associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -469,10 +497,10 @@ export const CreditNoteFieldMetaSignature = new FieldMeta<CreditNoteField>(
   CreditNoteField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -481,10 +509,10 @@ export const CreditNoteFieldMetaAccountingSupplierParty = new FieldMeta<CreditNo
   CreditNoteField.AccountingSupplierParty,
   'AccountingSupplierParty',
   'Accounting Supplier Party',
-  'SupplierParty',
+  SupplierPartyType.name,
   'The accounting supplier party.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -493,10 +521,10 @@ export const CreditNoteFieldMetaAccountingCustomerParty = new FieldMeta<CreditNo
   CreditNoteField.AccountingCustomerParty,
   'AccountingCustomerParty',
   'Accounting Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The accounting customer party.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -505,10 +533,10 @@ export const CreditNoteFieldMetaPayeeParty = new FieldMeta<CreditNoteField>(
   CreditNoteField.PayeeParty,
   'PayeeParty',
   'Payee Party',
-  'Party',
+  PartyType.name,
   'The payee.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -517,10 +545,10 @@ export const CreditNoteFieldMetaBuyerCustomerParty = new FieldMeta<CreditNoteFie
   CreditNoteField.BuyerCustomerParty,
   'BuyerCustomerParty',
   'Buyer Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The buyer.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -529,10 +557,10 @@ export const CreditNoteFieldMetaSellerSupplierParty = new FieldMeta<CreditNoteFi
   CreditNoteField.SellerSupplierParty,
   'SellerSupplierParty',
   'Seller Supplier Party',
-  'SupplierParty',
+  SupplierPartyType.name,
   'The seller.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -541,10 +569,10 @@ export const CreditNoteFieldMetaTaxRepresentativeParty = new FieldMeta<CreditNot
   CreditNoteField.TaxRepresentativeParty,
   'TaxRepresentativeParty',
   'Tax Representative Party',
-  'Party',
+  PartyType.name,
   'The tax representative.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -553,10 +581,10 @@ export const CreditNoteFieldMetaDelivery = new FieldMeta<CreditNoteField>(
   CreditNoteField.Delivery,
   'Delivery',
   'Delivery',
-  'Delivery',
+  DeliveryType.name,
   'A delivery associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -565,10 +593,10 @@ export const CreditNoteFieldMetaDeliveryTerms = new FieldMeta<CreditNoteField>(
   CreditNoteField.DeliveryTerms,
   'DeliveryTerms',
   'Delivery Terms',
-  'DeliveryTerms',
+  DeliveryTermsType.name,
   'A set of delivery terms associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -577,10 +605,10 @@ export const CreditNoteFieldMetaPaymentMeans = new FieldMeta<CreditNoteField>(
   CreditNoteField.PaymentMeans,
   'PaymentMeans',
   'Payment Means',
-  'PaymentMeans',
+  PaymentMeansType.name,
   'Expected means of payment.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -589,10 +617,10 @@ export const CreditNoteFieldMetaPaymentTerms = new FieldMeta<CreditNoteField>(
   CreditNoteField.PaymentTerms,
   'PaymentTerms',
   'Payment Terms',
-  'PaymentTerms',
+  PaymentTermsType.name,
   'A set of payment terms associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -601,10 +629,10 @@ export const CreditNoteFieldMetaTaxExchangeRate = new FieldMeta<CreditNoteField>
   CreditNoteField.TaxExchangeRate,
   'TaxExchangeRate',
   'Tax Exchange Rate',
-  'ExchangeRate',
+  ExchangeRateType.name,
   'The exchange rate between the document currency and the tax currency.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -613,10 +641,10 @@ export const CreditNoteFieldMetaPricingExchangeRate = new FieldMeta<CreditNoteFi
   CreditNoteField.PricingExchangeRate,
   'PricingExchangeRate',
   'Pricing Exchange Rate',
-  'ExchangeRate',
+  ExchangeRateType.name,
   'The exchange rate between the document currency and the pricing currency.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -625,10 +653,10 @@ export const CreditNoteFieldMetaPaymentExchangeRate = new FieldMeta<CreditNoteFi
   CreditNoteField.PaymentExchangeRate,
   'PaymentExchangeRate',
   'Payment Exchange Rate',
-  'ExchangeRate',
+  ExchangeRateType.name,
   'The exchange rate between the document currency and the payment currency.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -637,10 +665,10 @@ export const CreditNoteFieldMetaPaymentAlternativeExchangeRate = new FieldMeta<C
   CreditNoteField.PaymentAlternativeExchangeRate,
   'PaymentAlternativeExchangeRate',
   'Payment Alternative Exchange Rate',
-  'ExchangeRate',
+  ExchangeRateType.name,
   'The exchange rate between the document currency and the payment alternative currency.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -649,10 +677,10 @@ export const CreditNoteFieldMetaAllowanceCharge = new FieldMeta<CreditNoteField>
   CreditNoteField.AllowanceCharge,
   'AllowanceCharge',
   'Allowance Charge',
-  'AllowanceCharge',
+  AllowanceChargeType.name,
   'A discount or charge that applies to a price component.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -661,10 +689,10 @@ export const CreditNoteFieldMetaTaxTotal = new FieldMeta<CreditNoteField>(
   CreditNoteField.TaxTotal,
   'TaxTotal',
   'Tax Total',
-  'TaxTotal',
+  TaxTotalType.name,
   'The total amount of a specific type of tax.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -673,10 +701,10 @@ export const CreditNoteFieldMetaWithholdingTaxTotal = new FieldMeta<CreditNoteFi
   CreditNoteField.WithholdingTaxTotal,
   'WithholdingTaxTotal',
   'Withholding Tax Total',
-  'TaxTotal',
+  TaxTotalType.name,
   'The total withholding tax.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -685,10 +713,10 @@ export const CreditNoteFieldMetaLegalMonetaryTotal = new FieldMeta<CreditNoteFie
   CreditNoteField.LegalMonetaryTotal,
   'LegalMonetaryTotal',
   'Legal Monetary Total',
-  'MonetaryTotal',
+  MonetaryTotalType.name,
   'The total amount payable on the Credit Note, including allowances, charges, and taxes.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -697,10 +725,10 @@ export const CreditNoteFieldMetaCreditNoteLine = new FieldMeta<CreditNoteField>(
   CreditNoteField.CreditNoteLine,
   'CreditNoteLine',
   'Credit Note Line',
-  'CreditNoteLine',
+  CreditNoteLineType.name,
   'A Credit Note line.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -818,3 +846,11 @@ export const CreditNoteFieldMap = new Map([
   [CreditNoteField.LegalMonetaryTotal, CreditNoteFieldMetaLegalMonetaryTotal],
   [CreditNoteField.CreditNoteLine, CreditNoteFieldMetaCreditNoteLine]
 ])
+
+export const CreditNoteType: Type<CreditNoteField> = {
+  name: 'CreditNote',
+  label: 'Credit Note',
+  module: TypeModule.doc,
+  definition: 'A document used to specify credits due to the Debtor from the Creditor.',
+  fields: CreditNoteFieldMap,
+}

@@ -1,7 +1,6 @@
 import { Identifier } from '../cbc/Identifier'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * Details of a certificate path chain used in encryption.
  */

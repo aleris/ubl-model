@@ -1,191 +1,241 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { RequestForTenderLine } from  '../../model/cac/RequestForTenderLine'
-import { RequestForTenderLineFieldMeta } from  '../../meta/cac/RequestForTenderLineMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import DocumentReferenceDisplay from './DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import ItemDisplay from './ItemDisplay'
-import { Item } from '../../model/cac/Item'
-import ItemLocationQuantityDisplay from './ItemLocationQuantityDisplay'
-import { ItemLocationQuantity } from '../../model/cac/ItemLocationQuantity'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { RequestForTenderLineField, RequestForTenderLineFieldMeta, RequestForTenderLineTypeName } from  '../../meta/cac/RequestForTenderLineMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { DocumentReferenceDisplay } from './DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { ItemDisplay } from './ItemDisplay'
+import { ItemLocationQuantityDisplay } from './ItemLocationQuantityDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: RequestForTenderLine | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<RequestForTenderLine, void>
+  requestForTenderLine: RequestForTenderLine[] | undefined
+  renderContext: RenderContext
 }
 
-export default function RequestForTenderLineDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const RequestForTenderLineSubElementsMap: SubElementsTemplatesMap<RequestForTenderLineField, RequestForTenderLine, void> = new Map([
+    [
+      RequestForTenderLineField.UBLExtensions,
+      { meta: RequestForTenderLineFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={RequestForTenderLineField.UBLExtensions}
+          meta={RequestForTenderLineFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-RequestForTenderLine">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={RequestForTenderLineFieldMeta.UBLExtensions}
-          />
+    [
+      RequestForTenderLineField.ID,
+      { meta: RequestForTenderLineFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={RequestForTenderLineField.ID}
+          meta={RequestForTenderLineFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={RequestForTenderLineFieldMeta.ID}
-          />
+    [
+      RequestForTenderLineField.UUID,
+      { meta: RequestForTenderLineFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={RequestForTenderLineField.UUID}
+          meta={RequestForTenderLineFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={RequestForTenderLineFieldMeta.UUID}
-          />
+    [
+      RequestForTenderLineField.Note,
+      { meta: RequestForTenderLineFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={RequestForTenderLineField.Note}
+          meta={RequestForTenderLineFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={RequestForTenderLineFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={RequestForTenderLineFieldMeta.Note}
-              />
-            }
-          />
+    [
+      RequestForTenderLineField.Quantity,
+      { meta: RequestForTenderLineFieldMeta.Quantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={RequestForTenderLineField.Quantity}
+          meta={RequestForTenderLineFieldMeta.Quantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.Quantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Quantity"
-            value={value.Quantity?.[0]}
-            meta={RequestForTenderLineFieldMeta.Quantity}
-          />
+    [
+      RequestForTenderLineField.MinimumQuantity,
+      { meta: RequestForTenderLineFieldMeta.MinimumQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={RequestForTenderLineField.MinimumQuantity}
+          meta={RequestForTenderLineFieldMeta.MinimumQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.MinimumQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Minimum Quantity"
-            value={value.MinimumQuantity?.[0]}
-            meta={RequestForTenderLineFieldMeta.MinimumQuantity}
-          />
+    [
+      RequestForTenderLineField.MaximumQuantity,
+      { meta: RequestForTenderLineFieldMeta.MaximumQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={RequestForTenderLineField.MaximumQuantity}
+          meta={RequestForTenderLineFieldMeta.MaximumQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.MaximumQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Maximum Quantity"
-            value={value.MaximumQuantity?.[0]}
-            meta={RequestForTenderLineFieldMeta.MaximumQuantity}
-          />
+    [
+      RequestForTenderLineField.TaxIncludedIndicator,
+      { meta: RequestForTenderLineFieldMeta.TaxIncludedIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={RequestForTenderLineField.TaxIncludedIndicator}
+          meta={RequestForTenderLineFieldMeta.TaxIncludedIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.TaxIncludedIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Tax Included Indicator"
-            value={value.TaxIncludedIndicator?.[0]}
-            meta={RequestForTenderLineFieldMeta.TaxIncludedIndicator}
-          />
+    [
+      RequestForTenderLineField.MinimumAmount,
+      { meta: RequestForTenderLineFieldMeta.MinimumAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={RequestForTenderLineField.MinimumAmount}
+          meta={RequestForTenderLineFieldMeta.MinimumAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.MinimumAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Minimum Amount"
-            value={value.MinimumAmount?.[0]}
-            meta={RequestForTenderLineFieldMeta.MinimumAmount}
-          />
+    [
+      RequestForTenderLineField.MaximumAmount,
+      { meta: RequestForTenderLineFieldMeta.MaximumAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={RequestForTenderLineField.MaximumAmount}
+          meta={RequestForTenderLineFieldMeta.MaximumAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.MaximumAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Maximum Amount"
-            value={value.MaximumAmount?.[0]}
-            meta={RequestForTenderLineFieldMeta.MaximumAmount}
-          />
+    [
+      RequestForTenderLineField.EstimatedAmount,
+      { meta: RequestForTenderLineFieldMeta.EstimatedAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={RequestForTenderLineField.EstimatedAmount}
+          meta={RequestForTenderLineFieldMeta.EstimatedAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.EstimatedAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Estimated Amount"
-            value={value.EstimatedAmount?.[0]}
-            meta={RequestForTenderLineFieldMeta.EstimatedAmount}
-          />
+    [
+      RequestForTenderLineField.DocumentReference,
+      { meta: RequestForTenderLineFieldMeta.DocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={RequestForTenderLineField.DocumentReference}
+          meta={RequestForTenderLineFieldMeta.DocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.DocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DocumentReference"
-            label="Document Reference"
-            items={value.DocumentReference}
-            meta={RequestForTenderLineFieldMeta.DocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Document Reference"
-                value={itemValue}
-                meta={RequestForTenderLineFieldMeta.DocumentReference}
-              />
-            }
-          />
+    [
+      RequestForTenderLineField.DeliveryPeriod,
+      { meta: RequestForTenderLineFieldMeta.DeliveryPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={RequestForTenderLineField.DeliveryPeriod}
+          meta={RequestForTenderLineFieldMeta.DeliveryPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.DeliveryPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Period ubl-DeliveryPeriod"
-            label="Delivery Period"
-            items={value.DeliveryPeriod}
-            meta={RequestForTenderLineFieldMeta.DeliveryPeriod} 
-            itemDisplay={ (itemValue: Period, key: string | number) =>
-              <PeriodDisplay
-                key={key}
-                label="Delivery Period"
-                value={itemValue}
-                meta={RequestForTenderLineFieldMeta.DeliveryPeriod}
-              />
-            }
-          />
+    [
+      RequestForTenderLineField.RequiredItemLocationQuantity,
+      { meta: RequestForTenderLineFieldMeta.RequiredItemLocationQuantity,
+        template: ({value, renderContext, fieldConfig}) => <ItemLocationQuantityDisplay
+          key={RequestForTenderLineField.RequiredItemLocationQuantity}
+          meta={RequestForTenderLineFieldMeta.RequiredItemLocationQuantity}
+          fieldConfig={fieldConfig}
+          itemLocationQuantity={value?.RequiredItemLocationQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-ItemLocationQuantity ubl-RequiredItemLocationQuantity"
-            label="Required Item Location Quantity"
-            items={value.RequiredItemLocationQuantity}
-            meta={RequestForTenderLineFieldMeta.RequiredItemLocationQuantity} 
-            itemDisplay={ (itemValue: ItemLocationQuantity, key: string | number) =>
-              <ItemLocationQuantityDisplay
-                key={key}
-                label="Required Item Location Quantity"
-                value={itemValue}
-                meta={RequestForTenderLineFieldMeta.RequiredItemLocationQuantity}
-              />
-            }
-          />
+    [
+      RequestForTenderLineField.WarrantyValidityPeriod,
+      { meta: RequestForTenderLineFieldMeta.WarrantyValidityPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={RequestForTenderLineField.WarrantyValidityPeriod}
+          meta={RequestForTenderLineFieldMeta.WarrantyValidityPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.WarrantyValidityPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Warranty Validity Period"
-            value={value.WarrantyValidityPeriod?.[0]}
-            meta={RequestForTenderLineFieldMeta.WarrantyValidityPeriod}
-          />
+    [
+      RequestForTenderLineField.Item,
+      { meta: RequestForTenderLineFieldMeta.Item,
+        template: ({value, renderContext, fieldConfig}) => <ItemDisplay
+          key={RequestForTenderLineField.Item}
+          meta={RequestForTenderLineFieldMeta.Item}
+          fieldConfig={fieldConfig}
+          item={value?.Item}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ItemDisplay
-            label="Item"
-            value={value.Item?.[0]}
-            meta={RequestForTenderLineFieldMeta.Item}
-          />
+    [
+      RequestForTenderLineField.SubRequestForTenderLine,
+      { meta: RequestForTenderLineFieldMeta.SubRequestForTenderLine,
+        template: ({value, renderContext, fieldConfig}) => <RequestForTenderLineDisplay
+          key={RequestForTenderLineField.SubRequestForTenderLine}
+          meta={RequestForTenderLineFieldMeta.SubRequestForTenderLine}
+          fieldConfig={fieldConfig}
+          requestForTenderLine={value?.SubRequestForTenderLine}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-RequestForTenderLine ubl-SubRequestForTenderLine"
-            label="Sub Request For Tender Line"
-            items={value.SubRequestForTenderLine}
-            meta={RequestForTenderLineFieldMeta.SubRequestForTenderLine} 
-            itemDisplay={ (itemValue: RequestForTenderLine, key: string | number) =>
-              <RequestForTenderLineDisplay
-                key={key}
-                label="Sub Request For Tender Line"
-                value={itemValue}
-                meta={RequestForTenderLineFieldMeta.SubRequestForTenderLine}
-              />
-            }
-          />
-        </div>
-    </div>
+export function RequestForTenderLineDisplay<TFieldMeta>({ meta, fieldConfig, requestForTenderLine, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    RequestForTenderLineTypeName,
+    meta,
+    fieldConfig,
+    requestForTenderLine,
+    renderContext,
+    RequestForTenderLineSubElementsMap,
   )
 }

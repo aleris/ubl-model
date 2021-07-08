@@ -1,4 +1,15 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { ConsumptionType } from './ConsumptionMeta'
+import { ConsumptionPointType } from './ConsumptionPointMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { OnAccountPaymentType } from './OnAccountPaymentMeta'
+import { PartyType } from './PartyMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { SupplierConsumptionType } from './SupplierConsumptionMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum SubscriberConsumptionField {
   UBLExtensions = 'UBLExtensions',
@@ -16,11 +27,11 @@ export enum SubscriberConsumptionField {
 export const SubscriberConsumptionFieldMetaUBLExtensions = new FieldMeta<SubscriberConsumptionField>(
   SubscriberConsumptionField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -29,10 +40,10 @@ export const SubscriberConsumptionFieldMetaConsumptionID = new FieldMeta<Subscri
   SubscriberConsumptionField.ConsumptionID,
   'ConsumptionID',
   'Consumption Identifier',
-  'Identifier',
+  IdentifierType.name,
   'The identifier tor this specification.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -41,10 +52,10 @@ export const SubscriberConsumptionFieldMetaSpecificationTypeCode = new FieldMeta
   SubscriberConsumptionField.SpecificationTypeCode,
   'SpecificationTypeCode',
   'Specification Type Code',
-  'Code',
+  CodeType.name,
   'The code which specifies the type of this specification, e.g. an on account specification or the yearly specification.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -53,10 +64,10 @@ export const SubscriberConsumptionFieldMetaNote = new FieldMeta<SubscriberConsum
   SubscriberConsumptionField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   'This is how we have calculating your yearly statement'
 )
@@ -65,10 +76,10 @@ export const SubscriberConsumptionFieldMetaTotalMeteredQuantity = new FieldMeta<
   SubscriberConsumptionField.TotalMeteredQuantity,
   'TotalMeteredQuantity',
   'Total Metered Quantity',
-  'Quantity',
+  QuantityType.name,
   'The total quantity consumed, as calculated from meter readings.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2000.0'
 )
@@ -77,10 +88,10 @@ export const SubscriberConsumptionFieldMetaSubscriberParty = new FieldMeta<Subsc
   SubscriberConsumptionField.SubscriberParty,
   'SubscriberParty',
   'Subscriber Party',
-  'Party',
+  PartyType.name,
   'The party subscribing to the utility.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -89,10 +100,10 @@ export const SubscriberConsumptionFieldMetaUtilityConsumptionPoint = new FieldMe
   SubscriberConsumptionField.UtilityConsumptionPoint,
   'UtilityConsumptionPoint',
   'Utility Consumption Point',
-  'ConsumptionPoint',
+  ConsumptionPointType.name,
   'The point at which the utility is consumed.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -101,10 +112,10 @@ export const SubscriberConsumptionFieldMetaOnAccountPayment = new FieldMeta<Subs
   SubscriberConsumptionField.OnAccountPayment,
   'OnAccountPayment',
   'On Account Payment',
-  'OnAccountPayment',
+  OnAccountPaymentType.name,
   'The planned prepayments (on account) regarding this subscription.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -113,10 +124,10 @@ export const SubscriberConsumptionFieldMetaConsumption = new FieldMeta<Subscribe
   SubscriberConsumptionField.Consumption,
   'Consumption',
   'Consumption',
-  'Consumption',
+  ConsumptionType.name,
   'The consumption in case the consumption is from one and only one supplier.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -125,10 +136,10 @@ export const SubscriberConsumptionFieldMetaSupplierConsumption = new FieldMeta<S
   SubscriberConsumptionField.SupplierConsumption,
   'SupplierConsumption',
   'Supplier Consumption',
-  'SupplierConsumption',
+  SupplierConsumptionType.name,
   'The consumption in case the consumption is from more than one supplier.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -158,3 +169,11 @@ export const SubscriberConsumptionFieldMap = new Map([
   [SubscriberConsumptionField.Consumption, SubscriberConsumptionFieldMetaConsumption],
   [SubscriberConsumptionField.SupplierConsumption, SubscriberConsumptionFieldMetaSupplierConsumption]
 ])
+
+export const SubscriberConsumptionType: Type<SubscriberConsumptionField> = {
+  name: 'SubscriberConsumption',
+  label: 'Subscriber Consumption',
+  module: TypeModule.cac,
+  definition: 'The consumption for a specific party for given consumption point provided by a numbers of suppliers. An enterprise can have one utility statement for several parties (e.g. a ministry of defence receiving a telephone bill). In this way each subscriber consumption represent a sub utility statement.',
+  fields: SubscriberConsumptionFieldMap,
+}

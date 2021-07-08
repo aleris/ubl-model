@@ -1,48 +1,66 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { EncryptionCertificatePathChain } from  '../../model/cac/EncryptionCertificatePathChain'
-import { EncryptionCertificatePathChainFieldMeta } from  '../../meta/cac/EncryptionCertificatePathChainMeta'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { EncryptionCertificatePathChainField, EncryptionCertificatePathChainFieldMeta, EncryptionCertificatePathChainTypeName } from  '../../meta/cac/EncryptionCertificatePathChainMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: EncryptionCertificatePathChain | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<EncryptionCertificatePathChain, void>
+  encryptionCertificatePathChain: EncryptionCertificatePathChain[] | undefined
+  renderContext: RenderContext
 }
 
-export default function EncryptionCertificatePathChainDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const EncryptionCertificatePathChainSubElementsMap: SubElementsTemplatesMap<EncryptionCertificatePathChainField, EncryptionCertificatePathChain, void> = new Map([
+    [
+      EncryptionCertificatePathChainField.UBLExtensions,
+      { meta: EncryptionCertificatePathChainFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={EncryptionCertificatePathChainField.UBLExtensions}
+          meta={EncryptionCertificatePathChainFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-EncryptionCertificatePathChain">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={EncryptionCertificatePathChainFieldMeta.UBLExtensions}
-          />
+    [
+      EncryptionCertificatePathChainField.Value,
+      { meta: EncryptionCertificatePathChainFieldMeta.Value,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={EncryptionCertificatePathChainField.Value}
+          meta={EncryptionCertificatePathChainFieldMeta.Value}
+          fieldConfig={fieldConfig}
+          text={value?.Value}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Value"
-            value={value.Value?.[0]}
-            meta={EncryptionCertificatePathChainFieldMeta.Value}
-          />
+    [
+      EncryptionCertificatePathChainField.URI,
+      { meta: EncryptionCertificatePathChainFieldMeta.URI,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={EncryptionCertificatePathChainField.URI}
+          meta={EncryptionCertificatePathChainFieldMeta.URI}
+          fieldConfig={fieldConfig}
+          identifier={value?.URI}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <IdentifierDisplay
-            label="URI"
-            value={value.URI?.[0]}
-            meta={EncryptionCertificatePathChainFieldMeta.URI}
-          />
-        </div>
-    </div>
+export function EncryptionCertificatePathChainDisplay<TFieldMeta>({ meta, fieldConfig, encryptionCertificatePathChain, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    EncryptionCertificatePathChainTypeName,
+    meta,
+    fieldConfig,
+    encryptionCertificatePathChain,
+    renderContext,
+    EncryptionCertificatePathChainSubElementsMap,
   )
 }

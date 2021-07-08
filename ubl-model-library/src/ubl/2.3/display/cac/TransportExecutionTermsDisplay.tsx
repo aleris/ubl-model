@@ -1,171 +1,177 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TransportExecutionTerms } from  '../../model/cac/TransportExecutionTerms'
-import { TransportExecutionTermsFieldMeta } from  '../../meta/cac/TransportExecutionTermsMeta'
-import DeliveryTermsDisplay from './DeliveryTermsDisplay'
-import { DeliveryTerms } from '../../model/cac/DeliveryTerms'
-import EnvironmentalEmissionDisplay from './EnvironmentalEmissionDisplay'
-import { EnvironmentalEmission } from '../../model/cac/EnvironmentalEmission'
-import NotificationRequirementDisplay from './NotificationRequirementDisplay'
-import { NotificationRequirement } from '../../model/cac/NotificationRequirement'
-import PaymentTermsDisplay from './PaymentTermsDisplay'
-import { PaymentTerms } from '../../model/cac/PaymentTerms'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { TransportExecutionTermsField, TransportExecutionTermsFieldMeta, TransportExecutionTermsTypeName } from  '../../meta/cac/TransportExecutionTermsMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { DeliveryTermsDisplay } from './DeliveryTermsDisplay'
+import { EnvironmentalEmissionDisplay } from './EnvironmentalEmissionDisplay'
+import { NotificationRequirementDisplay } from './NotificationRequirementDisplay'
+import { PaymentTermsDisplay } from './PaymentTermsDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: TransportExecutionTerms | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<TransportExecutionTerms, void>
+  transportExecutionTerms: TransportExecutionTerms[] | undefined
+  renderContext: RenderContext
 }
 
-export default function TransportExecutionTermsDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const TransportExecutionTermsSubElementsMap: SubElementsTemplatesMap<TransportExecutionTermsField, TransportExecutionTerms, void> = new Map([
+    [
+      TransportExecutionTermsField.UBLExtensions,
+      { meta: TransportExecutionTermsFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={TransportExecutionTermsField.UBLExtensions}
+          meta={TransportExecutionTermsFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-TransportExecutionTerms">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={TransportExecutionTermsFieldMeta.UBLExtensions}
-          />
+    [
+      TransportExecutionTermsField.TransportUserSpecialTerms,
+      { meta: TransportExecutionTermsFieldMeta.TransportUserSpecialTerms,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TransportExecutionTermsField.TransportUserSpecialTerms}
+          meta={TransportExecutionTermsFieldMeta.TransportUserSpecialTerms}
+          fieldConfig={fieldConfig}
+          text={value?.TransportUserSpecialTerms}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-TransportUserSpecialTerms"
-            label="Transport User Special Terms"
-            items={value.TransportUserSpecialTerms}
-            meta={TransportExecutionTermsFieldMeta.TransportUserSpecialTerms} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Transport User Special Terms"
-                value={itemValue}
-                meta={TransportExecutionTermsFieldMeta.TransportUserSpecialTerms}
-              />
-            }
-          />
+    [
+      TransportExecutionTermsField.TransportServiceProviderSpecialTerms,
+      { meta: TransportExecutionTermsFieldMeta.TransportServiceProviderSpecialTerms,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TransportExecutionTermsField.TransportServiceProviderSpecialTerms}
+          meta={TransportExecutionTermsFieldMeta.TransportServiceProviderSpecialTerms}
+          fieldConfig={fieldConfig}
+          text={value?.TransportServiceProviderSpecialTerms}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-TransportServiceProviderSpecialTerms"
-            label="Transport Service Provider Special Terms"
-            items={value.TransportServiceProviderSpecialTerms}
-            meta={TransportExecutionTermsFieldMeta.TransportServiceProviderSpecialTerms} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Transport Service Provider Special Terms"
-                value={itemValue}
-                meta={TransportExecutionTermsFieldMeta.TransportServiceProviderSpecialTerms}
-              />
-            }
-          />
+    [
+      TransportExecutionTermsField.ChangeConditions,
+      { meta: TransportExecutionTermsFieldMeta.ChangeConditions,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TransportExecutionTermsField.ChangeConditions}
+          meta={TransportExecutionTermsFieldMeta.ChangeConditions}
+          fieldConfig={fieldConfig}
+          text={value?.ChangeConditions}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-ChangeConditions"
-            label="Change Conditions"
-            items={value.ChangeConditions}
-            meta={TransportExecutionTermsFieldMeta.ChangeConditions} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Change Conditions"
-                value={itemValue}
-                meta={TransportExecutionTermsFieldMeta.ChangeConditions}
-              />
-            }
-          />
+    [
+      TransportExecutionTermsField.PaymentTerms,
+      { meta: TransportExecutionTermsFieldMeta.PaymentTerms,
+        template: ({value, renderContext, fieldConfig}) => <PaymentTermsDisplay
+          key={TransportExecutionTermsField.PaymentTerms}
+          meta={TransportExecutionTermsFieldMeta.PaymentTerms}
+          fieldConfig={fieldConfig}
+          paymentTerms={value?.PaymentTerms}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-PaymentTerms"
-            label="Payment Terms"
-            items={value.PaymentTerms}
-            meta={TransportExecutionTermsFieldMeta.PaymentTerms} 
-            itemDisplay={ (itemValue: PaymentTerms, key: string | number) =>
-              <PaymentTermsDisplay
-                key={key}
-                label="Payment Terms"
-                value={itemValue}
-                meta={TransportExecutionTermsFieldMeta.PaymentTerms}
-              />
-            }
-          />
+    [
+      TransportExecutionTermsField.DeliveryTerms,
+      { meta: TransportExecutionTermsFieldMeta.DeliveryTerms,
+        template: ({value, renderContext, fieldConfig}) => <DeliveryTermsDisplay
+          key={TransportExecutionTermsField.DeliveryTerms}
+          meta={TransportExecutionTermsFieldMeta.DeliveryTerms}
+          fieldConfig={fieldConfig}
+          deliveryTerms={value?.DeliveryTerms}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-DeliveryTerms"
-            label="Delivery Terms"
-            items={value.DeliveryTerms}
-            meta={TransportExecutionTermsFieldMeta.DeliveryTerms} 
-            itemDisplay={ (itemValue: DeliveryTerms, key: string | number) =>
-              <DeliveryTermsDisplay
-                key={key}
-                label="Delivery Terms"
-                value={itemValue}
-                meta={TransportExecutionTermsFieldMeta.DeliveryTerms}
-              />
-            }
-          />
+    [
+      TransportExecutionTermsField.BonusPaymentTerms,
+      { meta: TransportExecutionTermsFieldMeta.BonusPaymentTerms,
+        template: ({value, renderContext, fieldConfig}) => <PaymentTermsDisplay
+          key={TransportExecutionTermsField.BonusPaymentTerms}
+          meta={TransportExecutionTermsFieldMeta.BonusPaymentTerms}
+          fieldConfig={fieldConfig}
+          paymentTerms={value?.BonusPaymentTerms}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PaymentTermsDisplay
-            label="Bonus Payment Terms"
-            value={value.BonusPaymentTerms?.[0]}
-            meta={TransportExecutionTermsFieldMeta.BonusPaymentTerms}
-          />
+    [
+      TransportExecutionTermsField.CommissionPaymentTerms,
+      { meta: TransportExecutionTermsFieldMeta.CommissionPaymentTerms,
+        template: ({value, renderContext, fieldConfig}) => <PaymentTermsDisplay
+          key={TransportExecutionTermsField.CommissionPaymentTerms}
+          meta={TransportExecutionTermsFieldMeta.CommissionPaymentTerms}
+          fieldConfig={fieldConfig}
+          paymentTerms={value?.CommissionPaymentTerms}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PaymentTermsDisplay
-            label="Commission Payment Terms"
-            value={value.CommissionPaymentTerms?.[0]}
-            meta={TransportExecutionTermsFieldMeta.CommissionPaymentTerms}
-          />
+    [
+      TransportExecutionTermsField.PenaltyPaymentTerms,
+      { meta: TransportExecutionTermsFieldMeta.PenaltyPaymentTerms,
+        template: ({value, renderContext, fieldConfig}) => <PaymentTermsDisplay
+          key={TransportExecutionTermsField.PenaltyPaymentTerms}
+          meta={TransportExecutionTermsFieldMeta.PenaltyPaymentTerms}
+          fieldConfig={fieldConfig}
+          paymentTerms={value?.PenaltyPaymentTerms}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PaymentTermsDisplay
-            label="Penalty Payment Terms"
-            value={value.PenaltyPaymentTerms?.[0]}
-            meta={TransportExecutionTermsFieldMeta.PenaltyPaymentTerms}
-          />
+    [
+      TransportExecutionTermsField.EnvironmentalEmission,
+      { meta: TransportExecutionTermsFieldMeta.EnvironmentalEmission,
+        template: ({value, renderContext, fieldConfig}) => <EnvironmentalEmissionDisplay
+          key={TransportExecutionTermsField.EnvironmentalEmission}
+          meta={TransportExecutionTermsFieldMeta.EnvironmentalEmission}
+          fieldConfig={fieldConfig}
+          environmentalEmission={value?.EnvironmentalEmission}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-EnvironmentalEmission"
-            label="Environmental Emission"
-            items={value.EnvironmentalEmission}
-            meta={TransportExecutionTermsFieldMeta.EnvironmentalEmission} 
-            itemDisplay={ (itemValue: EnvironmentalEmission, key: string | number) =>
-              <EnvironmentalEmissionDisplay
-                key={key}
-                label="Environmental Emission"
-                value={itemValue}
-                meta={TransportExecutionTermsFieldMeta.EnvironmentalEmission}
-              />
-            }
-          />
+    [
+      TransportExecutionTermsField.NotificationRequirement,
+      { meta: TransportExecutionTermsFieldMeta.NotificationRequirement,
+        template: ({value, renderContext, fieldConfig}) => <NotificationRequirementDisplay
+          key={TransportExecutionTermsField.NotificationRequirement}
+          meta={TransportExecutionTermsFieldMeta.NotificationRequirement}
+          fieldConfig={fieldConfig}
+          notificationRequirement={value?.NotificationRequirement}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-NotificationRequirement"
-            label="Notification Requirement"
-            items={value.NotificationRequirement}
-            meta={TransportExecutionTermsFieldMeta.NotificationRequirement} 
-            itemDisplay={ (itemValue: NotificationRequirement, key: string | number) =>
-              <NotificationRequirementDisplay
-                key={key}
-                label="Notification Requirement"
-                value={itemValue}
-                meta={TransportExecutionTermsFieldMeta.NotificationRequirement}
-              />
-            }
-          />
+    [
+      TransportExecutionTermsField.ServiceChargePaymentTerms,
+      { meta: TransportExecutionTermsFieldMeta.ServiceChargePaymentTerms,
+        template: ({value, renderContext, fieldConfig}) => <PaymentTermsDisplay
+          key={TransportExecutionTermsField.ServiceChargePaymentTerms}
+          meta={TransportExecutionTermsFieldMeta.ServiceChargePaymentTerms}
+          fieldConfig={fieldConfig}
+          paymentTerms={value?.ServiceChargePaymentTerms}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <PaymentTermsDisplay
-            label="Service Charge Payment Terms"
-            value={value.ServiceChargePaymentTerms?.[0]}
-            meta={TransportExecutionTermsFieldMeta.ServiceChargePaymentTerms}
-          />
-        </div>
-    </div>
+export function TransportExecutionTermsDisplay<TFieldMeta>({ meta, fieldConfig, transportExecutionTerms, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    TransportExecutionTermsTypeName,
+    meta,
+    fieldConfig,
+    transportExecutionTerms,
+    renderContext,
+    TransportExecutionTermsSubElementsMap,
   )
 }

@@ -1,73 +1,92 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { EventLineItem } from  '../../model/cac/EventLineItem'
-import { EventLineItemFieldMeta } from  '../../meta/cac/EventLineItemMeta'
-import ItemDisplay from './ItemDisplay'
-import { Item } from '../../model/cac/Item'
-import LocationDisplay from './LocationDisplay'
-import { Location } from '../../model/cac/Location'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import RetailPlannedImpactDisplay from './RetailPlannedImpactDisplay'
-import { RetailPlannedImpact } from '../../model/cac/RetailPlannedImpact'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { EventLineItemField, EventLineItemFieldMeta, EventLineItemTypeName } from  '../../meta/cac/EventLineItemMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { ItemDisplay } from './ItemDisplay'
+import { LocationDisplay } from './LocationDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { RetailPlannedImpactDisplay } from './RetailPlannedImpactDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: EventLineItem | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<EventLineItem, void>
+  eventLineItem: EventLineItem[] | undefined
+  renderContext: RenderContext
 }
 
-export default function EventLineItemDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const EventLineItemSubElementsMap: SubElementsTemplatesMap<EventLineItemField, EventLineItem, void> = new Map([
+    [
+      EventLineItemField.UBLExtensions,
+      { meta: EventLineItemFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={EventLineItemField.UBLExtensions}
+          meta={EventLineItemFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-EventLineItem">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={EventLineItemFieldMeta.UBLExtensions}
-          />
+    [
+      EventLineItemField.LineNumberNumeric,
+      { meta: EventLineItemFieldMeta.LineNumberNumeric,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={EventLineItemField.LineNumberNumeric}
+          meta={EventLineItemFieldMeta.LineNumberNumeric}
+          fieldConfig={fieldConfig}
+          numeric={value?.LineNumberNumeric}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Line Number"
-            value={value.LineNumberNumeric?.[0]}
-            meta={EventLineItemFieldMeta.LineNumberNumeric}
-          />
+    [
+      EventLineItemField.ParticipatingLocationsLocation,
+      { meta: EventLineItemFieldMeta.ParticipatingLocationsLocation,
+        template: ({value, renderContext, fieldConfig}) => <LocationDisplay
+          key={EventLineItemField.ParticipatingLocationsLocation}
+          meta={EventLineItemFieldMeta.ParticipatingLocationsLocation}
+          fieldConfig={fieldConfig}
+          location={value?.ParticipatingLocationsLocation}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <LocationDisplay
-            label="Participating Locations Location"
-            value={value.ParticipatingLocationsLocation?.[0]}
-            meta={EventLineItemFieldMeta.ParticipatingLocationsLocation}
-          />
+    [
+      EventLineItemField.RetailPlannedImpact,
+      { meta: EventLineItemFieldMeta.RetailPlannedImpact,
+        template: ({value, renderContext, fieldConfig}) => <RetailPlannedImpactDisplay
+          key={EventLineItemField.RetailPlannedImpact}
+          meta={EventLineItemFieldMeta.RetailPlannedImpact}
+          fieldConfig={fieldConfig}
+          retailPlannedImpact={value?.RetailPlannedImpact}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-RetailPlannedImpact"
-            label="Retail Planned Impact"
-            items={value.RetailPlannedImpact}
-            meta={EventLineItemFieldMeta.RetailPlannedImpact} 
-            itemDisplay={ (itemValue: RetailPlannedImpact, key: string | number) =>
-              <RetailPlannedImpactDisplay
-                key={key}
-                label="Retail Planned Impact"
-                value={itemValue}
-                meta={EventLineItemFieldMeta.RetailPlannedImpact}
-              />
-            }
-          />
+    [
+      EventLineItemField.SupplyItem,
+      { meta: EventLineItemFieldMeta.SupplyItem,
+        template: ({value, renderContext, fieldConfig}) => <ItemDisplay
+          key={EventLineItemField.SupplyItem}
+          meta={EventLineItemFieldMeta.SupplyItem}
+          fieldConfig={fieldConfig}
+          item={value?.SupplyItem}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ItemDisplay
-            label="Supply Item"
-            value={value.SupplyItem?.[0]}
-            meta={EventLineItemFieldMeta.SupplyItem}
-          />
-        </div>
-    </div>
+export function EventLineItemDisplay<TFieldMeta>({ meta, fieldConfig, eventLineItem, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    EventLineItemTypeName,
+    meta,
+    fieldConfig,
+    eventLineItem,
+    renderContext,
+    EventLineItemSubElementsMap,
   )
 }

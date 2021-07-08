@@ -1,4 +1,16 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { ContractingPartyType } from '../cac/ContractingPartyMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { EvidenceType } from '../cac/EvidenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { TendererPartyQualificationType } from '../cac/TendererPartyQualificationMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum TendererQualificationField {
   UBLExtensions = 'UBLExtensions',
@@ -25,11 +37,11 @@ export enum TendererQualificationField {
 export const TendererQualificationFieldMetaUBLExtensions = new FieldMeta<TendererQualificationField>(
   TendererQualificationField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -38,10 +50,10 @@ export const TendererQualificationFieldMetaUBLVersionID = new FieldMeta<Tenderer
   TendererQualificationField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.0.5'
 )
@@ -50,10 +62,10 @@ export const TendererQualificationFieldMetaCustomizationID = new FieldMeta<Tende
   TendererQualificationField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'NES'
 )
@@ -62,10 +74,10 @@ export const TendererQualificationFieldMetaProfileID = new FieldMeta<TendererQua
   TendererQualificationField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BasicProcurementProcess'
 )
@@ -74,10 +86,10 @@ export const TendererQualificationFieldMetaProfileExecutionID = new FieldMeta<Te
   TendererQualificationField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BPP-1001'
 )
@@ -86,10 +98,10 @@ export const TendererQualificationFieldMetaID = new FieldMeta<TendererQualificat
   TendererQualificationField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -98,10 +110,10 @@ export const TendererQualificationFieldMetaCopyIndicator = new FieldMeta<Tendere
   TendererQualificationField.CopyIndicator,
   'CopyIndicator',
   'Copy Indicator',
-  'Indicator',
+  IndicatorType.name,
   'Indicates whether this document is a copy (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -110,10 +122,10 @@ export const TendererQualificationFieldMetaUUID = new FieldMeta<TendererQualific
   TendererQualificationField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -122,10 +134,10 @@ export const TendererQualificationFieldMetaContractFolderID = new FieldMeta<Tend
   TendererQualificationField.ContractFolderID,
   'ContractFolderID',
   'Contract Folder Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier, assigned by the sender, for the process file (i.e., record) to which this document belongs.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -134,10 +146,10 @@ export const TendererQualificationFieldMetaIssueDate = new FieldMeta<TendererQua
   TendererQualificationField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -146,10 +158,10 @@ export const TendererQualificationFieldMetaIssueTime = new FieldMeta<TendererQua
   TendererQualificationField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -158,10 +170,10 @@ export const TendererQualificationFieldMetaNote = new FieldMeta<TendererQualific
   TendererQualificationField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -170,10 +182,10 @@ export const TendererQualificationFieldMetaVersionID = new FieldMeta<TendererQua
   TendererQualificationField.VersionID,
   'VersionID',
   'Version',
-  'Identifier',
+  IdentifierType.name,
   'Indicates the current version of the Tenderer Qualification.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '1.1'
 )
@@ -182,10 +194,10 @@ export const TendererQualificationFieldMetaPreviousVersionID = new FieldMeta<Ten
   TendererQualificationField.PreviousVersionID,
   'PreviousVersionID',
   'Previous Version',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the previous version of the Tenderer Qualification which is superceded by this version.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '1.0'
 )
@@ -194,10 +206,10 @@ export const TendererQualificationFieldMetaSignature = new FieldMeta<TendererQua
   TendererQualificationField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -206,10 +218,10 @@ export const TendererQualificationFieldMetaTendererPartyQualification = new Fiel
   TendererQualificationField.TendererPartyQualification,
   'TendererPartyQualification',
   'Tenderer Party Qualification',
-  'TendererPartyQualification',
+  TendererPartyQualificationType.name,
   'A specific qualification of the Tenderer.',
-  '1..n',
-  'cac',
+  FieldCardinality.Multi,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -218,10 +230,10 @@ export const TendererQualificationFieldMetaContractingParty = new FieldMeta<Tend
   TendererQualificationField.ContractingParty,
   'ContractingParty',
   'Contracting Party',
-  'ContractingParty',
+  ContractingPartyType.name,
   'The contracting party.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -230,10 +242,10 @@ export const TendererQualificationFieldMetaEvidence = new FieldMeta<TendererQual
   TendererQualificationField.Evidence,
   'Evidence',
   'Evidence',
-  'Evidence',
+  EvidenceType.name,
   'An evidentiary document supporting Tenderer qualifications.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -242,10 +254,10 @@ export const TendererQualificationFieldMetaAdditionalDocumentReference = new Fie
   TendererQualificationField.AdditionalDocumentReference,
   'AdditionalDocumentReference',
   'Additional Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to an additional document associated with this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -293,3 +305,11 @@ export const TendererQualificationFieldMap = new Map([
   [TendererQualificationField.Evidence, TendererQualificationFieldMetaEvidence],
   [TendererQualificationField.AdditionalDocumentReference, TendererQualificationFieldMetaAdditionalDocumentReference]
 ])
+
+export const TendererQualificationType: Type<TendererQualificationField> = {
+  name: 'TendererQualification',
+  label: 'Tenderer Qualification',
+  module: TypeModule.doc,
+  definition: 'A document declaring the qualifications of a tenderer.',
+  fields: TendererQualificationFieldMap,
+}

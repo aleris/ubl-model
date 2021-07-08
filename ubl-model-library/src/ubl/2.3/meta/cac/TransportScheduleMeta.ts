@@ -1,4 +1,12 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { DateType } from '../cbc/DateMeta'
+import { LocationType } from './LocationMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { TransportEventType } from './TransportEventMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum TransportScheduleField {
   UBLExtensions = 'UBLExtensions',
@@ -19,11 +27,11 @@ export enum TransportScheduleField {
 export const TransportScheduleFieldMetaUBLExtensions = new FieldMeta<TransportScheduleField>(
   TransportScheduleField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -32,10 +40,10 @@ export const TransportScheduleFieldMetaSequenceNumeric = new FieldMeta<Transport
   TransportScheduleField.SequenceNumeric,
   'SequenceNumeric',
   'Sequence',
-  'Numeric',
+  NumericType.name,
   'A number indicating the order of this status in the sequence in which statuses are to be presented.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -44,10 +52,10 @@ export const TransportScheduleFieldMetaReferenceDate = new FieldMeta<TransportSc
   TransportScheduleField.ReferenceDate,
   'ReferenceDate',
   'Reference Date',
-  'Date',
+  DateType.name,
   'The reference date for the transport schedule status.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -56,10 +64,10 @@ export const TransportScheduleFieldMetaReferenceTime = new FieldMeta<TransportSc
   TransportScheduleField.ReferenceTime,
   'ReferenceTime',
   'Reference Time',
-  'Time',
+  TimeType.name,
   'The reference time for the transport schedule status.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -68,10 +76,10 @@ export const TransportScheduleFieldMetaReliabilityPercent = new FieldMeta<Transp
   TransportScheduleField.ReliabilityPercent,
   'ReliabilityPercent',
   'Reliability Percent',
-  'Numeric',
+  NumericType.name,
   'The reliability of the transport schedule status, expressed as a percentage.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -80,10 +88,10 @@ export const TransportScheduleFieldMetaRemarks = new FieldMeta<TransportSchedule
   TransportScheduleField.Remarks,
   'Remarks',
   'Remarks',
-  'Text',
+  TextType.name,
   'Remarks related to the transport schedule status.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -92,10 +100,10 @@ export const TransportScheduleFieldMetaStatusLocation = new FieldMeta<TransportS
   TransportScheduleField.StatusLocation,
   'StatusLocation',
   'Status Location',
-  'Location',
+  LocationType.name,
   'The location for which status is reported.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -104,10 +112,10 @@ export const TransportScheduleFieldMetaActualArrivalTransportEvent = new FieldMe
   TransportScheduleField.ActualArrivalTransportEvent,
   'ActualArrivalTransportEvent',
   'Actual Arrival Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'The actual arrival at a location.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -116,10 +124,10 @@ export const TransportScheduleFieldMetaActualDepartureTransportEvent = new Field
   TransportScheduleField.ActualDepartureTransportEvent,
   'ActualDepartureTransportEvent',
   'Actual Departure Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'The actual departure from a location.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -128,10 +136,10 @@ export const TransportScheduleFieldMetaEstimatedDepartureTransportEvent = new Fi
   TransportScheduleField.EstimatedDepartureTransportEvent,
   'EstimatedDepartureTransportEvent',
   'Estimated Departure Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'An estimated departure from a specified location.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -140,10 +148,10 @@ export const TransportScheduleFieldMetaEstimatedArrivalTransportEvent = new Fiel
   TransportScheduleField.EstimatedArrivalTransportEvent,
   'EstimatedArrivalTransportEvent',
   'Estimated Arrival Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'An estimated arrival at a specified location.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -152,10 +160,10 @@ export const TransportScheduleFieldMetaPlannedDepartureTransportEvent = new Fiel
   TransportScheduleField.PlannedDepartureTransportEvent,
   'PlannedDepartureTransportEvent',
   'Planned Departure Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'The planned departure from a specified location.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -164,10 +172,10 @@ export const TransportScheduleFieldMetaPlannedArrivalTransportEvent = new FieldM
   TransportScheduleField.PlannedArrivalTransportEvent,
   'PlannedArrivalTransportEvent',
   'Planned Arrival Transport Event',
-  'TransportEvent',
+  TransportEventType.name,
   'The planned arrival at a specified location.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -203,3 +211,11 @@ export const TransportScheduleFieldMap = new Map([
   [TransportScheduleField.PlannedDepartureTransportEvent, TransportScheduleFieldMetaPlannedDepartureTransportEvent],
   [TransportScheduleField.PlannedArrivalTransportEvent, TransportScheduleFieldMetaPlannedArrivalTransportEvent]
 ])
+
+export const TransportScheduleType: Type<TransportScheduleField> = {
+  name: 'TransportSchedule',
+  label: 'Transport Schedule',
+  module: TypeModule.cac,
+  definition: 'Describes the location and schedule relating to a transport means.',
+  fields: TransportScheduleFieldMap,
+}

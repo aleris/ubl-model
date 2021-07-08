@@ -1,92 +1,115 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ItemInformationRequestLine } from  '../../model/cac/ItemInformationRequestLine'
-import { ItemInformationRequestLineFieldMeta } from  '../../meta/cac/ItemInformationRequestLineMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import SalesItemDisplay from './SalesItemDisplay'
-import { SalesItem } from '../../model/cac/SalesItem'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ItemInformationRequestLineField, ItemInformationRequestLineFieldMeta, ItemInformationRequestLineTypeName } from  '../../meta/cac/ItemInformationRequestLineMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { SalesItemDisplay } from './SalesItemDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ItemInformationRequestLine | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ItemInformationRequestLine, void>
+  itemInformationRequestLine: ItemInformationRequestLine[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ItemInformationRequestLineDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ItemInformationRequestLineSubElementsMap: SubElementsTemplatesMap<ItemInformationRequestLineField, ItemInformationRequestLine, void> = new Map([
+    [
+      ItemInformationRequestLineField.UBLExtensions,
+      { meta: ItemInformationRequestLineFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ItemInformationRequestLineField.UBLExtensions}
+          meta={ItemInformationRequestLineFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ItemInformationRequestLine">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ItemInformationRequestLineFieldMeta.UBLExtensions}
-          />
+    [
+      ItemInformationRequestLineField.TimeFrequencyCode,
+      { meta: ItemInformationRequestLineFieldMeta.TimeFrequencyCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ItemInformationRequestLineField.TimeFrequencyCode}
+          meta={ItemInformationRequestLineFieldMeta.TimeFrequencyCode}
+          fieldConfig={fieldConfig}
+          code={value?.TimeFrequencyCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Time Frequency Code"
-            value={value.TimeFrequencyCode?.[0]}
-            meta={ItemInformationRequestLineFieldMeta.TimeFrequencyCode}
-          />
+    [
+      ItemInformationRequestLineField.SupplyChainActivityTypeCode,
+      { meta: ItemInformationRequestLineFieldMeta.SupplyChainActivityTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ItemInformationRequestLineField.SupplyChainActivityTypeCode}
+          meta={ItemInformationRequestLineFieldMeta.SupplyChainActivityTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.SupplyChainActivityTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Supply Chain Activity Type Code"
-            value={value.SupplyChainActivityTypeCode?.[0]}
-            meta={ItemInformationRequestLineFieldMeta.SupplyChainActivityTypeCode}
-          />
+    [
+      ItemInformationRequestLineField.ForecastTypeCode,
+      { meta: ItemInformationRequestLineFieldMeta.ForecastTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ItemInformationRequestLineField.ForecastTypeCode}
+          meta={ItemInformationRequestLineFieldMeta.ForecastTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.ForecastTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Forecast Type Code"
-            value={value.ForecastTypeCode?.[0]}
-            meta={ItemInformationRequestLineFieldMeta.ForecastTypeCode}
-          />
+    [
+      ItemInformationRequestLineField.PerformanceMetricTypeCode,
+      { meta: ItemInformationRequestLineFieldMeta.PerformanceMetricTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ItemInformationRequestLineField.PerformanceMetricTypeCode}
+          meta={ItemInformationRequestLineFieldMeta.PerformanceMetricTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.PerformanceMetricTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Performance Metric Type Code"
-            value={value.PerformanceMetricTypeCode?.[0]}
-            meta={ItemInformationRequestLineFieldMeta.PerformanceMetricTypeCode}
-          />
+    [
+      ItemInformationRequestLineField.Period,
+      { meta: ItemInformationRequestLineFieldMeta.Period,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={ItemInformationRequestLineField.Period}
+          meta={ItemInformationRequestLineFieldMeta.Period}
+          fieldConfig={fieldConfig}
+          period={value?.Period}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Period"
-            label="Period"
-            items={value.Period}
-            meta={ItemInformationRequestLineFieldMeta.Period} 
-            itemDisplay={ (itemValue: Period, key: string | number) =>
-              <PeriodDisplay
-                key={key}
-                label="Period"
-                value={itemValue}
-                meta={ItemInformationRequestLineFieldMeta.Period}
-              />
-            }
-          />
+    [
+      ItemInformationRequestLineField.SalesItem,
+      { meta: ItemInformationRequestLineFieldMeta.SalesItem,
+        template: ({value, renderContext, fieldConfig}) => <SalesItemDisplay
+          key={ItemInformationRequestLineField.SalesItem}
+          meta={ItemInformationRequestLineFieldMeta.SalesItem}
+          fieldConfig={fieldConfig}
+          salesItem={value?.SalesItem}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-SalesItem"
-            label="Sales Item"
-            items={value.SalesItem}
-            meta={ItemInformationRequestLineFieldMeta.SalesItem} 
-            itemDisplay={ (itemValue: SalesItem, key: string | number) =>
-              <SalesItemDisplay
-                key={key}
-                label="Sales Item"
-                value={itemValue}
-                meta={ItemInformationRequestLineFieldMeta.SalesItem}
-              />
-            }
-          />
-        </div>
-    </div>
+export function ItemInformationRequestLineDisplay<TFieldMeta>({ meta, fieldConfig, itemInformationRequestLine, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ItemInformationRequestLineTypeName,
+    meta,
+    fieldConfig,
+    itemInformationRequestLine,
+    renderContext,
+    ItemInformationRequestLineSubElementsMap,
   )
 }

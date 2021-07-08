@@ -1,4 +1,14 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { DateType } from '../cbc/DateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { ItemType } from './ItemMeta'
+import { LocationType } from './LocationMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum InventoryReportLineField {
   UBLExtensions = 'UBLExtensions',
@@ -15,11 +25,11 @@ export enum InventoryReportLineField {
 export const InventoryReportLineFieldMetaUBLExtensions = new FieldMeta<InventoryReportLineField>(
   InventoryReportLineField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -28,10 +38,10 @@ export const InventoryReportLineFieldMetaID = new FieldMeta<InventoryReportLineF
   InventoryReportLineField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this inventory report line.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -40,10 +50,10 @@ export const InventoryReportLineFieldMetaNote = new FieldMeta<InventoryReportLin
   InventoryReportLineField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -52,10 +62,10 @@ export const InventoryReportLineFieldMetaQuantity = new FieldMeta<InventoryRepor
   InventoryReportLineField.Quantity,
   'Quantity',
   'Quantity',
-  'Quantity',
+  QuantityType.name,
   'The quantity of the item reported that is currently in stock.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -64,10 +74,10 @@ export const InventoryReportLineFieldMetaInventoryValueAmount = new FieldMeta<In
   InventoryReportLineField.InventoryValueAmount,
   'InventoryValueAmount',
   'Inventory Value',
-  'Amount',
+  AmountType.name,
   'The value of the quantity of the item reported that is currently in stock.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -76,10 +86,10 @@ export const InventoryReportLineFieldMetaAvailabilityDate = new FieldMeta<Invent
   InventoryReportLineField.AvailabilityDate,
   'AvailabilityDate',
   'Availability Date',
-  'Date',
+  DateType.name,
   'The date from which the goods will be available. If not present, the goods are available now.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -88,10 +98,10 @@ export const InventoryReportLineFieldMetaAvailabilityStatusCode = new FieldMeta<
   InventoryReportLineField.AvailabilityStatusCode,
   'AvailabilityStatusCode',
   'Availability Status Code',
-  'Code',
+  CodeType.name,
   'A code signifying the item\'s level of availability.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -100,10 +110,10 @@ export const InventoryReportLineFieldMetaItem = new FieldMeta<InventoryReportLin
   InventoryReportLineField.Item,
   'Item',
   'Item',
-  'Item',
+  ItemType.name,
   'The item associated with this inventory report line.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -112,10 +122,10 @@ export const InventoryReportLineFieldMetaInventoryLocation = new FieldMeta<Inven
   InventoryReportLineField.InventoryLocation,
   'InventoryLocation',
   'Inventory Location',
-  'Location',
+  LocationType.name,
   'The location of the reported quantity of goods.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -143,3 +153,11 @@ export const InventoryReportLineFieldMap = new Map([
   [InventoryReportLineField.Item, InventoryReportLineFieldMetaItem],
   [InventoryReportLineField.InventoryLocation, InventoryReportLineFieldMetaInventoryLocation]
 ])
+
+export const InventoryReportLineType: Type<InventoryReportLineField> = {
+  name: 'InventoryReportLine',
+  label: 'Inventory Report Line',
+  module: TypeModule.cac,
+  definition: 'A class to define a line in an Inventory Report.',
+  fields: InventoryReportLineFieldMap,
+}

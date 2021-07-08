@@ -11,7 +11,6 @@ import { Signature } from '../cac/Signature'
 import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * An expression of interest confirmation issued by a Contracting Party in reply to an expression of interest. The
  * purpose of this document is to inform the Economic Operator he has been registered as an interested party.

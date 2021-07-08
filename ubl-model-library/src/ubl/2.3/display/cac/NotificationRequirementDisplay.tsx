@@ -1,105 +1,117 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { NotificationRequirement } from  '../../model/cac/NotificationRequirement'
-import { NotificationRequirementFieldMeta } from  '../../meta/cac/NotificationRequirementMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import LocationDisplay from './LocationDisplay'
-import { Location } from '../../model/cac/Location'
-import MeasureDisplay from '../cbc/MeasureDisplay'
-import { Measure } from '../../model/cbc/Measure'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { NotificationRequirementField, NotificationRequirementFieldMeta, NotificationRequirementTypeName } from  '../../meta/cac/NotificationRequirementMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { LocationDisplay } from './LocationDisplay'
+import { MeasureDisplay } from '../cbc/MeasureDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: NotificationRequirement | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<NotificationRequirement, void>
+  notificationRequirement: NotificationRequirement[] | undefined
+  renderContext: RenderContext
 }
 
-export default function NotificationRequirementDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const NotificationRequirementSubElementsMap: SubElementsTemplatesMap<NotificationRequirementField, NotificationRequirement, void> = new Map([
+    [
+      NotificationRequirementField.UBLExtensions,
+      { meta: NotificationRequirementFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={NotificationRequirementField.UBLExtensions}
+          meta={NotificationRequirementFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-NotificationRequirement">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={NotificationRequirementFieldMeta.UBLExtensions}
-          />
+    [
+      NotificationRequirementField.NotificationTypeCode,
+      { meta: NotificationRequirementFieldMeta.NotificationTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={NotificationRequirementField.NotificationTypeCode}
+          meta={NotificationRequirementFieldMeta.NotificationTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.NotificationTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Notification Type Code"
-            value={value.NotificationTypeCode?.[0]}
-            meta={NotificationRequirementFieldMeta.NotificationTypeCode}
-          />
+    [
+      NotificationRequirementField.PostEventNotificationDurationMeasure,
+      { meta: NotificationRequirementFieldMeta.PostEventNotificationDurationMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={NotificationRequirementField.PostEventNotificationDurationMeasure}
+          meta={NotificationRequirementFieldMeta.PostEventNotificationDurationMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.PostEventNotificationDurationMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Post Event Notification Duration"
-            value={value.PostEventNotificationDurationMeasure?.[0]}
-            meta={NotificationRequirementFieldMeta.PostEventNotificationDurationMeasure}
-          />
+    [
+      NotificationRequirementField.PreEventNotificationDurationMeasure,
+      { meta: NotificationRequirementFieldMeta.PreEventNotificationDurationMeasure,
+        template: ({value, renderContext, fieldConfig}) => <MeasureDisplay
+          key={NotificationRequirementField.PreEventNotificationDurationMeasure}
+          meta={NotificationRequirementFieldMeta.PreEventNotificationDurationMeasure}
+          fieldConfig={fieldConfig}
+          measure={value?.PreEventNotificationDurationMeasure}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <MeasureDisplay
-            label="Pre Event Notification Duration"
-            value={value.PreEventNotificationDurationMeasure?.[0]}
-            meta={NotificationRequirementFieldMeta.PreEventNotificationDurationMeasure}
-          />
+    [
+      NotificationRequirementField.NotifyParty,
+      { meta: NotificationRequirementFieldMeta.NotifyParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={NotificationRequirementField.NotifyParty}
+          meta={NotificationRequirementFieldMeta.NotifyParty}
+          fieldConfig={fieldConfig}
+          party={value?.NotifyParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Party ubl-NotifyParty"
-            label="Notify Party"
-            items={value.NotifyParty}
-            meta={NotificationRequirementFieldMeta.NotifyParty} 
-            itemDisplay={ (itemValue: Party, key: string | number) =>
-              <PartyDisplay
-                key={key}
-                label="Notify Party"
-                value={itemValue}
-                meta={NotificationRequirementFieldMeta.NotifyParty}
-              />
-            }
-          />
+    [
+      NotificationRequirementField.NotificationPeriod,
+      { meta: NotificationRequirementFieldMeta.NotificationPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={NotificationRequirementField.NotificationPeriod}
+          meta={NotificationRequirementFieldMeta.NotificationPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.NotificationPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Period ubl-NotificationPeriod"
-            label="Notification Period"
-            items={value.NotificationPeriod}
-            meta={NotificationRequirementFieldMeta.NotificationPeriod} 
-            itemDisplay={ (itemValue: Period, key: string | number) =>
-              <PeriodDisplay
-                key={key}
-                label="Notification Period"
-                value={itemValue}
-                meta={NotificationRequirementFieldMeta.NotificationPeriod}
-              />
-            }
-          />
+    [
+      NotificationRequirementField.NotificationLocation,
+      { meta: NotificationRequirementFieldMeta.NotificationLocation,
+        template: ({value, renderContext, fieldConfig}) => <LocationDisplay
+          key={NotificationRequirementField.NotificationLocation}
+          meta={NotificationRequirementFieldMeta.NotificationLocation}
+          fieldConfig={fieldConfig}
+          location={value?.NotificationLocation}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Location ubl-NotificationLocation"
-            label="Notification Location"
-            items={value.NotificationLocation}
-            meta={NotificationRequirementFieldMeta.NotificationLocation} 
-            itemDisplay={ (itemValue: Location, key: string | number) =>
-              <LocationDisplay
-                key={key}
-                label="Notification Location"
-                value={itemValue}
-                meta={NotificationRequirementFieldMeta.NotificationLocation}
-              />
-            }
-          />
-        </div>
-    </div>
+export function NotificationRequirementDisplay<TFieldMeta>({ meta, fieldConfig, notificationRequirement, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    NotificationRequirementTypeName,
+    meta,
+    fieldConfig,
+    notificationRequirement,
+    renderContext,
+    NotificationRequirementSubElementsMap,
   )
 }

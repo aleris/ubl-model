@@ -1,286 +1,401 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { GoodsCertificate } from  '../../model/doc/GoodsCertificate'
-import { GoodsCertificateFieldMeta } from  '../../meta/doc/GoodsCertificateMeta'
-import AddressDisplay from '../cac/AddressDisplay'
-import { Address } from '../../model/cac/Address'
-import AttestationDisplay from '../cac/AttestationDisplay'
-import { Attestation } from '../../model/cac/Attestation'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import GoodsProcessingDisplay from '../cac/GoodsProcessingDisplay'
-import { GoodsProcessing } from '../../model/cac/GoodsProcessing'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import PeriodDisplay from '../cac/PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import ShipmentDisplay from '../cac/ShipmentDisplay'
-import { Shipment } from '../../model/cac/Shipment'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { GoodsCertificateField, GoodsCertificateFieldMeta, GoodsCertificateTypeName } from  '../../meta/doc/GoodsCertificateMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AddressDisplay } from '../cac/AddressDisplay'
+import { AttestationDisplay } from '../cac/AttestationDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { GoodsProcessingDisplay } from '../cac/GoodsProcessingDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { PeriodDisplay } from '../cac/PeriodDisplay'
+import { ShipmentDisplay } from '../cac/ShipmentDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: GoodsCertificate | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<GoodsCertificate, void>
+  goodsCertificate: GoodsCertificate[] | undefined
+  renderContext: RenderContext
 }
 
-export default function GoodsCertificateDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const GoodsCertificateSubElementsMap: SubElementsTemplatesMap<GoodsCertificateField, GoodsCertificate, void> = new Map([
+    [
+      GoodsCertificateField.UBLExtensions,
+      { meta: GoodsCertificateFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={GoodsCertificateField.UBLExtensions}
+          meta={GoodsCertificateFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-GoodsCertificate">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={GoodsCertificateFieldMeta.UBLExtensions}
-          />
+    [
+      GoodsCertificateField.UBLVersionID,
+      { meta: GoodsCertificateFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={GoodsCertificateField.UBLVersionID}
+          meta={GoodsCertificateFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={GoodsCertificateFieldMeta.UBLVersionID}
-          />
+    [
+      GoodsCertificateField.CustomizationID,
+      { meta: GoodsCertificateFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={GoodsCertificateField.CustomizationID}
+          meta={GoodsCertificateFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={GoodsCertificateFieldMeta.CustomizationID}
-          />
+    [
+      GoodsCertificateField.ProfileID,
+      { meta: GoodsCertificateFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={GoodsCertificateField.ProfileID}
+          meta={GoodsCertificateFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={GoodsCertificateFieldMeta.ProfileID}
-          />
+    [
+      GoodsCertificateField.ProfileExecutionID,
+      { meta: GoodsCertificateFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={GoodsCertificateField.ProfileExecutionID}
+          meta={GoodsCertificateFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={GoodsCertificateFieldMeta.ProfileExecutionID}
-          />
+    [
+      GoodsCertificateField.ID,
+      { meta: GoodsCertificateFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={GoodsCertificateField.ID}
+          meta={GoodsCertificateFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={GoodsCertificateFieldMeta.ID}
-          />
+    [
+      GoodsCertificateField.UUID,
+      { meta: GoodsCertificateFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={GoodsCertificateField.UUID}
+          meta={GoodsCertificateFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={GoodsCertificateFieldMeta.UUID}
-          />
+    [
+      GoodsCertificateField.IssueDate,
+      { meta: GoodsCertificateFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={GoodsCertificateField.IssueDate}
+          meta={GoodsCertificateFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={GoodsCertificateFieldMeta.IssueDate}
-          />
+    [
+      GoodsCertificateField.IssueTime,
+      { meta: GoodsCertificateFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={GoodsCertificateField.IssueTime}
+          meta={GoodsCertificateFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={GoodsCertificateFieldMeta.IssueTime}
-          />
+    [
+      GoodsCertificateField.TypeCode,
+      { meta: GoodsCertificateFieldMeta.TypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={GoodsCertificateField.TypeCode}
+          meta={GoodsCertificateFieldMeta.TypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.TypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Type Code"
-            value={value.TypeCode?.[0]}
-            meta={GoodsCertificateFieldMeta.TypeCode}
-          />
+    [
+      GoodsCertificateField.Description,
+      { meta: GoodsCertificateFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={GoodsCertificateField.Description}
+          meta={GoodsCertificateFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={GoodsCertificateFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={GoodsCertificateFieldMeta.Description}
-              />
-            }
-          />
+    [
+      GoodsCertificateField.Note,
+      { meta: GoodsCertificateFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={GoodsCertificateField.Note}
+          meta={GoodsCertificateFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={GoodsCertificateFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={GoodsCertificateFieldMeta.Note}
-              />
-            }
-          />
+    [
+      GoodsCertificateField.VersionID,
+      { meta: GoodsCertificateFieldMeta.VersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={GoodsCertificateField.VersionID}
+          meta={GoodsCertificateFieldMeta.VersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.VersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Version"
-            value={value.VersionID?.[0]}
-            meta={GoodsCertificateFieldMeta.VersionID}
-          />
+    [
+      GoodsCertificateField.ValidityPeriod,
+      { meta: GoodsCertificateFieldMeta.ValidityPeriod,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={GoodsCertificateField.ValidityPeriod}
+          meta={GoodsCertificateFieldMeta.ValidityPeriod}
+          fieldConfig={fieldConfig}
+          period={value?.ValidityPeriod}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Validity Period"
-            value={value.ValidityPeriod?.[0]}
-            meta={GoodsCertificateFieldMeta.ValidityPeriod}
-          />
+    [
+      GoodsCertificateField.ApplicableTerritoryAddress,
+      { meta: GoodsCertificateFieldMeta.ApplicableTerritoryAddress,
+        template: ({value, renderContext, fieldConfig}) => <AddressDisplay
+          key={GoodsCertificateField.ApplicableTerritoryAddress}
+          meta={GoodsCertificateFieldMeta.ApplicableTerritoryAddress}
+          fieldConfig={fieldConfig}
+          address={value?.ApplicableTerritoryAddress}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AddressDisplay
-            label="Applicable Territory Address"
-            value={value.ApplicableTerritoryAddress?.[0]}
-            meta={GoodsCertificateFieldMeta.ApplicableTerritoryAddress}
-          />
+    [
+      GoodsCertificateField.ExporterParty,
+      { meta: GoodsCertificateFieldMeta.ExporterParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={GoodsCertificateField.ExporterParty}
+          meta={GoodsCertificateFieldMeta.ExporterParty}
+          fieldConfig={fieldConfig}
+          party={value?.ExporterParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Exporter Party"
-            value={value.ExporterParty?.[0]}
-            meta={GoodsCertificateFieldMeta.ExporterParty}
-          />
+    [
+      GoodsCertificateField.ImporterParty,
+      { meta: GoodsCertificateFieldMeta.ImporterParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={GoodsCertificateField.ImporterParty}
+          meta={GoodsCertificateFieldMeta.ImporterParty}
+          fieldConfig={fieldConfig}
+          party={value?.ImporterParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Importer Party"
-            value={value.ImporterParty?.[0]}
-            meta={GoodsCertificateFieldMeta.ImporterParty}
-          />
+    [
+      GoodsCertificateField.WarehouseParty,
+      { meta: GoodsCertificateFieldMeta.WarehouseParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={GoodsCertificateField.WarehouseParty}
+          meta={GoodsCertificateFieldMeta.WarehouseParty}
+          fieldConfig={fieldConfig}
+          party={value?.WarehouseParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Warehouse Party"
-            value={value.WarehouseParty?.[0]}
-            meta={GoodsCertificateFieldMeta.WarehouseParty}
-          />
+    [
+      GoodsCertificateField.ConsignorParty,
+      { meta: GoodsCertificateFieldMeta.ConsignorParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={GoodsCertificateField.ConsignorParty}
+          meta={GoodsCertificateFieldMeta.ConsignorParty}
+          fieldConfig={fieldConfig}
+          party={value?.ConsignorParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Consignor Party"
-            value={value.ConsignorParty?.[0]}
-            meta={GoodsCertificateFieldMeta.ConsignorParty}
-          />
+    [
+      GoodsCertificateField.ConsigneeParty,
+      { meta: GoodsCertificateFieldMeta.ConsigneeParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={GoodsCertificateField.ConsigneeParty}
+          meta={GoodsCertificateFieldMeta.ConsigneeParty}
+          fieldConfig={fieldConfig}
+          party={value?.ConsigneeParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Consignee Party"
-            value={value.ConsigneeParty?.[0]}
-            meta={GoodsCertificateFieldMeta.ConsigneeParty}
-          />
+    [
+      GoodsCertificateField.FreightForwarderParty,
+      { meta: GoodsCertificateFieldMeta.FreightForwarderParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={GoodsCertificateField.FreightForwarderParty}
+          meta={GoodsCertificateFieldMeta.FreightForwarderParty}
+          fieldConfig={fieldConfig}
+          party={value?.FreightForwarderParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Freight Forwarder Party"
-            value={value.FreightForwarderParty?.[0]}
-            meta={GoodsCertificateFieldMeta.FreightForwarderParty}
-          />
+    [
+      GoodsCertificateField.IssuerParty,
+      { meta: GoodsCertificateFieldMeta.IssuerParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={GoodsCertificateField.IssuerParty}
+          meta={GoodsCertificateFieldMeta.IssuerParty}
+          fieldConfig={fieldConfig}
+          party={value?.IssuerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Issuer Party"
-            value={value.IssuerParty?.[0]}
-            meta={GoodsCertificateFieldMeta.IssuerParty}
-          />
+    [
+      GoodsCertificateField.LegalAuthorityParty,
+      { meta: GoodsCertificateFieldMeta.LegalAuthorityParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={GoodsCertificateField.LegalAuthorityParty}
+          meta={GoodsCertificateFieldMeta.LegalAuthorityParty}
+          fieldConfig={fieldConfig}
+          party={value?.LegalAuthorityParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Legal Authority Party"
-            value={value.LegalAuthorityParty?.[0]}
-            meta={GoodsCertificateFieldMeta.LegalAuthorityParty}
-          />
+    [
+      GoodsCertificateField.Shipment,
+      { meta: GoodsCertificateFieldMeta.Shipment,
+        template: ({value, renderContext, fieldConfig}) => <ShipmentDisplay
+          key={GoodsCertificateField.Shipment}
+          meta={GoodsCertificateFieldMeta.Shipment}
+          fieldConfig={fieldConfig}
+          shipment={value?.Shipment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ShipmentDisplay
-            label="Shipment"
-            value={value.Shipment?.[0]}
-            meta={GoodsCertificateFieldMeta.Shipment}
-          />
+    [
+      GoodsCertificateField.Attestation,
+      { meta: GoodsCertificateFieldMeta.Attestation,
+        template: ({value, renderContext, fieldConfig}) => <AttestationDisplay
+          key={GoodsCertificateField.Attestation}
+          meta={GoodsCertificateFieldMeta.Attestation}
+          fieldConfig={fieldConfig}
+          attestation={value?.Attestation}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Attestation"
-            label="Attestation"
-            items={value.Attestation}
-            meta={GoodsCertificateFieldMeta.Attestation} 
-            itemDisplay={ (itemValue: Attestation, key: string | number) =>
-              <AttestationDisplay
-                key={key}
-                label="Attestation"
-                value={itemValue}
-                meta={GoodsCertificateFieldMeta.Attestation}
-              />
-            }
-          />
+    [
+      GoodsCertificateField.GoodsProcessing,
+      { meta: GoodsCertificateFieldMeta.GoodsProcessing,
+        template: ({value, renderContext, fieldConfig}) => <GoodsProcessingDisplay
+          key={GoodsCertificateField.GoodsProcessing}
+          meta={GoodsCertificateFieldMeta.GoodsProcessing}
+          fieldConfig={fieldConfig}
+          goodsProcessing={value?.GoodsProcessing}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-GoodsProcessing"
-            label="Goods Processing"
-            items={value.GoodsProcessing}
-            meta={GoodsCertificateFieldMeta.GoodsProcessing} 
-            itemDisplay={ (itemValue: GoodsProcessing, key: string | number) =>
-              <GoodsProcessingDisplay
-                key={key}
-                label="Goods Processing"
-                value={itemValue}
-                meta={GoodsCertificateFieldMeta.GoodsProcessing}
-              />
-            }
-          />
+    [
+      GoodsCertificateField.OriginalDocumentReference,
+      { meta: GoodsCertificateFieldMeta.OriginalDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={GoodsCertificateField.OriginalDocumentReference}
+          meta={GoodsCertificateFieldMeta.OriginalDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.OriginalDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DocumentReferenceDisplay
-            label="Original Document Reference"
-            value={value.OriginalDocumentReference?.[0]}
-            meta={GoodsCertificateFieldMeta.OriginalDocumentReference}
-          />
+    [
+      GoodsCertificateField.PreviousDocumentReference,
+      { meta: GoodsCertificateFieldMeta.PreviousDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={GoodsCertificateField.PreviousDocumentReference}
+          meta={GoodsCertificateFieldMeta.PreviousDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.PreviousDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DocumentReferenceDisplay
-            label="Previous Document Reference"
-            value={value.PreviousDocumentReference?.[0]}
-            meta={GoodsCertificateFieldMeta.PreviousDocumentReference}
-          />
+    [
+      GoodsCertificateField.AdditionalDocumentReference,
+      { meta: GoodsCertificateFieldMeta.AdditionalDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={GoodsCertificateField.AdditionalDocumentReference}
+          meta={GoodsCertificateFieldMeta.AdditionalDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.AdditionalDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-AdditionalDocumentReference"
-            label="Additional Document Reference"
-            items={value.AdditionalDocumentReference}
-            meta={GoodsCertificateFieldMeta.AdditionalDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Additional Document Reference"
-                value={itemValue}
-                meta={GoodsCertificateFieldMeta.AdditionalDocumentReference}
-              />
-            }
-          />
+    [
+      GoodsCertificateField.Signature,
+      { meta: GoodsCertificateFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={GoodsCertificateField.Signature}
+          meta={GoodsCertificateFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={GoodsCertificateFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={GoodsCertificateFieldMeta.Signature}
-              />
-            }
-          />
-        </div>
-    </div>
+export function GoodsCertificateDisplay<TFieldMeta>({ meta, fieldConfig, goodsCertificate, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    GoodsCertificateTypeName,
+    meta,
+    fieldConfig,
+    goodsCertificate,
+    renderContext,
+    GoodsCertificateSubElementsMap,
   )
 }

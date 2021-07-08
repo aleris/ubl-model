@@ -2,7 +2,6 @@ import { Code } from '../cbc/Code'
 import { Date } from '../cbc/Date'
 import { PromotionalSpecification } from './PromotionalSpecification'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * Agree can be renamed as PromotionalEvents
  */

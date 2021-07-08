@@ -1,4 +1,7 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ProcurementAdditionalTypeField {
   UBLExtensions = 'UBLExtensions',
@@ -8,11 +11,11 @@ export enum ProcurementAdditionalTypeField {
 export const ProcurementAdditionalTypeFieldMetaUBLExtensions = new FieldMeta<ProcurementAdditionalTypeField>(
   ProcurementAdditionalTypeField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -21,10 +24,10 @@ export const ProcurementAdditionalTypeFieldMetaProcurementTypeCode = new FieldMe
   ProcurementAdditionalTypeField.ProcurementTypeCode,
   'ProcurementTypeCode',
   'Procurement Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of procurement project (e.g., goods, works, services).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -38,3 +41,11 @@ export const ProcurementAdditionalTypeFieldMap = new Map([
   [ProcurementAdditionalTypeField.UBLExtensions, ProcurementAdditionalTypeFieldMetaUBLExtensions],
   [ProcurementAdditionalTypeField.ProcurementTypeCode, ProcurementAdditionalTypeFieldMetaProcurementTypeCode]
 ])
+
+export const ProcurementAdditionalTypeType: Type<ProcurementAdditionalTypeField> = {
+  name: 'ProcurementAdditionalType',
+  label: 'Procurement Additional Type',
+  module: TypeModule.cac,
+  definition: 'A class to describe additional types for a procurement project',
+  fields: ProcurementAdditionalTypeFieldMap,
+}

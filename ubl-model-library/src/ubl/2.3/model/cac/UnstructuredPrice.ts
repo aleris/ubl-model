@@ -1,7 +1,6 @@
 import { Amount } from '../cbc/Amount'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A simplified version of the Price class intended for applications such as telephone billing.
  */

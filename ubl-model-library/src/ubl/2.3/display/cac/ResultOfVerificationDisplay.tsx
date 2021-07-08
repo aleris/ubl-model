@@ -1,92 +1,142 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ResultOfVerification } from  '../../model/cac/ResultOfVerification'
-import { ResultOfVerificationFieldMeta } from  '../../meta/cac/ResultOfVerificationMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import PartyDisplay from './PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ResultOfVerificationField, ResultOfVerificationFieldMeta, ResultOfVerificationTypeName } from  '../../meta/cac/ResultOfVerificationMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { PartyDisplay } from './PartyDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ResultOfVerification | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ResultOfVerification, void>
+  resultOfVerification: ResultOfVerification[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ResultOfVerificationDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ResultOfVerificationSubElementsMap: SubElementsTemplatesMap<ResultOfVerificationField, ResultOfVerification, void> = new Map([
+    [
+      ResultOfVerificationField.UBLExtensions,
+      { meta: ResultOfVerificationFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ResultOfVerificationField.UBLExtensions}
+          meta={ResultOfVerificationFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ResultOfVerification">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ResultOfVerificationFieldMeta.UBLExtensions}
-          />
+    [
+      ResultOfVerificationField.ValidatorID,
+      { meta: ResultOfVerificationFieldMeta.ValidatorID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ResultOfVerificationField.ValidatorID}
+          meta={ResultOfVerificationFieldMeta.ValidatorID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ValidatorID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Validator"
-            value={value.ValidatorID?.[0]}
-            meta={ResultOfVerificationFieldMeta.ValidatorID}
-          />
+    [
+      ResultOfVerificationField.ValidationResultCode,
+      { meta: ResultOfVerificationFieldMeta.ValidationResultCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ResultOfVerificationField.ValidationResultCode}
+          meta={ResultOfVerificationFieldMeta.ValidationResultCode}
+          fieldConfig={fieldConfig}
+          code={value?.ValidationResultCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Validation Result Code"
-            value={value.ValidationResultCode?.[0]}
-            meta={ResultOfVerificationFieldMeta.ValidationResultCode}
-          />
+    [
+      ResultOfVerificationField.ValidationDate,
+      { meta: ResultOfVerificationFieldMeta.ValidationDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={ResultOfVerificationField.ValidationDate}
+          meta={ResultOfVerificationFieldMeta.ValidationDate}
+          fieldConfig={fieldConfig}
+          date={value?.ValidationDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Validation Date"
-            value={value.ValidationDate?.[0]}
-            meta={ResultOfVerificationFieldMeta.ValidationDate}
-          />
+    [
+      ResultOfVerificationField.ValidationTime,
+      { meta: ResultOfVerificationFieldMeta.ValidationTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={ResultOfVerificationField.ValidationTime}
+          meta={ResultOfVerificationFieldMeta.ValidationTime}
+          fieldConfig={fieldConfig}
+          time={value?.ValidationTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Validation Time"
-            value={value.ValidationTime?.[0]}
-            meta={ResultOfVerificationFieldMeta.ValidationTime}
-          />
+    [
+      ResultOfVerificationField.ValidateProcess,
+      { meta: ResultOfVerificationFieldMeta.ValidateProcess,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ResultOfVerificationField.ValidateProcess}
+          meta={ResultOfVerificationFieldMeta.ValidateProcess}
+          fieldConfig={fieldConfig}
+          text={value?.ValidateProcess}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Validate Process"
-            value={value.ValidateProcess?.[0]}
-            meta={ResultOfVerificationFieldMeta.ValidateProcess}
-          />
+    [
+      ResultOfVerificationField.ValidateTool,
+      { meta: ResultOfVerificationFieldMeta.ValidateTool,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ResultOfVerificationField.ValidateTool}
+          meta={ResultOfVerificationFieldMeta.ValidateTool}
+          fieldConfig={fieldConfig}
+          text={value?.ValidateTool}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Validate Tool"
-            value={value.ValidateTool?.[0]}
-            meta={ResultOfVerificationFieldMeta.ValidateTool}
-          />
+    [
+      ResultOfVerificationField.ValidateToolVersion,
+      { meta: ResultOfVerificationFieldMeta.ValidateToolVersion,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ResultOfVerificationField.ValidateToolVersion}
+          meta={ResultOfVerificationFieldMeta.ValidateToolVersion}
+          fieldConfig={fieldConfig}
+          text={value?.ValidateToolVersion}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Validate Tool Version"
-            value={value.ValidateToolVersion?.[0]}
-            meta={ResultOfVerificationFieldMeta.ValidateToolVersion}
-          />
+    [
+      ResultOfVerificationField.SignatoryParty,
+      { meta: ResultOfVerificationFieldMeta.SignatoryParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ResultOfVerificationField.SignatoryParty}
+          meta={ResultOfVerificationFieldMeta.SignatoryParty}
+          fieldConfig={fieldConfig}
+          party={value?.SignatoryParty}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <PartyDisplay
-            label="Signatory Party"
-            value={value.SignatoryParty?.[0]}
-            meta={ResultOfVerificationFieldMeta.SignatoryParty}
-          />
-        </div>
-    </div>
+export function ResultOfVerificationDisplay<TFieldMeta>({ meta, fieldConfig, resultOfVerification, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ResultOfVerificationTypeName,
+    meta,
+    fieldConfig,
+    resultOfVerification,
+    renderContext,
+    ResultOfVerificationSubElementsMap,
   )
 }

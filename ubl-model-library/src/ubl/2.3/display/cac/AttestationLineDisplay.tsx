@@ -1,97 +1,104 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { AttestationLine } from  '../../model/cac/AttestationLine'
-import { AttestationLineFieldMeta } from  '../../meta/cac/AttestationLineMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import CriterionItemDisplay from './CriterionItemDisplay'
-import { CriterionItem } from '../../model/cac/CriterionItem'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { AttestationLineField, AttestationLineFieldMeta, AttestationLineTypeName } from  '../../meta/cac/AttestationLineMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { CriterionItemDisplay } from './CriterionItemDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: AttestationLine | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<AttestationLine, void>
+  attestationLine: AttestationLine[] | undefined
+  renderContext: RenderContext
 }
 
-export default function AttestationLineDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const AttestationLineSubElementsMap: SubElementsTemplatesMap<AttestationLineField, AttestationLine, void> = new Map([
+    [
+      AttestationLineField.UBLExtensions,
+      { meta: AttestationLineFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={AttestationLineField.UBLExtensions}
+          meta={AttestationLineFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-AttestationLine">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={AttestationLineFieldMeta.UBLExtensions}
-          />
+    [
+      AttestationLineField.ID,
+      { meta: AttestationLineFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={AttestationLineField.ID}
+          meta={AttestationLineFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={AttestationLineFieldMeta.ID}
-          />
+    [
+      AttestationLineField.TypeCode,
+      { meta: AttestationLineFieldMeta.TypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={AttestationLineField.TypeCode}
+          meta={AttestationLineFieldMeta.TypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.TypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Type Code"
-            value={value.TypeCode?.[0]}
-            meta={AttestationLineFieldMeta.TypeCode}
-          />
+    [
+      AttestationLineField.Description,
+      { meta: AttestationLineFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={AttestationLineField.Description}
+          meta={AttestationLineFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={AttestationLineFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={AttestationLineFieldMeta.Description}
-              />
-            }
-          />
+    [
+      AttestationLineField.CriterionItem,
+      { meta: AttestationLineFieldMeta.CriterionItem,
+        template: ({value, renderContext, fieldConfig}) => <CriterionItemDisplay
+          key={AttestationLineField.CriterionItem}
+          meta={AttestationLineFieldMeta.CriterionItem}
+          fieldConfig={fieldConfig}
+          criterionItem={value?.CriterionItem}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-CriterionItem"
-            label="Criterion Item"
-            items={value.CriterionItem}
-            meta={AttestationLineFieldMeta.CriterionItem} 
-            itemDisplay={ (itemValue: CriterionItem, key: string | number) =>
-              <CriterionItemDisplay
-                key={key}
-                label="Criterion Item"
-                value={itemValue}
-                meta={AttestationLineFieldMeta.CriterionItem}
-              />
-            }
-          />
+    [
+      AttestationLineField.SubAttestationLine,
+      { meta: AttestationLineFieldMeta.SubAttestationLine,
+        template: ({value, renderContext, fieldConfig}) => <AttestationLineDisplay
+          key={AttestationLineField.SubAttestationLine}
+          meta={AttestationLineFieldMeta.SubAttestationLine}
+          fieldConfig={fieldConfig}
+          attestationLine={value?.SubAttestationLine}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-AttestationLine ubl-SubAttestationLine"
-            label="Sub Attestation Line"
-            items={value.SubAttestationLine}
-            meta={AttestationLineFieldMeta.SubAttestationLine} 
-            itemDisplay={ (itemValue: AttestationLine, key: string | number) =>
-              <AttestationLineDisplay
-                key={key}
-                label="Sub Attestation Line"
-                value={itemValue}
-                meta={AttestationLineFieldMeta.SubAttestationLine}
-              />
-            }
-          />
-        </div>
-    </div>
+export function AttestationLineDisplay<TFieldMeta>({ meta, fieldConfig, attestationLine, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    AttestationLineTypeName,
+    meta,
+    fieldConfig,
+    attestationLine,
+    renderContext,
+    AttestationLineSubElementsMap,
   )
 }

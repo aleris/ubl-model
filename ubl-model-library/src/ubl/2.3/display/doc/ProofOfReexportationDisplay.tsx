@@ -1,193 +1,242 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ProofOfReexportation } from  '../../model/doc/ProofOfReexportation'
-import { ProofOfReexportationFieldMeta } from  '../../meta/doc/ProofOfReexportationMeta'
-import AttachmentDisplay from '../cac/AttachmentDisplay'
-import { Attachment } from '../../model/cac/Attachment'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import EvidenceDisplay from '../cac/EvidenceDisplay'
-import { Evidence } from '../../model/cac/Evidence'
-import GoodsItemPassportCounterfoilDisplay from '../cac/GoodsItemPassportCounterfoilDisplay'
-import { GoodsItemPassportCounterfoil } from '../../model/cac/GoodsItemPassportCounterfoil'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import PartyDisplay from '../cac/PartyDisplay'
-import { Party } from '../../model/cac/Party'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ProofOfReexportationField, ProofOfReexportationFieldMeta, ProofOfReexportationTypeName } from  '../../meta/doc/ProofOfReexportationMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AttachmentDisplay } from '../cac/AttachmentDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { EvidenceDisplay } from '../cac/EvidenceDisplay'
+import { GoodsItemPassportCounterfoilDisplay } from '../cac/GoodsItemPassportCounterfoilDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { PartyDisplay } from '../cac/PartyDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ProofOfReexportation | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ProofOfReexportation, void>
+  proofOfReexportation: ProofOfReexportation[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ProofOfReexportationDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ProofOfReexportationSubElementsMap: SubElementsTemplatesMap<ProofOfReexportationField, ProofOfReexportation, void> = new Map([
+    [
+      ProofOfReexportationField.UBLExtensions,
+      { meta: ProofOfReexportationFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ProofOfReexportationField.UBLExtensions}
+          meta={ProofOfReexportationFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-ProofOfReexportation">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ProofOfReexportationFieldMeta.UBLExtensions}
-          />
+    [
+      ProofOfReexportationField.UBLVersionID,
+      { meta: ProofOfReexportationFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ProofOfReexportationField.UBLVersionID}
+          meta={ProofOfReexportationFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={ProofOfReexportationFieldMeta.UBLVersionID}
-          />
+    [
+      ProofOfReexportationField.CustomizationID,
+      { meta: ProofOfReexportationFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ProofOfReexportationField.CustomizationID}
+          meta={ProofOfReexportationFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={ProofOfReexportationFieldMeta.CustomizationID}
-          />
+    [
+      ProofOfReexportationField.ProfileID,
+      { meta: ProofOfReexportationFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ProofOfReexportationField.ProfileID}
+          meta={ProofOfReexportationFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={ProofOfReexportationFieldMeta.ProfileID}
-          />
+    [
+      ProofOfReexportationField.ProfileExecutionID,
+      { meta: ProofOfReexportationFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ProofOfReexportationField.ProfileExecutionID}
+          meta={ProofOfReexportationFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={ProofOfReexportationFieldMeta.ProfileExecutionID}
-          />
+    [
+      ProofOfReexportationField.ID,
+      { meta: ProofOfReexportationFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ProofOfReexportationField.ID}
+          meta={ProofOfReexportationFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={ProofOfReexportationFieldMeta.ID}
-          />
+    [
+      ProofOfReexportationField.UUID,
+      { meta: ProofOfReexportationFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ProofOfReexportationField.UUID}
+          meta={ProofOfReexportationFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={ProofOfReexportationFieldMeta.UUID}
-          />
+    [
+      ProofOfReexportationField.IssueDate,
+      { meta: ProofOfReexportationFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={ProofOfReexportationField.IssueDate}
+          meta={ProofOfReexportationFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={ProofOfReexportationFieldMeta.IssueDate}
-          />
+    [
+      ProofOfReexportationField.IssueTime,
+      { meta: ProofOfReexportationFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={ProofOfReexportationField.IssueTime}
+          meta={ProofOfReexportationFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={ProofOfReexportationFieldMeta.IssueTime}
-          />
+    [
+      ProofOfReexportationField.Note,
+      { meta: ProofOfReexportationFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ProofOfReexportationField.Note}
+          meta={ProofOfReexportationFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={ProofOfReexportationFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={ProofOfReexportationFieldMeta.Note}
-              />
-            }
-          />
+    [
+      ProofOfReexportationField.VersionID,
+      { meta: ProofOfReexportationFieldMeta.VersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ProofOfReexportationField.VersionID}
+          meta={ProofOfReexportationFieldMeta.VersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.VersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Version"
-            value={value.VersionID?.[0]}
-            meta={ProofOfReexportationFieldMeta.VersionID}
-          />
+    [
+      ProofOfReexportationField.IssuerParty,
+      { meta: ProofOfReexportationFieldMeta.IssuerParty,
+        template: ({value, renderContext, fieldConfig}) => <PartyDisplay
+          key={ProofOfReexportationField.IssuerParty}
+          meta={ProofOfReexportationFieldMeta.IssuerParty}
+          fieldConfig={fieldConfig}
+          party={value?.IssuerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PartyDisplay
-            label="Issuer Party"
-            value={value.IssuerParty?.[0]}
-            meta={ProofOfReexportationFieldMeta.IssuerParty}
-          />
+    [
+      ProofOfReexportationField.GoodsItemPassportCounterfoil,
+      { meta: ProofOfReexportationFieldMeta.GoodsItemPassportCounterfoil,
+        template: ({value, renderContext, fieldConfig}) => <GoodsItemPassportCounterfoilDisplay
+          key={ProofOfReexportationField.GoodsItemPassportCounterfoil}
+          meta={ProofOfReexportationFieldMeta.GoodsItemPassportCounterfoil}
+          fieldConfig={fieldConfig}
+          goodsItemPassportCounterfoil={value?.GoodsItemPassportCounterfoil}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-GoodsItemPassportCounterfoil"
-            label="Goods Item Passport Counterfoil"
-            items={value.GoodsItemPassportCounterfoil}
-            meta={ProofOfReexportationFieldMeta.GoodsItemPassportCounterfoil} 
-            itemDisplay={ (itemValue: GoodsItemPassportCounterfoil, key: string | number) =>
-              <GoodsItemPassportCounterfoilDisplay
-                key={key}
-                label="Goods Item Passport Counterfoil"
-                value={itemValue}
-                meta={ProofOfReexportationFieldMeta.GoodsItemPassportCounterfoil}
-              />
-            }
-          />
+    [
+      ProofOfReexportationField.ReexportationEvidence,
+      { meta: ProofOfReexportationFieldMeta.ReexportationEvidence,
+        template: ({value, renderContext, fieldConfig}) => <EvidenceDisplay
+          key={ProofOfReexportationField.ReexportationEvidence}
+          meta={ProofOfReexportationFieldMeta.ReexportationEvidence}
+          fieldConfig={fieldConfig}
+          evidence={value?.ReexportationEvidence}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Evidence ubl-ReexportationEvidence"
-            label="Reexportation Evidence"
-            items={value.ReexportationEvidence}
-            meta={ProofOfReexportationFieldMeta.ReexportationEvidence} 
-            itemDisplay={ (itemValue: Evidence, key: string | number) =>
-              <EvidenceDisplay
-                key={key}
-                label="Reexportation Evidence"
-                value={itemValue}
-                meta={ProofOfReexportationFieldMeta.ReexportationEvidence}
-              />
-            }
-          />
+    [
+      ProofOfReexportationField.GoodsItemPassportAttachment,
+      { meta: ProofOfReexportationFieldMeta.GoodsItemPassportAttachment,
+        template: ({value, renderContext, fieldConfig}) => <AttachmentDisplay
+          key={ProofOfReexportationField.GoodsItemPassportAttachment}
+          meta={ProofOfReexportationFieldMeta.GoodsItemPassportAttachment}
+          fieldConfig={fieldConfig}
+          attachment={value?.GoodsItemPassportAttachment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AttachmentDisplay
-            label="Goods Item Passport Attachment"
-            value={value.GoodsItemPassportAttachment?.[0]}
-            meta={ProofOfReexportationFieldMeta.GoodsItemPassportAttachment}
-          />
+    [
+      ProofOfReexportationField.AdditionalDocumentReference,
+      { meta: ProofOfReexportationFieldMeta.AdditionalDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={ProofOfReexportationField.AdditionalDocumentReference}
+          meta={ProofOfReexportationFieldMeta.AdditionalDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.AdditionalDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-AdditionalDocumentReference"
-            label="Additional Document Reference"
-            items={value.AdditionalDocumentReference}
-            meta={ProofOfReexportationFieldMeta.AdditionalDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Additional Document Reference"
-                value={itemValue}
-                meta={ProofOfReexportationFieldMeta.AdditionalDocumentReference}
-              />
-            }
-          />
+    [
+      ProofOfReexportationField.Signature,
+      { meta: ProofOfReexportationFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={ProofOfReexportationField.Signature}
+          meta={ProofOfReexportationFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={ProofOfReexportationFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={ProofOfReexportationFieldMeta.Signature}
-              />
-            }
-          />
-        </div>
-    </div>
+export function ProofOfReexportationDisplay<TFieldMeta>({ meta, fieldConfig, proofOfReexportation, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ProofOfReexportationTypeName,
+    meta,
+    fieldConfig,
+    proofOfReexportation,
+    renderContext,
+    ProofOfReexportationSubElementsMap,
   )
 }

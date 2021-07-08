@@ -1,7 +1,6 @@
 import { Code } from '../cbc/Code'
 import { EventLineItem } from './EventLineItem'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a miscellaneous event associated with a retail event.
  */

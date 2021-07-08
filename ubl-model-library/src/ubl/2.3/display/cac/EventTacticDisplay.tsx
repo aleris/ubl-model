@@ -1,64 +1,92 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { EventTactic } from  '../../model/cac/EventTactic'
-import { EventTacticFieldMeta } from  '../../meta/cac/EventTacticMeta'
-import EventTacticEnumerationDisplay from './EventTacticEnumerationDisplay'
-import { EventTacticEnumeration } from '../../model/cac/EventTacticEnumeration'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { EventTacticField, EventTacticFieldMeta, EventTacticTypeName } from  '../../meta/cac/EventTacticMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { EventTacticEnumerationDisplay } from './EventTacticEnumerationDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: EventTactic | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<EventTactic, void>
+  eventTactic: EventTactic[] | undefined
+  renderContext: RenderContext
 }
 
-export default function EventTacticDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const EventTacticSubElementsMap: SubElementsTemplatesMap<EventTacticField, EventTactic, void> = new Map([
+    [
+      EventTacticField.UBLExtensions,
+      { meta: EventTacticFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={EventTacticField.UBLExtensions}
+          meta={EventTacticFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-EventTactic">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={EventTacticFieldMeta.UBLExtensions}
-          />
+    [
+      EventTacticField.Comment,
+      { meta: EventTacticFieldMeta.Comment,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={EventTacticField.Comment}
+          meta={EventTacticFieldMeta.Comment}
+          fieldConfig={fieldConfig}
+          text={value?.Comment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Comment"
-            value={value.Comment?.[0]}
-            meta={EventTacticFieldMeta.Comment}
-          />
+    [
+      EventTacticField.Quantity,
+      { meta: EventTacticFieldMeta.Quantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={EventTacticField.Quantity}
+          meta={EventTacticFieldMeta.Quantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.Quantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Quantity"
-            value={value.Quantity?.[0]}
-            meta={EventTacticFieldMeta.Quantity}
-          />
+    [
+      EventTacticField.EventTacticEnumeration,
+      { meta: EventTacticFieldMeta.EventTacticEnumeration,
+        template: ({value, renderContext, fieldConfig}) => <EventTacticEnumerationDisplay
+          key={EventTacticField.EventTacticEnumeration}
+          meta={EventTacticFieldMeta.EventTacticEnumeration}
+          fieldConfig={fieldConfig}
+          eventTacticEnumeration={value?.EventTacticEnumeration}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <EventTacticEnumerationDisplay
-            label="Event Tactic Enumeration"
-            value={value.EventTacticEnumeration?.[0]}
-            meta={EventTacticFieldMeta.EventTacticEnumeration}
-          />
+    [
+      EventTacticField.Period,
+      { meta: EventTacticFieldMeta.Period,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={EventTacticField.Period}
+          meta={EventTacticFieldMeta.Period}
+          fieldConfig={fieldConfig}
+          period={value?.Period}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <PeriodDisplay
-            label="Period"
-            value={value.Period?.[0]}
-            meta={EventTacticFieldMeta.Period}
-          />
-        </div>
-    </div>
+export function EventTacticDisplay<TFieldMeta>({ meta, fieldConfig, eventTactic, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    EventTacticTypeName,
+    meta,
+    fieldConfig,
+    eventTactic,
+    renderContext,
+    EventTacticSubElementsMap,
   )
 }

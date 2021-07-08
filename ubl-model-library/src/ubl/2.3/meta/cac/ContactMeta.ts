@@ -1,4 +1,9 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CommunicationType } from './CommunicationMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ContactField {
   UBLExtensions = 'UBLExtensions',
@@ -16,11 +21,11 @@ export enum ContactField {
 export const ContactFieldMetaUBLExtensions = new FieldMeta<ContactField>(
   ContactField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -29,10 +34,10 @@ export const ContactFieldMetaID = new FieldMeta<ContactField>(
   ContactField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this contact.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Receivals Clerk'
 )
@@ -41,10 +46,10 @@ export const ContactFieldMetaName = new FieldMeta<ContactField>(
   ContactField.Name,
   'Name',
   'Name',
-  'Text',
+  TextType.name,
   'The name of this contact. It is recommended that this be used for a functional name and not a personal name.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Delivery Dock'
 )
@@ -53,10 +58,10 @@ export const ContactFieldMetaJobTitle = new FieldMeta<ContactField>(
   ContactField.JobTitle,
   'JobTitle',
   'Job Title',
-  'Text',
+  TextType.name,
   'The job title or function of this contact',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -65,10 +70,10 @@ export const ContactFieldMetaDepartment = new FieldMeta<ContactField>(
   ContactField.Department,
   'Department',
   'Department',
-  'Text',
+  TextType.name,
   'The department where this contact works',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -77,10 +82,10 @@ export const ContactFieldMetaTelephone = new FieldMeta<ContactField>(
   ContactField.Telephone,
   'Telephone',
   'Telephone',
-  'Text',
+  TextType.name,
   'The primary telephone number of this contact.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -89,10 +94,10 @@ export const ContactFieldMetaTelefax = new FieldMeta<ContactField>(
   ContactField.Telefax,
   'Telefax',
   'Telefax',
-  'Text',
+  TextType.name,
   'The primary fax number of this contact.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -101,10 +106,10 @@ export const ContactFieldMetaElectronicMail = new FieldMeta<ContactField>(
   ContactField.ElectronicMail,
   'ElectronicMail',
   'Electronic Mail',
-  'Text',
+  TextType.name,
   'The primary email address of this contact.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -113,10 +118,10 @@ export const ContactFieldMetaNote = new FieldMeta<ContactField>(
   ContactField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text conveying information that is not contained explicitly in other structures; in particular, a textual description of the circumstances under which this contact can be used (e.g., "emergency" or "after hours").',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -125,10 +130,10 @@ export const ContactFieldMetaOtherCommunication = new FieldMeta<ContactField>(
   ContactField.OtherCommunication,
   'OtherCommunication',
   'Other Communication',
-  'Communication',
+  CommunicationType.name,
   'Another means of communication with this contact.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -158,3 +163,11 @@ export const ContactFieldMap = new Map([
   [ContactField.Note, ContactFieldMetaNote],
   [ContactField.OtherCommunication, ContactFieldMetaOtherCommunication]
 ])
+
+export const ContactType: Type<ContactField> = {
+  name: 'Contact',
+  label: 'Contact',
+  module: TypeModule.cac,
+  definition: 'A class to describe a contactable person or department in an organization.',
+  fields: ContactFieldMap,
+}

@@ -6,7 +6,6 @@ import { Quantity } from '../cbc/Quantity'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
 import { WebSite } from './WebSite'
-
 /**
  * A class to describe a specific capability of an organization.
  */

@@ -1,4 +1,11 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { LocationType } from './LocationMeta'
+import { MeasureType } from '../cbc/MeasureMeta'
+import { PartyType } from './PartyMeta'
+import { PeriodType } from './PeriodMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum NotificationRequirementField {
   UBLExtensions = 'UBLExtensions',
@@ -13,11 +20,11 @@ export enum NotificationRequirementField {
 export const NotificationRequirementFieldMetaUBLExtensions = new FieldMeta<NotificationRequirementField>(
   NotificationRequirementField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -26,10 +33,10 @@ export const NotificationRequirementFieldMetaNotificationTypeCode = new FieldMet
   NotificationRequirementField.NotificationTypeCode,
   'NotificationTypeCode',
   'Notification Type Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of notification (e.g., pickup status).',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -38,10 +45,10 @@ export const NotificationRequirementFieldMetaPostEventNotificationDurationMeasur
   NotificationRequirementField.PostEventNotificationDurationMeasure,
   'PostEventNotificationDurationMeasure',
   'Post Event Notification Duration',
-  'Measure',
+  MeasureType.name,
   'The length of time between the occurrence of a given event and the issuance of a notification.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -50,10 +57,10 @@ export const NotificationRequirementFieldMetaPreEventNotificationDurationMeasure
   NotificationRequirementField.PreEventNotificationDurationMeasure,
   'PreEventNotificationDurationMeasure',
   'Pre Event Notification Duration',
-  'Measure',
+  MeasureType.name,
   'The length of time to elapse between the issuance of a notification and the occurrence of the event it relates to.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -62,10 +69,10 @@ export const NotificationRequirementFieldMetaNotifyParty = new FieldMeta<Notific
   NotificationRequirementField.NotifyParty,
   'NotifyParty',
   'Notify Party',
-  'Party',
+  PartyType.name,
   'A party to be notified.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -74,10 +81,10 @@ export const NotificationRequirementFieldMetaNotificationPeriod = new FieldMeta<
   NotificationRequirementField.NotificationPeriod,
   'NotificationPeriod',
   'Notification Period',
-  'Period',
+  PeriodType.name,
   'A period during which a notification should be issued.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -86,10 +93,10 @@ export const NotificationRequirementFieldMetaNotificationLocation = new FieldMet
   NotificationRequirementField.NotificationLocation,
   'NotificationLocation',
   'Notification Location',
-  'Location',
+  LocationType.name,
   'A location at which a notification should be issued.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -113,3 +120,11 @@ export const NotificationRequirementFieldMap = new Map([
   [NotificationRequirementField.NotificationPeriod, NotificationRequirementFieldMetaNotificationPeriod],
   [NotificationRequirementField.NotificationLocation, NotificationRequirementFieldMetaNotificationLocation]
 ])
+
+export const NotificationRequirementType: Type<NotificationRequirementField> = {
+  name: 'NotificationRequirement',
+  label: 'Notification Requirement',
+  module: TypeModule.cac,
+  definition: 'A class to describe a notification requirement.',
+  fields: NotificationRequirementFieldMap,
+}

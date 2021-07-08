@@ -5,7 +5,6 @@ import { Status } from './Status'
 import { Text } from '../cbc/Text'
 import { Time } from '../cbc/Time'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe an application-level response to a document.
  */

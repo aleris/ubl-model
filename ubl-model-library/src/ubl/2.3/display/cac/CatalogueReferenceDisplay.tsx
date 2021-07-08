@@ -1,118 +1,164 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { CatalogueReference } from  '../../model/cac/CatalogueReference'
-import { CatalogueReferenceFieldMeta } from  '../../meta/cac/CatalogueReferenceMeta'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { CatalogueReferenceField, CatalogueReferenceFieldMeta, CatalogueReferenceTypeName } from  '../../meta/cac/CatalogueReferenceMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: CatalogueReference | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<CatalogueReference, void>
+  catalogueReference: CatalogueReference[] | undefined
+  renderContext: RenderContext
 }
 
-export default function CatalogueReferenceDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const CatalogueReferenceSubElementsMap: SubElementsTemplatesMap<CatalogueReferenceField, CatalogueReference, void> = new Map([
+    [
+      CatalogueReferenceField.UBLExtensions,
+      { meta: CatalogueReferenceFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={CatalogueReferenceField.UBLExtensions}
+          meta={CatalogueReferenceFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-CatalogueReference">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={CatalogueReferenceFieldMeta.UBLExtensions}
-          />
+    [
+      CatalogueReferenceField.ID,
+      { meta: CatalogueReferenceFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CatalogueReferenceField.ID}
+          meta={CatalogueReferenceFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={CatalogueReferenceFieldMeta.ID}
-          />
+    [
+      CatalogueReferenceField.UUID,
+      { meta: CatalogueReferenceFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CatalogueReferenceField.UUID}
+          meta={CatalogueReferenceFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={CatalogueReferenceFieldMeta.UUID}
-          />
+    [
+      CatalogueReferenceField.IssueDate,
+      { meta: CatalogueReferenceFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={CatalogueReferenceField.IssueDate}
+          meta={CatalogueReferenceFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={CatalogueReferenceFieldMeta.IssueDate}
-          />
+    [
+      CatalogueReferenceField.IssueTime,
+      { meta: CatalogueReferenceFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={CatalogueReferenceField.IssueTime}
+          meta={CatalogueReferenceFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={CatalogueReferenceFieldMeta.IssueTime}
-          />
+    [
+      CatalogueReferenceField.RevisionDate,
+      { meta: CatalogueReferenceFieldMeta.RevisionDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={CatalogueReferenceField.RevisionDate}
+          meta={CatalogueReferenceFieldMeta.RevisionDate}
+          fieldConfig={fieldConfig}
+          date={value?.RevisionDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Revision Date"
-            value={value.RevisionDate?.[0]}
-            meta={CatalogueReferenceFieldMeta.RevisionDate}
-          />
+    [
+      CatalogueReferenceField.RevisionTime,
+      { meta: CatalogueReferenceFieldMeta.RevisionTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={CatalogueReferenceField.RevisionTime}
+          meta={CatalogueReferenceFieldMeta.RevisionTime}
+          fieldConfig={fieldConfig}
+          time={value?.RevisionTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Revision Time"
-            value={value.RevisionTime?.[0]}
-            meta={CatalogueReferenceFieldMeta.RevisionTime}
-          />
+    [
+      CatalogueReferenceField.Note,
+      { meta: CatalogueReferenceFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={CatalogueReferenceField.Note}
+          meta={CatalogueReferenceFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={CatalogueReferenceFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={CatalogueReferenceFieldMeta.Note}
-              />
-            }
-          />
+    [
+      CatalogueReferenceField.Description,
+      { meta: CatalogueReferenceFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={CatalogueReferenceField.Description}
+          meta={CatalogueReferenceFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={CatalogueReferenceFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={CatalogueReferenceFieldMeta.Description}
-              />
-            }
-          />
+    [
+      CatalogueReferenceField.VersionID,
+      { meta: CatalogueReferenceFieldMeta.VersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CatalogueReferenceField.VersionID}
+          meta={CatalogueReferenceFieldMeta.VersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.VersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Version"
-            value={value.VersionID?.[0]}
-            meta={CatalogueReferenceFieldMeta.VersionID}
-          />
+    [
+      CatalogueReferenceField.PreviousVersionID,
+      { meta: CatalogueReferenceFieldMeta.PreviousVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={CatalogueReferenceField.PreviousVersionID}
+          meta={CatalogueReferenceFieldMeta.PreviousVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.PreviousVersionID}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <IdentifierDisplay
-            label="Previous Version"
-            value={value.PreviousVersionID?.[0]}
-            meta={CatalogueReferenceFieldMeta.PreviousVersionID}
-          />
-        </div>
-    </div>
+export function CatalogueReferenceDisplay<TFieldMeta>({ meta, fieldConfig, catalogueReference, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    CatalogueReferenceTypeName,
+    meta,
+    fieldConfig,
+    catalogueReference,
+    renderContext,
+    CatalogueReferenceSubElementsMap,
   )
 }

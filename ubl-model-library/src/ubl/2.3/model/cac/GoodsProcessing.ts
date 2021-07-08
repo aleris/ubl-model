@@ -5,7 +5,6 @@ import { Party } from './Party'
 import { Period } from './Period'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe the processing of goods and products
  */

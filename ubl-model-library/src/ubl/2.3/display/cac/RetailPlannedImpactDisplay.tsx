@@ -1,62 +1,91 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { RetailPlannedImpact } from  '../../model/cac/RetailPlannedImpact'
-import { RetailPlannedImpactFieldMeta } from  '../../meta/cac/RetailPlannedImpactMeta'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { RetailPlannedImpactField, RetailPlannedImpactFieldMeta, RetailPlannedImpactTypeName } from  '../../meta/cac/RetailPlannedImpactMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: RetailPlannedImpact | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<RetailPlannedImpact, void>
+  retailPlannedImpact: RetailPlannedImpact[] | undefined
+  renderContext: RenderContext
 }
 
-export default function RetailPlannedImpactDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const RetailPlannedImpactSubElementsMap: SubElementsTemplatesMap<RetailPlannedImpactField, RetailPlannedImpact, void> = new Map([
+    [
+      RetailPlannedImpactField.UBLExtensions,
+      { meta: RetailPlannedImpactFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={RetailPlannedImpactField.UBLExtensions}
+          meta={RetailPlannedImpactFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-RetailPlannedImpact">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={RetailPlannedImpactFieldMeta.UBLExtensions}
-          />
+    [
+      RetailPlannedImpactField.Amount,
+      { meta: RetailPlannedImpactFieldMeta.Amount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={RetailPlannedImpactField.Amount}
+          meta={RetailPlannedImpactFieldMeta.Amount}
+          fieldConfig={fieldConfig}
+          amount={value?.Amount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Amount"
-            value={value.Amount?.[0]}
-            meta={RetailPlannedImpactFieldMeta.Amount}
-          />
+    [
+      RetailPlannedImpactField.ForecastPurposeCode,
+      { meta: RetailPlannedImpactFieldMeta.ForecastPurposeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={RetailPlannedImpactField.ForecastPurposeCode}
+          meta={RetailPlannedImpactFieldMeta.ForecastPurposeCode}
+          fieldConfig={fieldConfig}
+          code={value?.ForecastPurposeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Forecast Purpose Code"
-            value={value.ForecastPurposeCode?.[0]}
-            meta={RetailPlannedImpactFieldMeta.ForecastPurposeCode}
-          />
+    [
+      RetailPlannedImpactField.ForecastTypeCode,
+      { meta: RetailPlannedImpactFieldMeta.ForecastTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={RetailPlannedImpactField.ForecastTypeCode}
+          meta={RetailPlannedImpactFieldMeta.ForecastTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.ForecastTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Forecast Type Code"
-            value={value.ForecastTypeCode?.[0]}
-            meta={RetailPlannedImpactFieldMeta.ForecastTypeCode}
-          />
+    [
+      RetailPlannedImpactField.Period,
+      { meta: RetailPlannedImpactFieldMeta.Period,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={RetailPlannedImpactField.Period}
+          meta={RetailPlannedImpactFieldMeta.Period}
+          fieldConfig={fieldConfig}
+          period={value?.Period}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <PeriodDisplay
-            label="Period"
-            value={value.Period?.[0]}
-            meta={RetailPlannedImpactFieldMeta.Period}
-          />
-        </div>
-    </div>
+export function RetailPlannedImpactDisplay<TFieldMeta>({ meta, fieldConfig, retailPlannedImpact, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    RetailPlannedImpactTypeName,
+    meta,
+    fieldConfig,
+    retailPlannedImpact,
+    renderContext,
+    RetailPlannedImpactSubElementsMap,
   )
 }

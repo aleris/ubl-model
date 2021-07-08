@@ -1,4 +1,12 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum AwardingCriterionField {
   UBLExtensions = 'UBLExtensions',
@@ -21,11 +29,11 @@ export enum AwardingCriterionField {
 export const AwardingCriterionFieldMetaUBLExtensions = new FieldMeta<AwardingCriterionField>(
   AwardingCriterionField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -34,10 +42,10 @@ export const AwardingCriterionFieldMetaID = new FieldMeta<AwardingCriterionField
   AwardingCriterionField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a specific awarding criterion.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -46,10 +54,10 @@ export const AwardingCriterionFieldMetaAwardingCriterionTypeCode = new FieldMeta
   AwardingCriterionField.AwardingCriterionTypeCode,
   'AwardingCriterionTypeCode',
   'Awarding Criterion Type Code',
-  'Code',
+  CodeType.name,
   'A code used to define this awarding criterion.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -58,10 +66,10 @@ export const AwardingCriterionFieldMetaName = new FieldMeta<AwardingCriterionFie
   AwardingCriterionField.Name,
   'Name',
   'Name',
-  'Text',
+  TextType.name,
   'The name of this awarding criterion.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -70,10 +78,10 @@ export const AwardingCriterionFieldMetaDescription = new FieldMeta<AwardingCrite
   AwardingCriterionField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'A description of the awarding criterion.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -82,10 +90,10 @@ export const AwardingCriterionFieldMetaWeightNumeric = new FieldMeta<AwardingCri
   AwardingCriterionField.WeightNumeric,
   'WeightNumeric',
   'Weight Numeric',
-  'Numeric',
+  NumericType.name,
   'A number defining the comparative weighting assigned to this awarding criterion, to enable formulaic evaluation.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -94,10 +102,10 @@ export const AwardingCriterionFieldMetaWeight = new FieldMeta<AwardingCriterionF
   AwardingCriterionField.Weight,
   'Weight',
   'Weight',
-  'Text',
+  TextType.name,
   'A description of the comparative weighting for this awarding criterion.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -106,10 +114,10 @@ export const AwardingCriterionFieldMetaCalculationExpression = new FieldMeta<Awa
   AwardingCriterionField.CalculationExpression,
   'CalculationExpression',
   'Calculation Expression',
-  'Text',
+  TextType.name,
   'The mathematical expression that will be used to evaluate this criterion.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -118,10 +126,10 @@ export const AwardingCriterionFieldMetaCalculationExpressionCode = new FieldMeta
   AwardingCriterionField.CalculationExpressionCode,
   'CalculationExpressionCode',
   'Calculation Expression Code',
-  'Code',
+  CodeType.name,
   'A code identifying the mathematical expression that will be used to evaluate this criterion.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -130,10 +138,10 @@ export const AwardingCriterionFieldMetaMinimumQuantity = new FieldMeta<AwardingC
   AwardingCriterionField.MinimumQuantity,
   'MinimumQuantity',
   'Minimum Quantity',
-  'Quantity',
+  QuantityType.name,
   'The minimum quantity for an awarding criterion.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -142,10 +150,10 @@ export const AwardingCriterionFieldMetaMaximumQuantity = new FieldMeta<AwardingC
   AwardingCriterionField.MaximumQuantity,
   'MaximumQuantity',
   'Maximum Quantity',
-  'Quantity',
+  QuantityType.name,
   'The maximum quantity for an awarding criterion.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -154,10 +162,10 @@ export const AwardingCriterionFieldMetaMinimumAmount = new FieldMeta<AwardingCri
   AwardingCriterionField.MinimumAmount,
   'MinimumAmount',
   'Minimum Amount',
-  'Amount',
+  AmountType.name,
   'The minimum monetary amount for an awarding criterion.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -166,10 +174,10 @@ export const AwardingCriterionFieldMetaMaximumAmount = new FieldMeta<AwardingCri
   AwardingCriterionField.MaximumAmount,
   'MaximumAmount',
   'Maximum Amount',
-  'Amount',
+  AmountType.name,
   'The maximum monetary amount for an awarding criterion.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -178,10 +186,10 @@ export const AwardingCriterionFieldMetaMinimumImprovementBid = new FieldMeta<Awa
   AwardingCriterionField.MinimumImprovementBid,
   'MinimumImprovementBid',
   'Minimum Improvement Bid',
-  'Text',
+  TextType.name,
   'Describes the minimum improvement bid for this awarding criterion when used in an auction.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -190,10 +198,10 @@ export const AwardingCriterionFieldMetaSubordinateAwardingCriterion = new FieldM
   AwardingCriterionField.SubordinateAwardingCriterion,
   'SubordinateAwardingCriterion',
   'Subordinate Awarding Criterion',
-  'AwardingCriterion',
+  AwardingCriterionType.name,
   'Defines any subsidiary awarding criterion.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -233,3 +241,11 @@ export const AwardingCriterionFieldMap = new Map([
   [AwardingCriterionField.MinimumImprovementBid, AwardingCriterionFieldMetaMinimumImprovementBid],
   [AwardingCriterionField.SubordinateAwardingCriterion, AwardingCriterionFieldMetaSubordinateAwardingCriterion]
 ])
+
+export const AwardingCriterionType: Type<AwardingCriterionField> = {
+  name: 'AwardingCriterion',
+  label: 'Awarding Criterion',
+  module: TypeModule.cac,
+  definition: 'A class to define a criterion from the contracting party that will be taken into account when awarding a contract. An awarding criterion can be objective, when it can be evaluated following a formula, or subjective, when human analysis is required.',
+  fields: AwardingCriterionFieldMap,
+}

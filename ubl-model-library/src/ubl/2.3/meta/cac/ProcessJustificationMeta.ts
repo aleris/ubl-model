@@ -1,4 +1,8 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ProcessJustificationField {
   UBLExtensions = 'UBLExtensions',
@@ -11,11 +15,11 @@ export enum ProcessJustificationField {
 export const ProcessJustificationFieldMetaUBLExtensions = new FieldMeta<ProcessJustificationField>(
   ProcessJustificationField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -24,10 +28,10 @@ export const ProcessJustificationFieldMetaPreviousCancellationReasonCode = new F
   ProcessJustificationField.PreviousCancellationReasonCode,
   'PreviousCancellationReasonCode',
   'Previous Cancellation Reason Code',
-  'Code',
+  CodeType.name,
   'A code signifying the type of the previous tendering process (which is now being cancelled).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -36,10 +40,10 @@ export const ProcessJustificationFieldMetaProcessReasonCode = new FieldMeta<Proc
   ProcessJustificationField.ProcessReasonCode,
   'ProcessReasonCode',
   'Process Reason Code',
-  'Code',
+  CodeType.name,
   'The reason why the contracting authority has followed a particular tendering procedure for the awarding of a contract, expressed as a code.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -48,10 +52,10 @@ export const ProcessJustificationFieldMetaProcessReason = new FieldMeta<ProcessJ
   ProcessJustificationField.ProcessReason,
   'ProcessReason',
   'Process Reason',
-  'Text',
+  TextType.name,
   'The reason why the contracting authority has followed a particular tendering procedure for the awarding of a contract, expressed as text.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -60,10 +64,10 @@ export const ProcessJustificationFieldMetaDescription = new FieldMeta<ProcessJus
   ProcessJustificationField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text providing justification for the selection of this process.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -83,3 +87,11 @@ export const ProcessJustificationFieldMap = new Map([
   [ProcessJustificationField.ProcessReason, ProcessJustificationFieldMetaProcessReason],
   [ProcessJustificationField.Description, ProcessJustificationFieldMetaDescription]
 ])
+
+export const ProcessJustificationType: Type<ProcessJustificationField> = {
+  name: 'ProcessJustification',
+  label: 'Process Justification',
+  module: TypeModule.cac,
+  definition: 'A class to describe a justification for the choice of tendering process.',
+  fields: ProcessJustificationFieldMap,
+}

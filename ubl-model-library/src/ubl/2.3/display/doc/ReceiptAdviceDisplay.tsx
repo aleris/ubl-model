@@ -1,252 +1,330 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ReceiptAdvice } from  '../../model/doc/ReceiptAdvice'
-import { ReceiptAdviceFieldMeta } from  '../../meta/doc/ReceiptAdviceMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import CustomerPartyDisplay from '../cac/CustomerPartyDisplay'
-import { CustomerParty } from '../../model/cac/CustomerParty'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DocumentReferenceDisplay from '../cac/DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import OrderReferenceDisplay from '../cac/OrderReferenceDisplay'
-import { OrderReference } from '../../model/cac/OrderReference'
-import ReceiptLineDisplay from '../cac/ReceiptLineDisplay'
-import { ReceiptLine } from '../../model/cac/ReceiptLine'
-import ShipmentDisplay from '../cac/ShipmentDisplay'
-import { Shipment } from '../../model/cac/Shipment'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import SupplierPartyDisplay from '../cac/SupplierPartyDisplay'
-import { SupplierParty } from '../../model/cac/SupplierParty'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ReceiptAdviceField, ReceiptAdviceFieldMeta, ReceiptAdviceTypeName } from  '../../meta/doc/ReceiptAdviceMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { CustomerPartyDisplay } from '../cac/CustomerPartyDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DocumentReferenceDisplay } from '../cac/DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { OrderReferenceDisplay } from '../cac/OrderReferenceDisplay'
+import { ReceiptLineDisplay } from '../cac/ReceiptLineDisplay'
+import { ShipmentDisplay } from '../cac/ShipmentDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { SupplierPartyDisplay } from '../cac/SupplierPartyDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ReceiptAdvice | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ReceiptAdvice, void>
+  receiptAdvice: ReceiptAdvice[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ReceiptAdviceDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ReceiptAdviceSubElementsMap: SubElementsTemplatesMap<ReceiptAdviceField, ReceiptAdvice, void> = new Map([
+    [
+      ReceiptAdviceField.UBLExtensions,
+      { meta: ReceiptAdviceFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ReceiptAdviceField.UBLExtensions}
+          meta={ReceiptAdviceFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-ReceiptAdvice">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ReceiptAdviceFieldMeta.UBLExtensions}
-          />
+    [
+      ReceiptAdviceField.UBLVersionID,
+      { meta: ReceiptAdviceFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ReceiptAdviceField.UBLVersionID}
+          meta={ReceiptAdviceFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={ReceiptAdviceFieldMeta.UBLVersionID}
-          />
+    [
+      ReceiptAdviceField.CustomizationID,
+      { meta: ReceiptAdviceFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ReceiptAdviceField.CustomizationID}
+          meta={ReceiptAdviceFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={ReceiptAdviceFieldMeta.CustomizationID}
-          />
+    [
+      ReceiptAdviceField.ProfileID,
+      { meta: ReceiptAdviceFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ReceiptAdviceField.ProfileID}
+          meta={ReceiptAdviceFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={ReceiptAdviceFieldMeta.ProfileID}
-          />
+    [
+      ReceiptAdviceField.ProfileExecutionID,
+      { meta: ReceiptAdviceFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ReceiptAdviceField.ProfileExecutionID}
+          meta={ReceiptAdviceFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={ReceiptAdviceFieldMeta.ProfileExecutionID}
-          />
+    [
+      ReceiptAdviceField.ID,
+      { meta: ReceiptAdviceFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ReceiptAdviceField.ID}
+          meta={ReceiptAdviceFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={ReceiptAdviceFieldMeta.ID}
-          />
+    [
+      ReceiptAdviceField.CopyIndicator,
+      { meta: ReceiptAdviceFieldMeta.CopyIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={ReceiptAdviceField.CopyIndicator}
+          meta={ReceiptAdviceFieldMeta.CopyIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.CopyIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Copy Indicator"
-            value={value.CopyIndicator?.[0]}
-            meta={ReceiptAdviceFieldMeta.CopyIndicator}
-          />
+    [
+      ReceiptAdviceField.UUID,
+      { meta: ReceiptAdviceFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ReceiptAdviceField.UUID}
+          meta={ReceiptAdviceFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={ReceiptAdviceFieldMeta.UUID}
-          />
+    [
+      ReceiptAdviceField.IssueDate,
+      { meta: ReceiptAdviceFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={ReceiptAdviceField.IssueDate}
+          meta={ReceiptAdviceFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={ReceiptAdviceFieldMeta.IssueDate}
-          />
+    [
+      ReceiptAdviceField.IssueTime,
+      { meta: ReceiptAdviceFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={ReceiptAdviceField.IssueTime}
+          meta={ReceiptAdviceFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={ReceiptAdviceFieldMeta.IssueTime}
-          />
+    [
+      ReceiptAdviceField.DocumentStatusCode,
+      { meta: ReceiptAdviceFieldMeta.DocumentStatusCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ReceiptAdviceField.DocumentStatusCode}
+          meta={ReceiptAdviceFieldMeta.DocumentStatusCode}
+          fieldConfig={fieldConfig}
+          code={value?.DocumentStatusCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Document Status Code"
-            value={value.DocumentStatusCode?.[0]}
-            meta={ReceiptAdviceFieldMeta.DocumentStatusCode}
-          />
+    [
+      ReceiptAdviceField.ReceiptAdviceTypeCode,
+      { meta: ReceiptAdviceFieldMeta.ReceiptAdviceTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ReceiptAdviceField.ReceiptAdviceTypeCode}
+          meta={ReceiptAdviceFieldMeta.ReceiptAdviceTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.ReceiptAdviceTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Receipt Advice Type Code"
-            value={value.ReceiptAdviceTypeCode?.[0]}
-            meta={ReceiptAdviceFieldMeta.ReceiptAdviceTypeCode}
-          />
+    [
+      ReceiptAdviceField.Note,
+      { meta: ReceiptAdviceFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ReceiptAdviceField.Note}
+          meta={ReceiptAdviceFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={ReceiptAdviceFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={ReceiptAdviceFieldMeta.Note}
-              />
-            }
-          />
+    [
+      ReceiptAdviceField.LineCountNumeric,
+      { meta: ReceiptAdviceFieldMeta.LineCountNumeric,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={ReceiptAdviceField.LineCountNumeric}
+          meta={ReceiptAdviceFieldMeta.LineCountNumeric}
+          fieldConfig={fieldConfig}
+          numeric={value?.LineCountNumeric}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Line Count"
-            value={value.LineCountNumeric?.[0]}
-            meta={ReceiptAdviceFieldMeta.LineCountNumeric}
-          />
+    [
+      ReceiptAdviceField.OrderReference,
+      { meta: ReceiptAdviceFieldMeta.OrderReference,
+        template: ({value, renderContext, fieldConfig}) => <OrderReferenceDisplay
+          key={ReceiptAdviceField.OrderReference}
+          meta={ReceiptAdviceFieldMeta.OrderReference}
+          fieldConfig={fieldConfig}
+          orderReference={value?.OrderReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-OrderReference"
-            label="Order Reference"
-            items={value.OrderReference}
-            meta={ReceiptAdviceFieldMeta.OrderReference} 
-            itemDisplay={ (itemValue: OrderReference, key: string | number) =>
-              <OrderReferenceDisplay
-                key={key}
-                label="Order Reference"
-                value={itemValue}
-                meta={ReceiptAdviceFieldMeta.OrderReference}
-              />
-            }
-          />
+    [
+      ReceiptAdviceField.DespatchDocumentReference,
+      { meta: ReceiptAdviceFieldMeta.DespatchDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={ReceiptAdviceField.DespatchDocumentReference}
+          meta={ReceiptAdviceFieldMeta.DespatchDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.DespatchDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-DespatchDocumentReference"
-            label="Despatch Document Reference"
-            items={value.DespatchDocumentReference}
-            meta={ReceiptAdviceFieldMeta.DespatchDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Despatch Document Reference"
-                value={itemValue}
-                meta={ReceiptAdviceFieldMeta.DespatchDocumentReference}
-              />
-            }
-          />
+    [
+      ReceiptAdviceField.AdditionalDocumentReference,
+      { meta: ReceiptAdviceFieldMeta.AdditionalDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={ReceiptAdviceField.AdditionalDocumentReference}
+          meta={ReceiptAdviceFieldMeta.AdditionalDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.AdditionalDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-DocumentReference ubl-AdditionalDocumentReference"
-            label="Additional Document Reference"
-            items={value.AdditionalDocumentReference}
-            meta={ReceiptAdviceFieldMeta.AdditionalDocumentReference} 
-            itemDisplay={ (itemValue: DocumentReference, key: string | number) =>
-              <DocumentReferenceDisplay
-                key={key}
-                label="Additional Document Reference"
-                value={itemValue}
-                meta={ReceiptAdviceFieldMeta.AdditionalDocumentReference}
-              />
-            }
-          />
+    [
+      ReceiptAdviceField.Signature,
+      { meta: ReceiptAdviceFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={ReceiptAdviceField.Signature}
+          meta={ReceiptAdviceFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={ReceiptAdviceFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={ReceiptAdviceFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      ReceiptAdviceField.DeliveryCustomerParty,
+      { meta: ReceiptAdviceFieldMeta.DeliveryCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={ReceiptAdviceField.DeliveryCustomerParty}
+          meta={ReceiptAdviceFieldMeta.DeliveryCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.DeliveryCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomerPartyDisplay
-            label="Delivery Customer Party"
-            value={value.DeliveryCustomerParty?.[0]}
-            meta={ReceiptAdviceFieldMeta.DeliveryCustomerParty}
-          />
+    [
+      ReceiptAdviceField.DespatchSupplierParty,
+      { meta: ReceiptAdviceFieldMeta.DespatchSupplierParty,
+        template: ({value, renderContext, fieldConfig}) => <SupplierPartyDisplay
+          key={ReceiptAdviceField.DespatchSupplierParty}
+          meta={ReceiptAdviceFieldMeta.DespatchSupplierParty}
+          fieldConfig={fieldConfig}
+          supplierParty={value?.DespatchSupplierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <SupplierPartyDisplay
-            label="Despatch Supplier Party"
-            value={value.DespatchSupplierParty?.[0]}
-            meta={ReceiptAdviceFieldMeta.DespatchSupplierParty}
-          />
+    [
+      ReceiptAdviceField.BuyerCustomerParty,
+      { meta: ReceiptAdviceFieldMeta.BuyerCustomerParty,
+        template: ({value, renderContext, fieldConfig}) => <CustomerPartyDisplay
+          key={ReceiptAdviceField.BuyerCustomerParty}
+          meta={ReceiptAdviceFieldMeta.BuyerCustomerParty}
+          fieldConfig={fieldConfig}
+          customerParty={value?.BuyerCustomerParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CustomerPartyDisplay
-            label="Buyer Customer Party"
-            value={value.BuyerCustomerParty?.[0]}
-            meta={ReceiptAdviceFieldMeta.BuyerCustomerParty}
-          />
+    [
+      ReceiptAdviceField.SellerSupplierParty,
+      { meta: ReceiptAdviceFieldMeta.SellerSupplierParty,
+        template: ({value, renderContext, fieldConfig}) => <SupplierPartyDisplay
+          key={ReceiptAdviceField.SellerSupplierParty}
+          meta={ReceiptAdviceFieldMeta.SellerSupplierParty}
+          fieldConfig={fieldConfig}
+          supplierParty={value?.SellerSupplierParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <SupplierPartyDisplay
-            label="Seller Supplier Party"
-            value={value.SellerSupplierParty?.[0]}
-            meta={ReceiptAdviceFieldMeta.SellerSupplierParty}
-          />
+    [
+      ReceiptAdviceField.Shipment,
+      { meta: ReceiptAdviceFieldMeta.Shipment,
+        template: ({value, renderContext, fieldConfig}) => <ShipmentDisplay
+          key={ReceiptAdviceField.Shipment}
+          meta={ReceiptAdviceFieldMeta.Shipment}
+          fieldConfig={fieldConfig}
+          shipment={value?.Shipment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ShipmentDisplay
-            label="Shipment"
-            value={value.Shipment?.[0]}
-            meta={ReceiptAdviceFieldMeta.Shipment}
-          />
+    [
+      ReceiptAdviceField.ReceiptLine,
+      { meta: ReceiptAdviceFieldMeta.ReceiptLine,
+        template: ({value, renderContext, fieldConfig}) => <ReceiptLineDisplay
+          key={ReceiptAdviceField.ReceiptLine}
+          meta={ReceiptAdviceFieldMeta.ReceiptLine}
+          fieldConfig={fieldConfig}
+          receiptLine={value?.ReceiptLine}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-ReceiptLine"
-            label="Receipt Line"
-            items={value.ReceiptLine}
-            meta={ReceiptAdviceFieldMeta.ReceiptLine} 
-            itemDisplay={ (itemValue: ReceiptLine, key: string | number) =>
-              <ReceiptLineDisplay
-                key={key}
-                label="Receipt Line"
-                value={itemValue}
-                meta={ReceiptAdviceFieldMeta.ReceiptLine}
-              />
-            }
-          />
-        </div>
-    </div>
+export function ReceiptAdviceDisplay<TFieldMeta>({ meta, fieldConfig, receiptAdvice, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ReceiptAdviceTypeName,
+    meta,
+    fieldConfig,
+    receiptAdvice,
+    renderContext,
+    ReceiptAdviceSubElementsMap,
   )
 }

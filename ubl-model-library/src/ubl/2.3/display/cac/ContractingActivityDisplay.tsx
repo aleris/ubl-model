@@ -1,48 +1,66 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ContractingActivity } from  '../../model/cac/ContractingActivity'
-import { ContractingActivityFieldMeta } from  '../../meta/cac/ContractingActivityMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ContractingActivityField, ContractingActivityFieldMeta, ContractingActivityTypeName } from  '../../meta/cac/ContractingActivityMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ContractingActivity | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ContractingActivity, void>
+  contractingActivity: ContractingActivity[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ContractingActivityDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ContractingActivitySubElementsMap: SubElementsTemplatesMap<ContractingActivityField, ContractingActivity, void> = new Map([
+    [
+      ContractingActivityField.UBLExtensions,
+      { meta: ContractingActivityFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ContractingActivityField.UBLExtensions}
+          meta={ContractingActivityFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ContractingActivity">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ContractingActivityFieldMeta.UBLExtensions}
-          />
+    [
+      ContractingActivityField.ActivityTypeCode,
+      { meta: ContractingActivityFieldMeta.ActivityTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ContractingActivityField.ActivityTypeCode}
+          meta={ContractingActivityFieldMeta.ActivityTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.ActivityTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Activity Type Code"
-            value={value.ActivityTypeCode?.[0]}
-            meta={ContractingActivityFieldMeta.ActivityTypeCode}
-          />
+    [
+      ContractingActivityField.ActivityType,
+      { meta: ContractingActivityFieldMeta.ActivityType,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ContractingActivityField.ActivityType}
+          meta={ContractingActivityFieldMeta.ActivityType}
+          fieldConfig={fieldConfig}
+          text={value?.ActivityType}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <TextDisplay
-            label="Activity Type"
-            value={value.ActivityType?.[0]}
-            meta={ContractingActivityFieldMeta.ActivityType}
-          />
-        </div>
-    </div>
+export function ContractingActivityDisplay<TFieldMeta>({ meta, fieldConfig, contractingActivity, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ContractingActivityTypeName,
+    meta,
+    fieldConfig,
+    contractingActivity,
+    renderContext,
+    ContractingActivitySubElementsMap,
   )
 }

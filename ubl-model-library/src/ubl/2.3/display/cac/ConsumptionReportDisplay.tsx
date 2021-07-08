@@ -1,185 +1,265 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ConsumptionReport } from  '../../model/cac/ConsumptionReport'
-import { ConsumptionReportFieldMeta } from  '../../meta/cac/ConsumptionReportMeta'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import ConsumptionHistoryDisplay from './ConsumptionHistoryDisplay'
-import { ConsumptionHistory } from '../../model/cac/ConsumptionHistory'
-import ConsumptionReportReferenceDisplay from './ConsumptionReportReferenceDisplay'
-import { ConsumptionReportReference } from '../../model/cac/ConsumptionReportReference'
-import DocumentReferenceDisplay from './DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import NumericDisplay from '../cbc/NumericDisplay'
-import { Numeric } from '../../model/cbc/Numeric'
-import PeriodDisplay from './PeriodDisplay'
-import { Period } from '../../model/cac/Period'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ConsumptionReportField, ConsumptionReportFieldMeta, ConsumptionReportTypeName } from  '../../meta/cac/ConsumptionReportMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { ConsumptionHistoryDisplay } from './ConsumptionHistoryDisplay'
+import { ConsumptionReportReferenceDisplay } from './ConsumptionReportReferenceDisplay'
+import { DocumentReferenceDisplay } from './DocumentReferenceDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { NumericDisplay } from '../cbc/NumericDisplay'
+import { PeriodDisplay } from './PeriodDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ConsumptionReport | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ConsumptionReport, void>
+  consumptionReport: ConsumptionReport[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ConsumptionReportDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ConsumptionReportSubElementsMap: SubElementsTemplatesMap<ConsumptionReportField, ConsumptionReport, void> = new Map([
+    [
+      ConsumptionReportField.UBLExtensions,
+      { meta: ConsumptionReportFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ConsumptionReportField.UBLExtensions}
+          meta={ConsumptionReportFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ConsumptionReport">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ConsumptionReportFieldMeta.UBLExtensions}
-          />
+    [
+      ConsumptionReportField.ID,
+      { meta: ConsumptionReportFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ConsumptionReportField.ID}
+          meta={ConsumptionReportFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={ConsumptionReportFieldMeta.ID}
-          />
+    [
+      ConsumptionReportField.ConsumptionType,
+      { meta: ConsumptionReportFieldMeta.ConsumptionType,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ConsumptionReportField.ConsumptionType}
+          meta={ConsumptionReportFieldMeta.ConsumptionType}
+          fieldConfig={fieldConfig}
+          text={value?.ConsumptionType}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Consumption Type"
-            value={value.ConsumptionType?.[0]}
-            meta={ConsumptionReportFieldMeta.ConsumptionType}
-          />
+    [
+      ConsumptionReportField.ConsumptionTypeCode,
+      { meta: ConsumptionReportFieldMeta.ConsumptionTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ConsumptionReportField.ConsumptionTypeCode}
+          meta={ConsumptionReportFieldMeta.ConsumptionTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.ConsumptionTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Consumption Type Code"
-            value={value.ConsumptionTypeCode?.[0]}
-            meta={ConsumptionReportFieldMeta.ConsumptionTypeCode}
-          />
+    [
+      ConsumptionReportField.Description,
+      { meta: ConsumptionReportFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ConsumptionReportField.Description}
+          meta={ConsumptionReportFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={ConsumptionReportFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={ConsumptionReportFieldMeta.Description}
-              />
-            }
-          />
+    [
+      ConsumptionReportField.TotalConsumedQuantity,
+      { meta: ConsumptionReportFieldMeta.TotalConsumedQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={ConsumptionReportField.TotalConsumedQuantity}
+          meta={ConsumptionReportFieldMeta.TotalConsumedQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.TotalConsumedQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Total Consumed Quantity"
-            value={value.TotalConsumedQuantity?.[0]}
-            meta={ConsumptionReportFieldMeta.TotalConsumedQuantity}
-          />
+    [
+      ConsumptionReportField.BasicConsumedQuantity,
+      { meta: ConsumptionReportFieldMeta.BasicConsumedQuantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={ConsumptionReportField.BasicConsumedQuantity}
+          meta={ConsumptionReportFieldMeta.BasicConsumedQuantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.BasicConsumedQuantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Basic Consumed Quantity"
-            value={value.BasicConsumedQuantity?.[0]}
-            meta={ConsumptionReportFieldMeta.BasicConsumedQuantity}
-          />
+    [
+      ConsumptionReportField.ResidentOccupantsNumeric,
+      { meta: ConsumptionReportFieldMeta.ResidentOccupantsNumeric,
+        template: ({value, renderContext, fieldConfig}) => <NumericDisplay
+          key={ConsumptionReportField.ResidentOccupantsNumeric}
+          meta={ConsumptionReportFieldMeta.ResidentOccupantsNumeric}
+          fieldConfig={fieldConfig}
+          numeric={value?.ResidentOccupantsNumeric}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <NumericDisplay
-            label="Resident Occupants Numeric"
-            value={value.ResidentOccupantsNumeric?.[0]}
-            meta={ConsumptionReportFieldMeta.ResidentOccupantsNumeric}
-          />
+    [
+      ConsumptionReportField.ConsumersEnergyLevelCode,
+      { meta: ConsumptionReportFieldMeta.ConsumersEnergyLevelCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ConsumptionReportField.ConsumersEnergyLevelCode}
+          meta={ConsumptionReportFieldMeta.ConsumersEnergyLevelCode}
+          fieldConfig={fieldConfig}
+          code={value?.ConsumersEnergyLevelCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Consumers Energy Level Code"
-            value={value.ConsumersEnergyLevelCode?.[0]}
-            meta={ConsumptionReportFieldMeta.ConsumersEnergyLevelCode}
-          />
+    [
+      ConsumptionReportField.ConsumersEnergyLevel,
+      { meta: ConsumptionReportFieldMeta.ConsumersEnergyLevel,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ConsumptionReportField.ConsumersEnergyLevel}
+          meta={ConsumptionReportFieldMeta.ConsumersEnergyLevel}
+          fieldConfig={fieldConfig}
+          text={value?.ConsumersEnergyLevel}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Consumers Energy Level"
-            value={value.ConsumersEnergyLevel?.[0]}
-            meta={ConsumptionReportFieldMeta.ConsumersEnergyLevel}
-          />
+    [
+      ConsumptionReportField.ResidenceType,
+      { meta: ConsumptionReportFieldMeta.ResidenceType,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ConsumptionReportField.ResidenceType}
+          meta={ConsumptionReportFieldMeta.ResidenceType}
+          fieldConfig={fieldConfig}
+          text={value?.ResidenceType}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Residence Type"
-            value={value.ResidenceType?.[0]}
-            meta={ConsumptionReportFieldMeta.ResidenceType}
-          />
+    [
+      ConsumptionReportField.ResidenceTypeCode,
+      { meta: ConsumptionReportFieldMeta.ResidenceTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ConsumptionReportField.ResidenceTypeCode}
+          meta={ConsumptionReportFieldMeta.ResidenceTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.ResidenceTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Residence Type Code"
-            value={value.ResidenceTypeCode?.[0]}
-            meta={ConsumptionReportFieldMeta.ResidenceTypeCode}
-          />
+    [
+      ConsumptionReportField.HeatingType,
+      { meta: ConsumptionReportFieldMeta.HeatingType,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ConsumptionReportField.HeatingType}
+          meta={ConsumptionReportFieldMeta.HeatingType}
+          fieldConfig={fieldConfig}
+          text={value?.HeatingType}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Heating Type"
-            value={value.HeatingType?.[0]}
-            meta={ConsumptionReportFieldMeta.HeatingType}
-          />
+    [
+      ConsumptionReportField.HeatingTypeCode,
+      { meta: ConsumptionReportFieldMeta.HeatingTypeCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={ConsumptionReportField.HeatingTypeCode}
+          meta={ConsumptionReportFieldMeta.HeatingTypeCode}
+          fieldConfig={fieldConfig}
+          code={value?.HeatingTypeCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Heating Type Code"
-            value={value.HeatingTypeCode?.[0]}
-            meta={ConsumptionReportFieldMeta.HeatingTypeCode}
-          />
+    [
+      ConsumptionReportField.Period,
+      { meta: ConsumptionReportFieldMeta.Period,
+        template: ({value, renderContext, fieldConfig}) => <PeriodDisplay
+          key={ConsumptionReportField.Period}
+          meta={ConsumptionReportFieldMeta.Period}
+          fieldConfig={fieldConfig}
+          period={value?.Period}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PeriodDisplay
-            label="Period"
-            value={value.Period?.[0]}
-            meta={ConsumptionReportFieldMeta.Period}
-          />
+    [
+      ConsumptionReportField.GuidanceDocumentReference,
+      { meta: ConsumptionReportFieldMeta.GuidanceDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={ConsumptionReportField.GuidanceDocumentReference}
+          meta={ConsumptionReportFieldMeta.GuidanceDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.GuidanceDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DocumentReferenceDisplay
-            label="Guidance Document Reference"
-            value={value.GuidanceDocumentReference?.[0]}
-            meta={ConsumptionReportFieldMeta.GuidanceDocumentReference}
-          />
+    [
+      ConsumptionReportField.DocumentReference,
+      { meta: ConsumptionReportFieldMeta.DocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={ConsumptionReportField.DocumentReference}
+          meta={ConsumptionReportFieldMeta.DocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.DocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DocumentReferenceDisplay
-            label="Document Reference"
-            value={value.DocumentReference?.[0]}
-            meta={ConsumptionReportFieldMeta.DocumentReference}
-          />
+    [
+      ConsumptionReportField.ConsumptionReportReference,
+      { meta: ConsumptionReportFieldMeta.ConsumptionReportReference,
+        template: ({value, renderContext, fieldConfig}) => <ConsumptionReportReferenceDisplay
+          key={ConsumptionReportField.ConsumptionReportReference}
+          meta={ConsumptionReportFieldMeta.ConsumptionReportReference}
+          fieldConfig={fieldConfig}
+          consumptionReportReference={value?.ConsumptionReportReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-ConsumptionReportReference"
-            label="Consumption Report Reference"
-            items={value.ConsumptionReportReference}
-            meta={ConsumptionReportFieldMeta.ConsumptionReportReference} 
-            itemDisplay={ (itemValue: ConsumptionReportReference, key: string | number) =>
-              <ConsumptionReportReferenceDisplay
-                key={key}
-                label="Consumption Report Reference"
-                value={itemValue}
-                meta={ConsumptionReportFieldMeta.ConsumptionReportReference}
-              />
-            }
-          />
+    [
+      ConsumptionReportField.ConsumptionHistory,
+      { meta: ConsumptionReportFieldMeta.ConsumptionHistory,
+        template: ({value, renderContext, fieldConfig}) => <ConsumptionHistoryDisplay
+          key={ConsumptionReportField.ConsumptionHistory}
+          meta={ConsumptionReportFieldMeta.ConsumptionHistory}
+          fieldConfig={fieldConfig}
+          consumptionHistory={value?.ConsumptionHistory}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-ConsumptionHistory"
-            label="Consumption History"
-            items={value.ConsumptionHistory}
-            meta={ConsumptionReportFieldMeta.ConsumptionHistory} 
-            itemDisplay={ (itemValue: ConsumptionHistory, key: string | number) =>
-              <ConsumptionHistoryDisplay
-                key={key}
-                label="Consumption History"
-                value={itemValue}
-                meta={ConsumptionReportFieldMeta.ConsumptionHistory}
-              />
-            }
-          />
-        </div>
-    </div>
+export function ConsumptionReportDisplay<TFieldMeta>({ meta, fieldConfig, consumptionReport, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ConsumptionReportTypeName,
+    meta,
+    fieldConfig,
+    consumptionReport,
+    renderContext,
+    ConsumptionReportSubElementsMap,
   )
 }

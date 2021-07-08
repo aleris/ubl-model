@@ -1,56 +1,79 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { EventComment } from  '../../model/cac/EventComment'
-import { EventCommentFieldMeta } from  '../../meta/cac/EventCommentMeta'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { EventCommentField, EventCommentFieldMeta, EventCommentTypeName } from  '../../meta/cac/EventCommentMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: EventComment | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<EventComment, void>
+  eventComment: EventComment[] | undefined
+  renderContext: RenderContext
 }
 
-export default function EventCommentDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const EventCommentSubElementsMap: SubElementsTemplatesMap<EventCommentField, EventComment, void> = new Map([
+    [
+      EventCommentField.UBLExtensions,
+      { meta: EventCommentFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={EventCommentField.UBLExtensions}
+          meta={EventCommentFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-EventComment">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={EventCommentFieldMeta.UBLExtensions}
-          />
+    [
+      EventCommentField.Comment,
+      { meta: EventCommentFieldMeta.Comment,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={EventCommentField.Comment}
+          meta={EventCommentFieldMeta.Comment}
+          fieldConfig={fieldConfig}
+          text={value?.Comment}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Comment"
-            value={value.Comment?.[0]}
-            meta={EventCommentFieldMeta.Comment}
-          />
+    [
+      EventCommentField.IssueDate,
+      { meta: EventCommentFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={EventCommentField.IssueDate}
+          meta={EventCommentFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={EventCommentFieldMeta.IssueDate}
-          />
+    [
+      EventCommentField.IssueTime,
+      { meta: EventCommentFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={EventCommentField.IssueTime}
+          meta={EventCommentFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={EventCommentFieldMeta.IssueTime}
-          />
-        </div>
-    </div>
+export function EventCommentDisplay<TFieldMeta>({ meta, fieldConfig, eventComment, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    EventCommentTypeName,
+    meta,
+    fieldConfig,
+    eventComment,
+    renderContext,
+    EventCommentSubElementsMap,
   )
 }

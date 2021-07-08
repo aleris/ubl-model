@@ -1,4 +1,14 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { DateType } from '../cbc/DateMeta'
+import { ExchangeRateType } from './ExchangeRateMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { PeriodType } from './PeriodMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum PaymentTermsField {
   UBLExtensions = 'UBLExtensions',
@@ -26,11 +36,11 @@ export enum PaymentTermsField {
 export const PaymentTermsFieldMetaUBLExtensions = new FieldMeta<PaymentTermsField>(
   PaymentTermsField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -39,10 +49,10 @@ export const PaymentTermsFieldMetaID = new FieldMeta<PaymentTermsField>(
   PaymentTermsField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this set of payment terms.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -51,10 +61,10 @@ export const PaymentTermsFieldMetaPaymentMeansID = new FieldMeta<PaymentTermsFie
   PaymentTermsField.PaymentMeansID,
   'PaymentMeansID',
   'Payment Means Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for a means of payment associated with these payment terms.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -63,10 +73,10 @@ export const PaymentTermsFieldMetaPrepaidPaymentReferenceID = new FieldMeta<Paym
   PaymentTermsField.PrepaidPaymentReferenceID,
   'PrepaidPaymentReferenceID',
   'Prepaid Payment Reference Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for a reference to a prepaid payment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -75,10 +85,10 @@ export const PaymentTermsFieldMetaNote = new FieldMeta<PaymentTermsField>(
   PaymentTermsField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -87,10 +97,10 @@ export const PaymentTermsFieldMetaReferenceEventCode = new FieldMeta<PaymentTerm
   PaymentTermsField.ReferenceEventCode,
   'ReferenceEventCode',
   'Reference Event Code',
-  'Code',
+  CodeType.name,
   'A code signifying the event during which these terms are offered.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -99,10 +109,10 @@ export const PaymentTermsFieldMetaSettlementDiscountPercent = new FieldMeta<Paym
   PaymentTermsField.SettlementDiscountPercent,
   'SettlementDiscountPercent',
   'Settlement Discount Percent',
-  'Numeric',
+  NumericType.name,
   'The percentage for the settlement discount that is offered for payment under these payment terms.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -111,10 +121,10 @@ export const PaymentTermsFieldMetaPenaltySurchargePercent = new FieldMeta<Paymen
   PaymentTermsField.PenaltySurchargePercent,
   'PenaltySurchargePercent',
   'Penalty Surcharge Percent',
-  'Numeric',
+  NumericType.name,
   'The penalty for payment after the settlement period, expressed as a percentage of the payment.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -123,10 +133,10 @@ export const PaymentTermsFieldMetaPaymentPercent = new FieldMeta<PaymentTermsFie
   PaymentTermsField.PaymentPercent,
   'PaymentPercent',
   'Payment Percent',
-  'Numeric',
+  NumericType.name,
   'The part of a payment, expressed as a percent, relevant for these payment terms.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -135,10 +145,10 @@ export const PaymentTermsFieldMetaAmount = new FieldMeta<PaymentTermsField>(
   PaymentTermsField.Amount,
   'Amount',
   'Amount',
-  'Amount',
+  AmountType.name,
   'The monetary amount covered by these payment terms.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -147,10 +157,10 @@ export const PaymentTermsFieldMetaSettlementDiscountAmount = new FieldMeta<Payme
   PaymentTermsField.SettlementDiscountAmount,
   'SettlementDiscountAmount',
   'Settlement Discount Amount',
-  'Amount',
+  AmountType.name,
   'The amount of a settlement discount offered for payment under these payment terms.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -159,10 +169,10 @@ export const PaymentTermsFieldMetaPenaltyAmount = new FieldMeta<PaymentTermsFiel
   PaymentTermsField.PenaltyAmount,
   'PenaltyAmount',
   'Penalty Amount',
-  'Amount',
+  AmountType.name,
   'The monetary amount of the penalty for payment after the settlement period.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -171,10 +181,10 @@ export const PaymentTermsFieldMetaPaymentTermsDetailsURI = new FieldMeta<Payment
   PaymentTermsField.PaymentTermsDetailsURI,
   'PaymentTermsDetailsURI',
   'Payment Terms Details URI',
-  'Identifier',
+  IdentifierType.name,
   'The Uniform Resource Identifier (URI) of a document providing additional details regarding these payment terms.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -183,10 +193,10 @@ export const PaymentTermsFieldMetaPaymentDueDate = new FieldMeta<PaymentTermsFie
   PaymentTermsField.PaymentDueDate,
   'PaymentDueDate',
   'Payment Due Date',
-  'Date',
+  DateType.name,
   'The due date for these payment terms.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -195,10 +205,10 @@ export const PaymentTermsFieldMetaInstallmentDueDate = new FieldMeta<PaymentTerm
   PaymentTermsField.InstallmentDueDate,
   'InstallmentDueDate',
   'Installment Due Date',
-  'Date',
+  DateType.name,
   'The due date for an installment payment for these payment terms.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -207,10 +217,10 @@ export const PaymentTermsFieldMetaInvoicingPartyReference = new FieldMeta<Paymen
   PaymentTermsField.InvoicingPartyReference,
   'InvoicingPartyReference',
   'Invoicing Party Reference',
-  'Text',
+  TextType.name,
   'A reference to the payment terms used by the invoicing party. This may have been requested of the payer by the payee to accompany its remittance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -219,10 +229,10 @@ export const PaymentTermsFieldMetaSettlementPeriod = new FieldMeta<PaymentTermsF
   PaymentTermsField.SettlementPeriod,
   'SettlementPeriod',
   'Settlement Period',
-  'Period',
+  PeriodType.name,
   'The period during which settlement may occur.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -231,10 +241,10 @@ export const PaymentTermsFieldMetaPenaltyPeriod = new FieldMeta<PaymentTermsFiel
   PaymentTermsField.PenaltyPeriod,
   'PenaltyPeriod',
   'Penalty Period',
-  'Period',
+  PeriodType.name,
   'The period during which penalties may apply.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -243,10 +253,10 @@ export const PaymentTermsFieldMetaExchangeRate = new FieldMeta<PaymentTermsField
   PaymentTermsField.ExchangeRate,
   'ExchangeRate',
   'Exchange Rate',
-  'ExchangeRate',
+  ExchangeRateType.name,
   'The currency exchange rate for purposes of these payment terms.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -255,10 +265,10 @@ export const PaymentTermsFieldMetaValidityPeriod = new FieldMeta<PaymentTermsFie
   PaymentTermsField.ValidityPeriod,
   'ValidityPeriod',
   'Validity Period',
-  'Period',
+  PeriodType.name,
   'The period during which these payment terms are valid.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -308,3 +318,11 @@ export const PaymentTermsFieldMap = new Map([
   [PaymentTermsField.ExchangeRate, PaymentTermsFieldMetaExchangeRate],
   [PaymentTermsField.ValidityPeriod, PaymentTermsFieldMetaValidityPeriod]
 ])
+
+export const PaymentTermsType: Type<PaymentTermsField> = {
+  name: 'PaymentTerms',
+  label: 'Payment Terms',
+  module: TypeModule.cac,
+  definition: 'A class to describe a set of payment terms.',
+  fields: PaymentTermsFieldMap,
+}

@@ -4,7 +4,6 @@ import { Indicator } from '../cbc/Indicator'
 import { TenderingCriterionProperty } from './TenderingCriterionProperty'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a group of tendering criteria
  */

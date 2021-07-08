@@ -1,56 +1,79 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { Attachment } from  '../../model/cac/Attachment'
-import { AttachmentFieldMeta } from  '../../meta/cac/AttachmentMeta'
-import BinaryObjectDisplay from '../cbc/BinaryObjectDisplay'
-import { BinaryObject } from '../../model/cbc/BinaryObject'
-import ExternalReferenceDisplay from './ExternalReferenceDisplay'
-import { ExternalReference } from '../../model/cac/ExternalReference'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { AttachmentField, AttachmentFieldMeta, AttachmentTypeName } from  '../../meta/cac/AttachmentMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { BinaryObjectDisplay } from '../cbc/BinaryObjectDisplay'
+import { ExternalReferenceDisplay } from './ExternalReferenceDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: Attachment | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<Attachment, void>
+  attachment: Attachment[] | undefined
+  renderContext: RenderContext
 }
 
-export default function AttachmentDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const AttachmentSubElementsMap: SubElementsTemplatesMap<AttachmentField, Attachment, void> = new Map([
+    [
+      AttachmentField.UBLExtensions,
+      { meta: AttachmentFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={AttachmentField.UBLExtensions}
+          meta={AttachmentFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-Attachment">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={AttachmentFieldMeta.UBLExtensions}
-          />
+    [
+      AttachmentField.EmbeddedDocumentBinaryObject,
+      { meta: AttachmentFieldMeta.EmbeddedDocumentBinaryObject,
+        template: ({value, renderContext, fieldConfig}) => <BinaryObjectDisplay
+          key={AttachmentField.EmbeddedDocumentBinaryObject}
+          meta={AttachmentFieldMeta.EmbeddedDocumentBinaryObject}
+          fieldConfig={fieldConfig}
+          binaryObject={value?.EmbeddedDocumentBinaryObject}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <BinaryObjectDisplay
-            label="Embedded Document"
-            value={value.EmbeddedDocumentBinaryObject?.[0]}
-            meta={AttachmentFieldMeta.EmbeddedDocumentBinaryObject}
-          />
+    [
+      AttachmentField.EmbeddedDocument,
+      { meta: AttachmentFieldMeta.EmbeddedDocument,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={AttachmentField.EmbeddedDocument}
+          meta={AttachmentFieldMeta.EmbeddedDocument}
+          fieldConfig={fieldConfig}
+          text={value?.EmbeddedDocument}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Embedded Document"
-            value={value.EmbeddedDocument?.[0]}
-            meta={AttachmentFieldMeta.EmbeddedDocument}
-          />
+    [
+      AttachmentField.ExternalReference,
+      { meta: AttachmentFieldMeta.ExternalReference,
+        template: ({value, renderContext, fieldConfig}) => <ExternalReferenceDisplay
+          key={AttachmentField.ExternalReference}
+          meta={AttachmentFieldMeta.ExternalReference}
+          fieldConfig={fieldConfig}
+          externalReference={value?.ExternalReference}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ExternalReferenceDisplay
-            label="External Reference"
-            value={value.ExternalReference?.[0]}
-            meta={AttachmentFieldMeta.ExternalReference}
-          />
-        </div>
-    </div>
+export function AttachmentDisplay<TFieldMeta>({ meta, fieldConfig, attachment, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    AttachmentTypeName,
+    meta,
+    fieldConfig,
+    attachment,
+    renderContext,
+    AttachmentSubElementsMap,
   )
 }

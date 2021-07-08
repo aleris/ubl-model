@@ -2,7 +2,6 @@ import { Amount } from '../cbc/Amount'
 import { Code } from '../cbc/Code'
 import { Period } from './Period'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a planned effect of a retail event (e.g., a promotion or a change in inventory policy) upon
  * supply or demand.

@@ -1,4 +1,17 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AddressType } from './AddressMeta'
+import { AllowanceChargeType } from './AllowanceChargeMeta'
+import { DeliveryUnitType } from './DeliveryUnitMeta'
+import { DependentPriceReferenceType } from './DependentPriceReferenceMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { MeasureType } from '../cbc/MeasureMeta'
+import { PackageType } from './PackageMeta'
+import { PriceType } from './PriceMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { TaxCategoryType } from './TaxCategoryMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ItemLocationQuantityField {
   UBLExtensions = 'UBLExtensions',
@@ -19,11 +32,11 @@ export enum ItemLocationQuantityField {
 export const ItemLocationQuantityFieldMetaUBLExtensions = new FieldMeta<ItemLocationQuantityField>(
   ItemLocationQuantityField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -32,10 +45,10 @@ export const ItemLocationQuantityFieldMetaLeadTimeMeasure = new FieldMeta<ItemLo
   ItemLocationQuantityField.LeadTimeMeasure,
   'LeadTimeMeasure',
   'Lead Time',
-  'Measure',
+  MeasureType.name,
   'The lead time, i.e., the time taken from the time at which an item is ordered to the time of its delivery.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2 days , 24 hours'
 )
@@ -44,10 +57,10 @@ export const ItemLocationQuantityFieldMetaMinimumQuantity = new FieldMeta<ItemLo
   ItemLocationQuantityField.MinimumQuantity,
   'MinimumQuantity',
   'Minimum Quantity',
-  'Quantity',
+  QuantityType.name,
   'The minimum quantity that can be ordered to qualify for a specific price.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '10 boxes , 1 carton , 1000 sheets'
 )
@@ -56,10 +69,10 @@ export const ItemLocationQuantityFieldMetaMaximumQuantity = new FieldMeta<ItemLo
   ItemLocationQuantityField.MaximumQuantity,
   'MaximumQuantity',
   'Maximum Quantity',
-  'Quantity',
+  QuantityType.name,
   'The maximum quantity that can be ordered to qualify for a specific price.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '10 boxes , 1 carton , 1000 sheets'
 )
@@ -68,10 +81,10 @@ export const ItemLocationQuantityFieldMetaHazardousRiskIndicator = new FieldMeta
   ItemLocationQuantityField.HazardousRiskIndicator,
   'HazardousRiskIndicator',
   'Hazardous Risk Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indication that the transported item, as delivered, in the stated quantity to the stated location, is subject to an international regulation concerning the carriage of dangerous goods (true) or not (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Default is negative'
 )
@@ -80,10 +93,10 @@ export const ItemLocationQuantityFieldMetaTradingRestrictions = new FieldMeta<It
   ItemLocationQuantityField.TradingRestrictions,
   'TradingRestrictions',
   'Trading Restrictions',
-  'Text',
+  TextType.name,
   'Text describing trade restrictions on the quantity of this item or on the item itself.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   'not for export'
 )
@@ -92,10 +105,10 @@ export const ItemLocationQuantityFieldMetaApplicableTerritoryAddress = new Field
   ItemLocationQuantityField.ApplicableTerritoryAddress,
   'ApplicableTerritoryAddress',
   'Applicable Territory Address',
-  'Address',
+  AddressType.name,
   'The applicable sales territory.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -104,10 +117,10 @@ export const ItemLocationQuantityFieldMetaPrice = new FieldMeta<ItemLocationQuan
   ItemLocationQuantityField.Price,
   'Price',
   'Price',
-  'Price',
+  PriceType.name,
   'The price associated with the given location.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -116,10 +129,10 @@ export const ItemLocationQuantityFieldMetaDeliveryUnit = new FieldMeta<ItemLocat
   ItemLocationQuantityField.DeliveryUnit,
   'DeliveryUnit',
   'Delivery Unit',
-  'DeliveryUnit',
+  DeliveryUnitType.name,
   'A delivery unit in which the item is located.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -128,10 +141,10 @@ export const ItemLocationQuantityFieldMetaApplicableTaxCategory = new FieldMeta<
   ItemLocationQuantityField.ApplicableTaxCategory,
   'ApplicableTaxCategory',
   'Applicable Tax Category',
-  'TaxCategory',
+  TaxCategoryType.name,
   'A tax category applicable to this item location quantity.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -140,10 +153,10 @@ export const ItemLocationQuantityFieldMetaPackage = new FieldMeta<ItemLocationQu
   ItemLocationQuantityField.Package,
   'Package',
   'Package',
-  'Package',
+  PackageType.name,
   'The package to which this price applies.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -152,10 +165,10 @@ export const ItemLocationQuantityFieldMetaAllowanceCharge = new FieldMeta<ItemLo
   ItemLocationQuantityField.AllowanceCharge,
   'AllowanceCharge',
   'Allowance Charge',
-  'AllowanceCharge',
+  AllowanceChargeType.name,
   'An allowance or charge associated with this item location quantity.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -164,10 +177,10 @@ export const ItemLocationQuantityFieldMetaDependentPriceReference = new FieldMet
   ItemLocationQuantityField.DependentPriceReference,
   'DependentPriceReference',
   'Dependent Price Reference',
-  'DependentPriceReference',
+  DependentPriceReferenceType.name,
   'The price of the item as a percentage of the price of some other item.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -203,3 +216,11 @@ export const ItemLocationQuantityFieldMap = new Map([
   [ItemLocationQuantityField.AllowanceCharge, ItemLocationQuantityFieldMetaAllowanceCharge],
   [ItemLocationQuantityField.DependentPriceReference, ItemLocationQuantityFieldMetaDependentPriceReference]
 ])
+
+export const ItemLocationQuantityType: Type<ItemLocationQuantityField> = {
+  name: 'ItemLocationQuantity',
+  label: 'Item Location Quantity',
+  module: TypeModule.cac,
+  definition: 'A class for information about pricing structure, lead time, and location associated with an item.',
+  fields: ItemLocationQuantityFieldMap,
+}

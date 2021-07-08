@@ -1,175 +1,242 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { UnsubscribeFromProcedureRequest } from  '../../model/doc/UnsubscribeFromProcedureRequest'
-import { UnsubscribeFromProcedureRequestFieldMeta } from  '../../meta/doc/UnsubscribeFromProcedureRequestMeta'
-import ContractingPartyDisplay from '../cac/ContractingPartyDisplay'
-import { ContractingParty } from '../../model/cac/ContractingParty'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import EconomicOperatorPartyDisplay from '../cac/EconomicOperatorPartyDisplay'
-import { EconomicOperatorParty } from '../../model/cac/EconomicOperatorParty'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import IndicatorDisplay from '../cbc/IndicatorDisplay'
-import { Indicator } from '../../model/cbc/Indicator'
-import ProcurementProjectDisplay from '../cac/ProcurementProjectDisplay'
-import { ProcurementProject } from '../../model/cac/ProcurementProject'
-import ProcurementProjectLotReferenceDisplay from '../cac/ProcurementProjectLotReferenceDisplay'
-import { ProcurementProjectLotReference } from '../../model/cac/ProcurementProjectLotReference'
-import SignatureDisplay from '../cac/SignatureDisplay'
-import { Signature } from '../../model/cac/Signature'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { UnsubscribeFromProcedureRequestField, UnsubscribeFromProcedureRequestFieldMeta, UnsubscribeFromProcedureRequestTypeName } from  '../../meta/doc/UnsubscribeFromProcedureRequestMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { ContractingPartyDisplay } from '../cac/ContractingPartyDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { EconomicOperatorPartyDisplay } from '../cac/EconomicOperatorPartyDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { IndicatorDisplay } from '../cbc/IndicatorDisplay'
+import { ProcurementProjectDisplay } from '../cac/ProcurementProjectDisplay'
+import { ProcurementProjectLotReferenceDisplay } from '../cac/ProcurementProjectLotReferenceDisplay'
+import { SignatureDisplay } from '../cac/SignatureDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: UnsubscribeFromProcedureRequest | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<UnsubscribeFromProcedureRequest, void>
+  unsubscribeFromProcedureRequest: UnsubscribeFromProcedureRequest[] | undefined
+  renderContext: RenderContext
 }
 
-export default function UnsubscribeFromProcedureRequestDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const UnsubscribeFromProcedureRequestSubElementsMap: SubElementsTemplatesMap<UnsubscribeFromProcedureRequestField, UnsubscribeFromProcedureRequest, void> = new Map([
+    [
+      UnsubscribeFromProcedureRequestField.UBLExtensions,
+      { meta: UnsubscribeFromProcedureRequestFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={UnsubscribeFromProcedureRequestField.UBLExtensions}
+          meta={UnsubscribeFromProcedureRequestFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-doc ubl-UnsubscribeFromProcedureRequest">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={UnsubscribeFromProcedureRequestFieldMeta.UBLExtensions}
-          />
+    [
+      UnsubscribeFromProcedureRequestField.UBLVersionID,
+      { meta: UnsubscribeFromProcedureRequestFieldMeta.UBLVersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={UnsubscribeFromProcedureRequestField.UBLVersionID}
+          meta={UnsubscribeFromProcedureRequestFieldMeta.UBLVersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UBLVersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UBL Version Identifier"
-            value={value.UBLVersionID?.[0]}
-            meta={UnsubscribeFromProcedureRequestFieldMeta.UBLVersionID}
-          />
+    [
+      UnsubscribeFromProcedureRequestField.CustomizationID,
+      { meta: UnsubscribeFromProcedureRequestFieldMeta.CustomizationID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={UnsubscribeFromProcedureRequestField.CustomizationID}
+          meta={UnsubscribeFromProcedureRequestFieldMeta.CustomizationID}
+          fieldConfig={fieldConfig}
+          identifier={value?.CustomizationID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Customization Identifier"
-            value={value.CustomizationID?.[0]}
-            meta={UnsubscribeFromProcedureRequestFieldMeta.CustomizationID}
-          />
+    [
+      UnsubscribeFromProcedureRequestField.ProfileID,
+      { meta: UnsubscribeFromProcedureRequestFieldMeta.ProfileID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={UnsubscribeFromProcedureRequestField.ProfileID}
+          meta={UnsubscribeFromProcedureRequestFieldMeta.ProfileID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Identifier"
-            value={value.ProfileID?.[0]}
-            meta={UnsubscribeFromProcedureRequestFieldMeta.ProfileID}
-          />
+    [
+      UnsubscribeFromProcedureRequestField.ProfileExecutionID,
+      { meta: UnsubscribeFromProcedureRequestFieldMeta.ProfileExecutionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={UnsubscribeFromProcedureRequestField.ProfileExecutionID}
+          meta={UnsubscribeFromProcedureRequestFieldMeta.ProfileExecutionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ProfileExecutionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Profile Execution Identifier"
-            value={value.ProfileExecutionID?.[0]}
-            meta={UnsubscribeFromProcedureRequestFieldMeta.ProfileExecutionID}
-          />
+    [
+      UnsubscribeFromProcedureRequestField.ID,
+      { meta: UnsubscribeFromProcedureRequestFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={UnsubscribeFromProcedureRequestField.ID}
+          meta={UnsubscribeFromProcedureRequestFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={UnsubscribeFromProcedureRequestFieldMeta.ID}
-          />
+    [
+      UnsubscribeFromProcedureRequestField.CopyIndicator,
+      { meta: UnsubscribeFromProcedureRequestFieldMeta.CopyIndicator,
+        template: ({value, renderContext, fieldConfig}) => <IndicatorDisplay
+          key={UnsubscribeFromProcedureRequestField.CopyIndicator}
+          meta={UnsubscribeFromProcedureRequestFieldMeta.CopyIndicator}
+          fieldConfig={fieldConfig}
+          indicator={value?.CopyIndicator}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IndicatorDisplay
-            label="Copy Indicator"
-            value={value.CopyIndicator?.[0]}
-            meta={UnsubscribeFromProcedureRequestFieldMeta.CopyIndicator}
-          />
+    [
+      UnsubscribeFromProcedureRequestField.UUID,
+      { meta: UnsubscribeFromProcedureRequestFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={UnsubscribeFromProcedureRequestField.UUID}
+          meta={UnsubscribeFromProcedureRequestFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={UnsubscribeFromProcedureRequestFieldMeta.UUID}
-          />
+    [
+      UnsubscribeFromProcedureRequestField.ContractFolderID,
+      { meta: UnsubscribeFromProcedureRequestFieldMeta.ContractFolderID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={UnsubscribeFromProcedureRequestField.ContractFolderID}
+          meta={UnsubscribeFromProcedureRequestFieldMeta.ContractFolderID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ContractFolderID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Contract Folder Identifier"
-            value={value.ContractFolderID?.[0]}
-            meta={UnsubscribeFromProcedureRequestFieldMeta.ContractFolderID}
-          />
+    [
+      UnsubscribeFromProcedureRequestField.IssueDate,
+      { meta: UnsubscribeFromProcedureRequestFieldMeta.IssueDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={UnsubscribeFromProcedureRequestField.IssueDate}
+          meta={UnsubscribeFromProcedureRequestFieldMeta.IssueDate}
+          fieldConfig={fieldConfig}
+          date={value?.IssueDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Issue Date"
-            value={value.IssueDate?.[0]}
-            meta={UnsubscribeFromProcedureRequestFieldMeta.IssueDate}
-          />
+    [
+      UnsubscribeFromProcedureRequestField.IssueTime,
+      { meta: UnsubscribeFromProcedureRequestFieldMeta.IssueTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={UnsubscribeFromProcedureRequestField.IssueTime}
+          meta={UnsubscribeFromProcedureRequestFieldMeta.IssueTime}
+          fieldConfig={fieldConfig}
+          time={value?.IssueTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Issue Time"
-            value={value.IssueTime?.[0]}
-            meta={UnsubscribeFromProcedureRequestFieldMeta.IssueTime}
-          />
+    [
+      UnsubscribeFromProcedureRequestField.Note,
+      { meta: UnsubscribeFromProcedureRequestFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={UnsubscribeFromProcedureRequestField.Note}
+          meta={UnsubscribeFromProcedureRequestFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={UnsubscribeFromProcedureRequestFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={UnsubscribeFromProcedureRequestFieldMeta.Note}
-              />
-            }
-          />
+    [
+      UnsubscribeFromProcedureRequestField.Signature,
+      { meta: UnsubscribeFromProcedureRequestFieldMeta.Signature,
+        template: ({value, renderContext, fieldConfig}) => <SignatureDisplay
+          key={UnsubscribeFromProcedureRequestField.Signature}
+          meta={UnsubscribeFromProcedureRequestFieldMeta.Signature}
+          fieldConfig={fieldConfig}
+          signature={value?.Signature}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-doc ubl-Signature"
-            label="Signature"
-            items={value.Signature}
-            meta={UnsubscribeFromProcedureRequestFieldMeta.Signature} 
-            itemDisplay={ (itemValue: Signature, key: string | number) =>
-              <SignatureDisplay
-                key={key}
-                label="Signature"
-                value={itemValue}
-                meta={UnsubscribeFromProcedureRequestFieldMeta.Signature}
-              />
-            }
-          />
+    [
+      UnsubscribeFromProcedureRequestField.EconomicOperatorParty,
+      { meta: UnsubscribeFromProcedureRequestFieldMeta.EconomicOperatorParty,
+        template: ({value, renderContext, fieldConfig}) => <EconomicOperatorPartyDisplay
+          key={UnsubscribeFromProcedureRequestField.EconomicOperatorParty}
+          meta={UnsubscribeFromProcedureRequestFieldMeta.EconomicOperatorParty}
+          fieldConfig={fieldConfig}
+          economicOperatorParty={value?.EconomicOperatorParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <EconomicOperatorPartyDisplay
-            label="Economic Operator Party"
-            value={value.EconomicOperatorParty?.[0]}
-            meta={UnsubscribeFromProcedureRequestFieldMeta.EconomicOperatorParty}
-          />
+    [
+      UnsubscribeFromProcedureRequestField.ContractingParty,
+      { meta: UnsubscribeFromProcedureRequestFieldMeta.ContractingParty,
+        template: ({value, renderContext, fieldConfig}) => <ContractingPartyDisplay
+          key={UnsubscribeFromProcedureRequestField.ContractingParty}
+          meta={UnsubscribeFromProcedureRequestFieldMeta.ContractingParty}
+          fieldConfig={fieldConfig}
+          contractingParty={value?.ContractingParty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ContractingPartyDisplay
-            label="Contracting Party"
-            value={value.ContractingParty?.[0]}
-            meta={UnsubscribeFromProcedureRequestFieldMeta.ContractingParty}
-          />
+    [
+      UnsubscribeFromProcedureRequestField.ProcurementProject,
+      { meta: UnsubscribeFromProcedureRequestFieldMeta.ProcurementProject,
+        template: ({value, renderContext, fieldConfig}) => <ProcurementProjectDisplay
+          key={UnsubscribeFromProcedureRequestField.ProcurementProject}
+          meta={UnsubscribeFromProcedureRequestFieldMeta.ProcurementProject}
+          fieldConfig={fieldConfig}
+          procurementProject={value?.ProcurementProject}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ProcurementProjectDisplay
-            label="Procurement Project"
-            value={value.ProcurementProject?.[0]}
-            meta={UnsubscribeFromProcedureRequestFieldMeta.ProcurementProject}
-          />
+    [
+      UnsubscribeFromProcedureRequestField.ProcurementProjectLotReference,
+      { meta: UnsubscribeFromProcedureRequestFieldMeta.ProcurementProjectLotReference,
+        template: ({value, renderContext, fieldConfig}) => <ProcurementProjectLotReferenceDisplay
+          key={UnsubscribeFromProcedureRequestField.ProcurementProjectLotReference}
+          meta={UnsubscribeFromProcedureRequestFieldMeta.ProcurementProjectLotReference}
+          fieldConfig={fieldConfig}
+          procurementProjectLotReference={value?.ProcurementProjectLotReference}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-doc ubl-ProcurementProjectLotReference"
-            label="Procurement Project Lot Reference"
-            items={value.ProcurementProjectLotReference}
-            meta={UnsubscribeFromProcedureRequestFieldMeta.ProcurementProjectLotReference} 
-            itemDisplay={ (itemValue: ProcurementProjectLotReference, key: string | number) =>
-              <ProcurementProjectLotReferenceDisplay
-                key={key}
-                label="Procurement Project Lot Reference"
-                value={itemValue}
-                meta={UnsubscribeFromProcedureRequestFieldMeta.ProcurementProjectLotReference}
-              />
-            }
-          />
-        </div>
-    </div>
+export function UnsubscribeFromProcedureRequestDisplay<TFieldMeta>({ meta, fieldConfig, unsubscribeFromProcedureRequest, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    UnsubscribeFromProcedureRequestTypeName,
+    meta,
+    fieldConfig,
+    unsubscribeFromProcedureRequest,
+    renderContext,
+    UnsubscribeFromProcedureRequestSubElementsMap,
   )
 }

@@ -1,4 +1,8 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { NumericType } from '../cbc/NumericMeta'
+import { PartyType } from './PartyMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum ShareholderPartyField {
   UBLExtensions = 'UBLExtensions',
@@ -9,11 +13,11 @@ export enum ShareholderPartyField {
 export const ShareholderPartyFieldMetaUBLExtensions = new FieldMeta<ShareholderPartyField>(
   ShareholderPartyField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -22,10 +26,10 @@ export const ShareholderPartyFieldMetaPartecipationPercent = new FieldMeta<Share
   ShareholderPartyField.PartecipationPercent,
   'PartecipationPercent',
   'Partecipation',
-  'Numeric',
+  NumericType.name,
   'The shareholder participation, expressed as a percentage.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -34,10 +38,10 @@ export const ShareholderPartyFieldMetaParty = new FieldMeta<ShareholderPartyFiel
   ShareholderPartyField.Party,
   'Party',
   'Party',
-  'Party',
+  PartyType.name,
   'The shareholder party.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -53,3 +57,11 @@ export const ShareholderPartyFieldMap = new Map([
   [ShareholderPartyField.PartecipationPercent, ShareholderPartyFieldMetaPartecipationPercent],
   [ShareholderPartyField.Party, ShareholderPartyFieldMetaParty]
 ])
+
+export const ShareholderPartyType: Type<ShareholderPartyField> = {
+  name: 'ShareholderParty',
+  label: 'Shareholder Party',
+  module: TypeModule.cac,
+  definition: 'A class to describe a shareholder party.',
+  fields: ShareholderPartyFieldMap,
+}

@@ -1,4 +1,19 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AddressType } from '../cac/AddressMeta'
+import { AttestationType } from '../cac/AttestationMeta'
+import { CodeType } from '../cbc/CodeMeta'
+import { DateType } from '../cbc/DateMeta'
+import { DocumentReferenceType } from '../cac/DocumentReferenceMeta'
+import { GoodsProcessingType } from '../cac/GoodsProcessingMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { PartyType } from '../cac/PartyMeta'
+import { PeriodType } from '../cac/PeriodMeta'
+import { ShipmentType } from '../cac/ShipmentMeta'
+import { SignatureType } from '../cac/SignatureMeta'
+import { TextType } from '../cbc/TextMeta'
+import { TimeType } from '../cbc/TimeMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum GoodsCertificateField {
   UBLExtensions = 'UBLExtensions',
@@ -36,11 +51,11 @@ export enum GoodsCertificateField {
 export const GoodsCertificateFieldMetaUBLExtensions = new FieldMeta<GoodsCertificateField>(
   GoodsCertificateField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -49,10 +64,10 @@ export const GoodsCertificateFieldMetaUBLVersionID = new FieldMeta<GoodsCertific
   GoodsCertificateField.UBLVersionID,
   'UBLVersionID',
   'UBL Version Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '2.3'
 )
@@ -61,10 +76,10 @@ export const GoodsCertificateFieldMetaCustomizationID = new FieldMeta<GoodsCerti
   GoodsCertificateField.CustomizationID,
   'CustomizationID',
   'Customization Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined customization of UBL for a specific use.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -73,10 +88,10 @@ export const GoodsCertificateFieldMetaProfileID = new FieldMeta<GoodsCertificate
   GoodsCertificateField.ProfileID,
   'ProfileID',
   'Profile Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies a user-defined profile of the customization of UBL being used.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -85,10 +100,10 @@ export const GoodsCertificateFieldMetaProfileExecutionID = new FieldMeta<GoodsCe
   GoodsCertificateField.ProfileExecutionID,
   'ProfileExecutionID',
   'Profile Execution Identifier',
-  'Identifier',
+  IdentifierType.name,
   'Identifies an instance of executing a profile, to associate all transactions in a collaboration.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'BPP-1001'
 )
@@ -97,10 +112,10 @@ export const GoodsCertificateFieldMetaID = new FieldMeta<GoodsCertificateField>(
   GoodsCertificateField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for this document, assigned by the sender.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -109,10 +124,10 @@ export const GoodsCertificateFieldMetaUUID = new FieldMeta<GoodsCertificateField
   GoodsCertificateField.UUID,
   'UUID',
   'UUID',
-  'Identifier',
+  IdentifierType.name,
   'A universally unique identifier for an instance of this document.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -121,10 +136,10 @@ export const GoodsCertificateFieldMetaIssueDate = new FieldMeta<GoodsCertificate
   GoodsCertificateField.IssueDate,
   'IssueDate',
   'Issue Date',
-  'Date',
+  DateType.name,
   'The date, assigned by the sender, on which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -133,10 +148,10 @@ export const GoodsCertificateFieldMetaIssueTime = new FieldMeta<GoodsCertificate
   GoodsCertificateField.IssueTime,
   'IssueTime',
   'Issue Time',
-  'Time',
+  TimeType.name,
   'The time, assigned by the sender, at which this document was issued.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -145,10 +160,10 @@ export const GoodsCertificateFieldMetaTypeCode = new FieldMeta<GoodsCertificateF
   GoodsCertificateField.TypeCode,
   'TypeCode',
   'Type Code',
-  'Code',
+  CodeType.name,
   'A code specifying the type of goods certificate',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -157,10 +172,10 @@ export const GoodsCertificateFieldMetaDescription = new FieldMeta<GoodsCertifica
   GoodsCertificateField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Textual description of this goods certificate',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -169,10 +184,10 @@ export const GoodsCertificateFieldMetaNote = new FieldMeta<GoodsCertificateField
   GoodsCertificateField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text pertinent to this document, conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -181,10 +196,10 @@ export const GoodsCertificateFieldMetaVersionID = new FieldMeta<GoodsCertificate
   GoodsCertificateField.VersionID,
   'VersionID',
   'Version',
-  'Identifier',
+  IdentifierType.name,
   'Identifies the current version of this goods certificate',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -193,10 +208,10 @@ export const GoodsCertificateFieldMetaValidityPeriod = new FieldMeta<GoodsCertif
   GoodsCertificateField.ValidityPeriod,
   'ValidityPeriod',
   'Validity Period',
-  'Period',
+  PeriodType.name,
   'The period of time for which this goods certificate is considered valid',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -205,10 +220,10 @@ export const GoodsCertificateFieldMetaApplicableTerritoryAddress = new FieldMeta
   GoodsCertificateField.ApplicableTerritoryAddress,
   'ApplicableTerritoryAddress',
   'Applicable Territory Address',
-  'Address',
+  AddressType.name,
   'A geographic area where this goods certificate is valid',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -217,10 +232,10 @@ export const GoodsCertificateFieldMetaExporterParty = new FieldMeta<GoodsCertifi
   GoodsCertificateField.ExporterParty,
   'ExporterParty',
   'Exporter Party',
-  'Party',
+  PartyType.name,
   'The party who exports the goods or has similar right of disposal over them at the time of export',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   'Exporter (WCO ID 41 and 42)',
   undefined
 )
@@ -229,10 +244,10 @@ export const GoodsCertificateFieldMetaImporterParty = new FieldMeta<GoodsCertifi
   GoodsCertificateField.ImporterParty,
   'ImporterParty',
   'Importer Party',
-  'Party',
+  PartyType.name,
   'The party who imports the goods, or on whose behalf the goods are being import',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   'Importer (WCO ID 39 and 40)',
   undefined
 )
@@ -241,10 +256,10 @@ export const GoodsCertificateFieldMetaWarehouseParty = new FieldMeta<GoodsCertif
   GoodsCertificateField.WarehouseParty,
   'WarehouseParty',
   'Warehouse Party',
-  'Party',
+  PartyType.name,
   'The party who is responsible for storing the goods',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -253,10 +268,10 @@ export const GoodsCertificateFieldMetaConsignorParty = new FieldMeta<GoodsCertif
   GoodsCertificateField.ConsignorParty,
   'ConsignorParty',
   'Consignor Party',
-  'Party',
+  PartyType.name,
   'The party, usually the seller, who is responsible for the consignment',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -265,10 +280,10 @@ export const GoodsCertificateFieldMetaConsigneeParty = new FieldMeta<GoodsCertif
   GoodsCertificateField.ConsigneeParty,
   'ConsigneeParty',
   'Consignee Party',
-  'Party',
+  PartyType.name,
   'The party, usually the buyer, who will receive the goods',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -277,10 +292,10 @@ export const GoodsCertificateFieldMetaFreightForwarderParty = new FieldMeta<Good
   GoodsCertificateField.FreightForwarderParty,
   'FreightForwarderParty',
   'Freight Forwarder Party',
-  'Party',
+  PartyType.name,
   'The freight forwarder or the forwarding agent responsible for the transportation of the goods',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -289,10 +304,10 @@ export const GoodsCertificateFieldMetaIssuerParty = new FieldMeta<GoodsCertifica
   GoodsCertificateField.IssuerParty,
   'IssuerParty',
   'Issuer Party',
-  'Party',
+  PartyType.name,
   'The party issuing this goods certificate',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -301,10 +316,10 @@ export const GoodsCertificateFieldMetaLegalAuthorityParty = new FieldMeta<GoodsC
   GoodsCertificateField.LegalAuthorityParty,
   'LegalAuthorityParty',
   'Legal Authority Party',
-  'Party',
+  PartyType.name,
   'The legal authority, when different from the issuer, who sanctions this goods certificate',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -313,10 +328,10 @@ export const GoodsCertificateFieldMetaShipment = new FieldMeta<GoodsCertificateF
   GoodsCertificateField.Shipment,
   'Shipment',
   'Shipment',
-  'Shipment',
+  ShipmentType.name,
   'The shipment for which this goods certificate is issued',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -325,10 +340,10 @@ export const GoodsCertificateFieldMetaAttestation = new FieldMeta<GoodsCertifica
   GoodsCertificateField.Attestation,
   'Attestation',
   'Attestation',
-  'Attestation',
+  AttestationType.name,
   'Any attestations made for the goods related to this goods certificate',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -337,10 +352,10 @@ export const GoodsCertificateFieldMetaGoodsProcessing = new FieldMeta<GoodsCerti
   GoodsCertificateField.GoodsProcessing,
   'GoodsProcessing',
   'Goods Processing',
-  'GoodsProcessing',
+  GoodsProcessingType.name,
   'Any processing that the goods have been undergoing',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -349,10 +364,10 @@ export const GoodsCertificateFieldMetaOriginalDocumentReference = new FieldMeta<
   GoodsCertificateField.OriginalDocumentReference,
   'OriginalDocumentReference',
   'Original Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to the original version of the goods certificate',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -361,10 +376,10 @@ export const GoodsCertificateFieldMetaPreviousDocumentReference = new FieldMeta<
   GoodsCertificateField.PreviousDocumentReference,
   'PreviousDocumentReference',
   'Previous Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to the previous version of the goods certificate',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -373,10 +388,10 @@ export const GoodsCertificateFieldMetaAdditionalDocumentReference = new FieldMet
   GoodsCertificateField.AdditionalDocumentReference,
   'AdditionalDocumentReference',
   'Additional Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to an additional document associated with this goods certificate',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -385,10 +400,10 @@ export const GoodsCertificateFieldMetaSignature = new FieldMeta<GoodsCertificate
   GoodsCertificateField.Signature,
   'Signature',
   'Signature',
-  'Signature',
+  SignatureType.name,
   'A signature applied to this document.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -458,3 +473,11 @@ export const GoodsCertificateFieldMap = new Map([
   [GoodsCertificateField.AdditionalDocumentReference, GoodsCertificateFieldMetaAdditionalDocumentReference],
   [GoodsCertificateField.Signature, GoodsCertificateFieldMetaSignature]
 ])
+
+export const GoodsCertificateType: Type<GoodsCertificateField> = {
+  name: 'GoodsCertificate',
+  label: 'Goods Certificate',
+  module: TypeModule.doc,
+  definition: 'A document that describes a certificate of goods for importation and exportation',
+  fields: GoodsCertificateFieldMap,
+}

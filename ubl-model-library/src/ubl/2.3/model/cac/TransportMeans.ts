@@ -9,7 +9,6 @@ import { RoadTransport } from './RoadTransport'
 import { Stowage } from './Stowage'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a particular vehicle or vessel used for the conveyance of goods or persons.
  */

@@ -17,7 +17,6 @@ import { Text } from '../cbc/Text'
 import { TransportEquipment } from './TransportEquipment'
 import { TransportMeans } from './TransportMeans'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe a uniquely identifiable unit consisting of one or more packages, goods items, or pieces of
  * transport equipment.

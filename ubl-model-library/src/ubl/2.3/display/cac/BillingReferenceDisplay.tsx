@@ -1,93 +1,138 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { BillingReference } from  '../../model/cac/BillingReference'
-import { BillingReferenceFieldMeta } from  '../../meta/cac/BillingReferenceMeta'
-import BillingReferenceLineDisplay from './BillingReferenceLineDisplay'
-import { BillingReferenceLine } from '../../model/cac/BillingReferenceLine'
-import DocumentReferenceDisplay from './DocumentReferenceDisplay'
-import { DocumentReference } from '../../model/cac/DocumentReference'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { BillingReferenceField, BillingReferenceFieldMeta, BillingReferenceTypeName } from  '../../meta/cac/BillingReferenceMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { BillingReferenceLineDisplay } from './BillingReferenceLineDisplay'
+import { DocumentReferenceDisplay } from './DocumentReferenceDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: BillingReference | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<BillingReference, void>
+  billingReference: BillingReference[] | undefined
+  renderContext: RenderContext
 }
 
-export default function BillingReferenceDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const BillingReferenceSubElementsMap: SubElementsTemplatesMap<BillingReferenceField, BillingReference, void> = new Map([
+    [
+      BillingReferenceField.UBLExtensions,
+      { meta: BillingReferenceFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={BillingReferenceField.UBLExtensions}
+          meta={BillingReferenceFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-BillingReference">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={BillingReferenceFieldMeta.UBLExtensions}
-          />
+    [
+      BillingReferenceField.InvoiceDocumentReference,
+      { meta: BillingReferenceFieldMeta.InvoiceDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={BillingReferenceField.InvoiceDocumentReference}
+          meta={BillingReferenceFieldMeta.InvoiceDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.InvoiceDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DocumentReferenceDisplay
-            label="Invoice Document Reference"
-            value={value.InvoiceDocumentReference?.[0]}
-            meta={BillingReferenceFieldMeta.InvoiceDocumentReference}
-          />
+    [
+      BillingReferenceField.SelfBilledInvoiceDocumentReference,
+      { meta: BillingReferenceFieldMeta.SelfBilledInvoiceDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={BillingReferenceField.SelfBilledInvoiceDocumentReference}
+          meta={BillingReferenceFieldMeta.SelfBilledInvoiceDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.SelfBilledInvoiceDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DocumentReferenceDisplay
-            label="Self Billed Invoice Document Reference"
-            value={value.SelfBilledInvoiceDocumentReference?.[0]}
-            meta={BillingReferenceFieldMeta.SelfBilledInvoiceDocumentReference}
-          />
+    [
+      BillingReferenceField.CreditNoteDocumentReference,
+      { meta: BillingReferenceFieldMeta.CreditNoteDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={BillingReferenceField.CreditNoteDocumentReference}
+          meta={BillingReferenceFieldMeta.CreditNoteDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.CreditNoteDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DocumentReferenceDisplay
-            label="Credit Note Document Reference"
-            value={value.CreditNoteDocumentReference?.[0]}
-            meta={BillingReferenceFieldMeta.CreditNoteDocumentReference}
-          />
+    [
+      BillingReferenceField.SelfBilledCreditNoteDocumentReference,
+      { meta: BillingReferenceFieldMeta.SelfBilledCreditNoteDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={BillingReferenceField.SelfBilledCreditNoteDocumentReference}
+          meta={BillingReferenceFieldMeta.SelfBilledCreditNoteDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.SelfBilledCreditNoteDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DocumentReferenceDisplay
-            label="Self Billed Credit Note Document Reference"
-            value={value.SelfBilledCreditNoteDocumentReference?.[0]}
-            meta={BillingReferenceFieldMeta.SelfBilledCreditNoteDocumentReference}
-          />
+    [
+      BillingReferenceField.DebitNoteDocumentReference,
+      { meta: BillingReferenceFieldMeta.DebitNoteDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={BillingReferenceField.DebitNoteDocumentReference}
+          meta={BillingReferenceFieldMeta.DebitNoteDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.DebitNoteDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DocumentReferenceDisplay
-            label="Debit Note Document Reference"
-            value={value.DebitNoteDocumentReference?.[0]}
-            meta={BillingReferenceFieldMeta.DebitNoteDocumentReference}
-          />
+    [
+      BillingReferenceField.ReminderDocumentReference,
+      { meta: BillingReferenceFieldMeta.ReminderDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={BillingReferenceField.ReminderDocumentReference}
+          meta={BillingReferenceFieldMeta.ReminderDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.ReminderDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DocumentReferenceDisplay
-            label="Reminder Document Reference"
-            value={value.ReminderDocumentReference?.[0]}
-            meta={BillingReferenceFieldMeta.ReminderDocumentReference}
-          />
+    [
+      BillingReferenceField.AdditionalDocumentReference,
+      { meta: BillingReferenceFieldMeta.AdditionalDocumentReference,
+        template: ({value, renderContext, fieldConfig}) => <DocumentReferenceDisplay
+          key={BillingReferenceField.AdditionalDocumentReference}
+          meta={BillingReferenceFieldMeta.AdditionalDocumentReference}
+          fieldConfig={fieldConfig}
+          documentReference={value?.AdditionalDocumentReference}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DocumentReferenceDisplay
-            label="Additional Document Reference"
-            value={value.AdditionalDocumentReference?.[0]}
-            meta={BillingReferenceFieldMeta.AdditionalDocumentReference}
-          />
+    [
+      BillingReferenceField.BillingReferenceLine,
+      { meta: BillingReferenceFieldMeta.BillingReferenceLine,
+        template: ({value, renderContext, fieldConfig}) => <BillingReferenceLineDisplay
+          key={BillingReferenceField.BillingReferenceLine}
+          meta={BillingReferenceFieldMeta.BillingReferenceLine}
+          fieldConfig={fieldConfig}
+          billingReferenceLine={value?.BillingReferenceLine}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-BillingReferenceLine"
-            label="Billing Reference Line"
-            items={value.BillingReferenceLine}
-            meta={BillingReferenceFieldMeta.BillingReferenceLine} 
-            itemDisplay={ (itemValue: BillingReferenceLine, key: string | number) =>
-              <BillingReferenceLineDisplay
-                key={key}
-                label="Billing Reference Line"
-                value={itemValue}
-                meta={BillingReferenceFieldMeta.BillingReferenceLine}
-              />
-            }
-          />
-        </div>
-    </div>
+export function BillingReferenceDisplay<TFieldMeta>({ meta, fieldConfig, billingReference, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    BillingReferenceTypeName,
+    meta,
+    fieldConfig,
+    billingReference,
+    renderContext,
+    BillingReferenceSubElementsMap,
   )
 }

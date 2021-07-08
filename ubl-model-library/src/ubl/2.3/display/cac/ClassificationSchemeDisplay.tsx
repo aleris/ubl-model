@@ -1,153 +1,213 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { ClassificationScheme } from  '../../model/cac/ClassificationScheme'
-import { ClassificationSchemeFieldMeta } from  '../../meta/cac/ClassificationSchemeMeta'
-import ClassificationCategoryDisplay from './ClassificationCategoryDisplay'
-import { ClassificationCategory } from '../../model/cac/ClassificationCategory'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { ClassificationSchemeField, ClassificationSchemeFieldMeta, ClassificationSchemeTypeName } from  '../../meta/cac/ClassificationSchemeMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { ClassificationCategoryDisplay } from './ClassificationCategoryDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: ClassificationScheme | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<ClassificationScheme, void>
+  classificationScheme: ClassificationScheme[] | undefined
+  renderContext: RenderContext
 }
 
-export default function ClassificationSchemeDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const ClassificationSchemeSubElementsMap: SubElementsTemplatesMap<ClassificationSchemeField, ClassificationScheme, void> = new Map([
+    [
+      ClassificationSchemeField.UBLExtensions,
+      { meta: ClassificationSchemeFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={ClassificationSchemeField.UBLExtensions}
+          meta={ClassificationSchemeFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-ClassificationScheme">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={ClassificationSchemeFieldMeta.UBLExtensions}
-          />
+    [
+      ClassificationSchemeField.ID,
+      { meta: ClassificationSchemeFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ClassificationSchemeField.ID}
+          meta={ClassificationSchemeFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={ClassificationSchemeFieldMeta.ID}
-          />
+    [
+      ClassificationSchemeField.UUID,
+      { meta: ClassificationSchemeFieldMeta.UUID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ClassificationSchemeField.UUID}
+          meta={ClassificationSchemeFieldMeta.UUID}
+          fieldConfig={fieldConfig}
+          identifier={value?.UUID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="UUID"
-            value={value.UUID?.[0]}
-            meta={ClassificationSchemeFieldMeta.UUID}
-          />
+    [
+      ClassificationSchemeField.LastRevisionDate,
+      { meta: ClassificationSchemeFieldMeta.LastRevisionDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={ClassificationSchemeField.LastRevisionDate}
+          meta={ClassificationSchemeFieldMeta.LastRevisionDate}
+          fieldConfig={fieldConfig}
+          date={value?.LastRevisionDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Last Revision Date"
-            value={value.LastRevisionDate?.[0]}
-            meta={ClassificationSchemeFieldMeta.LastRevisionDate}
-          />
+    [
+      ClassificationSchemeField.LastRevisionTime,
+      { meta: ClassificationSchemeFieldMeta.LastRevisionTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={ClassificationSchemeField.LastRevisionTime}
+          meta={ClassificationSchemeFieldMeta.LastRevisionTime}
+          fieldConfig={fieldConfig}
+          time={value?.LastRevisionTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Last Revision Time"
-            value={value.LastRevisionTime?.[0]}
-            meta={ClassificationSchemeFieldMeta.LastRevisionTime}
-          />
+    [
+      ClassificationSchemeField.Note,
+      { meta: ClassificationSchemeFieldMeta.Note,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ClassificationSchemeField.Note}
+          meta={ClassificationSchemeFieldMeta.Note}
+          fieldConfig={fieldConfig}
+          text={value?.Note}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Note"
-            label="Note"
-            items={value.Note}
-            meta={ClassificationSchemeFieldMeta.Note} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Note"
-                value={itemValue}
-                meta={ClassificationSchemeFieldMeta.Note}
-              />
-            }
-          />
+    [
+      ClassificationSchemeField.Name,
+      { meta: ClassificationSchemeFieldMeta.Name,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ClassificationSchemeField.Name}
+          meta={ClassificationSchemeFieldMeta.Name}
+          fieldConfig={fieldConfig}
+          text={value?.Name}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Name"
-            value={value.Name?.[0]}
-            meta={ClassificationSchemeFieldMeta.Name}
-          />
+    [
+      ClassificationSchemeField.Description,
+      { meta: ClassificationSchemeFieldMeta.Description,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ClassificationSchemeField.Description}
+          meta={ClassificationSchemeFieldMeta.Description}
+          fieldConfig={fieldConfig}
+          text={value?.Description}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Text ubl-Description"
-            label="Description"
-            items={value.Description}
-            meta={ClassificationSchemeFieldMeta.Description} 
-            itemDisplay={ (itemValue: Text, key: string | number) =>
-              <TextDisplay
-                key={key}
-                label="Description"
-                value={itemValue}
-                meta={ClassificationSchemeFieldMeta.Description}
-              />
-            }
-          />
+    [
+      ClassificationSchemeField.AgencyID,
+      { meta: ClassificationSchemeFieldMeta.AgencyID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ClassificationSchemeField.AgencyID}
+          meta={ClassificationSchemeFieldMeta.AgencyID}
+          fieldConfig={fieldConfig}
+          identifier={value?.AgencyID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Agency Identifier"
-            value={value.AgencyID?.[0]}
-            meta={ClassificationSchemeFieldMeta.AgencyID}
-          />
+    [
+      ClassificationSchemeField.AgencyName,
+      { meta: ClassificationSchemeFieldMeta.AgencyName,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={ClassificationSchemeField.AgencyName}
+          meta={ClassificationSchemeFieldMeta.AgencyName}
+          fieldConfig={fieldConfig}
+          text={value?.AgencyName}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Agency Name"
-            value={value.AgencyName?.[0]}
-            meta={ClassificationSchemeFieldMeta.AgencyName}
-          />
+    [
+      ClassificationSchemeField.VersionID,
+      { meta: ClassificationSchemeFieldMeta.VersionID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ClassificationSchemeField.VersionID}
+          meta={ClassificationSchemeFieldMeta.VersionID}
+          fieldConfig={fieldConfig}
+          identifier={value?.VersionID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Version"
-            value={value.VersionID?.[0]}
-            meta={ClassificationSchemeFieldMeta.VersionID}
-          />
+    [
+      ClassificationSchemeField.URI,
+      { meta: ClassificationSchemeFieldMeta.URI,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ClassificationSchemeField.URI}
+          meta={ClassificationSchemeFieldMeta.URI}
+          fieldConfig={fieldConfig}
+          identifier={value?.URI}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="URI"
-            value={value.URI?.[0]}
-            meta={ClassificationSchemeFieldMeta.URI}
-          />
+    [
+      ClassificationSchemeField.SchemeURI,
+      { meta: ClassificationSchemeFieldMeta.SchemeURI,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ClassificationSchemeField.SchemeURI}
+          meta={ClassificationSchemeFieldMeta.SchemeURI}
+          fieldConfig={fieldConfig}
+          identifier={value?.SchemeURI}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Scheme URI"
-            value={value.SchemeURI?.[0]}
-            meta={ClassificationSchemeFieldMeta.SchemeURI}
-          />
+    [
+      ClassificationSchemeField.LanguageID,
+      { meta: ClassificationSchemeFieldMeta.LanguageID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={ClassificationSchemeField.LanguageID}
+          meta={ClassificationSchemeFieldMeta.LanguageID}
+          fieldConfig={fieldConfig}
+          identifier={value?.LanguageID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Language"
-            value={value.LanguageID?.[0]}
-            meta={ClassificationSchemeFieldMeta.LanguageID}
-          />
+    [
+      ClassificationSchemeField.ClassificationCategory,
+      { meta: ClassificationSchemeFieldMeta.ClassificationCategory,
+        template: ({value, renderContext, fieldConfig}) => <ClassificationCategoryDisplay
+          key={ClassificationSchemeField.ClassificationCategory}
+          meta={ClassificationSchemeFieldMeta.ClassificationCategory}
+          fieldConfig={fieldConfig}
+          classificationCategory={value?.ClassificationCategory}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-ClassificationCategory"
-            label="Classification Category"
-            items={value.ClassificationCategory}
-            meta={ClassificationSchemeFieldMeta.ClassificationCategory} 
-            itemDisplay={ (itemValue: ClassificationCategory, key: string | number) =>
-              <ClassificationCategoryDisplay
-                key={key}
-                label="Classification Category"
-                value={itemValue}
-                meta={ClassificationSchemeFieldMeta.ClassificationCategory}
-              />
-            }
-          />
-        </div>
-    </div>
+export function ClassificationSchemeDisplay<TFieldMeta>({ meta, fieldConfig, classificationScheme, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    ClassificationSchemeTypeName,
+    meta,
+    fieldConfig,
+    classificationScheme,
+    renderContext,
+    ClassificationSchemeSubElementsMap,
   )
 }

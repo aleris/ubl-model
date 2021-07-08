@@ -3,7 +3,6 @@ import { EmissionCalculationMethod } from './EmissionCalculationMethod'
 import { Measure } from '../cbc/Measure'
 import { Text } from '../cbc/Text'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe an environmental emission.
  */

@@ -1,4 +1,8 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { TaxTotalType } from './TaxTotalMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum PriceExtensionField {
   UBLExtensions = 'UBLExtensions',
@@ -9,11 +13,11 @@ export enum PriceExtensionField {
 export const PriceExtensionFieldMetaUBLExtensions = new FieldMeta<PriceExtensionField>(
   PriceExtensionField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -22,10 +26,10 @@ export const PriceExtensionFieldMetaAmount = new FieldMeta<PriceExtensionField>(
   PriceExtensionField.Amount,
   'Amount',
   'Amount',
-  'Amount',
+  AmountType.name,
   'The amount of this price extension.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -34,10 +38,10 @@ export const PriceExtensionFieldMetaTaxTotal = new FieldMeta<PriceExtensionField
   PriceExtensionField.TaxTotal,
   'TaxTotal',
   'Tax Total',
-  'TaxTotal',
+  TaxTotalType.name,
   'A total amount of taxes of a particular kind applicable to this price extension.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -53,3 +57,11 @@ export const PriceExtensionFieldMap = new Map([
   [PriceExtensionField.Amount, PriceExtensionFieldMetaAmount],
   [PriceExtensionField.TaxTotal, PriceExtensionFieldMetaTaxTotal]
 ])
+
+export const PriceExtensionType: Type<PriceExtensionField> = {
+  name: 'PriceExtension',
+  label: 'Price Extension',
+  module: TypeModule.cac,
+  definition: 'A class to describe a price extension, calculated by multiplying the price per unit by the quantity of items.',
+  fields: PriceExtensionFieldMap,
+}

@@ -1,4 +1,23 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { CodeType } from '../cbc/CodeMeta'
+import { CustomerPartyType } from './CustomerPartyMeta'
+import { DocumentReferenceType } from './DocumentReferenceMeta'
+import { IdentifierType } from '../cbc/IdentifierMeta'
+import { IndicatorType } from '../cbc/IndicatorMeta'
+import { ItemType } from './ItemMeta'
+import { ItemComparisonType } from './ItemComparisonMeta'
+import { ItemLocationQuantityType } from './ItemLocationQuantityMeta'
+import { ItemPropertyType } from './ItemPropertyMeta'
+import { LineReferenceType } from './LineReferenceMeta'
+import { NumericType } from '../cbc/NumericMeta'
+import { PartyType } from './PartyMeta'
+import { PeriodType } from './PeriodMeta'
+import { QuantityType } from '../cbc/QuantityMeta'
+import { RelatedItemType } from './RelatedItemMeta'
+import { SupplierPartyType } from './SupplierPartyMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum CatalogueLineField {
   UBLExtensions = 'UBLExtensions',
@@ -38,11 +57,11 @@ export enum CatalogueLineField {
 export const CatalogueLineFieldMetaUBLExtensions = new FieldMeta<CatalogueLineField>(
   CatalogueLineField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -51,10 +70,10 @@ export const CatalogueLineFieldMetaID = new FieldMeta<CatalogueLineField>(
   CatalogueLineField.ID,
   'ID',
   'Identifier',
-  'Identifier',
+  IdentifierType.name,
   'An identifier for the line in the catalogue.',
-  '1',
-  'cbc',
+  FieldCardinality.Uni,
+  TypeModule.cbc,
   undefined,
   '1'
 )
@@ -63,10 +82,10 @@ export const CatalogueLineFieldMetaActionCode = new FieldMeta<CatalogueLineField
   CatalogueLineField.ActionCode,
   'ActionCode',
   'Action Code',
-  'Code',
+  CodeType.name,
   'A code signifying the action required to synchronize this catalogue line. Recommend codes (delete, update, add)',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Replace , Update , Delete , Add'
 )
@@ -75,10 +94,10 @@ export const CatalogueLineFieldMetaLifeCycleStatusCode = new FieldMeta<Catalogue
   CatalogueLineField.LifeCycleStatusCode,
   'LifeCycleStatusCode',
   'Life Cycle Status Code',
-  'Code',
+  CodeType.name,
   'A code signifying the life cycle status of this catalogue line. Examples are pre-order, end of production',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'new - announcement only , new and available , deleted - announcement only'
 )
@@ -87,10 +106,10 @@ export const CatalogueLineFieldMetaContractSubdivision = new FieldMeta<Catalogue
   CatalogueLineField.ContractSubdivision,
   'ContractSubdivision',
   'Contract Subdivision',
-  'Text',
+  TextType.name,
   'A subdivision of a contract or tender covering this catalogue line.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'Installation , Phase One , Support and Maintenance'
 )
@@ -99,10 +118,10 @@ export const CatalogueLineFieldMetaNote = new FieldMeta<CatalogueLineField>(
   CatalogueLineField.Note,
   'Note',
   'Note',
-  'Text',
+  TextType.name,
   'Free-form text conveying information that is not contained explicitly in other structures.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -111,10 +130,10 @@ export const CatalogueLineFieldMetaOrderableIndicator = new FieldMeta<CatalogueL
   CatalogueLineField.OrderableIndicator,
   'OrderableIndicator',
   'Orderable Indicator',
-  'Indicator',
+  IndicatorType.name,
   'An indicator that this catalogue line describes an orderable item (true) or is included for reference purposes only (false).',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'TRUE means orderable, FALSE means not orderable'
 )
@@ -123,10 +142,10 @@ export const CatalogueLineFieldMetaOrderableUnit = new FieldMeta<CatalogueLineFi
   CatalogueLineField.OrderableUnit,
   'OrderableUnit',
   'Orderable Unit',
-  'Text',
+  TextType.name,
   'A textual description of the units in which the item described in this catalogue line can be ordered.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -135,10 +154,10 @@ export const CatalogueLineFieldMetaContentUnitQuantity = new FieldMeta<Catalogue
   CatalogueLineField.ContentUnitQuantity,
   'ContentUnitQuantity',
   'Content Unit',
-  'Quantity',
+  QuantityType.name,
   'The numeric quantity of the ordering unit (and units of measure) of the catalogue line.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   'If order unit measure identifier is each , then content unit quantity is 1 .'
 )
@@ -147,10 +166,10 @@ export const CatalogueLineFieldMetaOrderQuantityIncrementNumeric = new FieldMeta
   CatalogueLineField.OrderQuantityIncrementNumeric,
   'OrderQuantityIncrementNumeric',
   'Order Quantity Increment',
-  'Numeric',
+  NumericType.name,
   'The number of items that can set the order quantity increments.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -159,10 +178,10 @@ export const CatalogueLineFieldMetaMinimumOrderQuantity = new FieldMeta<Catalogu
   CatalogueLineField.MinimumOrderQuantity,
   'MinimumOrderQuantity',
   'Minimum Order Quantity',
-  'Quantity',
+  QuantityType.name,
   'The minimum amount of the item described in this catalogue line that can be ordered.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '10 boxes'
 )
@@ -171,10 +190,10 @@ export const CatalogueLineFieldMetaMaximumOrderQuantity = new FieldMeta<Catalogu
   CatalogueLineField.MaximumOrderQuantity,
   'MaximumOrderQuantity',
   'Maximum Order Quantity',
-  'Quantity',
+  QuantityType.name,
   'The maximum amount of the item described in this catalogue line that can be ordered.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   '1 tonne'
 )
@@ -183,10 +202,10 @@ export const CatalogueLineFieldMetaWarrantyInformation = new FieldMeta<Catalogue
   CatalogueLineField.WarrantyInformation,
   'WarrantyInformation',
   'Warranty Information',
-  'Text',
+  TextType.name,
   'Text about a warranty (provided by WarrantyParty) for the good or service described in this catalogue line.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   'Unless specified otherwise and in addition to any rights the Customer may have under statute, Dell warrants to the Customer that Dell branded Products (excluding third party products and software), will be free from defects in materials and workmanship affecting normal use for a period of one year from invoice date ( Standard Warranty ).'
 )
@@ -195,10 +214,10 @@ export const CatalogueLineFieldMetaPackLevelCode = new FieldMeta<CatalogueLineFi
   CatalogueLineField.PackLevelCode,
   'PackLevelCode',
   'Pack Level Code',
-  'Code',
+  CodeType.name,
   'A mutually agreed code signifying the level of packaging associated with the item described in this catalogue line.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   'Consumer Unit, Trading Unit',
   'level 2 , Group 4'
 )
@@ -207,10 +226,10 @@ export const CatalogueLineFieldMetaContractorCustomerParty = new FieldMeta<Catal
   CatalogueLineField.ContractorCustomerParty,
   'ContractorCustomerParty',
   'Contractor Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The customer responsible for the contract with which this catalogue line is associated.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -219,10 +238,10 @@ export const CatalogueLineFieldMetaSellerSupplierParty = new FieldMeta<Catalogue
   CatalogueLineField.SellerSupplierParty,
   'SellerSupplierParty',
   'Seller Supplier Party',
-  'SupplierParty',
+  SupplierPartyType.name,
   'The seller/supplier responsible for the contract with which this catalogue line is associated.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -231,10 +250,10 @@ export const CatalogueLineFieldMetaWarrantyParty = new FieldMeta<CatalogueLineFi
   CatalogueLineField.WarrantyParty,
   'WarrantyParty',
   'Warranty Party',
-  'Party',
+  PartyType.name,
   'The party responsible for any warranty associated with the item described in this catalogue line.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -243,10 +262,10 @@ export const CatalogueLineFieldMetaWarrantyValidityPeriod = new FieldMeta<Catalo
   CatalogueLineField.WarrantyValidityPeriod,
   'WarrantyValidityPeriod',
   'Warranty Validity Period',
-  'Period',
+  PeriodType.name,
   'The period for which a warranty associated with the item in this catalogue line is valid.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -255,10 +274,10 @@ export const CatalogueLineFieldMetaLineValidityPeriod = new FieldMeta<CatalogueL
   CatalogueLineField.LineValidityPeriod,
   'LineValidityPeriod',
   'Line Validity Period',
-  'Period',
+  PeriodType.name,
   'The period for which the information in this catalogue line is valid.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -267,10 +286,10 @@ export const CatalogueLineFieldMetaItemComparison = new FieldMeta<CatalogueLineF
   CatalogueLineField.ItemComparison,
   'ItemComparison',
   'Item Comparison',
-  'ItemComparison',
+  ItemComparisonType.name,
   'A combination of price and quantity used to provide price comparisons based on different sizes of order.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -279,10 +298,10 @@ export const CatalogueLineFieldMetaComponentRelatedItem = new FieldMeta<Catalogu
   CatalogueLineField.ComponentRelatedItem,
   'ComponentRelatedItem',
   'Component Related Item',
-  'RelatedItem',
+  RelatedItemType.name,
   'An item that may be a component of the item in this catalogue line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -291,10 +310,10 @@ export const CatalogueLineFieldMetaAccessoryRelatedItem = new FieldMeta<Catalogu
   CatalogueLineField.AccessoryRelatedItem,
   'AccessoryRelatedItem',
   'Accessory Related Item',
-  'RelatedItem',
+  RelatedItemType.name,
   'An item that may be an optional accessory of the item in this catalogue line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -303,10 +322,10 @@ export const CatalogueLineFieldMetaRequiredRelatedItem = new FieldMeta<Catalogue
   CatalogueLineField.RequiredRelatedItem,
   'RequiredRelatedItem',
   'Required Related Item',
-  'RelatedItem',
+  RelatedItemType.name,
   'An item that may be required for the item in this catalogue line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -315,10 +334,10 @@ export const CatalogueLineFieldMetaReplacementRelatedItem = new FieldMeta<Catalo
   CatalogueLineField.ReplacementRelatedItem,
   'ReplacementRelatedItem',
   'Replacement Related Item',
-  'RelatedItem',
+  RelatedItemType.name,
   'An item that may be a replacement for the item in this catalogue line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -327,10 +346,10 @@ export const CatalogueLineFieldMetaComplementaryRelatedItem = new FieldMeta<Cata
   CatalogueLineField.ComplementaryRelatedItem,
   'ComplementaryRelatedItem',
   'Complementary Related Item',
-  'RelatedItem',
+  RelatedItemType.name,
   'An item that may complement the item in this catalogue line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -339,10 +358,10 @@ export const CatalogueLineFieldMetaReplacedRelatedItem = new FieldMeta<Catalogue
   CatalogueLineField.ReplacedRelatedItem,
   'ReplacedRelatedItem',
   'Replaced Related Item',
-  'RelatedItem',
+  RelatedItemType.name,
   'An item in an existing catalogue that is being replaced by the item in this catalogue line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -351,10 +370,10 @@ export const CatalogueLineFieldMetaRequiredItemLocationQuantity = new FieldMeta<
   CatalogueLineField.RequiredItemLocationQuantity,
   'RequiredItemLocationQuantity',
   'Required Item Location Quantity',
-  'ItemLocationQuantity',
+  ItemLocationQuantityType.name,
   'Properties of the item in this catalogue line that are dependent on location and quantity.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -363,10 +382,10 @@ export const CatalogueLineFieldMetaDocumentReference = new FieldMeta<CatalogueLi
   CatalogueLineField.DocumentReference,
   'DocumentReference',
   'Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A reference to a document associated with this catalogue line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -375,10 +394,10 @@ export const CatalogueLineFieldMetaItem = new FieldMeta<CatalogueLineField>(
   CatalogueLineField.Item,
   'Item',
   'Item',
-  'Item',
+  ItemType.name,
   'A specification of the item itself.',
-  '1',
-  'cac',
+  FieldCardinality.Uni,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -387,10 +406,10 @@ export const CatalogueLineFieldMetaKeywordItemProperty = new FieldMeta<Catalogue
   CatalogueLineField.KeywordItemProperty,
   'KeywordItemProperty',
   'Keyword Item Property',
-  'ItemProperty',
+  ItemPropertyType.name,
   'A property of the item in this catalogue line.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -399,10 +418,10 @@ export const CatalogueLineFieldMetaCallForTendersLineReference = new FieldMeta<C
   CatalogueLineField.CallForTendersLineReference,
   'CallForTendersLineReference',
   'Call For Tenders Line Reference',
-  'LineReference',
+  LineReferenceType.name,
   'Reference to a Line on a Call For Tenders document.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -411,10 +430,10 @@ export const CatalogueLineFieldMetaCallForTendersDocumentReference = new FieldMe
   CatalogueLineField.CallForTendersDocumentReference,
   'CallForTendersDocumentReference',
   'Call For Tenders Document Reference',
-  'DocumentReference',
+  DocumentReferenceType.name,
   'A class defining references to a Call For Tenders document.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -488,3 +507,11 @@ export const CatalogueLineFieldMap = new Map([
   [CatalogueLineField.CallForTendersLineReference, CatalogueLineFieldMetaCallForTendersLineReference],
   [CatalogueLineField.CallForTendersDocumentReference, CatalogueLineFieldMetaCallForTendersDocumentReference]
 ])
+
+export const CatalogueLineType: Type<CatalogueLineField> = {
+  name: 'CatalogueLine',
+  label: 'Catalogue Line',
+  module: TypeModule.cac,
+  definition: 'A class to define a line in a Catalogue describing a purchasable item.',
+  fields: CatalogueLineFieldMap,
+}

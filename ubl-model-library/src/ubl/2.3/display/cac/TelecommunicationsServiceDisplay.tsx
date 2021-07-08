@@ -1,229 +1,305 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { TelecommunicationsService } from  '../../model/cac/TelecommunicationsService'
-import { TelecommunicationsServiceFieldMeta } from  '../../meta/cac/TelecommunicationsServiceMeta'
-import AllowanceChargeDisplay from './AllowanceChargeDisplay'
-import { AllowanceCharge } from '../../model/cac/AllowanceCharge'
-import AmountDisplay from '../cbc/AmountDisplay'
-import { Amount } from '../../model/cbc/Amount'
-import CodeDisplay from '../cbc/CodeDisplay'
-import { Code } from '../../model/cbc/Code'
-import CountryDisplay from './CountryDisplay'
-import { Country } from '../../model/cac/Country'
-import DateDisplay from '../cbc/DateDisplay'
-import { Date } from '../../model/cbc/Date'
-import DutyDisplay from './DutyDisplay'
-import { Duty } from '../../model/cac/Duty'
-import ExchangeRateDisplay from './ExchangeRateDisplay'
-import { ExchangeRate } from '../../model/cac/ExchangeRate'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import PriceDisplay from './PriceDisplay'
-import { Price } from '../../model/cac/Price'
-import QuantityDisplay from '../cbc/QuantityDisplay'
-import { Quantity } from '../../model/cbc/Quantity'
-import TaxTotalDisplay from './TaxTotalDisplay'
-import { TaxTotal } from '../../model/cac/TaxTotal'
-import TextDisplay from '../cbc/TextDisplay'
-import { Text } from '../../model/cbc/Text'
-import TimeDisplay from '../cbc/TimeDisplay'
-import { Time } from '../../model/cbc/Time'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { TelecommunicationsServiceField, TelecommunicationsServiceFieldMeta, TelecommunicationsServiceTypeName } from  '../../meta/cac/TelecommunicationsServiceMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { AllowanceChargeDisplay } from './AllowanceChargeDisplay'
+import { AmountDisplay } from '../cbc/AmountDisplay'
+import { CodeDisplay } from '../cbc/CodeDisplay'
+import { CountryDisplay } from './CountryDisplay'
+import { DateDisplay } from '../cbc/DateDisplay'
+import { DutyDisplay } from './DutyDisplay'
+import { ExchangeRateDisplay } from './ExchangeRateDisplay'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { PriceDisplay } from './PriceDisplay'
+import { QuantityDisplay } from '../cbc/QuantityDisplay'
+import { TaxTotalDisplay } from './TaxTotalDisplay'
+import { TextDisplay } from '../cbc/TextDisplay'
+import { TimeDisplay } from '../cbc/TimeDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: TelecommunicationsService | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<TelecommunicationsService, void>
+  telecommunicationsService: TelecommunicationsService[] | undefined
+  renderContext: RenderContext
 }
 
-export default function TelecommunicationsServiceDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const TelecommunicationsServiceSubElementsMap: SubElementsTemplatesMap<TelecommunicationsServiceField, TelecommunicationsService, void> = new Map([
+    [
+      TelecommunicationsServiceField.UBLExtensions,
+      { meta: TelecommunicationsServiceFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={TelecommunicationsServiceField.UBLExtensions}
+          meta={TelecommunicationsServiceFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-TelecommunicationsService">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={TelecommunicationsServiceFieldMeta.UBLExtensions}
-          />
+    [
+      TelecommunicationsServiceField.ID,
+      { meta: TelecommunicationsServiceFieldMeta.ID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={TelecommunicationsServiceField.ID}
+          meta={TelecommunicationsServiceFieldMeta.ID}
+          fieldConfig={fieldConfig}
+          identifier={value?.ID}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <IdentifierDisplay
-            label="Identifier"
-            value={value.ID?.[0]}
-            meta={TelecommunicationsServiceFieldMeta.ID}
-          />
+    [
+      TelecommunicationsServiceField.CallDate,
+      { meta: TelecommunicationsServiceFieldMeta.CallDate,
+        template: ({value, renderContext, fieldConfig}) => <DateDisplay
+          key={TelecommunicationsServiceField.CallDate}
+          meta={TelecommunicationsServiceFieldMeta.CallDate}
+          fieldConfig={fieldConfig}
+          date={value?.CallDate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <DateDisplay
-            label="Call Date"
-            value={value.CallDate?.[0]}
-            meta={TelecommunicationsServiceFieldMeta.CallDate}
-          />
+    [
+      TelecommunicationsServiceField.CallTime,
+      { meta: TelecommunicationsServiceFieldMeta.CallTime,
+        template: ({value, renderContext, fieldConfig}) => <TimeDisplay
+          key={TelecommunicationsServiceField.CallTime}
+          meta={TelecommunicationsServiceFieldMeta.CallTime}
+          fieldConfig={fieldConfig}
+          time={value?.CallTime}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TimeDisplay
-            label="Call Time"
-            value={value.CallTime?.[0]}
-            meta={TelecommunicationsServiceFieldMeta.CallTime}
-          />
+    [
+      TelecommunicationsServiceField.ServiceNumberCalled,
+      { meta: TelecommunicationsServiceFieldMeta.ServiceNumberCalled,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TelecommunicationsServiceField.ServiceNumberCalled}
+          meta={TelecommunicationsServiceFieldMeta.ServiceNumberCalled}
+          fieldConfig={fieldConfig}
+          text={value?.ServiceNumberCalled}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Service Number Called"
-            value={value.ServiceNumberCalled?.[0]}
-            meta={TelecommunicationsServiceFieldMeta.ServiceNumberCalled}
-          />
+    [
+      TelecommunicationsServiceField.TelecommunicationsServiceCategory,
+      { meta: TelecommunicationsServiceFieldMeta.TelecommunicationsServiceCategory,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TelecommunicationsServiceField.TelecommunicationsServiceCategory}
+          meta={TelecommunicationsServiceFieldMeta.TelecommunicationsServiceCategory}
+          fieldConfig={fieldConfig}
+          text={value?.TelecommunicationsServiceCategory}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Telecommunications Service Category"
-            value={value.TelecommunicationsServiceCategory?.[0]}
-            meta={TelecommunicationsServiceFieldMeta.TelecommunicationsServiceCategory}
-          />
+    [
+      TelecommunicationsServiceField.TelecommunicationsServiceCategoryCode,
+      { meta: TelecommunicationsServiceFieldMeta.TelecommunicationsServiceCategoryCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TelecommunicationsServiceField.TelecommunicationsServiceCategoryCode}
+          meta={TelecommunicationsServiceFieldMeta.TelecommunicationsServiceCategoryCode}
+          fieldConfig={fieldConfig}
+          code={value?.TelecommunicationsServiceCategoryCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Telecommunications Service Category Code"
-            value={value.TelecommunicationsServiceCategoryCode?.[0]}
-            meta={TelecommunicationsServiceFieldMeta.TelecommunicationsServiceCategoryCode}
-          />
+    [
+      TelecommunicationsServiceField.MovieTitle,
+      { meta: TelecommunicationsServiceFieldMeta.MovieTitle,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TelecommunicationsServiceField.MovieTitle}
+          meta={TelecommunicationsServiceFieldMeta.MovieTitle}
+          fieldConfig={fieldConfig}
+          text={value?.MovieTitle}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Movie Title"
-            value={value.MovieTitle?.[0]}
-            meta={TelecommunicationsServiceFieldMeta.MovieTitle}
-          />
+    [
+      TelecommunicationsServiceField.RoamingPartnerName,
+      { meta: TelecommunicationsServiceFieldMeta.RoamingPartnerName,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TelecommunicationsServiceField.RoamingPartnerName}
+          meta={TelecommunicationsServiceFieldMeta.RoamingPartnerName}
+          fieldConfig={fieldConfig}
+          text={value?.RoamingPartnerName}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Roaming Partner Name"
-            value={value.RoamingPartnerName?.[0]}
-            meta={TelecommunicationsServiceFieldMeta.RoamingPartnerName}
-          />
+    [
+      TelecommunicationsServiceField.PayPerView,
+      { meta: TelecommunicationsServiceFieldMeta.PayPerView,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TelecommunicationsServiceField.PayPerView}
+          meta={TelecommunicationsServiceFieldMeta.PayPerView}
+          fieldConfig={fieldConfig}
+          text={value?.PayPerView}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Pay Per View"
-            value={value.PayPerView?.[0]}
-            meta={TelecommunicationsServiceFieldMeta.PayPerView}
-          />
+    [
+      TelecommunicationsServiceField.Quantity,
+      { meta: TelecommunicationsServiceFieldMeta.Quantity,
+        template: ({value, renderContext, fieldConfig}) => <QuantityDisplay
+          key={TelecommunicationsServiceField.Quantity}
+          meta={TelecommunicationsServiceFieldMeta.Quantity}
+          fieldConfig={fieldConfig}
+          quantity={value?.Quantity}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <QuantityDisplay
-            label="Quantity"
-            value={value.Quantity?.[0]}
-            meta={TelecommunicationsServiceFieldMeta.Quantity}
-          />
+    [
+      TelecommunicationsServiceField.TelecommunicationsServiceCall,
+      { meta: TelecommunicationsServiceFieldMeta.TelecommunicationsServiceCall,
+        template: ({value, renderContext, fieldConfig}) => <TextDisplay
+          key={TelecommunicationsServiceField.TelecommunicationsServiceCall}
+          meta={TelecommunicationsServiceFieldMeta.TelecommunicationsServiceCall}
+          fieldConfig={fieldConfig}
+          text={value?.TelecommunicationsServiceCall}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <TextDisplay
-            label="Telecommunications Service Call"
-            value={value.TelecommunicationsServiceCall?.[0]}
-            meta={TelecommunicationsServiceFieldMeta.TelecommunicationsServiceCall}
-          />
+    [
+      TelecommunicationsServiceField.TelecommunicationsServiceCallCode,
+      { meta: TelecommunicationsServiceFieldMeta.TelecommunicationsServiceCallCode,
+        template: ({value, renderContext, fieldConfig}) => <CodeDisplay
+          key={TelecommunicationsServiceField.TelecommunicationsServiceCallCode}
+          meta={TelecommunicationsServiceFieldMeta.TelecommunicationsServiceCallCode}
+          fieldConfig={fieldConfig}
+          code={value?.TelecommunicationsServiceCallCode}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CodeDisplay
-            label="Telecommunications Service Call Code"
-            value={value.TelecommunicationsServiceCallCode?.[0]}
-            meta={TelecommunicationsServiceFieldMeta.TelecommunicationsServiceCallCode}
-          />
+    [
+      TelecommunicationsServiceField.CallBaseAmount,
+      { meta: TelecommunicationsServiceFieldMeta.CallBaseAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={TelecommunicationsServiceField.CallBaseAmount}
+          meta={TelecommunicationsServiceFieldMeta.CallBaseAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.CallBaseAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Call Base Amount"
-            value={value.CallBaseAmount?.[0]}
-            meta={TelecommunicationsServiceFieldMeta.CallBaseAmount}
-          />
+    [
+      TelecommunicationsServiceField.CallExtensionAmount,
+      { meta: TelecommunicationsServiceFieldMeta.CallExtensionAmount,
+        template: ({value, renderContext, fieldConfig}) => <AmountDisplay
+          key={TelecommunicationsServiceField.CallExtensionAmount}
+          meta={TelecommunicationsServiceFieldMeta.CallExtensionAmount}
+          fieldConfig={fieldConfig}
+          amount={value?.CallExtensionAmount}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <AmountDisplay
-            label="Call Extension Amount"
-            value={value.CallExtensionAmount?.[0]}
-            meta={TelecommunicationsServiceFieldMeta.CallExtensionAmount}
-          />
+    [
+      TelecommunicationsServiceField.Price,
+      { meta: TelecommunicationsServiceFieldMeta.Price,
+        template: ({value, renderContext, fieldConfig}) => <PriceDisplay
+          key={TelecommunicationsServiceField.Price}
+          meta={TelecommunicationsServiceFieldMeta.Price}
+          fieldConfig={fieldConfig}
+          price={value?.Price}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <PriceDisplay
-            label="Price"
-            value={value.Price?.[0]}
-            meta={TelecommunicationsServiceFieldMeta.Price}
-          />
+    [
+      TelecommunicationsServiceField.Country,
+      { meta: TelecommunicationsServiceFieldMeta.Country,
+        template: ({value, renderContext, fieldConfig}) => <CountryDisplay
+          key={TelecommunicationsServiceField.Country}
+          meta={TelecommunicationsServiceFieldMeta.Country}
+          fieldConfig={fieldConfig}
+          country={value?.Country}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <CountryDisplay
-            label="Country"
-            value={value.Country?.[0]}
-            meta={TelecommunicationsServiceFieldMeta.Country}
-          />
+    [
+      TelecommunicationsServiceField.ExchangeRate,
+      { meta: TelecommunicationsServiceFieldMeta.ExchangeRate,
+        template: ({value, renderContext, fieldConfig}) => <ExchangeRateDisplay
+          key={TelecommunicationsServiceField.ExchangeRate}
+          meta={TelecommunicationsServiceFieldMeta.ExchangeRate}
+          fieldConfig={fieldConfig}
+          exchangeRate={value?.ExchangeRate}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-ExchangeRate"
-            label="Exchange Rate"
-            items={value.ExchangeRate}
-            meta={TelecommunicationsServiceFieldMeta.ExchangeRate} 
-            itemDisplay={ (itemValue: ExchangeRate, key: string | number) =>
-              <ExchangeRateDisplay
-                key={key}
-                label="Exchange Rate"
-                value={itemValue}
-                meta={TelecommunicationsServiceFieldMeta.ExchangeRate}
-              />
-            }
-          />
+    [
+      TelecommunicationsServiceField.AllowanceCharge,
+      { meta: TelecommunicationsServiceFieldMeta.AllowanceCharge,
+        template: ({value, renderContext, fieldConfig}) => <AllowanceChargeDisplay
+          key={TelecommunicationsServiceField.AllowanceCharge}
+          meta={TelecommunicationsServiceFieldMeta.AllowanceCharge}
+          fieldConfig={fieldConfig}
+          allowanceCharge={value?.AllowanceCharge}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-AllowanceCharge"
-            label="Allowance Charge"
-            items={value.AllowanceCharge}
-            meta={TelecommunicationsServiceFieldMeta.AllowanceCharge} 
-            itemDisplay={ (itemValue: AllowanceCharge, key: string | number) =>
-              <AllowanceChargeDisplay
-                key={key}
-                label="Allowance Charge"
-                value={itemValue}
-                meta={TelecommunicationsServiceFieldMeta.AllowanceCharge}
-              />
-            }
-          />
+    [
+      TelecommunicationsServiceField.TaxTotal,
+      { meta: TelecommunicationsServiceFieldMeta.TaxTotal,
+        template: ({value, renderContext, fieldConfig}) => <TaxTotalDisplay
+          key={TelecommunicationsServiceField.TaxTotal}
+          meta={TelecommunicationsServiceFieldMeta.TaxTotal}
+          fieldConfig={fieldConfig}
+          taxTotal={value?.TaxTotal}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-TaxTotal"
-            label="Tax Total"
-            items={value.TaxTotal}
-            meta={TelecommunicationsServiceFieldMeta.TaxTotal} 
-            itemDisplay={ (itemValue: TaxTotal, key: string | number) =>
-              <TaxTotalDisplay
-                key={key}
-                label="Tax Total"
-                value={itemValue}
-                meta={TelecommunicationsServiceFieldMeta.TaxTotal}
-              />
-            }
-          />
+    [
+      TelecommunicationsServiceField.CallDuty,
+      { meta: TelecommunicationsServiceFieldMeta.CallDuty,
+        template: ({value, renderContext, fieldConfig}) => <DutyDisplay
+          key={TelecommunicationsServiceField.CallDuty}
+          meta={TelecommunicationsServiceFieldMeta.CallDuty}
+          fieldConfig={fieldConfig}
+          duty={value?.CallDuty}
+          renderContext={renderContext}
+        />}
+    ],
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Duty ubl-CallDuty"
-            label="Call Duty"
-            items={value.CallDuty}
-            meta={TelecommunicationsServiceFieldMeta.CallDuty} 
-            itemDisplay={ (itemValue: Duty, key: string | number) =>
-              <DutyDisplay
-                key={key}
-                label="Call Duty"
-                value={itemValue}
-                meta={TelecommunicationsServiceFieldMeta.CallDuty}
-              />
-            }
-          />
+    [
+      TelecommunicationsServiceField.TimeDuty,
+      { meta: TelecommunicationsServiceFieldMeta.TimeDuty,
+        template: ({value, renderContext, fieldConfig}) => <DutyDisplay
+          key={TelecommunicationsServiceField.TimeDuty}
+          meta={TelecommunicationsServiceFieldMeta.TimeDuty}
+          fieldConfig={fieldConfig}
+          duty={value?.TimeDuty}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <ElementListDisplay
-            className="ubl-cac ubl-Duty ubl-TimeDuty"
-            label="Time Duty"
-            items={value.TimeDuty}
-            meta={TelecommunicationsServiceFieldMeta.TimeDuty} 
-            itemDisplay={ (itemValue: Duty, key: string | number) =>
-              <DutyDisplay
-                key={key}
-                label="Time Duty"
-                value={itemValue}
-                meta={TelecommunicationsServiceFieldMeta.TimeDuty}
-              />
-            }
-          />
-        </div>
-    </div>
+export function TelecommunicationsServiceDisplay<TFieldMeta>({ meta, fieldConfig, telecommunicationsService, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    TelecommunicationsServiceTypeName,
+    meta,
+    fieldConfig,
+    telecommunicationsService,
+    renderContext,
+    TelecommunicationsServiceSubElementsMap,
   )
 }

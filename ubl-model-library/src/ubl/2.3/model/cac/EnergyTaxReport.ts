@@ -1,7 +1,6 @@
 import { Amount } from '../cbc/Amount'
 import { TaxScheme } from './TaxScheme'
 import { UBLExtensions } from '../ext/UBLExtensions'
-
 /**
  * A class to describe energy taxes.
  */

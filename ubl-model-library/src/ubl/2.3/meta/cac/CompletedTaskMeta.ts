@@ -1,4 +1,11 @@
-import { FieldMeta } from '../FieldMeta'
+import { FieldCardinality, FieldMeta } from '../FieldMeta'
+import { Type, TypeModule } from '../Type'
+import { AmountType } from '../cbc/AmountMeta'
+import { CustomerPartyType } from './CustomerPartyMeta'
+import { EvidenceSuppliedType } from './EvidenceSuppliedMeta'
+import { PeriodType } from './PeriodMeta'
+import { TextType } from '../cbc/TextMeta'
+import { UBLExtensionsType } from '../ext/UBLExtensionsMeta'
 
 export enum CompletedTaskField {
   UBLExtensions = 'UBLExtensions',
@@ -14,11 +21,11 @@ export enum CompletedTaskField {
 export const CompletedTaskFieldMetaUBLExtensions = new FieldMeta<CompletedTaskField>(
   CompletedTaskField.UBLExtensions,
   'UBLExtensions',
-  'undefined',
   'UBLExtensions',
+  UBLExtensionsType.name,
   'A container for extensions foreign to the document.',
-  '0..1',
-  'ext',
+  FieldCardinality.UniOptional,
+  TypeModule.ext,
   undefined,
   undefined
 )
@@ -27,10 +34,10 @@ export const CompletedTaskFieldMetaAnnualAverageAmount = new FieldMeta<Completed
   CompletedTaskField.AnnualAverageAmount,
   'AnnualAverageAmount',
   'Annual Average',
-  'Amount',
+  AmountType.name,
   'The average monetary amount of a task such as this completed task.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -39,10 +46,10 @@ export const CompletedTaskFieldMetaTotalTaskAmount = new FieldMeta<CompletedTask
   CompletedTaskField.TotalTaskAmount,
   'TotalTaskAmount',
   'Total Task',
-  'Amount',
+  AmountType.name,
   'The actual total monetary amount of this completed task.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -51,10 +58,10 @@ export const CompletedTaskFieldMetaPartyCapacityAmount = new FieldMeta<Completed
   CompletedTaskField.PartyCapacityAmount,
   'PartyCapacityAmount',
   'Party Capacity',
-  'Amount',
+  AmountType.name,
   'A monetary amount corresponding to the financial capacity of the party that carried out this completed task.',
-  '0..1',
-  'cbc',
+  FieldCardinality.UniOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -63,10 +70,10 @@ export const CompletedTaskFieldMetaDescription = new FieldMeta<CompletedTaskFiel
   CompletedTaskField.Description,
   'Description',
   'Description',
-  'Text',
+  TextType.name,
   'Text describing this completed task.',
-  '0..n',
-  'cbc',
+  FieldCardinality.MultiOptional,
+  TypeModule.cbc,
   undefined,
   undefined
 )
@@ -75,10 +82,10 @@ export const CompletedTaskFieldMetaEvidenceSupplied = new FieldMeta<CompletedTas
   CompletedTaskField.EvidenceSupplied,
   'EvidenceSupplied',
   'Evidence Supplied',
-  'EvidenceSupplied',
+  EvidenceSuppliedType.name,
   'The evidence justifying a designation of "complete" for this task.',
-  '0..n',
-  'cac',
+  FieldCardinality.MultiOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -87,10 +94,10 @@ export const CompletedTaskFieldMetaPeriod = new FieldMeta<CompletedTaskField>(
   CompletedTaskField.Period,
   'Period',
   'Period',
-  'Period',
+  PeriodType.name,
   'The period in which this completed task was performed.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -99,10 +106,10 @@ export const CompletedTaskFieldMetaRecipientCustomerParty = new FieldMeta<Comple
   CompletedTaskField.RecipientCustomerParty,
   'RecipientCustomerParty',
   'Recipient Customer Party',
-  'CustomerParty',
+  CustomerPartyType.name,
   'The original customer for this completed task.',
-  '0..1',
-  'cac',
+  FieldCardinality.UniOptional,
+  TypeModule.cac,
   undefined,
   undefined
 )
@@ -128,3 +135,11 @@ export const CompletedTaskFieldMap = new Map([
   [CompletedTaskField.Period, CompletedTaskFieldMetaPeriod],
   [CompletedTaskField.RecipientCustomerParty, CompletedTaskFieldMetaRecipientCustomerParty]
 ])
+
+export const CompletedTaskType: Type<CompletedTaskField> = {
+  name: 'CompletedTask',
+  label: 'Completed Task',
+  module: TypeModule.cac,
+  definition: 'A class to describe the completion of a specific task in the tendering process.',
+  fields: CompletedTaskFieldMap,
+}

@@ -1,40 +1,53 @@
 import React from 'react'
-import ElementListDisplay from '../ElementListDisplay'
 import { FieldMeta } from '../../meta/FieldMeta'
 import { RoadTransport } from  '../../model/cac/RoadTransport'
-import { RoadTransportFieldMeta } from  '../../meta/cac/RoadTransportMeta'
-import IdentifierDisplay from '../cbc/IdentifierDisplay'
-import { Identifier } from '../../model/cbc/Identifier'
-import UBLExtensionsDisplay from '../ext/UBLExtensionsDisplay'
-import { UBLExtensions } from '../../model/ext/UBLExtensions'
+import { RoadTransportField, RoadTransportFieldMeta, RoadTransportTypeName } from  '../../meta/cac/RoadTransportMeta'
+import { RenderContext } from '../RenderContext'
+import { FieldConfig } from '../FieldConfig'
+import { renderTemplatedTypeElement, SubElementsTemplatesMap } from '../Template'
+import { IdentifierDisplay } from '../cbc/IdentifierDisplay'
+import { UBLExtensionsDisplay } from '../ext/UBLExtensionsDisplay'
 
-type Props<T> = {
-  label: string
-  value: RoadTransport | undefined
-  meta: FieldMeta<T>
+type Props<TFieldMeta> = {
+  meta: FieldMeta<TFieldMeta>
+  fieldConfig?: FieldConfig<RoadTransport, void>
+  roadTransport: RoadTransport[] | undefined
+  renderContext: RenderContext
 }
 
-export default function RoadTransportDisplay<T>({ label, value, meta }: Props<T>) {
-  if (value === undefined) {
-      return null
-  }
+export const RoadTransportSubElementsMap: SubElementsTemplatesMap<RoadTransportField, RoadTransport, void> = new Map([
+    [
+      RoadTransportField.UBLExtensions,
+      { meta: RoadTransportFieldMeta.UBLExtensions,
+        template: ({value, renderContext, fieldConfig}) => <UBLExtensionsDisplay
+          key={RoadTransportField.UBLExtensions}
+          meta={RoadTransportFieldMeta.UBLExtensions}
+          fieldConfig={fieldConfig}
+          ublExtensions={value?.UBLExtensions}
+          renderContext={renderContext}
+        />}
+    ],
 
-  return (
-    <div className="ubl-cac ubl-RoadTransport">
-        <div className="ren-component-title">{label}</div>
-        <div className="ren-component-elements">
-          <UBLExtensionsDisplay
-            label="undefined"
-            value={value.UBLExtensions?.[0]}
-            meta={RoadTransportFieldMeta.UBLExtensions}
-          />
+    [
+      RoadTransportField.LicensePlateID,
+      { meta: RoadTransportFieldMeta.LicensePlateID,
+        template: ({value, renderContext, fieldConfig}) => <IdentifierDisplay
+          key={RoadTransportField.LicensePlateID}
+          meta={RoadTransportFieldMeta.LicensePlateID}
+          fieldConfig={fieldConfig}
+          identifier={value?.LicensePlateID}
+          renderContext={renderContext}
+        />}
+    ]
+]) 
 
-          <IdentifierDisplay
-            label="License Plate Identifier"
-            value={value.LicensePlateID?.[0]}
-            meta={RoadTransportFieldMeta.LicensePlateID}
-          />
-        </div>
-    </div>
+export function RoadTransportDisplay<TFieldMeta>({ meta, fieldConfig, roadTransport, renderContext }: Props<TFieldMeta>) {
+  return renderTemplatedTypeElement(
+    RoadTransportTypeName,
+    meta,
+    fieldConfig,
+    roadTransport,
+    renderContext,
+    RoadTransportSubElementsMap,
   )
 }
