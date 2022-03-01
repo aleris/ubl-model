@@ -68,7 +68,7 @@ export function singleQuoteEscape(text: string | undefined) {
   }
   const escaped = text.trim()
     .replace(/'/g, '\\\'')
-    .replace(/\\n/g, ' ')
+    .replace(/\n/g, ' ')
     .trim()
   return `'${escaped}'`
 }
@@ -79,10 +79,10 @@ export function indent(text: string, count: number, indentation = '  ') {
 
 export function mapCardinalityToEnum(cardinalityString: string): string {
   switch (cardinalityString) {
-    case '1': return 'FieldCardinality.Uni'
-    case '0..1': return 'FieldCardinality.UniOptional'
-    case '1..n': return 'FieldCardinality.Multi'
-    case '0..n': return 'FieldCardinality.MultiOptional'
-    default: return 'FieldCardinality.UniOptional'
+    case '1': return 'Cardinality.Uni'
+    case '0..1': return 'Cardinality.UniOptional'
+    case '1..n': return 'Cardinality.Multi'
+    case '0..n': return 'Cardinality.MultiOptional'
+    default: return 'Cardinality.UniOptional'
   }
 }

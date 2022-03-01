@@ -1,5 +1,5 @@
 import React from 'react'
-import { FieldMeta } from '../../meta/FieldMeta'
+import { FieldMeta } from '../../meta/Meta'
 import { Quantity } from '../../model/cbc/Quantity'
 import { FieldConfig } from '../FieldConfig'
 import { FieldDisplay } from '../FieldDisplay'

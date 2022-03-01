@@ -45,11 +45,18 @@ export class AggregateTypesGenerator {
   }
 
   asCodeTypeAll(ublModule: UblModule, types: AggregateType[]) {
-    return `${types.map(type => `import { ${type.typeName}Type } from './${ublModule}/${type.typeName}Meta'`).join('\n')}
+    return `import { FieldMeta } from './Meta'
+import { Type } from './Type'
+${types.map(type => `import { ${type.typeName}TypeMeta } from './${ublModule}/${type.typeName}MetaType'
+import { ${type.typeName}FieldMap } from './cac/${type.typeName}Meta'`).join('\n')}
 
 export const ${ublModule}All = [
-${types.map(type => `  ${type.typeName}Type`).join(',\n')}
+${types.map(type => `  ${type.typeName}TypeMeta`).join(',\n')}
 ]
+
+export const ${ublModule}AllFieldsMap = new Map<string, Map<any, FieldMeta<any>>>([
+${types.map(type => `  ['${type.module}:${type.typeName}', ${type.typeName}FieldMap]`).join(',\n')}
+])
 `
   }
 }

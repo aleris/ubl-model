@@ -17,8 +17,8 @@ export abstract class FieldGenerator implements FieldCodeGenerator<AggregateType
     }
   }
 
-  getImports(aggregateType: AggregateType, typeSuffix = '', fileSuffix = '') {
-    const importFields = this.getImportFields(aggregateType)
+  getImports(aggregateType: AggregateType,  excludeSelf = true, typeSuffix = '', fileSuffix = '') {
+    const importFields = this.getImportFields(aggregateType, excludeSelf)
     const imports = importFields.length == 0
       ? ''
       : `${
@@ -28,8 +28,10 @@ export abstract class FieldGenerator implements FieldCodeGenerator<AggregateType
     return imports
   }
 
-  private getImportFields(aggregateType: AggregateType) {
-    const withoutSelf = aggregateType.fields.filter(field => field.resolvedType.name !== aggregateType.typeName)
+  private getImportFields(aggregateType: AggregateType, excludeSelf = true) {
+    const withoutSelf = excludeSelf
+      ? aggregateType.fields.filter(field => field.resolvedType.name !== aggregateType.typeName)
+      : aggregateType.fields
     const withTypeKey = withoutSelf.map(field => ({ type: field.resolvedType.name, field }))
     const sorted = withTypeKey.sort(
       (a, b) => a.type.localeCompare(b.type)

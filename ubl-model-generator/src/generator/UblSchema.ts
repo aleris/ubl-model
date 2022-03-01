@@ -1,6 +1,8 @@
 import fs from "fs"
 import * as xml2js from 'xml2js'
 
+export const AllUblVersions = ['2.0', '2.1', '2.2', '2.3']
+
 export class UblSchema {
   constructor(public readonly version: string) { }
 

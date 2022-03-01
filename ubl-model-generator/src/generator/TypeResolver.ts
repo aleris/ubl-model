@@ -21,6 +21,9 @@ export class TypeResolver {
     if (prefixedName.hasPrefix('ext')) {
       return this.resolveEXTType(prefixedName)
     }
+    if (prefixedName.hasPrefix('ccts-cct')) {
+      return this.resolveCCTSCCTType(prefixedName)
+    }
 
     return prefixedName.asUnknownName()
   }
@@ -114,5 +117,9 @@ export class TypeResolver {
       return PrefixedName.from('ext', prefixedName.name)
     }
     return this.resolveUDTType(new PrefixedName(name))
+  }
+
+  private resolveCCTSCCTType(prefixedName: PrefixedName): PrefixedName {
+    return prefixedName
   }
 }

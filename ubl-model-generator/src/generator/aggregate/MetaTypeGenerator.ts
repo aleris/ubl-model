@@ -14,13 +14,8 @@ export class MetaTypeGenerator implements TypeCodeGenerator<AggregateType> {
     return [
       {
         dirPath: 'meta',
-        fileName: 'FieldMeta.ts',
-        content: fs.readFileSync(path.resolve('src/generator/globals/2.3/meta/FieldMeta.tst')).toString()
-      },
-      {
-        dirPath: 'meta',
-        fileName: 'Type.ts',
-        content: fs.readFileSync(path.resolve('src/generator/globals/2.3/meta/Type.tst')).toString()
+        fileName: 'Meta.ts',
+        content: fs.readFileSync(path.resolve('src/generator/globals/2.3/meta/Meta.tst')).toString()
       },
       ...fs.readdirSync(path.resolve('src/generator/globals/2.3/meta/cbc'), { withFileTypes: true })
         .filter(file => file.isFile())
@@ -33,9 +28,8 @@ export class MetaTypeGenerator implements TypeCodeGenerator<AggregateType> {
   }
 
   asCodeFiles(aggregateType: AggregateType): CodeFile[] {
-    const imports = this.aggregateFieldMetaCodeGenerator.getImports(aggregateType, 'Type', 'Meta')
-    const code = `import { FieldCardinality, FieldMeta } from '../FieldMeta'
-import { Type, TypeModule } from '../Type'
+    const imports = this.aggregateFieldMetaCodeGenerator.getImports(aggregateType, false, 'TypeMeta', 'MetaType')
+    const code = `import { FieldCardinality, FieldMeta, UblModule } from '../Meta'
 ${imports}
 export enum ${aggregateType.typeName}Field {
 ${aggregateType.fields.map(field => `  ${field.fieldName} = '${field.fieldName}'`).join(',\n')}
@@ -50,13 +44,16 @@ ${aggregateType.fields.map(field => `  public static readonly ${field.fieldName}
 export const ${aggregateType.typeName}FieldMap = new Map([
 ${aggregateType.fields.map(field => `  [${aggregateType.typeName}Field.${field.fieldName}, ${aggregateType.typeName}FieldMeta${field.fieldName}]`).join(',\n')}
 ])
+`
 
-export const ${aggregateType.typeName}Type: Type<${aggregateType.typeName}Field> = {
-  name: '${aggregateType.typeName}',
+    const typeCode = `import { TypeMeta, UblModule } from '../Meta'
+
+export const ${aggregateType.typeName}TypeMeta: TypeMeta = {
+  name: '${aggregateType.name}',
   label: '${aggregateType.documentation.objectClass}',
-  module: ${mapModuleToEnum(aggregateType.module)},
+  typeName: '${aggregateType.typeName}',
   definition: ${singleQuoteEscape(aggregateType.documentation.definition)},
-  fields: ${aggregateType.typeName}FieldMap,
+  module: ${mapModuleToEnum(aggregateType.module)},
 }
 `
 
@@ -64,6 +61,10 @@ export const ${aggregateType.typeName}Type: Type<${aggregateType.typeName}Field>
       dirPath: `meta/${aggregateType.module}`,
       fileName: `${aggregateType.typeName}Meta.ts`,
       content: code
+    }, {
+      dirPath: `meta/${aggregateType.module}`,
+      fileName: `${aggregateType.typeName}MetaType.ts`,
+      content: typeCode
     }]
   }
 }

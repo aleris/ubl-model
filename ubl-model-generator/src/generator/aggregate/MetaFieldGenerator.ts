@@ -19,16 +19,16 @@ export class MetaFieldGenerator extends FieldGenerator {
 
   asCodeString(type: AggregateType, fieldType: AggregateField): string {
     const containingTypeName = type.typeName
-    return `export const ${containingTypeName}FieldMeta${fieldType.fieldName} = new FieldMeta<${containingTypeName}Field>(
-  ${containingTypeName}Field.${fieldType.fieldName},
-  '${fieldType.fieldName}',
-  '${fieldType.propertyTermWithFallbackToName}',
-  ${fieldType.resolvedType.name}Type.name,
-  ${singleQuoteEscape(fieldType.documentation.definition)},
-  ${mapCardinalityToEnum(fieldType.cardinalityWithFallbackToOccur)},
-  ${mapModuleToEnum(fieldType.resolvedType.prefix)},
-  ${fieldType.documentation.alternativeBusinessTerms ? singleQuoteEscape(fieldType.documentation.alternativeBusinessTerms) : 'undefined'},
-  ${fieldType.documentation.examples ? singleQuoteEscape(fieldType.documentation.examples) : 'undefined'}
-)`
+    return `export const ${containingTypeName}FieldMeta${fieldType.fieldName}: FieldMeta<${containingTypeName}Field> = {
+  field: ${containingTypeName}Field.${fieldType.fieldName},
+  name: '${fieldType.fieldName}',
+  label: '${fieldType.propertyTermWithFallbackToName}',
+  typeName: ${fieldType.resolvedType.name}TypeMeta.name,
+  definition: ${singleQuoteEscape(fieldType.documentation.definition)},
+  module: ${mapModuleToEnum(fieldType.resolvedType.prefix)},
+  cardinality: ${mapCardinalityToEnum(fieldType.cardinalityWithFallbackToOccur)},
+  alternativeBusinessTerms: ${fieldType.documentation.alternativeBusinessTerms ? singleQuoteEscape(fieldType.documentation.alternativeBusinessTerms) : 'undefined'},
+  examples: ${fieldType.documentation.examples ? singleQuoteEscape(fieldType.documentation.examples) : 'undefined'},
+}`
   }
 }

@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react'
-import { FieldMeta } from '../meta/FieldMeta'
+import { FieldMeta } from '../meta/Meta'
 import { DefaultFieldConfig, FieldConfig } from './FieldConfig'
 import { FieldLabelDisplay } from './FieldLabelDisplay'
 import './ElementListDisplay.scss'

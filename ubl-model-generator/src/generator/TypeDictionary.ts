@@ -13,6 +13,7 @@ export class TypeDictionary {
   constructor(private readonly ublSchema: UblSchema) {}
 
   async loadFromSchema() {
+    await this.addFromFile('ccts-cct', 'common/CCTS_CCT_SchemaModule')
     await this.addFromFile('cbc', 'common/UBL-CommonBasicComponents')
     await this.addFromFile('cac', 'common/UBL-CommonAggregateComponents')
     await this.addFromFile('udt', 'common/UBL-UnqualifiedDataTypes')

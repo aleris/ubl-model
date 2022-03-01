@@ -5,8 +5,8 @@ import { formatComment, getMinOccurOptionalProps } from '../type-gen-utils'
 
 export class ModelFieldGenerator extends FieldGenerator {
   asCodeString(type: AggregateType, fieldType: AggregateField): string {
-    const typeAsArray = `Array<${fieldType.resolvedType.name}>`
-    // fieldType.maxOccurs === '1' ? `[${fieldType.resolvedType.name}]` : `Array<${fieldType.resolvedType.name}>`
+    // const typeAsArray = `Array<${fieldType.resolvedType.name}>`
+    const typeAsArray = fieldType.maxOccurs === '1' ? `[${fieldType.resolvedType.name}]` : `Array<${fieldType.resolvedType.name}>`
     const { optionalField, optionalUndefined } = getMinOccurOptionalProps(fieldType.minOccur)
     return `  /**${
       formatComment('   * ', fieldType.documentation.definition)

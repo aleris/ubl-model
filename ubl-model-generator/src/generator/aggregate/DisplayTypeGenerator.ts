@@ -50,9 +50,9 @@ export class DisplayTypeGenerator implements TypeCodeGenerator<AggregateType> {
   }
 
   asCodeScript(aggregateType: AggregateType) {
-    const imports = this.aggregateFieldDisplayCodeGenerator.getImports(aggregateType, 'Display', 'Display')
+    const imports = this.aggregateFieldDisplayCodeGenerator.getImports(aggregateType, true, 'Display', 'Display')
     const code = `import React from 'react'
-import { FieldMeta } from '../../meta/FieldMeta'
+import { FieldMeta } from '../../meta/Meta'
 import { ${aggregateType.typeName} } from  '../../model/${aggregateType.module}/${aggregateType.typeName}'
 import { ${aggregateType.typeName}Field, ${aggregateType.typeName}FieldMeta, ${aggregateType.typeName}TypeName } from  '../../meta/${aggregateType.module}/${aggregateType.typeName}Meta'
 import { RenderContext } from '../RenderContext'

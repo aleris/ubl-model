@@ -1,4 +1,6 @@
 export enum UblModule {
+  ccts_cct = 'ccts-cct',
+  udt = 'udt',
   cbc = 'cbc',
   cac = 'cac',
   ext = 'ext',
@@ -7,10 +9,12 @@ export enum UblModule {
 
 export function mapModuleToEnum(module: UblModule | string): string {
   switch (module) {
-    case 'cac': return 'TypeModule.cac'
-    case 'cbc': return 'TypeModule.cbc'
-    case 'doc': return 'TypeModule.doc'
-    case 'ext': return 'TypeModule.ext'
+    case 'ccts-cct': return 'UblModule.ccts_cct'
+    case 'udt': return 'UblModule.udt'
+    case 'cac': return 'UblModule.cac'
+    case 'cbc': return 'UblModule.cbc'
+    case 'doc': return 'UblModule.doc'
+    case 'ext': return 'UblModule.ext'
     default: return 'unknown'
   }
 }

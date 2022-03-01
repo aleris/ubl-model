@@ -2,6 +2,7 @@ import { Documentation } from '../Documentation'
 import { PrefixedName } from '../PrefixedName'
 import { getPropertyName } from '../type-gen-utils'
 import { TypeResolver } from '../TypeResolver'
+import { UblModule } from '../UblModule'
 import { AggregateType } from './AggregateType'
 
 export class AggregateField {

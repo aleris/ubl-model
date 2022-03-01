@@ -33,11 +33,18 @@ export class AllDocsGenerator {
   }
 
   asCodeTypeAll(types: AggregateType[]) {
-    return `${types.map(type => `import { ${type.typeName}Type } from './doc/${type.typeName}Meta'`).join('\n')}
+    return `import { FieldMeta } from './Meta'
+import { Type } from './Type'
+${types.map(type => `import { ${type.typeName}TypeMeta } from './doc/${type.typeName}MetaType'
+import { ${type.typeName}FieldMap } from './doc/${type.typeName}Meta'`).join('\n')}
 
 export const docAll = [
-${types.map(type => `  ${type.typeName}Type`).join(',\n')}
+${types.map(type => `  ${type.typeName}TypeMeta`).join(',\n')}
 ]
+
+export const docAllFieldsMap = new Map<string, Map<any, FieldMeta<any>>>([
+${types.map(type => `  ['doc:${type.typeName}', ${type.typeName}FieldMap]`).join(',\n')}
+])
 `
   }
 }
